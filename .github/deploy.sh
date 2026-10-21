@@ -86,7 +86,7 @@ if [ $rc -eq 0 ] && [ -n "$url" ]; then
   smoke=$(printf '{"home":%s,"meta":%s,"markets":%s,"state":%s,"authWrong":%s,"homeHasTabs":%s}' \
     "$(code "$url/")" "$(code "$url/data/meta.json")" "$(code "$url/data/markets.json")" "$(code "$url/api/state")" \
     "$(code -X POST -H 'x-editor-code: wrong-code' "$url/api/auth")" \
-    "$(curl -s -m 20 "$url/" | grep -q 'מדדים מובילים' && echo true || echo false)")
+    "$(home=$(curl -s -m 20 "$url/"); [[ "$home" == *'id="tab-indices"'* ]] && echo true || echo false)")
   echo "::notice title=smoke test::$smoke"
 fi
 mkdir -p state && printf '{"url":"%s","deployedAt":"%s","ok":%s,"smoke":%s}\n' "${url}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$([ $rc -eq 0 ] && echo true || echo false)" "$smoke" > state/deploy.json
