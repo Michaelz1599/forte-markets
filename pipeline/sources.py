@@ -11,7 +11,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-from .common import get, iso, read_series, save_probe, today_utc
+from .common import cutoff_date, get, iso, read_series, save_probe, today_utc
 
 # --------------------------------------------------------------------------- CNN
 CNN_MAP = {  # our id: (CNN key, decimals, plausible min, plausible max)
@@ -30,7 +30,7 @@ CNN_HEADERS = {"Accept": "application/json, text/plain, */*", "Referer": "https:
 
 def _cnn_parse(js: dict, since: str) -> dict:
     out = {}
-    today = iso(today_utc())
+    today = cutoff_date()
     for sid, (key, nd, lo, hi) in CNN_MAP.items():
         pts = {}
         for p in js[key]["data"]:
@@ -193,7 +193,7 @@ FRED_SERIES = {"hy_oas": ("BAMLH0A0HYM2", 0.5, 30), "t10y2y": ("T10Y2Y", -5, 5),
 def fred() -> dict:
     out = {}
     for sid, (code, lo, hi) in FRED_SERIES.items():
-        r = get(FRED_CSV, params={"id": code})
+        r = get(FRED_CSV, params={"id": code, "cosd": "1997-01-01"}, timeout=120, tries=3)
         rows = list(csv.reader(io.StringIO(r.text)))
         pts = {}
         for row in rows[1:]:

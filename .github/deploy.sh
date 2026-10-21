@@ -4,10 +4,28 @@
 set -uo pipefail
 api=https://api.cloudflare.com/client/v4
 auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
-acc="$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID:-}" | tr -d '[:space:]\342\200\217\342\200\216' | tr 'A-F' 'a-f')"
+acc="$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID:-}" | tr -d '[:space:]\342\200\217\342\200\216"'"'"'' | tr 'A-F' 'a-f')"
+ver=$(curl -s "${auth[@]}" "$api/user/tokens/verify" | python3 -c 'import json,sys
+try:
+    d=json.load(sys.stdin); print((d.get("result") or {}).get("status") or ("errors: " + str(d.get("errors"))[:200]))
+except Exception as e: print("no json")')
+echo "::notice title=Cloudflare token::status=$ver token_length=${#CLOUDFLARE_API_TOKEN}"
 if ! [[ "$acc" =~ ^[0-9a-f]{32}$ ]]; then
-  echo "::warning title=CLOUDFLARE_ACCOUNT_ID::not a 32-hex id; using the token's account"
-  acc=$(curl -s "${auth[@]}" "$api/accounts" | python3 -c 'import json,sys;print(json.load(sys.stdin)["result"][0]["id"])')
+  echo "::warning title=CLOUDFLARE_ACCOUNT_ID::secret is not a 32-character hex id (length ${#acc}); detecting the account from the token"
+  acc=$(curl -s "${auth[@]}" "$api/accounts" | python3 -c 'import json,sys
+try:
+    r=json.load(sys.stdin).get("result") or []; print(r[0]["id"] if r else "")
+except Exception: print("")')
+fi
+if ! [[ "$acc" =~ ^[0-9a-f]{32}$ ]]; then
+  acc=$(curl -s "${auth[@]}" "$api/memberships" | python3 -c 'import json,sys
+try:
+    r=json.load(sys.stdin).get("result") or []; print(r[0]["account"]["id"] if r else "")
+except Exception: print("")')
+fi
+if ! [[ "$acc" =~ ^[0-9a-f]{32}$ ]]; then
+  acc="12ecdb76adfb10bfa79f36a3f5872ac6"   # the account the elections dashboard deploys to
+  echo "::warning title=CLOUDFLARE_ACCOUNT_ID::could not detect the account from the token; using the elections project's account id"
 fi
 export CLOUDFLARE_ACCOUNT_ID="$acc"
 

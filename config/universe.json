@@ -27,7 +27,7 @@
     {"id": "asia", "name": "אסיה ושווקים מתעוררים", "kind": "index", "items": [
       {"sym": "^N225", "name": "Nikkei 225 יפן"},
       {"sym": "^HSI", "name": "Hang Seng הונג קונג"},
-      {"sym": "000300.SS", "name": "CSI 300 סין"},
+      {"sym": "ASHR", "name": "CSI 300 סין (דולרי)", "note": "ETF"},
       {"sym": "^KS11", "name": "KOSPI קוריאה"},
       {"sym": "^TWII", "name": "TAIEX טייוואן"},
       {"sym": "^NSEI", "name": "Nifty 50 הודו"},

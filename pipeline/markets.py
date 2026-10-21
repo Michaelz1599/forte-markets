@@ -8,7 +8,7 @@ import math
 import numpy as np
 import pandas as pd
 
-from .common import PRICES_CSV, ROOT, iso, today_utc
+from .common import PRICES_CSV, ROOT, cutoff_date, iso, today_utc
 
 UNIVERSE = ROOT / "config" / "universe.json"
 BACKFILL_START = "2013-01-01"
@@ -62,6 +62,7 @@ def yf_close(symbols: list[str], start: str) -> pd.DataFrame:
     close.index = idx.strftime("%Y-%m-%d")
     close = close.apply(pd.to_numeric, errors="coerce")
     close = close.where(close > 0)
+    close = close[close.index <= cutoff_date()]
     return close.dropna(how="all")
 
 
@@ -93,7 +94,7 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
         out["^TNX"] = out["^TNX"] / 10
     out = out[[c for c in syms if c in out.columns]]
     today = iso(today_utc())
-    out = out[out.index <= today]
+    out = out[out.index <= cutoff_date()]
     for s in syms:
         if s not in out.columns or out[s].dropna().empty:
             report["missing"].append(s)

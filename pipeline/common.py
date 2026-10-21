@@ -25,6 +25,13 @@ def today_utc() -> dt.date:
     return dt.datetime.now(dt.timezone.utc).date()
 
 
+def cutoff_date() -> str:
+    """Last date whose values are final: today only after 21:00 UTC (after the US close), else yesterday."""
+    now = dt.datetime.now(dt.timezone.utc)
+    d = now.date() if now.hour >= 21 else now.date() - dt.timedelta(days=1)
+    return d.isoformat()
+
+
 def iso(d) -> str:
     return d.isoformat() if hasattr(d, "isoformat") else str(d)[:10]
 
