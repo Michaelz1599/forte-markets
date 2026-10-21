@@ -79,7 +79,17 @@ if [ $rc -ne 0 ] && echo "$out" | grep -q "register a workers.dev subdomain"; th
 fi
 echo "$out"
 url=$(echo "$out" | grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' | head -1)
-mkdir -p state && printf '{"url":"%s","deployedAt":"%s","ok":%s}\n' "${url}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$([ $rc -eq 0 ] && echo true || echo false)" > state/deploy.json
+smoke="{}"
+if [ $rc -eq 0 ] && [ -n "$url" ]; then
+  sleep 8
+  code() { curl -s -o /dev/null -w '%{http_code}' -m 20 "$@"; }
+  smoke=$(printf '{"home":%s,"meta":%s,"markets":%s,"state":%s,"authWrong":%s,"homeHasTabs":%s}' \
+    "$(code "$url/")" "$(code "$url/data/meta.json")" "$(code "$url/data/markets.json")" "$(code "$url/api/state")" \
+    "$(code -X POST -H 'x-editor-code: wrong-code' "$url/api/auth")" \
+    "$(curl -s -m 20 "$url/" | grep -q 'מדדים מובילים' && echo true || echo false)")
+  echo "::notice title=smoke test::$smoke"
+fi
+mkdir -p state && printf '{"url":"%s","deployedAt":"%s","ok":%s,"smoke":%s}\n' "${url}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$([ $rc -eq 0 ] && echo true || echo false)" "$smoke" > state/deploy.json
 if [ $rc -ne 0 ]; then
   msg=$(echo "$out" | grep -vE '^\s*$' | grep -viE 'npm (warn|notice)' | tail -12 | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')
   echo "::error title=wrangler deploy failed::${msg}"
