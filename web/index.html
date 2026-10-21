@@ -1,0 +1,1890 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>דשבורד שווקים פורטה</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23002F22'/%3E%3Cpath d='M10 24V8h12v3.4h-8.2v3.2h7.2V18h-7.2v6z' fill='%239AD4B9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js"></script>
+<style>
+/* Layout: Forte dark-green masthead with tabs; each tab is one content column (max 1240px).
+   Market board borrows Forte's Excel tables: Tier-1 dark header, mint section rows, white data rows,
+   light-mint highlight on rows that sit at a historical extreme. Analysis tab: searchable card grid -> detail. */
+:root {
+  --bg: #F1F5F3;
+  --surface: #FFFFFF;
+  --sunk: #E7EFEB;
+  --ink: #002F22;
+  --ink-2: #36534A;
+  --muted: #5F766D;
+  --line: #C8DDD6;
+  --line-2: #DDE9E4;
+  --frame: #002F22;
+  --mast: #002F22;
+  --mast-ink: #9AD4B9;
+  --mast-ink-2: #CFE9DC;
+  --t1: #002F22;
+  --t1-ink: #9AD4B9;
+  --t2: #9AD4B9;
+  --t2-ink: #002F22;
+  --hl: #DFF0E7;
+  --accent: #26725D;
+  --accent-ink: #FFFFFF;
+  --mint: #9AD4B9;
+  --fear: #B9482A;
+  --fear-bg: #F7E1D8;
+  --greed: #13765A;
+  --greed-bg: #D5EEE2;
+  --neutral: #6F837B;
+  --neutral-bg: #E6EEEA;
+  --warn: #8F5E10;
+  --warn-bg: #F5E8CC;
+  --chart-line: #002F22;
+  --chart-2: #8FA59C;
+  --corr-neg: #2F6DB5;
+  --corr-mid: #F4F7F5;
+  --corr-pos: #0E5A45;
+  --shadow: 0 1px 2px rgba(0, 47, 34, .06), 0 10px 28px rgba(0, 47, 34, .07);
+  --f-disp: "Ploni ML v2 AAA Black", "Ploni ML v2 AAA", "Heebo", "Arial Hebrew", Arial, sans-serif;
+  --f-body: "Ploni ML v2 AAA", "Heebo", "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #04120D; --surface: #0A1F17; --sunk: #071811; --ink: #E3F1EA; --ink-2: #B4CDC1; --muted: #83A094;
+    --line: #21443A; --line-2: #183429; --frame: #4E9C80; --mast: #03231A; --mast-ink: #9AD4B9; --mast-ink-2: #C6E6D7;
+    --t1: #0E3D2E; --t1-ink: #9AD4B9; --t2: #1C5644; --t2-ink: #E3F4EB; --hl: #133829; --accent: #9AD4B9; --accent-ink: #002F22;
+    --mint: #9AD4B9; --fear: #F08B68; --fear-bg: #3A1D14; --greed: #6AD3A4; --greed-bg: #10392A; --neutral: #93A9A0; --neutral-bg: #17302A;
+    --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 28px rgba(0, 0, 0, .3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #04120D; --surface: #0A1F17; --sunk: #071811; --ink: #E3F1EA; --ink-2: #B4CDC1; --muted: #83A094;
+  --line: #21443A; --line-2: #183429; --frame: #4E9C80; --mast: #03231A; --mast-ink: #9AD4B9; --mast-ink-2: #C6E6D7;
+  --t1: #0E3D2E; --t1-ink: #9AD4B9; --t2: #1C5644; --t2-ink: #E3F4EB; --hl: #133829; --accent: #9AD4B9; --accent-ink: #002F22;
+  --mint: #9AD4B9; --fear: #F08B68; --fear-bg: #3A1D14; --greed: #6AD3A4; --greed-bg: #10392A; --neutral: #93A9A0; --neutral-bg: #17302A;
+  --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 28px rgba(0, 0, 0, .3); color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--mast); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--accent); }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.disp { font-family: var(--f-disp); font-weight: 800; font-synthesis: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .tr, .scard, .seg button, .btn, .tab { transition: background-color .15s, border-color .15s, color .15s; }
+}
+
+/* ---------- masthead ---------- */
+.mast { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--mast); color: var(--mast-ink); border-bottom: 3px solid var(--mint); }
+.mast-in {
+  max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 24px;
+  padding-block: 10px 0; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.brand { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; }
+.brand-name { font-family: var(--f-disp); font-weight: 900; font-synthesis: none; font-size: 26px; line-height: 1; color: var(--mast-ink); letter-spacing: .01em; }
+.brand-sub { font-size: 13px; color: var(--mast-ink-2); }
+.tabs { display: flex; gap: 2px; align-self: flex-end; flex-wrap: wrap; }
+.tab {
+  background: transparent; border: 0; color: var(--mast-ink-2); padding: 10px 14px 11px; font-size: 15px; font-weight: 600;
+  border-bottom: 3px solid transparent; margin-bottom: -3px; border-radius: 6px 6px 0 0;
+}
+.tab:hover { color: #fff; background: rgba(154, 212, 185, .08); }
+.tab[aria-selected="true"] { color: var(--mast); background: var(--mint); border-bottom-color: var(--mint); }
+.asof { margin-inline-start: auto; font-size: 13px; color: var(--mast-ink-2); display: flex; align-items: center; gap: 8px; padding-bottom: 8px; }
+.dot-ok, .dot-warn, .dot-off { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+.dot-ok { background: #6AD3A4; }
+.dot-warn { background: #E9B75A; }
+.dot-off { background: #8AA197; }
+
+/* ---------- page column ---------- */
+.wrap {
+  max-width: 1240px; margin: 0 auto; display: grid; gap: 18px; padding-block: 22px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap > * { min-width: 0; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h1 { font-family: var(--f-disp); font-weight: 800; font-synthesis: none; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.2; }
+h2 { font-size: 17px; font-weight: 700; }
+h3 { font-size: 15px; font-weight: 700; }
+.lede { margin: 0; color: var(--ink-2); max-width: 75ch; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.banner { border: 1px solid var(--warn); background: var(--warn-bg); color: var(--ink); border-radius: var(--r); padding: 12px 14px; font-size: 14px; }
+
+/* controls */
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 8px; padding: 8px 14px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { background: var(--sunk); filter: none; }
+.btn.danger { background: transparent; color: var(--fear); border-color: var(--fear); }
+.btn.sm { padding: 5px 10px; font-size: 13px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 6px 12px; font-size: 13.5px; color: var(--ink-2); }
+.seg button + button { border-inline-start: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--t1); color: var(--t1-ink); font-weight: 700; }
+.seg button:hover:not([aria-pressed="true"]) { background: var(--sunk); }
+input[type="text"], input[type="search"], input[type="number"], input[type="date"], input[type="url"], select, textarea {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font-size: 14px; min-width: 0; width: 100%;
+}
+textarea { resize: vertical; line-height: 1.5; }
+label.chk { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); cursor: pointer; }
+.field { display: grid; gap: 4px; align-content: start; min-width: 0; }
+.field > span { font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.field small { color: var(--muted); font-size: 12px; }
+
+/* chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; white-space: nowrap; border: 1px solid transparent; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+.s-xf { color: var(--fear); background: var(--fear-bg); border-color: var(--fear); }
+.s-f { color: var(--fear); background: var(--fear-bg); }
+.s-n { color: var(--neutral); background: var(--neutral-bg); }
+.s-g { color: var(--greed); background: var(--greed-bg); }
+.s-xg { color: var(--greed); background: var(--greed-bg); border-color: var(--greed); }
+.chip-w { color: var(--warn); background: var(--warn-bg); }
+.chip-plain { color: var(--ink-2); background: var(--sunk); }
+.chip-plain::before, .chip-w::before { display: none; }
+
+/* ---------- market hero ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.bottomline { background: var(--t1); color: #EAF6F0; border-radius: var(--r); padding: 18px 20px; display: grid; gap: 10px; align-content: start; position: relative; min-width: 0; }
+.bottomline h2 { font-family: var(--f-disp); font-weight: 900; font-synthesis: none; color: var(--mint); font-size: 30px; line-height: 1; }
+.bottomline .nb { font-size: 15px; line-height: 1.6; white-space: pre-line; max-height: 260px; overflow: auto; }
+.bottomline .nb ul { margin: 0; padding-inline-start: 18px; display: grid; gap: 4px; }
+.bottomline .meta { font-size: 12.5px; color: #A9CDBD; }
+.bottomline .btn { justify-self: start; background: transparent; border-color: var(--mint); color: var(--mint); }
+.bottomline.empty .nb { color: #A9CDBD; }
+.gcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; cursor: pointer; text-align: start; }
+.gcard:hover { border-color: var(--accent); }
+.gcard header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.gcard .hint { font-size: 12px; color: var(--muted); }
+.gauge svg { width: 100%; max-width: 260px; display: block; margin: 0 auto; }
+.gstats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin: 0; text-align: center; }
+.gstats div { display: grid; gap: 0; }
+.gstats dt { font-size: 11.5px; color: var(--muted); }
+.gstats dd { margin: 0; font-weight: 700; font-size: 15px; }
+.glabel { text-align: center; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* exceptions strip */
+.xstrip { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; }
+.xstrip > b { font-size: 14px; margin-inline-end: 4px; }
+.xbtn { border: 1px solid var(--line); background: var(--hl); border-radius: 999px; padding: 4px 12px; font-size: 13px; display: inline-flex; gap: 6px; align-items: center; }
+.xbtn:hover { border-color: var(--accent); }
+.xbtn i { font-style: normal; color: var(--muted); }
+
+/* toolbar */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+.toolbar .grp { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.toolbar .grp > span { font-size: 13px; color: var(--muted); }
+
+/* ---------- board table (Forte three-tier) ---------- */
+.board { border: 2px solid var(--frame); border-radius: 4px; background: var(--surface); overflow: hidden; }
+.tr {
+  display: grid; grid-template-columns: minmax(170px, 2.1fr) minmax(110px, 1.05fr) minmax(76px, .75fr) minmax(150px, 1.55fr) minmax(52px, .5fr) minmax(108px, .95fr) minmax(110px, 1.2fr);
+  align-items: center; border-top: 1px solid var(--line);
+}
+.tr > div { padding: 9px 12px; min-width: 0; }
+.tr > div + div { border-inline-start: 1px solid var(--line-2); }
+.tr.th { background: var(--t1); color: var(--t1-ink); font-weight: 700; font-size: 13.5px; border-top: 0; }
+.tr.th > div + div { border-inline-start-color: rgba(154, 212, 185, .25); }
+.tr.sec { display: block; background: var(--t2); color: var(--t2-ink); font-weight: 800; font-size: 13.5px; border-top: 2px solid var(--frame); }
+.tr.sec > div { padding: 6px 12px; }
+.tr.row { cursor: pointer; }
+.tr.row:hover { background: var(--sunk); }
+.tr.row.ext { background: var(--hl); }
+.tr.row.ext .v { font-weight: 800; }
+.tr.row.stale .v { color: var(--muted); }
+.c-name b { display: block; font-weight: 700; font-size: 14.5px; line-height: 1.3; }
+.c-name .sub { font-size: 12px; color: var(--muted); }
+.c-val { display: grid; gap: 0; }
+.c-val .v { font-size: 17px; font-weight: 700; }
+.c-val .d { font-size: 12px; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.c-chg { font-size: 13.5px; font-weight: 600; }
+.up-g { color: var(--greed); }
+.up-f { color: var(--fear); }
+.flat { color: var(--muted); }
+.c-z { font-weight: 700; font-size: 14px; text-align: center; }
+.pbar { display: flex; align-items: center; gap: 8px; }
+.pbar .track { position: relative; flex: 1; height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--fear-bg) 0 10%, var(--neutral-bg) 10% 90%, var(--greed-bg) 90% 100%); border: 1px solid var(--line); min-width: 60px; }
+.pbar.inv .track { background: linear-gradient(to right, var(--greed-bg) 0 10%, var(--neutral-bg) 10% 90%, var(--fear-bg) 90% 100%); }
+.pbar.nopol .track { background: var(--neutral-bg); }
+.pbar .tk { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--line); }
+.pbar .mk { position: absolute; top: 50%; width: 13px; height: 13px; margin-left: -6.5px; margin-top: -6.5px; border-radius: 50%; background: var(--ink); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--ink); }
+.pbar .pv { min-width: 2.2em; font-weight: 700; font-size: 14px; text-align: end; }
+.pbar .short { font-size: 11px; color: var(--warn); }
+.c-sp svg { width: 100%; height: 30px; display: block; }
+.board .empty { padding: 28px 16px; text-align: center; color: var(--muted); }
+.skel { height: 12px; border-radius: 6px; background: var(--sunk); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .bottomline { grid-column: 1 / -1; }
+}
+@media (max-width: 820px) {
+  .tr.row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name st" "val chg" "pct pct" "sp sp"; padding: 6px 0; }
+  .tr.row > div { border-inline-start: 0 !important; padding: 4px 12px; }
+  .tr.th { display: none; }
+  .c-name { grid-area: name; } .c-val { grid-area: val; } .c-chg { grid-area: chg; text-align: end; }
+  .c-pct { grid-area: pct; } .c-z { display: none; } .c-st { grid-area: st; } .c-sp { grid-area: sp; }
+  .c-val { grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; }
+}
+@media (max-width: 560px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .gstats dd { font-size: 14px; }
+}
+
+/* method notes */
+.notes { display: grid; gap: 10px; max-width: 96ch; }
+.notes ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; color: var(--ink-2); font-size: 14px; }
+
+/* ---------- overlay / sheet ---------- */
+.ov { position: fixed; inset: 0; z-index: 50; background: rgba(0, 20, 14, .55); display: grid; place-items: start center; overflow: auto;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.sheet { background: var(--bg); color: var(--ink); width: 100%; max-width: 1120px; border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; display: grid; }
+.sheet.narrow { max-width: 720px; }
+.sh-head { background: var(--t1); color: var(--t1-ink); padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.sh-head h2 { font-family: var(--f-disp); font-weight: 800; font-synthesis: none; font-size: 22px; color: var(--t1-ink); }
+.sh-head .sub { font-size: 13px; color: #BFE3D2; }
+.xclose { background: transparent; border: 1px solid rgba(154, 212, 185, .5); color: var(--t1-ink); border-radius: 8px; width: 34px; height: 34px; font-size: 18px; line-height: 1; flex: none; }
+.sh-body { padding: 16px 18px 22px; display: grid; gap: 16px; min-width: 0; }
+.sh-body > * { min-width: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.tile .k { font-size: 12px; color: var(--muted); }
+.tile .val { font-size: 22px; font-weight: 800; line-height: 1.2; }
+.tile .s { font-size: 12px; color: var(--ink-2); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 10px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
+.chart { width: 100%; height: 460px; direction: ltr; }
+.tbl-wrap { overflow-x: auto; }
+table.ft { border-collapse: collapse; width: 100%; font-size: 13.5px; background: var(--surface); }
+table.ft th { background: var(--t1); color: var(--t1-ink); font-weight: 700; padding: 7px 10px; text-align: start; white-space: nowrap; }
+table.ft td { padding: 7px 10px; border: 1px solid var(--line-2); white-space: nowrap; }
+table.ft tr.secr td { background: var(--t2); color: var(--t2-ink); font-weight: 700; }
+table.ft td.hl { background: var(--hl); font-weight: 700; }
+table.ft { border: 2px solid var(--frame); }
+.about { display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); max-width: 90ch; }
+.about p { margin: 0; }
+.formgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.formgrid .full { grid-column: 1 / -1; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+@media (max-width: 640px) {
+  .formgrid { grid-template-columns: minmax(0, 1fr); }
+  .chart { height: 380px; }
+  .ov { padding-left: 0; padding-right: 0; padding-top: env(safe-area-inset-top, 0px); }
+  .sheet { border-radius: 0; }
+}
+
+/* ---------- analysis ---------- */
+.an-top { display: grid; gap: 12px; }
+.an-tools { display: grid; grid-template-columns: minmax(0, 1.6fr) auto minmax(0, .7fr) minmax(0, .7fr); gap: 10px; align-items: center; }
+.an-admin { display: flex; flex-wrap: wrap; gap: 8px; }
+.cov { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13.5px; color: var(--ink-2); }
+.cov b { color: var(--ink); }
+.sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.scard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 0; overflow: hidden; display: grid; grid-template-rows: auto 1fr; text-align: start; min-width: 0; }
+.scard:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.thumb { aspect-ratio: 16 / 8.5; max-width: 100%; background: var(--sunk); border-bottom: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.thumb .ph { font-family: var(--f-disp); font-weight: 900; font-synthesis: none; font-size: 30px; color: var(--line); letter-spacing: .04em; }
+.sc-body { padding: 10px 12px 12px; display: grid; gap: 4px; align-content: start; }
+.sc-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.tick { font-family: var(--f-disp); font-weight: 900; font-synthesis: none; font-size: 19px; direction: ltr; unicode-bidi: isolate; }
+.sc-name { font-size: 13.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-sum { margin: 2px 0 0; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sc-meta { font-size: 12px; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.bias { border-radius: 6px; padding: 2px 9px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.b-bull { background: var(--greed-bg); color: var(--greed); }
+.b-bear { background: var(--fear-bg); color: var(--fear); }
+.b-neutral { background: var(--neutral-bg); color: var(--neutral); }
+.b-watch { background: var(--warn-bg); color: var(--warn); }
+.b-pending { background: var(--sunk); color: var(--muted); border: 1px dashed var(--line); }
+.sd { display: grid; gap: 16px; }
+.sd-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--frame); padding-bottom: 10px; }
+.sd-title { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+.sd-title .tick { font-size: 34px; }
+.sd-img { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.sd-img img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+.sd-img .noimg { padding: 40px 16px; text-align: center; color: var(--muted); }
+.sd-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.sd-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.headline { font-size: 18px; font-weight: 700; line-height: 1.45; margin: 0; }
+.pts { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; }
+.body-text { white-space: pre-line; color: var(--ink-2); margin: 0; }
+.verlist { display: grid; gap: 6px; }
+.verbtn { display: flex; gap: 10px; align-items: center; justify-content: space-between; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 10px; text-align: start; }
+.verbtn:hover { border-color: var(--accent); }
+.verbanner { background: var(--warn-bg); border: 1px solid var(--warn); border-radius: 8px; padding: 8px 12px; display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.drop { border: 2px dashed var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 8px; place-items: center; text-align: center; background: var(--surface); min-height: 120px; }
+.drop.over { border-color: var(--accent); background: var(--hl); }
+.drop img { max-height: 220px; width: auto; max-width: 100%; border-radius: 6px; }
+.lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, .88); overflow: auto; display: grid; place-items: center; cursor: zoom-out; }
+.lightbox img { max-width: 100%; max-height: 100%; display: block; }
+.lightbox.full { place-items: start; }
+.lightbox.full img { max-width: none; max-height: none; }
+@media (max-width: 860px) {
+  .an-tools { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .an-tools .seg, .an-tools input[type="search"] { grid-column: 1 / -1; }
+  .sd-cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- manage ---------- */
+.mgrid { display: grid; gap: 16px; }
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 12px; min-width: 0; }
+.srcrow { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 14px; }
+.preview { font-size: 13px; }
+
+/* toast */
+.toast { position: fixed; z-index: 70; inset-inline-start: 50%; transform: translateX(50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--t1); color: var(--t1-ink); border-radius: 10px; padding: 10px 16px; font-weight: 600; box-shadow: var(--shadow); max-width: calc(100% - 32px); }
+.toast.err { background: var(--fear); color: #fff; }
+
+/* ---------- editor button ---------- */
+.edbtn { background: transparent; border: 1px solid rgba(154, 212, 185, .45); color: var(--mast-ink); border-radius: 6px; padding: 3px 10px; font-size: 12.5px; font-weight: 600; margin-inline-start: 6px; white-space: nowrap; }
+.edbtn:hover { background: rgba(154, 212, 185, .12); }
+
+/* ---------- leading indices ---------- */
+.idx-tiles { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.idx-tiles .val { font-size: 19px; }
+.board-t { display: grid; gap: 4px; min-width: 0; }
+.itbl { font-size: 13.5px; }
+.itbl tr.rowx { cursor: pointer; }
+.itbl tr.rowx:hover td { background: var(--sunk); }
+.itbl td:first-child, .itbl th:first-child { position: sticky; inset-inline-start: 0; z-index: 1; }
+.itbl td:first-child { background: var(--surface); }
+.itbl tr.secr td:first-child { background: var(--t2); }
+.itbl th:first-child { background: var(--t1); }
+.itbl.ftab td:first-child { position: static; }
+.itbl.ftab td:nth-child(2), .itbl.ftab th:nth-child(2) { position: sticky; inset-inline-start: 0; z-index: 1; }
+.itbl.ftab td:nth-child(2) { background: var(--surface); }
+.itbl.ftab th:nth-child(2) { background: var(--t1); }
+.itbl td.spk { width: 124px; padding: 4px 8px; }
+.msp { width: 110px; height: 28px; display: block; }
+.rsi { font-weight: 700; padding: 1px 6px; border-radius: 4px; }
+.rsi-hi, .rsi-lo { background: var(--warn-bg); color: var(--warn); }
+.sbar { position: relative; width: 104px; height: 8px; background: var(--sunk); border-radius: 4px; display: inline-block; vertical-align: middle; margin-inline-end: 6px; }
+.sbar i { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.sbar i.pos { background: var(--greed); }
+.sbar i.neg { background: var(--fear); }
+.sbar .mid { position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); }
+.scorec { white-space: nowrap; }
+.fac { gap: 12px; }
+.panel.inner { background: var(--bg); }
+.ix-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.chart.cx { height: 430px; }
+.chart.cx.sm { height: 240px; }
+@media (max-width: 900px) { .ix-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .chart.cx { height: 360px; } }
+</style>
+</head>
+<body>
+
+
+<header class="mast" dir="rtl" lang="he">
+  <div class="mast-in">
+    <div class="brand"><span class="brand-name">פורטה</span><span class="brand-sub">בית השקעות · דשבורד שווקים</span></div>
+    <nav class="tabs" role="tablist" aria-label="מסכים">
+      <button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט</button>
+      <button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים</button>
+      <button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים</button>
+      <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
+    </nav>
+    <div class="asof" id="asof"><span class="dot-off"></span><span>טוען נתונים…</span></div>
+  </div>
+</header>
+
+<main id="v-market" class="view" dir="rtl" lang="he">
+  <div class="wrap">
+    <div id="sysBanner" hidden></div>
+    <section class="hero" aria-label="תמונת מצב">
+      <article class="bottomline empty" id="noteCard">
+        <h2>שורה תחתונה</h2>
+        <div class="nb" id="noteBody">טוען…</div>
+        <div class="meta" id="noteMeta"></div>
+        <button class="btn sm" type="button" id="noteEdit" hidden>עריכת הסיכום</button>
+      </article>
+      <article class="gcard" id="compCard" role="button" tabindex="0" aria-label="מדד הסנטימנט של פורטה, פתיחת פירוט">
+        <header><h2>מדד הסנטימנט של פורטה</h2><span class="hint" id="compHint"></span></header>
+        <div class="gauge" id="compGauge"></div>
+        <div class="glabel" id="compLabel"></div>
+        <dl class="gstats" id="compStats"></dl>
+      </article>
+      <article class="gcard" id="fgCard" role="button" tabindex="0" aria-label="Fear and Greed של CNN, פתיחת פירוט">
+        <header><h2>Fear &amp; Greed של CNN</h2><span class="hint" id="fgHint"></span></header>
+        <div class="gauge" id="fgGauge"></div>
+        <div class="glabel" id="fgLabel"></div>
+        <dl class="gstats" id="fgStats"></dl>
+      </article>
+    </section>
+
+    <section class="xstrip" id="xstrip" aria-label="אינדיקטורים בקיצון"></section>
+
+    <section class="toolbar" aria-label="הגדרות הלוח">
+      <div class="grp">
+        <span id="winLbl">השוואה להיסטוריה של</span>
+        <div class="seg" role="group" aria-labelledby="winLbl" id="winSeg">
+          <button type="button" id="w-1y" data-win="1y">שנה</button>
+          <button type="button" id="w-3y" data-win="3y">3 שנים</button>
+          <button type="button" id="w-5y" data-win="5y">5 שנים</button>
+          <button type="button" id="w-10y" data-win="10y">10 שנים</button>
+          <button type="button" id="w-all" data-win="all">הכל</button>
+        </div>
+      </div>
+      <div class="grp">
+        <label class="chk" for="showAll"><input type="checkbox" id="showAll">הצג גם אינדיקטורים שאינם בלוח</label>
+      </div>
+    </section>
+
+    <section class="board" id="board" role="table" aria-label="אינדיקטורים"></section>
+
+    <section class="notes" aria-labelledby="howH">
+      <h2 id="howH">איך לקרוא את הלוח</h2>
+      <ul>
+        <li><b>אחוזון</b>: איפה הקריאה האחרונה ביחס לכל הקריאות בחלון שנבחר. אחוזון 95 = גבוה מ-95% מהימים בתקופה. הצבע בפס מראה את צד הפחד או החמדנות של אותו אינדיקטור.</li>
+        <li><b>Z</b>: כמה סטיות תקן הקריאה רחוקה מהממוצע של החלון. שורה מודגשת ברקע מנטה = קיצון: אחוזון 5 ומטה, 95 ומעלה, או ‎|Z|≥2.</li>
+        <li><b>מצב</b>: האחוזון מתורגם לסקאלת פחד–חמדנות לפי כיוון האינדיקטור (ב-VIX וב-Put/Call ערך גבוה = פחד; בסקרים וברוחב שוק ערך גבוה = חמדנות). פחד קיצוני = 10% התחתונים, חמדנות קיצונית = 10% העליונים.</li>
+        <li><b>מדד הסנטימנט של פורטה</b>: ממוצע פשוט של האחוזונים של 11 רכיבים, אחרי התאמת כיוון: Put/Call, ‏VIX ומבנה העקום שלו, שלושה מדדי רוחב שוק, פער ה-High Yield, ביקוש למקלט, בטא גבוהה מול נמוכה, וסקר AAII כשתצטבר לו היסטוריה. רכיב שלא עודכן או שאין לו מספיק היסטוריה לא נכנס, והפירוט מראה מה נכלל.</li>
+        <li><b>מה קרה אחר כך</b>: בפירוט של כל אינדיקטור, התשואה של S&amp;P 500 אחרי ימים שבהם האחוזון היה קיצוני לפחות כמו היום. האחוזון מחושב רק על נתונים שהיו ידועים באותו יום (חלון מתגלגל). ימים סמוכים חופפים, ולכן כדאי להסתכל גם על מספר האפיזודות.</li>
+        <li>הנתונים מתעדכנים אוטומטית כל לילה אחרי סגירת וול סטריט, ישירות מהמקורות (CNN, ‏Cboe, ‏CFTC, ‏AAII, ‏FRED, ‏Yahoo Finance). מקור וזמן העדכון של כל סדרה מופיעים בפירוט שלה. זה כלי עזר להחלטה ולא המלצת השקעה.</li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<main id="v-indices" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <div class="toolbar"><div><h1>מדדים מובילים</h1><p class="lede">מצב טכני של המדדים המרכזיים בעולם, ומומנטום לפי פקטור וסקטור: אילו קבוצות מניות מובילות, מי מאבד גובה ומי זז יחד.</p></div><span class="small muted" id="idxAsof"></span></div>
+    <div id="idxBody" style="display:grid;gap:18px;min-width:0"></div>
+  </div>
+</main>
+
+<main id="v-analysis" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <section class="an-top" id="anTop">
+      <div class="toolbar">
+        <div><h1>ניתוחים טכניים</h1><p class="lede">ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.</p></div>
+        <div class="an-admin" id="anAdmin" hidden>
+          <button class="btn" type="button" id="newStock">ניתוח חדש</button>
+          <button class="btn ghost" type="button" id="importHold">ייבוא רשימת אחזקות</button>
+        </div>
+      </div>
+      <div class="an-tools">
+        <input type="search" id="q" placeholder="חיפוש לפי סימול, שם, סקטור או מילה מהניתוח" aria-label="חיפוש מניה">
+        <div class="seg" role="group" aria-label="סינון לפי כיוון" id="fBias">
+          <button type="button" id="fb-all" data-b="all" aria-pressed="true">הכל</button>
+          <button type="button" id="fb-bull" data-b="bull" aria-pressed="false">שורי</button>
+          <button type="button" id="fb-bear" data-b="bear" aria-pressed="false">דובי</button>
+          <button type="button" id="fb-neutral" data-b="neutral" aria-pressed="false">ניטרלי</button>
+          <button type="button" id="fb-watch" data-b="watch" aria-pressed="false">במעקב</button>
+          <button type="button" id="fb-pending" data-b="pending" aria-pressed="false">ממתין</button>
+        </div>
+        <select id="fSector" aria-label="סקטור"><option value="">כל הסקטורים</option></select>
+        <select id="fSort" aria-label="מיון">
+          <option value="upd">עודכן לאחרונה</option>
+          <option value="tick">סימול א-ת</option>
+          <option value="old">הכי ישן קודם</option>
+        </select>
+      </div>
+      <div class="cov" id="coverage"></div>
+    </section>
+    <section class="sgrid" id="stkGrid" aria-label="מניות"></section>
+    <section class="sd" id="stkDetail" hidden></section>
+  </div>
+</main>
+
+<main id="v-manage" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <div><h1>ניהול</h1><p class="lede">מצב העדכון האוטומטי, הגדרת אינדיקטורים והזנת נתונים. זמין במצב עורך בלבד.</p></div>
+    <div class="mgrid" id="manage"></div>
+  </div>
+</main>
+
+<div id="ovRoot" dir="rtl" lang="he"></div>
+
+<script>
+(() => {
+'use strict';
+try { document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'he'); } catch (e) { /* static dir attributes still apply */ }
+const DAY = 864e5;
+const WIN = { '1y': 365, '3y': 1096, '5y': 1827, '10y': 3653, 'all': Infinity };
+const WIN_LABEL = { '1y': 'שנה', '3y': '3 שנים', '5y': '5 שנים', '10y': '10 שנים', 'all': 'כל ההיסטוריה' };
+const MIN_N = { d: 60, w: 12, m: 8 };          // fewer observations than this: no percentile at all
+const MIN_COMP = { d: 200, w: 40, m: 24 };     // fewer than this: shown but flagged, kept out of the composite
+const MIN_ROLL = { d: 250, w: 52, m: 24 };     // rolling percentile (history chart, composite, analogs) needs a year of prior data
+const FRESH = { d: 5, w: 12, m: 45 };          // days since last observation before a series counts as stale
+const FREQ_LABEL = { d: 'יומי', w: 'שבועי', m: 'חודשי' };
+const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['breadth', 'רוחב שוק'], ['pos', 'פוזיציות ומוסדיים'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['other', 'אחר']];
+const BIAS = { bull: 'שורי', bear: 'דובי', neutral: 'ניטרלי', watch: 'במעקב', pending: 'ממתין לניתוח' };
+const HORIZON = { short: 'קצר (ימים–שבועות)', mid: 'בינוני (שבועות–חודשים)', long: 'ארוך (חודשים+)' };
+const COMP_ID = '__comp';
+const COMP_META = { id: COMP_ID, name: 'מדד הסנטימנט של פורטה', short: 'ממוצע אחוזונים', pol: 1, freq: 'd', dec: 0, unit: '', group: 'sent',
+  desc: 'ממוצע שווה-משקל של האחוזונים של הרכיבים המסומנים, אחרי היפוך הכיוון של אינדיקטורים שבהם ערך גבוה = פחד. 0 = כל הרכיבים בשפל ההיסטורי של החלון (פחד), 100 = כולם בשיא (חמדנות). האחוזון של כל רכיב בכל יום מחושב רק על החלון שקדם לו.' };
+
+const S = {
+  meta: null, status: null, base: new Map(), custom: { indicators: {}, overrides: {}, points: {} },
+  canEdit: false, code: null, api: true,
+  ind: new Map(), ser: new Map(), stk: new Map(), note: null,
+  loaded: { ind: false, ser: false, stk: false },
+  win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'market',
+  fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
+  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'),
+};
+const cache = { st: new Map(), rp: new Map(), comp: new Map() };
+
+// ---------------- utilities ----------------
+function lsGet(k, d) { try { const v = localStorage.getItem('fd.' + k); return v == null ? d : v; } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem('fd.' + k, v); } catch (e) { /* storage unavailable */ } }
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function lb(a, x) { let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] < x) lo = m + 1; else hi = m; } return lo; }
+function ub(a, x) { let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] <= x) lo = m + 1; else hi = m; } return lo; }
+function tOf(d) { return Date.parse(d + 'T00:00:00Z'); }
+function isoOf(t) { return new Date(t).toISOString().slice(0, 10); }
+function fmtDate(d) { if (!d) return '—'; const [y, m, dd] = d.slice(0, 10).split('-'); return `${dd}.${m}.${y}`; }
+function fmtDateShort(d) { if (!d) return '—'; const [, m, dd] = d.slice(0, 10).split('-'); return `${dd}.${m}`; }
+function fmtN(v, dec = 2) { if (v == null || !isFinite(v)) return '—'; return Number(v).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+function fmtS(v, dec = 2) { if (v == null || !isFinite(v)) return '—'; return (v > 0 ? '+' : v < 0 ? '−' : '') + fmtN(Math.abs(v), dec); }
+function fmtPct(v, dec = 1) { if (v == null || !isFinite(v)) return '—'; return fmtS(v * 100, dec) + '%'; }
+function ltr(s, cls = '') { return `<span class="ltr num ${cls}">${s}</span>`; }
+function fmtVal(ind, v) { if (v == null || !isFinite(v)) return '—'; const dec = ind && ind.dec != null ? ind.dec : 2; let s = v < 0 ? '−' + fmtN(-v, dec) : fmtN(v, dec); if (ind && ind.unit === '%') s += '%'; return s; }
+function daysAgo(iso) { const t = Date.parse(iso); if (!isFinite(t)) return ''; const d = Math.floor((Date.now() - t) / DAY); if (d <= 0) return 'היום'; if (d === 1) return 'אתמול'; return `לפני ${d} ימים`; }
+function byOrder(a, b) { return (a.order ?? 999) - (b.order ?? 999) || String(a.name).localeCompare(String(b.name), 'he'); }
+function median(a) { if (!a.length) return NaN; const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+function mean(a) { if (!a.length) return NaN; let s = 0; for (const x of a) s += x; return s / a.length; }
+function tok(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+let toastTimer = null;
+function toast(msg, err = false) {
+  let el = $('#toast'); if (!el) { el = document.createElement('div'); el.id = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+  el.className = 'toast' + (err ? ' err' : ''); el.textContent = msg; el.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, err ? 6000 : 2600);
+}
+function apiErr(e) { const c = e && e.status; if (c === 401) return 'קוד העורך לא תקין. היכנסו מחדש כעורך.'; if (c === 413) return 'הקובץ גדול מדי.'; if (c === 415) return 'סוג הקובץ לא נתמך.'; return 'השמירה נכשלה. בדקו את החיבור ונסו שוב.'; }
+async function api(method, path, body, raw) {
+  const headers = {};
+  if (S.code) headers['x-editor-code'] = S.code;
+  let b;
+  if (raw) { b = raw; headers['content-type'] = raw.type || 'application/octet-stream'; }
+  else if (body !== undefined) { b = JSON.stringify(body); headers['content-type'] = 'application/json'; }
+  const r = await fetch(path, { method, headers, body: b });
+  let js = null; try { js = await r.json(); } catch (e) { /* empty body */ }
+  if (!r.ok) { const err = new Error((js && js.error) || ('HTTP ' + r.status)); err.status = r.status; throw err; }
+  return js;
+}
+async function fetchJSON(path) { const r = await fetch(path, { cache: 'no-cache' }); if (!r.ok) throw new Error(path + ' ' + r.status); return r.json(); }
+// ---------------- series ----------------
+function indMeta(id) { return id === COMP_ID ? COMP_META : S.ind.get(id); }
+function series(id) {
+  if (id === COMP_ID) return composite(S.win).series;
+  return S.ser.get(id) || null;
+}
+function rebuildIndicators() {
+  const m = new Map();
+  for (const i of (S.meta && S.meta.indicators) || []) m.set(i.id, { ...i, ...((S.custom.overrides || {})[i.id] || {}), id: i.id, base: true });
+  for (const [id, i] of Object.entries(S.custom.indicators || {})) if (!m.has(id)) m.set(id, { ...i, id, custom: true });
+  S.ind = m;
+}
+function rebuildSeries() {
+  const out = new Map();
+  const pts = S.custom.points || {};
+  const ids = new Set([...S.base.keys(), ...Object.keys(pts)]);
+  for (const id of ids) {
+    const b = S.base.get(id); const p = pts[id];
+    if (!p || !Object.keys(p).length) { if (b) out.set(id, b); continue; }
+    const obj = {};
+    if (b) b.d.forEach((d, i) => { obj[d] = b.v[i]; });
+    for (const [d, v] of Object.entries(p)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) continue;
+      if (v == null) delete obj[d]; else if (isFinite(+v)) obj[d] = +v;
+    }
+    const d = Object.keys(obj).sort();
+    if (d.length) out.set(id, { d, v: d.map(k => obj[k]), t: d.map(tOf) });
+  }
+  for (const ind of S.ind.values()) {
+    if (!ind.derive) continue;
+    const src = out.get(ind.derive.src); if (!src) continue;
+    const n = ind.derive.n || 200; const d = [], v = [], t = [];
+    for (let i = n - 1; i < src.v.length; i++) {
+      let x;
+      if (ind.derive.fn === 'ma') { let s = 0; for (let k = i - n + 1; k <= i; k++) s += src.v[k]; x = (src.v[i] / (s / n) - 1) * 100; }
+      else if (ind.derive.fn === 'dd') { let m = -Infinity; for (let k = i - n + 1; k <= i; k++) m = Math.max(m, src.v[k]); x = (src.v[i] / m - 1) * 100; }
+      else continue;
+      d.push(src.d[i]); v.push(x); t.push(src.t[i]);
+    }
+    out.set(ind.id, { d, v, t });
+  }
+  S.ser = out; cache.st.clear(); cache.rp.clear(); cache.comp.clear();
+}
+function stats(id, win) {
+  const key = id + '|' + win + '|' + (id === COMP_ID ? S.win : '');
+  if (cache.st.has(key)) return cache.st.get(key);
+  const s = id === COMP_ID ? composite(win).series : series(id);
+  const meta = indMeta(id) || {}; const fq = meta.freq || 'd';
+  if (!s || !s.v.length) { cache.st.set(key, null); return null; }
+  const n = s.v.length, lastT = s.t[n - 1], x = s.v[n - 1];
+  const i0 = win === 'all' ? 0 : lb(s.t, lastT - WIN[win] * DAY);
+  const w = s.v.slice(i0); const m = w.length;
+  const sorted = Float64Array.from(w).sort();
+  let sum = 0; for (const v of w) sum += v; const mu = sum / m;
+  let ss = 0; for (const v of w) ss += (v - mu) ** 2; const sd = m > 1 ? Math.sqrt(ss / (m - 1)) : NaN;
+  const below = lb(sorted, x), upto = ub(sorted, x);
+  const q = p => { if (!m) return NaN; const pos = (m - 1) * p, lo = Math.floor(pos), hi = Math.ceil(pos); return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo); };
+  let mi = i0, ma = i0; for (let i = i0; i < n; i++) { if (s.v[i] < s.v[mi]) mi = i; if (s.v[i] > s.v[ma]) ma = i; }
+  let prevI;
+  if (fq === 'd') { prevI = ub(s.t, lastT - 7 * DAY) - 1; } else { prevI = n - 2; }
+  const prevV = prevI >= 0 && prevI < n - 1 ? s.v[prevI] : null;
+  const res = {
+    n: m, x, d: s.d[n - 1], t: lastT, mean: mu, sd, z: sd > 0 ? (x - mu) / sd : NaN,
+    pct: m >= MIN_N[fq] ? (below + 0.5 * (upto - below)) / m * 100 : null,
+    q05: q(.05), q10: q(.10), q25: q(.25), q50: q(.5), q75: q(.75), q90: q(.90), q95: q(.95),
+    min: s.v[mi], minD: s.d[mi], max: s.v[ma], maxD: s.d[ma], from: s.d[i0],
+    prevV, prevD: prevV == null ? null : s.d[prevI], chg: prevV == null ? null : x - prevV,
+    short: m < MIN_COMP[fq], partial: win !== 'all' && s.t[0] > lastT - WIN[win] * DAY,
+    years: (lastT - s.t[i0]) / (365.25 * DAY),
+  };
+  if (res.pct == null) res.z = NaN;
+  cache.st.set(key, res); return res;
+}
+
+function rollingPct(id, win) {
+  const key = id + '|' + win;
+  if (cache.rp.has(key)) return cache.rp.get(key);
+  const s = id === COMP_ID ? composite(win).series : series(id);
+  const meta = indMeta(id) || {}; const minN = id === COMP_ID ? MIN_N.d : MIN_ROLL[meta.freq || 'd'];
+  if (!s) return null;
+  const n = s.v.length; const out = new Float64Array(n).fill(NaN);
+  const W = WIN[win] * DAY; let j = 0;
+  for (let i = 0; i < n; i++) {
+    while (s.t[i] - s.t[j] > W) j++;
+    const cnt = i - j + 1; if (cnt < minN) continue;
+    const x = s.v[i]; let below = 0, eq = 0;
+    for (let k = j; k <= i; k++) { const y = s.v[k]; if (y < x) below++; else if (y === x) eq++; }
+    out[i] = (below + 0.5 * eq) / cnt * 100;
+  }
+  cache.rp.set(key, out); return out;
+}
+
+function fresh(id) {
+  const s = series(id); const meta = indMeta(id) || {};
+  if (!s || !s.t.length) return { ok: false, age: Infinity };
+  const age = (Date.now() - s.t[s.t.length - 1]) / DAY;
+  return { ok: age <= FRESH[meta.freq || 'd'] + 1, age };
+}
+
+function stateOf(pol, pct) {
+  if (!pol || pct == null || !isFinite(pct)) return null;
+  const q = pol > 0 ? pct : 100 - pct;
+  if (q <= 10) return { k: 's-xf', t: 'פחד קיצוני' };
+  if (q <= 25) return { k: 's-f', t: 'פחד' };
+  if (q >= 90) return { k: 's-xg', t: 'חמדנות קיצונית' };
+  if (q >= 75) return { k: 's-g', t: 'חמדנות' };
+  return { k: 's-n', t: 'ניטרלי' };
+}
+function cnnBand(v) {
+  if (v == null || !isFinite(v)) return null;
+  if (v < 25) return { k: 's-xf', t: 'פחד קיצוני' };
+  if (v < 45) return { k: 's-f', t: 'פחד' };
+  if (v <= 55) return { k: 's-n', t: 'ניטרלי' };
+  if (v <= 75) return { k: 's-g', t: 'חמדנות' };
+  return { k: 's-xg', t: 'חמדנות קיצונית' };
+}
+function chip(st) { return st ? `<span class="chip ${st.k}">${st.t}</span>` : '<span class="muted small">—</span>'; }
+function isExtreme(st) { return !!st && st.pct != null && (st.pct <= 5 || st.pct >= 95 || Math.abs(st.z) >= 2); }
+
+// ---------------- composite ----------------
+function composite(win) {
+  if (cache.comp.has(win)) return cache.comp.get(win);
+  const used = [], excluded = [];
+  const inputs = [...S.ind.values()].filter(i => i.comp && i.pol).sort(byOrder);
+  for (const ind of inputs) {
+    const s = S.ser.get(ind.id);
+    if (!s || !s.v.length) { excluded.push({ ind, why: 'אין עדיין נתונים' }); continue; }
+    const st = stats(ind.id, win); const fr = fresh(ind.id);
+    if (!fr.ok) { excluded.push({ ind, why: 'הנתון האחרון מ-' + fmtDate(st.d) }); continue; }
+    if (st.short || st.pct == null) { excluded.push({ ind, why: `היסטוריה קצרה (${st.n} תצפיות)` }); continue; }
+    used.push(ind);
+  }
+  const res = { used, excluded, series: null, parts: [] };
+  if (used.length >= 2) {
+    const need = Math.max(2, Math.ceil(used.length * 0.6));
+    const comps = used.map(ind => ({ ind, s: S.ser.get(ind.id), rp: rollingPct(ind.id, win), gap: (ind.freq === 'd' ? 5 : ind.freq === 'w' ? 11 : 40) * DAY }));
+    const daily = comps.filter(c => c.ind.freq === 'd');
+    const gridSet = new Set(); for (const c of (daily.length ? daily : comps)) for (const d of c.s.d) gridSet.add(d);
+    const grid = [...gridSet].sort();
+    const firsts = comps.map(c => { const i = c.rp.findIndex(x => !isNaN(x)); return i < 0 ? Infinity : c.s.t[i]; }).sort((a, b) => a - b);
+    const startT = firsts[need - 1];
+    const ptr = comps.map(() => 0);
+    const d = [], v = [], t = [];
+    for (const g of grid) {
+      const gT = tOf(g); if (gT < startT) continue;
+      let sum = 0, cnt = 0;
+      comps.forEach((c, ci) => {
+        let k = ptr[ci]; while (k + 1 < c.s.t.length && c.s.t[k + 1] <= gT) k++; ptr[ci] = k;
+        if (c.s.t[k] > gT || gT - c.s.t[k] > c.gap) return;
+        const r = c.rp[k]; if (isNaN(r)) return;
+        sum += c.ind.pol > 0 ? r : 100 - r; cnt++;
+      });
+      if (cnt >= need) { d.push(g); t.push(gT); v.push(sum / cnt); }
+    }
+    res.series = { d, v, t };
+    res.parts = comps.map(c => { const st = stats(c.ind.id, win); return { ind: c.ind, pct: st.pct, q: c.ind.pol > 0 ? st.pct : 100 - st.pct, st }; });
+  }
+  cache.comp.set(win, res); return res;
+}
+
+// ---------------- forward returns after similar readings ----------------
+function analogs(id, win) {
+  const s = id === COMP_ID ? composite(win).series : series(id);
+  const spx = S.ser.get('spx'); const meta = indMeta(id) || {};
+  if (!s || !spx || !spx.v.length) return null;
+  const rp = rollingPct(id, win); const n = s.v.length; const now = rp[n - 1];
+  if (isNaN(now)) return { err: 'אין מספיק היסטוריה כדי לחשב אחוזון מתגלגל.' };
+  const low = now < 50; const H = [21, 63, 126, 252];
+  const rows = H.map(h => ({ h, all: [], cond: [] }));
+  let condDays = 0, episodes = 0, lastCond = -1e9, from = null;
+  const gapEp = meta.freq === 'd' ? 21 : meta.freq === 'w' ? 4 : 2;
+  for (let i = 0; i < n - 1; i++) {
+    const r = rp[i]; if (isNaN(r)) continue;
+    const k = lb(spx.t, s.t[i]); if (k >= spx.t.length || spx.t[k] - s.t[i] > 4 * DAY) continue;
+    if (from == null) from = s.d[i];
+    const cond = low ? r <= now : r >= now;
+    if (cond) { condDays++; if (i - lastCond > gapEp) episodes++; lastCond = i; }
+    for (const o of rows) { const k2 = k + o.h; if (k2 < spx.v.length) { const ret = spx.v[k2] / spx.v[k] - 1; o.all.push(ret); if (cond) o.cond.push(ret); } }
+  }
+  const sum = a => ({ n: a.length, med: median(a), avg: mean(a), pos: a.length ? a.filter(x => x > 0).length / a.length : NaN });
+  return { now, low, condDays, episodes, from, rows: rows.map(o => ({ h: o.h, c: sum(o.cond), b: sum(o.all) })) };
+}
+
+// ---------------- small SVGs ----------------
+function sparkSVG(id) {
+  const s = series(id); const meta = indMeta(id) || {}; if (!s || s.v.length < 2) return '';
+  const k = meta.freq === 'w' ? 52 : meta.freq === 'm' ? 24 : 126;
+  const v = s.v.slice(-k); const st = stats(id, S.win);
+  let lo = Math.min(...v), hi = Math.max(...v);
+  if (st && st.pct != null) { lo = Math.min(lo, st.q10); hi = Math.max(hi, st.q90); }
+  if (hi === lo) { hi += 1; lo -= 1; }
+  const W = 120, H = 30, pad = 3;
+  const X = i => (i / (v.length - 1)) * (W - 2 * pad) + pad; const Y = y => H - pad - (y - lo) / (hi - lo) * (H - 2 * pad);
+  const pts = v.map((y, i) => `${X(i).toFixed(1)},${Y(y).toFixed(1)}`).join(' ');
+  let band = '';
+  if (st && st.pct != null) { const y1 = Y(st.q90), y2 = Y(st.q10); band = `<rect x="0" y="${y1.toFixed(1)}" width="${W}" height="${Math.max(0, y2 - y1).toFixed(1)}" fill="var(--sunk)"/>`; }
+  const lx = X(v.length - 1), ly = Y(v[v.length - 1]);
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true" dir="ltr">${band}<polyline points="${pts}" fill="none" stroke="var(--ink-2)" stroke-width="1.3" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.4" fill="var(--ink)"/></svg>`;
+}
+function gaugeSVG(value, sub) {
+  const cx = 120, cy = 112, R = 92, w = 18;
+  const bands = [[0, 25, 'var(--fear)', .95], [25, 45, 'var(--fear)', .45], [45, 55, 'var(--neutral)', .45], [55, 75, 'var(--greed)', .45], [75, 100, 'var(--greed)', .95]];
+  const pt = (v, r) => { const a = Math.PI * (1 - v / 100); return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; };
+  const arc = (a, b, r) => { const [x1, y1] = pt(a, r), [x2, y2] = pt(b, r); return `M${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 0 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`; };
+  let g = bands.map(([a, b, c, o]) => `<path d="${arc(a + .6, b - .6, R)}" stroke="${c}" stroke-opacity="${o}" stroke-width="${w}" fill="none"/>`).join('');
+  [0, 25, 50, 75, 100].forEach(t => { const [x, y] = pt(t, R + 19); g += `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" font-size="10" fill="var(--muted)">${t}</text>`; });
+  if (value != null && isFinite(value)) {
+    const v = Math.max(0, Math.min(100, value));
+    const [ax, ay] = pt(v, R - w / 2 - 12), [bx, by] = pt(v, R + w / 2 + 2);
+    g += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="var(--surface)" stroke-width="8" stroke-linecap="round"/><line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>`;
+    g += `<text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="46" font-weight="800" fill="var(--ink)" style="font-family:var(--f-disp)">${Math.round(value)}</text>`;
+  } else {
+    g += `<text x="${cx}" y="${cy - 14}" text-anchor="middle" font-size="15" fill="var(--muted)">${esc(sub || 'אין נתונים')}</text>`;
+  }
+  return `<svg viewBox="-14 0 268 124" role="img" aria-label="${value != null ? 'ערך ' + Math.round(value) + ' מתוך 100' : 'אין נתונים'}" dir="ltr">${g}</svg>`;
+}
+function pbarHTML(st, ind) {
+  if (!st) return '';
+  if (st.pct == null) return `<span class="small muted">היסטוריה קצרה (${st.n})</span>`;
+  const cls = !ind.pol ? 'nopol' : ind.pol < 0 ? 'inv' : '';
+  const ticks = [10, 25, 50, 75, 90].map(t => `<i class="tk" style="left:${t}%"></i>`).join('');
+  return `<div class="pbar ${cls}"><div class="track" dir="ltr">${ticks}<b class="mk" style="left:${st.pct.toFixed(1)}%"></b></div><span class="pv num">${Math.round(st.pct)}</span></div>${st.short ? '<div class="short">היסטוריה קצרה · ' + st.n + ' תצפיות</div>' : ''}`;
+}
+function chgHTML(st, ind) {
+  if (!st || st.chg == null) return '<span class="flat">—</span>';
+  const dir = Math.sign(st.chg) * (ind.pol || 0);
+  const cls = st.chg === 0 ? 'flat' : !ind.pol ? 'flat' : dir > 0 ? 'up-g' : 'up-f';
+  const arrow = st.chg > 0 ? '▲' : st.chg < 0 ? '▼' : '';
+  const dec = ind.dec != null ? ind.dec : 2;
+  return `<span class="${cls}">${arrow} ${ltr(fmtS(st.chg, dec))}</span><div class="small muted">${ind.freq === 'd' ? 'לעומת שבוע' : 'לעומת הקודמת'}</div>`;
+}
+
+// ---------------- market board ----------------
+function boardInds() { return [...S.ind.values()].filter(i => S.showAll || i.pin).sort(byOrder); }
+function renderAsOf() {
+  const el = $('#asof');
+  const daily = [...S.ind.values()].filter(i => i.auto && i.freq === 'd' && !i.derive).map(i => S.ser.get(i.id)).filter(Boolean);
+  const last = daily.length ? daily.map(s => s.d[s.d.length - 1]).sort().pop() : null;
+  const edit = S.api ? `<button type="button" class="edbtn" id="edBtn">${S.canEdit ? 'עורך · יציאה' : 'כניסת עורך'}</button>` : '';
+  if (!last) { el.innerHTML = `<span class="dot-off"></span><span>${S.loaded.ser ? 'אין עדיין נתונים' : 'טוען נתונים…'}</span>${edit}`; bindEd(); return; }
+  const ok = (Date.now() - tOf(last)) / DAY <= FRESH.d + 1 && !(S.status && S.status.ok === false);
+  const lr = S.status && S.status.lastRun;
+  const run = lr ? ` · עדכון ${fmtDateShort(lr.slice(0, 10))} ${new Date(lr).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jerusalem' })}` : '';
+  el.innerHTML = `<span class="${ok ? 'dot-ok' : 'dot-warn'}"></span><span>נתונים לסגירת ${fmtDate(last)}${run}</span>${edit}`;
+  bindEd();
+}
+function bindEd() { const b = $('#edBtn'); if (b) b.onclick = () => (S.canEdit ? logoutEditor() : openLogin()); }
+function openLogin() {
+  const html = `<div class="sh-head"><div><h2>כניסת עורך</h2><div class="sub">עריכת ניתוחים, השורה התחתונה ונתונים ידניים</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="loginForm"><label class="field"><span>קוד עורך</span><input type="password" id="edCode" autocomplete="current-password" dir="ltr"><small>הקוד נשמר בדפדפן הזה בלבד, עד שתלחצו "יציאה".</small></label><div class="actions"><button type="submit" class="btn" id="edGo">כניסה</button></div></form>`;
+  openOverlay(html, true); setTimeout(() => { const i = $('#edCode'); if (i) i.focus(); }, 50);
+  $('#loginForm').addEventListener('submit', async e => {
+    e.preventDefault(); const code = $('#edCode').value; if (!code) return;
+    const b = $('#edGo'); b.disabled = true; const prev = S.code; S.code = code;
+    try { await api('POST', '/api/auth'); S.canEdit = true; lsSet('ed', code); closeOverlay(); toast('נכנסת כעורך'); renderAll(); }
+    catch (err) { S.code = prev; b.disabled = false; toast(err.status === 401 ? 'הקוד לא נכון.' : 'אין חיבור לשרת. נסו שוב.', true); }
+  });
+}
+function logoutEditor() { S.canEdit = false; S.code = null; try { localStorage.removeItem('fd.ed'); } catch (e) { /* storage unavailable */ } if (S.tab === 'manage') showTab('market'); renderAll(); toast('יצאת ממצב עורך'); }
+function renderNote() {
+  const card = $('#noteCard'), body = $('#noteBody'), meta = $('#noteMeta');
+  const n = S.note;
+  $('#noteEdit').hidden = !S.canEdit;
+  if (!n || !n.text) {
+    card.classList.add('empty');
+    body.textContent = S.canEdit ? 'כאן מופיע הסיכום שלך על מצב השוק. לחצו על "עריכת הסיכום" כדי לכתוב אותו.' : (S.loaded.stk ? 'עדיין לא נכתב סיכום.' : 'טוען…');
+    meta.textContent = ''; return;
+  }
+  card.classList.remove('empty');
+  body.innerHTML = richText(n.text);
+  meta.textContent = `עודכן ${fmtDate((n.at || '').slice(0, 10))} · ${daysAgo(n.at)}`;
+}
+function richText(text) {
+  const lines = String(text || '').split(/\r?\n/);
+  let html = '', inList = false;
+  for (const raw of lines) {
+    const l = raw.trim();
+    const m = l.match(/^[-•*]\s+(.*)$/);
+    if (m) { if (!inList) { html += '<ul>'; inList = true; } html += `<li>${esc(m[1])}</li>`; continue; }
+    if (inList) { html += '</ul>'; inList = false; }
+    html += l ? `<div>${esc(l)}</div>` : '<div style="height:.5em"></div>';
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+function renderHero() {
+  const c = composite(S.win);
+  const cs = c.series && c.series.v.length ? stats(COMP_ID, S.win) : null;
+  $('#compHint').textContent = c.used.length ? `${c.used.length} רכיבים · חלון ${WIN_LABEL[S.win]}` : '';
+  $('#compGauge').innerHTML = gaugeSVG(cs ? cs.x : null, S.loaded.ser ? 'אין מספיק רכיבים' : 'טוען…');
+  if (cs) {
+    const s = c.series; const ago = days => { const i = ub(s.t, cs.t - days * DAY) - 1; return i >= 0 ? s.v[i] : null; };
+    $('#compLabel').innerHTML = `${chip(cnnBand(cs.x))}<span class="small muted">אחוזון ${cs.pct != null ? Math.round(cs.pct) : '—'} בהיסטוריה של המדד</span>`;
+    $('#compStats').innerHTML = [['לפני שבוע', ago(7)], ['לפני חודש', ago(30)], ['לפני 3 חודשים', ago(91)]].map(([k, v]) => `<div><dt>${k}</dt><dd class="num">${v == null ? '—' : Math.round(v)}</dd></div>`).join('');
+  } else { $('#compLabel').innerHTML = ''; $('#compStats').innerHTML = ''; }
+  const fg = S.ser.get('fg'); const fst = stats('fg', S.win);
+  $('#fgGauge').innerHTML = gaugeSVG(fst ? fst.x : null, S.loaded.ser ? 'אין נתונים' : 'טוען…');
+  if (fst) {
+    const ago = days => { const i = ub(fg.t, fst.t - days * DAY) - 1; return i >= 0 ? fg.v[i] : null; };
+    $('#fgHint').textContent = fmtDate(fst.d);
+    $('#fgLabel').innerHTML = `${chip(cnnBand(fst.x))}<span class="small muted">אחוזון ${fst.pct != null ? Math.round(fst.pct) : '—'} · ${WIN_LABEL[S.win]}</span>`;
+    $('#fgStats').innerHTML = [['לפני שבוע', ago(7)], ['לפני חודש', ago(30)], ['לפני שנה', ago(365)]].map(([k, v]) => `<div><dt>${k}</dt><dd class="num">${v == null ? '—' : Math.round(v)}</dd></div>`).join('');
+  } else { $('#fgHint').textContent = ''; $('#fgLabel').innerHTML = ''; $('#fgStats').innerHTML = ''; }
+}
+function renderStrip() {
+  const el = $('#xstrip');
+  if (!S.loaded.ser) { el.innerHTML = '<b>קיצונים עכשיו</b><span class="small muted">טוען…</span>'; return; }
+  const xs = boardInds().map(ind => ({ ind, st: stats(ind.id, S.win) })).filter(o => isExtreme(o.st) && fresh(o.ind.id).ok);
+  if (!xs.length) { el.innerHTML = `<b>קיצונים עכשיו</b><span class="small muted">אין כרגע אינדיקטור מתחת לאחוזון 5, מעל 95, או ב-‎|Z|≥2 ביחס ל${WIN_LABEL[S.win]}.</span>`; return; }
+  el.innerHTML = '<b>קיצונים עכשיו</b>' + xs.map(({ ind, st }) => { const sOf = stateOf(ind.pol, st.pct); return `<button type="button" class="xbtn" data-ind="${esc(ind.id)}">${esc(ind.name)} <i>אחוזון ${Math.round(st.pct)}</i>${sOf ? `<span class="chip ${sOf.k}">${sOf.t}</span>` : ''}</button>`; }).join('');
+}
+function renderBoard() {
+  const el = $('#board');
+  if (!S.loaded.ind || !S.loaded.ser) { el.innerHTML = `<div class="tr th"><div>אינדיקטור</div><div>ערך אחרון</div><div>שינוי</div><div>אחוזון</div><div>Z</div><div>מצב</div><div>מגמה</div></div>` + Array.from({ length: 6 }, () => '<div class="tr"><div><div class="skel" style="width:70%"></div></div><div><div class="skel"></div></div><div><div class="skel"></div></div><div><div class="skel"></div></div><div></div><div></div><div></div></div>').join(''); return; }
+  const inds = boardInds();
+  if (!inds.length) { el.innerHTML = `<div class="empty">אין עדיין אינדיקטורים. ${S.canEdit ? 'אפשר להוסיף אותם במסך הניהול.' : ''}</div>`; return; }
+  let html = `<div class="tr th" role="row"><div role="columnheader">אינדיקטור</div><div role="columnheader">ערך אחרון</div><div role="columnheader">שינוי</div><div role="columnheader">אחוזון · ${WIN_LABEL[S.win]}</div><div role="columnheader" style="text-align:center">Z</div><div role="columnheader">מצב</div><div role="columnheader">6 חודשים אחרונים</div></div>`;
+  for (const [g, gname] of GROUPS) {
+    const rows = inds.filter(i => (i.group || 'other') === g); if (!rows.length) continue;
+    html += `<div class="tr sec" role="row"><div role="cell">${gname}</div></div>`;
+    for (const ind of rows) html += rowHTML(ind);
+  }
+  el.innerHTML = html;
+}
+function rowHTML(ind) {
+  const st = stats(ind.id, S.win); const fr = fresh(ind.id);
+  const sub = `${FREQ_LABEL[ind.freq] || ''}${ind.short ? ' · ' + esc(ind.short) : ''}${ind.pin ? '' : ' · לא בלוח'}`;
+  if (!st) {
+    return `<div class="tr row" role="row" tabindex="0" data-ind="${esc(ind.id)}"><div class="c-name" role="cell"><b>${esc(ind.name)}</b><span class="sub">${sub}</span></div><div class="c-val" role="cell"><span class="v muted">—</span><span class="d">${ind.auto ? 'ממתין לעדכון הראשון' : 'מחכה לייבוא נתונים'}</span></div><div class="c-chg" role="cell"></div><div class="c-pct" role="cell"></div><div class="c-z" role="cell"></div><div class="c-st" role="cell"></div><div class="c-sp" role="cell"></div></div>`;
+  }
+  const ext = isExtreme(st) && fr.ok;
+  return `<div class="tr row${ext ? ' ext' : ''}${fr.ok ? '' : ' stale'}" role="row" tabindex="0" data-ind="${esc(ind.id)}">
+    <div class="c-name" role="cell"><b>${esc(ind.name)}</b><span class="sub">${sub}</span></div>
+    <div class="c-val" role="cell"><span class="v">${ltr(fmtVal(ind, st.x))}</span><span class="d">${fmtDate(st.d)}${fr.ok ? '' : ' <span class="chip chip-w">לא עדכני</span>'}</span></div>
+    <div class="c-chg" role="cell">${chgHTML(st, ind)}</div>
+    <div class="c-pct" role="cell">${pbarHTML(st, ind)}</div>
+    <div class="c-z" role="cell">${isFinite(st.z) ? ltr(fmtS(st.z, 1)) : '—'}</div>
+    <div class="c-st" role="cell">${chip(stateOf(ind.pol, st.pct))}</div>
+    <div class="c-sp" role="cell">${sparkSVG(ind.id)}</div>
+  </div>`;
+}
+function renderMarket() {
+  $$('#winSeg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.win === S.win)));
+  $('#showAll').checked = S.showAll;
+  renderAsOf(); renderNote(); renderHero(); renderStrip(); renderBoard(); renderSysBanner();
+}
+function renderSysBanner() {
+  const el = $('#sysBanner'); const st = S.status;
+  if (!st || st.ok !== false) { el.hidden = true; return; }
+  el.hidden = false; el.className = 'banner';
+  el.textContent = `בעדכון האחרון (${fmtDate((st.lastRun || '').slice(0, 10))}) חלק מהמקורות לא התעדכנו: ${(st.failed || []).join(', ')}. הנתונים שלהם מוצגים עד התאריך האחרון שנקלט.`;
+}
+// ---------------- indicator detail ----------------
+let chartInst = null, pasteHandler = null;
+function closeOverlay() {
+  if (chartInst) { try { chartInst.dispose(); } catch (e) { /* already disposed */ } chartInst = null; }
+  if (pasteHandler) { document.removeEventListener('paste', pasteHandler); pasteHandler = null; }
+  $('#ovRoot').innerHTML = ''; S.detail = null; document.body.style.overflow = '';
+}
+function openOverlay(html, narrow = false) {
+  closeOverlay();
+  const root = $('#ovRoot');
+  root.innerHTML = `<div class="ov" id="ov"><div class="sheet${narrow ? ' narrow' : ''}" role="dialog" aria-modal="true">${html}</div></div>`;
+  document.body.style.overflow = 'hidden';
+  $('#ov').addEventListener('mousedown', e => { if (e.target.id === 'ov') closeOverlay(); });
+  const x = $('.xclose', root); if (x) { x.addEventListener('click', closeOverlay); setTimeout(() => x.focus(), 0); }
+  return root;
+}
+function openInd(id) {
+  const meta = indMeta(id); if (!meta) return;
+  S.detail = id;
+  const st = stats(id, S.win); const fr = fresh(id); const s = id === COMP_ID ? composite(S.win).series : series(id);
+  const winRows = ['1y', '3y', '5y', '10y', 'all'].map(w => { const x = stats(id, w); return `<td class="${w === S.win ? 'hl' : ''}">${x && x.pct != null ? ltr(Math.round(x.pct)) + (x.partial ? '<sup title="ההיסטוריה קצרה מהחלון">*</sup>' : '') : '—'}</td>`; }).join('');
+  const winZ = ['1y', '3y', '5y', '10y', 'all'].map(w => { const x = stats(id, w); return `<td class="${w === S.win ? 'hl' : ''}">${x && isFinite(x.z) ? ltr(fmtS(x.z, 1)) : '—'}</td>`; }).join('');
+  const state = st ? stateOf(meta.pol, st.pct) : null;
+  const src = meta.srcUrl ? `<a href="${esc(meta.srcUrl)}" target="_blank" rel="noopener">${esc(meta.src || meta.srcUrl)}</a>` : esc(meta.src || '');
+  const tiles = st ? `
+    <div class="tile"><span class="k">ערך אחרון · ${fmtDate(st.d)}</span><span class="val">${ltr(fmtVal(meta, st.x))}</span><span class="s">${fr.ok ? 'עדכני' : '<span class="chip chip-w">לא עדכני</span>'}</span></div>
+    <div class="tile"><span class="k">אחוזון · ${WIN_LABEL[S.win]}</span><span class="val">${st.pct != null ? ltr(Math.round(st.pct)) : '—'}</span><span class="s">${chip(state)}</span></div>
+    <div class="tile"><span class="k">Z · ${WIN_LABEL[S.win]}</span><span class="val">${isFinite(st.z) ? ltr(fmtS(st.z, 2)) : '—'}</span><span class="s">ממוצע ${ltr(fmtVal(meta, st.mean))} · ס"ת ${ltr(fmtN(st.sd, meta.dec ?? 2))}</span></div>
+    <div class="tile"><span class="k">חציון בחלון</span><span class="val">${ltr(fmtVal(meta, st.q50))}</span><span class="s">10%–90%: ${ltr(fmtVal(meta, st.q10) + ' – ' + fmtVal(meta, st.q90))}</span></div>
+    <div class="tile"><span class="k">שפל בחלון</span><span class="val">${ltr(fmtVal(meta, st.min))}</span><span class="s">${fmtDate(st.minD)}</span></div>
+    <div class="tile"><span class="k">שיא בחלון</span><span class="val">${ltr(fmtVal(meta, st.max))}</span><span class="s">${fmtDate(st.maxD)}</span></div>` : '<div class="tile"><span class="k">אין עדיין נתונים</span></div>';
+  let compTable = '';
+  if (id === COMP_ID) {
+    const c = composite(S.win);
+    compTable = `<section class="panel"><div class="panel-head"><h3>הרכיבים</h3><span class="small muted">כל רכיב תורם את האחוזון שלו אחרי התאמת כיוון (100 = חמדנות)</span></div><div class="tbl-wrap"><table class="ft"><thead><tr><th>רכיב</th><th>ערך</th><th>אחוזון</th><th>אחרי התאמת כיוון</th><th>מצב</th></tr></thead><tbody>` +
+      c.parts.map(p => `<tr><td><button type="button" class="btn ghost sm" data-open="${esc(p.ind.id)}">${esc(p.ind.name)}</button></td><td>${ltr(fmtVal(p.ind, p.st.x))}</td><td>${ltr(Math.round(p.pct))}</td><td class="hl">${ltr(Math.round(p.q))}</td><td>${chip(stateOf(p.ind.pol, p.pct))}</td></tr>`).join('') +
+      (c.excluded.length ? `<tr class="secr"><td colspan="5">לא נכללו כרגע</td></tr>` + c.excluded.map(e => `<tr><td>${esc(e.ind.name)}</td><td colspan="4" class="muted">${esc(e.why)}</td></tr>`).join('') : '') +
+      `</tbody></table></div></section>`;
+  }
+  const adminBtns = S.canEdit && id !== COMP_ID ? `<button type="button" class="btn ghost sm" id="dEdit">הגדרות</button><button type="button" class="btn ghost sm" id="dAdd">הזנת ערך</button><button type="button" class="btn ghost sm" id="dImp">ייבוא CSV</button>` : '';
+  const html = `
+    <div class="sh-head"><div><h2>${esc(meta.name)}</h2><div class="sub">${FREQ_LABEL[meta.freq] || ''}${meta.short ? ' · ' + esc(meta.short) : ''}${s && s.d.length ? ` · נתונים מ-${fmtDate(s.d[0])} עד ${fmtDate(s.d[s.d.length - 1])} (${s.d.length.toLocaleString('en-US')} תצפיות)` : ''}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <div class="sh-body">
+      <div class="tiles">${tiles}</div>
+      <section class="panel">
+        <div class="panel-head">
+          <div class="seg" role="group" aria-label="טווח הגרף" id="dRange">
+            <button type="button" data-r="365">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827" aria-pressed="true">5 שנים</button><button type="button" data-r="3653">10 שנים</button><button type="button" data-r="0">הכל</button>
+          </div>
+          <div class="grp" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            ${id !== 'spx' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID ? 'checked' : ''}>S&amp;P 500 ברקע</label>` : ''}
+            <button type="button" class="btn ghost sm" id="dCsv" hidden>הורדת CSV</button>
+            ${adminBtns}
+          </div>
+        </div>
+        <div class="chart" id="dChart" role="img" aria-label="גרף היסטורי של ${esc(meta.name)} עם קווי אחוזונים ואחוזון מתגלגל"></div>
+        <p class="small muted" style="margin:0">קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו.</p>
+      </section>
+      ${compTable}
+      <section class="panel"><div class="panel-head"><h3>אחוזון ו-<span class="ltr">Z</span> לפי חלון השוואה</h3></div>
+        <div class="tbl-wrap"><table class="ft"><thead><tr><th></th><th>שנה</th><th>3 שנים</th><th>5 שנים</th><th>10 שנים</th><th>הכל</th></tr></thead>
+        <tbody><tr><td>אחוזון</td>${winRows}</tr><tr><td>Z</td>${winZ}</tr></tbody></table></div>
+        <p class="small muted" style="margin:0">* ההיסטוריה הזמינה קצרה מהחלון, ולכן החישוב נעשה על כל מה שיש.</p>
+      </section>
+      <section class="panel" id="dAnalog"></section>
+      <section class="about">
+        ${meta.desc ? `<p>${esc(meta.desc)}</p>` : ''}
+        ${meta.note ? `<p><b>הערה:</b> ${esc(meta.note)}</p>` : ''}
+        ${src ? `<p><b>מקור:</b> ${src}${meta.auto ? ' · מתעדכן אוטומטית' : ' · מתעדכן ידנית'}</p>` : ''}
+        ${meta.pol ? `<p><b>כיוון:</b> ${meta.pol > 0 ? 'ערך גבוה = חמדנות / אופטימיות' : 'ערך גבוה = פחד / גידור'}</p>` : ''}
+      </section>
+    </div>`;
+  const root = openOverlay(html);
+  $$('[data-open]', root).forEach(b => b.addEventListener('click', () => openInd(b.dataset.open)));
+  if (S.canEdit && id !== COMP_ID) {
+    $('#dEdit').addEventListener('click', () => openIndEditor(id));
+    $('#dAdd').addEventListener('click', () => openValueEditor(id));
+    $('#dImp').addEventListener('click', () => openImport(id));
+  }
+  { const b = $('#dCsv'); b.hidden = false; b.addEventListener('click', () => downloadCSV(id)); }
+  renderAnalog(id);
+  drawChart(id, 1827);
+  $$('#dRange button').forEach(b => b.addEventListener('click', () => { $$('#dRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawChart(id, +b.dataset.r); }));
+  const sp = $('#dSpx'); if (sp) sp.addEventListener('change', () => { const pressed = $('#dRange [aria-pressed="true"]'); drawChart(id, pressed ? +pressed.dataset.r : 1827); });
+}
+function renderAnalog(id) {
+  const el = $('#dAnalog'); if (!el) return;
+  const a = analogs(id, S.win);
+  const head = `<div class="panel-head"><h3>מה עשה S&amp;P 500 אחרי קריאות דומות</h3><span class="small muted">חלון מתגלגל של ${WIN_LABEL[S.win]}</span></div>`;
+  if (!a) { el.innerHTML = head + '<p class="small muted" style="margin:0">אין נתוני S&amp;P 500 לחישוב.</p>'; return; }
+  if (a.err) { el.innerHTML = head + `<p class="small muted" style="margin:0">${esc(a.err)}</p>`; return; }
+  const cond = a.low ? `אחוזון ${Math.round(a.now)} ומטה` : `אחוזון ${Math.round(a.now)} ומעלה`;
+  const H = { 21: 'חודש', 63: '3 חודשים', 126: '6 חודשים', 252: 'שנה' };
+  const rows = a.rows.map(r => `<tr><td>${H[r.h]}</td><td class="hl">${r.c.n >= 5 ? ltr(fmtPct(r.c.med)) : '—'}</td><td>${r.c.n >= 5 ? ltr(fmtPct(r.c.avg)) : '—'}</td><td>${r.c.n >= 5 ? ltr(Math.round(r.c.pos * 100) + '%') : '—'}</td><td>${ltr(r.c.n.toLocaleString('en-US'))}</td><td>${ltr(fmtPct(r.b.med))}</td><td>${ltr(isFinite(r.b.pos) ? Math.round(r.b.pos * 100) + '%' : '—')}</td></tr>`).join('');
+  el.innerHTML = head + `<p class="small" style="margin:0">ימים שבהם הקריאה הייתה ב<b>${cond}</b>, כמו היום: <b>${a.condDays.toLocaleString('en-US')}</b> ימים ב-<b>${a.episodes}</b> אפיזודות נפרדות, מ-${fmtDate(a.from)}.</p>
+    <div class="tbl-wrap"><table class="ft"><thead><tr><th>אופק</th><th>חציון אחרי קריאה דומה</th><th>ממוצע</th><th>% חיובי</th><th>ימים</th><th>חציון כל הימים</th><th>% חיובי כל הימים</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:0">תשואת מחיר של S&amp;P 500 בלי דיבידנדים, מהסגירה ביום הקריאה (או יום המסחר הבא). פחות מ-5 ימים בתנאי = לא מוצג. האפיזודות נספרות כרצף ימים בתנאי בלי הפסקה של יותר מחודש.</p>`;
+}
+function drawChart(id, rangeDays) {
+  const el = $('#dChart'); if (!el || typeof echarts === 'undefined') { if (el) el.innerHTML = '<p class="muted" style="padding:20px">ספריית הגרפים לא נטענה.</p>'; return; }
+  const meta = indMeta(id); const s = id === COMP_ID ? composite(S.win).series : series(id); if (!s || !s.v.length) { el.innerHTML = '<p class="muted" style="padding:20px">אין עדיין נתונים לגרף.</p>'; return; }
+  const st = stats(id, S.win); const rp = rollingPct(id, S.win);
+  const ink = tok('--ink'), ink2 = tok('--ink-2'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), cl = tok('--chart-line'), c2 = tok('--chart-2'), fear = tok('--fear'), greed = tok('--greed'), surface = tok('--surface');
+  const font = tok('--f-body');
+  const data = s.t.map((t, i) => [t, s.v[i]]);
+  const rpData = s.t.map((t, i) => [t, isNaN(rp[i]) ? null : Math.round(rp[i] * 10) / 10]);
+  const weekly = meta.freq !== 'd';
+  const ml = st && st.pct != null ? [[st.q05, '5%'], [st.q25, '25%'], [st.q50, '50%'], [st.q75, '75%'], [st.q95, '95%']].map(([y, n]) => ({ yAxis: y, name: n, lineStyle: { color: n === '50%' ? ink2 : (n === '5%' || n === '95%') ? (meta.pol < 0 ? (n === '5%' ? greed : fear) : meta.pol > 0 ? (n === '5%' ? fear : greed) : muted) : muted, type: 'dashed', width: n === '50%' ? 1.2 : 1, opacity: .85 }, label: { formatter: n, color: muted, fontSize: 10, position: 'insideEndTop' } })) : [];
+  (meta.refs || []).forEach(r => ml.push({ yAxis: r.v, name: r.t, lineStyle: { color: ink2, type: 'dotted' }, label: { formatter: r.t || '', color: ink2, fontSize: 10, position: 'insideStartTop' } }));
+  const showSpx = !!($('#dSpx') && $('#dSpx').checked);
+  const spx = S.ser.get('spx');
+  const dec = meta.dec ?? 2;
+  const lastT = s.t[s.t.length - 1];
+  const startV = rangeDays ? lastT - rangeDays * DAY : s.t[0];
+  const option = {
+    animation: false, backgroundColor: 'transparent', textStyle: { fontFamily: font, color: ink2 },
+    grid: [{ left: 58, right: showSpx ? 62 : 22, top: 18, height: '56%' }, { left: 58, right: showSpx ? 62 : 22, top: '71%', height: '15%' }],
+    axisPointer: { link: [{ xAxisIndex: 'all' }], lineStyle: { color: muted } },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink, fontFamily: font }, formatter: ps => {
+      if (!ps.length) return ''; const t = ps[0].value[0]; let h = `<b>${fmtDate(isoOf(t))}</b>`;
+      for (const p of ps) { if (p.value[1] == null) continue; const nm = p.seriesName; const v = nm === 'S&P 500' ? fmtN(p.value[1], 0) : nm === 'אחוזון מתגלגל' ? Math.round(p.value[1]) : fmtVal(meta, p.value[1]); h += `<br>${p.marker}${esc(nm)}: <b dir="ltr">${v}</b>`; }
+      return `<div dir="rtl" style="text-align:right">${h}</div>`; } },
+    xAxis: [
+      { type: 'time', gridIndex: 0, axisLine: { lineStyle: { color: line } }, axisLabel: { color: muted, hideOverlap: true }, splitLine: { show: false }, min: 'dataMin', max: 'dataMax' },
+      { type: 'time', gridIndex: 1, axisLine: { lineStyle: { color: line } }, axisLabel: { show: false }, splitLine: { show: false }, min: 'dataMin', max: 'dataMax' },
+    ],
+    yAxis: [
+      { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, Math.min(dec, 2)) }, splitLine: { lineStyle: { color: line2 } } },
+      { type: showSpx ? 'log' : 'value', gridIndex: 0, show: showSpx, position: 'right', scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { show: false } },
+      { type: 'value', gridIndex: 1, min: 0, max: 100, interval: 50, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } },
+    ],
+    dataZoom: [{ type: 'inside', xAxisIndex: [0, 1], startValue: startV, endValue: lastT }, { type: 'slider', xAxisIndex: [0, 1], bottom: 6, height: 20, startValue: startV, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: v => fmtDate(isoOf(v)) }],
+    series: [
+      { name: meta.name, type: 'line', xAxisIndex: 0, yAxisIndex: 0, data, showSymbol: weekly && data.length < 400, symbolSize: 3, lineStyle: { width: 1.6, color: cl }, itemStyle: { color: cl }, z: 3,
+        markLine: { symbol: 'none', silent: true, data: ml }, markPoint: { symbol: 'circle', symbolSize: 9, itemStyle: { color: cl, borderColor: surface, borderWidth: 2 }, label: { show: false }, data: [{ coord: data[data.length - 1] }] } },
+      { name: 'אחוזון מתגלגל', type: 'line', xAxisIndex: 1, yAxisIndex: 2, data: rpData, showSymbol: false, lineStyle: { width: 1, color: ink2 }, areaStyle: { color: c2, opacity: .25 }, connectNulls: false,
+        markLine: { symbol: 'none', silent: true, data: [{ yAxis: 10 }, { yAxis: 90 }], lineStyle: { color: muted, type: 'dashed' }, label: { show: false } } },
+    ],
+  };
+  if (showSpx && spx) option.series.push({ name: 'S&P 500', type: 'line', xAxisIndex: 0, yAxisIndex: 1, data: spx.t.map((t, i) => [t, spx.v[i]]), showSymbol: false, lineStyle: { width: 1, color: muted, opacity: .7 }, z: 1 });
+  if (chartInst) chartInst.dispose();
+  chartInst = echarts.init(el, null, { renderer: 'canvas' });
+  chartInst.setOption(option);
+}
+function downloadCSV(id) {
+  const s = id === COMP_ID ? composite(S.win).series : series(id); if (!s) return;
+  const rp = rollingPct(id, S.win);
+  let csv = `date,value,rolling_percentile_${S.win}\n`;
+  s.d.forEach((d, i) => { csv += `${d},${s.v[i]},${isNaN(rp[i]) ? '' : rp[i].toFixed(1)}\n`; });
+  saveFile(`${id === COMP_ID ? 'forte_composite' : id}.csv`, '﻿' + csv, 'text/csv;charset=utf-8');
+}
+function saveFile(name, text, type) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+// ---------------- analysis tab ----------------
+function stkList() {
+  const q = S.q.trim().toLowerCase();
+  let arr = [...S.stk.values()];
+  if (S.fBias !== 'all') arr = arr.filter(s => (s.status === 'pending' ? 'pending' : s.bias) === S.fBias);
+  if (S.fSector) arr = arr.filter(s => (s.sector || '') === S.fSector);
+  if (q) arr = arr.filter(s => [s.ticker, s.name, s.sector, s.headline, s.setup, (s.points || []).join(' ')].join(' ').toLowerCase().includes(q));
+  if (S.fSort === 'tick') arr.sort((a, b) => a.ticker.localeCompare(b.ticker));
+  else if (S.fSort === 'old') arr.sort((a, b) => (a.updatedAt || '').localeCompare(b.updatedAt || ''));
+  else arr.sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+  return arr;
+}
+function biasPill(s) { const k = s.status === 'pending' ? 'pending' : (s.bias || 'neutral'); return `<span class="bias b-${k}">${BIAS[k] || ''}</span>`; }
+function ageDays(iso) { const t = Date.parse(iso || ''); return isFinite(t) ? Math.floor((Date.now() - t) / DAY) : null; }
+function renderAnalysis() {
+  $('#anAdmin').hidden = !S.canEdit;
+  $$('#fBias button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.b === S.fBias)));
+  const sectors = [...new Set([...S.stk.values()].map(s => s.sector).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'he'));
+  const sel = $('#fSector'); const cur = S.fSector;
+  sel.innerHTML = '<option value="">כל הסקטורים</option>' + sectors.map(s => `<option value="${esc(s)}"${s === cur ? ' selected' : ''}>${esc(s)}</option>`).join('');
+  const all = [...S.stk.values()];
+  const active = all.filter(s => s.status !== 'pending');
+  const fresh30 = active.filter(s => (ageDays(s.updatedAt) ?? 999) <= 30).length;
+  const pend = all.length - active.length;
+  $('#coverage').innerHTML = S.loaded.stk ? `<span><b>${all.length}</b> מניות</span><span><b>${fresh30}</b> עם ניתוח מ-30 הימים האחרונים</span>${active.length - fresh30 ? `<span><b>${active.length - fresh30}</b> עם ניתוח ישן מחודש</span>` : ''}${pend ? `<span><b>${pend}</b> ממתינות לניתוח</span>` : ''}` : '';
+  if (S.openStock) { $('#anTop').hidden = true; $('#stkGrid').hidden = true; $('#stkDetail').hidden = false; renderStockDetail(); return; }
+  $('#anTop').hidden = false; $('#stkGrid').hidden = false; $('#stkDetail').hidden = true;
+  const grid = $('#stkGrid');
+  if (!S.api) { grid.innerHTML = '<p class="muted">שרת הניתוחים לא זמין כרגע. רעננו את הדף בעוד רגע.</p>'; return; }
+  if (!S.loaded.stk) { grid.innerHTML = '<p class="muted">טוען ניתוחים…</p>'; return; }
+  if (!all.length) {
+    grid.innerHTML = `<div class="mcard" style="grid-column:1/-1"><h2>עדיין אין ניתוחים</h2><p class="lede">${S.canEdit ? 'התחילו ב"ייבוא רשימת אחזקות" כדי ליצור כרטיס לכל מניה בתיק, או ב"ניתוח חדש" כדי להעלות ניתוח ראשון: מדביקים צילום גרף מ-TradingView (Ctrl+Shift+S ב-TradingView מעתיק את הגרף), ממלאים רמות ושורה תחתונה, ושומרים.' : 'הניתוחים יופיעו כאן כשהאנליסט יעלה אותם.'}</p></div>`;
+    return;
+  }
+  const list = stkList();
+  if (!list.length) { grid.innerHTML = '<p class="muted">אין מניות שמתאימות לחיפוש.</p>'; return; }
+  grid.innerHTML = list.map(s => {
+    const age = ageDays(s.updatedAt); const old = s.status !== 'pending' && age != null && age > 30;
+    return `<button type="button" class="scard" data-t="${esc(s.ticker)}">
+      <div class="thumb">${s.img ? `<img src="/img/${esc(s.img)}" alt="" loading="lazy">` : `<span class="ph">${esc(s.ticker)}</span>`}</div>
+      <div class="sc-body"><div class="sc-top"><span class="tick">${esc(s.ticker)}</span>${biasPill(s)}</div>
+      <div class="sc-name">${esc(s.name || '')}${s.sector ? ' · ' + esc(s.sector) : ''}</div>
+      ${s.headline ? `<p class="sc-sum">${esc(s.headline)}</p>` : ''}
+      <div class="sc-meta">${s.status === 'pending' ? 'עוד לא נותח' : `עודכן ${fmtDate((s.updatedAt || '').slice(0, 10))} · ${daysAgo(s.updatedAt)}`}${old ? ' <span class="chip chip-w">ישן</span>' : ''}</div></div>
+    </button>`;
+  }).join('');
+}
+async function openStock(T) {
+  S.openStock = T; S.viewVer = null; S.versions = null;
+  showTab('analysis'); window.scrollTo(0, 0);
+  renderAnalysis();
+  try { const v = await fetchJSON('/api/versions/' + encodeURIComponent(T)); if (S.openStock === T) { S.versions = Array.isArray(v) ? v : []; renderStockDetail(); } }
+  catch (e) { if (S.openStock === T) { S.versions = []; renderStockDetail(); } }
+}
+function lvlRows(s) {
+  const rows = [['תמיכות', s.support], ['התנגדויות', s.resistance], ['סטופ / רמת ביטול', s.stop], ['יעדים', s.target], ['מחיר בעת הניתוח', s.price != null && s.price !== '' ? fmtN(+s.price, 2) : ''], ['טווח', HORIZON[s.horizon] || ''], ['סטאפ / תבנית', s.setup]];
+  return rows.filter(r => r[1]).map(([k, v]) => `<tr><td>${k}</td><td class="${k.startsWith('סטופ') ? 'hl' : ''}">${/[0-9]/.test(v) && !/[א-ת]/.test(v) ? ltr(esc(v)) : esc(v)}</td></tr>`).join('');
+}
+function renderStockDetail() {
+  const el = $('#stkDetail'); const cur = S.stk.get(S.openStock);
+  if (!cur) { el.innerHTML = `<div><button type="button" class="btn ghost" id="sdBack">→ חזרה לכל המניות</button></div><p class="muted">המניה לא נמצאה.</p>`; $('#sdBack').addEventListener('click', backToList); return; }
+  const s = S.viewVer ? S.viewVer : cur;
+  const who = '';
+  const vers = S.versions || [];
+  el.innerHTML = `
+    <div><button type="button" class="btn ghost" id="sdBack">→ חזרה לכל המניות</button></div>
+    ${S.viewVer ? `<div class="verbanner"><span>מוצגת גרסה קודמת מ-${fmtDate((s.updatedAt || '').slice(0, 10))}</span><button type="button" class="btn sm" id="sdCur">חזרה לניתוח הנוכחי</button></div>` : ''}
+    <div class="sd-head">
+      <div class="sd-title"><span class="tick">${esc(s.ticker)}</span><h1>${esc(s.name || '')}</h1>${biasPill(s)}${s.sector ? `<span class="chip chip-plain">${esc(s.sector)}</span>` : ''}</div>
+      <div class="actions">
+        ${s.tvUrl ? `<a class="btn ghost" href="${esc(s.tvUrl)}" target="_blank" rel="noopener">פתיחה ב-TradingView ↗</a>` : ''}
+        ${S.canEdit && !S.viewVer ? `<button type="button" class="btn" id="sdEdit">${cur.status === 'pending' ? 'כתיבת ניתוח' : 'עדכון הניתוח'}</button><button type="button" class="btn danger sm" id="sdDel">מחיקה</button>` : ''}
+      </div>
+    </div>
+    <div class="small muted">${s.status === 'pending' ? 'עוד אין ניתוח למניה הזו.' : `עודכן ${fmtDate((s.updatedAt || '').slice(0, 10))} · ${daysAgo(s.updatedAt)}${who ? ' · ' + esc(who) : ''}`}</div>
+    <div class="sd-img">${s.img ? `<img src="/img/${esc(s.img)}" alt="גרף הניתוח של ${esc(s.ticker)}" id="sdImg">` : `<div class="noimg">אין גרף מצורף${S.canEdit && !S.viewVer ? ' · אפשר להוסיף בעדכון הניתוח' : ''}</div>`}</div>
+    <div class="sd-cols">
+      <div class="sd-box">
+        ${s.headline ? `<p class="headline">${esc(s.headline)}</p>` : ''}
+        ${(s.points || []).length ? `<h3>עיקרי הניתוח</h3><ul class="pts">${s.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
+        ${s.body ? `<h3>הערות</h3><p class="body-text">${esc(s.body)}</p>` : ''}
+        ${!s.headline && !(s.points || []).length && !s.body ? '<p class="muted" style="margin:0">אין טקסט לניתוח.</p>' : ''}
+      </div>
+      <div class="sd-box">
+        <h3>רמות</h3>
+        ${lvlRows(s) ? `<div class="tbl-wrap"><table class="ft"><tbody>${lvlRows(s)}</tbody></table></div>` : '<p class="muted" style="margin:0">לא הוזנו רמות.</p>'}
+        <h3>גרסאות קודמות</h3>
+        <div class="verlist">${S.versions == null ? '<span class="small muted">טוען…</span>' : vers.length ? vers.map((v, i) => `<button type="button" class="verbtn" data-v="${i}"><span>${fmtDate((v.updatedAt || '').slice(0, 10))}</span>${biasPill(v)}<span class="small muted" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(v.headline || '')}</span></button>`).join('') : '<span class="small muted">אין גרסאות קודמות.</span>'}</div>
+      </div>
+    </div>`;
+  $('#sdBack').addEventListener('click', backToList);
+  const c = $('#sdCur'); if (c) c.addEventListener('click', () => { S.viewVer = null; renderStockDetail(); });
+  const im = $('#sdImg'); if (im) im.addEventListener('click', () => lightbox(im.src));
+  const ed = $('#sdEdit'); if (ed) ed.addEventListener('click', () => openStockEditor(cur.ticker));
+  const dl = $('#sdDel'); if (dl) dl.addEventListener('click', async () => {
+    if (!(await askConfirm(`למחוק את ${cur.ticker} מהרשימה? הגרסאות הקודמות נשמרות, אבל הכרטיס ייעלם.`, 'מחיקה'))) return;
+    try { await api('DELETE', '/api/stocks/' + encodeURIComponent(cur.ticker)); S.stk.delete(cur.ticker); toast('נמחק'); backToList(); } catch (e) { toast(apiErr(e), true); }
+  });
+  $$('.verbtn', el).forEach(b => b.addEventListener('click', () => { S.viewVer = vers[+b.dataset.v]; renderStockDetail(); window.scrollTo(0, 0); }));
+}
+function backToList() { S.openStock = null; S.viewVer = null; renderAnalysis(); }
+function lightbox(src) {
+  const lb = document.createElement('div'); lb.className = 'lightbox'; lb.innerHTML = `<img src="${esc(src)}" alt="">`;
+  lb.addEventListener('click', e => { if (e.target.tagName === 'IMG' && !lb.classList.contains('full')) { lb.classList.add('full'); return; } lb.remove(); });
+  document.body.appendChild(lb);
+}
+
+function openStockEditor(T) {
+  const ex = T ? S.stk.get(T) : null; const s = ex || {};
+  let img = s.img || null, pendingFile = null;
+  const html = `
+    <div class="sh-head"><div><h2>${ex ? (ex.status === 'pending' ? 'ניתוח ל-' : 'עדכון ניתוח · ') + esc(ex.ticker) : 'ניתוח חדש'}</h2><div class="sub">${ex && ex.status !== 'pending' ? 'הגרסה הנוכחית תישמר בהיסטוריה' : 'שדה חובה: סימול'}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="stkForm" novalidate>
+      <div class="formgrid">
+        <label class="field"><span>סימול</span><input type="text" id="f-ticker" dir="ltr" value="${esc(s.ticker || '')}" ${ex ? 'readonly' : ''} placeholder="AAPL" autocomplete="off" required></label>
+        <label class="field"><span>שם החברה</span><input type="text" id="f-name" value="${esc(s.name || '')}"></label>
+        <label class="field"><span>סקטור</span><input type="text" id="f-sector" value="${esc(s.sector || '')}" list="sectorList"><datalist id="sectorList">${[...new Set([...S.stk.values()].map(x => x.sector).filter(Boolean))].map(x => `<option value="${esc(x)}">`).join('')}</datalist></label>
+        <label class="field"><span>כיוון</span><select id="f-bias">${['bull', 'bear', 'neutral', 'watch'].map(k => `<option value="${k}"${(s.bias || 'neutral') === k ? ' selected' : ''}>${BIAS[k]}</option>`).join('')}</select></label>
+        <label class="field"><span>טווח זמן</span><select id="f-horizon"><option value="">—</option>${Object.entries(HORIZON).map(([k, v]) => `<option value="${k}"${s.horizon === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+        <label class="field"><span>מחיר בעת הניתוח</span><input type="number" step="any" id="f-price" dir="ltr" value="${esc(s.price ?? '')}"></label>
+        <label class="field full"><span>שורה תחתונה</span><input type="text" id="f-headline" value="${esc(s.headline || '')}" placeholder="משפט אחד שמנהל ההשקעות צריך לדעת"></label>
+        <label class="field full"><span>עיקרי הניתוח</span><textarea id="f-points" rows="4" placeholder="נקודה בכל שורה">${esc((s.points || []).join('\n'))}</textarea></label>
+        <label class="field"><span>תמיכות</span><input type="text" id="f-support" dir="ltr" value="${esc(s.support || '')}" placeholder="182.5 / 175 / 168"></label>
+        <label class="field"><span>התנגדויות</span><input type="text" id="f-resistance" dir="ltr" value="${esc(s.resistance || '')}"></label>
+        <label class="field"><span>סטופ / רמת ביטול</span><input type="text" id="f-stop" dir="ltr" value="${esc(s.stop || '')}"></label>
+        <label class="field"><span>יעדים</span><input type="text" id="f-target" dir="ltr" value="${esc(s.target || '')}"></label>
+        <label class="field full"><span>סטאפ / תבנית</span><input type="text" id="f-setup" value="${esc(s.setup || '')}" placeholder="למשל: פריצה מבסיס, דגל, ירידה לממוצע 50"></label>
+        <label class="field full"><span>הערות נוספות</span><textarea id="f-body" rows="3">${esc(s.body || '')}</textarea></label>
+        <label class="field full"><span>קישור ל-TradingView</span><input type="url" id="f-tv" dir="ltr" value="${esc(s.tvUrl || '')}" placeholder="https://www.tradingview.com/x/…"><small>קישור לצילום (Alt+S ב-TradingView) או לגרף השמור. נפתח בלשונית חדשה.</small></label>
+        <div class="field full"><span>גרף</span>
+          <div class="drop" id="drop" tabindex="0">
+            <div id="dropPrev">${img ? `<img src="/img/${esc(img)}" alt="">` : ''}</div>
+            <div class="small">הדביקו כאן צילום גרף (Ctrl+V), גררו קובץ תמונה, או</div>
+            <div class="actions" style="justify-content:center"><button type="button" class="btn ghost sm" id="pickImg">בחירת קובץ</button><button type="button" class="btn ghost sm" id="rmImg"${img ? '' : ' hidden'}>הסרת הגרף</button></div><input type="file" id="imgFile" accept="image/png,image/jpeg,image/webp" hidden>
+            <small class="muted">ב-TradingView: Ctrl+Shift+S מעתיק את הגרף כתמונה.</small>
+          </div>
+        </div>
+      </div>
+      <div class="actions"><button type="button" class="btn ghost" id="fCancel">ביטול</button><button type="submit" class="btn" id="fSave">שמירה</button></div>
+    </form>`;
+  openOverlay(html, true);
+  const setPrev = (src) => { $('#dropPrev').innerHTML = src ? `<img src="${esc(src)}" alt="">` : ''; const rm = $('#rmImg'); if (rm) rm.hidden = !src; };
+  const takeFile = f => {
+    if (!f || !/^image\/(png|jpeg|webp|gif)$/.test(f.type)) { toast('הקובץ אינו תמונה מסוג PNG, JPG או WEBP.', true); return; }
+    if (f.size > 8 * 1024 * 1024) { toast('התמונה גדולה מ-8MB.', true); return; }
+    pendingFile = f; setPrev(URL.createObjectURL(f));
+  };
+  const drop = $('#drop');
+  $('#pickImg').addEventListener('click', () => $('#imgFile').click());
+  $('#imgFile').addEventListener('change', e => takeFile(e.target.files[0]));
+  $('#rmImg').addEventListener('click', () => { img = null; pendingFile = null; setPrev(null); });
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+  drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('over'); takeFile(e.dataTransfer.files[0]); });
+  pasteHandler = e => { const it = [...((e.clipboardData && e.clipboardData.items) || [])].find(i => i.type.startsWith('image/')); if (it) { e.preventDefault(); takeFile(it.getAsFile()); } };
+  document.addEventListener('paste', pasteHandler);
+  $('#fCancel').addEventListener('click', closeOverlay);
+  $('#stkForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const ticker = $('#f-ticker').value.trim().toUpperCase().replace(/\s+/g, '');
+    if (!/^[A-Z0-9][A-Z0-9._:\-]{0,19}$/.test(ticker)) { toast('סימול לא תקין. אותיות לטיניות, ספרות ונקודה בלבד.', true); return; }
+    if (!ex && S.stk.has(ticker)) { toast('המניה כבר קיימת. פתחו אותה ועדכנו את הניתוח.', true); return; }
+    const btn = $('#fSave'); btn.disabled = true; btn.textContent = 'שומר…';
+    try {
+      if (pendingFile) { btn.textContent = 'מעלה גרף…'; const up = await api('POST', '/api/img', undefined, pendingFile); img = up.id; }
+      const doc = {
+        name: $('#f-name').value.trim(), sector: $('#f-sector').value.trim(), bias: $('#f-bias').value, horizon: $('#f-horizon').value,
+        price: $('#f-price').value === '' ? null : +$('#f-price').value, headline: $('#f-headline').value.trim(),
+        points: $('#f-points').value.split(/\r?\n/).map(x => x.replace(/^[-•*]\s*/, '').trim()).filter(Boolean),
+        support: $('#f-support').value.trim(), resistance: $('#f-resistance').value.trim(), stop: $('#f-stop').value.trim(), target: $('#f-target').value.trim(),
+        setup: $('#f-setup').value.trim(), body: $('#f-body').value.trim(), tvUrl: $('#f-tv').value.trim(), img: img || null, status: 'active',
+      };
+      const saved = await api('PUT', '/api/stocks/' + encodeURIComponent(ticker), doc);
+      S.stk.set(ticker, saved);
+      closeOverlay(); toast('הניתוח נשמר'); openStock(ticker);
+    } catch (err) { btn.disabled = false; btn.textContent = 'שמירה'; toast(apiErr(err), true); }
+  });
+}
+function openHoldingsImport() {
+  const html = `<div class="sh-head"><div><h2>ייבוא רשימת אחזקות</h2><div class="sub">יוצר כרטיס "ממתין לניתוח" לכל מניה שעוד אין לה כרטיס</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="holdForm"><label class="field"><span>מניה בכל שורה: סימול, שם, סקטור (השם והסקטור לא חובה)</span><textarea id="holdTxt" rows="10" dir="ltr" placeholder="AAPL, Apple, Technology&#10;MSFT, Microsoft, Technology&#10;TEVA, Teva, Healthcare"></textarea><small>אפשר להדביק עמודות ישירות מאקסל.</small></label>
+    <div class="actions"><button type="button" class="btn ghost" id="hCancel">ביטול</button><button type="submit" class="btn" id="hSave">ייבוא</button></div></form>`;
+  openOverlay(html, true);
+  $('#hCancel').addEventListener('click', closeOverlay);
+  $('#holdForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const rows = $('#holdTxt').value.split(/\r?\n/).map(l => l.split(/\t|,|;/).map(x => x.trim())).filter(r => r[0]);
+    const add = [];
+    for (const r of rows) { const t = r[0].toUpperCase().replace(/\s+/g, ''); if (!/^[A-Z0-9][A-Z0-9._:\-]{0,19}$/.test(t) || S.stk.has(t) || add.some(a => a.ticker === t)) continue; add.push({ ticker: t, name: r[1] || '', sector: r[2] || '' }); }
+    if (!add.length) { toast('לא נמצאו מניות חדשות להוספה.', true); return; }
+    const b = $('#hSave'); b.disabled = true; b.textContent = 'מייבא…';
+    try { const res = await api('POST', '/api/stocks-bulk', { items: add }); await refreshState(); closeOverlay(); toast(`נוספו ${res.added} מניות`); }
+    catch (err) { b.disabled = false; b.textContent = 'ייבוא'; toast(apiErr(err), true); }
+  });
+}
+function openNoteEditor() {
+  const html = `<div class="sh-head"><div><h2>שורה תחתונה</h2><div class="sub">מוצג בראש לשונית הסנטימנט לכל הצוות</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="noteForm"><label class="field"><span>הסיכום שלך על מצב השוק</span><textarea id="noteTxt" rows="9" placeholder="שורה שמתחילה ב-&quot;-&quot; תוצג כנקודה">${esc((S.note && S.note.text) || '')}</textarea></label>
+    <div class="actions"><button type="button" class="btn ghost" id="nCancel">ביטול</button><button type="submit" class="btn" id="nSave">שמירה</button></div></form>`;
+  openOverlay(html, true);
+  $('#nCancel').addEventListener('click', closeOverlay);
+  $('#noteForm').addEventListener('submit', async e => {
+    e.preventDefault(); const b = $('#nSave'); b.disabled = true;
+    try { S.note = await api('PUT', '/api/note', { text: $('#noteTxt').value.trim() }); closeOverlay(); toast('הסיכום נשמר'); renderNote(); }
+    catch (err) { b.disabled = false; toast(apiErr(err), true); }
+  });
+}
+function askConfirm(text, okLabel = 'אישור') {
+  return new Promise(res => {
+    const wrap = document.createElement('div'); wrap.className = 'ov'; wrap.style.zIndex = '65'; wrap.style.placeItems = 'center';
+    wrap.innerHTML = `<div class="sheet narrow" role="alertdialog" aria-modal="true"><div class="sh-body"><p style="margin:0;font-size:15px">${esc(text)}</p><div class="actions"><button type="button" class="btn ghost" data-a="0">ביטול</button><button type="button" class="btn" data-a="1">${esc(okLabel)}</button></div></div></div>`;
+    document.body.appendChild(wrap);
+    const done = v => { wrap.remove(); res(v); };
+    wrap.addEventListener('click', e => { const a = e.target.closest('[data-a]'); if (a) done(a.dataset.a === '1'); else if (e.target === wrap) done(false); });
+    setTimeout(() => wrap.querySelector('[data-a="1"]').focus(), 0);
+  });
+}
+
+// ---------------- manage tab ----------------
+function renderManage() {
+  const el = $('#manage');
+  if (!S.canEdit) { el.innerHTML = '<p class="muted">המסך הזה זמין במצב עורך בלבד.</p>'; return; }
+  const st = S.status;
+  const srcRows = st && Array.isArray(st.sources) ? st.sources.map(x => `<tr><td>${esc(x.name)}</td><td>${x.ok ? '<span class="chip s-g">תקין</span>' : '<span class="chip s-xf">נכשל</span>'}</td><td>${esc(x.asOf ? fmtDate(x.asOf) : '')}</td><td style="white-space:normal">${esc(x.msg || '')}</td></tr>`).join('') : '';
+  const inds = [...S.ind.values()].sort(byOrder);
+  const pts = S.custom.points || {};
+  const indRows = inds.map(i => {
+    const s = S.ser.get(i.id); const fr = fresh(i.id); const nMan = pts[i.id] ? Object.keys(pts[i.id]).length : 0;
+    const kind = i.derive ? 'מחושב' : i.custom ? 'ידני (חדש)' : i.auto ? 'אוטומטי' : 'ידני';
+    return `<tr><td><b>${esc(i.name)}</b><div class="small muted"><span class="ltr">${esc(i.id)}</span></div></td><td>${(GROUPS.find(g => g[0] === (i.group || 'other')) || [])[1] || ''}</td><td>${FREQ_LABEL[i.freq] || ''}</td><td>${kind}${nMan ? `<div class="small muted">${nMan} ערכים ידניים</div>` : ''}</td><td>${s ? fmtDate(s.d[s.d.length - 1]) + (fr.ok ? '' : ' <span class="chip chip-w">לא עדכני</span>') : '<span class="muted">אין</span>'}</td><td>${s ? ltr(s.d.length.toLocaleString('en-US')) : '0'}</td><td>${i.pin ? '✓' : ''}</td><td>${i.comp ? '✓' : ''}</td>
+      <td><div class="actions" style="justify-content:flex-start;flex-wrap:nowrap"><button type="button" class="btn ghost sm" data-ed="${esc(i.id)}">הגדרות</button>${i.derive ? '' : `<button type="button" class="btn ghost sm" data-val="${esc(i.id)}">ערך</button><button type="button" class="btn ghost sm" data-imp="${esc(i.id)}">CSV</button>`}</div></td></tr>`;
+  }).join('');
+  el.innerHTML = `
+    <section class="mcard"><div class="panel-head"><h2>עדכון אוטומטי</h2><span class="small muted">GitHub Actions, כל לילה אחרי סגירת וול סטריט (שני–שישי)</span></div>
+      ${st ? `<div class="srcrow"><b>ריצה אחרונה:</b> ${esc(new Date(st.lastRun).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' }))} ${st.ok === false ? '<span class="chip s-xf">חלקי</span>' : '<span class="chip s-g">הושלם</span>'}</div>${srcRows ? `<div class="tbl-wrap"><table class="ft"><thead><tr><th>מקור</th><th>מצב</th><th>נתון אחרון</th><th>פירוט</th></tr></thead><tbody>${srcRows}</tbody></table></div>` : ''}` : '<p class="muted" style="margin:0">עדיין לא נרשמה ריצה.</p>'}
+    </section>
+    <section class="mcard"><div class="panel-head"><h2>אינדיקטורים</h2><div class="actions"><button type="button" class="btn" id="mNew">אינדיקטור חדש</button><button type="button" class="btn ghost" id="mNote">עריכת השורה התחתונה</button></div></div>
+      <p class="small muted" style="margin:0">"בלוח" = מוצג בלשונית הסנטימנט. "במדד" = נכלל במדד הסנטימנט של פורטה. ערכים ידניים (הזנה או ייבוא CSV, למשל Download chart data מ-TradingView) גוברים על הנתון האוטומטי באותו תאריך.</p>
+      <div class="tbl-wrap"><table class="ft"><thead><tr><th>שם</th><th>קבוצה</th><th>תדירות</th><th>עדכון</th><th>נתון אחרון</th><th>תצפיות</th><th>בלוח</th><th>במדד</th><th></th></tr></thead><tbody>${indRows || '<tr><td colspan="9" class="muted">אין אינדיקטורים.</td></tr>'}</tbody></table></div>
+    </section>`;
+  $('#mNew').addEventListener('click', () => openIndEditor(null));
+  $('#mNote').addEventListener('click', openNoteEditor);
+  $$('[data-ed]', el).forEach(b => b.addEventListener('click', () => openIndEditor(b.dataset.ed)));
+  $$('[data-val]', el).forEach(b => b.addEventListener('click', () => openValueEditor(b.dataset.val)));
+  $$('[data-imp]', el).forEach(b => b.addEventListener('click', () => openImport(b.dataset.imp)));
+}
+async function saveCustom(backup) {
+  try { await api('PUT', '/api/custom', S.custom); }
+  catch (e) { if (backup) S.custom = JSON.parse(backup); rebuildIndicators(); rebuildSeries(); schedule(); throw e; }
+  rebuildIndicators(); rebuildSeries(); schedule();
+}
+function openIndEditor(id) {
+  const ex = id ? S.ind.get(id) : null; const i = ex || { group: 'sent', freq: 'd', pol: 1, dec: 2, pin: true, comp: false, order: 100 };
+  const refsTxt = (i.refs || []).map(r => `${r.v}:${r.t || ''}`).join('; ');
+  const html = `<div class="sh-head"><div><h2>${ex ? 'הגדרות · ' + esc(ex.name) : 'אינדיקטור חדש'}</h2><div class="sub">${ex ? 'מזהה: ' + esc(ex.id) + (ex.base ? ' · אינדיקטור מובנה' : '') : 'אחרי השמירה אפשר להזין ערכים או לייבא CSV'}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="indForm" novalidate><div class="formgrid">
+      <label class="field"><span>שם בלוח</span><input type="text" id="i-name" value="${esc(i.name || '')}" required></label>
+      <label class="field"><span>תיאור קצר / סימבול</span><input type="text" id="i-short" value="${esc(i.short || '')}" placeholder="למשל USI:PCC"></label>
+      ${ex ? '' : `<label class="field"><span>מזהה באנגלית</span><input type="text" id="i-id" dir="ltr" placeholder="nyse_adr"><small>אותיות קטנות, ספרות וקו תחתון. לא ניתן לשנות אחר כך.</small></label>`}
+      <label class="field"><span>קבוצה</span><select id="i-group">${GROUPS.filter(g => g[0] !== 'macro').map(([k, v]) => `<option value="${k}"${i.group === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+      <label class="field"><span>תדירות</span><select id="i-freq">${Object.entries(FREQ_LABEL).map(([k, v]) => `<option value="${k}"${i.freq === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+      <label class="field"><span>כיוון</span><select id="i-pol"><option value="1"${i.pol === 1 ? ' selected' : ''}>ערך גבוה = חמדנות</option><option value="-1"${i.pol === -1 ? ' selected' : ''}>ערך גבוה = פחד</option><option value="0"${!i.pol ? ' selected' : ''}>בלי פרשנות פחד/חמדנות</option></select></label>
+      <label class="field"><span>יחידה</span><select id="i-unit"><option value=""${!i.unit ? ' selected' : ''}>ללא</option><option value="%"${i.unit === '%' ? ' selected' : ''}>%</option></select></label>
+      <label class="field"><span>ספרות אחרי הנקודה</span><input type="number" id="i-dec" min="0" max="5" value="${esc(i.dec ?? 2)}"></label>
+      <label class="field"><span>סדר בלוח</span><input type="number" id="i-order" value="${esc(i.order ?? 100)}"></label>
+      <div class="field"><span>תצוגה</span><label class="chk" for="i-pin"><input type="checkbox" id="i-pin"${i.pin ? ' checked' : ''}>מוצג בלשונית הסנטימנט</label><label class="chk" for="i-comp"><input type="checkbox" id="i-comp"${i.comp ? ' checked' : ''}>נכלל במדד הסנטימנט של פורטה</label></div>
+      <label class="field full"><span>מה זה ואיך לקרוא</span><textarea id="i-desc" rows="3">${esc(i.desc || '')}</textarea></label>
+      <label class="field full"><span>הערה</span><input type="text" id="i-note" value="${esc(i.note || '')}"></label>
+      <label class="field"><span>מקור</span><input type="text" id="i-src" value="${esc(i.src || '')}"></label>
+      <label class="field"><span>קישור למקור</span><input type="url" id="i-srcUrl" dir="ltr" value="${esc(i.srcUrl || '')}"></label>
+      <label class="field full"><span>קווי ייחוס בגרף</span><input type="text" id="i-refs" dir="ltr" value="${esc(refsTxt)}" placeholder="6.5:ממוצע ארוך טווח; 1.2:סף"><small>ערך:תווית, מופרדים בנקודה-פסיק.</small></label>
+    </div>
+    <div class="actions">${ex && ex.custom ? '<button type="button" class="btn danger" id="iDel">מחיקת האינדיקטור</button>' : ''}${ex && ex.base && (S.custom.overrides || {})[ex.id] ? '<button type="button" class="btn ghost" id="iReset">חזרה להגדרות המקור</button>' : ''}<span style="flex:1"></span><button type="button" class="btn ghost" id="iCancel">ביטול</button><button type="submit" class="btn" id="iSave">שמירה</button></div></form>`;
+  openOverlay(html, true);
+  $('#iCancel').addEventListener('click', closeOverlay);
+  const del = $('#iDel');
+  if (del) del.addEventListener('click', async () => {
+    if (!(await askConfirm(`למחוק את "${ex.name}" ואת כל הנתונים שלו? אי אפשר לבטל.`, 'מחיקה סופית'))) return;
+    const backup = JSON.stringify(S.custom);
+    delete S.custom.indicators[ex.id]; delete S.custom.points[ex.id];
+    try { await saveCustom(backup); closeOverlay(); toast('נמחק'); } catch (err) { toast(apiErr(err), true); }
+  });
+  const reset = $('#iReset');
+  if (reset) reset.addEventListener('click', async () => {
+    const backup = JSON.stringify(S.custom); delete S.custom.overrides[ex.id];
+    try { await saveCustom(backup); closeOverlay(); toast('ההגדרות שוחזרו'); } catch (err) { toast(apiErr(err), true); }
+  });
+  $('#indForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = $('#i-name').value.trim(); if (!name) { toast('צריך שם לאינדיקטור.', true); return; }
+    const nid = ex ? ex.id : $('#i-id').value.trim().toLowerCase();
+    if (!ex) { if (!/^[a-z][a-z0-9_]{1,30}$/.test(nid)) { toast('מזהה לא תקין: אות לטינית קטנה ואחריה אותיות, ספרות או קו תחתון.', true); return; } if (S.ind.has(nid)) { toast('המזהה כבר בשימוש.', true); return; } }
+    const refs = $('#i-refs').value.split(';').map(x => x.trim()).filter(Boolean).map(x => { const [v, ...t] = x.split(':'); return { v: +v, t: t.join(':').trim() }; }).filter(r => isFinite(r.v));
+    const fields = { name, short: $('#i-short').value.trim(), group: $('#i-group').value, freq: $('#i-freq').value, pol: +$('#i-pol').value, unit: $('#i-unit').value,
+      dec: Math.max(0, Math.min(5, +$('#i-dec').value || 0)), order: +$('#i-order').value || 100, pin: $('#i-pin').checked, comp: $('#i-comp').checked,
+      desc: $('#i-desc').value.trim(), note: $('#i-note').value.trim(), src: $('#i-src').value.trim(), srcUrl: $('#i-srcUrl').value.trim(), refs };
+    const backup = JSON.stringify(S.custom);
+    if (ex && ex.base) {
+      const orig = S.meta.indicators.find(x => x.id === ex.id) || {};
+      const ov = {};
+      for (const [k, v] of Object.entries(fields)) { const o = orig[k] ?? (k === 'refs' ? [] : k === 'unit' ? '' : undefined); if (JSON.stringify(v) !== JSON.stringify(o)) ov[k] = v; }
+      S.custom.overrides[ex.id] = ov;
+    } else {
+      S.custom.indicators[nid] = { ...(ex || {}), ...fields, id: nid, auto: false };
+      delete S.custom.indicators[nid].custom;
+    }
+    const b = $('#iSave'); b.disabled = true;
+    try { await saveCustom(backup); closeOverlay(); toast('נשמר'); if (!ex) openImport(nid); }
+    catch (err) { b.disabled = false; toast(apiErr(err), true); }
+  });
+}
+async function writePoints(id, pts, replace = false) {
+  const backup = JSON.stringify(S.custom);
+  const cur = replace ? {} : { ...((S.custom.points || {})[id] || {}) };
+  Object.assign(cur, pts);
+  S.custom.points[id] = cur;
+  await saveCustom(backup);
+}
+function openValueEditor(id) {
+  const ind = S.ind.get(id); if (!ind) return;
+  const s = S.ser.get(id); const man = (S.custom.points || {})[id] || {};
+  const last = s ? s.d.slice(-8).reverse().map((d, i) => `<tr><td>${fmtDate(d)}</td><td>${ltr(fmtVal(ind, s.v[s.v.length - 1 - i]))}</td><td class="small muted">${d in man ? 'ידני' : ''}</td></tr>`).join('') : '';
+  const today = new Date().toISOString().slice(0, 10);
+  const html = `<div class="sh-head"><div><h2>הזנת ערך · ${esc(ind.name)}</h2><div class="sub">ערך לתאריך קיים יחליף אותו. השאירו ערך ריק כדי להסיר את התאריך.</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="valForm"><div class="formgrid"><label class="field"><span>תאריך</span><input type="date" id="v-date" value="${today}" dir="ltr"></label><label class="field"><span>ערך</span><input type="number" step="any" id="v-val" dir="ltr"></label></div>
+    ${last ? `<div class="tbl-wrap"><table class="ft"><thead><tr><th>תאריך</th><th>ערכים אחרונים</th><th></th></tr></thead><tbody>${last}</tbody></table></div>` : ''}
+    <div class="actions"><button type="button" class="btn ghost" id="vCancel">סגירה</button><button type="submit" class="btn" id="vSave">שמירה</button></div></form>`;
+  openOverlay(html, true);
+  $('#vCancel').addEventListener('click', closeOverlay);
+  $('#valForm').addEventListener('submit', async e => {
+    e.preventDefault(); const d = $('#v-date').value; const raw = $('#v-val').value.trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) { toast('בחרו תאריך.', true); return; }
+    const b = $('#vSave'); b.disabled = true;
+    try {
+      if (raw === '') {
+        const has = s && s.d.includes(d);
+        if (!has && !(d in man)) { toast('אין ערך בתאריך הזה.', true); b.disabled = false; return; }
+        const base = S.base.get(id); const inBase = base && base.d.includes(d);
+        const backup = JSON.stringify(S.custom); const cur = { ...man };
+        if (inBase) cur[d] = null; else delete cur[d];
+        S.custom.points[id] = cur; await saveCustom(backup); toast('התאריך הוסר');
+      } else { const v = +raw; if (!isFinite(v)) throw new Error('nan'); await writePoints(id, { [d]: v }); toast('נשמר'); }
+      closeOverlay(); openValueEditor(id);
+    } catch (err) { b.disabled = false; toast(err && err.status ? apiErr(err) : 'ערך לא תקין.', true); }
+  });
+}
+// CSV import
+function parseCSV(text) {
+  text = text.replace(/^﻿/, '');
+  const first = text.split(/\r?\n/).find(l => l.trim()) || '';
+  const delim = ['\t', ';', ','].map(d => [d, first.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; continue; }
+    if (c === '"') q = true; else if (c === delim) { row.push(cell); cell = ''; } else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); cell = ''; if (row.some(x => x.trim() !== '')) rows.push(row); row = []; } else cell += c;
+  }
+  row.push(cell); if (row.some(x => x.trim() !== '')) rows.push(row);
+  return rows.map(r => r.map(x => x.trim()));
+}
+function numOf(x) { if (x == null) return NaN; const s = String(x).replace(/[%\s]/g, '').replace(/,(?=\d{3}(\D|$))/g, ''); return s === '' ? NaN : +s.replace(',', '.'); }
+function dateOf(x, fmt) {
+  x = String(x || '').trim(); if (!x) return null;
+  let m;
+  if ((m = x.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/))) return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
+  if (/^\d{10}$/.test(x)) return isoOf(+x * 1000);
+  if (/^\d{13}$/.test(x)) return isoOf(+x);
+  if ((m = x.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{2,4})/))) {
+    let a = +m[1], b = +m[2], y = +m[3]; if (y < 100) y += y < 70 ? 2000 : 1900;
+    let d, mo; if (fmt === 'mdy') { mo = a; d = b; } else { d = a; mo = b; }
+    if (mo > 12 || d > 31) return null;
+    return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  }
+  if (/^\d{5}(\.\d+)?$/.test(x) && +x > 20000 && +x < 80000) return isoOf(Date.UTC(1899, 11, 30) + Math.floor(+x) * DAY);
+  const t = Date.parse(x); if (isFinite(t)) return isoOf(t);
+  return null;
+}
+function openImport(id) {
+  const ind = S.ind.get(id); if (!ind) return;
+  let rows = [], header = null;
+  const html = `<div class="sh-head"><div><h2>ייבוא CSV · ${esc(ind.name)}</h2><div class="sub">למשל ייצוא מ-TradingView: Download chart data. מזהים תאריך ועמודת ערך.</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <div class="sh-body">
+      <div class="formgrid">
+        <label class="field full"><span>קובץ</span><input type="file" id="cFile" accept=".csv,.txt,.tsv,text/csv"></label>
+        <label class="field full"><span>או הדבקה של הטקסט</span><textarea id="cTxt" rows="5" dir="ltr" placeholder="time,open,high,low,close"></textarea></label>
+      </div>
+      <div id="cCfg"></div>
+      <div id="cPrev" class="preview"></div>
+      <div class="actions"><label class="chk" for="cReplace" style="margin-inline-end:auto"><input type="checkbox" id="cReplace">${ind.custom ? "להחליף את כל הנתונים הקיימים" : "להחליף את הנתונים הידניים הקודמים"}</label><button type="button" class="btn ghost" id="cCancel">סגירה</button><button type="button" class="btn" id="cGo" disabled>ייבוא</button></div>
+    </div>`;
+  openOverlay(html, true);
+  $('#cCancel').addEventListener('click', closeOverlay);
+  const load = text => {
+    rows = parseCSV(text); if (!rows.length) { $('#cCfg').innerHTML = ''; $('#cPrev').innerHTML = '<p class="muted">לא נמצאו שורות.</p>'; return; }
+    header = rows[0].some(c => isNaN(numOf(c)) && !dateOf(c)) ? rows.shift() : null;
+    const ncol = Math.max(...rows.slice(0, 50).map(r => r.length));
+    const names = Array.from({ length: ncol }, (_, i) => header && header[i] ? header[i] : `עמודה ${i + 1}`);
+    let dcol = names.findIndex(n => /date|time|תאריך/i.test(n)); if (dcol < 0) dcol = 0;
+    let vcol = names.findIndex(n => /^close$|^px_last$|^value$|^ערך$|^last$/i.test(n));
+    if (vcol < 0) { for (let i = ncol - 1; i >= 0; i--) if (i !== dcol && rows.slice(0, 20).every(r => !isNaN(numOf(r[i])))) { vcol = i; break; } }
+    if (vcol < 0) vcol = Math.min(1, ncol - 1);
+    const opt = (sel) => names.map((n, i) => `<option value="${i}"${i === sel ? ' selected' : ''}>${esc(n)}</option>`).join('');
+    $('#cCfg').innerHTML = `<div class="formgrid"><label class="field"><span>עמודת תאריך</span><select id="cD">${opt(dcol)}</select></label><label class="field"><span>עמודת ערך</span><select id="cV">${opt(vcol)}</select></label><label class="field"><span>סדר בתאריך עם לוכסן</span><select id="cF"><option value="dmy">יום/חודש/שנה</option><option value="mdy">חודש/יום/שנה (אמריקאי)</option></select></label><label class="field"><span>להכפיל ב-</span><input type="number" step="any" id="cMul" value="1" dir="ltr"><small>למשל 100 אם הערכים בשברים ורוצים אחוזים</small></label></div>`;
+    ['cD', 'cV', 'cF', 'cMul'].forEach(k => $('#' + k).addEventListener('input', preview));
+    preview();
+  };
+  let parsed = {};
+  const preview = () => {
+    const dc = +$('#cD').value, vc = +$('#cV').value, f = $('#cF').value, mul = +$('#cMul').value || 1;
+    parsed = {}; let bad = 0;
+    for (const r of rows) { const d = dateOf(r[dc], f); const v = numOf(r[vc]); if (!d || !isFinite(v)) { bad++; continue; } parsed[d] = Math.round(v * mul * 1e6) / 1e6; }
+    const ks = Object.keys(parsed).sort(); const vs = ks.map(k => parsed[k]);
+    const s = S.ser.get(id); const overlap = s ? ks.filter(k => s.d.includes(k)).length : 0;
+    $('#cPrev').innerHTML = ks.length ? `<div class="tbl-wrap"><table class="ft"><tbody>
+      <tr><td>שורות תקינות</td><td>${ltr(ks.length.toLocaleString('en-US'))}${bad ? ` · ${bad} שורות דולגו` : ''}</td></tr>
+      <tr><td>טווח תאריכים</td><td>${fmtDate(ks[0])} – ${fmtDate(ks[ks.length - 1])}</td></tr>
+      <tr><td>ראשון / אחרון</td><td>${ltr(fmtN(vs[0], 4))} / ${ltr(fmtN(vs[vs.length - 1], 4))}</td></tr>
+      <tr><td>מינימום / מקסימום</td><td>${ltr(fmtN(Math.min(...vs), 4))} / ${ltr(fmtN(Math.max(...vs), 4))}</td></tr>
+      <tr><td>תאריכים שכבר קיימים</td><td>${ltr(overlap.toLocaleString('en-US'))} (הערכים שלהם יוחלפו)</td></tr></tbody></table></div>` : '<p class="muted">לא זוהו תאריכים וערכים. בדקו את בחירת העמודות.</p>';
+    $('#cGo').disabled = !ks.length;
+  };
+  $('#cFile').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => load(String(r.result)); r.readAsText(f); });
+  $('#cTxt').addEventListener('input', e => { if (e.target.value.trim()) load(e.target.value); });
+  $('#cGo').addEventListener('click', async () => {
+    const n = Object.keys(parsed).length; if (!n) return;
+    const rep = $('#cReplace').checked;
+    if (rep && !(await askConfirm(ind.custom ? `להחליף את כל ההיסטוריה של "${ind.name}" ב-${n} הנקודות מהקובץ?` : `למחוק את הערכים הידניים הקודמים של "${ind.name}" ולשמור רק את ${n} הנקודות מהקובץ? ההיסטוריה האוטומטית נשמרת.`, 'החלפה'))) return;
+    const b = $('#cGo'); b.disabled = true; b.textContent = 'מייבא…';
+    try { await writePoints(id, parsed, rep); closeOverlay(); toast(`יובאו ${n.toLocaleString('en-US')} נקודות`); }
+    catch (err) { b.disabled = false; b.textContent = 'ייבוא'; toast(apiErr(err), true); }
+  });
+}
+
+// ---------------- leading indices & factor momentum ----------------
+const TREND = { up: ['מגמה עולה', 's-g'], down: ['מגמה יורדת', 's-f'], pullback: ['תיקון במגמה עולה', 's-n'], rebound: ['התאוששות במגמה יורדת', 's-n'], mixed: ['ללא מגמה ברורה', 's-n'], na: ['—', ''] };
+const QUAD = { lead: ['מובילים', 's-g'], weak: ['נחלשים', 'chip-w'], lag: ['מפגרים', 's-f'], impr: ['משתפרים', 's-n'] };
+const NEUTRAL_SYMS = new Set(['ILS=X', 'DX-Y.NYB', '^TNX']);
+let idxCharts = [];
+async function loadMarkets() { if (!S.mk) S.mk = await fetchJSON('data/markets.json'); return S.mk; }
+async function loadPrices() { if (!S.px) S.px = await fetchJSON('data/prices.json'); return S.px; }
+function disposeIdxCharts() { idxCharts.forEach(c => { try { c.dispose(); } catch (e) { /* already gone */ } }); idxCharts = []; }
+function quadOf(it) {
+  const p = it.rrg && it.rrg[it.rrg.length - 1]; if (!p) return null;
+  const [x, y] = p; return x >= 100 ? (y >= 100 ? 'lead' : 'weak') : (y >= 100 ? 'impr' : 'lag');
+}
+function chgTd(v, it, cls = '') {
+  if (v == null || !isFinite(v)) return `<td class="${cls} muted">—</td>`;
+  const neutral = it && (NEUTRAL_SYMS.has(it.sym) || it.chgMode === 'pp');
+  const c = neutral ? '' : v > 0 ? 'up-g' : v < 0 ? 'up-f' : '';
+  const txt = it && it.chgMode === 'pp' ? `${ltr(fmtS(v * 100, 0))} נ"ב` : ltr(fmtPct(v));
+  return `<td class="${cls} ${c}">${txt}</td>`;
+}
+function priceFmt(it, v) {
+  if (v == null || !isFinite(v)) return '—';
+  if (it.unit === '%') return fmtN(v, 2) + '%';
+  const dec = v >= 1000 ? 0 : v >= 10 ? 2 : 3;
+  return fmtN(v, dec);
+}
+function miniSpark(arr, w = 110, h = 28) {
+  const v = (arr || []).filter(x => x != null && isFinite(x)); if (v.length < 2) return '';
+  let lo = Math.min(...v), hi = Math.max(...v); if (hi === lo) { hi += 1; lo -= 1; }
+  const X = i => (i / (v.length - 1)) * (w - 4) + 2, Y = y => h - 3 - (y - lo) / (hi - lo) * (h - 6);
+  const up = v[v.length - 1] >= v[0];
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true" dir="ltr" class="msp"><polyline points="${v.map((y, i) => `${X(i).toFixed(1)},${Y(y).toFixed(1)}`).join(' ')}" fill="none" stroke="${up ? 'var(--greed)' : 'var(--fear)'}" stroke-width="1.4" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><circle cx="${X(v.length - 1).toFixed(1)}" cy="${Y(v[v.length - 1]).toFixed(1)}" r="2.2" fill="var(--ink)"/></svg>`;
+}
+function rsiTd(r) {
+  if (r == null) return '<td class="muted">—</td>';
+  const c = r >= 70 ? 'rsi-hi' : r <= 30 ? 'rsi-lo' : '';
+  return `<td><span class="rsi ${c}">${ltr(fmtN(r, 0))}</span></td>`;
+}
+function renderIndices() {
+  const el = $('#idxBody');
+  disposeIdxCharts();
+  if (!S.mk) {
+    el.innerHTML = '<p class="muted">טוען נתוני מדדים…</p>';
+    loadMarkets().then(() => { if (S.tab === 'indices') renderIndices(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני המדדים. רעננו את הדף.</div>'; });
+    return;
+  }
+  const mk = S.mk, items = mk.items;
+  $('#idxAsof').textContent = `נכון לסגירת ${fmtDate(mk.asof)}`;
+  const eq = mk.groups.filter(g => ['us', 'il', 'eu', 'asia'].includes(g.id)).flatMap(g => g.items).filter(s => items[s] && items[s].m1 != null);
+  const best = eq.slice().sort((a, b) => items[b].m1 - items[a].m1)[0], worst = eq.slice().sort((a, b) => items[a].m1 - items[b].m1)[0];
+  const ac = mk.avgCorr && mk.avgCorr.v && mk.avgCorr.v.length ? mk.avgCorr : null;
+  let acNow = null, acPct = null;
+  if (ac) { acNow = ac.v[ac.v.length - 1]; acPct = ac.v.filter(x => x < acNow).length / ac.v.length * 100; }
+  const b = mk.breadth || {};
+  const tiles = `<section class="tiles idx-tiles">
+    <div class="tile"><span class="k">מדדי מניות מעל ממוצע 200</span><span class="val">${ltr(`${b.above200 ?? '—'}/${b.n ?? '—'}`)}</span><span class="s">ארה"ב, ישראל, אירופה ואסיה</span></div>
+    <div class="tile"><span class="k">במגמה עולה / יורדת</span><span class="val">${ltr(`${b.up ?? '—'} / ${b.down ?? '—'}`)}</span><span class="s">מחיר מעל ממוצע 50 מעל ממוצע 200, או ההפך</span></div>
+    ${best ? `<div class="tile"><span class="k">החזק בחודש האחרון</span><span class="val">${esc(items[best].name)}</span><span class="s up-g">${ltr(fmtPct(items[best].m1))}</span></div>` : ''}
+    ${worst ? `<div class="tile"><span class="k">החלש בחודש האחרון</span><span class="val">${esc(items[worst].name)}</span><span class="s up-f">${ltr(fmtPct(items[worst].m1))}</span></div>` : ''}
+    ${ac ? `<div class="tile"><span class="k">כמה הסקטורים זזים יחד</span><span class="val">${ltr(fmtN(acNow, 2))}</span><span class="s">קורלציה ממוצעת, 3 חודשים · אחוזון ${Math.round(acPct)}</span></div>` : ''}
+  </section>`;
+  let rows = '';
+  for (const g of mk.groups.filter(g => g.kind === 'index')) {
+    rows += `<tr class="secr"><td colspan="13">${esc(g.name)}</td></tr>`;
+    for (const s of g.items) {
+      const it = items[s]; if (!it) continue;
+      if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="12" class="muted">אין נתונים</td></tr>`; continue; }
+      const tr = TREND[it.trend] || TREND.na;
+      rows += `<tr class="rowx" data-x="${esc(s)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span>${it.note ? ' · ' + esc(it.note) : ''}</div></td>
+        <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>
+        ${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.m3, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}
+        ${chgTd(it.ma200, { sym: '' })}${rsiTd(it.rsi)}${chgTd(it.dd52, { sym: '' })}
+        <td>${tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.spark)}</td></tr>`;
+    }
+  }
+  const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th>מהשיא</th><th>מגמה</th><th>6 חודשים</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
+  const seg = S.xSeg === 'sectors' ? 'sectors' : 'factors';
+  const fx = (mk.groups.find(g => g.id === seg) || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((a, c) => c.score - a.score);
+  const maxAbs = Math.max(0.0001, ...fx.map(it => Math.abs(it.score)));
+  const frows = fx.map((it, i) => {
+    const q = quadOf(it); const qq = q ? QUAD[q] : null; const ex = it.ex || {};
+    const w = Math.abs(it.score) / maxAbs * 50;
+    return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span></div></td>
+      ${chgTd(ex.m1, it)}${chgTd(ex.m3, it)}${chgTd(ex.m6, it)}${chgTd(ex.y1, it)}
+      <td class="scorec"><div class="sbar" dir="ltr"><i class="${it.score >= 0 ? 'pos' : 'neg'}" style="${it.score >= 0 ? 'left:50%' : `left:${(50 - w).toFixed(1)}%`};width:${w.toFixed(1)}%"></i><b class="mid"></b></div><span class="small ltr num">${fmtS(it.score * 100, 1)}</span></td>
+      <td>${qq ? `<span class="chip ${qq[1]}">${qq[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.rsSpark)}</td></tr>`;
+  }).join('');
+  const fac = `<section class="panel fac">
+    <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד, מדורגות לפי התשואה העודפת שלהן על S&amp;P 500.</p></div>
+      <div class="seg" role="group" aria-label="קבוצה" id="xSeg"><button type="button" data-s="factors" aria-pressed="${seg === 'factors'}">פקטורים</button><button type="button" data-s="sectors" aria-pressed="${seg === 'sectors'}">סקטורים ונושאים</button></div></div>
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${seg === 'factors' ? 'פקטור' : 'סקטור'}</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th><th>מול S&amp;P, 6 ח'</th></tr></thead><tbody>${frows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
+    <p class="small muted" style="margin:0">העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה. הקו האחרון: היחס מול S&amp;P בחצי השנה האחרונה, עולה = מכה את המדד.</p>
+    <div class="ix-grid">
+      <div class="panel inner"><div class="panel-head"><h3>מפת רוטציה</h3><span class="small muted">5 שבועות אחרונים</span></div><div class="chart cx" id="rrgChart" role="img" aria-label="מפת רוטציה של ${seg === 'factors' ? 'פקטורים' : 'סקטורים'} מול S&amp;P 500"></div>
+        <p class="small muted" style="margin:0">ציר אופקי: עוצמה יחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מעל 100 = חזק מהמדד). ציר אנכי: האם העוצמה היחסית מתחזקת בשבועיים האחרונים. הקבוצות נוטות לנוע נגד כיוון השעון: משתפרים, מובילים, נחלשים, מפגרים.</p></div>
+      <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
+        <p class="small muted" style="margin:0">1 = זזים יחד לגמרי, 0 = בלי קשר, מינוס = בכיוונים הפוכים. קבוצות עם קורלציה גבוהה הן בפועל אותו הימור.</p></div>
+    </div>
+    ${ac ? `<div class="panel inner"><div class="panel-head"><h3>כמה השוק זז כגוש אחד</h3><span class="small muted">קורלציה ממוצעת בין 11 סקטורי S&amp;P 500, 3 חודשים מתגלגלים</span></div><div class="chart cx sm" id="acChart" role="img" aria-label="קורלציה ממוצעת בין סקטורים לאורך זמן"></div>
+      <p class="small muted" style="margin:0">ערך גבוה = המניות זזות לפי גורם אחד משותף (מאקרו, פחד), ופיזור בין סקטורים מגן פחות. ערך נמוך = שוק של בחירת מניות. זינוקים חדים בקורלציה מופיעים בדרך כלל בירידות חדות.</p></div>` : ''}
+  </section>`;
+  el.innerHTML = tiles + table + fac;
+  $$('#xSeg button', el).forEach(bt => bt.addEventListener('click', () => { S.xSeg = bt.dataset.s; lsSet('xSeg', S.xSeg); renderIndices(); }));
+  if (typeof echarts === 'undefined') return;
+  drawRotation(fx); drawHeat(seg); if (ac) drawAvgCorr(ac);
+}
+function chartBase() {
+  return { animation: false, backgroundColor: 'transparent', textStyle: { fontFamily: tok('--f-body'), color: tok('--ink-2') } };
+}
+function drawRotation(list) {
+  const el = $('#rrgChart'); if (!el || !list.length) return;
+  const pts = list.flatMap(it => (it.rrg || []).map(p => [p[0], p[1]]));
+  if (!pts.length) return;
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const pad = (a) => Math.max(1, (Math.max(...a.map(v => Math.abs(v - 100)))) * 1.15);
+  const px = pad(xs), py = pad(ys);
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), surface = tok('--surface');
+  const palette = ['#0E6B52', '#B9482A', '#2F6DB5', '#8F5E10', '#6B3FA0', '#13765A', '#C2410C', '#0F766E', '#7C3AED', '#B45309', '#1D4ED8', '#BE123C', '#4D7C0F', '#0369A1', '#9D174D', '#57534E', '#A16207', '#155E75'];
+  const series = list.map((it, i) => {
+    const data = (it.rrg || []).map(p => [p[0], p[1], p[2]]);
+    const col = palette[i % palette.length];
+    return { name: it.name, type: 'line', data, showSymbol: true, symbolSize: (v, p) => (p.dataIndex === data.length - 1 ? 9 : 4), lineStyle: { width: 1.4, color: col, opacity: .75 }, itemStyle: { color: col },
+      label: { show: true, formatter: p => (p.dataIndex === data.length - 1 ? it.name : ''), position: 'right', fontSize: 11, color: ink }, z: 3 };
+  });
+  series.push({ type: 'line', data: [], markArea: { silent: true, itemStyle: { opacity: .5 }, data: [
+    [{ xAxis: 100, yAxis: 100, itemStyle: { color: tok('--greed-bg') } }, { xAxis: 100 + px, yAxis: 100 + py }],
+    [{ xAxis: 100, yAxis: 100 - py, itemStyle: { color: tok('--warn-bg') } }, { xAxis: 100 + px, yAxis: 100 }],
+    [{ xAxis: 100 - px, yAxis: 100 - py, itemStyle: { color: tok('--fear-bg') } }, { xAxis: 100, yAxis: 100 }],
+    [{ xAxis: 100 - px, yAxis: 100, itemStyle: { color: tok('--neutral-bg') } }, { xAxis: 100, yAxis: 100 + py }]] },
+    markLine: { silent: true, symbol: 'none', lineStyle: { color: muted, type: 'dashed' }, label: { show: false }, data: [{ xAxis: 100 }, { yAxis: 100 }] } });
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 44, right: 70, top: 26, bottom: 34 },
+    tooltip: { trigger: 'item', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: p => p.seriesName && p.value ? `<div dir="rtl" style="text-align:right"><b>${esc(p.seriesName)}</b><br>${fmtDate(p.value[2])}<br>עוצמה יחסית: <b dir="ltr">${fmtN(p.value[0], 1)}</b><br>מומנטום: <b dir="ltr">${fmtN(p.value[1], 1)}</b></div>` : '' },
+    xAxis: { type: 'value', min: +(100 - px).toFixed(1), max: +(100 + px).toFixed(1), axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { show: false }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', min: +(100 - py).toFixed(1), max: +(100 + py).toFixed(1), axisLabel: { color: muted, formatter: v => fmtN(v, 1) }, splitLine: { show: false }, axisLine: { lineStyle: { color: line } } },
+    graphic: [
+      { type: 'text', right: 76, top: 30, style: { text: 'מובילים', fill: tok('--greed'), font: '700 12px ' + tok('--f-body') } },
+      { type: 'text', right: 76, bottom: 40, style: { text: 'נחלשים', fill: tok('--warn'), font: '700 12px ' + tok('--f-body') } },
+      { type: 'text', left: 50, bottom: 40, style: { text: 'מפגרים', fill: tok('--fear'), font: '700 12px ' + tok('--f-body') } },
+      { type: 'text', left: 50, top: 30, style: { text: 'משתפרים', fill: tok('--ink-2'), font: '700 12px ' + tok('--f-body') } }],
+    series });
+}
+function drawHeat(seg) {
+  const el = $('#heatChart'); const cm = S.mk.corr && S.mk.corr[seg]; if (!el || !cm || !cm.syms.length) return;
+  const names = cm.syms.map(s => (S.mk.items[s] && S.mk.items[s].name) || (s === 'SPY' ? 'S&P 500' : s));
+  const data = [];
+  cm.m.forEach((row, i) => row.forEach((v, j) => { if (v != null) data.push([j, i, v]); }));
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), surface = tok('--surface');
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 110, right: 12, top: 8, bottom: 96 },
+    tooltip: { backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: p => `<div dir="rtl" style="text-align:right">${esc(names[p.value[1]])} ↔ ${esc(names[p.value[0]])}<br><b dir="ltr">${fmtN(p.value[2], 2)}</b></div>` },
+    xAxis: { type: 'category', data: names, axisLabel: { rotate: 60, color: muted, fontSize: 10, interval: 0 }, axisLine: { lineStyle: { color: line } }, splitArea: { show: false } },
+    yAxis: { type: 'category', data: names, axisLabel: { color: muted, fontSize: 10, interval: 0 }, axisLine: { lineStyle: { color: line } } },
+    visualMap: { min: -1, max: 1, show: false, inRange: { color: [tok('--corr-neg'), tok('--corr-mid'), tok('--corr-pos')] } },
+    series: [{ type: 'heatmap', data, label: { show: names.length <= 14, formatter: p => fmtN(p.value[2], 1), fontSize: 9, color: ink }, itemStyle: { borderColor: surface, borderWidth: 1 } }] });
+}
+function drawAvgCorr(ac) {
+  const el = $('#acChart'); if (!el) return;
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface'), cl = tok('--chart-line');
+  const sorted = ac.v.slice().sort((a, b) => a - b); const q = p => sorted[Math.floor((sorted.length - 1) * p)];
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 44, right: 16, top: 14, bottom: 28 },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right">${fmtDate(ps[0].axisValue)}<br><b dir="ltr">${fmtN(ps[0].value[1], 2)}</b></div>` },
+    xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', scale: true, axisLabel: { color: muted }, splitLine: { lineStyle: { color: line2 } } },
+    series: [{ type: 'line', data: ac.d.map((d, i) => [d, ac.v[i]]), showSymbol: false, lineStyle: { width: 1.5, color: cl }, areaStyle: { color: cl, opacity: .08 },
+      markLine: { symbol: 'none', silent: true, lineStyle: { color: muted, type: 'dashed' }, label: { color: muted, fontSize: 10, formatter: p => p.name }, data: [{ yAxis: q(.1), name: '10%' }, { yAxis: q(.5), name: 'חציון' }, { yAxis: q(.9), name: '90%' }] } }] });
+}
+function idxSummary(it) {
+  const p = [];
+  const tr = it.trend;
+  if (tr === 'mixed') p.push(`${it.name}: ללא מגמה ברורה.`);
+  else if (TREND[tr] && tr !== 'na') p.push(`${it.name} ב${TREND[tr][0]}.`);
+  const side = (v, a, b) => `${fmtN(Math.abs(v) * 100, 1)}% ${v >= 0 ? a : b}`;
+  if (it.ma200 != null && it.ma50 != null) p.push(`השער ${side(it.ma200, 'מעל ', 'מתחת ל')}ממוצע 200 הימים, ו-${side(it.ma50, 'מעל ', 'מתחת ל')}ממוצע 50 הימים.`);
+  if (it.pctD200 != null) {
+    if (it.pctD200 >= 90) p.push(`המרחק מממוצע 200 גבוה מ-${Math.round(it.pctD200)}% מהימים ב-10 השנים האחרונות: המדד מתוח כלפי מעלה.`);
+    else if (it.pctD200 <= 10) p.push(`המרחק מממוצע 200 נמוך מ-${Math.round(100 - it.pctD200)}% מהימים ב-10 השנים האחרונות: המדד מתוח כלפי מטה.`);
+  }
+  if (it.rsi != null) p.push(it.rsi >= 70 ? `RSI ‏${fmtN(it.rsi, 0)}: קניית יתר.` : it.rsi <= 30 ? `RSI ‏${fmtN(it.rsi, 0)}: מכירת יתר.` : `RSI ‏${fmtN(it.rsi, 0)}, באזור ניטרלי.`);
+  if (it.dd52 != null) p.push(it.dd52 > -0.01 ? 'נסחר ליד השיא של 52 השבועות האחרונים.' : `${fmtN(Math.abs(it.dd52) * 100, 1)}% מתחת לשיא של 52 השבועות האחרונים.`);
+  if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים ו-${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. במפת הרוטציה: ${QUAD[q][0]}` : ''}.`); }
+  return p.join(' ');
+}
+let idxChart = null;
+async function openIdx(sym) {
+  const it = S.mk && S.mk.items[sym]; if (!it) return;
+  const isFac = it.score != null || it.ex;
+  const tr = TREND[it.trend] || TREND.na;
+  const ta = it.ta && S.stk.get(it.ta);
+  const tile = (k, v, s = '') => `<div class="tile"><span class="k">${k}</span><span class="val">${v}</span><span class="s">${s}</span></div>`;
+  const pctTxt = (v) => it.chgMode === 'pp' ? `${ltr(fmtS((v ?? NaN) * 100, 0))} נ"ב` : ltr(fmtPct(v));
+  const html = `<div class="sh-head"><div><h2>${esc(it.name)}</h2><div class="sub ltr">${esc(sym)}${it.desc ? ' · ' + esc(it.desc) : ''}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <div class="sh-body">
+      <div class="tiles">
+        ${tile(`שער · ${fmtDate(it.date)}`, ltr(priceFmt(it, it.last)), pctTxt(it.d1) + ' ביום')}
+        ${tile('מתחילת השנה', pctTxt(it.ytd), `12 ח': ${pctTxt(it.y1)}`)}
+        ${tile('מול ממוצע 200', ltr(fmtPct(it.ma200)), it.pctD200 != null ? `אחוזון ${Math.round(it.pctD200)} ב-10 שנים` : '')}
+        ${tile('RSI ‏(14)', ltr(fmtN(it.rsi, 0)), it.rsi >= 70 ? 'קניית יתר' : it.rsi <= 30 ? 'מכירת יתר' : 'ניטרלי')}
+        ${tile('מהשיא, 52 שבועות', ltr(fmtPct(it.dd52)), `טווח ${ltr(priceFmt(it, it.lo52) + ' – ' + priceFmt(it, it.hi52))}`)}
+        ${tile('מגמה', tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—', `תנודתיות 20 יום ${ltr(fmtN((it.vol20 || 0) * 100, 0) + '%')}`)}
+      </div>
+      <section class="sd-box"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>
+        ${ta ? `<div><button type="button" class="btn sm" id="toTa">לניתוח הטכני שלי על ${esc(it.name)}</button></div>` : ''}</section>
+      ${isFac && it.ex ? `<section class="panel"><div class="panel-head"><h3>תשואה עודפת על S&amp;P 500</h3></div><div class="tbl-wrap"><table class="ft"><thead><tr><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th></tr></thead><tbody><tr>${chgTd(it.ex.m1, it)}${chgTd(it.ex.m3, it)}${chgTd(it.ex.m6, it)}${chgTd(it.ex.y1, it)}${chgTd(it.score, it, 'hl')}</tr></tbody></table></div></section>` : ''}
+      <section class="panel">
+        <div class="panel-head">
+          <div class="seg" role="group" aria-label="טווח הגרף" id="xRange"><button type="button" data-r="182">6 ח'</button><button type="button" data-r="365" aria-pressed="true">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827">5 שנים</button><button type="button" data-r="0">10 שנים</button></div>
+          <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
+        </div>
+        <div class="chart" id="xChart" role="img" aria-label="גרף מחיר של ${esc(it.name)} עם ממוצעים נעים"></div>
+        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים.</p>
+      </section>
+    </div>`;
+  openOverlay(html);
+  S.detail = 'x:' + sym;
+  const t = $('#toTa'); if (t) t.addEventListener('click', () => { closeOverlay(); openStock(it.ta); });
+  $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
+  const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
+  try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
+  if ($('#xChart')) { el.innerHTML = ''; drawIdxChart(sym, 365, isFac); }
+}
+function sma(v, n) { const out = new Array(v.length).fill(null); let s = 0; for (let i = 0; i < v.length; i++) { s += v[i]; if (i >= n) s -= v[i - n]; if (i >= n - 1) out[i] = s / n; } return out; }
+function rsiArr(v, n = 14) {
+  const out = new Array(v.length).fill(null); let up = 0, dn = 0;
+  for (let i = 1; i < v.length; i++) {
+    const d = v[i] - v[i - 1], u = Math.max(d, 0), w = Math.max(-d, 0);
+    if (i <= n) { up += u / n; dn += w / n; if (i === n) out[i] = dn ? 100 - 100 / (1 + up / dn) : 100; continue; }
+    up = (up * (n - 1) + u) / n; dn = (dn * (n - 1) + w) / n; out[i] = dn ? 100 - 100 / (1 + up / dn) : 100;
+  }
+  return out;
+}
+function drawIdxChart(sym, rangeDays, isFac) {
+  const el = $('#xChart'); const p = S.px && S.px[sym]; if (!el || !p || typeof echarts === 'undefined') return;
+  const t = p.t.map(x => x * DAY), v = p.v;
+  const m50 = sma(v, 50), m200 = sma(v, 200);
+  let lower;
+  if (isFac && S.px.SPY) {
+    const b = S.px.SPY; const bm = new Map(b.t.map((x, i) => [x, b.v[i]]));
+    lower = { name: 'מול S&P 500', data: p.t.map((x, i) => [x * DAY, bm.has(x) ? +(v[i] / bm.get(x) * 100).toFixed(4) : null]), min: null, max: null };
+  } else {
+    const r = rsiArr(v); lower = { name: 'RSI', data: t.map((x, i) => [x, r[i] == null ? null : +r[i].toFixed(1)]), min: 0, max: 100 };
+  }
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), cl = tok('--chart-line'), c2 = tok('--chart-2'), surface = tok('--surface'), fear = tok('--fear'), greed = tok('--greed');
+  const lastT = t[t.length - 1]; const startV = rangeDays ? lastT - rangeDays * DAY : t[0];
+  if (idxChart) { try { idxChart.dispose(); } catch (e) { /* gone */ } }
+  idxChart = echarts.init(el); chartInst = idxChart;
+  const it = S.mk.items[sym];
+  idxChart.setOption({ ...chartBase(),
+    grid: [{ left: 62, right: 18, top: 16, height: '58%' }, { left: 62, right: 18, top: '74%', height: '14%' }],
+    axisPointer: { link: [{ xAxisIndex: 'all' }], lineStyle: { color: muted } },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => {
+      if (!ps.length) return ''; let h = `<b>${fmtDate(isoOf(ps[0].value[0]))}</b>`;
+      for (const q of ps) { if (q.value[1] == null) continue; h += `<br>${q.marker}${esc(q.seriesName)}: <b dir="ltr">${q.seriesName === 'RSI' ? fmtN(q.value[1], 0) : priceFmt(it, q.value[1])}</b>`; }
+      return `<div dir="rtl" style="text-align:right">${h}</div>`; } },
+    xAxis: [{ type: 'time', gridIndex: 0, axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } }, { type: 'time', gridIndex: 1, axisLabel: { show: false }, axisLine: { lineStyle: { color: line } } }],
+    yAxis: [{ type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } },
+      { type: 'value', gridIndex: 1, scale: lower.min == null, min: lower.min ?? undefined, max: lower.max ?? undefined, splitNumber: 2, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } }],
+    dataZoom: [{ type: 'inside', xAxisIndex: [0, 1], startValue: startV, endValue: lastT }, { type: 'slider', xAxisIndex: [0, 1], bottom: 4, height: 18, startValue: startV, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: x => fmtDate(isoOf(x)) }],
+    series: [
+      { name: it.name, type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, v[i]]), showSymbol: false, lineStyle: { width: 1.6, color: cl }, z: 3 },
+      { name: 'ממוצע 50', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m50[i]]), showSymbol: false, lineStyle: { width: 1, color: c2, type: 'dashed' } },
+      { name: 'ממוצע 200', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m200[i]]), showSymbol: false, lineStyle: { width: 1.2, color: muted, type: 'dotted' } },
+      { name: lower.name, type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: lower.data, showSymbol: false, lineStyle: { width: 1, color: ink }, connectNulls: true,
+        markLine: lower.name === 'RSI' ? { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: greed, type: 'dashed' } }, { yAxis: 30, lineStyle: { color: fear, type: 'dashed' } }] } : undefined },
+    ] });
+}
+
+// ---------------- tabs, events, boot ----------------
+function showTab(t) {
+  if (t === 'manage' && !S.canEdit) t = 'market';
+  S.tab = t;
+  for (const v of ['market', 'indices', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
+  if (t === 'manage') renderManage();
+  if (t === 'analysis') renderAnalysis();
+  if (t === 'indices') renderIndices();
+}
+let rq = 0;
+function schedule() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; renderAll(); }); }
+function renderAll() {
+  $('#tab-manage').hidden = !S.canEdit;
+  renderMarket();
+  if (S.tab === 'analysis') renderAnalysis();
+  if (S.tab === 'manage') renderManage();
+  if (S.tab === 'indices' && !$('#ov')) renderIndices();
+}
+function bind() {
+  $$('.tab').forEach(b => b.addEventListener('click', () => { closeOverlay(); if (b.dataset.tab === 'analysis') { S.openStock = null; } showTab(b.dataset.tab); }));
+  $('#winSeg').addEventListener('click', e => { const b = e.target.closest('button[data-win]'); if (!b) return; S.win = b.dataset.win; lsSet('win', S.win); cache.comp.clear(); renderMarket(); });
+  $('#showAll').addEventListener('change', e => { S.showAll = e.target.checked; lsSet('showAll', S.showAll ? '1' : '0'); renderMarket(); });
+  $('#board').addEventListener('click', e => { const r = e.target.closest('[data-ind]'); if (r) openInd(r.dataset.ind); });
+  $('#board').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-ind]'); if (r) { e.preventDefault(); openInd(r.dataset.ind); } } });
+  $('#xstrip').addEventListener('click', e => { const r = e.target.closest('[data-ind]'); if (r) openInd(r.dataset.ind); });
+  const act = (el, fn) => { el.addEventListener('click', fn); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } }); };
+  act($('#compCard'), () => openInd(COMP_ID));
+  act($('#fgCard'), () => { if (S.ind.has('fg')) openInd('fg'); });
+  $('#noteEdit').addEventListener('click', openNoteEditor);
+  $('#q').addEventListener('input', e => { S.q = e.target.value; renderAnalysis(); });
+  $('#fBias').addEventListener('click', e => { const b = e.target.closest('button[data-b]'); if (!b) return; S.fBias = b.dataset.b; renderAnalysis(); });
+  $('#fSector').addEventListener('change', e => { S.fSector = e.target.value; renderAnalysis(); });
+  $('#fSort').addEventListener('change', e => { S.fSort = e.target.value; renderAnalysis(); });
+  $('#stkGrid').addEventListener('click', e => { const c = e.target.closest('[data-t]'); if (c) openStock(c.dataset.t); });
+  $('#newStock').addEventListener('click', () => openStockEditor(null));
+  $('#idxBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) openIdx(r.dataset.x); });
+  $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
+  $('#importHold').addEventListener('click', openHoldingsImport);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; } if ($('#ov')) closeOverlay(); } });
+  const reTheme = () => {
+    renderMarket();
+    if (S.tab === 'indices' && !$('#ov')) renderIndices();
+    if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
+    if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = S.mk.items[sym]; drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
+  };
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', reTheme); } catch (e) { /* older browsers */ }
+  new MutationObserver(reTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  window.addEventListener('resize', () => { if (chartInst) chartInst.resize(); idxCharts.forEach(c => c.resize()); });
+}
+async function refreshState() { try { applyState(await fetchJSON('/api/state')); schedule(); } catch (e) { /* keep current state */ } }
+function applyState(st) {
+  S.stk = new Map(Object.entries(st.stocks || {}).map(([k, v]) => [k, { ...v, ticker: v.ticker || k }]));
+  S.note = st.note || null;
+  S.custom = { indicators: {}, overrides: {}, points: {}, ...(st.custom || {}) };
+  rebuildIndicators(); rebuildSeries();
+}
+let hashDone = false;
+function applyHash() {
+  if (hashDone || !S.loaded.ind || !S.loaded.ser || !S.loaded.stk) return; hashDone = true;
+  const h = decodeURIComponent((location.hash || '').slice(1));
+  if (h === 'analysis' || h === 'indices' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
+  else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
+  else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
+  else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }
+  else if (h.startsWith('x-')) { showTab('indices'); loadMarkets().then(() => { if (S.mk.items[h.slice(2)]) openIdx(h.slice(2)); }).catch(() => {}); }
+}
+async function boot() {
+  bind(); renderAll();
+  try {
+    const [meta, ser] = await Promise.all([fetchJSON('data/meta.json'), fetchJSON('data/series.json')]);
+    S.meta = meta; S.status = meta.status;
+    for (const [id, o] of Object.entries(ser)) { const t = o.t.map(x => x * DAY); S.base.set(id, { t, v: o.v, d: t.map(isoOf) }); }
+    rebuildIndicators(); rebuildSeries();
+    S.loaded.ind = S.loaded.ser = true;
+  } catch (e) {
+    const b = $('#sysBanner'); b.hidden = false; b.className = 'banner'; b.textContent = 'לא ניתן לטעון את הנתונים. רעננו את הדף.';
+  }
+  schedule();
+  try { applyState(await fetchJSON('/api/state')); }
+  catch (e) { S.api = false; }
+  const code = lsGet('ed', '');
+  if (code && S.api) {
+    S.code = code;
+    try { await api('POST', '/api/auth'); S.canEdit = true; }
+    catch (e) { S.code = null; if (e.status === 401) { try { localStorage.removeItem('fd.ed'); } catch (_) { /* storage unavailable */ } } }
+  }
+  S.loaded.stk = true; schedule(); applyHash();
+  loadMarkets().then(() => { if (S.tab === 'indices' && !$('#ov')) renderIndices(); }).catch(() => { /* shown when the tab opens */ });
+}
+boot();
+})();</script>
+</body>
+</html>

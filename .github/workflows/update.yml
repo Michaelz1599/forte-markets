@@ -1,0 +1,45 @@
+# Daily update after the US close: fetch all sources, update the stored history, rebuild and deploy the site.
+# 21:47 UTC = 00:47 Israel summer time / 23:47 winter time. Mon-Fri. GitHub often starts scheduled runs 30-45 min late.
+name: forte-markets-update
+on:
+  schedule:
+    - cron: "47 21 * * 1-5"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt"]
+permissions:
+  contents: write
+concurrency:
+  group: forte-markets
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      TZ: UTC
+      HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+      - name: Fetch, compute, build site
+        run: python -m pipeline.run
+      - name: Commit data
+        if: always()
+        run: bash .github/commit.sh "daily"
+      - name: Deploy (Cloudflare)
+        if: env.HAS_CF == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          EDITOR_CODE: ${{ secrets.EDITOR_CODE }}
+        run: bash .github/deploy.sh
+      - name: Commit deploy result
+        if: always() && env.HAS_CF == 'true'
+        run: bash .github/commit.sh "deploy"

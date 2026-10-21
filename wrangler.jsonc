@@ -1,0 +1,17 @@
+// Template only. .github/deploy.sh writes wrangler.generated.json from this, adding the KV namespace id
+// (created on the first deploy) and EDITOR_HASH (sha-256 of the EDITOR_CODE secret).
+{
+  "name": "forte-markets",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
+  },
+  "kv_namespaces": [{ "binding": "KV", "id": "__KV_ID__" }],
+  "vars": { "EDITOR_HASH": "__EDITOR_HASH__" }
+}
