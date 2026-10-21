@@ -190,10 +190,29 @@ FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
 FRED_SERIES = {"hy_oas": ("BAMLH0A0HYM2", 0.5, 30), "t10y2y": ("T10Y2Y", -5, 5), "nfci": ("NFCI", -3, 10)}
 
 
+def _fred_csv(code: str):
+    """FRED does not always answer cloud runners; try a few request shapes, each with a short timeout."""
+    tries = [
+        (FRED_CSV, {"id": code}, {"User-Agent": "curl/8.5.0", "Accept": "*/*"}),
+        (f"https://fred.stlouisfed.org/series/{code}/downloaddata/{code}.csv", None, {"User-Agent": "curl/8.5.0", "Accept": "*/*"}),
+        (FRED_CSV, {"id": code, "cosd": "2000-01-01"}, None),
+    ]
+    errs = []
+    for url, params, headers in tries:
+        try:
+            r = get(url, params=params, headers=headers, timeout=35, tries=1)
+            if r.text.lstrip().lower().startswith(("observation_date", "date")):
+                return r
+            errs.append(f"{url[:60]}: not csv")
+        except Exception as e:
+            errs.append(str(e)[-90:])
+    raise RuntimeError(" | ".join(errs))
+
+
 def fred() -> dict:
     out = {}
     for sid, (code, lo, hi) in FRED_SERIES.items():
-        r = get(FRED_CSV, params={"id": code, "cosd": "1997-01-01"}, timeout=120, tries=3)
+        r = _fred_csv(code)  # a failure on the first series fails fast for all three
         rows = list(csv.reader(io.StringIO(r.text)))
         pts = {}
         for row in rows[1:]:

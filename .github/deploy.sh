@@ -3,7 +3,20 @@
 # Needs: CLOUDFLARE_API_TOKEN, optional CLOUDFLARE_ACCOUNT_ID, EDITOR_CODE.
 set -uo pipefail
 api=https://api.cloudflare.com/client/v4
-auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+# The secret should be the 40-character token. If the whole "curl ... Authorization: Bearer <token>" test command
+# was pasted, take the token out of it (and mask it in the log).
+tok="$(printf '%s' "${CLOUDFLARE_API_TOKEN:-}" | tr -d '\r\n')"
+if [ ${#tok} -ne 40 ]; then
+  m=$(printf '%s' "$tok" | grep -oE 'Bearer[[:space:]]+[A-Za-z0-9_-]{30,60}' | head -1 | awk '{print $2}')
+  [ -z "$m" ] && m=$(printf '%s' "$tok" | grep -oE '[A-Za-z0-9_-]{40}' | head -1)
+  if [ -n "$m" ]; then
+    echo "::add-mask::$m"
+    echo "::warning title=CLOUDFLARE_API_TOKEN::the secret is ${#tok} characters, not just the token; using the 40-character token found inside it. Replace the secret with the token alone when convenient."
+    tok="$m"
+  fi
+fi
+export CLOUDFLARE_API_TOKEN="$tok"
+auth=(-H "Authorization: Bearer $tok")
 acc="$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID:-}" | tr -d '[:space:]\342\200\217\342\200\216"'"'"'' | tr 'A-F' 'a-f')"
 ver=$(curl -s "${auth[@]}" "$api/user/tokens/verify" | python3 -c 'import json,sys
 try:
