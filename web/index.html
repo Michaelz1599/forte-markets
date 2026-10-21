@@ -396,6 +396,63 @@ details.lagd summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
 details.lagd[open] summary { margin-bottom: 8px; }
 @media (max-width: 900px) { .ix-grid, .ix-grid.wide1 { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 640px) { .chart.cx { height: 360px; } }
+
+/* ---------- RS ---------- */
+.rsb { display: inline-block; min-width: 34px; text-align: center; font-weight: 700; border-radius: 6px; padding: 1px 6px; font-variant-numeric: tabular-nums; background: var(--sunk); color: var(--ink); }
+.rsb.hi { background: var(--greed-bg); color: var(--greed); }
+.rsb.top { background: var(--greed); color: var(--surface); }
+.rsb.lo { background: var(--fear-bg); color: var(--fear); }
+.rsd { font-size: 11.5px; font-weight: 600; margin-inline-start: 5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rsd.u { color: var(--greed); }
+.rsd.d { color: var(--fear); }
+td.rsc { white-space: nowrap; }
+.xtools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.xtools > .small:last-child { margin-inline-start: auto; }
+.rs-formula { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 28px; padding: 10px 12px; background: var(--sunk); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; font-weight: 600; font-size: 14px; }
+.jump { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.srows { display: grid; gap: 2px; min-width: 0; }
+.srow { display: grid; grid-template-columns: 26px minmax(110px, 1fr) minmax(150px, 1.2fr) auto minmax(0, 1.5fr); gap: 12px; align-items: center; padding: 7px 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.srow:hover:not(.head) { background: var(--sunk); }
+.srow.on { background: var(--hl); border-color: var(--t2); }
+.srow.head { cursor: default; font-size: 11.5px; color: var(--muted); padding-block: 2px; }
+.srow.head .stats { color: var(--muted); }
+.srow:focus-visible, .thb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.srow .rk { color: var(--muted); font-weight: 700; }
+.srow .nm { display: grid; min-width: 0; }
+.srow .nm small { color: var(--muted); font-size: 11px; }
+.srow .bar { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.mbar { position: relative; flex: 1; height: 8px; background: var(--sunk); border-radius: 4px; min-width: 60px; }
+.mbar i { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--chart-line); border-radius: 4px; }
+.mbar .mid { position: absolute; inset-block: -3px; inset-inline-start: 50%; width: 1px; background: var(--muted); }
+.mval { font-weight: 800; min-width: 30px; }
+.srow .stats { display: grid; grid-template-columns: 54px 54px 66px 46px; column-gap: 6px; align-items: center; }
+.srow .stats > * { text-align: center; }
+.srow .st { display: block; white-space: nowrap; }
+.srow .st .k { display: none; }
+.srow .ld { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
+.lchip { font-size: 11.5px; background: var(--sunk); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.srow.on .lchip { background: var(--surface); }
+.rs-tools { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto auto; gap: 10px 14px; align-items: end; }
+.fld { display: grid; gap: 4px; min-width: 0; }
+.fld input, .fld select { border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; background: var(--surface); min-width: 0; width: 100%; }
+.rs-count { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.thb { all: unset; cursor: pointer; white-space: nowrap; }
+.thb[aria-sort="descending"]::after { content: " ↓"; }
+.thb[aria-sort="ascending"]::after { content: " ↑"; }
+.rstbl td { white-space: nowrap; }
+.rstbl .co { max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.spb { font-size: 10px; font-weight: 700; color: var(--ink-2); background: var(--sunk); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-inline-start: 5px; vertical-align: 1px; }
+.rs-notes p { margin: 0 0 8px; line-height: 1.7; }
+@media (max-width: 900px) {
+  .srow { grid-template-columns: 22px minmax(0, 1fr) minmax(0, 1.2fr); gap: 4px 10px; }
+  .srow .stats { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 2px 14px; }
+  .srow .st { display: inline-flex; gap: 5px; align-items: baseline; }
+  .srow .st .k { display: inline; font-size: 11px; color: var(--muted); }
+  .srow .ld { grid-column: 2 / -1; }
+  .srow.head { display: none; }
+  .rs-tools { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .rs-tools .fld:nth-child(n+3) { grid-column: 1 / -1; }
+}
 </style>
 </head>
 <body>
@@ -482,7 +539,7 @@ details.lagd[open] summary { margin-bottom: 8px; }
 
 <main id="v-momentum" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1>מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים וסקטורים מול S&amp;P 500, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
+    <div class="toolbar"><div><h1>מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים, סקטורים ונושאים מול S&amp;P 500, RS לכל מניה בשוק, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
     <div id="momBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
@@ -556,7 +613,7 @@ const S = {
   loaded: { ind: false, ser: false, stk: false },
   win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'market',
   fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
-  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'),
+  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null,
 };
 const cache = { st: new Map(), rp: new Map(), comp: new Map() };
 
@@ -1621,45 +1678,87 @@ function renderIndices() {
   const tm = $('#toMom'); if (tm) tm.addEventListener('click', e => { e.preventDefault(); showTab('momentum'); window.scrollTo(0, 0); });
 }
 
-let MOM = null;
+let MOM = null, RSD = null;
 async function loadMomentum() { if (MOM === null) { try { MOM = await fetchJSON('data/momentum.json'); } catch (e) { MOM = false; } } return MOM; }
+async function loadRS() {
+  if (RSD === null) {
+    try {
+      const d = await fetchJSON('data/rs.json');
+      const ix = Object.fromEntries(d.cols.map((c, i) => [c, i]));
+      d.list = d.rows.map(r => ({ sym: r[ix.sym], name: r[ix.name], sec: r[ix.sec], gics: r[ix.gics], sp: !!r[ix.sp], mcap: r[ix.mcap], px: r[ix.px],
+        ret: r[ix.ret], atr: r[ix.atr], raw: r[ix.raw], rs: r[ix.rs], rsPrev: r[ix.rsPrev] }));
+      d.heb = {};
+      for (const k of ['nas', 'gics']) for (const x of d.sectors[k]) d.heb[x.sector] = x.heb;
+      RSD = d;
+    } catch (e) { RSD = false; }
+  }
+  return RSD;
+}
 function heatTd(v, scale = 0.25) {
   if (v == null || !isFinite(v)) return '<td class="muted">—</td>';
   const a = Math.min(1, Math.abs(v) / scale) * 42 + 4;
   const col = v >= 0 ? 'var(--greed)' : 'var(--fear)';
   return `<td class="heat" style="background:color-mix(in srgb, ${col} ${a.toFixed(0)}%, transparent)">${ltr(fmtPct(v))}</td>`;
 }
+function rsCls(v) { return v == null ? '' : v >= 90 ? 'top' : v >= 80 ? 'hi' : v <= 20 ? 'lo' : ''; }
+function rsBadge(v, title = '') { return v == null ? '<span class="muted">—</span>' : `<span class="rsb ${rsCls(v)}"${title ? ` title="${esc(title)}"` : ''}>${v}</span>`; }
+function rsDelta(now, prev) {
+  if (now == null || prev == null) return '';
+  const d = now - prev;
+  return d ? `<span class="rsd ${d > 0 ? 'u' : 'd'}" title="לפני שבוע: ${prev}">${d > 0 ? '▲' : '▼'}${Math.abs(d)}</span>` : `<span class="rsd" title="לפני שבוע: ${prev}">=</span>`;
+}
+function fmtCap(m) {
+  if (m == null || !isFinite(m)) return '—';
+  return m >= 1e6 ? `$${fmtN(m / 1e6, 2)}T` : m >= 1e3 ? `$${fmtN(m / 1e3, m >= 1e4 ? 0 : 1)}B` : `$${fmtN(m, 0)}M`;
+}
+const XSEG = { factors: ['פקטורים', 'פקטור'], sectors: ['סקטורים ותעשיות', 'סקטור'], themes: ['נושאים', 'נושא'] };
 function renderMomentum() {
   const el = $('#momBody');
   disposeIdxCharts();
-  if (!S.mk || MOM === null) {
+  if (!S.mk || MOM === null || RSD === null) {
     el.innerHTML = '<p class="muted">טוען נתוני מומנטום…</p>';
-    Promise.all([loadMarkets(), loadMomentum()]).then(() => { if (S.tab === 'momentum') renderMomentum(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני המומנטום. רעננו את הדף.</div>'; });
+    Promise.all([loadMarkets(), loadMomentum(), loadRS()]).then(() => { if (S.tab === 'momentum') renderMomentum(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני המומנטום. רעננו את הדף.</div>'; });
     return;
   }
   const mk = S.mk, items = mk.items;
   $('#momAsof').textContent = `נכון לסגירת ${fmtDate(mk.asof)}`;
   const ac = mk.avgCorr && mk.avgCorr.v && mk.avgCorr.v.length ? mk.avgCorr : null;
-  const seg = S.xSeg === 'sectors' ? 'sectors' : 'factors';
-  const fx = (mk.groups.find(g => g.id === seg) || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((a, c) => c.score - a.score);
-  const maxAbs = Math.max(0.0001, ...fx.map(it => Math.abs(it.score)));
+  const seg = XSEG[S.xSeg] ? S.xSeg : 'factors';
+  const sortRs = S.xSort === 'rs';
+  const grp = mk.groups.find(g => g.id === seg) || { items: [], core: [] };
+  const fx = grp.items.map(s => items[s]).filter(it => it && (it.score != null || (it.rs && it.rs.rs != null)));
+  fx.sort((a, c) => sortRs ? ((c.rs ? c.rs.raw : -1e9) - (a.rs ? a.rs.raw : -1e9)) : ((c.score ?? -1e9) - (a.score ?? -1e9)));
+  const maxAbs = Math.max(0.0001, ...fx.map(it => Math.abs(it.score || 0)));
+  const rsTip = (it) => {
+    const r = it.rs; if (!r) return '';
+    const peer = r.peer && r.peer[seg];
+    return `מהלך 2 שב׳: ${fmtPct(r.ret10)} · ${fmtS(r.raw, 2)} ATR${peer ? ` · מקום ${peer[0]} מתוך ${peer[1]} ב${XSEG[seg][0]}` : ''}`;
+  };
   const frows = fx.map((it, i) => {
     const q = quadOf(it); const qq = q ? QUAD[q] : null; const ex = it.ex || {};
-    const w = Math.abs(it.score) / maxAbs * 50;
+    const w = Math.abs(it.score || 0) / maxAbs * 50;
+    const r = it.rs || {};
     return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span></div></td>
+      <td class="rsc">${rsBadge(r.rs, rsTip(it))}${rsDelta(r.rs, r.rsPrev)}</td>
       ${chgTd(ex.m1, it)}${chgTd(ex.m3, it)}${chgTd(ex.m6, it)}${chgTd(ex.y1, it)}
-      <td class="scorec"><div class="sbar" dir="ltr"><i class="${it.score >= 0 ? 'pos' : 'neg'}" style="${it.score >= 0 ? 'left:50%' : `left:${(50 - w).toFixed(1)}%`};width:${w.toFixed(1)}%"></i><b class="mid"></b></div><span class="small ltr num">${fmtS(it.score * 100, 1)}</span></td>
+      <td class="scorec">${it.score == null ? '—' : `<div class="sbar" dir="ltr"><i class="${it.score >= 0 ? 'pos' : 'neg'}" style="${it.score >= 0 ? 'left:50%' : `left:${(50 - w).toFixed(1)}%`};width:${w.toFixed(1)}%"></i><b class="mid"></b></div><span class="small ltr num">${fmtS(it.score * 100, 1)}</span>`}</td>
       <td>${qq ? `<span class="chip ${qq[1]}">${qq[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.rsSpark)}</td></tr>`;
   }).join('');
-  const fac = `<section class="panel fac">
-    <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד, מדורגות לפי התשואה העודפת שלהן על S&amp;P 500.</p></div>
-      <div class="seg" role="group" aria-label="קבוצה" id="xSeg"><button type="button" data-s="factors" aria-pressed="${seg === 'factors'}">פקטורים</button><button type="button" data-s="sectors" aria-pressed="${seg === 'sectors'}">סקטורים ונושאים</button></div></div>
-    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${seg === 'factors' ? 'פקטור' : 'סקטור'}</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th><th>מול S&amp;P, 6 ח'</th></tr></thead><tbody>${frows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
-    <p class="small muted" style="margin:0">העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה. הקו האחרון: היחס מול S&amp;P בחצי השנה האחרונה, עולה = מכה את המדד.</p>
+  const coreSet = new Set(grp.items.length > 14 && grp.core && grp.core.length ? grp.core : grp.items);
+  const rrgList = fx.filter(it => coreSet.has(it.sym));
+  const coreNote = coreSet.size < grp.items.length ? ` · ${coreSet.size} העיקריים מתוך ${grp.items.length}` : '';
+  const rsMeta = mk.rs && mk.rs.asof ? `RS: מהלך מ-${fmtDateShort(mk.rs.from)} עד ${fmtDate(mk.rs.asof)}` : '';
+  const fac = `<section class="panel fac" id="momFac">
+    <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד: עוצמה בשבועיים האחרונים (RS) ותשואה עודפת על S&amp;P 500 לאורך שנה.</p></div>
+      <div class="seg" role="group" aria-label="קבוצה" id="xSeg">${Object.entries(XSEG).map(([k, v]) => `<button type="button" data-s="${k}" aria-pressed="${seg === k}">${v[0]}</button>`).join('')}</div></div>
+    <div class="xtools"><span class="small muted">מיון לפי</span><div class="seg" role="group" aria-label="מיון" id="xSort"><button type="button" data-v="score" aria-pressed="${!sortRs}">ציון מומנטום</button><button type="button" data-v="rs" aria-pressed="${sortRs}">RS</button></div><span class="small muted">${rsMeta}</span></div>
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${XSEG[seg][1]}</th><th>RS</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th><th>מול S&amp;P, 6 ח'</th></tr></thead><tbody>${frows || '<tr><td colspan="10" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
+    <p class="small muted" style="margin:0"><b>RS</b>: המהלך של תעודת הסל בשבועיים האחרונים ביחס לתנודתיות שלה (ATR), כאחוזון מול כל המניות בשוק, באותו סולם כמו בטבלת המניות למטה. 90 = חזק מ-90% מהמניות. החץ: השינוי מול שבוע קודם. מעבר עם העכבר מראה את המהלך ואת המקום בקבוצה.
+      שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה. הקו האחרון: היחס מול S&amp;P בחצי השנה האחרונה, עולה = מכה את המדד.</p>
     <div class="ix-grid">
-      <div class="panel inner"><div class="panel-head"><h3>מפת רוטציה</h3><span class="small muted">5 שבועות אחרונים</span></div><div class="chart cx" id="rrgChart" role="img" aria-label="מפת רוטציה של ${seg === 'factors' ? 'פקטורים' : 'סקטורים'} מול S&amp;P 500"></div>
+      <div class="panel inner"><div class="panel-head"><h3>מפת רוטציה</h3><span class="small muted">5 שבועות אחרונים${coreNote}</span></div><div class="chart cx" id="rrgChart" role="img" aria-label="מפת רוטציה של ${XSEG[seg][0]} מול S&amp;P 500"></div>
         <p class="small muted" style="margin:0">ציר אופקי: עוצמה יחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מעל 100 = חזק מהמדד). ציר אנכי: האם העוצמה היחסית מתחזקת בשבועיים האחרונים. הקבוצות נוטות לנוע נגד כיוון השעון: משתפרים, מובילים, נחלשים, מפגרים.</p></div>
-      <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
+      <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים${coreNote}</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
         <p class="small muted" style="margin:0">1 = זזים יחד לגמרי, 0 = בלי קשר, מינוס = בכיוונים הפוכים. קבוצות עם קורלציה גבוהה הן בפועל אותו הימור.</p></div>
     </div>
     ${ac ? `<div class="panel inner"><div class="panel-head"><h3>כמה השוק זז כגוש אחד</h3><span class="small muted">קורלציה ממוצעת בין 11 סקטורי S&amp;P 500, 3 חודשים מתגלגלים</span></div><div class="chart cx sm" id="acChart" role="img" aria-label="קורלציה ממוצעת בין סקטורים לאורך זמן"></div>
@@ -1667,17 +1766,20 @@ function renderMomentum() {
   </section>`;
 
   // ---- summary tiles
-  const facList = (mk.groups.find(g => g.id === 'factors') || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((x, y) => y.score - x.score);
-  const secList = (mk.groups.find(g => g.id === 'sectors') || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((x, y) => y.score - x.score);
+  const listOf = id => (mk.groups.find(g => g.id === id) || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((x, y) => y.score - x.score);
+  const facList = listOf('factors'), secList = listOf('sectors');
   const mt = items.MTUM;
   const ms = S.ser.get('sp_mom12'); const msSt = ms ? stats('sp_mom12', '5y') : null;
-  const topSec = MOM && MOM.sectors ? MOM.sectors.slice().sort((x, y) => y.inTop50 - x.inTop50)[0] : null;
+  const etfRs = mk.groups.filter(g => g.kind === 'factor').flatMap(g => g.items).map(s => items[s]).filter(it => it && it.rs && it.rs.rs != null);
+  const bestRs = etfRs.slice().sort((a, b) => b.rs.raw - a.rs.raw)[0];
+  const topRsSec = RSD && RSD.sectors && RSD.sectors.nas[0];
   const tiles = `<section class="tiles idx-tiles">
     ${MOM ? `<div class="tile"><span class="k">מניות S&amp;P 500 עם מומנטום חיובי</span><span class="val">${ltr(fmtN(MOM.pctPos, 0) + '%')}</span><span class="s">12-1 חודשים${msSt && msSt.pct != null ? ` · אחוזון ${Math.round(msSt.pct)} ב-5 שנים` : ''}</span></div>` : ''}
     ${mt && mt.ex ? `<div class="tile"><span class="k">פקטור המומנטום (MTUM) מול S&amp;P</span><span class="val">${ltr(fmtPct(mt.ex.m3))}</span><span class="s">3 חודשים · 12 ח': ${ltr(fmtPct(mt.ex.y1))}</span></div>` : ''}
-    ${facList[0] ? `<div class="tile"><span class="k">הפקטור המוביל</span><span class="val">${esc(facList[0].name)}</span><span class="s">החלש: ${esc(facList[facList.length - 1].name)}</span></div>` : ''}
-    ${secList[0] ? `<div class="tile"><span class="k">הסקטור המוביל</span><span class="val">${esc(secList[0].name)}</span><span class="s">החלש: ${esc(secList[secList.length - 1].name)}</span></div>` : ''}
-    ${topSec ? `<div class="tile"><span class="k">איפה המומנטום מרוכז</span><span class="val">${esc(topSec.sector)}</span><span class="s">${topSec.inTop50} מתוך 50 המניות החזקות</span></div>` : ''}
+    ${facList[0] ? `<div class="tile"><span class="k">הפקטור המוביל, שנה</span><span class="val">${esc(facList[0].name)}</span><span class="s">החלש: ${esc(facList[facList.length - 1].name)}</span></div>` : ''}
+    ${secList[0] ? `<div class="tile"><span class="k">הסקטור המוביל, שנה</span><span class="val">${esc(secList[0].name)}</span><span class="s">החלש: ${esc(secList[secList.length - 1].name)}</span></div>` : ''}
+    ${bestRs ? `<div class="tile"><span class="k">החזק בשבועיים (RS)</span><span class="val">${esc(bestRs.name)}</span><span class="s">RS ${bestRs.rs.rs} · ${ltr(fmtPct(bestRs.rs.ret10))}</span></div>` : ''}
+    ${topRsSec ? `<div class="tile"><span class="k">סקטור מוביל לפי RS</span><span class="val">${esc(topRsSec.heb)}</span><span class="s">RS חציוני ${fmtN(topRsSec.med, 0)} · ${ltr(fmtPct(topRsSec.ret / 100))} בשבועיים</span></div>` : ''}
   </section>`;
   // ---- global index momentum
   const idxItems = mk.groups.filter(g => g.kind === 'index').flatMap(g => g.items.map(s => ({ it: items[s], g: g.name }))).filter(o => o.it && o.it.mom121 != null && o.it.chgMode !== 'pp');
@@ -1690,17 +1792,16 @@ function renderMomentum() {
       ${heatTd(it.w1, .05)}${heatTd(it.m1, .1)}${heatTd(it.m3, .2)}${heatTd(it.m6, .3)}${heatTd(it.y1, .5)}${heatTd(it.mom121, .5)}
       <td>${acc == null ? '—' : `<span class="${acc >= 0 ? 'up-g' : 'up-f'}">${acc >= 0 ? '▲' : '▼'} ${ltr(fmtPct(acc))}</span>`}</td><td><span class="chip ${sig[1]}">${sig[0]}</span></td></tr>`;
   }).join('');
-  const glob = `<section class="panel"><div class="panel-head"><div><h2>מומנטום מדדים ונכסים בעולם</h2><p class="small muted" style="margin:2px 0 0">מדורג לפי מומנטום 12-1: התשואה מלפני 12 חודשים ועד לפני חודש, ההגדרה המקובלת במחקר על מומנטום.</p></div></div>
+  const glob = `<section class="panel" id="momGlob"><div class="panel-head"><div><h2>מומנטום מדדים ונכסים בעולם</h2><p class="small muted" style="margin:2px 0 0">מדורג לפי מומנטום 12-1: התשואה מלפני 12 חודשים ועד לפני חודש, ההגדרה המקובלת במחקר על מומנטום.</p></div></div>
     <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>מדד</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>12-1</th><th>האצה</th><th>אות מגמה</th></tr></thead><tbody>${glRows}</tbody></table></div>
     <p class="small muted" style="margin:0">"האצה" = תשואת 3 החודשים פחות רבע מתשואת 12 החודשים: חיובי = המומנטום מתחזק ביחס לקצב השנתי. "אות מגמה" חיובי = מומנטום 12-1 חיובי והשער מעל ממוצע 200, שלילי = שניהם שליליים. תשואות במטבע המקומי של כל מדד. לחיצה על שורה פותחת גרף.</p></section>`;
-  // ---- S&P 500 stock leaders
+  // ---- S&P 500 stock leaders (12-1)
   let stocks = '';
   if (MOM && MOM.leaders) {
-    const tv = s => `https://www.tradingview.com/symbols/${encodeURIComponent(s)}/`;
-    const srow = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num">${i + 1}</td><td><b class="ltr">${esc(r.sym)}</b> <a class="tvl" href="${tv(r.sym)}" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.name)}</div></td><td>${esc(r.sector)}</td>
+    const srow = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num">${i + 1}</td><td><b class="ltr">${esc(r.sym)}</b> <a class="tvl" href="${tvUrl(r.sym)}" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.name)}</div></td><td>${esc(r.sector)}</td>
       ${heatTd(r.mom, .8)}${heatTd(r.m6, .5)}${heatTd(r.m3, .3)}${heatTd(r.m1, .15)}<td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`;
     const head = '<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>12-1</th><th>6 ח\'</th><th>3 ח\'</th><th>חודש</th><th>מהשיא</th><th></th></tr></thead>';
-    stocks = `<section class="panel"><div class="panel-head"><div><h2>המניות החזקות ב-S&amp;P 500</h2><p class="small muted" style="margin:2px 0 0">30 המניות עם מומנטום 12-1 הגבוה במדד, מתוך ${MOM.n} מניות · ${fmtDate(MOM.asof)}</p></div></div>
+    stocks = `<section class="panel" id="momSp"><div class="panel-head"><div><h2>מומנטום 12-1 ב-S&amp;P 500</h2><p class="small muted" style="margin:2px 0 0">30 המניות עם מומנטום 12-1 הגבוה במדד, מתוך ${MOM.n} מניות · ${fmtDate(MOM.asof)}. זה המומנטום של שנה, לעומת ה-RS של שבועיים למעלה.</p></div></div>
       <div class="ix-grid wide1">
         <div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.leaders.map(srow).join('')}</tbody></table></div>
         <div style="display:grid;gap:12px;align-content:start;min-width:0">
@@ -1713,11 +1814,170 @@ function renderMomentum() {
       <details class="lagd"><summary>15 המניות החלשות במדד</summary><div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.laggards.map(srow).join('')}</tbody></table></div></details>
       <p class="small muted" style="margin:0">תשואות מחיר. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 שבועות. ↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
   }
-  el.innerHTML = tiles + fac + glob + stocks;
+  const nav = `<nav class="jump" aria-label="קפיצה לחלק בלשונית"><span class="small muted">בלשונית:</span>${[['momFac', 'פקטורים, סקטורים ונושאים'], ['rsPanel', 'RS לכל המניות'], ['momGlob', 'מדדים בעולם'], ['momSp', 'מומנטום 12-1 ב-S&amp;P 500']].map(([id, l]) => `<button type="button" class="btn ghost sm" data-jump="${id}">${l}</button>`).join('')}</nav>`;
+  el.innerHTML = tiles + nav + fac + rsSection() + glob + stocks;
+  $$('[data-jump]', el).forEach(bt => bt.addEventListener('click', () => { const t = document.getElementById(bt.dataset.jump); if (t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }));
   $$('#xSeg button', el).forEach(bt => bt.addEventListener('click', () => { S.xSeg = bt.dataset.s; lsSet('xSeg', S.xSeg); renderMomentum(); }));
+  $$('#xSort button', el).forEach(bt => bt.addEventListener('click', () => { S.xSort = bt.dataset.v; lsSet('xSort', S.xSort); renderMomentum(); }));
+  bindRs();
   if (typeof echarts === 'undefined') return;
-  drawRotation(fx); drawHeat(seg); if (ac) drawAvgCorr(ac);
+  drawRotation(rrgList); drawHeat(seg); if (ac) drawAvgCorr(ac);
   if (MOM && MOM.sectors) drawSectorBars(MOM);
+}
+function tvUrl(sym) { return `https://www.tradingview.com/symbols/${encodeURIComponent(sym)}/`; }
+
+// ---------------- RS for every stock ----------------
+const RS_TYPES = { pref: 'מניות בכורה', fund: 'קרנות סגורות', warrant: 'כתבי אופציה', debt: 'אג"ח', spac: 'SPAC', unit: 'יחידות', right: 'זכויות' };
+const RS_COLS = [
+  { k: null, l: '#' }, { k: 'sym', l: 'מניה' }, { k: 'sec', l: 'סקטור' }, { k: 'rs', l: 'RS' }, { k: 'dRs', l: 'שינוי בשבוע' },
+  { k: 'ret', l: 'תשואה 2 שב׳' }, { k: 'atr', l: 'ATR %' }, { k: 'raw', l: 'מהלך ב-ATR' }, { k: 'mcap', l: 'שווי שוק' }, { k: 'px', l: 'מחיר' }];
+function rsUi() {
+  if (!S.rsUi) {
+    let p = {};
+    try { p = JSON.parse(lsGet('rsUi', '{}')) || {}; } catch (e) { p = {}; }
+    S.rsUi = { univ: p.univ === 'sp' ? 'sp' : 'all', cap: [0, 300, 1000, 10000, 100000].includes(p.cap) ? p.cap : 0, minrs: [0, 80, 90].includes(p.minrs) ? p.minrs : 0,
+      sector: '', q: '', sort: 'rs', dir: -1, shown: 100 };
+  }
+  return S.rsUi;
+}
+function rsSave() { const u = rsUi(); lsSet('rsUi', JSON.stringify({ univ: u.univ, cap: u.cap, minrs: u.minrs })); }
+function rsSection() {
+  if (!RSD) return `<section class="panel"><div class="panel-head"><h2>RS לכל המניות בשוק</h2></div><p class="muted" style="margin:0">טבלת ה-RS לא זמינה כרגע. היא מתעדכנת בכל בוקר, אחרי שצילומי המצב של יום המסחר הקודם מתפרסמים.</p></section>`;
+  const u = rsUi(), d = RSD;
+  const segBtns = (id, opts, cur) => `<div class="seg" role="group" id="${id}">${opts.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${String(cur) === String(v)}"><bdi dir="ltr">${l}</bdi></button>`).join('')}</div>`;
+  const types = Object.entries(d.excludedTypes || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${RS_TYPES[k] || k} ${fmtN(v, 0)}`).join(', ');
+  const ca = d.corporateActions || [];
+  const vals = Object.values((d.validation || {}).sessions || {});
+  const minMatch = vals.length ? Math.min(...vals.map(v => v.match)) : null;
+  const tr = Object.values((d.validation || {}).spxTrack || {});
+  const maxTr = tr.length ? Math.max(...tr.map(Math.abs)) : null;
+  const valTxt = [minMatch != null ? `ב-${vals.length} ימי המסחר שנבדקו, לפחות ${fmtN(minMatch * 100, 1)}% מסגירות מניות S&amp;P 500 בצילומים זהות (עד 0.5%) לסגירות ב-Yahoo` : '',
+    maxTr != null ? `התשואה היומית המשוקללת של מניות S&amp;P 500 בצילומים עקבה אחרי המדד בהפרש של עד ${fmtN(maxTr, 2)}%` : ''].filter(Boolean).join('. ');
+  return `<section class="panel" id="rsPanel">
+    <div class="panel-head"><div><h2>RS לכל המניות בשוק</h2><p class="small muted" style="margin:2px 0 0">לכל מניה מחושב גודל המהלך שלה בשבועיים האחרונים ביחס לתנודתיות הרגילה שלה, והתוצאה מדורגת לאחוזונים מול ${fmtN(d.n, 0)} מניות. RS 99 = המהלך היחסי חזק מ-99% מהמניות. נכון לסגירת ${fmtDate(d.asof)}, מהלך מ-${fmtDate(d.from)}.</p></div>
+      ${segBtns('rsUniv', [['all', 'כל השוק'], ['sp', 'S&amp;P 500']], u.univ)}</div>
+    <div class="rs-formula" dir="ltr"><span>Move<sub>ATR</sub> = (Close<sub>t</sub> − Close<sub>t−10</sub>) / ATR(10)</span><span dir="rtl">RS = האחוזון של המהלך, 1–100</span></div>
+    <div class="panel inner"><div class="panel-head"><h3>דירוג הסקטורים לפי RS</h3><span class="small muted" id="rsSecNote"></span></div><div class="srows" id="rsSecRows"></div></div>
+    <div class="rs-tools">
+      <label class="fld"><span class="small muted">חיפוש</span><input type="search" id="rsQ" placeholder="סימול או שם חברה" value="${esc(u.q)}" autocomplete="off" dir="auto"></label>
+      <label class="fld"><span class="small muted">סקטור</span><select id="rsSector"></select></label>
+      <div class="fld"><span class="small muted">שווי שוק</span>${segBtns('rsCap', [[0, 'הכל'], [300, '300M+'], [1000, '1B+'], [10000, '10B+'], [100000, '100B+']], u.cap)}</div>
+      <div class="fld"><span class="small muted">RS מינימלי</span>${segBtns('rsMin', [[0, 'הכל'], [80, '80+'], [90, '90+']], u.minrs)}</div>
+    </div>
+    <div class="rs-count"><h3 id="rsListTitle" style="margin:0">דירוג המניות</h3><span class="small muted" id="rsCount"></span></div>
+    <div class="tbl-wrap" id="rsTbl"></div>
+    <div><button type="button" class="btn ghost sm" id="rsMore">הצג עוד 100</button></div>
+    <details class="lagd"><summary>איך זה מחושב, מה הוצא ומה המגבלות</summary><div class="rs-notes small">
+      <p><b>החישוב:</b> מהלך ב-ATR = הסגירה ב-${fmtDate(d.asof)} פחות הסגירה ב-${fmtDate(d.from)} (10 ימי מסחר), חלקי ה-ATR של 10 הימים האלה (ממוצע ה-True Range: הגדול מבין High−Low, ‎|High − סגירה קודמת| ו-‎|Low − סגירה קודמת|). זה שקול לתשואה באחוזים חלקי ATR באחוזים. ה-RS הוא האחוזון של המהלך מול כל המניות שדורגו, מעוגל כלפי מעלה ל-1–100.${d.prevAsof ? ` "שינוי בשבוע" = מול אותו חישוב שהסתיים ב-${fmtDate(d.prevAsof)}.` : ''}</p>
+      <p><b>פקטורים, סקטורים ונושאים:</b> אותו חישוב על תעודת הסל, ממוקם מול אותה התפלגות של כל המניות. כך RS של פקטור ו-RS של מניה נמצאים על אותו סולם.</p>
+      <p><b>דירוג סקטורים:</b> לפי ה-RS החציוני של המניות בסקטור (כל מניה במשקל שווה). לצדו: אחוז המניות עם RS של 80 ומעלה ("מובילות") ושל 20 ומטה, והתשואה של הסקטור בשבועיים במשקל לפי שווי שוק. ה-RS של כל המניות מחושב מול כל השוק, גם בתצוגת S&amp;P 500.</p>
+      <p><b>היקום:</b> מניות רגילות שנסחרות ב-NYSE, ‏NASDAQ ו-AMEX, ממחיר $1 ומעלה. הוצאו לפי סוג: ${types || '—'}. הוצאו גם מניות בלי נתונים מלאים לכל 11 הימים; ${fmtN(d.excludedFlat || 0, 0)} מניות שהסגירה שלהן לא זזה ב-4 ימים או יותר מתוך 10 (מסחר דליל)${ca.length ? `; ו-${ca.length} מניות עם פיצול או פעולה תאגידית בתוך החלון, שבהן המחיר הלא מתואם מעוות את התשואה (${ca.slice(0, 12).map(x => `<span class="ltr">${esc(x.sym)}</span>`).join(', ')}${ca.length > 12 ? ' ועוד' : ''})` : ''}.</p>
+      <p><b>מקור הנתונים:</b> צילומי מצב יומיים של רשימת המניות של NASDAQ (Open/High/Low/Close, שווי שוק וסקטור), שנשמרים בהיסטוריה של המאגר <a href="https://github.com/ozkanpakdil/top-us-stock-tickers" target="_blank" rel="noopener">ozkanpakdil/top-us-stock-tickers</a> ב-GitHub. כל צילום נלקח לפני פתיחת המסחר ומכיל את יום המסחר הקודם, ולכן הטבלה מתעדכנת בבוקר. למניות S&amp;P 500 (${fmtN(d.nYahoo || 0, 0)} מניות) משמשים נרות יומיים מ-Yahoo Finance, שמתואמים לפיצולים וכוללים גם חברות שחסרות ברשימה של NASDAQ.${valTxt ? ` בדיקת התאמה: ${valTxt}.` : ''}</p>
+      <p><b>מגבלות:</b> סיווג הסקטורים של NASDAQ שונה מ-GICS (למשל Visa ו-Mastercard מסווגות שם כצריכה מחזורית), ולכן יש גם תצוגת GICS ל-S&amp;P 500. למניות S&amp;P 500 שחסרות ברשימה של NASDAQ הסקטור בתצוגת כל השוק הוא המקביל ל-GICS. החלון של שבועיים קצר ורגיש לחדשות בודדות: מניה שקיבלה הצעת רכש תקפוץ לראש הרשימה. שווי השוק לפי מחיר מיום קודם.</p>
+    </div></details>
+  </section>`;
+}
+function rsFiltered() {
+  const u = rsUi(), d = RSD;
+  const q = u.q.trim().toLowerCase();
+  const key = u.univ === 'all' ? 'sec' : 'gics';
+  const rows = d.list.filter(r => (u.univ === 'all' || r.sp) && (!u.sector || r[key] === u.sector) &&
+    (u.cap === 0 || (r.mcap != null && r.mcap >= u.cap)) && r.rs >= u.minrs &&
+    (!q || r.sym.toLowerCase().startsWith(q) || r.name.toLowerCase().includes(q)));
+  const k = u.sort, dir = u.dir;
+  const val = (r) => k === 'rs' ? r.rs * 1000 + r.raw : k === 'dRs' ? (r.rsPrev == null ? null : r.rs - r.rsPrev) : k === 'sec' ? (d.heb[r[key]] || r[key]) : r[k];
+  rows.sort((a, b) => {
+    const x = val(a), y = val(b);
+    if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+    if (typeof x === 'string') return x.localeCompare(y, 'he') * dir;
+    return (x - y) * dir;
+  });
+  return rows;
+}
+function rsRenderSectors() {
+  const u = rsUi(), d = RSD;
+  const list = u.univ === 'all' ? d.sectors.nas : d.sectors.gics;
+  const total = list.reduce((a, s) => a + s.n, 0);
+  $('#rsSecNote').textContent = u.univ === 'all'
+    ? `${fmtN(total, 0)} מניות ב-${list.length} סקטורים לפי הסיווג של NASDAQ. לחיצה על סקטור מסננת את הרשימה.`
+    : `${fmtN(total, 0)} מניות S&P 500 ב-${list.length} סקטורי GICS. לחיצה על סקטור מסננת את הרשימה.`;
+  const head = `<div class="srow head" aria-hidden="true"><span>#</span><span>סקטור</span><span>RS חציוני</span><span class="stats"><bdi dir="ltr">RS 80+</bdi><bdi dir="ltr">RS 20−</bdi><span>2 שב׳</span><span>מניות</span></span><span>המובילות (שווי 1B+)</span></div>`;
+  $('#rsSecRows').innerHTML = head + list.map(s => {
+    const dm = s.medPrev != null ? s.med - s.medPrev : null;
+    return `<div class="srow${u.sector === s.sector ? ' on' : ''}" data-s="${esc(s.sector)}" tabindex="0" role="button" aria-pressed="${u.sector === s.sector}">
+      <span class="rk num">${s.rank}</span>
+      <span class="nm"><b>${esc(s.heb)}</b><small class="ltr">${esc(s.sector)}</small></span>
+      <span class="bar"><span class="mbar"><i style="width:${s.med}%"></i><b class="mid"></b></span><span class="num mval">${fmtN(s.med, s.med % 1 ? 1 : 0)}</span>${dm != null && Math.abs(dm) >= 1 ? `<span class="rsd ${dm > 0 ? 'u' : 'd'}" title="לפני שבוע: ${fmtN(s.medPrev, 0)}">${dm > 0 ? '▲' : '▼'}${fmtN(Math.abs(dm), 0)}</span>` : ''}</span>
+      <span class="stats">
+        <span class="st"><bdi class="k" dir="ltr">RS 80+</bdi><span class="num up-g">${fmtN(s.p80, 0)}%</span></span>
+        <span class="st"><bdi class="k" dir="ltr">RS 20−</bdi><span class="num up-f">${fmtN(s.p20, 0)}%</span></span>
+        <span class="st"><span class="k">2 שב׳</span>${ltr(fmtPct(s.ret / 100), s.ret >= 0 ? 'up-g' : 'up-f')}</span>
+        <span class="st"><span class="k">מניות</span><span class="num muted">${fmtN(s.n, 0)}</span></span>
+      </span>
+      <span class="ld">${s.leaders.map(([sym, rs]) => `<span class="lchip"><span class="ltr">${esc(sym)}</span> <b>${rs}</b></span>`).join('')}</span>
+    </div>`;
+  }).join('');
+}
+function rsSectorOptions() {
+  const u = rsUi(), d = RSD;
+  const list = u.univ === 'all' ? d.sectors.nas : d.sectors.gics;
+  $('#rsSector').innerHTML = `<option value="">כל הסקטורים</option>` + list.map(s => `<option value="${esc(s.sector)}">${esc(s.heb)}</option>`).join('');
+  $('#rsSector').value = u.sector;
+}
+function rsRenderTable() {
+  const u = rsUi(), d = RSD;
+  const rows = rsFiltered();
+  const key = u.univ === 'all' ? 'sec' : 'gics';
+  $('#rsCount').textContent = `${fmtN(rows.length, 0)} מניות מתאימות${rows.length > u.shown ? ` · מוצגות ${fmtN(u.shown, 0)} הראשונות` : ''}`;
+  $('#rsListTitle').textContent = u.sector ? `דירוג המניות · ${d.heb[u.sector] || u.sector}` : 'דירוג המניות';
+  const head = RS_COLS.map(c => c.k
+    ? `<th><button type="button" class="thb" data-k="${c.k}" aria-sort="${u.sort === c.k ? (u.dir < 0 ? 'descending' : 'ascending') : 'none'}">${c.l}</button></th>`
+    : `<th>${c.l}</th>`).join('');
+  const body = rows.slice(0, u.shown).map((r, i) => {
+    const has = S.stk.has(r.sym);
+    return `<tr${has ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}>
+      <td class="num muted">${i + 1}</td>
+      <td class="symc"><b class="ltr">${esc(r.sym)}</b>${r.sp ? '<span class="spb">S&amp;P</span>' : ''} <a class="tvl" href="${tvUrl(r.sym)}" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a>${has ? ' <span class="chip chip-plain">יש ניתוח</span>' : ''}<div class="small muted co" title="${esc(r.name)}">${esc(r.name)}</div></td>
+      <td>${esc(d.heb[r[key]] || r[key] || '—')}</td>
+      <td>${rsBadge(r.rs)}</td>
+      <td>${r.rsPrev == null ? '<span class="muted">—</span>' : rsDelta(r.rs, r.rsPrev)}</td>
+      <td class="${r.ret >= 0 ? 'up-g' : 'up-f'}">${ltr(fmtS(r.ret, 1) + '%')}</td>
+      <td>${ltr(fmtN(r.atr, 1) + '%')}</td>
+      <td>${ltr(fmtS(r.raw, 2))}</td>
+      <td>${ltr(fmtCap(r.mcap))}</td>
+      <td>${ltr(fmtN(r.px, r.px >= 1000 ? 0 : 2))}</td></tr>`;
+  }).join('');
+  $('#rsTbl').innerHTML = rows.length
+    ? `<table class="ft itbl ftab rstbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`
+    : '<p class="muted" style="margin:8px 0">אין מניות שעומדות בסינון. נסו להרחיב את שווי השוק או להסיר את הסקטור.</p>';
+  $('#rsMore').hidden = rows.length <= u.shown;
+}
+function rsAll() { rsRenderSectors(); rsSectorOptions(); rsRenderTable(); }
+function rsSyncSeg(id, v) { $$(`#${id} button`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(v)))); }
+function bindRs() {
+  if (!RSD || !$('#rsPanel')) return;
+  const u = rsUi();
+  rsAll();
+  $('#rsUniv').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; u.univ = b.dataset.v; u.sector = ''; u.shown = 100; rsSyncSeg('rsUniv', u.univ); rsSave(); rsAll(); });
+  $('#rsCap').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; u.cap = +b.dataset.v; u.shown = 100; rsSyncSeg('rsCap', u.cap); rsSave(); rsRenderTable(); });
+  $('#rsMin').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; u.minrs = +b.dataset.v; u.shown = 100; rsSyncSeg('rsMin', u.minrs); rsSave(); rsRenderTable(); });
+  $('#rsSector').addEventListener('change', e => { u.sector = e.target.value; u.shown = 100; rsRenderSectors(); rsRenderTable(); });
+  let qt = 0;
+  $('#rsQ').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { u.q = e.target.value; u.shown = 100; rsRenderTable(); }, 120); });
+  $('#rsMore').addEventListener('click', () => { u.shown += 100; rsRenderTable(); });
+  $('#rsTbl').addEventListener('click', e => {
+    const b = e.target.closest('th button[data-k]'); if (!b) return;
+    const k = b.dataset.k;
+    if (u.sort === k) u.dir = -u.dir; else { u.sort = k; u.dir = (k === 'sym' || k === 'sec') ? 1 : -1; }
+    rsRenderTable();
+  });
+  const pick = (row) => {
+    const s = row.dataset.s; u.sector = u.sector === s ? '' : s; u.shown = 100;
+    rsRenderSectors(); rsSectorOptions(); rsRenderTable();
+    if (u.sector) $('#rsListTitle').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  };
+  $('#rsSecRows').addEventListener('click', e => { const r = e.target.closest('.srow[data-s]'); if (r) pick(r); });
+  $('#rsSecRows').addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('.srow[data-s]'); if (r) { e.preventDefault(); pick(r); } });
 }
 function drawSectorBars(m) {
   const el = $('#secChart'); if (!el) return;
@@ -1807,7 +2067,11 @@ function idxSummary(it) {
   }
   if (it.rsi != null) p.push(it.rsi >= 70 ? `RSI ‏${fmtN(it.rsi, 0)}: קניית יתר.` : it.rsi <= 30 ? `RSI ‏${fmtN(it.rsi, 0)}: מכירת יתר.` : `RSI ‏${fmtN(it.rsi, 0)}, באזור ניטרלי.`);
   if (it.dd52 != null) p.push(it.dd52 > -0.01 ? 'נסחר ליד השיא של 52 השבועות האחרונים.' : `${fmtN(Math.abs(it.dd52) * 100, 1)}% מתחת לשיא של 52 השבועות האחרונים.`);
-  if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים ו-${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. במפת הרוטציה: ${QUAD[q][0]}` : ''}.`); }
+  if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים, ${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. במפת הרוטציה: ${QUAD[q][0]}` : ''}.`); }
+  if (it.rs && it.rs.rs != null) {
+    const r = it.rs;
+    p.push(`RS ${r.rs}: המהלך בשבועיים האחרונים (${fmtPct(r.ret10)}), ביחס לתנודתיות, ${r.rs >= 50 ? `חזק מ-${r.rs}%` : `חלש מ-${100 - r.rs}%`} מהמניות בשוק${r.rsPrev != null ? `, לעומת RS ${r.rsPrev} לפני שבוע` : ''}.`);
+  }
   return p.join(' ');
 }
 let idxChart = null;
@@ -1827,6 +2091,7 @@ async function openIdx(sym) {
         ${tile('RSI ‏(14)', ltr(fmtN(it.rsi, 0)), it.rsi >= 70 ? 'קניית יתר' : it.rsi <= 30 ? 'מכירת יתר' : 'ניטרלי')}
         ${tile('מהשיא, 52 שבועות', ltr(fmtPct(it.dd52)), `טווח ${ltr(priceFmt(it, it.lo52) + ' – ' + priceFmt(it, it.hi52))}`)}
         ${tile('מגמה', tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—', `תנודתיות 20 יום ${ltr(fmtN((it.vol20 || 0) * 100, 0) + '%')}`)}
+        ${it.rs && it.rs.rs != null ? tile('RS, שבועיים', `${rsBadge(it.rs.rs)}${rsDelta(it.rs.rs, it.rs.rsPrev)}`, `מהלך ${ltr(fmtPct(it.rs.ret10))} · ${ltr(fmtS(it.rs.raw, 2))} ATR`) : ''}
       </div>
       <section class="sd-box"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>
         ${ta ? `<div><button type="button" class="btn sm" id="toTa">לניתוח הטכני שלי על ${esc(it.name)}</button></div>` : ''}</section>
@@ -1939,6 +2204,7 @@ function bind() {
   const reTheme = () => {
     renderMarket();
     if (S.tab === 'indices' && !$('#ov')) renderIndices();
+    if (S.tab === 'momentum' && !$('#ov')) renderMomentum();
     if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
     if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = S.mk.items[sym]; drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
   };

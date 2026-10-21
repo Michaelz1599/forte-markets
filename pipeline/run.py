@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import breadth, markets, sources
+from . import breadth, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -113,15 +113,33 @@ def run(offline: bool = False) -> int:
                    f"{n} ימים חדשים" if n else "אין יום חדש")
         # 9. S&P 500 member breadth
         res = step(st, "breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", breadth.run)
+        bextra = None
         if res:
-            data, msg, mom = res
+            data, msg, mom, bextra = res
             for sid, pts in data.items():
                 merge_series(sid, pts)
             if mom:
                 dump_json(ROOT / "data" / "derived" / "sp_momentum.json", mom)
             st.add("breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", True, _last(data.get("sp_pct200", {})), msg)
+        # 10. RS for every US stock and for every factor, sector and theme ETF
+        def _rs():
+            members = bextra["members"] if bextra else None
+            if members is None:
+                try:
+                    members = breadth.members()[2]
+                except Exception:
+                    members = None
+            try:
+                ohlc = markets.etf_ohlc(u)
+            except Exception:
+                ohlc = None
+            return rs.run(px, u, members, bextra["bars"] if bextra else None, ohlc)
+        res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
+        if res:
+            out, msg = res
+            st.add("rs", "RS לכל המניות, הפקטורים והסקטורים", True, out["asof"], msg)
 
-    # 10. Build the site
+    # 11. Build the site
     build(st, u, px)
     status = st.to_dict()
     dump_json(STATE_DIR / "status.json", status)
@@ -154,8 +172,19 @@ def build(st: Status, u: dict, px) -> None:
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
         shutil.copy(mom_file, tmp / "data" / "momentum.json")
+    rs_file = ROOT / "data" / "derived" / "rs.json"
+    if rs_file.exists():
+        shutil.copy(rs_file, tmp / "data" / "rs.json")
     if not px.empty:
-        dump_json(tmp / "data" / "markets.json", markets.build_markets(px, u))
+        mk = markets.build_markets(px, u)
+        etf_file = ROOT / "data" / "derived" / "rs_etf.json"
+        if etf_file.exists():
+            etf = json.loads(etf_file.read_text(encoding="utf-8"))
+            mk["rs"] = {k: etf.get(k) for k in ("asof", "from", "prevAsof")}
+            for sym, rec in etf.get("items", {}).items():
+                if sym in mk["items"]:
+                    mk["items"][sym]["rs"] = rec
+        dump_json(tmp / "data" / "markets.json", mk)
         dump_json(tmp / "data" / "prices.json", markets.prices_payload(px))
     shutil.rmtree(SITE_DIR, ignore_errors=True)
     tmp.rename(SITE_DIR)

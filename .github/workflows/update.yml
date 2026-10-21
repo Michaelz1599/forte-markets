@@ -1,9 +1,12 @@
 # Daily update after the US close: fetch all sources, update the stored history, rebuild and deploy the site.
 # 21:47 UTC = 00:47 Israel summer time / 23:47 winter time. Mon-Fri. GitHub often starts scheduled runs 30-45 min late.
+# 10:23 UTC Tue-Sat: a second pass once the stock snapshots for the previous session are out (the RS table).
+# Every run is idempotent, so the second pass only adds what was not available at night.
 name: forte-markets-update
 on:
   schedule:
     - cron: "47 21 * * 1-5"
+    - cron: "23 10 * * 2-6"
   workflow_dispatch: {}
   push:
     branches: [main]

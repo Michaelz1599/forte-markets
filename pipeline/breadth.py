@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 from .common import get, read_series, today_utc
-from .markets import yf_close
+from .markets import yf_ohlc
 
 CONSTITUENTS = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv"
 WIKI = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
@@ -110,12 +110,14 @@ def compute(close: pd.DataFrame, min_cover: float = 0.9) -> dict[str, pd.Series]
     return out
 
 
-def run() -> tuple[dict, str, dict]:
+def run() -> tuple[dict, str, dict, dict]:
+    """Breadth series, a status message, the 12-1 momentum payload, and the members' bars for the RS step."""
     syms, src, info = members()
     have = [read_series(sid) for sid in ("sp_pct200", "sp_mom12")]
     backfill = min(len(h) for h in have) < 500
     start = (today_utc() - dt.timedelta(days=int(365.25 * 6.5) if backfill else 440)).isoformat()
-    close = yf_close(syms, start)
+    bars = yf_ohlc(syms, start)
+    close = bars.get("close", pd.DataFrame())
     if close.empty:
         raise ValueError("no prices for S&P 500 members")
     last = close.index.max()
@@ -137,4 +139,6 @@ def run() -> tuple[dict, str, dict]:
         s = s.dropna()
         s = s[s.index >= max(keep_from, warm if sid == "sp_mco" else keep_from)]
         out[sid] = {d: round(float(v), nd[sid]) for d, v in s.items()}
-    return out, f"{got} מניות ({src}){' · השלמת היסטוריה' if backfill else ''}", stock_momentum(close.iloc[-300:], info)
+    recent = close.index[-40:]
+    extra = {"members": info, "bars": {k: v.reindex(index=recent) for k, v in bars.items()}}
+    return out, f"{got} מניות ({src}){' · השלמת היסטוריה' if backfill else ''}", stock_momentum(close.iloc[-300:], info), extra

@@ -46,24 +46,43 @@ def write_prices(df: pd.DataFrame) -> None:
     df.to_csv(PRICES_CSV, float_format="%.6g")
 
 
-def yf_close(symbols: list[str], start: str) -> pd.DataFrame:
-    """Daily closes (split-adjusted, not dividend-adjusted) as a date-string-indexed frame."""
+def _yf_field(raw: pd.DataFrame, field: str, symbols: list[str]) -> pd.DataFrame:
+    f = raw[field] if isinstance(raw.columns, pd.MultiIndex) else raw[[field]].rename(columns={field: symbols[0]})
+    idx = pd.to_datetime(f.index)
+    if getattr(idx, "tz", None) is not None:
+        idx = idx.tz_localize(None)
+    f = f.copy()
+    f.index = idx.strftime("%Y-%m-%d")
+    f = f.apply(pd.to_numeric, errors="coerce")
+    f = f.where(f > 0)
+    return f[f.index <= cutoff_date()]
+
+
+def yf_ohlc(symbols: list[str], start: str) -> dict[str, pd.DataFrame]:
+    """Daily close, high and low (split-adjusted, not dividend-adjusted), date-string-indexed."""
     import yfinance as yf
     if not symbols:
-        return pd.DataFrame()
+        return {}
     raw = yf.download(symbols, start=start, auto_adjust=False, actions=False, progress=False,
                       threads=True, group_by="column", multi_level_index=True, timeout=30)
     if raw is None or raw.empty:
-        return pd.DataFrame()
-    close = raw["Close"] if isinstance(raw.columns, pd.MultiIndex) else raw[["Close"]].rename(columns={"Close": symbols[0]})
-    idx = pd.to_datetime(close.index)
-    if getattr(idx, "tz", None) is not None:
-        idx = idx.tz_localize(None)
-    close.index = idx.strftime("%Y-%m-%d")
-    close = close.apply(pd.to_numeric, errors="coerce")
-    close = close.where(close > 0)
-    close = close[close.index <= cutoff_date()]
-    return close.dropna(how="all")
+        return {}
+    close = _yf_field(raw, "Close", symbols).dropna(how="all")
+    out = {"close": close}
+    for k, f in (("high", "High"), ("low", "Low")):
+        out[k] = _yf_field(raw, f, symbols).reindex(index=close.index, columns=close.columns)
+    return out
+
+
+def yf_close(symbols: list[str], start: str) -> pd.DataFrame:
+    """Daily closes (split-adjusted, not dividend-adjusted) as a date-string-indexed frame."""
+    return yf_ohlc(symbols, start).get("close", pd.DataFrame())
+
+
+def etf_ohlc(u: dict, days: int = 150) -> dict[str, pd.DataFrame]:
+    """Recent daily bars of every factor, sector and theme ETF (for RS, which needs the daily range)."""
+    syms = list(dict.fromkeys(it["sym"] for g in u["groups"] if g["kind"] == "factor" for it in g["items"]))
+    return yf_ohlc(syms + [u["benchmark"]], (today_utc() - dt.timedelta(days=days)).isoformat())
 
 
 def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
@@ -254,7 +273,8 @@ def build_markets(px: pd.DataFrame, u: dict) -> dict:
     bench = px[u["benchmark"]].dropna() if u["benchmark"] in px.columns else None
     items, groups = {}, []
     for g in u["groups"]:
-        groups.append({"id": g["id"], "name": g["name"], "kind": g["kind"], "items": [it["sym"] for it in g["items"]]})
+        groups.append({"id": g["id"], "name": g["name"], "kind": g["kind"], "items": [it["sym"] for it in g["items"]],
+                       "core": [it["sym"] for it in g["items"] if it.get("core")]})
         for it in g["items"]:
             sym = it["sym"]
             if sym in items:
@@ -274,16 +294,20 @@ def build_markets(px: pd.DataFrame, u: dict) -> dict:
                 if g["kind"] == "factor" and bench is not None:
                     rec.update(relative(px[sym], bench))
             items[sym] = rec
-    fac = [it["sym"] for g in u["groups"] if g["id"] == "factors" for it in g["items"]]
-    sec = [it["sym"] for g in u["groups"] if g["id"] == "sectors" for it in g["items"]]
-    spdr = [s for s in sec if s.startswith("XL")]
+    def core(gid):
+        its = [it for g in u["groups"] if g["id"] == gid for it in g["items"]]
+        c = [it["sym"] for it in its if it.get("core")]
+        return c if c else [it["sym"] for it in its]
+    sec_all = [it["sym"] for g in u["groups"] if g["id"] == "sectors" for it in g["items"]]
+    spdr = [s for s in sec_all if s.startswith("XL")]
     lead = [s for g in u["groups"] if g["kind"] == "index" and g["id"] in ("us", "il", "eu", "asia", "am")
             for s in [it["sym"] for it in g["items"]] if s in items and items[s].get("ma200") is not None]
     above = [s for s in lead if items[s]["ma200"] > 0]
     return {
         "asof": max((it.get("date") or "") for it in items.values()),
         "groups": groups, "items": items,
-        "corr": {"factors": corr_matrix(px, fac + [u["benchmark"]]), "sectors": corr_matrix(px, sec)},
+        "corr": {"factors": corr_matrix(px, core("factors") + [u["benchmark"]]), "sectors": corr_matrix(px, core("sectors")),
+                 "themes": corr_matrix(px, core("themes") + [u["benchmark"]])},
         "avgCorr": avg_corr_series(px, spdr),
         "breadth": {"n": len(lead), "above200": len(above), "up": sum(1 for s in lead if items[s].get("trend") == "up"),
                     "down": sum(1 for s in lead if items[s].get("trend") == "down")},
