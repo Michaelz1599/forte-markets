@@ -338,3 +338,29 @@ def column(px: pd.DataFrame, sym: str, nd: int = 4) -> dict:
         return {}
     s = px[sym].dropna()
     return {d: round(float(v), nd) for d, v in s.items()}
+
+
+TICKER = ["^GSPC", "^NDX", "^DJI", "^RUT", "^VIX", "TA35.TA", "^TA125.TA", "^STOXX50E", "^GDAXI", "^FTSE", "^N225", "^HSI",
+          "^TNX", "DX-Y.NYB", "ILS=X", "EURUSD=X", "GC=F", "CL=F", "HG=F", "BTC-USD"]
+TICKER_NAMES = {"^VIX": "VIX", "^GSPC": "S&P 500", "^NDX": "Nasdaq 100", "^DJI": "Dow Jones", "^RUT": "Russell 2000",
+                "^TNX": "אג\"ח 10 שנים", "ILS=X": "דולר/שקל", "BTC-USD": "ביטקוין"}
+
+
+def ticker_payload(px: pd.DataFrame, u: dict) -> dict:
+    """The scrolling quote strip under the header: last close and daily change."""
+    names = {it["sym"]: it for g in u["groups"] for it in g["items"]}
+    names.update({it["sym"]: it for it in u.get("hidden", []) if it["sym"] not in names})
+    out = []
+    for sym in TICKER:
+        if sym not in px.columns:
+            continue
+        s = px[sym].dropna()
+        if len(s) < 2:
+            continue
+        it = names.get(sym, {})
+        is_y = bool(it.get("yield"))
+        d1 = float(s.iloc[-1] - s.iloc[-2]) if is_y else float(s.iloc[-1] / s.iloc[-2] - 1)
+        out.append({"sym": sym, "name": TICKER_NAMES.get(sym, it.get("name", sym)), "last": _r(s.iloc[-1], 6), "d1": _r(d1, 5),
+                    "date": s.index[-1], "mode": "pp" if is_y else "pct", "unit": it.get("unit", ""),
+                    "neutral": sym in ("ILS=X", "DX-Y.NYB", "EURUSD=X", "^VIX")})
+    return {"items": out}

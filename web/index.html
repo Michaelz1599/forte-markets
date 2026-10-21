@@ -453,6 +453,130 @@ td.rsc { white-space: nowrap; }
   .rs-tools { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .rs-tools .fld:nth-child(n+3) { grid-column: 1 / -1; }
 }
+
+/* ================= site chrome (v3) ================= */
+:root { --r: 12px; --shadow-1: 0 1px 2px rgba(0, 47, 34, .05), 0 4px 14px rgba(0, 47, 34, .06); --shadow-2: 0 2px 4px rgba(0, 47, 34, .06), 0 14px 34px rgba(0, 47, 34, .12); --ease: cubic-bezier(.2, .7, .2, 1); }
+body.noscroll { overflow: hidden; }
+.mast { background: linear-gradient(180deg, #002F22 0%, #013A2A 100%); border-bottom: 0; box-shadow: 0 1px 0 rgba(154, 212, 185, .35); transition: box-shadow .25s var(--ease); }
+body.scrolled .mast { box-shadow: 0 1px 0 rgba(154, 212, 185, .35), 0 10px 30px rgba(0, 20, 14, .28); }
+.mast-in { align-items: center !important; gap: 10px 18px; min-height: 60px; }
+.brand { all: unset; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 6px 0; border-radius: 8px; }
+.brand:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.brand-mark { width: 34px; height: 34px; border-radius: 9px; background: var(--mint); display: grid; place-items: center; flex: none; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .12); }
+.brand-mark svg { width: 22px; height: 22px; }
+.brand-txt { display: grid; gap: 1px; }
+.brand-txt .brand-name { font-size: 22px; letter-spacing: -.01em; }
+.brand-txt .brand-sub { font-size: 12px; }
+.tabs { align-self: center !important; gap: 2px; }
+.navi { position: relative; display: flex; }
+.tab { border-radius: 999px !important; padding: 8px 14px !important; border: 0 !important; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+.tab[aria-selected="true"] { background: var(--mint) !important; color: var(--mast) !important; box-shadow: 0 4px 14px rgba(154, 212, 185, .25); }
+.car { width: 16px; height: 16px; display: inline-grid; place-items: center; border-radius: 50%; margin-inline-start: 2px; opacity: .7; }
+.car::after { content: ""; width: 5px; height: 5px; border: solid currentColor; border-width: 0 1.6px 1.6px 0; transform: translateY(-2px) rotate(45deg); transition: transform .2s var(--ease); }
+.navi:hover .car::after, .navi.open .car::after { transform: translateY(1px) rotate(225deg); }
+.car:hover { opacity: 1; background: rgba(0, 47, 34, .12); }
+.dd { position: absolute; top: 100%; inset-inline-start: -8px; padding-top: 10px; z-index: 40; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .18s var(--ease), transform .18s var(--ease), visibility 0s linear .18s; }
+.navi.open .dd { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (hover: hover) { .navi:hover .dd { opacity: 1; visibility: visible; transform: none; transition-delay: .06s; } }
+.dd-card { width: 300px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-2); padding: 8px; display: grid; }
+.dd-desc { margin: 4px 8px 8px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.dd-it, .dr-it, .dr-tab { all: unset; cursor: pointer; display: block; padding: 8px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; }
+.dd-it:hover, .dd-it:focus-visible { background: var(--hl); color: var(--t1); }
+.dd-it::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--t2); margin-inline-end: 8px; vertical-align: 2px; }
+.mast-act { display: flex; align-items: center; gap: 6px; margin-inline-start: auto; }
+.subbar { display: flex; align-items: stretch; border-top: 1px solid rgba(154, 212, 185, .16); background: rgba(0, 0, 0, .16); }
+.subbar .asof { flex: none; margin: 0 !important; padding: 0 16px !important; min-height: 32px; font-size: 12px; border-inline-end: 1px solid rgba(154, 212, 185, .2); white-space: nowrap; }
+.subbar .edbtn { padding: 1px 9px; font-size: 12px; }
+.ibtn { all: unset; cursor: pointer; height: 34px; min-width: 34px; padding: 0 9px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; color: var(--mast-ink); border: 1px solid rgba(154, 212, 185, .35); font-size: 12.5px; transition: background-color .15s, border-color .15s; }
+.ibtn:hover { background: rgba(154, 212, 185, .14); border-color: rgba(154, 212, 185, .6); }
+.ibtn:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+.ibtn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.ibtn .kbd { font-size: 11px; opacity: .8; border: 1px solid rgba(154, 212, 185, .35); border-radius: 5px; padding: 0 5px; direction: ltr; }
+#cmdBtn { padding-inline: 12px 8px; }
+#themeBtn .ic { display: none; }
+#themeBtn[data-mode="auto"] .ic-auto, #themeBtn[data-mode="light"] .ic-light, #themeBtn[data-mode="dark"] .ic-dark { display: block; }
+.menu-btn { display: none; }
+.sprog { position: absolute; inset-inline: 0; bottom: 0; height: 2px; background: var(--mint); transform-origin: right center; transform: scaleX(0); }
+.ticker { position: relative; flex: 1; min-width: 0; overflow: hidden; height: 32px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+.tk-track { display: flex; width: max-content; height: 100%; direction: ltr; animation: tk 80s linear infinite; }
+.ticker:hover .tk-track, .ticker:focus-within .tk-track { animation-play-state: paused; }
+.tk-run { display: flex; align-items: center; }
+.tk { all: unset; cursor: pointer; display: inline-flex; align-items: baseline; gap: 7px; padding: 0 18px; height: 32px; line-height: 32px; font-size: 12.5px; color: var(--mast-ink-2); white-space: nowrap; border-inline-end: 1px solid rgba(154, 212, 185, .12); }
+.tk:hover .tk-n { color: #fff; }
+.tk-n { direction: rtl; color: var(--mast-ink); font-weight: 600; }
+.tk-v { color: #fff; font-weight: 600; }
+.tk-c.up { color: #7FE0B0; }
+.tk-c.dn { color: #FF9B85; }
+@keyframes tk { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .tk-track { animation: none; } .ticker { overflow-x: auto; } }
+.drawer { position: fixed; inset: 0; z-index: 60; background: rgba(0, 20, 14, .45); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.drawer-panel { position: absolute; inset-block: 0; inset-inline-start: 0; width: min(86vw, 360px); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-2); display: grid; grid-template-rows: auto 1fr; animation: drIn .25s var(--ease); }
+@keyframes drIn { from { transform: translateX(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--mast); color: var(--mast-ink); }
+#drawerBody { overflow-y: auto; padding: 10px 10px 24px; display: grid; gap: 6px; align-content: start; }
+.dr-grp { border-bottom: 1px solid var(--line-2); padding-bottom: 8px; }
+.dr-tab { font-size: 17px; font-weight: 800; padding: 10px; }
+.dr-tab:hover { background: var(--sunk); }
+.dr-desc { margin: -4px 10px 6px; font-size: 12.5px; color: var(--muted); }
+.dr-items { display: grid; }
+.dr-it { padding: 7px 10px; font-size: 14px; color: var(--ink-2); }
+.dr-it:hover { background: var(--hl); color: var(--t1); }
+.cmd { position: fixed; inset: 0; z-index: 80; background: rgba(0, 20, 14, .45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; justify-items: center; align-items: start; padding: 10vh 16px 16px; animation: fadeIn .15s ease; }
+.cmd-box { width: min(640px, 100%); background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 60px rgba(0, 20, 14, .35); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; max-height: 72vh; animation: popIn .18s var(--ease); }
+.cmd-in { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.cmd-in svg { width: 18px; height: 18px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; flex: none; }
+.cmd-in input { flex: 1; border: 0; outline: 0; background: transparent; font-size: 16px; min-width: 0; }
+.cmd kbd { font: 600 11px/1 var(--f-body); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 2px 5px; color: var(--muted); background: var(--bg); direction: ltr; }
+.cmd-list { overflow-y: auto; padding: 6px; }
+.cmd-g { font-size: 11.5px; font-weight: 700; color: var(--muted); padding: 10px 10px 4px; }
+.cmd-it { all: unset; cursor: pointer; box-sizing: border-box; width: 100%; display: flex; justify-content: space-between; gap: 12px; padding: 9px 10px; border-radius: 9px; }
+.cmd-it.on, .cmd-it:hover { background: var(--hl); color: var(--t1); }
+.cmd-l { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmd-s { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 45%; }
+.cmd-empty { color: var(--muted); padding: 16px; margin: 0; }
+.cmd-foot { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 8px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); background: var(--bg); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: translateY(-8px) scale(.98); } to { opacity: 1; transform: none; } }
+.toolbar h1 { font-size: clamp(26px, 3.2vw, 40px); letter-spacing: -.02em; line-height: 1.1; margin: 0 0 6px; }
+.toolbar h1[data-eyebrow]::before { content: attr(data-eyebrow); display: block; font: 700 11.5px/1.2 var(--f-body); letter-spacing: .14em; color: var(--accent); margin-bottom: 8px; }
+.view .wrap { padding-top: 26px; }
+.panel { border-radius: var(--r); box-shadow: var(--shadow-1); }
+.panel.inner { box-shadow: none; }
+.tile { border-radius: 10px; box-shadow: var(--shadow-1); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.panel h2 { letter-spacing: -.01em; }
+.rv { opacity: 0; transform: translateY(14px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+.tile.rv.in { transition: opacity .55s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease); }
+.tile.rv.in:hover { transform: translateY(-2px); }
+main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
+@keyframes viewIn { from { opacity: 0; } to { opacity: 1; } }
+[id^="grp-"], [id^="ig-"], #momFac, #rsPanel, #momGlob, #momSp, #xstrip, #howH, #anTop, .hero, #idxBody { scroll-margin-top: 120px; }
+.to-top { position: fixed; inset-inline-end: 18px; bottom: 18px; z-index: 30; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-2); display: grid; place-items: center; cursor: pointer; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s, transform .2s var(--ease); }
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.site-foot { margin-top: 48px; background: var(--mast); color: var(--mast-ink-2); }
+.foot-in { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 28px; padding-block: 40px 28px; }
+.site-foot h4 { color: var(--mast-ink); font-size: 13px; letter-spacing: .04em; margin: 0 0 10px; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; }
+.site-foot p { margin: 0 0 8px; font-size: 13.5px; line-height: 1.6; }
+.site-foot .brand-name { font-size: 26px; display: block; margin-bottom: 8px; }
+.foot-link { all: unset; cursor: pointer; color: var(--mast-ink-2); }
+.foot-link:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.foot-bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-block: 14px 22px; border-top: 1px solid rgba(154, 212, 185, .16); font-size: 12.5px; }
+@media (max-width: 1180px) { #cmdBtn .kbd, #cmdBtn .lbl { display: none; } }
+@media (max-width: 860px) {
+  .tabs { display: none !important; }
+  .menu-btn { display: inline-flex; }
+  .mast-in { flex-wrap: nowrap !important; }
+  .subbar { flex-wrap: wrap; }
+  .subbar .ticker { flex: 1 1 100%; }
+  .subbar .asof { width: 100%; border-inline-end: 0; border-bottom: 1px solid rgba(154, 212, 185, .16); white-space: normal; min-height: 30px; font-size: 11.5px; }
+  .brand-txt .brand-sub { display: none; }
+  .foot-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .foot-in > :first-child { grid-column: 1 / -1; }
+}
+@media print { .rv { opacity: 1 !important; transform: none !important; } .ticker, .to-top, .mast-act { display: none !important; } }
 </style>
 </head>
 <body>
@@ -460,17 +584,20 @@ td.rsc { white-space: nowrap; }
 
 <header class="mast" dir="rtl" lang="he">
   <div class="mast-in">
-    <div class="brand"><span class="brand-name">פורטה</span><span class="brand-sub">בית השקעות · דשבורד שווקים</span></div>
+    <button type="button" class="brand" id="brandHome" aria-label="פורטה, לדף הראשי"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 24V8h12v3.4h-8.2v3.2h7.2V18h-7.2v6z" fill="#002F22"/></svg></span><span class="brand-txt"><span class="brand-name">פורטה</span><span class="brand-sub">בית השקעות · דשבורד שווקים</span></span></button>
     <nav class="tabs" role="tablist" aria-label="מסכים">
-      <button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט</button>
-      <button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים</button>
-      <button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום</button>
-      <button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים</button>
+      <div class="navi" data-nav="market"><button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="market"></div></div>
+      <div class="navi" data-nav="indices"><button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="indices"></div></div>
+      <div class="navi" data-nav="momentum"><button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="momentum"></div></div>
+      <div class="navi" data-nav="analysis"><button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="analysis"></div></div>
       <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
     </nav>
-    <div class="asof" id="asof"><span class="dot-off"></span><span>טוען נתונים…</span></div>
+    <div class="mast-act"><button type="button" class="ibtn" id="cmdBtn" aria-label="חיפוש (Ctrl+K)" title="חיפוש (Ctrl+K)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="lbl">חיפוש</span><span class="kbd"><span class="kbd-mod">Ctrl</span> K</span></button><button type="button" class="ibtn" id="themeBtn" data-mode="auto"><svg class="ic ic-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="ic ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="ic ic-dark" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="ibtn menu-btn" id="menuBtn" aria-label="תפריט" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
   </div>
+  <div class="subbar"><div class="asof" id="asof"><span class="dot-off"></span><span>טוען נתונים…</span></div><div class="ticker" id="ticker" aria-label="שערים אחרונים, לחיצה פותחת גרף"><div class="tk-track" id="tkTrack"></div></div></div>
+  <div class="sprog" id="sprog" aria-hidden="true"></div>
 </header>
+<div class="drawer" id="drawer" hidden><div class="drawer-panel" role="dialog" aria-modal="true" aria-label="תפריט"><div class="drawer-head"><b>תפריט</b><button type="button" class="ibtn" data-go="market">לדף הראשי</button></div><div id="drawerBody"></div></div></div>
 
 <main id="v-market" class="view" dir="rtl" lang="he">
   <div class="wrap">
@@ -532,14 +659,14 @@ td.rsc { white-space: nowrap; }
 
 <main id="v-indices" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1>מדדים מובילים</h1><p class="lede">מצב טכני של המדדים המרכזיים בעולם, ומומנטום לפי פקטור וסקטור: אילו קבוצות מניות מובילות, מי מאבד גובה ומי זז יחד.</p></div><span class="small muted" id="idxAsof"></span></div>
+    <div class="toolbar"><div><h1 data-eyebrow="LEADING INDICES">מדדים מובילים</h1><p class="lede">מצב טכני של המדדים המרכזיים בעולם, ומומנטום לפי פקטור וסקטור: אילו קבוצות מניות מובילות, מי מאבד גובה ומי זז יחד.</p></div><span class="small muted" id="idxAsof"></span></div>
     <div id="idxBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
 
 <main id="v-momentum" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1>מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים, סקטורים ונושאים מול S&amp;P 500, RS לכל מניה בשוק, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
+    <div class="toolbar"><div><h1 data-eyebrow="MOMENTUM · RS">מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים, סקטורים ונושאים מול S&amp;P 500, RS לכל מניה בשוק, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
     <div id="momBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
@@ -587,6 +714,16 @@ td.rsc { white-space: nowrap; }
 
 <div id="ovRoot" dir="rtl" lang="he"></div>
 
+<footer class="site-foot" dir="rtl" lang="he">
+  <div class="wrap foot-in">
+    <div><span class="brand-name">פורטה</span><p>דשבורד השווקים של פורטה בית השקעות: סנטימנט, מדדים מובילים, מומנטום ו-RS לכל מניה, והניתוחים הטכניים של התיק, במקום אחד.</p><p><button type="button" class="foot-link" id="footSearch">חיפוש באתר · Ctrl+K</button></p></div>
+    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
+    <div><h4>מקורות</h4><ul><li>CNN · Cboe · CFTC · AAII · FRED</li><li>Yahoo Finance</li><li>רשימת המניות של NASDAQ</li></ul></div>
+    <div><h4>עדכון</h4><p id="footUpd">—</p><p>כל לילה אחרי סגירת וול סטריט, ובבוקר לטבלת ה-RS.</p></div>
+  </div>
+  <div class="wrap foot-bot"><span>© פורטה בית השקעות · לשימוש פנימי</span><span>כלי עזר להחלטה ולא המלצת השקעה.</span></div>
+</footer>
+<button type="button" class="to-top" id="toTop" aria-label="לראש הדף"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>
 (() => {
 'use strict';
@@ -977,7 +1114,7 @@ function renderBoard() {
   let html = `<div class="tr th" role="row"><div role="columnheader">אינדיקטור</div><div role="columnheader">ערך אחרון</div><div role="columnheader">שינוי</div><div role="columnheader">אחוזון · ${WIN_LABEL[S.win]}</div><div role="columnheader" style="text-align:center">Z</div><div role="columnheader">מצב</div><div role="columnheader">6 חודשים אחרונים</div></div>`;
   for (const [g, gname] of GROUPS) {
     const rows = inds.filter(i => (i.group || 'other') === g); if (!rows.length) continue;
-    html += `<div class="tr sec" role="row"><div role="cell">${gname}</div></div>`;
+    html += `<div class="tr sec" role="row" id="grp-${g}"><div role="cell">${gname}</div></div>`;
     for (const ind of rows) html += rowHTML(ind);
   }
   el.innerHTML = html;
@@ -1660,7 +1797,7 @@ function renderIndices() {
   </section>`;
   let rows = '';
   for (const g of mk.groups.filter(g => g.kind === 'index')) {
-    rows += `<tr class="secr"><td colspan="13">${esc(g.name)}</td></tr>`;
+    rows += `<tr class="secr" id="ig-${esc(g.id)}"><td colspan="13">${esc(g.name)}</td></tr>`;
     for (const s of g.items) {
       const it = items[s]; if (!it) continue;
       if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="12" class="muted">אין נתונים</td></tr>`; continue; }
@@ -2159,6 +2296,208 @@ function drawIdxChart(sym, rangeDays, isFac) {
     ] });
 }
 
+// ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
+const NAV = {
+  market: { d: 'מצב הרוח בשוק, אחוזונים היסטוריים ומה קרה אחרי קריאות דומות', items: () => [['שורה תחתונה ומדד הסנטימנט', '.hero'], ['אינדיקטורים בקיצון', '#xstrip'],
+    ...GROUPS.filter(g => !['macro', 'other'].includes(g[0])).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
+  indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
+    ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, סחורות ומטבעות', '#ig-cross']] },
+  momentum: { d: 'פקטורים, סקטורים ונושאים, RS לכל מניה ומומנטום בעולם', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מדדים ונכסים בעולם', '#momGlob'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
+  analysis: { d: 'הניתוח הטכני שלך לכל מניה בתיק: גרף, רמות ושורה תחתונה', items: () => [['כל הניתוחים', '#anTop']] },
+};
+const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
+const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+function goTo(tab, sel) {
+  closeMenus();
+  if (S.tab !== tab) showTab(tab);
+  if (!sel) { window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' }); return; }
+  const t0 = Date.now();
+  const tick = () => {
+    const el = document.querySelector(`#v-${tab} ${sel}`);
+    if (el) { el.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' }); return; }
+    if (Date.now() - t0 < 5000) setTimeout(tick, 120);
+  };
+  setTimeout(tick, 60);
+}
+function closeMenus() {
+  $$('.navi.open').forEach(n => n.classList.remove('open'));
+  const d = $('#drawer'); if (d && !d.hidden) { d.hidden = true; $('#menuBtn').setAttribute('aria-expanded', 'false'); document.body.classList.remove('noscroll'); }
+}
+function buildMenus() {
+  for (const [tab, nv] of Object.entries(NAV)) {
+    const dd = document.querySelector(`.dd[data-dd="${tab}"]`); if (!dd) continue;
+    dd.innerHTML = `<div class="dd-card"><p class="dd-desc">${esc(nv.d)}</p>${nv.items().map(([l, sel]) => `<button type="button" class="dd-it" data-go="${tab}" data-sel="${esc(sel)}">${esc(l)}</button>`).join('')}</div>`;
+  }
+  const dr = $('#drawerBody');
+  if (dr) dr.innerHTML = Object.entries(NAV).map(([tab, nv]) => `<div class="dr-grp"><button type="button" class="dr-tab" data-go="${tab}">${TAB_NAME[tab]}</button><p class="dr-desc">${esc(nv.d)}</p>
+      <div class="dr-items">${nv.items().map(([l, sel]) => `<button type="button" class="dr-it" data-go="${tab}" data-sel="${esc(sel)}">${esc(l)}</button>`).join('')}</div></div>`).join('')
+    + (S.canEdit ? `<div class="dr-grp"><button type="button" class="dr-tab" data-go="manage">ניהול</button></div>` : '');
+}
+// ---- theme
+const THEMES = ['auto', 'light', 'dark'];
+function applyTheme(t) {
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
+  const b = $('#themeBtn'); if (b) { b.dataset.mode = t; b.setAttribute('aria-label', `מצב תצוגה: ${t === 'auto' ? 'לפי המכשיר' : t === 'light' ? 'בהיר' : 'כהה'}`); b.title = b.getAttribute('aria-label'); }
+}
+// ---- ticker
+async function loadTicker() {
+  let d; try { d = await fetchJSON('data/ticker.json'); } catch (e) { $('#ticker').hidden = true; return; }
+  const item = it => {
+    const ch = it.d1 == null ? '' : it.mode === 'pp' ? `${fmtS(it.d1 * 100, 0)} נ"ב` : fmtPct(it.d1, 2);
+    const cls = it.d1 == null || it.mode === 'pp' || it.neutral ? '' : it.d1 > 0 ? 'up' : it.d1 < 0 ? 'dn' : '';
+    const v = it.last >= 1000 ? fmtN(it.last, 0) : it.last >= 10 ? fmtN(it.last, 2) : fmtN(it.last, it.unit === '%' ? 2 : 3);
+    return `<button type="button" class="tk" data-tk="${esc(it.sym)}" tabindex="-1"><span class="tk-n">${esc(it.name)}</span><span class="tk-v ltr num">${v}${it.unit === '%' ? '%' : ''}</span><span class="tk-c ltr num ${cls}">${cls === 'up' ? '▲' : cls === 'dn' ? '▼' : ''}${ch}</span></button>`;
+  };
+  const html = d.items.map(item).join('');
+  $('#tkTrack').innerHTML = `<div class="tk-run">${html}</div><div class="tk-run" aria-hidden="true">${html}</div>`;
+  $('#tkTrack').addEventListener('click', e => { const b = e.target.closest('[data-tk]'); if (!b) return; loadMarkets().then(() => { if (S.mk.items[b.dataset.tk]) openIdx(b.dataset.tk); }).catch(() => {}); });
+}
+// ---- search palette (Ctrl/⌘+K, "/")
+let CMD = null;
+function cmdItems(q) {
+  q = q.trim().toLowerCase();
+  const out = [];
+  const hit = (...xs) => !q || xs.some(x => x && String(x).toLowerCase().includes(q));
+  const starts = (...xs) => q && xs.some(x => x && String(x).toLowerCase().startsWith(q));
+  for (const [tab, nv] of Object.entries(NAV)) {
+    if (hit(TAB_NAME[tab], nv.d)) out.push({ g: 'לשוניות', l: TAB_NAME[tab], s: nv.d, w: starts(TAB_NAME[tab]) ? 3 : 1, run: () => goTo(tab) });
+    for (const [l, sel] of nv.items()) if (q && hit(l)) out.push({ g: 'חלקים באתר', l, s: TAB_NAME[tab], w: starts(l) ? 3 : 1, run: () => goTo(tab, sel) });
+  }
+  for (const ind of (S.ind ? S.ind.values() : [])) if (hit(ind.name, ind.short, ind.id)) out.push({ g: 'אינדיקטורים', l: ind.name, s: ind.short || '', w: starts(ind.name, ind.id) ? 3 : 1, run: () => { closeCmd(); openInd(ind.id); } });
+  if (S.mk) for (const it of Object.values(S.mk.items)) if (q && hit(it.name, it.sym)) out.push({ g: 'מדדים, פקטורים ונושאים', l: it.name, s: it.sym, ltrS: true, w: starts(it.sym, it.name) ? 3 : 1, run: () => { closeCmd(); openIdx(it.sym); } });
+  for (const [T, s] of (S.stk ? S.stk.entries() : [])) if (q && hit(T, s.name)) out.push({ g: 'ניתוחים טכניים', l: `${T}${s.name ? ' · ' + s.name : ''}`, s: s.headline || '', w: starts(T) ? 4 : 2, run: () => { closeCmd(); openStock(T); } });
+  if (RSD && q) {
+    let n = 0;
+    for (const r of RSD.list) {
+      if (n >= 12) break;
+      if (r.sym.toLowerCase().startsWith(q) || (q.length > 2 && r.name.toLowerCase().includes(q))) {
+        n++; out.push({ g: 'מניות · RS', l: `${r.sym} · ${r.name}`, s: `RS ${r.rs} · ${fmtS(r.ret, 1)}% בשבועיים`, w: r.sym.toLowerCase() === q ? 5 : starts(r.sym) ? 2 : 0, run: () => {
+          const u = rsUi(); u.q = r.sym; u.sector = ''; u.minrs = 0; u.cap = 0; u.univ = 'all'; u.shown = 100; closeCmd();
+          if (S.tab === 'momentum' && $('#rsPanel')) { $('#rsQ').value = r.sym; rsSyncSeg('rsMin', 0); rsSyncSeg('rsCap', 0); rsSyncSeg('rsUniv', 'all'); rsAll(); }
+          goTo('momentum', '#rsPanel'); } });
+      }
+    }
+  }
+  return out.sort((a, b) => b.w - a.w).slice(0, 40);
+}
+function renderCmd() {
+  const list = $('#cmdList'); if (!list) return;
+  const items = cmdItems($('#cmdQ').value); CMD.items = items; CMD.sel = Math.min(CMD.sel, Math.max(0, items.length - 1));
+  if (!items.length) { list.innerHTML = '<p class="cmd-empty">לא נמצאו תוצאות. נסו סימול (NVDA), שם מדד או אינדיקטור.</p>'; return; }
+  let g = '', html = '';
+  items.forEach((it, i) => {
+    if (it.g !== g) { g = it.g; html += `<div class="cmd-g">${esc(g)}</div>`; }
+    html += `<button type="button" class="cmd-it${i === CMD.sel ? ' on' : ''}" data-i="${i}" role="option" aria-selected="${i === CMD.sel}"><span class="cmd-l">${esc(it.l)}</span><span class="cmd-s${it.ltrS ? ' ltr' : ''}">${esc(it.s)}</span></button>`;
+  });
+  list.innerHTML = html;
+  const on = list.querySelector('.cmd-it.on'); if (on) on.scrollIntoView({ block: 'nearest' });
+}
+function openCmd() {
+  if ($('#cmd')) return;
+  closeMenus();
+  CMD = { sel: 0, items: [], prev: document.activeElement };
+  const w = document.createElement('div');
+  w.id = 'cmd'; w.className = 'cmd'; w.setAttribute('dir', 'rtl');
+  w.innerHTML = `<div class="cmd-box" role="dialog" aria-modal="true" aria-label="חיפוש באתר"><div class="cmd-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="cmdQ" type="search" placeholder="חיפוש מניה, מדד, פקטור, אינדיקטור או חלק באתר" autocomplete="off" dir="auto" role="combobox" aria-controls="cmdList" aria-expanded="true"><kbd>Esc</kbd></div><div class="cmd-list" id="cmdList" role="listbox"></div>
+    <div class="cmd-foot"><span><kbd>↑</kbd><kbd>↓</kbd> מעבר</span><span><kbd>Enter</kbd> פתיחה</span><span><kbd>Ctrl</kbd><kbd>K</kbd> מכל מקום</span></div></div>`;
+  document.body.appendChild(w); document.body.classList.add('noscroll');
+  w.addEventListener('mousedown', e => { if (e.target === w) closeCmd(); });
+  const q = $('#cmdQ');
+  q.addEventListener('input', () => { CMD.sel = 0; renderCmd(); });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); CMD.sel = Math.min(CMD.items.length - 1, CMD.sel + 1); renderCmd(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); CMD.sel = Math.max(0, CMD.sel - 1); renderCmd(); }
+    else if (e.key === 'Enter') { e.preventDefault(); const it = CMD.items[CMD.sel]; if (it) { closeCmd(); it.run(); } }
+    else if (e.key === 'Escape') { e.preventDefault(); closeCmd(); }
+  });
+  $('#cmdList').addEventListener('click', e => { const b = e.target.closest('.cmd-it'); if (!b) return; const it = CMD.items[+b.dataset.i]; if (it) { closeCmd(); it.run(); } });
+  renderCmd(); q.focus();
+  Promise.all([loadMarkets().catch(() => {}), loadRS()]).then(() => { if ($('#cmd')) renderCmd(); });
+}
+function closeCmd() {
+  const w = $('#cmd'); if (!w) return;
+  w.remove(); if (!$('#ov')) document.body.classList.remove('noscroll');
+  if (CMD && CMD.prev && CMD.prev.focus) try { CMD.prev.focus(); } catch (e) { /* gone */ }
+}
+// ---- motion: reveal on first view of each tab, scroll progress, back to top
+let revealUntil = 0;
+const revealed = new Set();
+let revealIO = null;
+function markReveal(root) {
+  if (!revealIO || Date.now() > revealUntil) return;
+  root.querySelectorAll('.panel:not(.inner), .tile, .hero > *, .bottomline, .an-card, .board').forEach(el => {
+    if (el.dataset.rv || el.closest('#ov')) return;
+    el.dataset.rv = '1'; el.classList.add('rv'); revealIO.observe(el);
+  });
+}
+function initMotion() {
+  if (!reduceMotion() && 'IntersectionObserver' in window) {
+    revealIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } }), { rootMargin: '0px 0px -40px 0px' });
+    const mo = new MutationObserver(ms => { if (Date.now() > revealUntil) return; for (const m of ms) m.addedNodes.forEach(n => { if (n.nodeType === 1) markReveal(n.parentElement || n); }); });
+    $$('main.view').forEach(v => mo.observe(v, { childList: true, subtree: true }));
+  }
+  const prog = $('#sprog'), top = $('#toTop');
+  let raf = 0;
+  const onScroll = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const h = document.documentElement.scrollHeight - innerHeight;
+      prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
+      top.classList.toggle('show', scrollY > 900);
+      document.body.classList.toggle('scrolled', scrollY > 8);
+    });
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' }));
+}
+function updFoot() {
+  const el = $('#footUpd'); if (!el || !S.meta) return;
+  const st = S.meta.status || {};
+  el.textContent = `${S.meta.built ? 'נבנה ' + fmtDate(S.meta.built.slice(0, 10)) + ' ' + S.meta.built.slice(11, 16) + ' UTC' : ''}${st.sources && st.sources.length ? ` · ${st.sources.filter(s => s.ok).length}/${st.sources.length} מקורות תקינים` : ''}`;
+}
+function initUI() {
+  const _showTab = showTab;
+  showTab = function (t) {
+    _showTab(t);
+    document.body.dataset.tab = S.tab;
+    if (!revealed.has(S.tab)) { revealed.add(S.tab); revealUntil = Date.now() + 2500; const v = $('#v-' + S.tab); if (v) markReveal(v); }
+    $$('.navi').forEach(n => n.classList.toggle('cur', n.dataset.nav === S.tab));
+  };
+  const _renderAsOf = renderAsOf;
+  renderAsOf = function () { _renderAsOf(); updFoot(); };
+  let theme = lsGet('theme', 'auto'); if (!THEMES.includes(theme)) theme = 'auto';
+  applyTheme(theme);
+  $('#themeBtn').addEventListener('click', () => { theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]; lsSet('theme', theme); applyTheme(theme); });
+  buildMenus();
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-go]');
+    if (g) { e.preventDefault(); goTo(g.dataset.go, g.dataset.sel || ''); return; }
+    if (!e.target.closest('.navi')) $$('.navi.open').forEach(n => n.classList.remove('open'));
+  });
+  $$('.navi .car').forEach(c => c.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); const n = c.closest('.navi'); const o = n.classList.contains('open'); $$('.navi.open').forEach(x => x.classList.remove('open')); n.classList.toggle('open', !o); }));
+  $('#brandHome').addEventListener('click', () => goTo('market'));
+  $('#menuBtn').addEventListener('click', () => {
+    const d = $('#drawer'); const open = d.hidden;
+    if (open) buildMenus();
+    d.hidden = !open; $('#menuBtn').setAttribute('aria-expanded', String(open)); document.body.classList.toggle('noscroll', open);
+    if (open) { const f = d.querySelector('.dr-tab'); if (f) f.focus(); }
+  });
+  $('#drawer').addEventListener('click', e => { if (e.target.id === 'drawer') closeMenus(); });
+  $('#cmdBtn').addEventListener('click', openCmd);
+  $('#footSearch').addEventListener('click', openCmd);
+  document.addEventListener('keydown', e => {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName || '')) || e.target.isContentEditable;
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K' || e.code === 'KeyK')) { e.preventDefault(); $('#cmd') ? closeCmd() : openCmd(); }
+    else if (e.key === '/' && !typing && !$('#ov')) { e.preventDefault(); openCmd(); }
+    else if (e.key === 'Escape') closeMenus();
+  });
+  if (/Mac|iPhone|iPad/.test(navigator.platform || '')) $$('.kbd-mod').forEach(k => { k.textContent = '⌘'; });
+  initMotion();
+  loadTicker();
+  document.body.dataset.tab = S.tab || 'market';
+}
+
 // ---------------- tabs, events, boot ----------------
 function showTab(t) {
   if (t === 'manage' && !S.canEdit) t = 'market';
@@ -2253,6 +2592,7 @@ async function boot() {
   loadMarkets().then(() => { if (S.tab === 'indices' && !$('#ov')) renderIndices(); }).catch(() => { /* shown when the tab opens */ });
   loadMomentum().then(() => { if (S.tab === 'momentum' && !$('#ov')) renderMomentum(); });
 }
+initUI();
 boot();
 })();</script>
 </body>

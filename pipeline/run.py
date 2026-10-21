@@ -185,6 +185,7 @@ def build(st: Status, u: dict, px) -> None:
                 if sym in mk["items"]:
                     mk["items"][sym]["rs"] = rec
         dump_json(tmp / "data" / "markets.json", mk)
+        dump_json(tmp / "data" / "ticker.json", markets.ticker_payload(px, u))
         dump_json(tmp / "data" / "prices.json", markets.prices_payload(px))
     shutil.rmtree(SITE_DIR, ignore_errors=True)
     tmp.rename(SITE_DIR)

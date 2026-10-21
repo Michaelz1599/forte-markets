@@ -283,9 +283,14 @@ def compute(snaps: dict[str, pd.DataFrame], trading_days: list[str], members: di
     if missing_now:
         raise ValueError(f"missing snapshots for {', '.join(missing_now)}")
     rep = validate({s: snaps[s] for s in have}, yf["close"] if yf else None, spx)
-    bad = [s for s, v in rep["sessions"].items() if v["match"] < 0.8 and s in need_now]
-    if bad:
-        raise ValueError(f"snapshots disagree with Yahoo on {', '.join(bad)}")
+    bad = [s for s, v in rep["sessions"].items() if v["match"] < 0.8]
+    if any(s in need_now for s in bad):
+        raise ValueError(f"snapshots disagree with Yahoo on {', '.join(s for s in bad if s in need_now)}")
+    if bad:   # outside the window: drop them so they feed neither the checks nor the history
+        snaps = {s: v for s, v in snaps.items() if s not in bad}
+        have = [s for s in have if s not in bad]
+        rep["sessions"] = {s: v for s, v in rep["sessions"].items() if s not in bad}
+        rep["dropped"] = bad
 
     last = snaps[asof]
     kinds = last["name"].fillna("").map(security_kind)
@@ -393,7 +398,8 @@ def compute(snaps: dict[str, pd.DataFrame], trading_days: list[str], members: di
         "n": len(rows), "nSp": int(df["sp"].sum()), "nYahoo": int(sum(1 for s in now.index if src.get(s) == "yahoo")),
         "universe": int(len(last)), "excludedTypes": excluded, "excludedFlat": n_flat,
         "corporateActions": [{"sym": disp(s), "name": info.get(s, {}).get("name", s), "why": m} for s, m in sorted(ca_shown.items())],
-        "validation": {"sessions": mism, "spxTrack": rep.get("spxTrack", {})},
+        "validation": {"sessions": mism, "spxTrack": {k: v for k, v in rep.get("spxTrack", {}).items() if k in snaps},
+                       "dropped": rep.get("dropped", [])},
         "sectors": {"nas": sector_rows(df, "sec", NAS_HE), "gics": sector_rows(df[df["sp"]], "gics", GICS_HE)},
         "cols": ["sym", "name", "sec", "gics", "sp", "mcap", "px", "ret", "atr", "raw", "rs", "rsPrev"],
         "rows": rows,

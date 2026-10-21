@@ -223,3 +223,13 @@ def test_rs_etf_against_stock_distribution(tmp_path, monkeypatch):
     assert it["UP"]["peer"]["factors"] == [1, 2] and it["DN"]["peer"]["factors"] == [2, 2]
     assert it["UP"]["rsPrev"] == 100 and len(it["UP"]["rsHist"]) >= 2
     assert (tmp_path / "etf.csv").exists() and (tmp_path / "dist.csv").exists()
+
+
+def test_rs_drops_bad_snapshots_outside_the_window():
+    days, syms, paths, snaps = _snap_set()
+    members = {s: (s, "Industrials") for s in syms[:300]}
+    yc = pd.DataFrame(paths[:, :300], index=days, columns=syms[:300])
+    yc.iloc[1] *= 1.05                    # an old session, outside both windows
+    yf = {"close": yc, "high": yc * 1.01, "low": yc * 0.99}
+    out = rs.payload(rs.compute(snaps, days, members, yf, None))
+    assert out["validation"]["dropped"] == [days[1]] and days[1] not in out["validation"]["sessions"]
