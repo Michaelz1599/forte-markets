@@ -60,3 +60,17 @@ def test_ratio_and_yield_guard():
     px = pd.DataFrame({"A": np.arange(1, 11, dtype=float), "B": np.full(10, 2.0)}, index=idx)
     r = markets.ratio_series(px, "A", "B")
     assert r[idx[-1]] == 5.0 and len(r) == 10
+
+
+def test_stock_momentum_and_mom_breadth():
+    idx = _dates(320)
+    up = pd.DataFrame({f"U{i}": np.linspace(10, 20, 320) for i in range(30)}, index=idx)
+    dn = pd.DataFrame({f"D{i}": np.linspace(20, 10, 320) for i in range(20)}, index=idx)
+    close = pd.concat([up, dn], axis=1)
+    out = breadth.compute(close)
+    assert abs(out["sp_mom12"][idx[-1]] - 60) < 1e-6
+    info = {s: (s, "Information Technology" if s.startswith("U") else "Energy") for s in close.columns}
+    m = breadth.stock_momentum(close, info)
+    assert m["n"] == 50 and m["pctPos"] == 60.0
+    assert m["leaders"][0]["sym"].startswith("U") and m["laggards"][0]["sym"].startswith("D")
+    assert m["sectors"][0]["sector"] == "טכנולוגיה" and m["sectors"][0]["inTop50"] == 30

@@ -177,6 +177,7 @@ def metrics(s: pd.Series) -> dict:
         "n": len(s), "last": _r(last, 6), "date": s.index[-1], "prev": _r(s.iloc[-2], 6),
         "d1": _r(last / float(s.iloc[-2]) - 1), "w1": _r(_ret(s, 5)), "m1": _r(_ret(s, 21)), "m3": _r(_ret(s, 63)),
         "m6": _r(_ret(s, 126)), "y1": _r(_ret(s, 252)),
+        "mom121": _r(float(s.iloc[-22] / s.iloc[-253] - 1)) if len(s) > 253 else None,
         "ytd": _r(last / float(prev_year.iloc[-1]) - 1) if len(prev_year) else None,
         "ma50": _r(last / s50 - 1) if math.isfinite(s50) else None,
         "ma200": _r(last / s200 - 1) if math.isfinite(s200) else None,
@@ -276,7 +277,7 @@ def build_markets(px: pd.DataFrame, u: dict) -> dict:
     fac = [it["sym"] for g in u["groups"] if g["id"] == "factors" for it in g["items"]]
     sec = [it["sym"] for g in u["groups"] if g["id"] == "sectors" for it in g["items"]]
     spdr = [s for s in sec if s.startswith("XL")]
-    lead = [s for g in u["groups"] if g["kind"] == "index" and g["id"] in ("us", "il", "eu", "asia")
+    lead = [s for g in u["groups"] if g["kind"] == "index" and g["id"] in ("us", "il", "eu", "asia", "am")
             for s in [it["sym"] for it in g["items"]] if s in items and items[s].get("ma200") is not None]
     above = [s for s in lead if items[s]["ma200"] > 0]
     return {

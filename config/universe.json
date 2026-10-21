@@ -2,89 +2,482 @@
   "_comment": "Instruments for the Leading Indices tab. sym = Yahoo Finance symbol. Add a row to add an instrument; the next run backfills its history.",
   "benchmark": "SPY",
   "groups": [
-    {"id": "us", "name": "ארה\"ב", "kind": "index", "items": [
-      {"sym": "^GSPC", "name": "S&P 500", "ta": "SPX"},
-      {"sym": "^NDX", "name": "Nasdaq 100", "ta": "NDX"},
-      {"sym": "^DJI", "name": "Dow Jones", "ta": "DJI"},
-      {"sym": "^RUT", "name": "Russell 2000", "ta": "RUT"},
-      {"sym": "^NYA", "name": "NYSE Composite"},
-      {"sym": "RSP", "name": "S&P 500 שווה משקל", "note": "ETF"},
-      {"sym": "^SOX", "name": "מוליכים למחצה (SOX)", "ta": "SOX"}
-    ]},
-    {"id": "il", "name": "ישראל", "kind": "index", "items": [
-      {"sym": "TA35.TA", "name": "ת\"א 35", "ta": "TA35"},
-      {"sym": "^TA125.TA", "name": "ת\"א 125", "ta": "TA125"},
-      {"sym": "EIS", "name": "MSCI ישראל (דולרי)", "note": "ETF"},
-      {"sym": "ILS=X", "name": "דולר/שקל", "inv": false}
-    ]},
-    {"id": "eu", "name": "אירופה", "kind": "index", "items": [
-      {"sym": "^STOXX", "name": "STOXX Europe 600"},
-      {"sym": "^STOXX50E", "name": "Euro Stoxx 50"},
-      {"sym": "^GDAXI", "name": "DAX גרמניה"},
-      {"sym": "^FTSE", "name": "FTSE 100 בריטניה"},
-      {"sym": "^FCHI", "name": "CAC 40 צרפת"}
-    ]},
-    {"id": "asia", "name": "אסיה ושווקים מתעוררים", "kind": "index", "items": [
-      {"sym": "^N225", "name": "Nikkei 225 יפן"},
-      {"sym": "^HSI", "name": "Hang Seng הונג קונג"},
-      {"sym": "ASHR", "name": "CSI 300 סין (דולרי)", "note": "ETF"},
-      {"sym": "^KS11", "name": "KOSPI קוריאה"},
-      {"sym": "^TWII", "name": "TAIEX טייוואן"},
-      {"sym": "^NSEI", "name": "Nifty 50 הודו"},
-      {"sym": "EEM", "name": "MSCI שווקים מתעוררים", "note": "ETF"}
-    ]},
-    {"id": "cross", "name": "אג\"ח, סחורות ומטבעות", "kind": "index", "items": [
-      {"sym": "^TNX", "name": "תשואת אג\"ח 10 שנים ארה\"ב", "unit": "%", "yield": true},
-      {"sym": "TLT", "name": "אג\"ח ממשלתי ארוך (TLT)", "note": "ETF"},
-      {"sym": "HYG", "name": "אג\"ח קונצרני High Yield", "note": "ETF"},
-      {"sym": "DX-Y.NYB", "name": "מדד הדולר (DXY)"},
-      {"sym": "GC=F", "name": "זהב"},
-      {"sym": "CL=F", "name": "נפט WTI"},
-      {"sym": "HG=F", "name": "נחושת"},
-      {"sym": "BTC-USD", "name": "ביטקוין"}
-    ]},
-    {"id": "factors", "name": "פקטורים", "kind": "factor", "items": [
-      {"sym": "MTUM", "name": "מומנטום", "desc": "מניות עם התשואה הגבוהה ב-6–12 החודשים האחרונים"},
-      {"sym": "QUAL", "name": "איכות", "desc": "רווחיות גבוהה, מינוף נמוך ורווחים יציבים"},
-      {"sym": "VLUE", "name": "ערך", "desc": "מניות זולות ביחס לרווחים, למכירות ולתזרים"},
-      {"sym": "USMV", "name": "תנודתיות מינימלית", "desc": "תיק שנבנה לתנודתיות נמוכה"},
-      {"sym": "SPHB", "name": "בטא גבוהה", "desc": "100 המניות עם הבטא הגבוהה ב-S&P 500"},
-      {"sym": "SPLV", "name": "תנודתיות נמוכה", "desc": "100 המניות התנודתיות פחות ב-S&P 500"},
-      {"sym": "IWF", "name": "צמיחה (Russell 1000)", "desc": "מניות צמיחה גדולות"},
-      {"sym": "IWD", "name": "ערך (Russell 1000)", "desc": "מניות ערך גדולות"},
-      {"sym": "IWM", "name": "מניות קטנות", "desc": "Russell 2000"},
-      {"sym": "RSP", "name": "שווה משקל", "desc": "S&P 500 בלי הטיה לענקיות"},
-      {"sym": "SCHD", "name": "דיבידנד", "desc": "מניות דיבידנד איכותיות"},
-      {"sym": "MAGS", "name": "שבע הענקיות", "desc": "Magnificent 7 במשקל שווה"},
-      {"sym": "ARKK", "name": "צמיחה ספקולטיבית", "desc": "חדשנות ומניות צמיחה מוקדמות"}
-    ]},
-    {"id": "sectors", "name": "סקטורים ונושאים", "kind": "factor", "items": [
-      {"sym": "XLK", "name": "טכנולוגיה"},
-      {"sym": "XLC", "name": "תקשורת"},
-      {"sym": "XLY", "name": "צריכה מחזורית"},
-      {"sym": "XLF", "name": "פיננסים"},
-      {"sym": "XLI", "name": "תעשייה"},
-      {"sym": "XLV", "name": "בריאות"},
-      {"sym": "XLP", "name": "צריכה בסיסית"},
-      {"sym": "XLE", "name": "אנרגיה"},
-      {"sym": "XLB", "name": "חומרים"},
-      {"sym": "XLU", "name": "תשתיות"},
-      {"sym": "XLRE", "name": "נדל\"ן"},
-      {"sym": "SMH", "name": "מוליכים למחצה"},
-      {"sym": "IGV", "name": "תוכנה"},
-      {"sym": "KRE", "name": "בנקים אזוריים"},
-      {"sym": "XBI", "name": "ביוטק"},
-      {"sym": "ITB", "name": "בנייה למגורים"},
-      {"sym": "ITA", "name": "ביטחון ותעופה"},
-      {"sym": "GDX", "name": "מכרות זהב"}
-    ]}
+    {
+      "id": "world",
+      "name": "עולמי",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "ACWI",
+          "name": "MSCI ACWI (כל העולם)",
+          "note": "ETF"
+        },
+        {
+          "sym": "URTH",
+          "name": "MSCI World (מפותחות)",
+          "note": "ETF"
+        },
+        {
+          "sym": "VEA",
+          "name": "מפותחות ללא ארה\"ב",
+          "note": "ETF"
+        },
+        {
+          "sym": "EMXC",
+          "name": "מתעוררות ללא סין",
+          "note": "ETF"
+        }
+      ]
+    },
+    {
+      "id": "us",
+      "name": "ארה\"ב",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "^GSPC",
+          "name": "S&P 500",
+          "ta": "SPX"
+        },
+        {
+          "sym": "^NDX",
+          "name": "Nasdaq 100",
+          "ta": "NDX"
+        },
+        {
+          "sym": "^DJI",
+          "name": "Dow Jones",
+          "ta": "DJI"
+        },
+        {
+          "sym": "^RUT",
+          "name": "Russell 2000",
+          "ta": "RUT"
+        },
+        {
+          "sym": "^NYA",
+          "name": "NYSE Composite"
+        },
+        {
+          "sym": "RSP",
+          "name": "S&P 500 שווה משקל",
+          "note": "ETF"
+        },
+        {
+          "sym": "^SOX",
+          "name": "מוליכים למחצה (SOX)",
+          "ta": "SOX"
+        },
+        {
+          "sym": "^IXIC",
+          "name": "Nasdaq Composite"
+        },
+        {
+          "sym": "^SP400",
+          "name": "S&P MidCap 400"
+        },
+        {
+          "sym": "^SP600",
+          "name": "S&P SmallCap 600"
+        },
+        {
+          "sym": "^DJT",
+          "name": "Dow Jones תחבורה"
+        }
+      ]
+    },
+    {
+      "id": "il",
+      "name": "ישראל",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "TA35.TA",
+          "name": "ת\"א 35",
+          "ta": "TA35"
+        },
+        {
+          "sym": "^TA125.TA",
+          "name": "ת\"א 125",
+          "ta": "TA125"
+        },
+        {
+          "sym": "EIS",
+          "name": "MSCI ישראל (דולרי)",
+          "note": "ETF"
+        },
+        {
+          "sym": "ILS=X",
+          "name": "דולר/שקל",
+          "inv": false
+        }
+      ]
+    },
+    {
+      "id": "eu",
+      "name": "אירופה",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "^STOXX",
+          "name": "STOXX Europe 600"
+        },
+        {
+          "sym": "^STOXX50E",
+          "name": "Euro Stoxx 50"
+        },
+        {
+          "sym": "^GDAXI",
+          "name": "DAX גרמניה"
+        },
+        {
+          "sym": "^FTSE",
+          "name": "FTSE 100 בריטניה"
+        },
+        {
+          "sym": "^FCHI",
+          "name": "CAC 40 צרפת"
+        },
+        {
+          "sym": "^SSMI",
+          "name": "SMI שווייץ"
+        },
+        {
+          "sym": "FTSEMIB.MI",
+          "name": "FTSE MIB איטליה"
+        },
+        {
+          "sym": "^IBEX",
+          "name": "IBEX 35 ספרד"
+        },
+        {
+          "sym": "^AEX",
+          "name": "AEX הולנד"
+        }
+      ]
+    },
+    {
+      "id": "asia",
+      "name": "אסיה ושווקים מתעוררים",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "^N225",
+          "name": "Nikkei 225 יפן"
+        },
+        {
+          "sym": "^HSI",
+          "name": "Hang Seng הונג קונג"
+        },
+        {
+          "sym": "ASHR",
+          "name": "CSI 300 סין (דולרי)",
+          "note": "ETF"
+        },
+        {
+          "sym": "^KS11",
+          "name": "KOSPI קוריאה"
+        },
+        {
+          "sym": "^TWII",
+          "name": "TAIEX טייוואן"
+        },
+        {
+          "sym": "^NSEI",
+          "name": "Nifty 50 הודו"
+        },
+        {
+          "sym": "EEM",
+          "name": "MSCI שווקים מתעוררים",
+          "note": "ETF"
+        },
+        {
+          "sym": "^AXJO",
+          "name": "ASX 200 אוסטרליה"
+        },
+        {
+          "sym": "^BSESN",
+          "name": "Sensex הודו"
+        },
+        {
+          "sym": "^STI",
+          "name": "STI סינגפור"
+        },
+        {
+          "sym": "MCHI",
+          "name": "MSCI סין (דולרי)",
+          "note": "ETF"
+        }
+      ]
+    },
+    {
+      "id": "am",
+      "name": "קנדה ואמריקה הלטינית",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "^GSPTSE",
+          "name": "S&P/TSX קנדה"
+        },
+        {
+          "sym": "^BVSP",
+          "name": "Bovespa ברזיל"
+        },
+        {
+          "sym": "^MXX",
+          "name": "IPC מקסיקו"
+        }
+      ]
+    },
+    {
+      "id": "cross",
+      "name": "אג\"ח, סחורות ומטבעות",
+      "kind": "index",
+      "items": [
+        {
+          "sym": "^TNX",
+          "name": "תשואת אג\"ח 10 שנים ארה\"ב",
+          "unit": "%",
+          "yield": true
+        },
+        {
+          "sym": "TLT",
+          "name": "אג\"ח ממשלתי ארוך (TLT)",
+          "note": "ETF"
+        },
+        {
+          "sym": "HYG",
+          "name": "אג\"ח קונצרני High Yield",
+          "note": "ETF"
+        },
+        {
+          "sym": "DX-Y.NYB",
+          "name": "מדד הדולר (DXY)"
+        },
+        {
+          "sym": "GC=F",
+          "name": "זהב"
+        },
+        {
+          "sym": "CL=F",
+          "name": "נפט WTI"
+        },
+        {
+          "sym": "HG=F",
+          "name": "נחושת"
+        },
+        {
+          "sym": "BTC-USD",
+          "name": "ביטקוין"
+        },
+        {
+          "sym": "^TYX",
+          "name": "תשואת אג\"ח 30 שנה ארה\"ב",
+          "unit": "%",
+          "yield": true
+        },
+        {
+          "sym": "SI=F",
+          "name": "כסף"
+        },
+        {
+          "sym": "BZ=F",
+          "name": "נפט ברנט"
+        },
+        {
+          "sym": "NG=F",
+          "name": "גז טבעי"
+        },
+        {
+          "sym": "EURUSD=X",
+          "name": "אירו/דולר"
+        },
+        {
+          "sym": "JPY=X",
+          "name": "דולר/ין"
+        },
+        {
+          "sym": "ETH-USD",
+          "name": "את'ריום"
+        }
+      ]
+    },
+    {
+      "id": "factors",
+      "name": "פקטורים",
+      "kind": "factor",
+      "items": [
+        {
+          "sym": "MTUM",
+          "name": "מומנטום",
+          "desc": "מניות עם התשואה הגבוהה ב-6–12 החודשים האחרונים"
+        },
+        {
+          "sym": "QUAL",
+          "name": "איכות",
+          "desc": "רווחיות גבוהה, מינוף נמוך ורווחים יציבים"
+        },
+        {
+          "sym": "VLUE",
+          "name": "ערך",
+          "desc": "מניות זולות ביחס לרווחים, למכירות ולתזרים"
+        },
+        {
+          "sym": "USMV",
+          "name": "תנודתיות מינימלית",
+          "desc": "תיק שנבנה לתנודתיות נמוכה"
+        },
+        {
+          "sym": "SPHB",
+          "name": "בטא גבוהה",
+          "desc": "100 המניות עם הבטא הגבוהה ב-S&P 500"
+        },
+        {
+          "sym": "SPLV",
+          "name": "תנודתיות נמוכה",
+          "desc": "100 המניות התנודתיות פחות ב-S&P 500"
+        },
+        {
+          "sym": "IWF",
+          "name": "צמיחה (Russell 1000)",
+          "desc": "מניות צמיחה גדולות"
+        },
+        {
+          "sym": "IWD",
+          "name": "ערך (Russell 1000)",
+          "desc": "מניות ערך גדולות"
+        },
+        {
+          "sym": "IWM",
+          "name": "מניות קטנות",
+          "desc": "Russell 2000"
+        },
+        {
+          "sym": "RSP",
+          "name": "שווה משקל",
+          "desc": "S&P 500 בלי הטיה לענקיות"
+        },
+        {
+          "sym": "SCHD",
+          "name": "דיבידנד",
+          "desc": "מניות דיבידנד איכותיות"
+        },
+        {
+          "sym": "MAGS",
+          "name": "שבע הענקיות",
+          "desc": "Magnificent 7 במשקל שווה"
+        },
+        {
+          "sym": "ARKK",
+          "name": "צמיחה ספקולטיבית",
+          "desc": "חדשנות ומניות צמיחה מוקדמות"
+        }
+      ]
+    },
+    {
+      "id": "sectors",
+      "name": "סקטורים ונושאים",
+      "kind": "factor",
+      "items": [
+        {
+          "sym": "XLK",
+          "name": "טכנולוגיה"
+        },
+        {
+          "sym": "XLC",
+          "name": "תקשורת"
+        },
+        {
+          "sym": "XLY",
+          "name": "צריכה מחזורית"
+        },
+        {
+          "sym": "XLF",
+          "name": "פיננסים"
+        },
+        {
+          "sym": "XLI",
+          "name": "תעשייה"
+        },
+        {
+          "sym": "XLV",
+          "name": "בריאות"
+        },
+        {
+          "sym": "XLP",
+          "name": "צריכה בסיסית"
+        },
+        {
+          "sym": "XLE",
+          "name": "אנרגיה"
+        },
+        {
+          "sym": "XLB",
+          "name": "חומרים"
+        },
+        {
+          "sym": "XLU",
+          "name": "תשתיות"
+        },
+        {
+          "sym": "XLRE",
+          "name": "נדל\"ן"
+        },
+        {
+          "sym": "SMH",
+          "name": "מוליכים למחצה"
+        },
+        {
+          "sym": "IGV",
+          "name": "תוכנה"
+        },
+        {
+          "sym": "KRE",
+          "name": "בנקים אזוריים"
+        },
+        {
+          "sym": "XBI",
+          "name": "ביוטק"
+        },
+        {
+          "sym": "ITB",
+          "name": "בנייה למגורים"
+        },
+        {
+          "sym": "ITA",
+          "name": "ביטחון ותעופה"
+        },
+        {
+          "sym": "GDX",
+          "name": "מכרות זהב"
+        }
+      ]
+    }
   ],
   "hidden": [
-    {"sym": "SPY", "name": "S&P 500 (SPY)"},
-    {"sym": "^VIX", "name": "VIX"},
-    {"sym": "^VIX3M", "name": "VIX 3 חודשים"},
-    {"sym": "^VVIX", "name": "VVIX"},
-    {"sym": "^SKEW", "name": "SKEW"},
-    {"sym": "^MOVE", "name": "MOVE"}
+    {
+      "sym": "SPY",
+      "name": "S&P 500 (SPY)"
+    },
+    {
+      "sym": "^VIX",
+      "name": "VIX"
+    },
+    {
+      "sym": "^VIX3M",
+      "name": "VIX 3 חודשים"
+    },
+    {
+      "sym": "^VVIX",
+      "name": "VVIX"
+    },
+    {
+      "sym": "^SKEW",
+      "name": "SKEW"
+    },
+    {
+      "sym": "^MOVE",
+      "name": "MOVE"
+    }
   ]
 }

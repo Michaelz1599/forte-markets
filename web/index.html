@@ -388,7 +388,13 @@ table.ft { border: 2px solid var(--frame); }
 .ix-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 .chart.cx { height: 430px; }
 .chart.cx.sm { height: 240px; }
-@media (max-width: 900px) { .ix-grid { grid-template-columns: minmax(0, 1fr); } }
+.ix-grid.wide1 { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+td.heat { font-weight: 600; }
+.tvl { text-decoration: none; font-size: 12px; color: var(--muted); }
+.tvl:hover { color: var(--accent); }
+details.lagd summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+details.lagd[open] summary { margin-bottom: 8px; }
+@media (max-width: 900px) { .ix-grid, .ix-grid.wide1 { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 640px) { .chart.cx { height: 360px; } }
 </style>
 </head>
@@ -401,6 +407,7 @@ table.ft { border: 2px solid var(--frame); }
     <nav class="tabs" role="tablist" aria-label="מסכים">
       <button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט</button>
       <button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים</button>
+      <button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום</button>
       <button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים</button>
       <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
     </nav>
@@ -470,6 +477,13 @@ table.ft { border: 2px solid var(--frame); }
   <div class="wrap">
     <div class="toolbar"><div><h1>מדדים מובילים</h1><p class="lede">מצב טכני של המדדים המרכזיים בעולם, ומומנטום לפי פקטור וסקטור: אילו קבוצות מניות מובילות, מי מאבד גובה ומי זז יחד.</p></div><span class="small muted" id="idxAsof"></span></div>
     <div id="idxBody" style="display:grid;gap:18px;min-width:0"></div>
+  </div>
+</main>
+
+<main id="v-momentum" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <div class="toolbar"><div><h1>מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים וסקטורים מול S&amp;P 500, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
+    <div id="momBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
 
@@ -1603,6 +1617,29 @@ function renderIndices() {
   }
   const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th>מהשיא</th><th>מגמה</th><th>6 חודשים</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
+  el.innerHTML = tiles + table + `<p class="small muted" style="margin:0">מומנטום לפי פקטור וסקטור, מפת רוטציה וקורלציות נמצאים בלשונית <a href="#momentum" id="toMom">מומנטום</a>.</p>`;
+  const tm = $('#toMom'); if (tm) tm.addEventListener('click', e => { e.preventDefault(); showTab('momentum'); window.scrollTo(0, 0); });
+}
+
+let MOM = null;
+async function loadMomentum() { if (MOM === null) { try { MOM = await fetchJSON('data/momentum.json'); } catch (e) { MOM = false; } } return MOM; }
+function heatTd(v, scale = 0.25) {
+  if (v == null || !isFinite(v)) return '<td class="muted">—</td>';
+  const a = Math.min(1, Math.abs(v) / scale) * 42 + 4;
+  const col = v >= 0 ? 'var(--greed)' : 'var(--fear)';
+  return `<td class="heat" style="background:color-mix(in srgb, ${col} ${a.toFixed(0)}%, transparent)">${ltr(fmtPct(v))}</td>`;
+}
+function renderMomentum() {
+  const el = $('#momBody');
+  disposeIdxCharts();
+  if (!S.mk || MOM === null) {
+    el.innerHTML = '<p class="muted">טוען נתוני מומנטום…</p>';
+    Promise.all([loadMarkets(), loadMomentum()]).then(() => { if (S.tab === 'momentum') renderMomentum(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני המומנטום. רעננו את הדף.</div>'; });
+    return;
+  }
+  const mk = S.mk, items = mk.items;
+  $('#momAsof').textContent = `נכון לסגירת ${fmtDate(mk.asof)}`;
+  const ac = mk.avgCorr && mk.avgCorr.v && mk.avgCorr.v.length ? mk.avgCorr : null;
   const seg = S.xSeg === 'sectors' ? 'sectors' : 'factors';
   const fx = (mk.groups.find(g => g.id === seg) || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((a, c) => c.score - a.score);
   const maxAbs = Math.max(0.0001, ...fx.map(it => Math.abs(it.score)));
@@ -1628,11 +1665,73 @@ function renderIndices() {
     ${ac ? `<div class="panel inner"><div class="panel-head"><h3>כמה השוק זז כגוש אחד</h3><span class="small muted">קורלציה ממוצעת בין 11 סקטורי S&amp;P 500, 3 חודשים מתגלגלים</span></div><div class="chart cx sm" id="acChart" role="img" aria-label="קורלציה ממוצעת בין סקטורים לאורך זמן"></div>
       <p class="small muted" style="margin:0">ערך גבוה = המניות זזות לפי גורם אחד משותף (מאקרו, פחד), ופיזור בין סקטורים מגן פחות. ערך נמוך = שוק של בחירת מניות. זינוקים חדים בקורלציה מופיעים בדרך כלל בירידות חדות.</p></div>` : ''}
   </section>`;
-  el.innerHTML = tiles + table + fac;
-  $$('#xSeg button', el).forEach(bt => bt.addEventListener('click', () => { S.xSeg = bt.dataset.s; lsSet('xSeg', S.xSeg); renderIndices(); }));
+
+  // ---- summary tiles
+  const facList = (mk.groups.find(g => g.id === 'factors') || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((x, y) => y.score - x.score);
+  const secList = (mk.groups.find(g => g.id === 'sectors') || { items: [] }).items.map(s => items[s]).filter(it => it && it.score != null).sort((x, y) => y.score - x.score);
+  const mt = items.MTUM;
+  const ms = S.ser.get('sp_mom12'); const msSt = ms ? stats('sp_mom12', '5y') : null;
+  const topSec = MOM && MOM.sectors ? MOM.sectors.slice().sort((x, y) => y.inTop50 - x.inTop50)[0] : null;
+  const tiles = `<section class="tiles idx-tiles">
+    ${MOM ? `<div class="tile"><span class="k">מניות S&amp;P 500 עם מומנטום חיובי</span><span class="val">${ltr(fmtN(MOM.pctPos, 0) + '%')}</span><span class="s">12-1 חודשים${msSt && msSt.pct != null ? ` · אחוזון ${Math.round(msSt.pct)} ב-5 שנים` : ''}</span></div>` : ''}
+    ${mt && mt.ex ? `<div class="tile"><span class="k">פקטור המומנטום (MTUM) מול S&amp;P</span><span class="val">${ltr(fmtPct(mt.ex.m3))}</span><span class="s">3 חודשים · 12 ח': ${ltr(fmtPct(mt.ex.y1))}</span></div>` : ''}
+    ${facList[0] ? `<div class="tile"><span class="k">הפקטור המוביל</span><span class="val">${esc(facList[0].name)}</span><span class="s">החלש: ${esc(facList[facList.length - 1].name)}</span></div>` : ''}
+    ${secList[0] ? `<div class="tile"><span class="k">הסקטור המוביל</span><span class="val">${esc(secList[0].name)}</span><span class="s">החלש: ${esc(secList[secList.length - 1].name)}</span></div>` : ''}
+    ${topSec ? `<div class="tile"><span class="k">איפה המומנטום מרוכז</span><span class="val">${esc(topSec.sector)}</span><span class="s">${topSec.inTop50} מתוך 50 המניות החזקות</span></div>` : ''}
+  </section>`;
+  // ---- global index momentum
+  const idxItems = mk.groups.filter(g => g.kind === 'index').flatMap(g => g.items.map(s => ({ it: items[s], g: g.name }))).filter(o => o.it && o.it.mom121 != null && o.it.chgMode !== 'pp');
+  const seen = new Set();
+  const gl = idxItems.filter(o => !seen.has(o.it.sym) && seen.add(o.it.sym)).sort((x, y) => y.it.mom121 - x.it.mom121);
+  const glRows = gl.map((o, i) => {
+    const it = o.it; const acc = (it.m3 != null && it.y1 != null) ? it.m3 - it.y1 / 4 : null;
+    const sig = it.mom121 > 0 && (it.ma200 ?? 0) > 0 ? ['חיובי', 's-g'] : it.mom121 < 0 && (it.ma200 ?? 0) < 0 ? ['שלילי', 's-f'] : ['מעורב', 's-n'];
+    return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted">${esc(o.g)}</div></td>
+      ${heatTd(it.w1, .05)}${heatTd(it.m1, .1)}${heatTd(it.m3, .2)}${heatTd(it.m6, .3)}${heatTd(it.y1, .5)}${heatTd(it.mom121, .5)}
+      <td>${acc == null ? '—' : `<span class="${acc >= 0 ? 'up-g' : 'up-f'}">${acc >= 0 ? '▲' : '▼'} ${ltr(fmtPct(acc))}</span>`}</td><td><span class="chip ${sig[1]}">${sig[0]}</span></td></tr>`;
+  }).join('');
+  const glob = `<section class="panel"><div class="panel-head"><div><h2>מומנטום מדדים ונכסים בעולם</h2><p class="small muted" style="margin:2px 0 0">מדורג לפי מומנטום 12-1: התשואה מלפני 12 חודשים ועד לפני חודש, ההגדרה המקובלת במחקר על מומנטום.</p></div></div>
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>מדד</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>12-1</th><th>האצה</th><th>אות מגמה</th></tr></thead><tbody>${glRows}</tbody></table></div>
+    <p class="small muted" style="margin:0">"האצה" = תשואת 3 החודשים פחות רבע מתשואת 12 החודשים: חיובי = המומנטום מתחזק ביחס לקצב השנתי. "אות מגמה" חיובי = מומנטום 12-1 חיובי והשער מעל ממוצע 200, שלילי = שניהם שליליים. תשואות במטבע המקומי של כל מדד. לחיצה על שורה פותחת גרף.</p></section>`;
+  // ---- S&P 500 stock leaders
+  let stocks = '';
+  if (MOM && MOM.leaders) {
+    const tv = s => `https://www.tradingview.com/symbols/${encodeURIComponent(s)}/`;
+    const srow = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num">${i + 1}</td><td><b class="ltr">${esc(r.sym)}</b> <a class="tvl" href="${tv(r.sym)}" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.name)}</div></td><td>${esc(r.sector)}</td>
+      ${heatTd(r.mom, .8)}${heatTd(r.m6, .5)}${heatTd(r.m3, .3)}${heatTd(r.m1, .15)}<td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`;
+    const head = '<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>12-1</th><th>6 ח\'</th><th>3 ח\'</th><th>חודש</th><th>מהשיא</th><th></th></tr></thead>';
+    stocks = `<section class="panel"><div class="panel-head"><div><h2>המניות החזקות ב-S&amp;P 500</h2><p class="small muted" style="margin:2px 0 0">30 המניות עם מומנטום 12-1 הגבוה במדד, מתוך ${MOM.n} מניות · ${fmtDate(MOM.asof)}</p></div></div>
+      <div class="ix-grid wide1">
+        <div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.leaders.map(srow).join('')}</tbody></table></div>
+        <div style="display:grid;gap:12px;align-content:start;min-width:0">
+          <div class="panel inner"><div class="panel-head"><h3>איפה המומנטום מרוכז</h3><span class="small muted">50 המניות החזקות לפי סקטור</span></div><div class="chart cx sm" id="secChart" role="img" aria-label="התפלגות 50 המניות החזקות לפי סקטור"></div>
+            <p class="small muted" style="margin:0">עמודה כהה: כמה מ-50 המניות החזקות שייכות לסקטור. עמודה בהירה: כמה היו צפויות לפי גודל הסקטור במדד. פער גדול = מניות שזזות יחד כקבוצה.</p></div>
+          <div class="tbl-wrap"><table class="ft"><thead><tr><th>סקטור</th><th>חציון 12-1</th><th>% חיובי</th><th>מתוך 50</th></tr></thead><tbody>${MOM.sectors.map(x => `<tr><td>${esc(x.sector)}</td>${heatTd(x.median, .4)}<td>${ltr(fmtN(x.pos, 0) + '%')}</td><td>${x.inTop50}</td></tr>`).join('')}</tbody></table></div>
+          <p class="small muted" style="margin:0">פער המומנטום בין העשירון החזק לחלש: ${ltr(fmtPct(MOM.spread))}. פער רחב במיוחד מעיד על שוק מקוטב, שבו היפוך מומנטום נוטה להיות חד.</p>
+        </div>
+      </div>
+      <details class="lagd"><summary>15 המניות החלשות במדד</summary><div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.laggards.map(srow).join('')}</tbody></table></div></details>
+      <p class="small muted" style="margin:0">תשואות מחיר. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 שבועות. ↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
+  }
+  el.innerHTML = tiles + fac + glob + stocks;
+  $$('#xSeg button', el).forEach(bt => bt.addEventListener('click', () => { S.xSeg = bt.dataset.s; lsSet('xSeg', S.xSeg); renderMomentum(); }));
   if (typeof echarts === 'undefined') return;
   drawRotation(fx); drawHeat(seg); if (ac) drawAvgCorr(ac);
+  if (MOM && MOM.sectors) drawSectorBars(MOM);
 }
+function drawSectorBars(m) {
+  const el = $('#secChart'); if (!el) return;
+  const rows = m.sectors.slice().sort((a, b) => a.inTop50 - b.inTop50);
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), surface = tok('--surface');
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 92, right: 26, top: 6, bottom: 22 },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right"><b>${esc(ps[0].name)}</b><br>מתוך 50 החזקות: <b>${ps[0].value}</b><br>צפוי לפי גודל: <b>${ps[1].value}</b></div>` },
+    xAxis: { type: 'value', axisLabel: { color: muted }, splitLine: { lineStyle: { color: tok('--line-2') } } },
+    yAxis: { type: 'category', data: rows.map(r => r.sector), axisLabel: { color: ink, fontSize: 11 }, axisLine: { lineStyle: { color: line } } },
+    series: [{ type: 'bar', data: rows.map(r => r.inTop50), itemStyle: { color: tok('--chart-line') }, barGap: '-100%', barWidth: '42%', z: 3, label: { show: true, position: 'right', color: ink, fontSize: 10 } },
+      { type: 'bar', data: rows.map(r => +(r.n / m.n * 50).toFixed(1)), itemStyle: { color: tok('--chart-2'), opacity: .35 }, barWidth: '70%', z: 2 }] });
+}
+
 function chartBase() {
   return { animation: false, backgroundColor: 'transparent', textStyle: { fontFamily: tok('--f-body'), color: tok('--ink-2') } };
 }
@@ -1799,10 +1898,11 @@ function drawIdxChart(sym, rangeDays, isFac) {
 function showTab(t) {
   if (t === 'manage' && !S.canEdit) t = 'market';
   S.tab = t;
-  for (const v of ['market', 'indices', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
+  for (const v of ['market', 'indices', 'momentum', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
   if (t === 'manage') renderManage();
   if (t === 'analysis') renderAnalysis();
   if (t === 'indices') renderIndices();
+  if (t === 'momentum') renderMomentum();
 }
 let rq = 0;
 function schedule() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; renderAll(); }); }
@@ -1812,6 +1912,7 @@ function renderAll() {
   if (S.tab === 'analysis') renderAnalysis();
   if (S.tab === 'manage') renderManage();
   if (S.tab === 'indices' && !$('#ov')) renderIndices();
+  if (S.tab === 'momentum' && !$('#ov')) renderMomentum();
 }
 function bind() {
   $$('.tab').forEach(b => b.addEventListener('click', () => { closeOverlay(); if (b.dataset.tab === 'analysis') { S.openStock = null; } showTab(b.dataset.tab); }));
@@ -1831,6 +1932,7 @@ function bind() {
   $('#stkGrid').addEventListener('click', e => { const c = e.target.closest('[data-t]'); if (c) openStock(c.dataset.t); });
   $('#newStock').addEventListener('click', () => openStockEditor(null));
   $('#idxBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) openIdx(r.dataset.x); });
+  $('#momBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) { openIdx(r.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t && !e.target.closest('a')) openStock(t.dataset.t); });
   $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
   $('#importHold').addEventListener('click', openHoldingsImport);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; } if ($('#ov')) closeOverlay(); } });
@@ -1855,7 +1957,7 @@ let hashDone = false;
 function applyHash() {
   if (hashDone || !S.loaded.ind || !S.loaded.ser || !S.loaded.stk) return; hashDone = true;
   const h = decodeURIComponent((location.hash || '').slice(1));
-  if (h === 'analysis' || h === 'indices' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
+  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
   else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
   else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
   else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }
@@ -1883,6 +1985,7 @@ async function boot() {
   }
   S.loaded.stk = true; schedule(); applyHash();
   loadMarkets().then(() => { if (S.tab === 'indices' && !$('#ov')) renderIndices(); }).catch(() => { /* shown when the tab opens */ });
+  loadMomentum().then(() => { if (S.tab === 'momentum' && !$('#ov')) renderMomentum(); });
 }
 boot();
 })();</script>

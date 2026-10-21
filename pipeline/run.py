@@ -112,12 +112,14 @@ def run(offline: bool = False) -> int:
             st.add("cboe_pc", "Cboe Put/Call יומי", True, _last(res.get("pcc", {})) or _last(read_series("pcc")),
                    f"{n} ימים חדשים" if n else "אין יום חדש")
         # 9. S&P 500 member breadth
-        res = step(st, "breadth", "רוחב שוק מרכיבי S&P 500", breadth.run)
+        res = step(st, "breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", breadth.run)
         if res:
-            data, msg = res
+            data, msg, mom = res
             for sid, pts in data.items():
                 merge_series(sid, pts)
-            st.add("breadth", "רוחב שוק מרכיבי S&P 500", True, _last(data.get("sp_pct200", {})), msg)
+            if mom:
+                dump_json(ROOT / "data" / "derived" / "sp_momentum.json", mom)
+            st.add("breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", True, _last(data.get("sp_pct200", {})), msg)
 
     # 10. Build the site
     build(st, u, px)
@@ -149,6 +151,9 @@ def build(st: Status, u: dict, px) -> None:
     dump_json(tmp / "data" / "series.json", series)
     status = st.to_dict()
     dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds})
+    mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
+    if mom_file.exists():
+        shutil.copy(mom_file, tmp / "data" / "momentum.json")
     if not px.empty:
         dump_json(tmp / "data" / "markets.json", markets.build_markets(px, u))
         dump_json(tmp / "data" / "prices.json", markets.prices_payload(px))
