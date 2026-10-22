@@ -150,6 +150,12 @@ def eia_power(backfill: bool) -> dict[str, dict[str, float]]:
     if not (hub and date and price):
         save_probe("eia_power", df.head(20).to_csv())
         raise ValueError(f"EIA columns not found: {list(df.columns)[:12]}")
+    try:
+        hubs_seen = df[hub].astype(str).value_counts().head(20).to_dict()
+        save_probe("eia_power_layout", json.dumps({"columns": [str(c) for c in df.columns], "hubs": hubs_seen,
+                                                    "sample": df.tail(8).astype(str).values.tolist()}, ensure_ascii=False))
+    except Exception:
+        pass
     df = df[[hub, date, price]].dropna()
     df[date] = pd.to_datetime(df[date], errors="coerce")
     df[price] = pd.to_numeric(df[price], errors="coerce")
@@ -188,7 +194,8 @@ def curve(cfg: dict, have: dict | None = None) -> dict:
     have = have or {}
     todo = [c[0] for c in cfg["curve"] if not isinstance(have.get(c[0]), dict)]
     with ThreadPoolExecutor(6) as ex:
-        res = {**{k: v for k, v in have.items() if isinstance(v, dict)}, **dict(zip(todo, ex.map(lambda c: _safe(fred_series, c), todo)))}
+        res = {**{c[0]: have[c[0]] for c in cfg["curve"] if isinstance(have.get(c[0]), dict)},
+               **dict(zip(todo, ex.map(lambda c: _safe(fred_series, c), todo)))}
     frame = pd.DataFrame({code: pd.Series(pts) for code, pts in res.items() if isinstance(pts, dict)})
     frame = frame[(frame.index >= start) & (frame.index <= cutoff_date())].sort_index().dropna(how="all")
     if frame.empty:
