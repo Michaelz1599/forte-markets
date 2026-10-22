@@ -234,8 +234,8 @@ def fred() -> dict:
 
 # --------------------------------------------------------------------------- Cboe daily put/call
 CBOE_PC_URL = "https://www.cboe.com/us/options/market_statistics/daily/"
-PC_LABELS = {"total": r"TOTAL\s+PUT/CALL\s+RATIO", "index": r"INDEX\s+PUT/CALL\s+RATIO",
-             "equity": r"EQUITY\s+PUT/CALL\s+RATIO"}
+PC_LABELS = {"total": r"TOTAL\s+PUT/CALL\s+RATIO", "index": r"(?<!\+ )INDEX\s+PUT/CALL\s+RATIO",
+             "equity": r"EQUITY\s+PUT/CALL\s+RATIO", "spx": r"SPX\s*\+\s*SPXW\s+PUT/CALL\s+RATIO"}
 
 
 def _pc_page(day: dt.date) -> dict | None:
@@ -255,12 +255,27 @@ def _pc_page(day: dt.date) -> dict | None:
 
 
 def cboe_putcall(max_days: int = 12) -> dict:
+    """Daily P/C ratios since the last stored day. Starts earlier when the SPX series is behind, and falls
+    back to the normal start if Cboe will not serve that older day."""
+    pcc, spx = read_series("pcc"), read_series("pcspx")
+    if pcc and spx and max(spx) < max(pcc):
+        early = [d for d in pcc if d <= max(spx)]
+        if early:
+            try:
+                return _cboe_putcall(max_days, start=max(early))
+            except ValueError:
+                pass
+    return _cboe_putcall(max_days)
+
+
+def _cboe_putcall(max_days: int = 12, start: str | None = None) -> dict:
     """Fetch Cboe's daily P/C ratios for each business day since the last stored value.
 
     The first fetched day is one we already hold (from TradingView's USI:PCC export) and must match
     within 0.01, which proves the parser reads the right number for the right day."""
     pcc = read_series("pcc")
-    last = max(pcc) if pcc else iso(today_utc() - dt.timedelta(days=7))
+    spx = read_series("pcspx")
+    last = start or (max(pcc) if pcc else iso(today_utc() - dt.timedelta(days=7)))
     d = dt.date.fromisoformat(last)
     days = []
     while d <= today_utc() and len(days) < max_days:
@@ -279,8 +294,11 @@ def cboe_putcall(max_days: int = 12) -> dict:
     check = got.get(days[0].isoformat())
     if pcc and check and abs(check.get("total", -9) - pcc.get(days[0].isoformat(), -99)) > 0.011:
         raise ValueError(f"Cboe P/C check failed on {days[0]}: total {check.get('total')} vs stored {pcc.get(days[0].isoformat())}")
-    out = {"pcc": {}, "pce": {}}
+    out = {"pcc": {}, "pce": {}, "pcspx": {}}
+    spx_ok = not spx or not check or "spx" not in check or days[0].isoformat() not in spx or abs(check["spx"] - spx[days[0].isoformat()]) <= 0.03
     for ds, v in got.items():
+        if spx_ok and "spx" in v and 0.3 < v["spx"] < 5:
+            out["pcspx"][ds] = v["spx"]
         if "total" in v and 0.3 < v["total"] < 3:
             out["pcc"][ds] = v["total"]
         if "equity" in v and 0.2 < v["equity"] < 3:

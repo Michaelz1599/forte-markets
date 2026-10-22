@@ -263,3 +263,17 @@ def test_macro_definitions_are_consistent():
     assert not {d["id"] for d in defs} & {i["id"] for i in inds}
     assert not any(i["group"] == "pos" for i in inds)
     assert any(i["id"] == "sp_mcsi" and i["comp"] for i in inds) and not any(i["id"] == "mcsi" and i["comp"] for i in inds)
+
+
+def test_chaikin_money_flow_bounds_and_sign():
+    idx = _dates(40)
+    h, l, v = pd.Series(11.0, idx), pd.Series(9.0, idx), pd.Series(1e6, idx)
+    assert markets.cmf(h, l, pd.Series(11.0, idx), v).iloc[-1] == 1.0
+    assert markets.cmf(h, l, pd.Series(9.0, idx), v).iloc[-1] == -1.0
+    c = pd.Series(np.where(np.arange(40) % 2, 10.8, 9.6), index=idx)
+    s = markets.cmf(h, l, c, v)
+    assert len(s) == 21 and (s.abs() <= 1).all()
+    bars = {"close": pd.DataFrame({"A": c, "FX": c}), "high": pd.DataFrame({"A": h, "FX": h}), "low": pd.DataFrame({"A": l, "FX": l}),
+            "volume": pd.DataFrame({"A": v, "FX": 0.0})}
+    p = markets.cmf_payload(bars)
+    assert "A" in p and "FX" not in p and p["A"]["date"] == idx[-1]

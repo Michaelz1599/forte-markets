@@ -69,9 +69,24 @@ def yf_ohlc(symbols: list[str], start: str) -> dict[str, pd.DataFrame]:
         return {}
     close = _yf_field(raw, "Close", symbols).dropna(how="all")
     out = {"close": close}
-    for k, f in (("high", "High"), ("low", "Low")):
-        out[k] = _yf_field(raw, f, symbols).reindex(index=close.index, columns=close.columns)
+    for k, f in (("high", "High"), ("low", "Low"), ("volume", "Volume")):
+        try:
+            out[k] = _yf_field(raw, f, symbols).reindex(index=close.index, columns=close.columns)
+        except KeyError:
+            out[k] = pd.DataFrame(index=close.index, columns=close.columns, dtype=float)
     return out
+
+
+def cmf(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series, n: int = 20) -> pd.Series:
+    """Chaikin Money Flow: the n-day sum of money-flow volume over the n-day sum of volume, -1..+1.
+    Money-flow multiplier = ((C - L) - (H - C)) / (H - L): +1 closing at the high, -1 at the low."""
+    j = pd.concat([high, low, close, volume], axis=1, keys=["h", "l", "c", "v"]).dropna()
+    j = j[(j["v"] > 0) & (j["h"] >= j["l"])]
+    rng = (j["h"] - j["l"]).replace(0, np.nan)
+    mfm = (((j["c"] - j["l"]) - (j["h"] - j["c"])) / rng).fillna(0.0)
+    mfv = mfm * j["v"]
+    out = mfv.rolling(n, min_periods=n).sum() / j["v"].rolling(n, min_periods=n).sum()
+    return out.dropna()
 
 
 def yf_close(symbols: list[str], start: str) -> pd.DataFrame:
@@ -80,9 +95,35 @@ def yf_close(symbols: list[str], start: str) -> pd.DataFrame:
 
 
 def etf_ohlc(u: dict, days: int = 150) -> dict[str, pd.DataFrame]:
-    """Recent daily bars of every factor, sector and theme ETF (for RS, which needs the daily range)."""
-    syms = list(dict.fromkeys(it["sym"] for g in u["groups"] if g["kind"] == "factor" for it in g["items"]))
-    return yf_ohlc(syms + [u["benchmark"]], (today_utc() - dt.timedelta(days=days)).isoformat())
+    """Recent daily bars (with volume) of every instrument in the universe: RS for the ETFs, money flow for all."""
+    syms = all_symbols(u)
+    return yf_ohlc(syms, (today_utc() - dt.timedelta(days=days)).isoformat())
+
+
+def cmf_payload(bars: dict[str, pd.DataFrame], n: int = 20) -> dict:
+    """Current Chaikin Money Flow of each instrument with real volume, and its value a week earlier."""
+    out = {}
+    if not bars or "volume" not in bars:
+        return out
+    for sym in bars["close"].columns:
+        v = bars["volume"][sym]
+        if v.dropna().gt(0).sum() < n + 5:
+            continue          # indices and FX pairs without volume
+        s = cmf(bars["high"][sym], bars["low"][sym], bars["close"][sym], v, n)
+        if len(s) < 6:
+            continue
+        out[sym] = {"cmf": _r(s.iloc[-1], 3), "cmf5": _r(s.iloc[-6], 3), "date": s.index[-1]}
+    return out
+
+
+def spy_cmf(cur: dict, sym: str = "SPY") -> dict:
+    """Daily Chaikin Money Flow (20) of the S&P 500 (SPY) for the sentiment board, with history."""
+    start = "2005-01-01" if len(cur) < 1000 else (dt.date.fromisoformat(max(cur)) - dt.timedelta(days=60)).isoformat()
+    b = yf_ohlc([sym], start)
+    if not b:
+        return {}
+    s = cmf(b["high"][sym], b["low"][sym], b["close"][sym], b["volume"][sym])
+    return {d: round(float(v), 4) for d, v in s.items()}
 
 
 def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:

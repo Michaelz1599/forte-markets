@@ -928,7 +928,7 @@ function fresh(id) {
   const s = series(id); const meta = indMeta(id) || {};
   if (!s || !s.t.length) return { ok: false, age: Infinity };
   const age = (Date.now() - s.t[s.t.length - 1]) / DAY;
-  return { ok: age <= FRESH[meta.freq || 'd'] + 1, age };
+  return { ok: age <= (meta.staleDays ?? FRESH[meta.freq || 'd']) + 1, age };
 }
 
 function stateOf(pol, pct) {
@@ -1805,6 +1805,12 @@ function miniSpark(arr, w = 110, h = 28) {
   const up = v[v.length - 1] >= v[0];
   return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true" dir="ltr" class="msp"><polyline points="${v.map((y, i) => `${X(i).toFixed(1)},${Y(y).toFixed(1)}`).join(' ')}" fill="none" stroke="${up ? 'var(--greed)' : 'var(--fear)'}" stroke-width="1.4" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><circle cx="${X(v.length - 1).toFixed(1)}" cy="${Y(v[v.length - 1]).toFixed(1)}" r="2.2" fill="var(--ink)"/></svg>`;
 }
+function cmfTd(c) {
+  if (!c || c.cmf == null) return '<td class="muted">—</td>';
+  const v = c.cmf, cls = v >= 0.05 ? 'up-g' : v <= -0.05 ? 'up-f' : '';
+  const d = c.cmf5 != null ? v - c.cmf5 : null;
+  return `<td class="${cls}" title="${d == null ? '' : `לפני שבוע: ${fmtS(c.cmf5, 2)}`}">${ltr(fmtS(v, 2))}${d != null && Math.abs(d) >= 0.02 ? `<span class="rsd ${d > 0 ? 'u' : 'd'}">${d > 0 ? '▲' : '▼'}</span>` : ''}</td>`;
+}
 function rsiTd(r) {
   if (r == null) return '<td class="muted">—</td>';
   const c = r >= 70 ? 'rsi-hi' : r <= 30 ? 'rsi-lo' : '';
@@ -1835,20 +1841,20 @@ function renderIndices() {
   </section>`;
   let rows = '';
   for (const g of mk.groups.filter(g => g.kind === 'index')) {
-    rows += `<tr class="secr" id="ig-${esc(g.id)}"><td colspan="13">${esc(g.name)}</td></tr>`;
+    rows += `<tr class="secr" id="ig-${esc(g.id)}"><td colspan="14">${esc(g.name)}</td></tr>`;
     for (const s of g.items) {
       const it = items[s]; if (!it) continue;
-      if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="12" class="muted">אין נתונים</td></tr>`; continue; }
+      if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="13" class="muted">אין נתונים</td></tr>`; continue; }
       const tr = TREND[it.trend] || TREND.na;
       rows += `<tr class="rowx" data-x="${esc(s)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span>${it.note ? ' · ' + esc(it.note) : ''}</div></td>
         <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>
         ${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.m3, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}
-        ${chgTd(it.ma200, { sym: '' })}${rsiTd(it.rsi)}${chgTd(it.dd52, { sym: '' })}
+        ${chgTd(it.ma200, { sym: '' })}${rsiTd(it.rsi)}${cmfTd(it.cmf)}${chgTd(it.dd52, { sym: '' })}
         <td>${tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.spark)}</td></tr>`;
     }
   }
-  const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th>מהשיא</th><th>מגמה</th><th>6 חודשים</th></tr></thead><tbody>${rows}</tbody></table></div>
-    <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
+  const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th title="Chaikin Money Flow, 20 ימים">CMF</th><th>מהשיא</th><th>מגמה</th><th>6 חודשים</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. CMF = Chaikin Money Flow של 20 ימים: מעל 0 כסף נכנס, מתחת ל-0 כסף יוצא (רק לנכסים עם נתוני מחזור). בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
   el.innerHTML = tiles + table + `<p class="small muted" style="margin:0">מומנטום לפי פקטור וסקטור, מפת רוטציה וקורלציות נמצאים בלשונית <a href="#momentum" id="toMom">מומנטום</a>.</p>`;
   const tm = $('#toMom'); if (tm) tm.addEventListener('click', e => { e.preventDefault(); showTab('momentum'); window.scrollTo(0, 0); });
 }
@@ -2241,6 +2247,7 @@ function idxSummary(it) {
     else if (it.pctD200 <= 10) p.push(`המרחק מממוצע 200 נמוך מ-${Math.round(100 - it.pctD200)}% מהימים ב-10 השנים האחרונות: המדד מתוח כלפי מטה.`);
   }
   if (it.rsi != null) p.push(it.rsi >= 70 ? `RSI ‏${fmtN(it.rsi, 0)}: קניית יתר.` : it.rsi <= 30 ? `RSI ‏${fmtN(it.rsi, 0)}: מכירת יתר.` : `RSI ‏${fmtN(it.rsi, 0)}, באזור ניטרלי.`);
+  if (it.cmf && it.cmf.cmf != null) p.push(`Chaikin Money Flow של 20 ימים: ${fmtS(it.cmf.cmf, 2)}, ${it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'בלי לחץ ברור לכיוון אחד'}.`);
   if (it.dd52 != null) p.push(it.dd52 > -0.01 ? 'נסחר ליד השיא של 52 השבועות האחרונים.' : `${fmtN(Math.abs(it.dd52) * 100, 1)}% מתחת לשיא של 52 השבועות האחרונים.`);
   if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים, ${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. במפת הרוטציה: ${QUAD[q][0]}` : ''}.`); }
   if (it.rs && it.rs.rs != null) {
@@ -2266,6 +2273,7 @@ async function openIdx(sym) {
         ${tile('RSI ‏(14)', ltr(fmtN(it.rsi, 0)), it.rsi >= 70 ? 'קניית יתר' : it.rsi <= 30 ? 'מכירת יתר' : 'ניטרלי')}
         ${tile('מהשיא, 52 שבועות', ltr(fmtPct(it.dd52)), `טווח ${ltr(priceFmt(it, it.lo52) + ' – ' + priceFmt(it, it.hi52))}`)}
         ${tile('מגמה', tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—', `תנודתיות 20 יום ${ltr(fmtN((it.vol20 || 0) * 100, 0) + '%')}`)}
+        ${it.cmf && it.cmf.cmf != null ? tile('Chaikin Money Flow ‏(20)', ltr(fmtS(it.cmf.cmf, 2)), it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'מאוזן') : ''}
         ${it.rs && it.rs.rs != null ? tile('RS, שבועיים', `${rsBadge(it.rs.rs)}${rsDelta(it.rs.rs, it.rs.rsPrev)}`, `מהלך ${ltr(fmtPct(it.rs.ret10))} · ${ltr(fmtS(it.rs.raw, 2))} ATR`) : ''}
       </div>
       <section class="sd-box"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>

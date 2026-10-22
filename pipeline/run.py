@@ -56,6 +56,11 @@ def run(offline: bool = False) -> int:
             mv = markets.column(px, "^MOVE", 2)
             if mv:
                 merge_series("move", mv)
+        # 2b. Chaikin Money Flow of the S&P 500 (SPY)
+        res = step(st, "cmf", "Chaikin Money Flow · SPY", lambda: markets.spy_cmf(read_series("cmf_spy")))
+        if res:
+            merge_series("cmf_spy", res)
+            st.add("cmf", "Chaikin Money Flow · SPY", True, _last(res), f"{len(res)} ימים")
         # 3. CNN Fear & Greed and its components
         res = step(st, "cnn", "CNN Fear & Greed (6 סדרות)", sources.cnn)
         if res:
@@ -134,8 +139,15 @@ def run(offline: bool = False) -> int:
                 except Exception:
                     members = None
             try:
-                ohlc = markets.etf_ohlc(u)
+                bars = markets.etf_ohlc(u)
             except Exception:
+                bars = None
+            if bars:
+                dump_json(ROOT / "data" / "derived" / "cmf.json", markets.cmf_payload(bars))
+                fac = [it["sym"] for g in u["groups"] if g["kind"] == "factor" for it in g["items"]] + [u["benchmark"]]
+                fac = [c for c in dict.fromkeys(fac) if c in bars["close"].columns]
+                ohlc = {k: v[fac] for k, v in bars.items() if k in ("close", "high", "low")}
+            else:
                 ohlc = None
             return rs.run(px, u, members, bextra["bars"] if bextra else None, ohlc)
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
@@ -200,6 +212,11 @@ def build(st: Status, u: dict, px) -> None:
         shutil.copy(rs_file, tmp / "data" / "rs.json")
     if not px.empty:
         mk = markets.build_markets(px, u)
+        cmf_file = ROOT / "data" / "derived" / "cmf.json"
+        if cmf_file.exists():
+            for sym, rec in json.loads(cmf_file.read_text(encoding="utf-8")).items():
+                if sym in mk["items"]:
+                    mk["items"][sym]["cmf"] = rec
         etf_file = ROOT / "data" / "derived" / "rs_etf.json"
         if etf_file.exists():
             etf = json.loads(etf_file.read_text(encoding="utf-8"))

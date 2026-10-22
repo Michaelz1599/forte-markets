@@ -104,7 +104,7 @@
   "src": "NAAIM",
   "srcUrl": "https://www.naaim.org/programs/naaim-exposure-index/",
   "desc": "החשיפה הממוצעת למניות אמריקאיות שמדווחים מנהלי השקעות פעילים חברי NAAIM, מ-200- (שורט ממונף) עד 200+ (לונג ממונף).",
-  "note": "הנתונים הציבוריים מתפרסמים באיחור של שלושה חודשים, ולכן הסדרה לא בלוח ולא במדד. חברי NAAIM יכולים לייבא את הנתון השוטף.",
+  "note": "NAAIM מפרסמת לציבור את המדד באיחור של שלושה חודשים, והנתון השוטף זמין רק למנויים. לכן הסדרה לא בלוח ולא במדד המשוקלל. מנוי NAAIM יכול לייבא את הנתון השוטף במסך הניהול.",
   "refs": []
  },
  {
@@ -156,11 +156,11 @@
   "unit": "",
   "pin": true,
   "comp": false,
-  "auto": false,
-  "src": "TradingView · USI:PCSPX",
-  "srcUrl": "https://www.tradingview.com/symbols/USI-PCSPX/",
+  "auto": true,
+  "src": "Cboe Daily Market Statistics (SPX + SPXW)",
+  "srcUrl": "https://www.cboe.com/us/options/market_statistics/daily/",
   "desc": "יחס Put/Call באופציות על מדד S&P 500. משקף בעיקר גידור של מוסדיים, ולכן רועש יותר מהיחס הכולל.",
-  "note": "מתעדכן ידנית: ייצוא של USI:PCSPX מ-TradingView (Download chart data) וייבוא במסך הניהול. ההיסטוריה עד 13.10.2026 מהייצוא שלך.",
+  "note": "ההיסטוריה עד 13.10.2026 מהייצוא שלך מ-TradingView (USI:PCSPX). מאז היא מתעדכנת אוטומטית מעמוד הסטטיסטיקה היומי של Cboe (SPX + SPXW Put/Call), אחרי בדיקה שהיום הראשון תואם להיסטוריה.",
   "refs": []
  },
  {
@@ -531,6 +531,29 @@
   "desc": "התנודתיות הגלומה באופציות על אג\"ח ממשלתי אמריקאי. ה-VIX של שוק האג\"ח.",
   "unit": "",
   "refs": []
+ },
+ {
+  "id": "cmf_spy",
+  "order": 71,
+  "group": "risk",
+  "name": "Chaikin Money Flow · S&P 500",
+  "short": "SPY, 20 ימים",
+  "freq": "d",
+  "pol": 1,
+  "dec": 3,
+  "unit": "",
+  "pin": true,
+  "comp": false,
+  "auto": true,
+  "src": "מחושב מנרות יומיים ומחזור של SPY (Yahoo Finance)",
+  "srcUrl": "https://www.tradingview.com/support/solutions/43000501974-chaikin-money-flow-cmf/",
+  "desc": "זרימת הכסף של מרק צ'ייקין: בכל יום נבדק איפה נסגר המחיר בטווח היומי (קרוב לשיא = לחץ קנייה, קרוב לשפל = לחץ מכירה), והתוצאה משוקללת במחזור המסחר. הערך הוא הסכום של 20 ימים חלקי המחזור, בין 1- ל-1+. מעל 0 = צבירה (כסף נכנס), מתחת ל-0 = הפצה (כסף יוצא). פער בין מדד שעולה ל-CMF שיורד הוא סימן אזהרה.",
+  "refs": [
+   {
+    "v": 0,
+    "t": "איזון"
+   }
+  ]
  },
  {
   "id": "sp_mom12",

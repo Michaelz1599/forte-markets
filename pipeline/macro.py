@@ -319,7 +319,8 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
         out.append({"id": s["id"], "order": 900 + i, "group": "m_" + s["sec"], "tab": "macro", "name": s["name"], "short": s.get("short", ""),
                     "freq": s.get("freq", "d"), "pol": 0, "dec": s.get("dec", 2), "unit": "%" if s.get("unit") == "%" else "",
                     "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": True, "src": src_name(s), "srcUrl": src_url(s),
-                    "desc": s.get("desc", ""), **({"rating": s["rating"]} if "rating" in s else {}), **({"key": True} if s.get("key") else {})})
+                    "desc": s.get("desc", ""), **({"rating": s["rating"]} if "rating" in s else {}), **({"key": True} if s.get("key") else {}),
+                    **({"staleDays": s["stale"]} if s.get("stale") else {})})
     return out
 
 
