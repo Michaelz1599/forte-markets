@@ -627,6 +627,9 @@ main.view table.ft thead th[aria-sort="ascending"]::after { content: " ↑"; }
 /* ---------- top bar: the open tab stands out, the others are dimmed ---------- */
 .tabs .tab:not([aria-selected="true"]) { opacity: .55; transition: opacity .15s, background-color .15s; }
 .tabs .navi:hover .tab, .tabs .tab:hover, .tabs .tab:focus-visible { opacity: 1; }
+
+/* the percentile line in the macro and Israel tables */
+td.pcell { min-width: 150px; }
 </style>
 </head>
 <body>
@@ -1869,19 +1872,19 @@ function renderIndices() {
   </section>`;
   let rows = '';
   for (const g of mk.groups.filter(g => g.kind === 'index')) {
-    rows += `<tr class="secr" id="ig-${esc(g.id)}"><td colspan="14">${esc(g.name)}</td></tr>`;
+    rows += `<tr class="secr" id="ig-${esc(g.id)}"><td colspan="13">${esc(g.name)}</td></tr>`;
     for (const s of g.items) {
       const it = items[s]; if (!it) continue;
-      if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="13" class="muted">אין נתונים</td></tr>`; continue; }
+      if (it.last == null) { rows += `<tr><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span></div></td><td colspan="12" class="muted">אין נתונים</td></tr>`; continue; }
       const tr = TREND[it.trend] || TREND.na;
       rows += `<tr class="rowx" data-x="${esc(s)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(s)}</span>${it.note ? ' · ' + esc(it.note) : ''}</div></td>
         <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>
         ${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.m3, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}
         ${chgTd(it.ma200, { sym: '' })}${rsiTd(it.rsi)}${cmfTd(it.cmf)}${chgTd(it.dd52, { sym: '' })}
-        <td>${tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.spark)}</td></tr>`;
+        <td>${tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—'}</td></tr>`;
     }
   }
-  const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th title="Chaikin Money Flow, 20 ימים">CMF</th><th>מהשיא</th><th>מגמה</th><th>6 חודשים</th></tr></thead><tbody>${rows}</tbody></table></div>
+  const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th title="Chaikin Money Flow, 20 ימים">CMF</th><th>מהשיא</th><th>מגמה</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. CMF = Chaikin Money Flow של 20 ימים: מעל 0 כסף נכנס, מתחת ל-0 כסף יוצא (רק לנכסים עם נתוני מחזור). בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
   el.innerHTML = tiles + table + `<p class="small muted" style="margin:0">מומנטום לפי פקטור וסקטור, מפת רוטציה וקורלציות נמצאים בלשונית <a href="#momentum" id="toMom">מומנטום</a>.</p>`;
   const tm = $('#toMom'); if (tm) tm.addEventListener('click', e => { e.preventDefault(); showTab('momentum'); window.scrollTo(0, 0); });
@@ -1951,7 +1954,7 @@ function renderMomentum() {
       <td class="rsc">${rsBadge(r.rs, rsTip(it))}${rsDelta(r.rs, r.rsPrev)}</td>
       ${chgTd(ex.m1, it)}${chgTd(ex.m3, it)}${chgTd(ex.m6, it)}${chgTd(ex.y1, it)}
       <td class="scorec">${it.score == null ? '—' : `<div class="sbar" dir="ltr"><i class="${it.score >= 0 ? 'pos' : 'neg'}" style="${it.score >= 0 ? 'left:50%' : `left:${(50 - w).toFixed(1)}%`};width:${w.toFixed(1)}%"></i><b class="mid"></b></div><span class="small ltr num">${fmtS(it.score * 100, 1)}</span>`}</td>
-      <td>${qq ? `<span class="chip ${qq[1]}">${qq[0]}</span>` : '—'}</td><td class="spk">${miniSpark(it.rsSpark)}</td></tr>`;
+      <td>${qq ? `<span class="chip ${qq[1]}">${qq[0]}</span>` : '—'}</td></tr>`;
   }).join('');
   const coreSet = new Set(grp.items.length > 14 && grp.core && grp.core.length ? grp.core : grp.items);
   const rrgList = fx.filter(it => coreSet.has(it.sym));
@@ -1961,9 +1964,9 @@ function renderMomentum() {
     <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד: עוצמה בשבועיים האחרונים (RS) ותשואה עודפת על S&amp;P 500 לאורך שנה.</p></div>
       <div class="seg" role="group" aria-label="קבוצה" id="xSeg">${Object.entries(XSEG).map(([k, v]) => `<button type="button" data-s="${k}" aria-pressed="${seg === k}">${v[0]}</button>`).join('')}</div></div>
     <div class="xtools"><span class="small muted">מיון לפי</span><div class="seg" role="group" aria-label="מיון" id="xSort"><button type="button" data-v="score" aria-pressed="${!sortRs}">ציון מומנטום</button><button type="button" data-v="rs" aria-pressed="${sortRs}">RS</button></div><span class="small muted">${rsMeta}</span></div>
-    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${XSEG[seg][1]}</th><th>RS</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th><th>מול S&amp;P, 6 ח'</th></tr></thead><tbody>${frows || '<tr><td colspan="10" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${XSEG[seg][1]}</th><th>RS</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th></tr></thead><tbody>${frows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
     <p class="small muted" style="margin:0"><b>RS</b>: המהלך של תעודת הסל בשבועיים האחרונים ביחס לתנודתיות שלה (ATR), כאחוזון מול כל המניות בשוק, באותו סולם כמו בטבלת המניות למטה. 90 = חזק מ-90% מהמניות. החץ: השינוי מול שבוע קודם. מעבר עם העכבר מראה את המהלך ואת המקום בקבוצה.
-      שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה. הקו האחרון: היחס מול S&amp;P בחצי השנה האחרונה, עולה = מכה את המדד.</p>
+      שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה.</p>
     <div class="ix-grid">
       <div class="panel inner"><div class="panel-head"><h3>מפת רוטציה</h3><span class="small muted">5 שבועות אחרונים${coreNote}</span></div><div class="chart cx" id="rrgChart" role="img" aria-label="מפת רוטציה של ${XSEG[seg][0]} מול S&amp;P 500"></div>
         <p class="small muted" style="margin:0">ציר אופקי: עוצמה יחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מעל 100 = חזק מהמדד). ציר אנכי: האם העוצמה היחסית מתחזקת בשבועיים האחרונים. הקבוצות נוטות לנוע נגד כיוון השעון: משתפרים, מובילים, נחלשים, מפגרים.</p></div>
@@ -2420,7 +2423,7 @@ function macTable(ids, opts = {}) {
   const rows = ids.map(id => {
     const ind = S.ind.get(id); const s = S.ser.get(id);
     if (!ind) return '';
-    if (!s || !s.v.length) return `<tr><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td><td colspan="6" class="muted">ממתין לעדכון הראשון</td></tr>`;
+    if (!s || !s.v.length) return `<tr><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td><td colspan="5" class="muted">ממתין לעדכון הראשון</td></tr>`;
     const n = s.v.length - 1, last = s.v[n];
     const prev = n > 0 ? s.v[n - 1] : null;
     const m3 = serAt(s, 91), y1 = serAt(s, 365);
@@ -2429,9 +2432,9 @@ function macTable(ids, opts = {}) {
     return `<tr class="rowx" data-ind="${esc(id)}" tabindex="0"><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td>
       <td><b>${ltr(mFmt(ind, last))}</b><div class="small muted">${fmtDate(s.d[n])}${fr.ok ? '' : ' · <span class="chip chip-w">לא עדכני</span>'}</div></td>
       ${mChgTd(ind, last, prev)}${mChgTd(ind, last, m3 && m3.v)}${mChgTd(ind, last, y1 && y1.v)}
-      <td>${st && st.pct != null ? `<span class="pctb" style="--p:${Math.round(st.pct)}%"><i></i></span>${ltr(Math.round(st.pct))}` : '—'}</td><td class="spk">${mSpark(s)}</td></tr>`;
+      <td class="pcell">${st && st.pct != null ? `<div class="pbar ${!ind.pol ? 'nopol' : ind.pol < 0 ? 'inv' : ''}"><div class="track" dir="ltr"><b class="mk" style="left:${st.pct.toFixed(1)}%"></b></div><span class="pv num">${Math.round(st.pct)}</span></div>` : '—'}</td></tr>`;
   }).join('');
-  return `<div class="tbl-wrap"><table class="ft itbl mtbl"><thead><tr><th>${opts.first || 'סדרה'}</th><th>אחרון</th><th>מהקודם</th><th>3 חודשים</th><th>שנה</th><th>אחוזון · 10 שנים</th><th>שנתיים</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="tbl-wrap"><table class="ft itbl mtbl"><thead><tr><th>${opts.first || 'סדרה'}</th><th>אחרון</th><th>מהקודם</th><th>3 חודשים</th><th>שנה</th><th>אחוזון · 10 שנים</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 const MAC_CHARTS = {
   infl: { ids: ['us_cpi_yoy', 'us_core_cpi_yoy', 'us_core_pce_yoy', 'il_cpi_yoy'], years: 10, mark: [2, 'יעד הפד 2%'], title: 'אינפלציה שנתית, ארה"ב וישראל' },
@@ -2531,7 +2534,7 @@ function renderMacro() {
     ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['spark_pjm', 'מרווח ספארק PJM']].map(([id, l]) => tile(id, l)).join('')}</section>`;
   const commIds = (S.mk.groups.find(g => g.id === 'commod') || { items: [] }).items;
   const commRows = commIds.map(s => S.mk.items[s]).filter(Boolean).map(it => it.last == null ? '' : `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span>${it.desc ? ' · ' + esc(it.desc) : ''}</div></td>
-      <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}${chgTd(it.dd52, { sym: '' })}<td class="spk">${miniSpark(it.spark)}</td></tr>`).join('');
+      <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}${chgTd(it.dd52, { sym: '' })}</tr>`).join('');
   const body = secs.map(sec => {
     const ch = MAC_CHARTS[sec.id];
     let extra = '';
@@ -2542,7 +2545,7 @@ function renderMacro() {
       <p class="small muted" style="margin:0">מדורג לפי השינוי בנקודות בסיס. נתוני CDS עצמם (ריבוניים ותאגידיים) לא זמינים ממקור חינמי ויציב, ולכן הדירוג נעשה על מרווחי האשראי (OAS) של ICE BofA לפי דירוג ואזור, שמודדים את אותו סיכון. סדרת CDS שתוסיפו במסך הניהול בקבוצה "CDS" (למשל ייצוא מ-Bloomberg) תיכנס לדירוג אוטומטית.</p>`;
     else if (ch) extra = `<div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div>`;
     const table = sec.id === 'commod'
-      ? `<div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>סחורה</th><th>מחיר</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>מתחילת השנה</th><th>12 ח'</th><th>מהשיא</th><th>6 חודשים</th></tr></thead><tbody>${commRows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>`
+      ? `<div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>סחורה</th><th>מחיר</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>מתחילת השנה</th><th>12 ח'</th><th>מהשיא</th></tr></thead><tbody>${commRows || '<tr><td colspan="8" class="muted">אין נתונים</td></tr>'}</tbody></table></div>`
       : sec.id === 'cds' ? macTable(sec.ids, { first: 'מרווח' }) : macTable(sec.ids);
     return `<section class="panel" id="mac-${sec.id}"><div class="panel-head"><div><h2>${esc(sec.name)}</h2><p class="small muted" style="margin:2px 0 0">${esc(sec.desc)}</p></div></div>${extra}${table}</section>`;
   }).join('');
@@ -2645,8 +2648,8 @@ function renderIsrael() {
     return `<section class="panel" id="il-${key}"><div class="panel-head"><div><h2>${name}</h2><p class="small muted" style="margin:2px 0 0">${desc}</p></div></div>${chart}${macTable(ids, { first: 'אינדיקטור' })}</section>`; };
   const names = IL.sectorNames || {};
   const sectors = `<section class="panel" id="il-sectors"><div class="panel-head"><div><h2>סקטורים בת"א</h2><p class="small muted" style="margin:2px 0 0">סלים במשקל שווה מהמניות במדגם. לחיצה על כותרת עמודה ממיינת.</p></div></div>
-    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>סקטור</th><th>מניות</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ת"א 125, 3 ח'</th><th>6 חודשים</th></tr></thead><tbody>
-    ${(IL.sectors || []).slice().sort((a, b) => (b.m3 ?? -9) - (a.m3 ?? -9)).map((x, i) => `<tr><td class="num">${i + 1}</td><td><b>${esc(x.name)}</b></td><td>${x.n}</td>${heatTd(x.w1, .04)}${heatTd(x.m1, .1)}${heatTd(x.m3, .2)}${heatTd(x.ytd, .3)}${heatTd(x.y1, .4)}${heatTd(x.rel3, .15)}<td class="spk">${miniSpark(x.spark)}</td></tr>`).join('')}
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>סקטור</th><th>מניות</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ת"א 125, 3 ח'</th></tr></thead><tbody>
+    ${(IL.sectors || []).slice().sort((a, b) => (b.m3 ?? -9) - (a.m3 ?? -9)).map((x, i) => `<tr><td class="num">${i + 1}</td><td><b>${esc(x.name)}</b></td><td>${x.n}</td>${heatTd(x.w1, .04)}${heatTd(x.m1, .1)}${heatTd(x.m3, .2)}${heatTd(x.ytd, .3)}${heatTd(x.y1, .4)}${heatTd(x.rel3, .15)}</tr>`).join('')}
     </tbody></table></div></section>`;
   const stocks = `<section class="panel" id="il-stocks"><div class="panel-head"><div><h2>RS ומומנטום למניות בת"א</h2><p class="small muted" style="margin:2px 0 0">RS = המהלך של שבועיים ביחס ל-ATR, כאחוזון מול המניות במדגם (${IL.n}). 12-1 = התשואה מלפני שנה עד לפני חודש.</p></div></div>
     <div class="rs-tools"><label class="fld"><span class="small muted">חיפוש</span><input type="search" id="ilQ" placeholder="סימול או שם" value="${esc(S.ilQ || '')}" autocomplete="off"></label>
