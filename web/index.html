@@ -551,7 +551,7 @@ body.scrolled .mast { box-shadow: 0 1px 0 rgba(154, 212, 185, .35), 0 10px 30px 
 .tile.rv.in:hover { transform: translateY(-2px); }
 main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 @keyframes viewIn { from { opacity: 0; } to { opacity: 1; } }
-[id^="grp-"], [id^="ig-"], [id^="mac-"], #momFac, #rsPanel, #momGlob, #momSp, #xstrip, #howH, #anTop, .hero, #idxBody { scroll-margin-top: 120px; }
+[id^="grp-"], [id^="ig-"], [id^="mac-"], [id^="il-"], #momFac, #rsPanel, #momGlob, #momSp, #xstrip, #howH, #anTop, .hero, #idxBody { scroll-margin-top: 120px; }
 .to-top { position: fixed; inset-inline-end: 18px; bottom: 18px; z-index: 30; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-2); display: grid; place-items: center; cursor: pointer; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s, transform .2s var(--ease); }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 .to-top svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
@@ -606,6 +606,23 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 .mv-v { font-weight: 700; text-align: end; }
 .mv-l { font-size: 12px; text-align: end; }
 @media (max-width: 760px) { .movers { grid-template-columns: minmax(0, 1fr); } .mv { grid-template-columns: 20px minmax(0, 1.5fr) minmax(30px, .8fr) 70px; } .mv-l { display: none; } }
+
+/* ---------- sortable headers ---------- */
+main.view table.ft:not(.rstbl) thead th { cursor: pointer; user-select: none; }
+main.view table.ft:not(.rstbl) thead th:hover { text-decoration: underline; text-underline-offset: 3px; }
+main.view table.ft thead th[aria-sort="descending"]::after { content: " ↓"; }
+main.view table.ft thead th[aria-sort="ascending"]::after { content: " ↑"; }
+#v-manage table.ft thead th, #v-analysis table.ft thead th { cursor: default; text-decoration: none; }
+/* ---------- Israel ---------- */
+.il-hero { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 1.6fr); gap: 12px; min-width: 0; }
+.il-gauge { all: unset; box-sizing: border-box; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 8px; align-content: start; box-shadow: var(--shadow-1); }
+.il-gauge:hover { box-shadow: var(--shadow-2); }
+.il-gauge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.il-gauge .gauge svg { width: 100%; max-width: 300px; display: block; margin: 0 auto; }
+.il-gauge .gstats { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 6px; }
+.il-gauge .gstats span { display: block; font-size: 12px; color: var(--muted); }
+.il-gauge .gstats b { font-size: 18px; }
+@media (max-width: 900px) { .il-hero { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -619,6 +636,7 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
       <div class="navi" data-nav="indices"><button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="indices"></div></div>
       <div class="navi" data-nav="momentum"><button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="momentum"></div></div>
       <div class="navi" data-nav="macro"><button class="tab" role="tab" id="tab-macro" data-tab="macro" aria-selected="false">מאקרו<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="macro"></div></div>
+      <div class="navi" data-nav="israel"><button class="tab" role="tab" id="tab-israel" data-tab="israel" aria-selected="false">ישראל<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="israel"></div></div>
       <div class="navi" data-nav="analysis"><button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="analysis"></div></div>
       <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
     </nav>
@@ -708,6 +726,13 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
   </div>
 </main>
 
+<main id="v-israel" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <div class="toolbar"><div><h1 data-eyebrow="ISRAEL">השוק בישראל</h1><p class="lede">סנטימנט ומאקרו של הבורסה בתל אביב: מדד סנטימנט ישראלי, רוחב שוק, תנודתיות, כסף זר והשקל, סקטורים, RS למניות הגדולות, וריבית, אינפלציה ואג"ח.</p></div><span class="small muted" id="ilAsof"></span></div>
+    <div id="ilBody" style="display:grid;gap:18px;min-width:0"></div>
+  </div>
+</main>
+
 <main id="v-analysis" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
     <section class="an-top" id="anTop">
@@ -754,7 +779,7 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 <footer class="site-foot" dir="rtl" lang="he">
   <div class="wrap foot-in">
     <div><span class="brand-name">פורטה</span><p>דשבורד השווקים של פורטה בית השקעות: סנטימנט, מדדים מובילים, מומנטום ו-RS לכל מניה, והניתוחים הטכניים של התיק, במקום אחד.</p><p><button type="button" class="foot-link" id="footSearch">חיפוש באתר · Ctrl+K</button></p></div>
-    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="macro">מאקרו</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
+    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="macro">מאקרו</button></li><li><button type="button" class="foot-link" data-go="israel">ישראל</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
     <div><h4>מקורות</h4><ul><li>CNN · Cboe · AAII · FRED</li><li>הלמ"ס · בנק ישראל · EIA</li><li>Yahoo Finance</li><li>רשימת המניות של NASDAQ</li></ul></div>
     <div><h4>עדכון</h4><p id="footUpd">—</p><p>כל לילה אחרי סגירת וול סטריט, ובבוקר לטבלת ה-RS.</p></div>
   </div>
@@ -787,7 +812,7 @@ const S = {
   loaded: { ind: false, ser: false, stk: false },
   win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'market',
   fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
-  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30,
+  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30, ilQ: '', ilSec: '',
 };
 const cache = { st: new Map(), rp: new Map(), comp: new Map() };
 
@@ -1065,7 +1090,7 @@ function chgHTML(st, ind) {
 }
 
 // ---------------- market board ----------------
-function boardInds() { return [...S.ind.values()].filter(i => i.tab !== 'macro' && (S.showAll || i.pin)).sort(byOrder); }
+function boardInds() { return [...S.ind.values()].filter(i => !i.tab && (S.showAll || i.pin)).sort(byOrder); }
 function renderAsOf() {
   const el = $('#asof');
   const daily = [...S.ind.values()].filter(i => i.auto && i.freq === 'd' && !i.derive).map(i => S.ser.get(i.id)).filter(Boolean);
@@ -2371,7 +2396,7 @@ function mChg(ind, a, b) {
   const u = mUnit(ind);
   const mk = (v, n, unit) => ({ v, n, u: unit, txt: unit ? `${n} ${unit}` : n });
   if (u === 'bp') return mk(a - b, fmtS(a - b, 0), 'נ"ב');
-  if (u === '%' && ind.freq !== 'm') return mk(a - b, fmtS((a - b) * 100, 0), 'נ"ב');
+  if (u === '%' && ind.freq !== 'm' && ind.chg !== 'pt') return mk(a - b, fmtS((a - b) * 100, 0), 'נ"ב');
   if (u === '%') return mk(a - b, fmtS(a - b, 1), 'נק\'');
   if (!b) return null;
   return mk(a / b - 1, fmtPct(a / b - 1), '');
@@ -2546,8 +2571,146 @@ function initMacro() {
   openInd = function (id) {
     const m = S.ind && S.ind.get(id);
     if (m && m.tab === 'macro' && !MAC) { loadMacro().then(() => _openInd(id)).catch(() => toast('לא ניתן לטעון את נתוני המאקרו', true)); return; }
+    if (m && m.tab === 'israel' && !IL) { loadIsrael().then(() => _openInd(id)).catch(() => toast('לא ניתן לטעון את נתוני ישראל', true)); return; }
     _openInd(id);
   };
+}
+
+// ---------------- Israel tab ----------------
+let IL = null;
+function loadIsrael() {
+  if (IL) return Promise.resolve(IL);
+  if (!loadIsrael.p) loadIsrael.p = Promise.all([fetchJSON('data/israel.json'), loadMacro()]).then(([d]) => {
+    for (const [id, o] of Object.entries(d.series || {})) { const t = o.t.map(x => x * DAY); S.base.set(id, { t, v: o.v, d: t.map(isoOf) }); }
+    rebuildSeries(); IL = d; return d;
+  }).catch(e => { loadIsrael.p = null; throw e; });
+  return loadIsrael.p;
+}
+const IL_SECTIONS = {
+  breadth: ['רוחב שוק', 'כמה מהמניות הגדולות בת"א משתתפות בתנועה. מחושב ממדגם של כ-80 מניות, קירוב לת"א 125.', ['il_pct50', 'il_pct200', 'il_adr10', 'il_hl', 'il_mcsi']],
+  trend: ['מגמה, תנודתיות ותיאבון לסיכון', 'ת"א 35 מול הממוצע, התנודתיות בפועל (במקום VTA35), ומי מוביל: הבנקים והמניות הבינוניות מול המדד.', ['ta35_ma200', 'ta35_rv20', 'il_ew_rel', 'il_banks_rel']],
+  foreign: ['כסף זר ושקל', 'במקום נתוני פעילות זרים בבורסה: זרימת הכסף ל-EIS בניו יורק, ביצועי ישראל מול ארה"ב, והשקל.', ['eis_cmf', 'eis_rel', 'ta35_usd', 'usdils_dev', 'usdils', 'eurils']],
+  macro: ['מאקרו ישראל', 'ריבית, אינפלציה, אג"ח ממשלתי והפער מול ארה"ב (במקום CDS של ישראל), אבטלה ומחירי דירות.', ['boi_rate', 'il_cpi_yoy', 'il_cpi_mom', 'il_real_rate', 'il_10y', 'il_spread', 'il_unemp', 'il_house_yoy']],
+};
+function ilStockRows(list) {
+  const q = (S.ilQ || '').trim().toLowerCase(), sec = S.ilSec || '';
+  return list.filter(r => (!sec || r.sec === sec) && (!q || r.sym.toLowerCase().startsWith(q) || r.name.includes(S.ilQ.trim())));
+}
+function ilStocksTable() {
+  const names = IL.sectorNames || {};
+  const rows = ilStockRows(IL.stocks || []).slice().sort((a, b) => (b.rs ?? -1) - (a.rs ?? -1) || (b.raw ?? -99) - (a.raw ?? -99));
+  const body = rows.map((r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td>
+    <td><b>${esc(r.name)}</b> <a class="tvl" href="https://www.tradingview.com/symbols/TASE-${encodeURIComponent(r.sym)}/" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.sym)}</div></td>
+    <td>${esc(names[r.sec] || r.sec)}</td><td>${rsBadge(r.rs)}</td>${heatTd(r.w1, .05)}${heatTd(r.m1, .12)}${heatTd(r.m3, .25)}${heatTd(r.y1, .5)}${heatTd(r.mom, .5)}
+    <td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${chgTd(r.ma200, { sym: '' })}${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`).join('');
+  return rows.length ? `<table class="ft itbl ftab"><thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>RS</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>12 ח'</th><th>12-1</th><th>מהשיא</th><th>מול ממוצע 200</th><th></th></tr></thead><tbody>${body}</tbody></table>`
+    : '<p class="muted">אין מניות שעומדות בסינון.</p>';
+}
+function renderIsrael() {
+  const el = $('#ilBody');
+  disposeIdxCharts();
+  if (!IL || !S.mk) {
+    el.innerHTML = '<p class="muted">טוען את נתוני השוק הישראלי…</p>';
+    Promise.all([loadIsrael(), loadMarkets()]).then(() => { if (S.tab === 'israel') renderIsrael(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני ישראל. רעננו את הדף.</div>'; });
+    return;
+  }
+  $('#ilAsof').textContent = IL.asof ? `נכון לסגירת ${fmtDate(IL.asof)}` : '';
+  const sent = S.ser.get('il_sent');
+  const sv = sent && sent.v.length ? sent.v[sent.v.length - 1] : null;
+  const ago = d => { const a = serAt(sent, d); return a ? Math.round(a.v) : '—'; };
+  const parts = (IL.components || []).map(id => {
+    const ind = S.ind.get(id), st = stats(id, '5y'); if (!ind || !st || st.pct == null) return null;
+    return { id, ind, st, q: ind.pol > 0 ? st.pct : 100 - st.pct };
+  }).filter(Boolean).sort((a, b) => a.q - b.q);
+  const items = S.mk.items;
+  const tile = (sym, label) => { const it = items[sym]; if (!it || it.last == null) return ''; return `<button type="button" class="tile mtile" data-x="${esc(sym)}"><span class="k">${esc(label)}</span><span class="val">${ltr(priceFmt(it, it.last))}</span><span class="s">יומי ${ltr(fmtPct(it.d1), it.d1 >= 0 ? 'up-g' : 'up-f')} · מתחילת השנה ${ltr(fmtPct(it.ytd))}</span></button>`; };
+  const mtile = (id, label) => { const ind = S.ind.get(id), s = S.ser.get(id); if (!ind || !s || !s.v.length) return ''; const n = s.v.length - 1; const y = serAt(s, 365); const c = mChg(ind, s.v[n], y && y.v);
+    return `<button type="button" class="tile mtile" data-ind="${esc(id)}"><span class="k">${esc(label)}</span><span class="val">${ltr(mFmt(ind, s.v[n]))}</span><span class="s">${fmtDateShort(s.d[n])}${c ? ` · בשנה ${chgHtml(c)}` : ''}</span></button>`; };
+  const hero = `<section class="il-hero" id="il-hero">
+    <button type="button" class="panel il-gauge" data-ind="il_sent"><div class="panel-head"><h2>מדד הסנטימנט הישראלי</h2><span class="small muted">${sent ? fmtDate(sent.d[sent.d.length - 1]) : ''}</span></div>
+      <div class="gauge">${gaugeSVG(sv, 'אין עדיין מספיק נתונים')}</div><div style="text-align:center">${sv != null ? chip(stateOf(1, sv)) : ''}</div>
+      <div class="gstats"><div><span>לפני שבוע</span><b>${ago(7)}</b></div><div><span>לפני חודש</span><b>${ago(30)}</b></div><div><span>לפני 3 חודשים</span><b>${ago(91)}</b></div></div></button>
+    <section class="panel"><div class="panel-head"><h3>הרכיבים</h3><span class="small muted">אחוזון ב-5 שנים, אחרי התאמת כיוון (100 = חמדנות)</span></div>
+      <div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>רכיב</th><th>ערך</th><th>אחוזון</th><th>אחרי כיוון</th><th>מצב</th></tr></thead><tbody>
+      ${parts.map(p => `<tr class="rowx" data-ind="${esc(p.id)}" tabindex="0"><td><b>${esc(p.ind.name)}</b><div class="small muted">${esc(p.ind.short || '')}</div></td><td>${ltr(fmtVal(p.ind, p.st.x))}</td><td>${ltr(Math.round(p.st.pct))}</td><td class="hl"><b>${ltr(Math.round(p.q))}</b></td><td>${chip(stateOf(1, p.q))}</td></tr>`).join('')}
+      </tbody></table></div></section></section>`;
+  const tiles = `<section class="tiles idx-tiles">${tile('TA35.TA', 'ת"א 35')}${tile('^TA125.TA', 'ת"א 125')}${tile('EIS', 'EIS (ישראל בניו יורק)')}${tile('ILS=X', 'דולר/שקל')}${mtile('boi_rate', 'ריבית בנק ישראל')}${mtile('il_cpi_yoy', 'אינפלציה')}${mtile('il_spread', 'פער מול ארה"ב, 10 שנים')}</section>`;
+  const sec = (key) => { const [name, desc, ids] = IL_SECTIONS[key];
+    const chart = key === 'macro' ? `<div class="ix-grid"><div class="panel inner"><div class="panel-head"><h3>ריבית ואינפלציה</h3></div><div class="chart cx sm2" id="il-ch-rate" role="img" aria-label="ריבית בנק ישראל ואינפלציה"></div></div>
+        <div class="panel inner"><div class="panel-head"><h3>פער התשואות מול ארה"ב</h3><span class="small muted">10 שנים, נקודות אחוז</span></div><div class="chart cx sm2" id="il-ch-spread" role="img" aria-label="פער תשואות ישראל מול ארה&quot;ב"></div></div></div>`
+      : key === 'breadth' ? `<div class="panel inner"><div class="panel-head"><h3>% מניות מעל ממוצע 200 ומעל ממוצע 50</h3></div><div class="chart cx sm2" id="il-ch-breadth" role="img" aria-label="רוחב השוק בת&quot;א"></div></div>` : '';
+    return `<section class="panel" id="il-${key}"><div class="panel-head"><div><h2>${name}</h2><p class="small muted" style="margin:2px 0 0">${desc}</p></div></div>${chart}${macTable(ids, { first: 'אינדיקטור' })}</section>`; };
+  const names = IL.sectorNames || {};
+  const sectors = `<section class="panel" id="il-sectors"><div class="panel-head"><div><h2>סקטורים בת"א</h2><p class="small muted" style="margin:2px 0 0">סלים במשקל שווה מהמניות במדגם. לחיצה על כותרת עמודה ממיינת.</p></div></div>
+    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>סקטור</th><th>מניות</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ת"א 125, 3 ח'</th><th>6 חודשים</th></tr></thead><tbody>
+    ${(IL.sectors || []).slice().sort((a, b) => (b.m3 ?? -9) - (a.m3 ?? -9)).map((x, i) => `<tr><td class="num">${i + 1}</td><td><b>${esc(x.name)}</b></td><td>${x.n}</td>${heatTd(x.w1, .04)}${heatTd(x.m1, .1)}${heatTd(x.m3, .2)}${heatTd(x.ytd, .3)}${heatTd(x.y1, .4)}${heatTd(x.rel3, .15)}<td class="spk">${miniSpark(x.spark)}</td></tr>`).join('')}
+    </tbody></table></div></section>`;
+  const stocks = `<section class="panel" id="il-stocks"><div class="panel-head"><div><h2>RS ומומנטום למניות בת"א</h2><p class="small muted" style="margin:2px 0 0">RS = המהלך של שבועיים ביחס ל-ATR, כאחוזון מול המניות במדגם (${IL.n}). 12-1 = התשואה מלפני שנה עד לפני חודש.</p></div></div>
+    <div class="rs-tools"><label class="fld"><span class="small muted">חיפוש</span><input type="search" id="ilQ" placeholder="סימול או שם" value="${esc(S.ilQ || '')}" autocomplete="off"></label>
+      <label class="fld"><span class="small muted">סקטור</span><select id="ilSec"><option value="">כל הסקטורים</option>${Object.entries(names).map(([k, v]) => `<option value="${k}"${S.ilSec === k ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label></div>
+    <div class="tbl-wrap" id="ilStk">${ilStocksTable()}</div>
+    <p class="small muted" style="margin:0">↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
+  const notes = `<details class="lagd"><summary>מה יש כאן, ממה זה מחושב, ומה חסר</summary><div class="rs-notes small">
+    <p><b>המדגם:</b> ${IL.n} מניות גדולות שנסחרות בת"א (${esc((IL.missing || []).map(m => m.replace('.TA', '')).join(', ')) ? 'לא נמצאו ב-Yahoo: ' + esc(IL.missing.map(m => m.replace('.TA', '')).join(', ')) + '. ' : ''}רוחב השוק והסקטורים מחושבים מהן, ולכן הם קירוב לת"א 125 ולא החישוב הרשמי של הבורסה.</p>
+    <p><b>מדד הסנטימנט הישראלי:</b> ממוצע האחוזונים של 10 הרכיבים בטבלה, כל אחד מול 5 השנים שקדמו לו, אחרי התאמת כיוון. נדרשים לפחות 5 רכיבים ביום.</p>
+    <p><b>מה שאין לו מקור חינמי, ומה במקומו:</b> מדד הפחד VTA35 ← התנודתיות בפועל של ת"א 35. CDS של ישראל ← פער התשואות מול ארה"ב. פעילות משקיעים זרים בבורסה ← זרימת הכסף ל-EIS ועוצמת השקל. Put/Call ישראלי וסקרי משקיעים מקומיים לא זמינים.</p>
+    <p><b>מקורות:</b> Yahoo Finance (מניות ומדדי ת"א, EIS, שקל), FRED (תשואת האג"ח והאבטלה לפי OECD, מחירי דיור לפי BIS), הלמ"ס ובנק ישראל (אינפלציה וריבית).</p></div></details>`;
+  el.innerHTML = tiles + hero + sec('breadth') + sec('trend') + sec('foreign') + sectors + stocks + sec('macro') + notes;
+  const reStk = () => { $('#ilStk').innerHTML = ilStocksTable(); };
+  let qt = 0;
+  $('#ilQ').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { S.ilQ = e.target.value; reStk(); }, 120); });
+  $('#ilSec').addEventListener('change', e => { S.ilSec = e.target.value; reStk(); });
+  macLines('il-ch-rate', { ids: ['boi_rate', 'il_cpi_yoy'], years: 10, title: '' });
+  macLines('il-ch-spread', { ids: ['il_spread'], years: 15, mark: [0, ''], title: '' });
+  macLines('il-ch-breadth', { ids: ['il_pct200', 'il_pct50'], years: 3, mark: [50, ''], title: '' });
+}
+
+// ---------------- click a column header to sort (every comparison table) ----------------
+function sortKey(td, numeric) {
+  if (!td) return null;
+  if (td.dataset.v != null) return numeric ? +td.dataset.v : td.dataset.v;
+  const t = td.textContent.replace(/\s+/g, ' ').trim();
+  if (!t || t === '—') return null;
+  if (!numeric) return t;
+  const m = t.replace(/[−–]/g, '-').replace(/,/g, '').match(/^[$₪]?([+-]?\d+(?:\.\d+)?)\s*([KMBT](?![a-z]))?/);
+  if (!m) return null;
+  return +m[1] * ({ K: 1e3, M: 1e6, B: 1e9, T: 1e12 }[m[2]] || 1);
+}
+function isNumCol(rows, k) {
+  let n = 0, num = 0;
+  for (const r of rows) { const td = r.cells[k]; if (!td) continue; const t = td.textContent.trim(); if (!t || t === '—') continue; n++; if (/^[$₪]?[+\-−]?\d/.test(t)) num++; }
+  return n > 0 && num / n >= 0.6;
+}
+function initSortableTables() {
+  document.addEventListener('click', e => {
+    const th = e.target.closest('main.view table.ft thead th');
+    if (!th || th.querySelector('button') || th.colSpan > 1) return;
+    const table = th.closest('table');
+    if (table.classList.contains('rstbl') || table.closest('#v-manage, #v-analysis')) return;
+    const tbody = table.tBodies[0]; if (!tbody) return;
+    const k = th.cellIndex;
+    const all = [...tbody.rows];
+    all.forEach((r, i) => { if (r.dataset.oi == null) r.dataset.oi = i; });
+    const data = all.filter(r => !r.classList.contains('secr') && r.cells.length > 2);
+    const numeric = isNumCol(data, k);
+    const cur = th.getAttribute('aria-sort');
+    const next = cur === 'none' || !cur ? (numeric ? 'descending' : 'ascending') : cur === (numeric ? 'descending' : 'ascending') ? (numeric ? 'ascending' : 'descending') : 'none';
+    [...th.parentElement.cells].forEach(c => c.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', next);
+    if (next === 'none') {
+      all.sort((a, b) => a.dataset.oi - b.dataset.oi).forEach(r => { r.hidden = false; tbody.appendChild(r); });
+      return;
+    }
+    const dir = next === 'descending' ? -1 : 1;
+    const keyed = data.map(r => ({ r, v: sortKey(r.cells[k], numeric) }));
+    keyed.sort((a, b) => {
+      if (a.v == null && b.v == null) return a.r.dataset.oi - b.r.dataset.oi;
+      if (a.v == null) return 1; if (b.v == null) return -1;
+      return (numeric ? a.v - b.v : String(a.v).localeCompare(String(b.v), 'he')) * dir;
+    });
+    all.forEach(r => { if (r.classList.contains('secr')) r.hidden = true; });
+    keyed.forEach(o => tbody.appendChild(o.r));
+  });
 }
 
 // ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
@@ -2558,9 +2721,10 @@ const NAV = {
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, RS לכל מניה ומומנטום בעולם', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מדדים ונכסים בעולם', '#momGlob'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
+  israel: { d: 'סנטימנט, רוחב שוק, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
   analysis: { d: 'הניתוח הטכני שלך לכל מניה בתיק: גרף, רמות ושורה תחתונה', items: () => [['כל הניתוחים', '#anTop']] },
 };
-const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
+const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 function goTo(tab, sel) {
   closeMenus();
@@ -2750,6 +2914,7 @@ function initUI() {
   });
   if (/Mac|iPhone|iPad/.test(navigator.platform || '')) $$('.kbd-mod').forEach(k => { k.textContent = '⌘'; });
   initMacro();
+  initSortableTables();
   initMotion();
   loadTicker();
   document.body.dataset.tab = S.tab || 'market';
@@ -2759,12 +2924,13 @@ function initUI() {
 function showTab(t) {
   if (t === 'manage' && !S.canEdit) t = 'market';
   S.tab = t;
-  for (const v of ['market', 'indices', 'momentum', 'macro', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
+  for (const v of ['market', 'indices', 'momentum', 'macro', 'israel', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
   if (t === 'manage') renderManage();
   if (t === 'analysis') renderAnalysis();
   if (t === 'indices') renderIndices();
   if (t === 'momentum') renderMomentum();
   if (t === 'macro') renderMacro();
+  if (t === 'israel') renderIsrael();
 }
 let rq = 0;
 function schedule() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; renderAll(); }); }
@@ -2793,6 +2959,7 @@ function bind() {
   $('#fSort').addEventListener('change', e => { S.fSort = e.target.value; renderAnalysis(); });
   $('#stkGrid').addEventListener('click', e => { const c = e.target.closest('[data-t]'); if (c) openStock(c.dataset.t); });
   $('#newStock').addEventListener('click', () => openStockEditor(null));
+  $('#ilBody').addEventListener('click', e => { if (e.target.closest('a, input, select')) return; const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) { openIdx(x.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t) openStock(t.dataset.t); });
   $('#macBody').addEventListener('click', e => { const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) openIdx(x.dataset.x); });
   $('#macBody').addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('tr[data-ind], tr[data-x]'); if (!r) return; e.preventDefault(); r.dataset.ind ? openInd(r.dataset.ind) : openIdx(r.dataset.x); });
   $('#idxBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) openIdx(r.dataset.x); });
@@ -2805,6 +2972,7 @@ function bind() {
     if (S.tab === 'indices' && !$('#ov')) renderIndices();
     if (S.tab === 'momentum' && !$('#ov')) renderMomentum();
     if (S.tab === 'macro' && !$('#ov')) renderMacro();
+    if (S.tab === 'israel' && !$('#ov')) renderIsrael();
     if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
     if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = S.mk.items[sym]; drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
   };
@@ -2823,7 +2991,7 @@ let hashDone = false;
 function applyHash() {
   if (hashDone || !S.loaded.ind || !S.loaded.ser || !S.loaded.stk) return; hashDone = true;
   const h = decodeURIComponent((location.hash || '').slice(1));
-  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
+  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'israel' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
   else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
   else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
   else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }

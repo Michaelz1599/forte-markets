@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import breadth, macro, markets, rs, sources
+from . import breadth, israel, macro, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -150,6 +150,15 @@ def run(offline: bool = False) -> int:
             else:
                 ohlc = None
             return rs.run(px, u, members, bextra["bars"] if bextra else None, ohlc)
+        # 10b. Israel: breadth, sentiment proxies, sectors, RS of the large TASE names, Israeli macro
+        res = step(st, "israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", lambda: israel.run(px))
+        if res:
+            data, payload, msg = res
+            for sid, pts in data.items():
+                if pts:
+                    merge_series(sid, pts)
+            dump_json(israel.DERIVED, payload)
+            st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
         if res:
             out, msg = res
@@ -179,7 +188,7 @@ def summation_from_oscillator() -> None:
 
 
 def build(st: Status, u: dict, px) -> None:
-    inds = json.loads(CONFIG.read_text(encoding="utf-8")) + macro.indicator_defs()
+    inds = json.loads(CONFIG.read_text(encoding="utf-8")) + macro.indicator_defs() + israel.indicator_defs()
     tmp = SITE_DIR.with_name("site.tmp")
     shutil.rmtree(tmp, ignore_errors=True)
     (tmp / "data").mkdir(parents=True)
@@ -190,8 +199,12 @@ def build(st: Status, u: dict, px) -> None:
     epoch = dt.date(1970, 1, 1)
     series = {}
     summation_from_oscillator()
+    try:
+        israel.finish()
+    except Exception:
+        traceback.print_exc()
     for ind in inds:
-        if ind.get("derive") or ind.get("tab") == "macro":
+        if ind.get("derive") or ind.get("tab"):
             continue
         s = read_series(ind["id"])
         if not s:
@@ -202,6 +215,7 @@ def build(st: Status, u: dict, px) -> None:
     status = st.to_dict()
     dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds, "macro": macro.site_meta()})
     curve_file = ROOT / "data" / "derived" / "curve.json"
+    dump_json(tmp / "data" / "israel.json", israel.site_payload())
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
                                              "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"

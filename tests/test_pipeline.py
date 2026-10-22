@@ -277,3 +277,25 @@ def test_chaikin_money_flow_bounds_and_sign():
             "volume": pd.DataFrame({"A": v, "FX": 0.0})}
     p = markets.cmf_payload(bars)
     assert "A" in p and "FX" not in p and p["A"]["date"] == idx[-1]
+
+
+# --------------------------------------------------------------------------- Israel
+from pipeline import israel  # noqa: E402
+
+
+def test_israel_composite_and_tables():
+    idx = _dates(1500)
+    rng = np.random.default_rng(2)
+    up = pd.Series(np.linspace(0, 10, 1500), index=idx)           # steadily rising component
+    ser = {"a": up, "b": -up, "c": pd.Series(rng.normal(size=1500), index=idx)}
+    comp = israel.composite(ser, ["a", "b", "c"], {"a": 1, "b": -1, "c": 1}, min_parts=2)
+    assert comp.iloc[-1] > 80 and comp.between(0, 100).all()   # a at its high, b at its low (inverted) = greed
+    c = pd.DataFrame({s: 100 * np.exp(np.cumsum(rng.normal(0, 0.02, 300))) for s in ("A.TA", "B.TA", "C.TA")}, index=idx[-300:])
+    info = {"A.TA": ("א", "banks"), "B.TA": ("ב", "tech"), "C.TA": ("ג", "banks")}
+    rows = israel.stock_rows(c, c * 1.01, c * 0.99, info)
+    assert {r["sym"] for r in rows} == {"A", "B", "C"} and all(1 <= r["rs"] <= 100 for r in rows)
+    secs = {x["key"]: x for x in israel.sector_rows(c, info, {"banks": "בנקים", "tech": "טכנולוגיה"}, None)}
+    assert secs["banks"]["n"] == 2 and secs["tech"]["n"] == 1
+    cfg = israel.load()
+    assert set(cfg["components"]) <= {s["id"] for s in cfg["series"]}
+    assert all(d["tab"] == "israel" and not d["pin"] for d in israel.indicator_defs(cfg))
