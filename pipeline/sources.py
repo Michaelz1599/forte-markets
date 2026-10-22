@@ -7,6 +7,7 @@ from __future__ import annotations
 import csv
 import datetime as dt
 import io
+import json
 import re
 
 from bs4 import BeautifulSoup
@@ -246,6 +247,11 @@ def _pc_page(day: dt.date) -> dict | None:
              day.strftime("%b %d, %Y").replace(" 0", " "), day.strftime("%B %-d, %Y"), day.strftime("%b %-d, %Y")}
     if not any(f in r.text or f in text for f in forms):
         return {"_nodate": True, "_sample": text[:1500]}
+    if "SPX" in text and not getattr(_pc_page, "_probed", False):
+        _pc_page._probed = True
+        i = text.find("SPX")
+        urls = sorted(set(re.findall(r"https://cdn\.cboe\.com/[^\"' )]+", r.text)))[:20]
+        save_probe("cboe_pc_text", text[max(0, i - 400):i + 800] + "\n\nURLS:\n" + "\n".join(urls))
     vals = {}
     for k, pat in PC_LABELS.items():
         m = re.search(pat + r"\s*:?\s*(\d+\.\d+)", text, re.I)
@@ -296,6 +302,9 @@ def _cboe_putcall(max_days: int = 12, start: str | None = None) -> dict:
         raise ValueError(f"Cboe P/C check failed on {days[0]}: total {check.get('total')} vs stored {pcc.get(days[0].isoformat())}")
     out = {"pcc": {}, "pce": {}, "pcspx": {}}
     spx_ok = not spx or not check or "spx" not in check or days[0].isoformat() not in spx or abs(check["spx"] - spx[days[0].isoformat()]) <= 0.03
+    if not spx_ok or not any("spx" in v for v in got.values()):
+        save_probe("cboe_pc_spx", json.dumps({"check_day": days[0].isoformat(), "cboe": (check or {}).get("spx"),
+                                              "stored": spx.get(days[0].isoformat()), "days": {d: v.get("spx") for d, v in got.items()}}))
     for ds, v in got.items():
         if spx_ok and "spx" in v and 0.3 < v["spx"] < 5:
             out["pcspx"][ds] = v["spx"]
