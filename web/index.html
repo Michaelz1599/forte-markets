@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js"></script>
+<script src="vendor/echarts.min.js"></script>
 <style>
 /* Layout: Forte dark-green masthead with tabs; each tab is one content column (max 1240px).
    Market board borrows Forte's Excel tables: Tier-1 dark header, mint section rows, white data rows,
@@ -551,7 +551,7 @@ body.scrolled .mast { box-shadow: 0 1px 0 rgba(154, 212, 185, .35), 0 10px 30px 
 .tile.rv.in:hover { transform: translateY(-2px); }
 main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 @keyframes viewIn { from { opacity: 0; } to { opacity: 1; } }
-[id^="grp-"], [id^="ig-"], #momFac, #rsPanel, #momGlob, #momSp, #xstrip, #howH, #anTop, .hero, #idxBody { scroll-margin-top: 120px; }
+[id^="grp-"], [id^="ig-"], [id^="mac-"], #momFac, #rsPanel, #momGlob, #momSp, #xstrip, #howH, #anTop, .hero, #idxBody { scroll-margin-top: 120px; }
 .to-top { position: fixed; inset-inline-end: 18px; bottom: 18px; z-index: 30; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-2); display: grid; place-items: center; cursor: pointer; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s, transform .2s var(--ease); }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 .to-top svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
@@ -577,6 +577,35 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
   .foot-in > :first-child { grid-column: 1 / -1; }
 }
 @media print { .rv { opacity: 1 !important; transform: none !important; } .ticker, .to-top, .mast-act { display: none !important; } }
+
+/* ---------- macro ---------- */
+.mup { color: var(--warn); }
+.mdn { color: var(--corr-neg); }
+.chart.cx.sm2 { height: 300px; }
+.mtbl td { white-space: nowrap; }
+.mtile { all: unset; box-sizing: border-box; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; box-shadow: var(--shadow-1); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.mtile:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.mtile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mtile .k { font-size: 12.5px; color: var(--muted); }
+.mtile .val { font-size: 19px; font-weight: 800; }
+.mtile .s { font-size: 12px; color: var(--muted); }
+.pctb { display: inline-block; width: 46px; height: 6px; border-radius: 3px; background: var(--sunk); position: relative; margin-inline-end: 6px; vertical-align: middle; }
+.pctb i { position: absolute; inset-block: -2px; inset-inline-start: var(--p); width: 3px; margin-inline-start: -1px; border-radius: 2px; background: var(--ink); }
+.movers { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.mv-col { display: grid; gap: 2px; align-content: start; min-width: 0; }
+.mv-col h3 { margin: 0 0 6px; font-size: 15px; }
+.mv { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 22px minmax(0, 1.4fr) minmax(40px, 1fr) 74px 44px; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 8px; }
+.mv:hover { background: var(--sunk); }
+.mv:focus-visible { outline: 2px solid var(--accent); }
+.mv-r { color: var(--muted); font-weight: 700; }
+.mv-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.mv-b { height: 8px; background: var(--sunk); border-radius: 4px; position: relative; }
+.mv-b i { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: 4px; }
+.mv-b i.w { background: var(--warn); }
+.mv-b i.t { background: var(--corr-neg); }
+.mv-v { font-weight: 700; text-align: end; }
+.mv-l { font-size: 12px; text-align: end; }
+@media (max-width: 760px) { .movers { grid-template-columns: minmax(0, 1fr); } .mv { grid-template-columns: 20px minmax(0, 1.5fr) minmax(30px, .8fr) 70px; } .mv-l { display: none; } }
 </style>
 </head>
 <body>
@@ -589,6 +618,7 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
       <div class="navi" data-nav="market"><button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="market"></div></div>
       <div class="navi" data-nav="indices"><button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="indices"></div></div>
       <div class="navi" data-nav="momentum"><button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="momentum"></div></div>
+      <div class="navi" data-nav="macro"><button class="tab" role="tab" id="tab-macro" data-tab="macro" aria-selected="false">מאקרו<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="macro"></div></div>
       <div class="navi" data-nav="analysis"><button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="analysis"></div></div>
       <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
     </nav>
@@ -671,6 +701,13 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
   </div>
 </main>
 
+<main id="v-macro" class="view" dir="rtl" lang="he" hidden>
+  <div class="wrap">
+    <div class="toolbar"><div><h1 data-eyebrow="MACRO">מאקרו</h1><p class="lede">התמונה הכלכלית שמאחורי השווקים: אינפלציה בארה"ב ובישראל, ריביות ועקום התשואות, מרווחי אשראי לפי דירוג, שוק העבודה, היצע הכסף, סחורות, דלק, חשמל ומרווח ספארק.</p></div><span class="small muted" id="macAsof"></span></div>
+    <div id="macBody" style="display:grid;gap:18px;min-width:0"></div>
+  </div>
+</main>
+
 <main id="v-analysis" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
     <section class="an-top" id="anTop">
@@ -717,8 +754,8 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 <footer class="site-foot" dir="rtl" lang="he">
   <div class="wrap foot-in">
     <div><span class="brand-name">פורטה</span><p>דשבורד השווקים של פורטה בית השקעות: סנטימנט, מדדים מובילים, מומנטום ו-RS לכל מניה, והניתוחים הטכניים של התיק, במקום אחד.</p><p><button type="button" class="foot-link" id="footSearch">חיפוש באתר · Ctrl+K</button></p></div>
-    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
-    <div><h4>מקורות</h4><ul><li>CNN · Cboe · CFTC · AAII · FRED</li><li>Yahoo Finance</li><li>רשימת המניות של NASDAQ</li></ul></div>
+    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="macro">מאקרו</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
+    <div><h4>מקורות</h4><ul><li>CNN · Cboe · AAII · FRED</li><li>הלמ"ס · בנק ישראל · EIA</li><li>Yahoo Finance</li><li>רשימת המניות של NASDAQ</li></ul></div>
     <div><h4>עדכון</h4><p id="footUpd">—</p><p>כל לילה אחרי סגירת וול סטריט, ובבוקר לטבלת ה-RS.</p></div>
   </div>
   <div class="wrap foot-bot"><span>© פורטה בית השקעות · לשימוש פנימי</span><span>כלי עזר להחלטה ולא המלצת השקעה.</span></div>
@@ -736,7 +773,7 @@ const MIN_COMP = { d: 200, w: 40, m: 24 };     // fewer than this: shown but fla
 const MIN_ROLL = { d: 250, w: 52, m: 24 };     // rolling percentile (history chart, composite, analogs) needs a year of prior data
 const FRESH = { d: 5, w: 12, m: 45 };          // days since last observation before a series counts as stale
 const FREQ_LABEL = { d: 'יומי', w: 'שבועי', m: 'חודשי' };
-const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['breadth', 'רוחב שוק'], ['pos', 'פוזיציות ומוסדיים'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['other', 'אחר']];
+const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['breadth', 'רוחב שוק'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['cds', 'CDS'], ['other', 'אחר']];
 const BIAS = { bull: 'שורי', bear: 'דובי', neutral: 'ניטרלי', watch: 'במעקב', pending: 'ממתין לניתוח' };
 const HORIZON = { short: 'קצר (ימים–שבועות)', mid: 'בינוני (שבועות–חודשים)', long: 'ארוך (חודשים+)' };
 const COMP_ID = '__comp';
@@ -750,7 +787,7 @@ const S = {
   loaded: { ind: false, ser: false, stk: false },
   win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'market',
   fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
-  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null,
+  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30,
 };
 const cache = { st: new Map(), rp: new Map(), comp: new Map() };
 
@@ -1028,7 +1065,7 @@ function chgHTML(st, ind) {
 }
 
 // ---------------- market board ----------------
-function boardInds() { return [...S.ind.values()].filter(i => S.showAll || i.pin).sort(byOrder); }
+function boardInds() { return [...S.ind.values()].filter(i => i.tab !== 'macro' && (S.showAll || i.pin)).sort(byOrder); }
 function renderAsOf() {
   const el = $('#asof');
   const daily = [...S.ind.values()].filter(i => i.auto && i.freq === 'd' && !i.derive).map(i => S.ser.get(i.id)).filter(Boolean);
@@ -1205,6 +1242,7 @@ function openInd(id) {
         <div class="chart" id="dChart" role="img" aria-label="גרף היסטורי של ${esc(meta.name)} עם קווי אחוזונים ואחוזון מתגלגל"></div>
         <p class="small muted" style="margin:0">קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו.</p>
       </section>
+      ${moveTable(meta, s)}
       ${compTable}
       <section class="panel"><div class="panel-head"><h3>אחוזון ו-<span class="ltr">Z</span> לפי חלון השוואה</h3></div>
         <div class="tbl-wrap"><table class="ft"><thead><tr><th></th><th>שנה</th><th>3 שנים</th><th>5 שנים</th><th>10 שנים</th><th>הכל</th></tr></thead>
@@ -2296,16 +2334,225 @@ function drawIdxChart(sym, rangeDays, isFac) {
     ] });
 }
 
+// ---------------- macro tab ----------------
+let MAC = null;
+function loadMacro() {
+  if (MAC) return Promise.resolve(MAC);
+  if (!loadMacro.p) loadMacro.p = fetchJSON('data/macro.json').then(d => {
+    for (const [id, o] of Object.entries(d.series || {})) { const t = o.t.map(x => x * DAY); S.base.set(id, { t, v: o.v, d: t.map(isoOf) }); }
+    rebuildSeries(); MAC = d; return d;
+  }).catch(e => { loadMacro.p = null; throw e; });
+  return loadMacro.p;
+}
+function serAt(s, days) {
+  if (!s || !s.t.length) return null;
+  const target = s.t[s.t.length - 1] - days * DAY;
+  let lo = 0, hi = s.t.length - 1, k = -1;
+  while (lo <= hi) { const m = (lo + hi) >> 1; if (s.t[m] <= target) { k = m; lo = m + 1; } else hi = m - 1; }
+  return k < 0 ? null : { v: s.v[k], d: s.d[k] };
+}
+function mUnit(ind) { return ind.munit || ind.unit || ''; }
+function mFmt(ind, v) {
+  if (v == null || !isFinite(v)) return '—';
+  const dec = ind.dec ?? 2, u = mUnit(ind), n = v < 0 ? '−' + fmtN(-v, dec) : fmtN(v, dec);
+  return u === '%' ? n + '%' : u === '$' ? '$' + n : u === '$T' ? '$' + n + 'T' : u === 'K' ? n + 'K' : u === 'M' ? n + 'M' : u === '¢' ? n + '¢' : n;
+}
+// change between two readings, in the unit a reader expects: basis points for spreads and market rates, points for monthly rates, % for levels
+function mChg(ind, a, b) {
+  if (a == null || b == null || !isFinite(a) || !isFinite(b)) return null;
+  const u = mUnit(ind);
+  const mk = (v, n, unit) => ({ v, n, u: unit, txt: unit ? `${n} ${unit}` : n });
+  if (u === 'bp') return mk(a - b, fmtS(a - b, 0), 'נ"ב');
+  if (u === '%' && ind.freq !== 'm') return mk(a - b, fmtS((a - b) * 100, 0), 'נ"ב');
+  if (u === '%') return mk(a - b, fmtS(a - b, 1), 'נק\'');
+  if (!b) return null;
+  return mk(a / b - 1, fmtPct(a / b - 1), '');
+}
+function chgHtml(c, cls = '') { return c ? `${ltr(c.n, cls)}${c.u ? `<span class="${cls}"> ${c.u}</span>` : ''}` : '—'; }
+function mChgTd(ind, a, b) {
+  const c = mChg(ind, a, b);
+  return c ? `<td class="${c.v > 0 ? 'mup' : c.v < 0 ? 'mdn' : ''}">${chgHtml(c)}</td>` : '<td class="muted">—</td>';
+}
+function mSpark(s, years = 2) {
+  if (!s || s.v.length < 2) return '';
+  const from = s.t[s.t.length - 1] - years * 365 * DAY;
+  let v = s.v.filter((x, i) => s.t[i] >= from);
+  if (v.length > 160) { const k = Math.ceil(v.length / 160); v = v.filter((x, i) => i % k === 0 || i === v.length - 1); }
+  return miniSpark(v);
+}
+function macTable(ids, opts = {}) {
+  const rows = ids.map(id => {
+    const ind = S.ind.get(id); const s = S.ser.get(id);
+    if (!ind) return '';
+    if (!s || !s.v.length) return `<tr><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td><td colspan="6" class="muted">ממתין לעדכון הראשון</td></tr>`;
+    const n = s.v.length - 1, last = s.v[n];
+    const prev = n > 0 ? s.v[n - 1] : null;
+    const m3 = serAt(s, 91), y1 = serAt(s, 365);
+    const st = stats(id, '10y');
+    const fr = fresh(id);
+    return `<tr class="rowx" data-ind="${esc(id)}" tabindex="0"><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td>
+      <td><b>${ltr(mFmt(ind, last))}</b><div class="small muted">${fmtDate(s.d[n])}${fr.ok ? '' : ' · <span class="chip chip-w">לא עדכני</span>'}</div></td>
+      ${mChgTd(ind, last, prev)}${mChgTd(ind, last, m3 && m3.v)}${mChgTd(ind, last, y1 && y1.v)}
+      <td>${st && st.pct != null ? `<span class="pctb" style="--p:${Math.round(st.pct)}%"><i></i></span>${ltr(Math.round(st.pct))}` : '—'}</td><td class="spk">${mSpark(s)}</td></tr>`;
+  }).join('');
+  return `<div class="tbl-wrap"><table class="ft itbl mtbl"><thead><tr><th>${opts.first || 'סדרה'}</th><th>אחרון</th><th>מהקודם</th><th>3 חודשים</th><th>שנה</th><th>אחוזון · 10 שנים</th><th>שנתיים</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+const MAC_CHARTS = {
+  infl: { ids: ['us_cpi_yoy', 'us_core_cpi_yoy', 'us_core_pce_yoy', 'il_cpi_yoy'], years: 10, mark: [2, 'יעד הפד 2%'], title: 'אינפלציה שנתית, ארה"ב וישראל' },
+  rates: { ids: ['fed_rate', 'boi_rate', 'ust2y', 'ust10y'], years: 10, title: 'ריבית ותשואות, 10 שנים' },
+  labor: { ids: ['unrate'], years: 20, title: 'שיעור האבטלה בארה"ב, 20 שנה' },
+  money: { ids: ['m2_yoy'], years: 25, mark: [0, ''], title: 'צמיחת M2 שנתית' },
+  energy: { ids: ['spark_pjm', 'spark_ercot', 'spark_sp15', 'spark_nepool'], years: 2, mark: [0, ''], title: 'מרווח ספארק, $ ל-MWh' },
+};
+const LINE_COLORS = ['#0E6B52', '#B9482A', '#2F6DB5', '#8F5E10', '#6B3FA0', '#0F766E'];
+function macLines(elId, cfg) {
+  const el = $('#' + elId); if (!el || typeof echarts === 'undefined') return;
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface');
+  const series = cfg.ids.map((id, i) => {
+    const s = S.ser.get(id), ind = S.ind.get(id); if (!s || !ind) return null;
+    const from = s.t[s.t.length - 1] - cfg.years * 365.25 * DAY;
+    const data = []; s.t.forEach((t, k) => { if (t >= from) data.push([t, s.v[k]]); });
+    return { name: ind.name, type: 'line', data, showSymbol: false, sampling: 'lttb', lineStyle: { width: i ? 1.4 : 2, color: LINE_COLORS[i % LINE_COLORS.length] }, itemStyle: { color: LINE_COLORS[i % LINE_COLORS.length] },
+      ...(i === 0 && cfg.mark ? { markLine: { symbol: 'none', silent: true, lineStyle: { color: muted, type: 'dashed' }, label: { formatter: cfg.mark[1], color: muted, fontSize: 10, position: 'insideStartTop' }, data: [{ yAxis: cfg.mark[0] }] } } : {}) };
+  }).filter(Boolean);
+  if (!series.length) { el.innerHTML = '<p class="muted" style="padding:16px">אין עדיין נתונים.</p>'; return; }
+  const ind0 = S.ind.get(cfg.ids[0]);
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 48, right: 16, top: 34, bottom: 28 }, legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 }, itemWidth: 14, itemHeight: 3 },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right">${fmtDate(isoOf(ps[0].value[0]))}${ps.map(p => `<br>${p.marker}${esc(p.seriesName)}: <b dir="ltr">${mFmt(S.ind.get(cfg.ids[p.seriesIndex]) || ind0, p.value[1])}</b>`).join('')}</div>` },
+    xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', scale: true, axisLabel: { color: muted, formatter: v => mUnit(ind0) === '%' ? v + '%' : v }, splitLine: { lineStyle: { color: line2 } } },
+    series });
+}
+function drawCurve() {
+  const el = $('#macCurve'); const cv = MAC && MAC.curve; if (!el || !cv || !cv.now || typeof echarts === 'undefined') return;
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface');
+  const rows = [['now', 'היום', '#0E6B52', 2.4], ['m1', 'לפני חודש', '#2F6DB5', 1.4], ['m6', 'לפני חצי שנה', '#8F5E10', 1.2], ['y1', 'לפני שנה', '#B9482A', 1.2]].filter(r => cv[r[0]]);
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 44, right: 16, top: 34, bottom: 28 }, legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 } },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right"><b>${ps[0].name}</b>${ps.map(p => `<br>${p.marker}${esc(p.seriesName)}: <b dir="ltr">${p.value == null ? '—' : fmtN(p.value, 2) + '%'}</b>`).join('')}</div>` },
+    xAxis: { type: 'category', data: cv.tenors, axisLabel: { color: muted }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', scale: true, axisLabel: { color: muted, formatter: v => v + '%' }, splitLine: { lineStyle: { color: line2 } } },
+    series: rows.map(([k, n, col, w]) => ({ name: `${n} (${fmtDateShort(cv[k].date)})`, type: 'line', data: cv[k].v, connectNulls: true, symbolSize: k === 'now' ? 6 : 4, lineStyle: { width: w, color: col, type: k === 'now' ? 'solid' : 'dashed' }, itemStyle: { color: col } })) });
+}
+function drawRatingBars(ids) {
+  const el = $('#macRating'); if (!el || typeof echarts === 'undefined') return;
+  const rows = ids.map(id => ({ id, ind: S.ind.get(id), s: S.ser.get(id) })).filter(o => o.ind && o.s && o.s.v.length && o.ind.rating);
+  if (!rows.length) return;
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface');
+  const now = rows.map(o => o.s.v[o.s.v.length - 1]);
+  const m1 = rows.map(o => { const a = serAt(o.s, 30); return a ? a.v : null; });
+  const y1 = rows.map(o => { const a = serAt(o.s, 365); return a ? a.v : null; });
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 52, right: 12, top: 34, bottom: 26 }, legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 } },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right"><b>${esc(ps[0].name)}</b>${ps.map(p => `<br>${p.marker}${esc(p.seriesName)}: <b dir="ltr">${p.value == null ? '—' : fmtN(p.value, 0)} נ"ב</b>`).join('')}</div>` },
+    xAxis: { type: 'category', data: rows.map(o => o.ind.name), axisLabel: { color: ink, fontWeight: 700 }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'log', axisLabel: { color: muted }, splitLine: { lineStyle: { color: line2 } }, name: 'נ"ב, סולם לוגריתמי', nameTextStyle: { color: muted, fontSize: 10 } },
+    series: [{ name: 'היום', type: 'bar', data: now, itemStyle: { color: tok('--chart-line') }, barGap: '15%', label: { show: true, position: 'top', color: ink, fontSize: 10, formatter: p => fmtN(p.value, 0) } },
+      { name: 'לפני חודש', type: 'bar', data: m1, itemStyle: { color: tok('--chart-2') } },
+      { name: 'לפני שנה', type: 'bar', data: y1, itemStyle: { color: tok('--line') } }] });
+}
+function moversList(ids, days) {
+  const out = [];
+  for (const id of ids) {
+    const ind = S.ind.get(id), s = S.ser.get(id); if (!ind || !s || s.v.length < 2) continue;
+    const a = s.v[s.v.length - 1], b = serAt(s, days); if (!b) continue;
+    const bp = mUnit(ind) === 'bp' ? a - b.v : (a - b.v) * 100;
+    out.push({ id, ind, now: mUnit(ind) === 'bp' ? a : a * 100, bp, rel: b.v ? a / b.v - 1 : null });
+  }
+  return out.sort((x, y) => y.bp - x.bp);
+}
+function renderMovers() {
+  const el = $('#macMovers'); if (!el) return;
+  const days = +(S.macMov || 30);
+  const groupIds = (S.meta.macro.sections.find(x => x.id === 'credit') || { ids: [] }).ids.concat((S.meta.macro.sections.find(x => x.id === 'cds') || { ids: [] }).ids)
+    .concat([...S.ind.values()].filter(i => i.group === 'cds').map(i => i.id)).filter(id => { const i = S.ind.get(id); return i && (mUnit(i) === 'bp' || i.group === 'cds' || id === 'hy_oas'); });
+  const ms = moversList([...new Set(groupIds)], days);
+  const max = Math.max(1, ...ms.map(m => Math.abs(m.bp)));
+  const row = (m, i) => `<button type="button" class="mv" data-ind="${esc(m.id)}"><span class="mv-r">${i + 1}</span><span class="mv-n">${esc(m.ind.name)}</span><span class="mv-b"><i class="${m.bp >= 0 ? 'w' : 't'}" style="width:${(Math.abs(m.bp) / max * 100).toFixed(0)}%"></i></span><span class="mv-v ltr ${m.bp >= 0 ? 'mup' : 'mdn'}">${fmtS(m.bp, 0)} נ"ב</span><span class="mv-l ltr muted">${fmtN(m.now, 0)}</span></button>`;
+  const wid = ms.filter(m => m.bp > 0).slice(0, 8), tig = ms.filter(m => m.bp < 0).reverse().slice(0, 8);
+  el.innerHTML = `<div class="mv-col"><h3>התרחבו הכי הרבה <span class="small muted">Top gainers</span></h3>${wid.length ? wid.map(row).join('') : '<p class="muted small">אף מרווח לא התרחב בתקופה.</p>'}</div>
+    <div class="mv-col"><h3>הצטמצמו הכי הרבה <span class="small muted">Top losers</span></h3>${tig.length ? tig.map(row).join('') : '<p class="muted small">אף מרווח לא הצטמצם בתקופה.</p>'}</div>`;
+}
+function renderMacro() {
+  const el = $('#macBody');
+  disposeIdxCharts();
+  if (!MAC || !S.mk || !S.meta) {
+    el.innerHTML = '<p class="muted">טוען נתוני מאקרו…</p>';
+    Promise.all([loadMacro(), loadMarkets()]).then(() => { if (S.tab === 'macro') renderMacro(); }).catch(() => { el.innerHTML = '<div class="banner">לא ניתן לטעון את נתוני המאקרו. רעננו את הדף.</div>'; });
+    return;
+  }
+  const secs = S.meta.macro ? S.meta.macro.sections : [];
+  const lastOf = id => { const s = S.ser.get(id); return s && s.v.length ? s : null; };
+  const last10 = lastOf('ust10y');
+  $('#macAsof').textContent = last10 ? `נכון ל-${fmtDate(last10.d[last10.d.length - 1])}` : '';
+  const tile = (id, label) => {
+    const ind = S.ind.get(id), s = lastOf(id); if (!ind || !s) return '';
+    const n = s.v.length - 1, y = serAt(s, 365), c = mChg(ind, s.v[n], y && y.v);
+    return `<button type="button" class="tile mtile" data-ind="${esc(id)}"><span class="k">${esc(label || ind.name)}</span><span class="val">${ltr(mFmt(ind, s.v[n]))}</span><span class="s">${fmtDateShort(s.d[n])}${c ? ` · בשנה ${chgHtml(c, c.v > 0 ? 'mup' : c.v < 0 ? 'mdn' : '')}` : ''}</span></button>`;
+  };
+  const tiles = `<section class="tiles idx-tiles">${[['us_cpi_yoy', 'אינפלציה ארה"ב'], ['us_core_pce_yoy', 'ליבת PCE'], ['il_cpi_yoy', 'אינפלציה בישראל'], ['fed_rate', 'ריבית הפד'], ['boi_rate', 'ריבית בנק ישראל'],
+    ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['spark_pjm', 'מרווח ספארק PJM']].map(([id, l]) => tile(id, l)).join('')}</section>`;
+  const commIds = (S.mk.groups.find(g => g.id === 'commod') || { items: [] }).items;
+  const commRows = commIds.map(s => S.mk.items[s]).filter(Boolean).map(it => it.last == null ? '' : `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span>${it.desc ? ' · ' + esc(it.desc) : ''}</div></td>
+      <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}${chgTd(it.dd52, { sym: '' })}<td class="spk">${miniSpark(it.spark)}</td></tr>`).join('');
+  const body = secs.map(sec => {
+    const ch = MAC_CHARTS[sec.id];
+    let extra = '';
+    if (sec.id === 'rates') extra = `<div class="ix-grid"><div class="panel inner"><div class="panel-head"><h3>עקום התשואות של ממשלת ארה"ב</h3><span class="small muted">היום מול חודש, חצי שנה ושנה</span></div><div class="chart cx sm2" id="macCurve" role="img" aria-label="עקום התשואות"></div><p class="small muted" style="margin:0">עקום שעולה משמאל לימין = תקין. עקום הפוך (קצר גבוה מארוך) = השוק מצפה להורדות ריבית, ולרוב קדם למיתון.</p></div>
+      <div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div></div>`;
+    else if (sec.id === 'credit') extra = `<div class="panel inner"><div class="panel-head"><h3>המרווח לפי דירוג</h3><span class="small muted">נקודות בסיס מעל אג"ח ממשלת ארה"ב · ICE BofA</span></div><div class="chart cx sm2" id="macRating" role="img" aria-label="מרווחים לפי דירוג"></div></div>`;
+    else if (sec.id === 'cds') extra = `<div class="xtools"><span class="small muted">שינוי ב-</span><div class="seg" role="group" id="macMov">${[[7, 'שבוע'], [30, 'חודש'], [91, '3 חודשים'], [365, 'שנה']].map(([d, l]) => `<button type="button" data-v="${d}" aria-pressed="${+(S.macMov || 30) === d}">${l}</button>`).join('')}</div></div><div class="movers" id="macMovers"></div>
+      <p class="small muted" style="margin:0">מדורג לפי השינוי בנקודות בסיס. נתוני CDS עצמם (ריבוניים ותאגידיים) לא זמינים ממקור חינמי ויציב, ולכן הדירוג נעשה על מרווחי האשראי (OAS) של ICE BofA לפי דירוג ואזור, שמודדים את אותו סיכון. סדרת CDS שתוסיפו במסך הניהול בקבוצה "CDS" (למשל ייצוא מ-Bloomberg) תיכנס לדירוג אוטומטית.</p>`;
+    else if (ch) extra = `<div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div>`;
+    const table = sec.id === 'commod'
+      ? `<div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>סחורה</th><th>מחיר</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>מתחילת השנה</th><th>12 ח'</th><th>מהשיא</th><th>6 חודשים</th></tr></thead><tbody>${commRows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>`
+      : sec.id === 'cds' ? macTable(sec.ids, { first: 'מרווח' }) : macTable(sec.ids);
+    return `<section class="panel" id="mac-${sec.id}"><div class="panel-head"><div><h2>${esc(sec.name)}</h2><p class="small muted" style="margin:2px 0 0">${esc(sec.desc)}</p></div></div>${extra}${table}</section>`;
+  }).join('');
+  el.innerHTML = tiles + body + `<p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף היסטורי, אחוזונים ותנועה לאורך זמן. "מהקודם" = מול הפרסום הקודם (יום, שבוע או חודש לפי הסדרה). שינויים בריביות ובמרווחים בנקודות בסיס (נ"ב), בשיעורים חודשיים בנקודות אחוז, ובשאר הסדרות באחוזים. מקורות: FRED, הלמ"ס, בנק ישראל, EIA ו-Yahoo Finance.</p>`;
+  $$('#macMov button', el).forEach(b => b.addEventListener('click', () => { S.macMov = +b.dataset.v; $$('#macMov button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMovers(); }));
+  renderMovers();
+  for (const [id, cfg] of Object.entries(MAC_CHARTS)) macLines('mac-ch-' + id, cfg);
+  drawCurve();
+  drawRatingBars((secs.find(s => s.id === 'credit') || { ids: [] }).ids);
+}
+function moveTable(meta, s) {
+  if (!s || !s.v || s.v.length < 2) return '';
+  const ind = { ...meta, munit: meta.munit || meta.unit };
+  const hs = [[7, 'שבוע'], [30, 'חודש'], [91, '3 חודשים'], [182, 'חצי שנה'], [365, 'שנה'], [1826, '5 שנים']];
+  const n = s.v.length - 1, last = s.v[n];
+  const cells = hs.map(([d, l]) => { const a = serAt(s, d); return { l, a, long: d >= 365 }; }).filter(o => o.a && o.a.d !== s.d[n]);
+  if (!cells.length) return '';
+  const fmt = v => ind.tab === 'macro' ? mFmt(ind, v) : fmtVal(meta, v);
+  return `<section class="panel"><div class="panel-head"><h3>תנועה לאורך זמן</h3><span class="small muted">הערך עכשיו מול נקודות עבר</span></div>
+    <div class="tbl-wrap"><table class="ft"><thead><tr><th></th><th>עכשיו</th>${cells.map(c => `<th>לפני ${c.l}</th>`).join('')}</tr></thead><tbody>
+    <tr><td>ערך</td><td class="hl"><b>${ltr(fmt(last))}</b></td>${cells.map(c => `<td>${ltr(fmt(c.a.v))}<div class="small muted">${c.long ? fmtDate(c.a.d) : fmtDateShort(c.a.d)}</div></td>`).join('')}</tr>
+    <tr><td>שינוי עד היום</td><td class="hl"></td>${cells.map(c => { const ch = mChg(ind.tab === 'macro' ? ind : { ...ind, munit: '', unit: '' }, last, c.a.v); const abs = last - c.a.v;
+      const v = ind.tab === 'macro' && ch ? ch.v : abs;
+      return `<td class="${v > 0 ? 'mup' : v < 0 ? 'mdn' : ''}">${ind.tab === 'macro' && ch ? chgHtml(ch) : ltr(fmtS(abs, meta.dec ?? 2))}</td>`; }).join('')}</tr>
+    </tbody></table></div></section>`;
+}
+function initMacro() {
+  const _openInd = openInd;
+  openInd = function (id) {
+    const m = S.ind && S.ind.get(id);
+    if (m && m.tab === 'macro' && !MAC) { loadMacro().then(() => _openInd(id)).catch(() => toast('לא ניתן לטעון את נתוני המאקרו', true)); return; }
+    _openInd(id);
+  };
+}
+
 // ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
 const NAV = {
   market: { d: 'מצב הרוח בשוק, אחוזונים היסטוריים ומה קרה אחרי קריאות דומות', items: () => [['שורה תחתונה ומדד הסנטימנט', '.hero'], ['אינדיקטורים בקיצון', '#xstrip'],
-    ...GROUPS.filter(g => !['macro', 'other'].includes(g[0])).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
+    ...GROUPS.filter(([g]) => !['macro', 'other'].includes(g) && (!S.ind || [...S.ind.values()].some(i => i.group === g && i.pin && i.tab !== 'macro'))).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
-    ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, סחורות ומטבעות', '#ig-cross']] },
+    ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, RS לכל מניה ומומנטום בעולם', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מדדים ונכסים בעולם', '#momGlob'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
+  macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   analysis: { d: 'הניתוח הטכני שלך לכל מניה בתיק: גרף, רמות ושורה תחתונה', items: () => [['כל הניתוחים', '#anTop']] },
 };
-const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
+const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 function goTo(tab, sel) {
   closeMenus();
@@ -2465,7 +2712,8 @@ function initUI() {
     $$('.navi').forEach(n => n.classList.toggle('cur', n.dataset.nav === S.tab));
   };
   const _renderAsOf = renderAsOf;
-  renderAsOf = function () { _renderAsOf(); updFoot(); };
+  let menusWithMeta = false;
+  renderAsOf = function () { _renderAsOf(); updFoot(); if (!menusWithMeta && S.meta && S.ind && S.ind.size) { menusWithMeta = true; buildMenus(); } };
   let theme = lsGet('theme', 'auto'); if (!THEMES.includes(theme)) theme = 'auto';
   applyTheme(theme);
   $('#themeBtn').addEventListener('click', () => { theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]; lsSet('theme', theme); applyTheme(theme); });
@@ -2493,6 +2741,7 @@ function initUI() {
     else if (e.key === 'Escape') closeMenus();
   });
   if (/Mac|iPhone|iPad/.test(navigator.platform || '')) $$('.kbd-mod').forEach(k => { k.textContent = '⌘'; });
+  initMacro();
   initMotion();
   loadTicker();
   document.body.dataset.tab = S.tab || 'market';
@@ -2502,11 +2751,12 @@ function initUI() {
 function showTab(t) {
   if (t === 'manage' && !S.canEdit) t = 'market';
   S.tab = t;
-  for (const v of ['market', 'indices', 'momentum', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
+  for (const v of ['market', 'indices', 'momentum', 'macro', 'analysis', 'manage']) { $('#v-' + v).hidden = v !== t; $('#tab-' + v).setAttribute('aria-selected', String(v === t)); }
   if (t === 'manage') renderManage();
   if (t === 'analysis') renderAnalysis();
   if (t === 'indices') renderIndices();
   if (t === 'momentum') renderMomentum();
+  if (t === 'macro') renderMacro();
 }
 let rq = 0;
 function schedule() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; renderAll(); }); }
@@ -2535,6 +2785,8 @@ function bind() {
   $('#fSort').addEventListener('change', e => { S.fSort = e.target.value; renderAnalysis(); });
   $('#stkGrid').addEventListener('click', e => { const c = e.target.closest('[data-t]'); if (c) openStock(c.dataset.t); });
   $('#newStock').addEventListener('click', () => openStockEditor(null));
+  $('#macBody').addEventListener('click', e => { const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) openIdx(x.dataset.x); });
+  $('#macBody').addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('tr[data-ind], tr[data-x]'); if (!r) return; e.preventDefault(); r.dataset.ind ? openInd(r.dataset.ind) : openIdx(r.dataset.x); });
   $('#idxBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) openIdx(r.dataset.x); });
   $('#momBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) { openIdx(r.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t && !e.target.closest('a')) openStock(t.dataset.t); });
   $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
@@ -2544,6 +2796,7 @@ function bind() {
     renderMarket();
     if (S.tab === 'indices' && !$('#ov')) renderIndices();
     if (S.tab === 'momentum' && !$('#ov')) renderMomentum();
+    if (S.tab === 'macro' && !$('#ov')) renderMacro();
     if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
     if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = S.mk.items[sym]; drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
   };
@@ -2562,7 +2815,7 @@ let hashDone = false;
 function applyHash() {
   if (hashDone || !S.loaded.ind || !S.loaded.ser || !S.loaded.stk) return; hashDone = true;
   const h = decodeURIComponent((location.hash || '').slice(1));
-  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
+  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
   else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
   else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
   else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }

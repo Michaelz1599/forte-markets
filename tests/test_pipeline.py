@@ -233,3 +233,33 @@ def test_rs_drops_bad_snapshots_outside_the_window():
     yf = {"close": yc, "high": yc * 1.01, "low": yc * 0.99}
     out = rs.payload(rs.compute(snaps, days, members, yf, None))
     assert out["validation"]["dropped"] == [days[1]] and days[1] not in out["validation"]["sessions"]
+
+
+# --------------------------------------------------------------------------- macro
+from pipeline import macro  # noqa: E402
+
+
+def test_macro_transforms_and_spark():
+    idx = pd.date_range("2018-01-01", "2026-09-01", freq="MS").strftime("%Y-%m-%d")
+    lvl = {d: 100 * 1.03 ** (i / 12) for i, d in enumerate(idx)}
+    yoy = macro._transform(lvl, {"freq": "m", "tf": "yoy"})
+    assert abs(yoy["2026-09-01"] - 3.0) < 1e-6 and "2018-06-01" not in yoy
+    diff = macro._transform({"2026-08-01": 100.0, "2026-09-01": 103.0}, {"freq": "m", "tf": "diff"})
+    assert diff == {"2026-09-01": 3.0}
+    bp = macro._transform({"2026-10-01": 3.29}, {"freq": "d", "scale": 100})
+    assert abs(bp["2026-10-01"] - 329) < 1e-9
+    sp = macro.spark({"2026-10-05": 60.0, "2026-10-20": 40.0}, {"2026-10-02": 3.0})
+    assert sp == {"2026-10-05": 60.0 - 7 * 3.0}          # gas older than 4 days is not used
+
+
+def test_macro_definitions_are_consistent():
+    cfg = macro.load()
+    secs = {s["id"] for s in cfg["sections"]}
+    ids = [s["id"] for s in cfg["series"]]
+    assert len(ids) == len(set(ids)) and all(s["sec"] in secs for s in cfg["series"])
+    defs = macro.indicator_defs(cfg)
+    assert all(d["tab"] == "macro" and not d["pin"] and not d["comp"] and d["pol"] == 0 for d in defs)
+    inds = json.loads((macro.ROOT / "config" / "indicators.json").read_text(encoding="utf-8"))
+    assert not {d["id"] for d in defs} & {i["id"] for i in inds}
+    assert not any(i["group"] == "pos" for i in inds)
+    assert any(i["id"] == "sp_mcsi" and i["comp"] for i in inds) and not any(i["id"] == "mcsi" and i["comp"] for i in inds)

@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import breadth, markets, rs, sources
+from . import breadth, macro, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -84,12 +84,6 @@ def run(offline: bool = False) -> int:
         errs = [k[:-4] for k in cb if k.endswith("_err")]
         st.add("cboe", "Cboe VIX, VIX3M, VVIX, SKEW", bool(cb.get("VIX")), _last(cb.get("VIX", {})),
                ("Yahoo כגיבוי עבור " + ", ".join(errs)) if errs else "")
-        # 5. CFTC positioning
-        res = step(st, "cftc", "CFTC COT (4 סדרות)", sources.cftc)
-        if res:
-            for sid, pts in res.items():
-                merge_series(sid, pts)
-            st.add("cftc", "CFTC COT (4 סדרות)", True, _last(res["cot_es_am"]), "")
         # 6. AAII
         res = step(st, "aaii", "AAII", sources.aaii)
         if res:
@@ -102,6 +96,15 @@ def run(offline: bool = False) -> int:
             for sid, pts in res.items():
                 merge_series(sid, pts)
             st.add("fred", "FRED: פער HY, עקום, NFCI", True, _last(res["hy_oas"]), "")
+        # 7b. Macro: inflation, rates, spreads by rating, labour, money, fuel and power
+        res = step(st, "macro", "מאקרו: FRED, הלמ\"ס, בנק ישראל, EIA", macro.run)
+        if res:
+            data, cv, msg = res
+            for sid, pts in data.items():
+                merge_series(sid, pts)
+            if cv:
+                dump_json(ROOT / "data" / "derived" / "curve.json", cv)
+            st.add("macro", "מאקרו: FRED, הלמ\"ס, בנק ישראל, EIA", len(data) >= 40, _last(data.get("ust10y", {})), msg)
         # 8. Cboe daily put/call (best effort)
         res = step(st, "cboe_pc", "Cboe Put/Call יומי", sources.cboe_putcall)
         if res is not None:
@@ -120,6 +123,7 @@ def run(offline: bool = False) -> int:
                 merge_series(sid, pts)
             if mom:
                 dump_json(ROOT / "data" / "derived" / "sp_momentum.json", mom)
+            summation_from_oscillator()
             st.add("breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", True, _last(data.get("sp_pct200", {})), msg)
         # 10. RS for every US stock and for every factor, sector and theme ETF
         def _rs():
@@ -149,17 +153,33 @@ def run(offline: bool = False) -> int:
     return 0
 
 
+def summation_from_oscillator() -> None:
+    """McClellan Summation by stock count: the running total of the stored S&P 500 McClellan Oscillator."""
+    mco = read_series("sp_mco")
+    if not mco:
+        return
+    tot, out = 0.0, {}
+    for d in sorted(mco):
+        tot += mco[d]
+        out[d] = round(tot, 1)
+    from .common import write_series
+    write_series("sp_mcsi", out)
+
+
 def build(st: Status, u: dict, px) -> None:
-    inds = json.loads(CONFIG.read_text(encoding="utf-8"))
+    inds = json.loads(CONFIG.read_text(encoding="utf-8")) + macro.indicator_defs()
     tmp = SITE_DIR.with_name("site.tmp")
     shutil.rmtree(tmp, ignore_errors=True)
     (tmp / "data").mkdir(parents=True)
     shutil.copy(ROOT / "web" / "index.html", tmp / "index.html")
+    if (ROOT / "web" / "vendor").exists():
+        shutil.copytree(ROOT / "web" / "vendor", tmp / "vendor")
     (tmp / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
     epoch = dt.date(1970, 1, 1)
     series = {}
+    summation_from_oscillator()
     for ind in inds:
-        if ind.get("derive"):
+        if ind.get("derive") or ind.get("tab") == "macro":
             continue
         s = read_series(ind["id"])
         if not s:
@@ -168,7 +188,10 @@ def build(st: Status, u: dict, px) -> None:
         series[ind["id"]] = {"t": [(dt.date.fromisoformat(k) - epoch).days for k in ks], "v": [s[k] for k in ks]}
     dump_json(tmp / "data" / "series.json", series)
     status = st.to_dict()
-    dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds})
+    dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds, "macro": macro.site_meta()})
+    curve_file = ROOT / "data" / "derived" / "curve.json"
+    dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
+                                             "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
         shutil.copy(mom_file, tmp / "data" / "momentum.json")
