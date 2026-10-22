@@ -1,82 +1,721 @@
 {
-  "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub).",
-  "sections": [
-    {"id": "infl", "name": "אינפלציה", "desc": "קצב עליית המחירים בארה\"ב ובישראל, וציפיות האינפלציה שמגולמות באג\"ח."},
-    {"id": "rates", "name": "ריבית ותשואות", "desc": "ריבית הפד ובנק ישראל, עקום התשואות של ממשלת ארה\"ב והתשואה הריאלית."},
-    {"id": "credit", "name": "אג\"ח זבל ומרווחים לפי דירוג", "desc": "המרווח (OAS) של אג\"ח קונצרניות מעל אג\"ח ממשלתיות, לפי דירוג אשראי. מרווח שמתרחב = השוק דורש יותר פיצוי על סיכון."},
-    {"id": "cds", "name": "CDS ומרווחי אשראי: מי התרחב ומי הצטמצם", "desc": "דירוג לפי השינוי במרווח. מרווח שהתרחב = עליית סיכון האשראי שהשוק מתמחר."},
-    {"id": "labor", "name": "שוק העבודה בארה\"ב", "desc": "אבטלה, תוספת משרות, תביעות אבטלה ומשרות פנויות."},
-    {"id": "money", "name": "כסף ונזילות", "desc": "היצע הכסף M2 בארה\"ב ותנאים פיננסיים."},
-    {"id": "commod", "name": "סחורות", "desc": "אנרגיה, מתכות וחקלאות, לפי החוזים העתידיים הקרובים."},
-    {"id": "energy", "name": "דלק, חשמל ומרווח ספארק", "desc": "מחירי דלק לצרכן, גז טבעי, מחירי חשמל סיטונאיים ומרווח הספארק: הרווח הגולמי של תחנת כוח גזית."}
+ "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub).",
+ "sections": [
+  {
+   "id": "infl",
+   "name": "אינפלציה",
+   "desc": "קצב עליית המחירים בארה\"ב ובישראל, וציפיות האינפלציה שמגולמות באג\"ח."
+  },
+  {
+   "id": "rates",
+   "name": "ריבית ותשואות",
+   "desc": "ריבית הפד ובנק ישראל, עקום התשואות של ממשלת ארה\"ב והתשואה הריאלית."
+  },
+  {
+   "id": "credit",
+   "name": "אג\"ח זבל ומרווחים לפי דירוג",
+   "desc": "המרווח (OAS) של אג\"ח קונצרניות מעל אג\"ח ממשלתיות, לפי דירוג אשראי. מרווח שמתרחב = השוק דורש יותר פיצוי על סיכון."
+  },
+  {
+   "id": "cds",
+   "name": "CDS ומרווחי אשראי: מי התרחב ומי הצטמצם",
+   "desc": "דירוג לפי השינוי במרווח. מרווח שהתרחב = עליית סיכון האשראי שהשוק מתמחר."
+  },
+  {
+   "id": "labor",
+   "name": "שוק העבודה בארה\"ב",
+   "desc": "אבטלה, תוספת משרות, תביעות אבטלה ומשרות פנויות."
+  },
+  {
+   "id": "money",
+   "name": "כסף ונזילות",
+   "desc": "היצע הכסף M2 בארה\"ב ותנאים פיננסיים."
+  },
+  {
+   "id": "commod",
+   "name": "סחורות",
+   "desc": "אנרגיה, מתכות וחקלאות, לפי החוזים העתידיים הקרובים."
+  },
+  {
+   "id": "energy",
+   "name": "דלק, חשמל ומרווח ספארק",
+   "desc": "מחירי דלק לצרכן, גז טבעי, מחירי חשמל סיטונאיים ומרווח הספארק: הרווח הגולמי של תחנת כוח גזית."
+  }
+ ],
+ "series": [
+  {
+   "id": "us_cpi_yoy",
+   "sec": "infl",
+   "name": "אינפלציה ארה\"ב · CPI",
+   "short": "שנתי, %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "CPIAUCSL",
+   "tf": "yoy",
+   "key": true,
+   "desc": "שינוי של 12 חודשים במדד המחירים לצרכן בארה\"ב (מנוכה עונתיות)."
+  },
+  {
+   "id": "us_core_cpi_yoy",
+   "sec": "infl",
+   "name": "אינפלציית ליבה · CPI",
+   "short": "בלי מזון ואנרגיה, שנתי %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "CPILFESL",
+   "tf": "yoy",
+   "key": true,
+   "desc": "שינוי של 12 חודשים במדד המחירים בלי מזון ואנרגיה. משקף את הלחץ האינפלציוני המתמשך."
+  },
+  {
+   "id": "us_core_pce_yoy",
+   "sec": "infl",
+   "name": "ליבת PCE",
+   "short": "המדד שהפד מכוון אליו, שנתי %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "PCEPILFE",
+   "tf": "yoy",
+   "key": true,
+   "desc": "שינוי של 12 חודשים במחירי ההוצאה לצריכה בלי מזון ואנרגיה. יעד הפד: 2%."
+  },
+  {
+   "id": "bei5",
+   "sec": "infl",
+   "name": "ציפיות אינפלציה · 5 שנים",
+   "short": "Breakeven, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "T5YIE",
+   "desc": "ההפרש בין תשואת אג\"ח ממשלתית רגילה לצמודה ל-5 שנים: האינפלציה הממוצעת שהשוק מתמחר."
+  },
+  {
+   "id": "bei10",
+   "sec": "infl",
+   "name": "ציפיות אינפלציה · 10 שנים",
+   "short": "Breakeven, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "T10YIE",
+   "desc": "האינפלציה הממוצעת שהשוק מתמחר ל-10 השנים הבאות."
+  },
+  {
+   "id": "il_cpi_yoy",
+   "sec": "infl",
+   "name": "אינפלציה בישראל",
+   "short": "מדד המחירים לצרכן, שנתי %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "cbs": 120010,
+   "fred_fallback": "CPALTT01ILM659N",
+   "key": true,
+   "desc": "שינוי של 12 חודשים במדד המחירים לצרכן בישראל (הלמ\"ס). יעד בנק ישראל: 1%–3%."
+  },
+  {
+   "id": "il_cpi_mom",
+   "sec": "infl",
+   "name": "מדד המחירים בישראל · חודשי",
+   "short": "שינוי חודשי, %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "cbs_mom": 120010,
+   "desc": "השינוי החודשי במדד המחירים לצרכן בישראל, כפי שהלמ\"ס מפרסמת אותו ב-15 לחודש."
+  },
+  {
+   "id": "fed_rate",
+   "sec": "rates",
+   "name": "ריבית הפד",
+   "short": "הגבול העליון של היעד, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DFEDTARU",
+   "key": true,
+   "desc": "הגבול העליון של טווח היעד לריבית הפדרל פנדס."
+  },
+  {
+   "id": "boi_rate",
+   "sec": "rates",
+   "name": "ריבית בנק ישראל",
+   "short": "%",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "boi": true,
+   "fred_fallback": "IRSTCB01ILM156N",
+   "desc": "ריבית בנק ישראל."
+  },
+  {
+   "id": "ust3m",
+   "sec": "rates",
+   "name": "אג\"ח ארה\"ב 3 חודשים",
+   "short": "תשואה, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DGS3MO",
+   "desc": "תשואת שטר אוצר ל-3 חודשים."
+  },
+  {
+   "id": "ust2y",
+   "sec": "rates",
+   "name": "אג\"ח ארה\"ב 2 שנים",
+   "short": "תשואה, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DGS2",
+   "desc": "התשואה הרגישה ביותר לציפיות לריבית הפד."
+  },
+  {
+   "id": "ust10y",
+   "sec": "rates",
+   "name": "אג\"ח ארה\"ב 10 שנים",
+   "short": "תשואה, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DGS10",
+   "key": true,
+   "desc": "תשואת אג\"ח ממשלת ארה\"ב ל-10 שנים, העוגן לתמחור נכסים בעולם."
+  },
+  {
+   "id": "ust30y",
+   "sec": "rates",
+   "name": "אג\"ח ארה\"ב 30 שנה",
+   "short": "תשואה, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DGS30",
+   "desc": "תשואת אג\"ח ממשלת ארה\"ב ל-30 שנה."
+  },
+  {
+   "id": "real10y",
+   "sec": "rates",
+   "name": "תשואה ריאלית 10 שנים",
+   "short": "TIPS, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "DFII10",
+   "desc": "תשואת אג\"ח צמודה ל-10 שנים: הריבית אחרי אינפלציה. ערך גבוה מכביד על מכפילים."
+  },
+  {
+   "id": "t10y3m",
+   "sec": "rates",
+   "name": "עקום 10 שנים פחות 3 חודשים",
+   "short": "נקודות אחוז",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "T10Y3M",
+   "desc": "שיפוע העקום. ערך שלילי (עקום הפוך) קדם להרבה מיתונים."
+  },
+  {
+   "id": "mortgage30",
+   "sec": "rates",
+   "name": "משכנתא 30 שנה בארה\"ב",
+   "short": "Freddie Mac, %",
+   "freq": "w",
+   "unit": "%",
+   "dec": 2,
+   "fred": "MORTGAGE30US",
+   "desc": "הריבית הממוצעת על משכנתא קבועה ל-30 שנה."
+  },
+  {
+   "id": "oas_ig",
+   "sec": "credit",
+   "name": "דירוג השקעה (IG)",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLC0A0CM",
+   "scale": 100,
+   "rating": 0,
+   "desc": "המרווח של מדד אג\"ח החברות בדירוג השקעה בארה\"ב (ICE BofA)."
+  },
+  {
+   "id": "oas_aaa",
+   "sec": "credit",
+   "name": "AAA",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLC0A1CAAA",
+   "scale": 100,
+   "rating": 1,
+   "desc": "מרווח אג\"ח קונצרניות בדירוג AAA."
+  },
+  {
+   "id": "oas_aa",
+   "sec": "credit",
+   "name": "AA",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLC0A2CAA",
+   "scale": 100,
+   "rating": 2,
+   "desc": "מרווח אג\"ח קונצרניות בדירוג AA."
+  },
+  {
+   "id": "oas_a",
+   "sec": "credit",
+   "name": "A",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLC0A3CA",
+   "scale": 100,
+   "rating": 3,
+   "desc": "מרווח אג\"ח קונצרניות בדירוג A."
+  },
+  {
+   "id": "oas_bbb",
+   "sec": "credit",
+   "name": "BBB",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLC0A4CBBB",
+   "scale": 100,
+   "rating": 4,
+   "desc": "מרווח אג\"ח בדירוג BBB, הדרגה הנמוכה בדירוג השקעה."
+  },
+  {
+   "id": "oas_bb",
+   "sec": "credit",
+   "name": "BB",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLH0A1HYBB",
+   "scale": 100,
+   "rating": 5,
+   "desc": "מרווח אג\"ח זבל בדירוג BB, הדרגה הגבוהה בתשואה הגבוהה."
+  },
+  {
+   "id": "oas_b",
+   "sec": "credit",
+   "name": "B",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLH0A2HYB",
+   "scale": 100,
+   "rating": 6,
+   "desc": "מרווח אג\"ח זבל בדירוג B."
+  },
+  {
+   "id": "oas_ccc",
+   "sec": "credit",
+   "name": "CCC ומטה",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLH0A3HYC",
+   "scale": 100,
+   "rating": 7,
+   "desc": "מרווח אג\"ח זבל בדירוג CCC ומטה: החלק המסוכן ביותר בשוק."
+  },
+  {
+   "id": "hy_yield",
+   "sec": "credit",
+   "name": "תשואת אג\"ח זבל",
+   "short": "תשואה אפקטיבית, %",
+   "freq": "d",
+   "unit": "%",
+   "dec": 2,
+   "fred": "BAMLH0A0HYM2EY",
+   "key": true,
+   "desc": "התשואה האפקטיבית של מדד אג\"ח הזבל בארה\"ב (ICE BofA)."
+  },
+  {
+   "id": "oas_em",
+   "sec": "cds",
+   "name": "חברות בשווקים מתעוררים",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLEMCBPIOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח קונצרניות בשווקים מתעוררים, במטבע חוץ."
+  },
+  {
+   "id": "oas_em_hy",
+   "sec": "cds",
+   "name": "שווקים מתעוררים · זבל",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLEMHBHYCRPIOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח בתשואה גבוהה בשווקים מתעוררים."
+  },
+  {
+   "id": "oas_em_asia",
+   "sec": "cds",
+   "name": "שווקים מתעוררים · אסיה",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLEMRACRPIASIAOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח קונצרניות באסיה המתעוררת."
+  },
+  {
+   "id": "oas_em_latam",
+   "sec": "cds",
+   "name": "שווקים מתעוררים · אמריקה הלטינית",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLEMRLCRPILAOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח קונצרניות באמריקה הלטינית."
+  },
+  {
+   "id": "oas_em_emea",
+   "sec": "cds",
+   "name": "שווקים מתעוררים · אירופה, המזה\"ת ואפריקה",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLEMRECRPIEMEAOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח קונצרניות ב-EMEA המתעוררת."
+  },
+  {
+   "id": "oas_euro_hy",
+   "sec": "cds",
+   "name": "אירופה · זבל",
+   "short": "OAS, נקודות בסיס",
+   "freq": "d",
+   "unit": "bp",
+   "dec": 0,
+   "fred": "BAMLHE00EHYIOAS",
+   "scale": 100,
+   "desc": "מרווח אג\"ח בתשואה גבוהה באירו."
+  },
+  {
+   "id": "unrate",
+   "sec": "labor",
+   "name": "שיעור האבטלה בארה\"ב",
+   "short": "%",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "UNRATE",
+   "key": true,
+   "desc": "שיעור האבטלה החודשי (BLS)."
+  },
+  {
+   "id": "nfp_chg",
+   "sec": "labor",
+   "name": "תוספת משרות (NFP)",
+   "short": "אלפי משרות בחודש",
+   "freq": "m",
+   "unit": "K",
+   "dec": 0,
+   "fred": "PAYEMS",
+   "tf": "diff",
+   "desc": "השינוי החודשי במספר המועסקים מחוץ לחקלאות. הנתון מתעדכן בדיעבד בחודשיים הבאים."
+  },
+  {
+   "id": "claims",
+   "sec": "labor",
+   "name": "תביעות אבטלה ראשונות",
+   "short": "אלפים בשבוע",
+   "freq": "w",
+   "unit": "K",
+   "dec": 0,
+   "fred": "ICSA",
+   "scale": 0.001,
+   "desc": "מספר התביעות החדשות לדמי אבטלה בשבוע. עלייה מתמשכת היא סימן מוקדם להיחלשות."
+  },
+  {
+   "id": "cont_claims",
+   "sec": "labor",
+   "name": "תביעות אבטלה נמשכות",
+   "short": "אלפים",
+   "freq": "w",
+   "unit": "K",
+   "dec": 0,
+   "fred": "CCSA",
+   "scale": 0.001,
+   "desc": "מספר מקבלי דמי האבטלה. עלייה = קשה יותר למצוא עבודה."
+  },
+  {
+   "id": "jolts",
+   "sec": "labor",
+   "name": "משרות פנויות (JOLTS)",
+   "short": "מיליונים",
+   "freq": "m",
+   "unit": "M",
+   "dec": 2,
+   "fred": "JTSJOL",
+   "scale": 0.001,
+   "desc": "מספר המשרות הפנויות בסוף החודש."
+  },
+  {
+   "id": "m2",
+   "sec": "money",
+   "name": "M2 דולרי",
+   "short": "טריליון דולר",
+   "freq": "m",
+   "unit": "$T",
+   "dec": 2,
+   "fred": "M2SL",
+   "scale": 0.001,
+   "desc": "היצע הכסף M2 בארה\"ב: מזומן, פיקדונות וקרנות כספיות."
+  },
+  {
+   "id": "m2_yoy",
+   "sec": "money",
+   "name": "צמיחת M2",
+   "short": "שנתי, %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "M2SL",
+   "tf": "yoy",
+   "key": true,
+   "desc": "שינוי של 12 חודשים ב-M2. צמיחה מהירה תמכה היסטורית בנכסי סיכון ובאינפלציה."
+  },
+  {
+   "id": "gas_retail",
+   "sec": "energy",
+   "name": "בנזין לצרכן בארה\"ב",
+   "short": "$ לגלון, שבועי",
+   "freq": "w",
+   "unit": "$",
+   "dec": 2,
+   "fred": "GASREGW",
+   "desc": "המחיר הממוצע לגלון בנזין רגיל בתחנות (EIA)."
+  },
+  {
+   "id": "diesel_retail",
+   "sec": "energy",
+   "name": "סולר לצרכן בארה\"ב",
+   "short": "$ לגלון, שבועי",
+   "freq": "w",
+   "unit": "$",
+   "dec": 2,
+   "fred": "GASDESW",
+   "desc": "המחיר הממוצע לגלון סולר בתחנות (EIA)."
+  },
+  {
+   "id": "hh_gas",
+   "sec": "energy",
+   "name": "גז טבעי · Henry Hub",
+   "short": "$ ל-MMBtu, ספוט",
+   "freq": "d",
+   "unit": "$",
+   "dec": 2,
+   "fred": "DHHNGSP",
+   "desc": "מחיר הגז הטבעי הספוט בהנרי האב, לואיזיאנה."
+  },
+  {
+   "id": "elec_retail",
+   "sec": "energy",
+   "name": "חשמל לצרכן בארה\"ב",
+   "short": "סנט לקוט\"ש",
+   "freq": "m",
+   "unit": "¢",
+   "dec": 1,
+   "fred": "APU000072610",
+   "scale": 100,
+   "desc": "המחיר הממוצע לקוט\"ש חשמל לבית (BLS)."
+  },
+  {
+   "id": "elec_cpi_yoy",
+   "sec": "energy",
+   "name": "אינפלציית חשמל",
+   "short": "רכיב החשמל ב-CPI, שנתי %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 1,
+   "fred": "CUSR0000SEHF01",
+   "tf": "yoy",
+   "desc": "שינוי של 12 חודשים ברכיב החשמל במדד המחירים לצרכן."
+  },
+  {
+   "id": "pw_pjm",
+   "sec": "energy",
+   "name": "חשמל סיטונאי · PJM West",
+   "short": "$ ל-MWh, זמן אמת בשעות השיא",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "eia": "pjm",
+   "desc": "מחיר החשמל הסיטונאי בזמן אמת בשעות השיא באזור PJM West (מזרח ארה\"ב), ממוצע משוקלל של עסקאות ICE. מחירי זמן אמת קופצים בימים עמוסים."
+  },
+  {
+   "id": "pw_palo",
+   "sec": "energy",
+   "name": "חשמל סיטונאי · Palo Verde",
+   "short": "$ ל-MWh, יום קדימה בשעות השיא",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "eia": "palo",
+   "desc": "מחיר החשמל הסיטונאי באריזונה, אזור שנשען בעיקר על תחנות גז."
+  },
+  {
+   "id": "pw_sp15",
+   "sec": "energy",
+   "name": "חשמל סיטונאי · SP-15",
+   "short": "$ ל-MWh, יום קדימה בשעות השיא",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "eia": "sp15",
+   "desc": "מחיר החשמל הסיטונאי בדרום קליפורניה."
+  },
+  {
+   "id": "pw_nepool",
+   "sec": "energy",
+   "name": "חשמל סיטונאי · Mass Hub",
+   "short": "$ ל-MWh, יום קדימה בשעות השיא",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "eia": "nepool",
+   "desc": "מחיר החשמל הסיטונאי בניו אינגלנד."
+  },
+  {
+   "id": "spark_pjm",
+   "sec": "energy",
+   "name": "מרווח ספארק · PJM West",
+   "short": "$ ל-MWh",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "spark": "pw_pjm",
+   "key": true,
+   "desc": "מחיר החשמל פחות עלות הגז לייצורו (7 MMBtu ל-MWh × מחיר Henry Hub)."
+  },
+  {
+   "id": "spark_palo",
+   "sec": "energy",
+   "name": "מרווח ספארק · Palo Verde",
+   "short": "$ ל-MWh",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "spark": "pw_palo",
+   "desc": "מחיר החשמל באריזונה פחות עלות הגז לייצורו."
+  },
+  {
+   "id": "spark_sp15",
+   "sec": "energy",
+   "name": "מרווח ספארק · SP-15",
+   "short": "$ ל-MWh",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "spark": "pw_sp15",
+   "desc": "מחיר החשמל בדרום קליפורניה פחות עלות הגז לייצורו."
+  },
+  {
+   "id": "spark_nepool",
+   "sec": "energy",
+   "name": "מרווח ספארק · Mass Hub",
+   "short": "$ ל-MWh",
+   "freq": "d",
+   "unit": "$",
+   "dec": 1,
+   "spark": "pw_nepool",
+   "desc": "מחיר החשמל בניו אינגלנד פחות עלות הגז לייצורו."
+  }
+ ],
+ "curve": [
+  [
+   "DGS1MO",
+   "1M",
+   0.083
   ],
-  "series": [
-    {"id": "us_cpi_yoy", "sec": "infl", "name": "אינפלציה ארה\"ב · CPI", "short": "שנתי, %", "freq": "m", "unit": "%", "dec": 1, "fred": "CPIAUCSL", "tf": "yoy", "key": true,
-     "desc": "שינוי של 12 חודשים במדד המחירים לצרכן בארה\"ב (מנוכה עונתיות)."},
-    {"id": "us_core_cpi_yoy", "sec": "infl", "name": "אינפלציית ליבה · CPI", "short": "בלי מזון ואנרגיה, שנתי %", "freq": "m", "unit": "%", "dec": 1, "fred": "CPILFESL", "tf": "yoy", "key": true,
-     "desc": "שינוי של 12 חודשים במדד המחירים בלי מזון ואנרגיה. משקף את הלחץ האינפלציוני המתמשך."},
-    {"id": "us_core_pce_yoy", "sec": "infl", "name": "ליבת PCE", "short": "המדד שהפד מכוון אליו, שנתי %", "freq": "m", "unit": "%", "dec": 1, "fred": "PCEPILFE", "tf": "yoy", "key": true,
-     "desc": "שינוי של 12 חודשים במחירי ההוצאה לצריכה בלי מזון ואנרגיה. יעד הפד: 2%."},
-    {"id": "bei5", "sec": "infl", "name": "ציפיות אינפלציה · 5 שנים", "short": "Breakeven, %", "freq": "d", "unit": "%", "dec": 2, "fred": "T5YIE",
-     "desc": "ההפרש בין תשואת אג\"ח ממשלתית רגילה לצמודה ל-5 שנים: האינפלציה הממוצעת שהשוק מתמחר."},
-    {"id": "bei10", "sec": "infl", "name": "ציפיות אינפלציה · 10 שנים", "short": "Breakeven, %", "freq": "d", "unit": "%", "dec": 2, "fred": "T10YIE",
-     "desc": "האינפלציה הממוצעת שהשוק מתמחר ל-10 השנים הבאות."},
-    {"id": "il_cpi_yoy", "sec": "infl", "name": "אינפלציה בישראל", "short": "מדד המחירים לצרכן, שנתי %", "freq": "m", "unit": "%", "dec": 1, "cbs": 120010, "fred_fallback": "CPALTT01ILM659N", "key": true,
-     "desc": "שינוי של 12 חודשים במדד המחירים לצרכן בישראל (הלמ\"ס). יעד בנק ישראל: 1%–3%."},
-    {"id": "il_cpi_mom", "sec": "infl", "name": "מדד המחירים בישראל · חודשי", "short": "שינוי חודשי, %", "freq": "m", "unit": "%", "dec": 1, "cbs_mom": 120010,
-     "desc": "השינוי החודשי במדד המחירים לצרכן בישראל, כפי שהלמ\"ס מפרסמת אותו ב-15 לחודש."},
-
-    {"id": "fed_rate", "sec": "rates", "name": "ריבית הפד", "short": "הגבול העליון של היעד, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DFEDTARU", "key": true,
-     "desc": "הגבול העליון של טווח היעד לריבית הפדרל פנדס."},
-    {"id": "boi_rate", "sec": "rates", "name": "ריבית בנק ישראל", "short": "%", "freq": "d", "unit": "%", "dec": 2, "boi": true, "fred_fallback": "IRSTCB01ILM156N",
-     "desc": "ריבית בנק ישראל."},
-    {"id": "ust3m", "sec": "rates", "name": "אג\"ח ארה\"ב 3 חודשים", "short": "תשואה, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DGS3MO", "desc": "תשואת שטר אוצר ל-3 חודשים."},
-    {"id": "ust2y", "sec": "rates", "name": "אג\"ח ארה\"ב 2 שנים", "short": "תשואה, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DGS2", "desc": "התשואה הרגישה ביותר לציפיות לריבית הפד."},
-    {"id": "ust10y", "sec": "rates", "name": "אג\"ח ארה\"ב 10 שנים", "short": "תשואה, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DGS10", "key": true, "desc": "תשואת אג\"ח ממשלת ארה\"ב ל-10 שנים, העוגן לתמחור נכסים בעולם."},
-    {"id": "ust30y", "sec": "rates", "name": "אג\"ח ארה\"ב 30 שנה", "short": "תשואה, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DGS30", "desc": "תשואת אג\"ח ממשלת ארה\"ב ל-30 שנה."},
-    {"id": "real10y", "sec": "rates", "name": "תשואה ריאלית 10 שנים", "short": "TIPS, %", "freq": "d", "unit": "%", "dec": 2, "fred": "DFII10", "desc": "תשואת אג\"ח צמודה ל-10 שנים: הריבית אחרי אינפלציה. ערך גבוה מכביד על מכפילים."},
-    {"id": "t10y3m", "sec": "rates", "name": "עקום 10 שנים פחות 3 חודשים", "short": "נקודות אחוז", "freq": "d", "unit": "%", "dec": 2, "fred": "T10Y3M", "desc": "שיפוע העקום. ערך שלילי (עקום הפוך) קדם להרבה מיתונים."},
-    {"id": "mortgage30", "sec": "rates", "name": "משכנתא 30 שנה בארה\"ב", "short": "Freddie Mac, %", "freq": "w", "unit": "%", "dec": 2, "fred": "MORTGAGE30US", "desc": "הריבית הממוצעת על משכנתא קבועה ל-30 שנה."},
-
-    {"id": "oas_ig", "sec": "credit", "name": "דירוג השקעה (IG)", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLC0A0CM", "scale": 100, "rating": 0, "desc": "המרווח של מדד אג\"ח החברות בדירוג השקעה בארה\"ב (ICE BofA)."},
-    {"id": "oas_aaa", "sec": "credit", "name": "AAA", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLC0A1CAAA", "scale": 100, "rating": 1, "desc": "מרווח אג\"ח קונצרניות בדירוג AAA."},
-    {"id": "oas_aa", "sec": "credit", "name": "AA", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLC0A2CAA", "scale": 100, "rating": 2, "desc": "מרווח אג\"ח קונצרניות בדירוג AA."},
-    {"id": "oas_a", "sec": "credit", "name": "A", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLC0A3CA", "scale": 100, "rating": 3, "desc": "מרווח אג\"ח קונצרניות בדירוג A."},
-    {"id": "oas_bbb", "sec": "credit", "name": "BBB", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLC0A4CBBB", "scale": 100, "rating": 4, "desc": "מרווח אג\"ח בדירוג BBB, הדרגה הנמוכה בדירוג השקעה."},
-    {"id": "oas_bb", "sec": "credit", "name": "BB", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLH0A1HYBB", "scale": 100, "rating": 5, "desc": "מרווח אג\"ח זבל בדירוג BB, הדרגה הגבוהה בתשואה הגבוהה."},
-    {"id": "oas_b", "sec": "credit", "name": "B", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLH0A2HYB", "scale": 100, "rating": 6, "desc": "מרווח אג\"ח זבל בדירוג B."},
-    {"id": "oas_ccc", "sec": "credit", "name": "CCC ומטה", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLH0A3HYC", "scale": 100, "rating": 7, "desc": "מרווח אג\"ח זבל בדירוג CCC ומטה: החלק המסוכן ביותר בשוק."},
-    {"id": "hy_yield", "sec": "credit", "name": "תשואת אג\"ח זבל", "short": "תשואה אפקטיבית, %", "freq": "d", "unit": "%", "dec": 2, "fred": "BAMLH0A0HYM2EY", "key": true, "desc": "התשואה האפקטיבית של מדד אג\"ח הזבל בארה\"ב (ICE BofA)."},
-    {"id": "oas_em", "sec": "cds", "name": "חברות בשווקים מתעוררים", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLEMCBPIOAS", "scale": 100, "desc": "מרווח אג\"ח קונצרניות בשווקים מתעוררים, במטבע חוץ."},
-    {"id": "oas_em_hy", "sec": "cds", "name": "שווקים מתעוררים · זבל", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLEMHBHYCRPIOAS", "scale": 100, "desc": "מרווח אג\"ח בתשואה גבוהה בשווקים מתעוררים."},
-    {"id": "oas_em_asia", "sec": "cds", "name": "שווקים מתעוררים · אסיה", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLEMRACRPIASIAOAS", "scale": 100, "desc": "מרווח אג\"ח קונצרניות באסיה המתעוררת."},
-    {"id": "oas_em_latam", "sec": "cds", "name": "שווקים מתעוררים · אמריקה הלטינית", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLEMRLCRPILAOAS", "scale": 100, "desc": "מרווח אג\"ח קונצרניות באמריקה הלטינית."},
-    {"id": "oas_em_emea", "sec": "cds", "name": "שווקים מתעוררים · אירופה, המזה\"ת ואפריקה", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLEMRECRPIEMEAOAS", "scale": 100, "desc": "מרווח אג\"ח קונצרניות ב-EMEA המתעוררת."},
-    {"id": "oas_euro_hy", "sec": "cds", "name": "אירופה · זבל", "short": "OAS, נקודות בסיס", "freq": "d", "unit": "bp", "dec": 0, "fred": "BAMLHE00EHYIOAS", "scale": 100, "desc": "מרווח אג\"ח בתשואה גבוהה באירו."},
-
-    {"id": "unrate", "sec": "labor", "name": "שיעור האבטלה בארה\"ב", "short": "%", "freq": "m", "unit": "%", "dec": 1, "fred": "UNRATE", "key": true, "desc": "שיעור האבטלה החודשי (BLS)."},
-    {"id": "nfp_chg", "sec": "labor", "name": "תוספת משרות (NFP)", "short": "אלפי משרות בחודש", "freq": "m", "unit": "K", "dec": 0, "fred": "PAYEMS", "tf": "diff", "desc": "השינוי החודשי במספר המועסקים מחוץ לחקלאות. הנתון מתעדכן בדיעבד בחודשיים הבאים."},
-    {"id": "claims", "sec": "labor", "name": "תביעות אבטלה ראשונות", "short": "אלפים בשבוע", "freq": "w", "unit": "K", "dec": 0, "fred": "ICSA", "scale": 0.001, "desc": "מספר התביעות החדשות לדמי אבטלה בשבוע. עלייה מתמשכת היא סימן מוקדם להיחלשות."},
-    {"id": "cont_claims", "sec": "labor", "name": "תביעות אבטלה נמשכות", "short": "אלפים", "freq": "w", "unit": "K", "dec": 0, "fred": "CCSA", "scale": 0.001, "desc": "מספר מקבלי דמי האבטלה. עלייה = קשה יותר למצוא עבודה."},
-    {"id": "jolts", "sec": "labor", "name": "משרות פנויות (JOLTS)", "short": "מיליונים", "freq": "m", "unit": "M", "dec": 2, "fred": "JTSJOL", "scale": 0.001, "desc": "מספר המשרות הפנויות בסוף החודש."},
-
-    {"id": "m2", "sec": "money", "name": "M2 דולרי", "short": "טריליון דולר", "freq": "m", "unit": "$T", "dec": 2, "fred": "M2SL", "scale": 0.001, "desc": "היצע הכסף M2 בארה\"ב: מזומן, פיקדונות וקרנות כספיות."},
-    {"id": "m2_yoy", "sec": "money", "name": "צמיחת M2", "short": "שנתי, %", "freq": "m", "unit": "%", "dec": 1, "fred": "M2SL", "tf": "yoy", "key": true, "desc": "שינוי של 12 חודשים ב-M2. צמיחה מהירה תמכה היסטורית בנכסי סיכון ובאינפלציה."},
-
-    {"id": "gas_retail", "sec": "energy", "name": "בנזין לצרכן בארה\"ב", "short": "$ לגלון, שבועי", "freq": "w", "unit": "$", "dec": 2, "fred": "GASREGW", "desc": "המחיר הממוצע לגלון בנזין רגיל בתחנות (EIA)."},
-    {"id": "diesel_retail", "sec": "energy", "name": "סולר לצרכן בארה\"ב", "short": "$ לגלון, שבועי", "freq": "w", "unit": "$", "dec": 2, "fred": "GASDESW", "desc": "המחיר הממוצע לגלון סולר בתחנות (EIA)."},
-    {"id": "hh_gas", "sec": "energy", "name": "גז טבעי · Henry Hub", "short": "$ ל-MMBtu, ספוט", "freq": "d", "unit": "$", "dec": 2, "fred": "DHHNGSP", "desc": "מחיר הגז הטבעי הספוט בהנרי האב, לואיזיאנה."},
-    {"id": "elec_retail", "sec": "energy", "name": "חשמל לצרכן בארה\"ב", "short": "סנט לקוט\"ש", "freq": "m", "unit": "¢", "dec": 1, "fred": "APU000072610", "scale": 100, "desc": "המחיר הממוצע לקוט\"ש חשמל לבית (BLS)."},
-    {"id": "elec_cpi_yoy", "sec": "energy", "name": "אינפלציית חשמל", "short": "רכיב החשמל ב-CPI, שנתי %", "freq": "m", "unit": "%", "dec": 1, "fred": "CUSR0000SEHF01", "tf": "yoy", "desc": "שינוי של 12 חודשים ברכיב החשמל במדד המחירים לצרכן."},
-    {"id": "pw_pjm", "sec": "energy", "name": "חשמל סיטונאי · PJM West", "short": "$ ל-MWh, יום קדימה", "freq": "d", "unit": "$", "dec": 1, "eia": "pjm", "desc": "מחיר החשמל הסיטונאי ליום הבא באזור PJM (מזרח ארה\"ב), ממוצע משוקלל של עסקאות ICE."},
-    {"id": "pw_ercot", "sec": "energy", "name": "חשמל סיטונאי · ERCOT North", "short": "$ ל-MWh, יום קדימה", "freq": "d", "unit": "$", "dec": 1, "eia": "ercot", "desc": "מחיר החשמל הסיטונאי בטקסס."},
-    {"id": "pw_sp15", "sec": "energy", "name": "חשמל סיטונאי · SP-15", "short": "$ ל-MWh, יום קדימה", "freq": "d", "unit": "$", "dec": 1, "eia": "sp15", "desc": "מחיר החשמל הסיטונאי בדרום קליפורניה."},
-    {"id": "pw_nepool", "sec": "energy", "name": "חשמל סיטונאי · Mass Hub", "short": "$ ל-MWh, יום קדימה", "freq": "d", "unit": "$", "dec": 1, "eia": "nepool", "desc": "מחיר החשמל הסיטונאי בניו אינגלנד."},
-    {"id": "spark_pjm", "sec": "energy", "name": "מרווח ספארק · PJM West", "short": "$ ל-MWh", "freq": "d", "unit": "$", "dec": 1, "spark": "pw_pjm", "key": true, "desc": "מחיר החשמל פחות עלות הגז לייצורו (7 MMBtu ל-MWh × מחיר Henry Hub)."},
-    {"id": "spark_ercot", "sec": "energy", "name": "מרווח ספארק · ERCOT North", "short": "$ ל-MWh", "freq": "d", "unit": "$", "dec": 1, "spark": "pw_ercot", "desc": "מחיר החשמל בטקסס פחות עלות הגז לייצורו."},
-    {"id": "spark_sp15", "sec": "energy", "name": "מרווח ספארק · SP-15", "short": "$ ל-MWh", "freq": "d", "unit": "$", "dec": 1, "spark": "pw_sp15", "desc": "מחיר החשמל בדרום קליפורניה פחות עלות הגז לייצורו."},
-    {"id": "spark_nepool", "sec": "energy", "name": "מרווח ספארק · Mass Hub", "short": "$ ל-MWh", "freq": "d", "unit": "$", "dec": 1, "spark": "pw_nepool", "desc": "מחיר החשמל בניו אינגלנד פחות עלות הגז לייצורו."}
+  [
+   "DGS3MO",
+   "3M",
+   0.25
   ],
-  "curve": [["DGS1MO", "1M", 0.083], ["DGS3MO", "3M", 0.25], ["DGS6MO", "6M", 0.5], ["DGS1", "1Y", 1], ["DGS2", "2Y", 2], ["DGS3", "3Y", 3], ["DGS5", "5Y", 5], ["DGS7", "7Y", 7], ["DGS10", "10Y", 10], ["DGS20", "20Y", 20], ["DGS30", "30Y", 30]],
-  "reuse": {"credit": ["hy_oas"], "rates": ["t10y2y"], "money": ["nfci"]}
+  [
+   "DGS6MO",
+   "6M",
+   0.5
+  ],
+  [
+   "DGS1",
+   "1Y",
+   1
+  ],
+  [
+   "DGS2",
+   "2Y",
+   2
+  ],
+  [
+   "DGS3",
+   "3Y",
+   3
+  ],
+  [
+   "DGS5",
+   "5Y",
+   5
+  ],
+  [
+   "DGS7",
+   "7Y",
+   7
+  ],
+  [
+   "DGS10",
+   "10Y",
+   10
+  ],
+  [
+   "DGS20",
+   "20Y",
+   20
+  ],
+  [
+   "DGS30",
+   "30Y",
+   30
+  ]
+ ],
+ "reuse": {
+  "credit": [
+   "hy_oas"
+  ],
+  "rates": [
+   "t10y2y"
+  ],
+  "money": [
+   "nfci"
+  ]
+ }
 }
