@@ -139,7 +139,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     cfg = load()
     info = {s: (n, k) for s, n, k in cfg["stocks"]}
     syms = list(info)
-    backfill = len(read_series("il_pct200")) < 500
+    backfill = min(len(read_series("il_pct200")), len(read_series("il_ew_rel3"))) < 500
     start = "2013-01-01" if backfill else (today_utc() - dt.timedelta(days=460)).isoformat()
     bars = yf_ohlc(syms, start)
     if not bars or bars["close"].empty:
@@ -167,10 +167,12 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     ew = basket(c)
     banks = basket(c[[s for s in c.columns if info[s][1] == "banks"]])
     if idx is not None:
-        j = pd.concat([ew, idx], axis=1, join="inner").dropna()
-        out["il_ew_rel"] = chain("il_ew_rel", j.iloc[:, 0] / j.iloc[:, 1] / (j.iloc[0, 0] / j.iloc[0, 1]), keep_from)
-        j = pd.concat([banks, idx], axis=1, join="inner").dropna()
-        out["il_banks_rel"] = chain("il_banks_rel", j.iloc[:, 0] / j.iloc[:, 1] / (j.iloc[0, 0] / j.iloc[0, 1]), keep_from)
+        # 3-month relative performance: today's large names are yesterday's winners, so the ratio's level drifts up;
+        # its 3-month change does not
+        for sid, bk in (("il_ew_rel3", ew), ("il_banks_rel3", banks)):
+            j = pd.concat([bk, idx], axis=1, join="inner").dropna()
+            ratio = j.iloc[:, 0] / j.iloc[:, 1]
+            out[sid] = _pts((ratio / ratio.shift(63) - 1) * 100, 2, keep_from)
     if ta35 is not None:
         out["ta35_ma200"] = _pts((ta35 / ta35.rolling(200).mean() - 1) * 100, 2)
         out["ta35_rv20"] = _pts(np.log(ta35).diff().rolling(20).std() * math.sqrt(252) * 100, 2)
