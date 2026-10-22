@@ -247,11 +247,6 @@ def _pc_page(day: dt.date) -> dict | None:
              day.strftime("%b %d, %Y").replace(" 0", " "), day.strftime("%B %-d, %Y"), day.strftime("%b %-d, %Y")}
     if not any(f in r.text or f in text for f in forms):
         return {"_nodate": True, "_sample": text[:1500]}
-    if "SPX" in text and not getattr(_pc_page, "_probed", False):
-        _pc_page._probed = True
-        i = text.find("SPX")
-        urls = sorted(set(re.findall(r"https://cdn\.cboe\.com/[^\"' )]+", r.text)))[:20]
-        save_probe("cboe_pc_text", text[max(0, i - 400):i + 800] + "\n\nURLS:\n" + "\n".join(urls))
     vals = {}
     for k, pat in PC_LABELS.items():
         m = re.search(pat + r"\s*:?\s*(\d+\.\d+)", text, re.I)
@@ -261,17 +256,37 @@ def _pc_page(day: dt.date) -> dict | None:
 
 
 def cboe_putcall(max_days: int = 12) -> dict:
-    """Daily P/C ratios since the last stored day. Starts earlier when the SPX series is behind, and falls
-    back to the normal start if Cboe will not serve that older day."""
-    pcc, spx = read_series("pcc"), read_series("pcspx")
-    if pcc and spx and max(spx) < max(pcc):
-        early = [d for d in pcc if d <= max(spx)]
-        if early:
+    """Daily P/C ratios since the last stored day, plus a bounded backfill of the SPX + SPXW series."""
+    out = _cboe_putcall(max_days)
+    try:
+        out["pcspxw"].update(cboe_spx_backfill())
+    except Exception:
+        pass   # the backfill is best effort; the daily values above are what matters
+    return out
+
+
+def cboe_spx_backfill(target: int = 760, per_run: int = 160, budget_s: float = 300) -> dict:
+    """Walk back day by day until the SPX + SPXW P/C series holds about three years (Cboe serves past days)."""
+    import time
+    have = read_series("pcspxw")
+    if len(have) >= target:
+        return {}
+    d = dt.date.fromisoformat(min(have)) - dt.timedelta(days=1) if have else today_utc() - dt.timedelta(days=1)
+    out, miss, t0, n = {}, 0, time.time(), 0
+    while n < per_run and miss < 12 and time.time() - t0 < budget_s and d.year >= 2015:
+        if d.weekday() < 5:
+            n += 1
             try:
-                return _cboe_putcall(max_days, start=max(early))
-            except ValueError:
-                pass
-    return _cboe_putcall(max_days)
+                res = _pc_page(d)
+            except Exception:
+                res = None
+            if res and "spx" in res and 0.3 < res["spx"] < 5:
+                out[d.isoformat()] = res["spx"]
+                miss = 0
+            else:
+                miss += 1   # holidays, or the start of what Cboe keeps
+        d -= dt.timedelta(days=1)
+    return out
 
 
 def _cboe_putcall(max_days: int = 12, start: str | None = None) -> dict:
@@ -280,7 +295,6 @@ def _cboe_putcall(max_days: int = 12, start: str | None = None) -> dict:
     The first fetched day is one we already hold (from TradingView's USI:PCC export) and must match
     within 0.01, which proves the parser reads the right number for the right day."""
     pcc = read_series("pcc")
-    spx = read_series("pcspx")
     last = start or (max(pcc) if pcc else iso(today_utc() - dt.timedelta(days=7)))
     d = dt.date.fromisoformat(last)
     days = []
@@ -300,14 +314,10 @@ def _cboe_putcall(max_days: int = 12, start: str | None = None) -> dict:
     check = got.get(days[0].isoformat())
     if pcc and check and abs(check.get("total", -9) - pcc.get(days[0].isoformat(), -99)) > 0.011:
         raise ValueError(f"Cboe P/C check failed on {days[0]}: total {check.get('total')} vs stored {pcc.get(days[0].isoformat())}")
-    out = {"pcc": {}, "pce": {}, "pcspx": {}}
-    spx_ok = not spx or not check or "spx" not in check or days[0].isoformat() not in spx or abs(check["spx"] - spx[days[0].isoformat()]) <= 0.03
-    if not spx_ok or not any("spx" in v for v in got.values()):
-        save_probe("cboe_pc_spx", json.dumps({"check_day": days[0].isoformat(), "cboe": (check or {}).get("spx"),
-                                              "stored": spx.get(days[0].isoformat()), "days": {d: v.get("spx") for d, v in got.items()}}))
+    out = {"pcc": {}, "pce": {}, "pcspxw": {}}
     for ds, v in got.items():
-        if spx_ok and "spx" in v and 0.3 < v["spx"] < 5:
-            out["pcspx"][ds] = v["spx"]
+        if "spx" in v and 0.3 < v["spx"] < 5:
+            out["pcspxw"][ds] = v["spx"]
         if "total" in v and 0.3 < v["total"] < 3:
             out["pcc"][ds] = v["total"]
         if "equity" in v and 0.2 < v["equity"] < 3:
