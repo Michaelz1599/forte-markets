@@ -140,7 +140,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     info = {s: (n, k) for s, n, k in cfg["stocks"]}
     syms = list(info)
     backfill = min(len(read_series("il_pct200")), len(read_series("il_ew_rel3"))) < 500
-    start = "2013-01-01" if backfill else (today_utc() - dt.timedelta(days=460)).isoformat()
+    start = "2013-01-01" if backfill else (today_utc() - dt.timedelta(days=520)).isoformat()
     bars = yf_ohlc(syms, start)
     if not bars or bars["close"].empty:
         raise ValueError("no TASE prices")
@@ -225,7 +225,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     # payload: stocks and sectors (computed from this run's bars; RS needs the daily range)
     payload = {"asof": c.index[-1], "n": int(c.shape[1]), "missing": missing,
                "stocks": stock_rows(c.iloc[-300:], h.iloc[-300:], lo.iloc[-300:], {s: (info[s][0], info[s][1]) for s in c.columns}),
-               "sectors": sector_rows(c.iloc[-300:], info, cfg["sectors"], idx[idx.index >= c.index[-300]] if idx is not None else None),
+               "sectors": sector_rows(c.iloc[-300:], info, cfg["sectors"], idx[idx.index >= c.index[-min(300, len(c))]] if idx is not None else None),
                "sectorNames": cfg["sectors"]}
     msg = f"{c.shape[1]} מניות{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
           (f" · {'; '.join(errs)}" if errs else "")
