@@ -359,13 +359,14 @@ def run() -> tuple[dict, dict, str]:
                     ("pw_isone", lambda: isone_da(150 if len(read_series("pw_isone")) < 60 else 12, read_series("pw_isone")))):
         if any(x["id"] == sid for x in specs):
             try:
-                out[sid] = fn()
+                # day-ahead prices are dated by delivery day and come out the day before: keep up to today, not tomorrow
+                out[sid] = {d: v for d, v in fn().items() if d <= today_utc().isoformat()}
             except Exception as e:
                 failed.append(f"{sid}: {str(e)[:80]}")
     gas = {**gas_daily(), **out.get("hh_gas", {})}
     for s in specs:
         if s.get("spark"):
-            pw = {**read_series(s["spark"]), **out.get(s["spark"], {})}
+            pw = {d: v for d, v in {**read_series(s["spark"]), **out.get(s["spark"], {})}.items() if d <= today_utc().isoformat()}
             sp = spark(pw, gas)
             if sp:
                 out[s["id"]] = sp
