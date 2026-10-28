@@ -5,7 +5,9 @@
 // Storage: one KV namespace (binding KV).
 //   stocks         {TICKER: doc}                 all analysis cards
 //   ver:TICKER     [doc, ...]                    up to 30 previous versions, newest first
-//   note           {text, at}                    the "bottom line" summary
+//   note           {text, at}                    the old "bottom line" summary (kept for reference)
+//   brief          {week, stance, headline, points[], actions[], at}   the weekly executive brief
+//   briefHist      [brief, ...]                  earlier weeks, newest first (up to 52)
 //   custom         {indicators:{}, overrides:{}, points:{id:{date:value}}}
 //   img:ID         image bytes (metadata: content type)
 
@@ -39,6 +41,15 @@ async function getJSON(env, key, fallback) {
   return v == null ? fallback : v;
 }
 
+function cleanBrief(body) {
+  const s = (v, n) => (v == null ? '' : String(v).trim().slice(0, n));
+  const list = (a) => (Array.isArray(a) ? a.slice(0, 12).map((x) => s(x, 600)).filter(Boolean) : []);
+  return {
+    week: s(body.week, 60), stance: ['risk-on', 'neutral', 'defensive'].includes(body.stance) ? body.stance : '',
+    headline: s(body.headline, 400), points: list(body.points), actions: list(body.actions), at: new Date().toISOString(),
+  };
+}
+
 function cleanDoc(body, ticker) {
   const s = (v, n = 4000) => (v == null ? '' : String(v).slice(0, n));
   const doc = {
@@ -63,10 +74,11 @@ async function handleApi(request, env, url) {
   const method = request.method;
 
   if (path === '/api/state' && method === 'GET') {
-    const [stocks, note, custom] = await Promise.all([
+    const [stocks, note, custom, brief, briefHist] = await Promise.all([
       getJSON(env, 'stocks', {}), getJSON(env, 'note', null), getJSON(env, 'custom', { indicators: {}, overrides: {}, points: {} }),
+      getJSON(env, 'brief', null), getJSON(env, 'briefHist', []),
     ]);
-    return json({ stocks, note, custom, now: new Date().toISOString() });
+    return json({ stocks, note, custom, brief, briefHist, now: new Date().toISOString() });
   }
 
   let m = path.match(/^\/api\/versions\/([^/]+)$/);
@@ -87,6 +99,19 @@ async function handleApi(request, env, url) {
     const note = { text: String(body.text || '').slice(0, 8000), at: new Date().toISOString() };
     await env.KV.put('note', JSON.stringify(note));
     return json(note);
+  }
+
+  if (path === '/api/brief' && method === 'PUT') {
+    const brief = cleanBrief(await request.json());
+    const prev = await getJSON(env, 'brief', null);
+    let hist = await getJSON(env, 'briefHist', []);
+    // a new week label starts a new brief; the previous one moves to the archive
+    if (prev && (prev.points?.length || prev.actions?.length || prev.headline) && prev.week !== brief.week) {
+      hist = [prev, ...hist].slice(0, 52);
+      await env.KV.put('briefHist', JSON.stringify(hist));
+    }
+    await env.KV.put('brief', JSON.stringify(brief));
+    return json({ brief, briefHist: hist });
   }
 
   if (path === '/api/custom' && method === 'PUT') {

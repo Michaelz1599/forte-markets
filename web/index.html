@@ -162,7 +162,7 @@ label.chk { display: inline-flex; align-items: center; gap: 8px; font-size: 14px
 .chip-plain::before, .chip-w::before { display: none; }
 
 /* ---------- market hero ---------- */
-.hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
 .bottomline { background: var(--t1); color: #EAF6F0; border-radius: var(--r); padding: 18px 20px; display: grid; gap: 10px; align-content: start; position: relative; min-width: 0; }
 .bottomline h2 { font-family: var(--f-disp); font-weight: 900; font-synthesis: none; color: var(--mint); font-size: 30px; line-height: 1; }
 .bottomline .nb { font-size: 15px; line-height: 1.6; white-space: pre-line; max-height: 260px; overflow: auto; }
@@ -656,6 +656,32 @@ td.pcell { min-width: 150px; }
 .an-opp { border-inline-start: 3px solid var(--greed); }
 .an-risk { border-inline-start: 3px solid var(--fear); }
 #mac-analogs .tile .s { line-height: 1.55; }
+
+/* ---------- bottom line: weekly brief ---------- */
+.brief-sec { display: grid; gap: 14px; min-width: 0; }
+.brief-card { background: var(--t1); color: #EAF6F0; border-radius: var(--r); padding: 20px 22px; display: grid; gap: 14px; min-width: 0; }
+.brief-card.empty .bc-line { color: #A9CDBD; font-size: 15px; font-weight: 500; }
+.bc-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.bc-week { font-family: var(--f-disp); font-weight: 900; font-size: 22px; color: var(--mint); line-height: 1.1; }
+.bc-meta { font-size: 12.5px; color: #A9CDBD; margin-inline-start: auto; }
+.bc-line { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.55; }
+.bc-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 14px; }
+.bc-grid section { background: rgba(255, 255, 255, .06); border: 1px solid rgba(154, 212, 185, .22); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.bc-grid h3 { margin: 0 0 8px; font-size: 13px; letter-spacing: .04em; color: var(--mint); }
+.bc-grid ol, .bc-grid ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 7px; font-size: 15px; line-height: 1.6; }
+.bc-grid .bc-act { background: rgba(154, 212, 185, .14); border-color: rgba(154, 212, 185, .5); }
+.bc-grid .bc-act li::marker { content: "◀  "; color: var(--mint); font-size: 11px; }
+.brief-card .chip { border: 1px solid rgba(255, 255, 255, .18); }
+.brief-card.past { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.brief-card.past .bc-week, .brief-card.past .bc-grid h3 { color: var(--accent); }
+.brief-card.past .bc-meta { color: var(--muted); }
+.brief-card.past .bc-grid section { background: var(--bg); border-color: var(--line); }
+.brief-card.past .bc-line { font-size: 15.5px; }
+.bh-list { display: grid; gap: 12px; margin-top: 10px; }
+.an-h { font-size: clamp(20px, 2.2vw, 26px); margin: 0 0 4px; letter-spacing: -.01em; }
+.an-top { padding-top: 6px; border-top: 1px solid var(--line); }
+.brief-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; }
+@media (max-width: 760px) { .bc-grid, .brief-form { grid-template-columns: minmax(0, 1fr); } .bc-meta { margin-inline-start: 0; flex-basis: 100%; } .brief-card { padding: 16px; } }
 </style>
 </head>
 <body>
@@ -665,12 +691,12 @@ td.pcell { min-width: 150px; }
   <div class="mast-in">
     <button type="button" class="brand" id="brandHome" aria-label="פורטה, לדף הראשי"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 24V8h12v3.4h-8.2v3.2h7.2V18h-7.2v6z" fill="#002F22"/></svg></span><span class="brand-txt"><span class="brand-name">פורטה</span><span class="brand-sub">בית השקעות · דשבורד שווקים</span></span></button>
     <nav class="tabs" role="tablist" aria-label="מסכים">
-      <div class="navi" data-nav="market"><button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="true">סנטימנט<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="market"></div></div>
+      <div class="navi" data-nav="analysis"><button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="true">שורה תחתונה<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="analysis"></div></div>
+      <div class="navi" data-nav="market"><button class="tab" role="tab" id="tab-market" data-tab="market" aria-selected="false">סנטימנט<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="market"></div></div>
       <div class="navi" data-nav="indices"><button class="tab" role="tab" id="tab-indices" data-tab="indices" aria-selected="false">מדדים מובילים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="indices"></div></div>
       <div class="navi" data-nav="momentum"><button class="tab" role="tab" id="tab-momentum" data-tab="momentum" aria-selected="false">מומנטום<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="momentum"></div></div>
       <div class="navi" data-nav="macro"><button class="tab" role="tab" id="tab-macro" data-tab="macro" aria-selected="false">מאקרו<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="macro"></div></div>
       <div class="navi" data-nav="israel"><button class="tab" role="tab" id="tab-israel" data-tab="israel" aria-selected="false">ישראל<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="israel"></div></div>
-      <div class="navi" data-nav="analysis"><button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-selected="false">ניתוחים טכניים<span class="car" aria-hidden="true"></span></button><div class="dd" data-dd="analysis"></div></div>
       <button class="tab" role="tab" id="tab-manage" data-tab="manage" aria-selected="false" hidden>ניהול</button>
     </nav>
     <div class="mast-act"><button type="button" class="ibtn" id="cmdBtn" aria-label="חיפוש (Ctrl+K)" title="חיפוש (Ctrl+K)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="lbl">חיפוש</span><span class="kbd"><span class="kbd-mod">Ctrl</span> K</span></button><button type="button" class="ibtn" id="themeBtn" data-mode="auto"><svg class="ic ic-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="ic ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="ic ic-dark" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button type="button" class="ibtn menu-btn" id="menuBtn" aria-label="תפריט" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
@@ -678,18 +704,12 @@ td.pcell { min-width: 150px; }
   <div class="subbar"><div class="asof" id="asof"><span class="dot-off"></span><span>טוען נתונים…</span></div><div class="ticker" id="ticker" aria-label="שערים אחרונים, לחיצה פותחת גרף"><div class="tk-track" id="tkTrack"></div></div></div>
   <div class="sprog" id="sprog" aria-hidden="true"></div>
 </header>
-<div class="drawer" id="drawer" hidden><div class="drawer-panel" role="dialog" aria-modal="true" aria-label="תפריט"><div class="drawer-head"><b>תפריט</b><button type="button" class="ibtn" data-go="market">לדף הראשי</button></div><div id="drawerBody"></div></div></div>
+<div class="drawer" id="drawer" hidden><div class="drawer-panel" role="dialog" aria-modal="true" aria-label="תפריט"><div class="drawer-head"><b>תפריט</b><button type="button" class="ibtn" data-go="analysis">לדף הראשי</button></div><div id="drawerBody"></div></div></div>
 
-<main id="v-market" class="view" dir="rtl" lang="he">
+<main id="v-market" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
     <div id="sysBanner" hidden></div>
     <section class="hero" aria-label="תמונת מצב">
-      <article class="bottomline empty" id="noteCard">
-        <h2>שורה תחתונה</h2>
-        <div class="nb" id="noteBody">טוען…</div>
-        <div class="meta" id="noteMeta"></div>
-        <button class="btn sm" type="button" id="noteEdit" hidden>עריכת הסיכום</button>
-      </article>
       <article class="gcard" id="compCard" role="button" tabindex="0" aria-label="מדד הסנטימנט של פורטה, פתיחת פירוט">
         <header><h2>מדד הסנטימנט של פורטה</h2><span class="hint" id="compHint"></span></header>
         <div class="gauge" id="compGauge"></div>
@@ -766,11 +786,19 @@ td.pcell { min-width: 150px; }
   </div>
 </main>
 
-<main id="v-analysis" class="view" dir="rtl" lang="he" hidden>
+<main id="v-analysis" class="view" dir="rtl" lang="he">
   <div class="wrap">
+    <section class="brief-sec" id="briefSec">
+      <div class="toolbar">
+        <div><h1 data-eyebrow="BOTTOM LINE">שורה תחתונה</h1><p class="lede">תקציר המנהלים של השבוע: הנקודות העיקריות ואיך לפעול. מתחת, הניתוח הטכני לכל מניה בתיק.</p></div>
+        <div class="an-admin"><button class="btn" type="button" id="briefEdit" hidden>עריכת הבריף</button></div>
+      </div>
+      <div id="briefBody"></div>
+      <div id="briefHist"></div>
+    </section>
     <section class="an-top" id="anTop">
       <div class="toolbar">
-        <div><h1>ניתוחים טכניים</h1><p class="lede">ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.</p></div>
+        <div><h2 class="an-h">ניתוחים טכניים</h2><p class="lede">ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.</p></div>
         <div class="an-admin" id="anAdmin" hidden>
           <button class="btn" type="button" id="newStock">ניתוח חדש</button>
           <button class="btn ghost" type="button" id="importHold">ייבוא רשימת אחזקות</button>
@@ -811,8 +839,8 @@ td.pcell { min-width: 150px; }
 
 <footer class="site-foot" dir="rtl" lang="he">
   <div class="wrap foot-in">
-    <div><span class="brand-name">פורטה</span><p>דשבורד השווקים של פורטה בית השקעות: סנטימנט, מדדים מובילים, מומנטום ו-RS לכל מניה, והניתוחים הטכניים של התיק, במקום אחד.</p><p><button type="button" class="foot-link" id="footSearch">חיפוש באתר · Ctrl+K</button></p></div>
-    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="macro">מאקרו</button></li><li><button type="button" class="foot-link" data-go="israel">ישראל</button></li><li><button type="button" class="foot-link" data-go="analysis">ניתוחים טכניים</button></li></ul></div>
+    <div><span class="brand-name">פורטה</span><p>דשבורד השווקים של פורטה בית השקעות: הבריף השבועי, סנטימנט, מדדים מובילים, מומנטום ו-RS לכל מניה, מאקרו, ישראל והניתוחים הטכניים של התיק, במקום אחד.</p><p><button type="button" class="foot-link" id="footSearch">חיפוש באתר · Ctrl+K</button></p></div>
+    <div><h4>לשוניות</h4><ul><li><button type="button" class="foot-link" data-go="analysis">שורה תחתונה</button></li><li><button type="button" class="foot-link" data-go="market">סנטימנט</button></li><li><button type="button" class="foot-link" data-go="indices">מדדים מובילים</button></li><li><button type="button" class="foot-link" data-go="momentum">מומנטום</button></li><li><button type="button" class="foot-link" data-go="momentum" data-sel="#rsPanel">RS לכל המניות</button></li><li><button type="button" class="foot-link" data-go="macro">מאקרו</button></li><li><button type="button" class="foot-link" data-go="israel">ישראל</button></li><li><button type="button" class="foot-link" data-go="analysis" data-sel="#anTop">ניתוחים טכניים</button></li></ul></div>
     <div><h4>מקורות</h4><ul><li>CNN · Cboe · AAII · FRED</li><li>הלמ"ס · בנק ישראל · EIA</li><li>Yahoo Finance</li><li>רשימת המניות של NASDAQ</li></ul></div>
     <div><h4>עדכון</h4><p id="footUpd">—</p><p>כל לילה אחרי סגירת וול סטריט, ובבוקר לטבלת ה-RS.</p></div>
   </div>
@@ -841,9 +869,9 @@ const COMP_META = { id: COMP_ID, name: 'מדד הסנטימנט של פורטה'
 const S = {
   meta: null, status: null, base: new Map(), custom: { indicators: {}, overrides: {}, points: {} },
   canEdit: false, code: null, api: true,
-  ind: new Map(), ser: new Map(), stk: new Map(), note: null,
+  ind: new Map(), ser: new Map(), stk: new Map(), note: null, brief: null, briefHist: [],
   loaded: { ind: false, ser: false, stk: false },
-  win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'market',
+  win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'analysis',
   fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
   mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30, ilQ: '', ilSec: '',
 };
@@ -1149,19 +1177,7 @@ function openLogin() {
   });
 }
 function logoutEditor() { S.canEdit = false; S.code = null; try { localStorage.removeItem('fd.ed'); } catch (e) { /* storage unavailable */ } if (S.tab === 'manage') showTab('market'); renderAll(); toast('יצאת ממצב עורך'); }
-function renderNote() {
-  const card = $('#noteCard'), body = $('#noteBody'), meta = $('#noteMeta');
-  const n = S.note;
-  $('#noteEdit').hidden = !S.canEdit;
-  if (!n || !n.text) {
-    card.classList.add('empty');
-    body.textContent = S.canEdit ? 'כאן מופיע הסיכום שלך על מצב השוק. לחצו על "עריכת הסיכום" כדי לכתוב אותו.' : (S.loaded.stk ? 'עדיין לא נכתב סיכום.' : 'טוען…');
-    meta.textContent = ''; return;
-  }
-  card.classList.remove('empty');
-  body.innerHTML = richText(n.text);
-  meta.textContent = `עודכן ${fmtDate((n.at || '').slice(0, 10))} · ${daysAgo(n.at)}`;
-}
+function renderNote() { renderBrief(); }   // the bottom line moved from the sentiment tab to its own tab
 function richText(text) {
   const lines = String(text || '').split(/\r?\n/);
   let html = '', inList = false;
@@ -1432,7 +1448,8 @@ function renderAnalysis() {
   const fresh30 = active.filter(s => (ageDays(s.updatedAt) ?? 999) <= 30).length;
   const pend = all.length - active.length;
   $('#coverage').innerHTML = S.loaded.stk ? `<span><b>${all.length}</b> מניות</span><span><b>${fresh30}</b> עם ניתוח מ-30 הימים האחרונים</span>${active.length - fresh30 ? `<span><b>${active.length - fresh30}</b> עם ניתוח ישן מחודש</span>` : ''}${pend ? `<span><b>${pend}</b> ממתינות לניתוח</span>` : ''}` : '';
-  if (S.openStock) { $('#anTop').hidden = true; $('#stkGrid').hidden = true; $('#stkDetail').hidden = false; renderStockDetail(); return; }
+  if (S.openStock) { $('#briefSec').hidden = true; $('#anTop').hidden = true; $('#stkGrid').hidden = true; $('#stkDetail').hidden = false; renderStockDetail(); return; }
+  $('#briefSec').hidden = false; renderBrief();
   $('#anTop').hidden = false; $('#stkGrid').hidden = false; $('#stkDetail').hidden = true;
   const grid = $('#stkGrid');
   if (!S.api) { grid.innerHTML = '<p class="muted">שרת הניתוחים לא זמין כרגע. רעננו את הדף בעוד רגע.</p>'; return; }
@@ -1602,18 +1619,7 @@ function openHoldingsImport() {
     catch (err) { b.disabled = false; b.textContent = 'ייבוא'; toast(apiErr(err), true); }
   });
 }
-function openNoteEditor() {
-  const html = `<div class="sh-head"><div><h2>שורה תחתונה</h2><div class="sub">מוצג בראש לשונית הסנטימנט לכל הצוות</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
-    <form class="sh-body" id="noteForm"><label class="field"><span>הסיכום שלך על מצב השוק</span><textarea id="noteTxt" rows="9" placeholder="שורה שמתחילה ב-&quot;-&quot; תוצג כנקודה">${esc((S.note && S.note.text) || '')}</textarea></label>
-    <div class="actions"><button type="button" class="btn ghost" id="nCancel">ביטול</button><button type="submit" class="btn" id="nSave">שמירה</button></div></form>`;
-  openOverlay(html, true);
-  $('#nCancel').addEventListener('click', closeOverlay);
-  $('#noteForm').addEventListener('submit', async e => {
-    e.preventDefault(); const b = $('#nSave'); b.disabled = true;
-    try { S.note = await api('PUT', '/api/note', { text: $('#noteTxt').value.trim() }); closeOverlay(); toast('הסיכום נשמר'); renderNote(); }
-    catch (err) { b.disabled = false; toast(apiErr(err), true); }
-  });
-}
+function openNoteEditor() { openBriefEditor(); }
 function askConfirm(text, okLabel = 'אישור') {
   return new Promise(res => {
     const wrap = document.createElement('div'); wrap.className = 'ov'; wrap.style.zIndex = '65'; wrap.style.placeItems = 'center';
@@ -1643,7 +1649,7 @@ function renderManage() {
     <section class="mcard"><div class="panel-head"><h2>עדכון אוטומטי</h2><span class="small muted">GitHub Actions, כל לילה אחרי סגירת וול סטריט (שני–שישי)</span></div>
       ${st ? `<div class="srcrow"><b>ריצה אחרונה:</b> ${esc(new Date(st.lastRun).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' }))} ${st.ok === false ? '<span class="chip s-xf">חלקי</span>' : '<span class="chip s-g">הושלם</span>'}</div>${srcRows ? `<div class="tbl-wrap"><table class="ft"><thead><tr><th>מקור</th><th>מצב</th><th>נתון אחרון</th><th>פירוט</th></tr></thead><tbody>${srcRows}</tbody></table></div>` : ''}` : '<p class="muted" style="margin:0">עדיין לא נרשמה ריצה.</p>'}
     </section>
-    <section class="mcard"><div class="panel-head"><h2>אינדיקטורים</h2><div class="actions"><button type="button" class="btn" id="mNew">אינדיקטור חדש</button><button type="button" class="btn ghost" id="mNote">עריכת השורה התחתונה</button></div></div>
+    <section class="mcard"><div class="panel-head"><h2>אינדיקטורים</h2><div class="actions"><button type="button" class="btn" id="mNew">אינדיקטור חדש</button><button type="button" class="btn ghost" id="mNote">עריכת הבריף השבועי</button></div></div>
       <p class="small muted" style="margin:0">"בלוח" = מוצג בלשונית הסנטימנט. "במדד" = נכלל במדד הסנטימנט של פורטה. ערכים ידניים (הזנה או ייבוא CSV, למשל Download chart data מ-TradingView) גוברים על הנתון האוטומטי באותו תאריך.</p>
       <div class="tbl-wrap"><table class="ft"><thead><tr><th>שם</th><th>קבוצה</th><th>תדירות</th><th>עדכון</th><th>נתון אחרון</th><th>תצפיות</th><th>בלוח</th><th>במדד</th><th></th></tr></thead><tbody>${indRows || '<tr><td colspan="9" class="muted">אין אינדיקטורים.</td></tr>'}</tbody></table></div>
     </section>`;
@@ -2359,6 +2365,78 @@ function drawIdxChart(sym, rangeDays, isFac) {
     ] });
 }
 
+// ---------------- bottom line: the weekly executive brief (first tab, above the technical analyses) ----------------
+const STANCE = { 'risk-on': ['התקפית', 's-g', 'להגדיל חשיפה'], neutral: ['ניטרלית', 's-n', 'להחזיק'], defensive: ['הגנתית', 's-f', 'להקטין סיכון'] };
+const pad2 = n => String(n).padStart(2, '0');
+// the trading week the brief is for: Monday to Friday; from Friday on, the coming week
+function weekLabel(d = new Date()) {
+  const day = d.getDay();
+  const mon = new Date(d); mon.setHours(12, 0, 0, 0);
+  mon.setDate(d.getDate() + (day === 0 ? 1 : day >= 5 ? 8 - day : 1 - day));
+  const fri = new Date(mon); fri.setDate(mon.getDate() + 4);
+  return `שבוע ${pad2(mon.getDate())}.${pad2(mon.getMonth() + 1)}–${pad2(fri.getDate())}.${pad2(fri.getMonth() + 1)}.${fri.getFullYear()}`;
+}
+function briefLines(text) {
+  return String(text || '').split(/\r?\n/).map(l => l.trim().replace(/^([-•*]|\d+[.)])\s*/, '').trim()).filter(Boolean);
+}
+function briefCard(b, opts = {}) {
+  const st = STANCE[b.stance];
+  const age = ageDays(b.at);
+  const old = !opts.past && age != null && age > 7;
+  return `<article class="brief-card${opts.past ? ' past' : ''}">
+    <header class="bc-head"><span class="bc-week">${esc(b.week || '')}</span>${st ? `<span class="chip ${st[1]}">עמדה ${st[0]} · ${st[2]}</span>` : ''}
+      <span class="bc-meta">${b.at ? `עודכן ${fmtDate(b.at.slice(0, 10))}${opts.past ? '' : ' · ' + daysAgo(b.at)}` : ''}${old ? ' <span class="chip chip-w">לא עודכן השבוע</span>' : ''}</span></header>
+    ${b.headline ? `<p class="bc-line">${esc(b.headline)}</p>` : ''}
+    <div class="bc-grid">
+      <section class="bc-pts"><h3>הנקודות העיקריות</h3>${b.points && b.points.length ? `<ol>${b.points.map(p => `<li>${esc(p)}</li>`).join('')}</ol>` : '<p class="muted small">—</p>'}</section>
+      <section class="bc-act"><h3>איך לפעול השבוע</h3>${b.actions && b.actions.length ? `<ul>${b.actions.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : '<p class="muted small">—</p>'}</section>
+    </div>
+  </article>`;
+}
+function renderBrief() {
+  const el = $('#briefBody'); if (!el) return;
+  const ed = $('#briefEdit'); if (ed) ed.hidden = !S.canEdit;
+  const b = S.brief;
+  const has = b && ((b.points && b.points.length) || (b.actions && b.actions.length) || b.headline);
+  if (!has) {
+    el.innerHTML = `<article class="brief-card empty"><p class="bc-line">${S.loaded.stk ? (S.canEdit ? 'עוד לא נכתב בריף. לחצו על "עריכת הבריף" וכתבו כמה נקודות עיקריות ואיך לפעול השבוע.' : 'הבריף של השבוע עוד לא פורסם.') : 'טוען…'}</p></article>`;
+  } else {
+    el.innerHTML = briefCard(b);
+  }
+  const hist = (S.briefHist || []).filter(h => h && ((h.points && h.points.length) || (h.actions && h.actions.length) || h.headline));
+  $('#briefHist').innerHTML = hist.length ? `<details class="lagd"><summary>בריפים קודמים (${hist.length})</summary><div class="bh-list">${hist.map(h => briefCard(h, { past: true })).join('')}</div></details>` : '';
+}
+function openBriefEditor() {
+  const cur = S.brief || {};
+  const fresh = !cur.week || cur.week !== weekLabel();
+  // a new week starts from last week's text, so it only needs updating; the old note seeds the very first brief
+  const seedPts = cur.points && cur.points.length ? cur.points : briefLines(S.note && S.note.text);
+  const stance = cur.stance || '';
+  const html = `<div class="sh-head"><div><h2>הבריף השבועי</h2><div class="sub">מוצג בראש הלשונית "שורה תחתונה" לכל הצוות</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <form class="sh-body" id="briefForm">
+      <div class="brief-form">
+        <label class="field"><span>השבוע</span><input type="text" id="bWeek" value="${esc(fresh ? weekLabel() : cur.week)}" maxlength="60"><small>${fresh && cur.week ? `שבוע חדש: הבריף של "${esc(cur.week)}" יעבור לארכיון כשתשמרו.` : 'שינוי השבוע מעביר את הבריף הקודם לארכיון.'}</small></label>
+        <div class="field"><span>העמדה הכללית</span><div class="seg" role="group" id="bStance">${[['', 'ללא'], ['risk-on', 'התקפית'], ['neutral', 'ניטרלית'], ['defensive', 'הגנתית']].map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${stance === v}">${l}</button>`).join('')}</div></div>
+      </div>
+      <label class="field"><span>השורה התחתונה במשפט אחד <span class="muted">(לא חובה)</span></span><input type="text" id="bHead" value="${esc(cur.headline || '')}" maxlength="400" placeholder="למשל: השוק מתוח אחרי העליות, לא רודפים אחרי מניות"></label>
+      <label class="field"><span>הנקודות העיקריות</span><textarea id="bPts" rows="6" placeholder="נקודה בכל שורה. 3 עד 5 נקודות.">${esc(seedPts.join('\n'))}</textarea></label>
+      <label class="field"><span>איך לפעול השבוע</span><textarea id="bAct" rows="5" placeholder="פעולה בכל שורה. למשל: לממש חלק מהרווח בשבבים, להוסיף הגנה דרך אג&quot;ח קצר">${esc((cur.actions || []).join('\n'))}</textarea></label>
+      <div class="actions"><button type="button" class="btn ghost" id="bCancel">ביטול</button><button type="submit" class="btn" id="bSave">פרסום</button></div>
+    </form>`;
+  openOverlay(html, true);
+  let st = stance;
+  $('#bStance').addEventListener('click', e => { const z = e.target.closest('button'); if (!z) return; st = z.dataset.v; $$('#bStance button').forEach(x => x.setAttribute('aria-pressed', String(x === z))); });
+  $('#bCancel').addEventListener('click', closeOverlay);
+  $('#briefForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const body = { week: $('#bWeek').value.trim(), stance: st, headline: $('#bHead').value.trim(), points: briefLines($('#bPts').value), actions: briefLines($('#bAct').value) };
+    if (!body.points.length && !body.actions.length && !body.headline) { toast('הבריף ריק. כתבו לפחות נקודה אחת.', true); return; }
+    const b = $('#bSave'); b.disabled = true;
+    try { const r = await api('PUT', '/api/brief', body); S.brief = r.brief; S.briefHist = r.briefHist || []; closeOverlay(); toast('הבריף פורסם'); renderBrief(); }
+    catch (err) { b.disabled = false; toast(apiErr(err), true); }
+  });
+}
+
 // ---------------- level statistics: what the market did after an indicator crossed a chosen level ----------------
 const LV_H = [[5, 'שבוע'], [21, 'חודש'], [63, '3 חודשים'], [126, '6 חודשים'], [252, 'שנה']];
 const LV_LAG = { d: 0, w: 6, m: 45 };      // days until a reading is public (monthly data is dated at the start of the month)
@@ -2945,16 +3023,16 @@ function initSortableTables() {
 
 // ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
 const NAV = {
-  market: { d: 'מצב הרוח בשוק, אחוזונים היסטוריים ומה קרה אחרי קריאות דומות', items: () => [['שורה תחתונה ומדד הסנטימנט', '.hero'], ['אינדיקטורים בקיצון', '#xstrip'],
+  analysis: { d: 'הבריף השבועי: הנקודות העיקריות ואיך לפעול השבוע, והניתוחים הטכניים לכל מניה בתיק', items: () => [['הבריף השבועי', '#briefSec'], ['ניתוחים טכניים', '#anTop']] },
+  market: { d: 'מצב הרוח בשוק, אחוזונים היסטוריים ומה קרה אחרי קריאות דומות', items: () => [['מדד הסנטימנט', '.hero'], ['אינדיקטורים בקיצון', '#xstrip'],
     ...GROUPS.filter(([g]) => !['macro', 'other'].includes(g) && (!S.ind || [...S.ind.values()].some(i => i.group === g && i.pin && i.tab !== 'macro'))).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   israel: { d: 'סנטימנט, רוחב שוק, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
-  analysis: { d: 'הניתוח הטכני שלך לכל מניה בתיק: גרף, רמות ושורה תחתונה', items: () => [['כל הניתוחים', '#anTop']] },
 };
-const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', analysis: 'ניתוחים טכניים', manage: 'ניהול' };
+const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', analysis: 'שורה תחתונה', manage: 'ניהול' };
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 function goTo(tab, sel) {
   closeMenus();
@@ -3074,7 +3152,7 @@ const revealed = new Set();
 let revealIO = null;
 function markReveal(root) {
   if (!revealIO || Date.now() > revealUntil) return;
-  root.querySelectorAll('.panel:not(.inner), .tile, .hero > *, .bottomline, .an-card, .board').forEach(el => {
+  root.querySelectorAll('.panel:not(.inner), .tile, .hero > *, .brief-card, .an-card, .board').forEach(el => {
     if (el.dataset.rv || el.closest('#ov')) return;
     el.dataset.rv = '1'; el.classList.add('rv'); revealIO.observe(el);
   });
@@ -3126,7 +3204,7 @@ function initUI() {
     if (!e.target.closest('.navi')) $$('.navi.open').forEach(n => n.classList.remove('open'));
   });
   $$('.navi .car').forEach(c => c.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); const n = c.closest('.navi'); const o = n.classList.contains('open'); $$('.navi.open').forEach(x => x.classList.remove('open')); n.classList.toggle('open', !o); }));
-  $('#brandHome').addEventListener('click', () => goTo('market'));
+  $('#brandHome').addEventListener('click', () => goTo('analysis'));
   $('#menuBtn').addEventListener('click', () => {
     const d = $('#drawer'); const open = d.hidden;
     if (open) buildMenus();
@@ -3182,7 +3260,7 @@ function bind() {
   const act = (el, fn) => { el.addEventListener('click', fn); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } }); };
   act($('#compCard'), () => openInd(COMP_ID));
   act($('#fgCard'), () => { if (S.ind.has('fg')) openInd('fg'); });
-  $('#noteEdit').addEventListener('click', openNoteEditor);
+  $('#briefEdit').addEventListener('click', openBriefEditor);
   $('#q').addEventListener('input', e => { S.q = e.target.value; renderAnalysis(); });
   $('#fBias').addEventListener('click', e => { const b = e.target.closest('button[data-b]'); if (!b) return; S.fBias = b.dataset.b; renderAnalysis(); });
   $('#fSector').addEventListener('change', e => { S.fSector = e.target.value; renderAnalysis(); });
@@ -3214,6 +3292,7 @@ async function refreshState() { try { applyState(await fetchJSON('/api/state'));
 function applyState(st) {
   S.stk = new Map(Object.entries(st.stocks || {}).map(([k, v]) => [k, { ...v, ticker: v.ticker || k }]));
   S.note = st.note || null;
+  S.brief = st.brief || null; S.briefHist = st.briefHist || [];
   S.custom = { indicators: {}, overrides: {}, points: {}, ...(st.custom || {}) };
   rebuildIndicators(); rebuildSeries();
 }
@@ -3221,7 +3300,8 @@ let hashDone = false;
 function applyHash() {
   if (hashDone || !S.loaded.ind || !S.loaded.ser || !S.loaded.stk) return; hashDone = true;
   const h = decodeURIComponent((location.hash || '').slice(1));
-  if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'israel' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
+  if (h === 'brief' || h === 'bottomline') showTab('analysis');
+  else if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'israel' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
   else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
   else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
   else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }
