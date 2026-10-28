@@ -630,6 +630,32 @@ main.view table.ft thead th[aria-sort="ascending"]::after { content: " ↑"; }
 
 /* the percentile line in the macro and Israel tables */
 td.pcell { min-width: 150px; }
+
+/* ---------- level statistics ---------- */
+.lv-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 16px; }
+.lv-tools .fld { min-width: 0; }
+.lv-tools .lv-thr input { width: 120px; font-variant-numeric: tabular-nums; font-weight: 700; }
+.lv-tools select { min-width: 140px; }
+.lvchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lvchip { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; display: inline-flex; gap: 5px; align-items: baseline; }
+.lvchip span { color: var(--muted); }
+.lvchip:hover { border-color: var(--accent); background: var(--sunk); }
+.lvchip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lvtbl th.sep, .lvtbl td.sep { border-inline-start: 2px solid var(--line); }
+#lvOut { display: grid; gap: 10px; min-width: 0; }
+#dAnalog, #xLevels { display: grid; gap: 12px; min-width: 0; }
+@media (max-width: 640px) { .lv-tools .lv-thr input { width: 100%; } .lv-tools > * { flex: 1 1 100%; } }
+
+/* ---------- macro analogs ---------- */
+.an-vars { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px; }
+.an-var { display: grid; gap: 2px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); min-width: 0; }
+.an-var .k { font-size: 12px; color: var(--muted); }
+.an-var b { font-size: 17px; }
+.an-box ul { margin: 0; padding-inline-start: 18px; display: grid; gap: 6px; line-height: 1.65; font-size: 13.5px; }
+.an-box ul ul { margin-top: 4px; gap: 3px; }
+.an-opp { border-inline-start: 3px solid var(--greed); }
+.an-risk { border-inline-start: 3px solid var(--fear); }
+#mac-analogs .tile .s { line-height: 1.55; }
 </style>
 </head>
 <body>
@@ -721,7 +747,7 @@ td.pcell { min-width: 150px; }
 
 <main id="v-momentum" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1 data-eyebrow="MOMENTUM · RS">מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים, סקטורים ונושאים מול S&amp;P 500, RS לכל מניה בשוק, מדדים בעולם, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
+    <div class="toolbar"><div><h1 data-eyebrow="MOMENTUM · RS">מומנטום</h1><p class="lede">מי מוביל ומי מאבד גובה: פקטורים, סקטורים ונושאים מול S&amp;P 500, RS ‏(6-1) לכל מניה בשוק, והמניות החזקות במדד. מומנטום נוטה להימשך חודשים, ולכן הוא אחד הגורמים המתועדים ביותר במחקר.</p></div><span class="small muted" id="momAsof"></span></div>
     <div id="momBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
@@ -1265,13 +1291,13 @@ function openInd(id) {
             <button type="button" data-r="365">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827" aria-pressed="true">5 שנים</button><button type="button" data-r="3653">10 שנים</button><button type="button" data-r="0">הכל</button>
           </div>
           <div class="grp" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-            ${id !== 'spx' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID ? 'checked' : ''}>S&amp;P 500 ברקע</label>` : ''}
+            ${id !== 'spx' && id !== 'ta35_px' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID || id === 'il_sent' ? 'checked' : ''}><span id="dSpxName">${esc(benchOf(id, meta).name)}</span> ברקע</label>` : ''}
             <button type="button" class="btn ghost sm" id="dCsv" hidden>הורדת CSV</button>
             ${adminBtns}
           </div>
         </div>
         <div class="chart" id="dChart" role="img" aria-label="גרף היסטורי של ${esc(meta.name)} עם קווי אחוזונים ואחוזון מתגלגל"></div>
-        <p class="small muted" style="margin:0">קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו.</p>
+        <p class="small muted" style="margin:0">${/cmf/.test(id) ? 'ירוק = מעל 0, צבירה (כסף נכנס). אדום = מתחת ל-0, הפצה (כסף יוצא).' : `קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות.`} קו כתום: הרמה שנבחרה בסטטיסטיקה למטה, ונקודות: הכניסות לאזור. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו.</p>
       </section>
       ${moveTable(meta, s)}
       ${compTable}
@@ -1296,8 +1322,8 @@ function openInd(id) {
     $('#dImp').addEventListener('click', () => openImport(id));
   }
   { const b = $('#dCsv'); b.hidden = false; b.addEventListener('click', () => downloadCSV(id)); }
-  renderAnalog(id);
   drawChart(id, 1827);
+  levelPanel(id);
   $$('#dRange button').forEach(b => b.addEventListener('click', () => { $$('#dRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawChart(id, +b.dataset.r); }));
   const sp = $('#dSpx'); if (sp) sp.addEventListener('change', () => { const pressed = $('#dRange [aria-pressed="true"]'); drawChart(id, pressed ? +pressed.dataset.r : 1827); });
 }
@@ -1326,7 +1352,7 @@ function drawChart(id, rangeDays) {
   const ml = st && st.pct != null ? [[st.q05, '5%'], [st.q25, '25%'], [st.q50, '50%'], [st.q75, '75%'], [st.q95, '95%']].map(([y, n]) => ({ yAxis: y, name: n, lineStyle: { color: n === '50%' ? ink2 : (n === '5%' || n === '95%') ? (meta.pol < 0 ? (n === '5%' ? greed : fear) : meta.pol > 0 ? (n === '5%' ? fear : greed) : muted) : muted, type: 'dashed', width: n === '50%' ? 1.2 : 1, opacity: .85 }, label: { formatter: n, color: muted, fontSize: 10, position: 'insideEndTop' } })) : [];
   (meta.refs || []).forEach(r => ml.push({ yAxis: r.v, name: r.t, lineStyle: { color: ink2, type: 'dotted' }, label: { formatter: r.t || '', color: ink2, fontSize: 10, position: 'insideStartTop' } }));
   const showSpx = !!($('#dSpx') && $('#dSpx').checked);
-  const spx = S.ser.get('spx');
+  const bm = benchOf(id, meta); const spx = S.ser.get(bm.id);
   const dec = meta.dec ?? 2;
   const lastT = s.t[s.t.length - 1];
   const startV = rangeDays ? lastT - rangeDays * DAY : s.t[0];
@@ -1336,7 +1362,7 @@ function drawChart(id, rangeDays) {
     axisPointer: { link: [{ xAxisIndex: 'all' }], lineStyle: { color: muted } },
     tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink, fontFamily: font }, formatter: ps => {
       if (!ps.length) return ''; const t = ps[0].value[0]; let h = `<b>${fmtDate(isoOf(t))}</b>`;
-      for (const p of ps) { if (p.value[1] == null) continue; const nm = p.seriesName; const v = nm === 'S&P 500' ? fmtN(p.value[1], 0) : nm === 'אחוזון מתגלגל' ? Math.round(p.value[1]) : fmtVal(meta, p.value[1]); h += `<br>${p.marker}${esc(nm)}: <b dir="ltr">${v}</b>`; }
+      for (const p of ps) { if (p.value[1] == null) continue; const nm = p.seriesName; const v = nm === bm.name ? fmtN(p.value[1], 0) : nm === 'אחוזון מתגלגל' ? Math.round(p.value[1]) : fmtVal(meta, p.value[1]); h += `<br>${p.marker}${esc(nm)}: <b dir="ltr">${v}</b>`; }
       return `<div dir="rtl" style="text-align:right">${h}</div>`; } },
     xAxis: [
       { type: 'time', gridIndex: 0, axisLine: { lineStyle: { color: line } }, axisLabel: { color: muted, hideOverlap: true }, splitLine: { show: false }, min: 'dataMin', max: 'dataMax' },
@@ -1355,7 +1381,17 @@ function drawChart(id, rangeDays) {
         markLine: { symbol: 'none', silent: true, data: [{ yAxis: 10 }, { yAxis: 90 }], lineStyle: { color: muted, type: 'dashed' }, label: { show: false } } },
     ],
   };
-  if (showSpx && spx) option.series.push({ name: 'S&P 500', type: 'line', xAxisIndex: 0, yAxisIndex: 1, data: spx.t.map((t, i) => [t, spx.v[i]]), showSymbol: false, lineStyle: { width: 1, color: muted, opacity: .7 }, z: 1 });
+  if (showSpx && spx) option.series.push({ name: bm.name, type: 'line', xAxisIndex: 0, yAxisIndex: 1, data: spx.t.map((t, i) => [t, spx.v[i]]), showSymbol: false, lineStyle: { width: 1, color: muted, opacity: .7 }, z: 1 });
+  if (/cmf/.test(id)) {
+    // Chaikin Money Flow as on TradingView: an oscillator around zero, green above and red below
+    const s0 = option.series[0]; const lastV = s.v[s.v.length - 1];
+    s0.lineStyle = { width: 1.4 }; s0.itemStyle = {}; s0.showSymbol = false;
+    s0.areaStyle = { origin: 0, opacity: .32 };
+    s0.markLine = { symbol: 'none', silent: true, data: [{ yAxis: 0, lineStyle: { color: ink2, type: 'solid', width: 1 }, label: { formatter: '0', color: muted, fontSize: 10, position: 'insideStartTop' } }] };
+    s0.markPoint.itemStyle = { color: lastV >= 0 ? greed : fear, borderColor: surface, borderWidth: 2 };
+    option.visualMap = [{ show: false, type: 'piecewise', seriesIndex: 0, dimension: 1, pieces: [{ min: -10, max: 0, color: fear }, { min: 0, max: 10, color: greed }] }];   // bounded pieces: open-ended ones break the line gradient in ECharts 5.6
+  }
+  lvDecorate(option, id);
   if (chartInst) chartInst.dispose();
   chartInst = echarts.init(el, null, { renderer: 'canvas' });
   chartInst.setOption(option);
@@ -1898,7 +1934,7 @@ async function loadRS() {
       const d = await fetchJSON('data/rs.json');
       const ix = Object.fromEntries(d.cols.map((c, i) => [c, i]));
       d.list = d.rows.map(r => ({ sym: r[ix.sym], name: r[ix.name], sec: r[ix.sec], gics: r[ix.gics], sp: !!r[ix.sp], mcap: r[ix.mcap], px: r[ix.px],
-        ret: r[ix.ret], atr: r[ix.atr], raw: r[ix.raw], rs: r[ix.rs], rsPrev: r[ix.rsPrev] }));
+        ret: r[ix.ret], m1: ix.m1 == null ? null : r[ix.m1], rs: r[ix.rs], rsPrev: r[ix.rsPrev] }));
       d.heb = {};
       for (const k of ['nas', 'gics']) for (const x of d.sectors[k]) d.heb[x.sector] = x.heb;
       RSD = d;
@@ -1944,7 +1980,7 @@ function renderMomentum() {
   const rsTip = (it) => {
     const r = it.rs; if (!r) return '';
     const peer = r.peer && r.peer[seg];
-    return `מהלך 2 שב׳: ${fmtPct(r.ret10)} · ${fmtS(r.raw, 2)} ATR${peer ? ` · מקום ${peer[0]} מתוך ${peer[1]} ב${XSEG[seg][0]}` : ''}`;
+    return `6-1: ${fmtPct(r.ret61)}${peer ? ` · מקום ${peer[0]} מתוך ${peer[1]} ב${XSEG[seg][0]}` : ''}`;
   };
   const frows = fx.map((it, i) => {
     const q = quadOf(it); const qq = q ? QUAD[q] : null; const ex = it.ex || {};
@@ -1957,22 +1993,17 @@ function renderMomentum() {
       <td>${qq ? `<span class="chip ${qq[1]}">${qq[0]}</span>` : '—'}</td></tr>`;
   }).join('');
   const coreSet = new Set(grp.items.length > 14 && grp.core && grp.core.length ? grp.core : grp.items);
-  const rrgList = fx.filter(it => coreSet.has(it.sym));
   const coreNote = coreSet.size < grp.items.length ? ` · ${coreSet.size} העיקריים מתוך ${grp.items.length}` : '';
-  const rsMeta = mk.rs && mk.rs.asof ? `RS: מהלך מ-${fmtDateShort(mk.rs.from)} עד ${fmtDate(mk.rs.asof)}` : '';
+  const rsMeta = mk.rs && mk.rs.asof ? `RS ‏6-1: ${fmtDateShort(mk.rs.from)} עד ${fmtDate(mk.rs.to || mk.rs.asof)}` : '';
   const fac = `<section class="panel fac" id="momFac">
-    <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד: עוצמה בשבועיים האחרונים (RS) ותשואה עודפת על S&amp;P 500 לאורך שנה.</p></div>
+    <div class="panel-head"><div><h2>מומנטום לפי פקטור</h2><p class="small muted" style="margin:2px 0 0">קבוצות של מניות שזזות יחד: RS של 6 חודשים בלי החודש האחרון (6-1), ותשואה עודפת על S&amp;P 500 לאורך שנה.</p></div>
       <div class="seg" role="group" aria-label="קבוצה" id="xSeg">${Object.entries(XSEG).map(([k, v]) => `<button type="button" data-s="${k}" aria-pressed="${seg === k}">${v[0]}</button>`).join('')}</div></div>
     <div class="xtools"><span class="small muted">מיון לפי</span><div class="seg" role="group" aria-label="מיון" id="xSort"><button type="button" data-v="score" aria-pressed="${!sortRs}">ציון מומנטום</button><button type="button" data-v="rs" aria-pressed="${sortRs}">RS</button></div><span class="small muted">${rsMeta}</span></div>
     <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${XSEG[seg][1]}</th><th>RS</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th></tr></thead><tbody>${frows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
-    <p class="small muted" style="margin:0"><b>RS</b>: המהלך של תעודת הסל בשבועיים האחרונים ביחס לתנודתיות שלה (ATR), כאחוזון מול כל המניות בשוק, באותו סולם כמו בטבלת המניות למטה. 90 = חזק מ-90% מהמניות. החץ: השינוי מול שבוע קודם. מעבר עם העכבר מראה את המהלך ואת המקום בקבוצה.
-      שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה" לפי המיקום במפה למטה.</p>
-    <div class="ix-grid">
-      <div class="panel inner"><div class="panel-head"><h3>מפת רוטציה</h3><span class="small muted">5 שבועות אחרונים${coreNote}</span></div><div class="chart cx" id="rrgChart" role="img" aria-label="מפת רוטציה של ${XSEG[seg][0]} מול S&amp;P 500"></div>
-        <p class="small muted" style="margin:0">ציר אופקי: עוצמה יחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מעל 100 = חזק מהמדד). ציר אנכי: האם העוצמה היחסית מתחזקת בשבועיים האחרונים. הקבוצות נוטות לנוע נגד כיוון השעון: משתפרים, מובילים, נחלשים, מפגרים.</p></div>
-      <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים${coreNote}</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
-        <p class="small muted" style="margin:0">1 = זזים יחד לגמרי, 0 = בלי קשר, מינוס = בכיוונים הפוכים. קבוצות עם קורלציה גבוהה הן בפועל אותו הימור.</p></div>
-    </div>
+    <p class="small muted" style="margin:0"><b>RS</b>: התשואה של תעודת הסל מלפני 6 חודשים ועד לפני חודש (6-1), כאחוזון מול כל המניות בשוק, באותו סולם כמו בטבלת המניות למטה. 90 = חזק מ-90% מהמניות. החודש האחרון לא נכלל כי בטווח של חודש מניות נוטות לתקן את המהלך, ולכן הוא מוסיף רעש למדידת מומנטום. החץ: השינוי מול שבוע קודם. מעבר עם העכבר מראה את התשואה ואת המקום בקבוצה.
+      שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה": העוצמה היחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מובילים ונחלשים מעליו, מפגרים ומשתפרים מתחתיו), והאם היא מתחזקת בשבועיים האחרונים.</p>
+    <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים${coreNote}</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
+      <p class="small muted" style="margin:0">1 = זזים יחד לגמרי, 0 = בלי קשר, מינוס = בכיוונים הפוכים. קבוצות עם קורלציה גבוהה הן בפועל אותו הימור.</p></div>
     ${ac ? `<div class="panel inner"><div class="panel-head"><h3>כמה השוק זז כגוש אחד</h3><span class="small muted">קורלציה ממוצעת בין 11 סקטורי S&amp;P 500, 3 חודשים מתגלגלים</span></div><div class="chart cx sm" id="acChart" role="img" aria-label="קורלציה ממוצעת בין סקטורים לאורך זמן"></div>
       <p class="small muted" style="margin:0">ערך גבוה = המניות זזות לפי גורם אחד משותף (מאקרו, פחד), ופיזור בין סקטורים מגן פחות. ערך נמוך = שוק של בחירת מניות. זינוקים חדים בקורלציה מופיעים בדרך כלל בירידות חדות.</p></div>` : ''}
   </section>`;
@@ -1990,30 +2021,16 @@ function renderMomentum() {
     ${mt && mt.ex ? `<div class="tile"><span class="k">פקטור המומנטום (MTUM) מול S&amp;P</span><span class="val">${ltr(fmtPct(mt.ex.m3))}</span><span class="s">3 חודשים · 12 ח': ${ltr(fmtPct(mt.ex.y1))}</span></div>` : ''}
     ${facList[0] ? `<div class="tile"><span class="k">הפקטור המוביל, שנה</span><span class="val">${esc(facList[0].name)}</span><span class="s">החלש: ${esc(facList[facList.length - 1].name)}</span></div>` : ''}
     ${secList[0] ? `<div class="tile"><span class="k">הסקטור המוביל, שנה</span><span class="val">${esc(secList[0].name)}</span><span class="s">החלש: ${esc(secList[secList.length - 1].name)}</span></div>` : ''}
-    ${bestRs ? `<div class="tile"><span class="k">החזק בשבועיים (RS)</span><span class="val">${esc(bestRs.name)}</span><span class="s">RS ${bestRs.rs.rs} · ${ltr(fmtPct(bestRs.rs.ret10))}</span></div>` : ''}
-    ${topRsSec ? `<div class="tile"><span class="k">סקטור מוביל לפי RS</span><span class="val">${esc(topRsSec.heb)}</span><span class="s">RS חציוני ${fmtN(topRsSec.med, 0)} · ${ltr(fmtPct(topRsSec.ret / 100))} בשבועיים</span></div>` : ''}
+    ${bestRs ? `<div class="tile"><span class="k">החזק לפי RS ‏(6-1)</span><span class="val">${esc(bestRs.name)}</span><span class="s">RS ${bestRs.rs.rs} · ${ltr(fmtPct(bestRs.rs.ret61))}</span></div>` : ''}
+    ${topRsSec ? `<div class="tile"><span class="k">סקטור מוביל לפי RS</span><span class="val">${esc(topRsSec.heb)}</span><span class="s">RS חציוני ${fmtN(topRsSec.med, 0)} · ${ltr(fmtPct(topRsSec.ret / 100))} ב-6-1</span></div>` : ''}
   </section>`;
-  // ---- global index momentum
-  const idxItems = mk.groups.filter(g => g.kind === 'index').flatMap(g => g.items.map(s => ({ it: items[s], g: g.name }))).filter(o => o.it && o.it.mom121 != null && o.it.chgMode !== 'pp');
-  const seen = new Set();
-  const gl = idxItems.filter(o => !seen.has(o.it.sym) && seen.add(o.it.sym)).sort((x, y) => y.it.mom121 - x.it.mom121);
-  const glRows = gl.map((o, i) => {
-    const it = o.it; const acc = (it.m3 != null && it.y1 != null) ? it.m3 - it.y1 / 4 : null;
-    const sig = it.mom121 > 0 && (it.ma200 ?? 0) > 0 ? ['חיובי', 's-g'] : it.mom121 < 0 && (it.ma200 ?? 0) < 0 ? ['שלילי', 's-f'] : ['מעורב', 's-n'];
-    return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted">${esc(o.g)}</div></td>
-      ${heatTd(it.w1, .05)}${heatTd(it.m1, .1)}${heatTd(it.m3, .2)}${heatTd(it.m6, .3)}${heatTd(it.y1, .5)}${heatTd(it.mom121, .5)}
-      <td>${acc == null ? '—' : `<span class="${acc >= 0 ? 'up-g' : 'up-f'}">${acc >= 0 ? '▲' : '▼'} ${ltr(fmtPct(acc))}</span>`}</td><td><span class="chip ${sig[1]}">${sig[0]}</span></td></tr>`;
-  }).join('');
-  const glob = `<section class="panel" id="momGlob"><div class="panel-head"><div><h2>מומנטום מדדים ונכסים בעולם</h2><p class="small muted" style="margin:2px 0 0">מדורג לפי מומנטום 12-1: התשואה מלפני 12 חודשים ועד לפני חודש, ההגדרה המקובלת במחקר על מומנטום.</p></div></div>
-    <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>מדד</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>12-1</th><th>האצה</th><th>אות מגמה</th></tr></thead><tbody>${glRows}</tbody></table></div>
-    <p class="small muted" style="margin:0">"האצה" = תשואת 3 החודשים פחות רבע מתשואת 12 החודשים: חיובי = המומנטום מתחזק ביחס לקצב השנתי. "אות מגמה" חיובי = מומנטום 12-1 חיובי והשער מעל ממוצע 200, שלילי = שניהם שליליים. תשואות במטבע המקומי של כל מדד. לחיצה על שורה פותחת גרף.</p></section>`;
   // ---- S&P 500 stock leaders (12-1)
   let stocks = '';
   if (MOM && MOM.leaders) {
     const srow = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num">${i + 1}</td><td><b class="ltr">${esc(r.sym)}</b> <a class="tvl" href="${tvUrl(r.sym)}" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.name)}</div></td><td>${esc(r.sector)}</td>
       ${heatTd(r.mom, .8)}${heatTd(r.m6, .5)}${heatTd(r.m3, .3)}${heatTd(r.m1, .15)}<td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`;
     const head = '<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>12-1</th><th>6 ח\'</th><th>3 ח\'</th><th>חודש</th><th>מהשיא</th><th></th></tr></thead>';
-    stocks = `<section class="panel" id="momSp"><div class="panel-head"><div><h2>מומנטום 12-1 ב-S&amp;P 500</h2><p class="small muted" style="margin:2px 0 0">30 המניות עם מומנטום 12-1 הגבוה במדד, מתוך ${MOM.n} מניות · ${fmtDate(MOM.asof)}. זה המומנטום של שנה, לעומת ה-RS של שבועיים למעלה.</p></div></div>
+    stocks = `<section class="panel" id="momSp"><div class="panel-head"><div><h2>מומנטום 12-1 ב-S&amp;P 500</h2><p class="small muted" style="margin:2px 0 0">30 המניות עם מומנטום 12-1 הגבוה במדד, מתוך ${MOM.n} מניות · ${fmtDate(MOM.asof)}. זה המומנטום של שנה (12-1), לעומת ה-RS של 6-1 למעלה.</p></div></div>
       <div class="ix-grid wide1">
         <div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.leaders.map(srow).join('')}</tbody></table></div>
         <div style="display:grid;gap:12px;align-content:start;min-width:0">
@@ -2026,14 +2043,14 @@ function renderMomentum() {
       <details class="lagd"><summary>15 המניות החלשות במדד</summary><div class="tbl-wrap"><table class="ft itbl ftab">${head}<tbody>${MOM.laggards.map(srow).join('')}</tbody></table></div></details>
       <p class="small muted" style="margin:0">תשואות מחיר. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 שבועות. ↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
   }
-  const nav = `<nav class="jump" aria-label="קפיצה לחלק בלשונית"><span class="small muted">בלשונית:</span>${[['momFac', 'פקטורים, סקטורים ונושאים'], ['rsPanel', 'RS לכל המניות'], ['momGlob', 'מדדים בעולם'], ['momSp', 'מומנטום 12-1 ב-S&amp;P 500']].map(([id, l]) => `<button type="button" class="btn ghost sm" data-jump="${id}">${l}</button>`).join('')}</nav>`;
-  el.innerHTML = tiles + nav + fac + rsSection() + glob + stocks;
+  const nav = `<nav class="jump" aria-label="קפיצה לחלק בלשונית"><span class="small muted">בלשונית:</span>${[['momFac', 'פקטורים, סקטורים ונושאים'], ['rsPanel', 'RS לכל המניות'], ['momSp', 'מומנטום 12-1 ב-S&amp;P 500']].map(([id, l]) => `<button type="button" class="btn ghost sm" data-jump="${id}">${l}</button>`).join('')}</nav>`;
+  el.innerHTML = tiles + nav + fac + rsSection() + stocks;
   $$('[data-jump]', el).forEach(bt => bt.addEventListener('click', () => { const t = document.getElementById(bt.dataset.jump); if (t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }));
   $$('#xSeg button', el).forEach(bt => bt.addEventListener('click', () => { S.xSeg = bt.dataset.s; lsSet('xSeg', S.xSeg); renderMomentum(); }));
   $$('#xSort button', el).forEach(bt => bt.addEventListener('click', () => { S.xSort = bt.dataset.v; lsSet('xSort', S.xSort); renderMomentum(); }));
   bindRs();
   if (typeof echarts === 'undefined') return;
-  drawRotation(rrgList); drawHeat(seg); if (ac) drawAvgCorr(ac);
+  drawHeat(seg); if (ac) drawAvgCorr(ac);
   if (MOM && MOM.sectors) drawSectorBars(MOM);
 }
 function tvUrl(sym) { return `https://www.tradingview.com/symbols/${encodeURIComponent(sym)}/`; }
@@ -2042,7 +2059,7 @@ function tvUrl(sym) { return `https://www.tradingview.com/symbols/${encodeURICom
 const RS_TYPES = { pref: 'מניות בכורה', fund: 'קרנות סגורות', warrant: 'כתבי אופציה', debt: 'אג"ח', spac: 'SPAC', unit: 'יחידות', right: 'זכויות' };
 const RS_COLS = [
   { k: null, l: '#' }, { k: 'sym', l: 'מניה' }, { k: 'sec', l: 'סקטור' }, { k: 'rs', l: 'RS' }, { k: 'dRs', l: 'שינוי בשבוע' },
-  { k: 'ret', l: 'תשואה 2 שב׳' }, { k: 'atr', l: 'ATR %' }, { k: 'raw', l: 'מהלך ב-ATR' }, { k: 'mcap', l: 'שווי שוק' }, { k: 'px', l: 'מחיר' }];
+  { k: 'ret', l: 'תשואה 6-1' }, { k: 'm1', l: 'החודש האחרון' }, { k: 'mcap', l: 'שווי שוק' }, { k: 'px', l: 'מחיר' }];
 function rsUi() {
   if (!S.rsUi) {
     let p = {};
@@ -2066,9 +2083,9 @@ function rsSection() {
   const valTxt = [minMatch != null ? `ב-${vals.length} ימי המסחר שנבדקו, לפחות ${fmtN(minMatch * 100, 1)}% מסגירות מניות S&amp;P 500 בצילומים זהות (עד 0.5%) לסגירות ב-Yahoo` : '',
     maxTr != null ? `התשואה היומית המשוקללת של מניות S&amp;P 500 בצילומים עקבה אחרי המדד בהפרש של עד ${fmtN(maxTr, 2)}%` : ''].filter(Boolean).join('. ');
   return `<section class="panel" id="rsPanel">
-    <div class="panel-head"><div><h2>RS לכל המניות בשוק</h2><p class="small muted" style="margin:2px 0 0">לכל מניה מחושב גודל המהלך שלה בשבועיים האחרונים ביחס לתנודתיות הרגילה שלה, והתוצאה מדורגת לאחוזונים מול ${fmtN(d.n, 0)} מניות. RS 99 = המהלך היחסי חזק מ-99% מהמניות. נכון לסגירת ${fmtDate(d.asof)}, מהלך מ-${fmtDate(d.from)}.</p></div>
+    <div class="panel-head"><div><h2>RS לכל המניות בשוק</h2><p class="small muted" style="margin:2px 0 0">לכל מניה מחושבת התשואה מלפני 6 חודשים ועד לפני חודש (6-1), והתוצאה מדורגת לאחוזונים מול ${fmtN(d.n, 0)} מניות. RS 99 = חזקה מ-99% מהמניות. החלון: ${fmtDate(d.from)} עד ${fmtDate(d.to)}, נכון לסגירת ${fmtDate(d.asof)}.</p></div>
       ${segBtns('rsUniv', [['all', 'כל השוק'], ['sp', 'S&amp;P 500']], u.univ)}</div>
-    <div class="rs-formula" dir="ltr"><span>Move<sub>ATR</sub> = (Close<sub>t</sub> − Close<sub>t−10</sub>) / ATR(10)</span><span dir="rtl">RS = האחוזון של המהלך, 1–100</span></div>
+    <div class="rs-formula" dir="ltr"><span>Return<sub>6-1</sub> = Close<sub>t−21</sub> / Close<sub>t−126</sub> − 1</span><span dir="rtl">RS = האחוזון של התשואה, 1–100</span></div>
     <div class="panel inner"><div class="panel-head"><h3>דירוג הסקטורים לפי RS</h3><span class="small muted" id="rsSecNote"></span></div><div class="srows" id="rsSecRows"></div></div>
     <div class="rs-tools">
       <label class="fld"><span class="small muted">חיפוש</span><input type="search" id="rsQ" placeholder="סימול או שם חברה" value="${esc(u.q)}" autocomplete="off" dir="auto"></label>
@@ -2080,12 +2097,12 @@ function rsSection() {
     <div class="tbl-wrap" id="rsTbl"></div>
     <div><button type="button" class="btn ghost sm" id="rsMore">הצג עוד 100</button></div>
     <details class="lagd"><summary>איך זה מחושב, מה הוצא ומה המגבלות</summary><div class="rs-notes small">
-      <p><b>החישוב:</b> מהלך ב-ATR = הסגירה ב-${fmtDate(d.asof)} פחות הסגירה ב-${fmtDate(d.from)} (10 ימי מסחר), חלקי ה-ATR של 10 הימים האלה (ממוצע ה-True Range: הגדול מבין High−Low, ‎|High − סגירה קודמת| ו-‎|Low − סגירה קודמת|). זה שקול לתשואה באחוזים חלקי ATR באחוזים. ה-RS הוא האחוזון של המהלך מול כל המניות שדורגו, מעוגל כלפי מעלה ל-1–100.${d.prevAsof ? ` "שינוי בשבוע" = מול אותו חישוב שהסתיים ב-${fmtDate(d.prevAsof)}.` : ''}</p>
+      <p><b>החישוב:</b> תשואה 6-1 = הסגירה ב-${fmtDate(d.to)} (לפני 21 ימי מסחר) חלקי הסגירה ב-${fmtDate(d.from)} (לפני 126 ימי מסחר), פחות 1. החודש האחרון לא נכלל: בטווח של חודש מניות נוטות לתקן את המהלך שלהן, ולכן הוא מחליש את אות המומנטום. זו ההגדרה המקובלת במחקר (בגרסת 12-1 לשנה). ה-RS הוא האחוזון של התשואה מול כל המניות שדורגו, מעוגל כלפי מעלה ל-1–100. "החודש האחרון" מוצג לידיעה בלבד ולא נכנס לדירוג.${d.prevAsof ? ` "שינוי בשבוע" = מול אותו חישוב שהסתיים שבוע קודם (${fmtDate(d.prevAsof)}).` : ''}</p>
       <p><b>פקטורים, סקטורים ונושאים:</b> אותו חישוב על תעודת הסל, ממוקם מול אותה התפלגות של כל המניות. כך RS של פקטור ו-RS של מניה נמצאים על אותו סולם.</p>
-      <p><b>דירוג סקטורים:</b> לפי ה-RS החציוני של המניות בסקטור (כל מניה במשקל שווה). לצדו: אחוז המניות עם RS של 80 ומעלה ("מובילות") ושל 20 ומטה, והתשואה של הסקטור בשבועיים במשקל לפי שווי שוק. ה-RS של כל המניות מחושב מול כל השוק, גם בתצוגת S&amp;P 500.</p>
-      <p><b>היקום:</b> מניות רגילות שנסחרות ב-NYSE, ‏NASDAQ ו-AMEX, ממחיר $1 ומעלה. הוצאו לפי סוג: ${types || '—'}. הוצאו גם מניות בלי נתונים מלאים לכל 11 הימים; ${fmtN(d.excludedFlat || 0, 0)} מניות שהסגירה שלהן לא זזה ב-4 ימים או יותר מתוך 10 (מסחר דליל)${ca.length ? `; ו-${ca.length} מניות עם פיצול או פעולה תאגידית בתוך החלון, שבהן המחיר הלא מתואם מעוות את התשואה (${ca.slice(0, 12).map(x => `<span class="ltr">${esc(x.sym)}</span>`).join(', ')}${ca.length > 12 ? ' ועוד' : ''})` : ''}.</p>
+      <p><b>דירוג סקטורים:</b> לפי ה-RS החציוני של המניות בסקטור (כל מניה במשקל שווה). לצדו: אחוז המניות עם RS של 80 ומעלה ("מובילות") ושל 20 ומטה, ותשואת 6-1 של הסקטור במשקל לפי שווי שוק. ה-RS של כל המניות מחושב מול כל השוק, גם בתצוגת S&amp;P 500.</p>
+      <p><b>היקום:</b> מניות רגילות שנסחרות ב-NYSE, ‏NASDAQ ו-AMEX, ממחיר $1 ומעלה. הוצאו לפי סוג: ${types || '—'}. הוצאו גם מניות בלי מחיר בתחילת החלון או בסופו${ca.length ? `; ו-${ca.length} מניות שבהן היחס בין המחיר לשווי השוק השתנה בתוך החלון ביחס של פיצול (למשל 2:1 או 1:10), כי המחיר בצילומים לא מתואם לפיצולים ומעוות את התשואה (${ca.slice(0, 12).map(x => `<span class="ltr">${esc(x.sym)}</span>`).join(', ')}${ca.length > 12 ? ' ועוד' : ''})` : ''}.</p>
       <p><b>מקור הנתונים:</b> צילומי מצב יומיים של רשימת המניות של NASDAQ (Open/High/Low/Close, שווי שוק וסקטור), שנשמרים בהיסטוריה של המאגר <a href="https://github.com/ozkanpakdil/top-us-stock-tickers" target="_blank" rel="noopener">ozkanpakdil/top-us-stock-tickers</a> ב-GitHub. כל צילום נלקח לפני פתיחת המסחר ומכיל את יום המסחר הקודם, ולכן הטבלה מתעדכנת בבוקר. למניות S&amp;P 500 (${fmtN(d.nYahoo || 0, 0)} מניות) משמשים נרות יומיים מ-Yahoo Finance, שמתואמים לפיצולים וכוללים גם חברות שחסרות ברשימה של NASDAQ.${valTxt ? ` בדיקת התאמה: ${valTxt}.` : ''}</p>
-      <p><b>מגבלות:</b> סיווג הסקטורים של NASDAQ שונה מ-GICS (למשל Visa ו-Mastercard מסווגות שם כצריכה מחזורית), ולכן יש גם תצוגת GICS ל-S&amp;P 500. למניות S&amp;P 500 שחסרות ברשימה של NASDAQ הסקטור בתצוגת כל השוק הוא המקביל ל-GICS. החלון של שבועיים קצר ורגיש לחדשות בודדות: מניה שקיבלה הצעת רכש תקפוץ לראש הרשימה. שווי השוק לפי מחיר מיום קודם.</p>
+      <p><b>מגבלות:</b> סיווג הסקטורים של NASDAQ שונה מ-GICS (למשל Visa ו-Mastercard מסווגות שם כצריכה מחזורית), ולכן יש גם תצוגת GICS ל-S&amp;P 500. למניות S&amp;P 500 שחסרות ברשימה של NASDAQ הסקטור בתצוגת כל השוק הוא המקביל ל-GICS. התשואה היא תשואת מחיר בלי דיבידנדים, כך שמניות עם דיבידנד גבוה נראות מעט חלשות יותר. מחוץ ל-S&amp;P 500 המחירים לא מתואמים לפיצולים, ומניה שעשתה פיצול בחלון מוצאת מהדירוג ולא מתוקנת. מניה שקיבלה הצעת רכש תופיע חזקה גם אם אין לה מומנטום של ממש. שווי השוק לפי מחיר מיום קודם.</p>
     </div></details>
   </section>`;
 }
@@ -2097,7 +2114,7 @@ function rsFiltered() {
     (u.cap === 0 || (r.mcap != null && r.mcap >= u.cap)) && r.rs >= u.minrs &&
     (!q || r.sym.toLowerCase().startsWith(q) || r.name.toLowerCase().includes(q)));
   const k = u.sort, dir = u.dir;
-  const val = (r) => k === 'rs' ? r.rs * 1000 + r.raw : k === 'dRs' ? (r.rsPrev == null ? null : r.rs - r.rsPrev) : k === 'sec' ? (d.heb[r[key]] || r[key]) : r[k];
+  const val = (r) => k === 'rs' ? r.rs * 1000 + r.ret / 1000 : k === 'dRs' ? (r.rsPrev == null ? null : r.rs - r.rsPrev) : k === 'sec' ? (d.heb[r[key]] || r[key]) : r[k];
   rows.sort((a, b) => {
     const x = val(a), y = val(b);
     if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
@@ -2113,7 +2130,7 @@ function rsRenderSectors() {
   $('#rsSecNote').textContent = u.univ === 'all'
     ? `${fmtN(total, 0)} מניות ב-${list.length} סקטורים לפי הסיווג של NASDAQ. לחיצה על סקטור מסננת את הרשימה.`
     : `${fmtN(total, 0)} מניות S&P 500 ב-${list.length} סקטורי GICS. לחיצה על סקטור מסננת את הרשימה.`;
-  const head = `<div class="srow head" aria-hidden="true"><span>#</span><span>סקטור</span><span>RS חציוני</span><span class="stats"><bdi dir="ltr">RS 80+</bdi><bdi dir="ltr">RS 20−</bdi><span>2 שב׳</span><span>מניות</span></span><span>המובילות (שווי 1B+)</span></div>`;
+  const head = `<div class="srow head" aria-hidden="true"><span>#</span><span>סקטור</span><span>RS חציוני</span><span class="stats"><bdi dir="ltr">RS 80+</bdi><bdi dir="ltr">RS 20−</bdi><span>6-1</span><span>מניות</span></span><span>המובילות (שווי 1B+)</span></div>`;
   $('#rsSecRows').innerHTML = head + list.map(s => {
     const dm = s.medPrev != null ? s.med - s.medPrev : null;
     return `<div class="srow${u.sector === s.sector ? ' on' : ''}" data-s="${esc(s.sector)}" tabindex="0" role="button" aria-pressed="${u.sector === s.sector}">
@@ -2123,7 +2140,7 @@ function rsRenderSectors() {
       <span class="stats">
         <span class="st"><bdi class="k" dir="ltr">RS 80+</bdi><span class="num up-g">${fmtN(s.p80, 0)}%</span></span>
         <span class="st"><bdi class="k" dir="ltr">RS 20−</bdi><span class="num up-f">${fmtN(s.p20, 0)}%</span></span>
-        <span class="st"><span class="k">2 שב׳</span>${ltr(fmtPct(s.ret / 100), s.ret >= 0 ? 'up-g' : 'up-f')}</span>
+        <span class="st"><span class="k">6-1</span>${ltr(fmtPct(s.ret / 100), s.ret >= 0 ? 'up-g' : 'up-f')}</span>
         <span class="st"><span class="k">מניות</span><span class="num muted">${fmtN(s.n, 0)}</span></span>
       </span>
       <span class="ld">${s.leaders.map(([sym, rs]) => `<span class="lchip"><span class="ltr">${esc(sym)}</span> <b>${rs}</b></span>`).join('')}</span>
@@ -2154,8 +2171,7 @@ function rsRenderTable() {
       <td>${rsBadge(r.rs)}</td>
       <td>${r.rsPrev == null ? '<span class="muted">—</span>' : rsDelta(r.rs, r.rsPrev)}</td>
       <td class="${r.ret >= 0 ? 'up-g' : 'up-f'}">${ltr(fmtS(r.ret, 1) + '%')}</td>
-      <td>${ltr(fmtN(r.atr, 1) + '%')}</td>
-      <td>${ltr(fmtS(r.raw, 2))}</td>
+      <td class="muted">${r.m1 == null ? '—' : ltr(fmtS(r.m1, 1) + '%')}</td>
       <td>${ltr(fmtCap(r.mcap))}</td>
       <td>${ltr(fmtN(r.px, r.px >= 1000 ? 0 : 2))}</td></tr>`;
   }).join('');
@@ -2207,39 +2223,6 @@ function drawSectorBars(m) {
 function chartBase() {
   return { animation: false, backgroundColor: 'transparent', textStyle: { fontFamily: tok('--f-body'), color: tok('--ink-2') } };
 }
-function drawRotation(list) {
-  const el = $('#rrgChart'); if (!el || !list.length) return;
-  const pts = list.flatMap(it => (it.rrg || []).map(p => [p[0], p[1]]));
-  if (!pts.length) return;
-  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-  const pad = (a) => Math.max(1, (Math.max(...a.map(v => Math.abs(v - 100)))) * 1.15);
-  const px = pad(xs), py = pad(ys);
-  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), surface = tok('--surface');
-  const palette = ['#0E6B52', '#B9482A', '#2F6DB5', '#8F5E10', '#6B3FA0', '#13765A', '#C2410C', '#0F766E', '#7C3AED', '#B45309', '#1D4ED8', '#BE123C', '#4D7C0F', '#0369A1', '#9D174D', '#57534E', '#A16207', '#155E75'];
-  const series = list.map((it, i) => {
-    const data = (it.rrg || []).map(p => [p[0], p[1], p[2]]);
-    const col = palette[i % palette.length];
-    return { name: it.name, type: 'line', data, showSymbol: true, symbolSize: (v, p) => (p.dataIndex === data.length - 1 ? 9 : 4), lineStyle: { width: 1.4, color: col, opacity: .75 }, itemStyle: { color: col },
-      label: { show: true, formatter: p => (p.dataIndex === data.length - 1 ? it.name : ''), position: 'right', fontSize: 11, color: ink }, z: 3 };
-  });
-  series.push({ type: 'line', data: [], markArea: { silent: true, itemStyle: { opacity: .5 }, data: [
-    [{ xAxis: 100, yAxis: 100, itemStyle: { color: tok('--greed-bg') } }, { xAxis: 100 + px, yAxis: 100 + py }],
-    [{ xAxis: 100, yAxis: 100 - py, itemStyle: { color: tok('--warn-bg') } }, { xAxis: 100 + px, yAxis: 100 }],
-    [{ xAxis: 100 - px, yAxis: 100 - py, itemStyle: { color: tok('--fear-bg') } }, { xAxis: 100, yAxis: 100 }],
-    [{ xAxis: 100 - px, yAxis: 100, itemStyle: { color: tok('--neutral-bg') } }, { xAxis: 100, yAxis: 100 + py }]] },
-    markLine: { silent: true, symbol: 'none', lineStyle: { color: muted, type: 'dashed' }, label: { show: false }, data: [{ xAxis: 100 }, { yAxis: 100 }] } });
-  const c = echarts.init(el); idxCharts.push(c);
-  c.setOption({ ...chartBase(), grid: { left: 44, right: 70, top: 26, bottom: 34 },
-    tooltip: { trigger: 'item', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: p => p.seriesName && p.value ? `<div dir="rtl" style="text-align:right"><b>${esc(p.seriesName)}</b><br>${fmtDate(p.value[2])}<br>עוצמה יחסית: <b dir="ltr">${fmtN(p.value[0], 1)}</b><br>מומנטום: <b dir="ltr">${fmtN(p.value[1], 1)}</b></div>` : '' },
-    xAxis: { type: 'value', min: +(100 - px).toFixed(1), max: +(100 + px).toFixed(1), axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { show: false }, axisLine: { lineStyle: { color: line } } },
-    yAxis: { type: 'value', min: +(100 - py).toFixed(1), max: +(100 + py).toFixed(1), axisLabel: { color: muted, formatter: v => fmtN(v, 1) }, splitLine: { show: false }, axisLine: { lineStyle: { color: line } } },
-    graphic: [
-      { type: 'text', right: 76, top: 30, style: { text: 'מובילים', fill: tok('--greed'), font: '700 12px ' + tok('--f-body') } },
-      { type: 'text', right: 76, bottom: 40, style: { text: 'נחלשים', fill: tok('--warn'), font: '700 12px ' + tok('--f-body') } },
-      { type: 'text', left: 50, bottom: 40, style: { text: 'מפגרים', fill: tok('--fear'), font: '700 12px ' + tok('--f-body') } },
-      { type: 'text', left: 50, top: 30, style: { text: 'משתפרים', fill: tok('--ink-2'), font: '700 12px ' + tok('--f-body') } }],
-    series });
-}
 function drawHeat(seg) {
   const el = $('#heatChart'); const cm = S.mk.corr && S.mk.corr[seg]; if (!el || !cm || !cm.syms.length) return;
   const names = cm.syms.map(s => (S.mk.items[s] && S.mk.items[s].name) || (s === 'SPY' ? 'S&P 500' : s));
@@ -2280,10 +2263,10 @@ function idxSummary(it) {
   if (it.rsi != null) p.push(it.rsi >= 70 ? `RSI ‏${fmtN(it.rsi, 0)}: קניית יתר.` : it.rsi <= 30 ? `RSI ‏${fmtN(it.rsi, 0)}: מכירת יתר.` : `RSI ‏${fmtN(it.rsi, 0)}, באזור ניטרלי.`);
   if (it.cmf && it.cmf.cmf != null) p.push(`Chaikin Money Flow של 20 ימים: ${fmtS(it.cmf.cmf, 2)}, ${it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'בלי לחץ ברור לכיוון אחד'}.`);
   if (it.dd52 != null) p.push(it.dd52 > -0.01 ? 'נסחר ליד השיא של 52 השבועות האחרונים.' : `${fmtN(Math.abs(it.dd52) * 100, 1)}% מתחת לשיא של 52 השבועות האחרונים.`);
-  if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים, ${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. במפת הרוטציה: ${QUAD[q][0]}` : ''}.`); }
+  if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים, ${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. ברוטציה מול המדד: ${QUAD[q][0]}` : ''}.`); }
   if (it.rs && it.rs.rs != null) {
     const r = it.rs;
-    p.push(`RS ${r.rs}: המהלך בשבועיים האחרונים (${fmtPct(r.ret10)}), ביחס לתנודתיות, ${r.rs >= 50 ? `חזק מ-${r.rs}%` : `חלש מ-${100 - r.rs}%`} מהמניות בשוק${r.rsPrev != null ? `, לעומת RS ${r.rsPrev} לפני שבוע` : ''}.`);
+    p.push(`RS ${r.rs}: התשואה מלפני 6 חודשים ועד לפני חודש (${fmtPct(r.ret61)}) ${r.rs >= 50 ? `חזקה מ-${r.rs}%` : `חלשה מ-${100 - r.rs}%`} מהמניות בשוק${r.rsPrev != null ? `, לעומת RS ${r.rsPrev} לפני שבוע` : ''}.`);
   }
   return p.join(' ');
 }
@@ -2305,7 +2288,7 @@ async function openIdx(sym) {
         ${tile('מהשיא, 52 שבועות', ltr(fmtPct(it.dd52)), `טווח ${ltr(priceFmt(it, it.lo52) + ' – ' + priceFmt(it, it.hi52))}`)}
         ${tile('מגמה', tr[1] ? `<span class="chip ${tr[1]}">${tr[0]}</span>` : '—', `תנודתיות 20 יום ${ltr(fmtN((it.vol20 || 0) * 100, 0) + '%')}`)}
         ${it.cmf && it.cmf.cmf != null ? tile('Chaikin Money Flow ‏(20)', ltr(fmtS(it.cmf.cmf, 2)), it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'מאוזן') : ''}
-        ${it.rs && it.rs.rs != null ? tile('RS, שבועיים', `${rsBadge(it.rs.rs)}${rsDelta(it.rs.rs, it.rs.rsPrev)}`, `מהלך ${ltr(fmtPct(it.rs.ret10))} · ${ltr(fmtS(it.rs.raw, 2))} ATR`) : ''}
+        ${it.rs && it.rs.rs != null ? tile('RS ‏(6-1)', `${rsBadge(it.rs.rs)}${rsDelta(it.rs.rs, it.rs.rsPrev)}`, `תשואת 6-1: ${ltr(fmtPct(it.rs.ret61))}`) : ''}
       </div>
       <section class="sd-box"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>
         ${ta ? `<div><button type="button" class="btn sm" id="toTa">לניתוח הטכני שלי על ${esc(it.name)}</button></div>` : ''}</section>
@@ -2316,8 +2299,9 @@ async function openIdx(sym) {
           <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
         </div>
         <div class="chart" id="xChart" role="img" aria-label="גרף מחיר של ${esc(it.name)} עם ממוצעים נעים"></div>
-        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים.</p>
+        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים. נקודות כתומות: הכניסות לאזור שנבחר בסטטיסטיקה למטה.</p>
       </section>
+      <section class="panel" id="xLevels"></section>
     </div>`;
   openOverlay(html);
   S.detail = 'x:' + sym;
@@ -2325,7 +2309,7 @@ async function openIdx(sym) {
   $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
   const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
   try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
-  if ($('#xChart')) { el.innerHTML = ''; drawIdxChart(sym, 365, isFac); }
+  if ($('#xChart')) { el.innerHTML = ''; S.lvlX = null; drawIdxChart(sym, 365, isFac); levelPanelIdx(sym); }
 }
 function sma(v, n) { const out = new Array(v.length).fill(null); let s = 0; for (let i = 0; i < v.length; i++) { s += v[i]; if (i >= n) s -= v[i - n]; if (i >= n - 1) out[i] = s / n; } return out; }
 function rsiArr(v, n = 14) {
@@ -2368,9 +2352,207 @@ function drawIdxChart(sym, rangeDays, isFac) {
       { name: it.name, type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, v[i]]), showSymbol: false, lineStyle: { width: 1.6, color: cl }, z: 3 },
       { name: 'ממוצע 50', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m50[i]]), showSymbol: false, lineStyle: { width: 1, color: c2, type: 'dashed' } },
       { name: 'ממוצע 200', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m200[i]]), showSymbol: false, lineStyle: { width: 1.2, color: muted, type: 'dotted' } },
+      ...(S.lvlX && S.lvlX.sym === sym && S.lvlX.sig.length && S.lvlX.sig.length <= 400 ? [{ name: 'כניסה לאזור', type: 'scatter', xAxisIndex: 0, yAxisIndex: 0, z: 5, symbolSize: 7, itemStyle: { color: tok('--warn'), borderColor: surface, borderWidth: 1 },
+        data: (() => { const pm = new Map(t.map((x, i) => [x, v[i]])); return S.lvlX.sig.filter(x => pm.has(x)).map(x => [x, pm.get(x)]); })() }] : []),
       { name: lower.name, type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: lower.data, showSymbol: false, lineStyle: { width: 1, color: ink }, connectNulls: true,
         markLine: lower.name === 'RSI' ? { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: greed, type: 'dashed' } }, { yAxis: 30, lineStyle: { color: fear, type: 'dashed' } }] } : undefined },
     ] });
+}
+
+// ---------------- level statistics: what the market did after an indicator crossed a chosen level ----------------
+const LV_H = [[5, 'שבוע'], [21, 'חודש'], [63, '3 חודשים'], [126, '6 חודשים'], [252, 'שנה']];
+const LV_LAG = { d: 0, w: 6, m: 45 };      // days until a reading is public (monthly data is dated at the start of the month)
+const LV_GAP = { d: 30, w: 30, m: 90 };    // days out of the zone before a new crossing counts as a new episode
+const IL_RE = /^(il_|ta35|ta125|tlv|eis_|usdils|eurils|boi_|il$)/;
+function benchOf(id, meta, useState = true) {
+  const st = useState && S.lvState && S.lvState['i:' + id];
+  if (st && LV_BENCH[st.bench] && S.ser.get(st.bench)) return { id: st.bench, name: LV_BENCH[st.bench] };
+  const il = meta && (meta.tab === 'israel' || IL_RE.test(id));
+  if (il && S.ser.get('ta35_px')) return { id: 'ta35_px', name: 'ת"א 35' };
+  return { id: 'spx', name: 'S&P 500' };
+}
+const LV_BENCH = { spx: 'S&P 500', ta35_px: 'ת"א 35' };
+function lvSum(a) {
+  if (!a.length) return { n: 0 };
+  let lo = Infinity, hi = -Infinity; for (const x of a) { if (x < lo) lo = x; if (x > hi) hi = x; }
+  return { n: a.length, med: median(a), avg: mean(a), pos: a.filter(x => x > 0).length / a.length, min: lo, max: hi };
+}
+// x, b: { t: [ms], v: [] }. o: { op: 'le' | 'ge', thr, lag (days), gap (days), mode: 'ep' | 'day' }
+function levelStudy(x, b, o) {
+  const lag = (o.lag || 0) * DAY, gap = (o.gap || 30) * DAY;
+  const hit = o.op === 'le' ? (v => v <= o.thr) : (v => v >= o.thr);
+  const n = b.v.length;
+  const entry = t => { const T = t + lag; const k = lb(b.t, T); return k < n && b.t[k] - T <= 6 * DAY ? k : -1; };
+  let lastHit = -Infinity, obs = 0, inZone = 0, from = null;
+  const days = [], eps = [];
+  for (let i = 0; i < x.v.length; i++) {
+    const v = x.v[i]; if (v == null || !isFinite(v)) continue;
+    obs++; if (from == null) from = x.t[i];
+    if (!hit(v)) continue;
+    inZone++;
+    const fresh = x.t[i] - lastHit > gap; lastHit = x.t[i];
+    const k = entry(x.t[i]);
+    const rec = { t: x.t[i], v, k };
+    if (fresh) eps.push(rec);
+    if (k >= 0) days.push(rec);
+  }
+  const lastV = (() => { for (let i = x.v.length - 1; i >= 0; i--) if (x.v[i] != null && isFinite(x.v[i])) return x.v[i]; return null; })();
+  const fwd = (k, h) => (k >= 0 && k + h < n ? b.v[k + h] / b.v[k] - 1 : null);
+  const ddOf = (k, h = 63) => { if (k < 0 || k + h >= n) return null; let m = Infinity; for (let j = k; j <= k + h; j++) m = Math.min(m, b.v[j]); return m / b.v[k] - 1; };
+  const sample = o.mode === 'day' ? days : eps.filter(e => e.k >= 0);
+  const rows = LV_H.map(([h, l]) => ({ h, l, c: lvSum(sample.map(e => fwd(e.k, h)).filter(r => r != null)) }));
+  const dds = sample.map(e => ddOf(e.k)).filter(r => r != null);
+  // baseline: every session of the benchmark over the same years
+  const k0 = from == null ? n : lb(b.t, from + lag);
+  const base = LV_H.map(([h]) => { const a = []; for (let k = k0; k + h < n; k++) a.push(b.v[k + h] / b.v[k] - 1); return lvSum(a); });
+  const bdd = []; for (let k = k0; k + 63 < n; k += 1) { let m = Infinity; for (let j = k; j <= k + 63; j++) m = Math.min(m, b.v[j]); bdd.push(m / b.v[k] - 1); }
+  const epRows = eps.slice(-12).reverse().map(e => ({ ...e, f: LV_H.map(([h]) => fwd(e.k, h)), dd: ddOf(e.k) }));
+  return { obs, inZone, from, eps: eps.length, rows, base, dd: lvSum(dds), dd10: dds.length ? dds.filter(d => d <= -0.10).length / dds.length : NaN,
+    bdd: lvSum(bdd), bdd10: bdd.length ? bdd.filter(d => d <= -0.10).length / bdd.length : NaN, epRows, nowIn: lastV != null && hit(lastV), lastV,
+    sigT: eps.map(e => [e.t, e.v]) };
+}
+function lvQuant(v) {
+  const a = v.filter(x => x != null && isFinite(x)).sort((p, q) => p - q);
+  const q = p => { if (!a.length) return NaN; const pos = (a.length - 1) * p, lo = Math.floor(pos), hi = Math.ceil(pos); return a[lo] + (a[hi] - a[lo]) * (pos - lo); };
+  return { q, pctOf: x => { if (!a.length) return NaN; return lb(a, x) / a.length * 100; } };
+}
+function lvRound(v, dec) { const f = 10 ** Math.min(4, Math.max(0, dec)); return Math.round(v * f) / f; }
+// ctx: { key, name, x: {t, v}, dec, fmt(v), freq, benches: [{id, name, ser}], bench, basisOpts?, onChange(state, res) }
+function lvRender(el, ctx) {
+  if (!el) return;
+  S.lvState = S.lvState || {};
+  const qn = lvQuant(ctx.x.v);
+  const lastV = (() => { for (let i = ctx.x.v.length - 1; i >= 0; i--) if (ctx.x.v[i] != null && isFinite(ctx.x.v[i])) return ctx.x.v[i]; return null; })();
+  if (lastV == null || ctx.x.v.length < 30) { el.innerHTML = `<div class="panel-head"><h3>סטטיסטיקה לפי רמה</h3></div><p class="small muted" style="margin:0">אין מספיק היסטוריה לחישוב.</p>`; return; }
+  const nowPct = qn.pctOf(lastV);
+  let st = S.lvState[ctx.key];
+  if (!st || st.basis !== ctx.basis) st = S.lvState[ctx.key] = { op: nowPct < 50 ? 'le' : 'ge', thr: lvRound(lastV, ctx.dec), mode: st ? st.mode : 'ep', bench: st ? st.bench : ctx.bench, basis: ctx.basis };
+  if (!ctx.benches.some(b => b.id === st.bench)) st.bench = ctx.bench;
+  const chips = [[null, 'היום', lastV], [5, '5%'], [10, '10%'], [25, '25%'], [50, 'חציון'], [75, '75%'], [90, '90%'], [95, '95%']]
+    .map(([p, l, v]) => { const val = lvRound(v ?? qn.q(p / 100), ctx.dec); return `<button type="button" class="lvchip" data-v="${val}" data-p="${p ?? ''}" title="${p == null ? 'הקריאה האחרונה' : `אחוזון ${p} בכל ההיסטוריה`}"><span>${l}</span> ${ltr(esc(ctx.fmt(val)))}</button>`; }).join('');
+  const benchSel = ctx.benches.length > 1 ? `<label class="fld"><span class="small muted">מה קרה אחר כך ל-</span><select id="lvBench">${ctx.benches.map(b => `<option value="${b.id}"${b.id === st.bench ? ' selected' : ''}>${esc(b.name)}</option>`).join('')}</select></label>` : '';
+  const basisSeg = ctx.basisOpts ? `<div class="fld"><span class="small muted">רמה לפי</span><div class="seg" role="group" id="lvBasis">${ctx.basisOpts.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${ctx.basis === v}">${l}</button>`).join('')}</div></div>` : '';
+  el.innerHTML = `<div class="panel-head"><div><h3>סטטיסטיקה לפי רמה</h3><p class="small muted" style="margin:2px 0 0">בוחרים רמה ובודקים מה קרה בפעמים הקודמות שהמדד הגיע אליה. אפשר לשנות את הרמה, את הכיוון ואת אופן הספירה.</p></div></div>
+    <div class="lv-tools">
+      ${basisSeg}
+      <div class="fld"><span class="small muted">תנאי</span><div class="seg" role="group" id="lvOp"><button type="button" data-v="le" aria-pressed="${st.op === 'le'}">שווה או מתחת ל-</button><button type="button" data-v="ge" aria-pressed="${st.op === 'ge'}">שווה או מעל</button></div></div>
+      <label class="fld lv-thr"><span class="small muted">רמה</span><input type="number" id="lvThr" inputmode="decimal" step="${ctx.dec > 0 ? (1 / 10 ** Math.min(ctx.dec, 3)) : 1}" value="${st.thr}" dir="ltr"></label>
+      <div class="fld"><span class="small muted">ספירה</span><div class="seg" role="group" id="lvMode"><button type="button" data-v="ep" aria-pressed="${st.mode === 'ep'}">כל כניסה לאזור</button><button type="button" data-v="day" aria-pressed="${st.mode === 'day'}">כל ${ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור</button></div></div>
+      ${benchSel}
+    </div>
+    <div class="lvchips" aria-label="רמות מוכנות">${chips}</div>
+    <div id="lvOut"></div>`;
+  const run = () => {
+    const b = ctx.benches.find(z => z.id === st.bench) || ctx.benches[0];
+    const out = $('#lvOut', el); if (!out) return;
+    if (!b || !b.ser || b.ser.v.length < 300) { out.innerHTML = '<p class="small muted" style="margin:0">אין היסטוריה של מדד ההשוואה.</p>'; return; }
+    if (!isFinite(st.thr)) { out.innerHTML = '<p class="small muted" style="margin:0">הזינו רמה.</p>'; return; }
+    const r = levelStudy(ctx.x, b.ser, { op: st.op, thr: st.thr, lag: ctx.lag ?? LV_LAG[ctx.freq || 'd'], gap: LV_GAP[ctx.freq || 'd'], mode: st.mode });
+    const opTxt = st.op === 'le' ? 'שווה או מתחת ל-' : 'שווה או מעל ';
+    const unitW = ctx.freq === 'm' ? 'חודשים' : ctx.freq === 'w' ? 'שבועות' : ctx.thin ? 'תצפיות' : 'ימים';
+    const pctZone = r.obs ? r.inZone / r.obs * 100 : 0;
+    const head = `<p class="small" style="margin:0;line-height:1.75">${esc(ctx.name)}: ${opTxt}<b>${ltr(esc(ctx.fmt(st.thr)))}</b> ב-<b>${fmtN(r.inZone, 0)}</b> ${unitW} מתוך ${fmtN(r.obs, 0)} (${fmtN(pctZone, pctZone < 1 ? 1 : 0)}% מהזמן) מאז ${fmtDate(isoOf(r.from))}, ב-<b>${fmtN(r.eps, 0)}</b> כניסות נפרדות לאזור.
+      ${r.nowIn ? '<span class="chip s-n">הקריאה האחרונה בתוך האזור</span>' : '<span class="chip chip-plain">הקריאה האחרונה מחוץ לאזור</span>'}</p>`;
+    if (!r.inZone) { out.innerHTML = head + '<p class="small muted" style="margin:0">המדד לא הגיע לרמה הזו בהיסטוריה הזמינה.</p>'; ctx.onChange && ctx.onChange(st, r); return; }
+    const few = r.rows[1].c.n < 5;
+    const td = (v, base) => v == null || !isFinite(v) ? '<td class="muted">—</td>' : `<td class="${base != null && isFinite(base) ? (v - base > 0.002 ? 'up-g' : v - base < -0.002 ? 'up-f' : '') : ''}">${ltr(fmtPct(v))}</td>`;
+    const rows = r.rows.map((o, i) => { const bs = r.base[i]; const c = o.c;
+      return `<tr><td>${o.l}</td>${c.n ? `${td(c.med, bs.med).replace('<td class="', '<td class="hl ')}${td(c.avg, bs.avg)}<td>${ltr(Math.round(c.pos * 100) + '%')}</td>${td(c.min)}${td(c.max)}<td class="muted">${fmtN(c.n, 0)}</td>` : '<td colspan="6" class="muted">אין עדיין מספיק זמן קדימה</td>'}
+        <td class="sep">${ltr(fmtPct(bs.med))}</td><td>${ltr(isFinite(bs.pos) ? Math.round(bs.pos * 100) + '%' : '—')}</td></tr>`; }).join('');
+    const ddTxt = r.dd.n ? `ירידה מקסימלית של ${esc(b.name)} מנקודת הכניסה, ב-3 החודשים שאחרי: <b>חציון ${ltr(fmtPct(r.dd.med))}</b>, הגרוע ${ltr(fmtPct(r.dd.min))}; ב-<b>${fmtN(r.dd10 * 100, 0)}%</b> מהמקרים הגיעה ל-10% ומעלה. בכל הימים: חציון ${ltr(fmtPct(r.bdd.med))}, ו-${fmtN(r.bdd10 * 100, 0)}% הגיעו ל-10%.` : '';
+    const epList = r.epRows.map(e => `<tr><td>${fmtDate(isoOf(e.t))}</td><td>${ltr(esc(ctx.fmt(e.v)))}</td>${e.f.slice(1).map(v => v == null ? '<td class="muted">—</td>' : `<td class="${v >= 0 ? 'up-g' : 'up-f'}">${ltr(fmtPct(v))}</td>`).join('')}<td>${e.dd == null ? '—' : ltr(fmtPct(e.dd))}</td></tr>`).join('');
+    out.innerHTML = head + `
+      ${few ? '<p class="small" style="margin:0"><span class="chip chip-w">מעט מקרים</span> פחות מ-5 מקרים עם חודש קדימה: התוצאות מקריות במידה רבה.</p>' : ''}
+      <div class="tbl-wrap"><table class="ft lvtbl"><thead><tr><th>אופק</th><th>חציון</th><th>ממוצע</th><th>% חיובי</th><th>הגרוע</th><th>הטוב</th><th>מקרים</th><th class="sep">חציון, כל הימים</th><th>% חיובי, כל הימים</th></tr></thead><tbody>${rows}</tbody></table></div>
+      ${ddTxt ? `<p class="small" style="margin:0;line-height:1.75">${ddTxt}</p>` : ''}
+      ${epList ? `<details class="lagd"><summary>${st.mode === 'ep' ? '' : 'תחילת '}הכניסות האחרונות לאזור (${Math.min(12, r.eps)} מתוך ${fmtN(r.eps, 0)})</summary><div class="tbl-wrap"><table class="ft"><thead><tr><th>תאריך</th><th>ערך</th>${LV_H.slice(1).map(h => `<th>${h[1]}</th>`).join('')}<th>ירידה מקס', 3 ח'</th></tr></thead><tbody>${epList}</tbody></table></div></details>` : ''}
+      <p class="small muted" style="margin:0">תשואת מחיר של ${esc(b.name)} בלי דיבידנדים, מסגירת יום ${ctx.lagNote || 'הקריאה'}${(ctx.lag ?? LV_LAG[ctx.freq || 'd']) ? ` (${ctx.lag ?? LV_LAG[ctx.freq || 'd']} ימים אחרי תאריך הנתון, כדי לא להשתמש במידע שעוד לא פורסם)` : ''}. ${st.mode === 'ep' ? `"כל כניסה לאזור": נספר רק היום הראשון של כל כניסה, וכניסה חדשה נספרת רק אחרי ${LV_GAP[ctx.freq || 'd']} ימים מחוץ לאזור, כך שכל מקרה הוא אירוע נפרד.` : `"כל ${ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור": כל קריאה נספרת, ולכן מקרים צמודים חופפים והמספר מנפח את הביטחון.`} ירוק/אדום בחציון ובממוצע = טוב או גרוע מהממוצע של כל הימים באותן שנים. ביצועי עבר אינם מבטיחים את העתיד.</p>`;
+    ctx.onChange && ctx.onChange(st, r);
+  };
+  const sync = (id, v) => $$(`#${id} button`, el).forEach(z => z.setAttribute('aria-pressed', String(z.dataset.v === v)));
+  $('#lvOp', el).addEventListener('click', e => { const z = e.target.closest('button'); if (!z) return; st.op = z.dataset.v; sync('lvOp', st.op); run(); });
+  $('#lvMode', el).addEventListener('click', e => { const z = e.target.closest('button'); if (!z) return; st.mode = z.dataset.v; sync('lvMode', st.mode); run(); });
+  let tm = 0;
+  $('#lvThr', el).addEventListener('input', e => { clearTimeout(tm); tm = setTimeout(() => { st.thr = parseFloat(e.target.value); run(); }, 250); });
+  $('.lvchips', el).addEventListener('click', e => {
+    const z = e.target.closest('.lvchip'); if (!z) return;
+    st.thr = +z.dataset.v; $('#lvThr', el).value = z.dataset.v;
+    if (z.dataset.p !== '') { st.op = +z.dataset.p < 50 ? 'le' : +z.dataset.p > 50 ? 'ge' : st.op; sync('lvOp', st.op); }
+    run();
+  });
+  const bs = $('#lvBench', el); if (bs) bs.addEventListener('change', e => { st.bench = e.target.value; run(); ctx.onBench && ctx.onBench(st.bench); });
+  const bb = $('#lvBasis', el); if (bb) bb.addEventListener('click', e => { const z = e.target.closest('button'); if (z && ctx.onBasis) ctx.onBasis(z.dataset.v); });
+  run();
+}
+// indicator detail (sentiment, macro, Israel): replaces the old "after similar percentile" table
+function levelPanel(id) {
+  const el = $('#dAnalog'); if (!el) return;
+  const meta = indMeta(id) || {};
+  const basis = (S.lvBasis && S.lvBasis[id]) || 'val';
+  const raw = id === COMP_ID ? composite(S.win).series : series(id);
+  if (!raw || !raw.v.length) { el.innerHTML = ''; return; }
+  const x = basis === 'pct' ? { t: raw.t, v: Array.from(rollingPct(id, S.win), v => (isNaN(v) ? null : v)) } : raw;
+  const def = benchOf(id, meta, false);
+  const benches = Object.entries(LV_BENCH).map(([bid, name]) => ({ id: bid, name, ser: S.ser.get(bid) })).filter(b => b.ser && b.ser.v.length);
+  lvRender(el, {
+    key: 'i:' + id, thin: !!meta.tab, name: basis === 'pct' ? `האחוזון המתגלגל של ${meta.name}` : meta.name, x, freq: meta.freq || 'd', basis,
+    dec: basis === 'pct' ? 0 : (meta.dec ?? 2), fmt: v => (basis === 'pct' ? fmtN(v, 0) : fmtVal(meta, v)),
+    basisOpts: [['val', 'ערך'], ['pct', `אחוזון מתגלגל, ${WIN_LABEL[S.win]}`]], benches, bench: def.id,
+    lagNote: meta.freq === 'm' ? 'הפרסום' : 'הקריאה',
+    onBasis: v => { S.lvBasis = S.lvBasis || {}; S.lvBasis[id] = v; levelPanel(id); lvRedraw(id); },
+    onBench: () => lvRedraw(id),
+    onChange: (st, r) => { S.lvl = { id, basis, thr: st.thr, sig: r ? r.sigT : [] }; lvRedrawSoon(id); },
+  });
+}
+let lvTm = 0;
+function lvRedrawSoon(id) { clearTimeout(lvTm); lvTm = setTimeout(() => lvRedraw(id), 60); }
+function lvRedraw(id) {
+  if (S.detail !== id || !$('#dChart')) return;
+  const p = $('#dRange [aria-pressed="true"]'); drawChart(id, p ? +p.dataset.r : 1827);
+  const lab = $('#dSpxName'); if (lab) lab.textContent = benchOf(id, indMeta(id)).name;
+}
+// adds the chosen level and the past crossings to the indicator chart
+function lvDecorate(option, id) {
+  const L = S.lvl; if (!L || L.id !== id) return;
+  const muted = tok('--muted'), acc = tok('--warn') || '#E9B75A', surface = tok('--surface');
+  if (L.basis === 'pct') {
+    const s = option.series[1]; if (!s) return;
+    s.markLine = { symbol: 'none', silent: true, data: [{ yAxis: L.thr, lineStyle: { color: acc, width: 1.5 }, label: { show: false } }] };
+    s.markPoint = undefined;
+    return;
+  }
+  const s0 = option.series[0];
+  const ml = (s0.markLine && s0.markLine.data) || [];
+  ml.push({ yAxis: L.thr, name: 'רמה', lineStyle: { color: acc, type: 'solid', width: 1.6, opacity: 1 }, label: { formatter: 'הרמה שנבחרה', color: acc, fontSize: 10, position: 'insideStartBottom' } });
+  s0.markLine = { ...(s0.markLine || { symbol: 'none', silent: true }), data: ml };
+  if (L.sig && L.sig.length && L.sig.length <= 400) option.series.push({ name: 'כניסה לאזור', type: 'scatter', xAxisIndex: 0, yAxisIndex: 0, data: L.sig, symbolSize: 7, itemStyle: { color: acc, borderColor: surface, borderWidth: 1 }, z: 5, tooltip: { show: false } });
+  void muted;
+}
+// momentum / index detail: the same study on a technical reading of the asset itself
+const LVX_METRICS = {
+  rsi: ['RSI ‏(14)', 0, v => rsiArr(v)],
+  ma200: ['מרחק מממוצע 200 (%)', 1, v => { const m = sma(v, 200); return v.map((x, i) => (m[i] ? (x / m[i] - 1) * 100 : null)); }],
+  dd52: ['מרחק מהשיא של 52 שבועות (%)', 1, v => { const out = new Array(v.length).fill(null); for (let i = 251; i < v.length; i++) { let m = -Infinity; for (let k = i - 251; k <= i; k++) m = Math.max(m, v[k]); out[i] = (v[i] / m - 1) * 100; } return out; }],
+  r63: ['תשואת 3 חודשים (%)', 1, v => v.map((x, i) => (i >= 63 ? (x / v[i - 63] - 1) * 100 : null))],
+};
+function levelPanelIdx(sym) {
+  const el = $('#xLevels'); const p = S.px && S.px[sym]; if (!el || !p) return;
+  const it = S.mk.items[sym];
+  const mKey = (S.lvx && S.lvx.metric) || 'rsi';
+  const [mName, mDec, fn] = LVX_METRICS[mKey];
+  const t = p.t.map(z => z * DAY);
+  const x = { t, v: fn(p.v) };
+  const self = { id: 'self', name: it.name, ser: { t, v: p.v } };
+  const spxSym = S.px['^GSPC'] ? '^GSPC' : S.px.SPY ? 'SPY' : null;
+  const benches = [self].concat(spxSym && spxSym !== sym ? [{ id: 'spx', name: 'S&P 500', ser: { t: S.px[spxSym].t.map(z => z * DAY), v: S.px[spxSym].v } }] : []);
+  const head = `<div class="xtools"><label class="fld" style="min-width:220px"><span class="small muted">מדד טכני</span><select id="lvMetric">${Object.entries(LVX_METRICS).map(([k, m]) => `<option value="${k}"${k === mKey ? ' selected' : ''}>${m[0]}</option>`).join('')}</select></label></div><div id="xLvBody"></div>`;
+  el.innerHTML = head;
+  $('#lvMetric', el).addEventListener('change', e => { S.lvx = { metric: e.target.value }; levelPanelIdx(sym); });
+  lvRender($('#xLvBody', el), {
+    key: 'x:' + sym + ':' + mKey, name: `${mName.replace(' (%)', '')} של ${it.name}`, x, freq: 'd', dec: mDec, basis: 'val',
+    fmt: v => (mKey === 'rsi' ? fmtN(v, 0) : fmtS(v, 1) + '%'), benches, bench: 'self', lag: 0,
+    onChange: (st, r) => { S.lvlX = { sym, sig: r ? r.sigT.map(([tt]) => tt) : [] }; clearTimeout(lvTm); lvTm = setTimeout(() => { const q = $('#xRange [aria-pressed="true"]'); if ($('#xChart') && S.px) drawIdxChart(sym, q ? +q.dataset.r : 365, it.score != null || !!it.ex); }, 60); },
+  });
 }
 
 // ---------------- macro tab ----------------
@@ -2441,7 +2623,7 @@ const MAC_CHARTS = {
   rates: { ids: ['fed_rate', 'boi_rate', 'ust2y', 'ust10y'], years: 10, title: 'ריבית ותשואות, 10 שנים' },
   labor: { ids: ['unrate'], years: 20, title: 'שיעור האבטלה בארה"ב, 20 שנה' },
   money: { ids: ['m2_yoy'], years: 25, mark: [0, ''], title: 'צמיחת M2 שנתית' },
-  energy: { ids: ['spark_pjm', 'spark_palo', 'spark_sp15', 'spark_nepool'], years: 2, mark: [0, ''], title: 'מרווח ספארק, $ ל-MWh' },
+  energy: { ids: ['spark_nyc', 'spark_isone', 'spark_pjm', 'spark_sp15'], years: 2, mark: [0, ''], title: 'מרווח ספארק, $ ל-MWh · ניו יורק וניו אינגלנד יומי, PJM ו-SP-15 מ-EIA' },
 };
 const LINE_COLORS = ['#0E6B52', '#B9482A', '#2F6DB5', '#8F5E10', '#6B3FA0', '#0F766E'];
 function macLines(elId, cfg) {
@@ -2531,7 +2713,7 @@ function renderMacro() {
     return `<button type="button" class="tile mtile" data-ind="${esc(id)}"><span class="k">${esc(label || ind.name)}</span><span class="val">${ltr(mFmt(ind, s.v[n]))}</span><span class="s">${fmtDateShort(s.d[n])}${c ? ` · בשנה ${chgHtml(c, c.v > 0 ? 'mup' : c.v < 0 ? 'mdn' : '')}` : ''}</span></button>`;
   };
   const tiles = `<section class="tiles idx-tiles">${[['us_cpi_yoy', 'אינפלציה ארה"ב'], ['us_core_pce_yoy', 'ליבת PCE'], ['il_cpi_yoy', 'אינפלציה בישראל'], ['fed_rate', 'ריבית הפד'], ['boi_rate', 'ריבית בנק ישראל'],
-    ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['spark_pjm', 'מרווח ספארק PJM']].map(([id, l]) => tile(id, l)).join('')}</section>`;
+    ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['spark_nyc', 'מרווח ספארק ניו יורק']].map(([id, l]) => tile(id, l)).join('')}</section>`;
   const commIds = (S.mk.groups.find(g => g.id === 'commod') || { items: [] }).items;
   const commRows = commIds.map(s => S.mk.items[s]).filter(Boolean).map(it => it.last == null ? '' : `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span>${it.desc ? ' · ' + esc(it.desc) : ''}</div></td>
       <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}${chgTd(it.dd52, { sym: '' })}</tr>`).join('');
@@ -2549,12 +2731,54 @@ function renderMacro() {
       : sec.id === 'cds' ? macTable(sec.ids, { first: 'מרווח' }) : macTable(sec.ids);
     return `<section class="panel" id="mac-${sec.id}"><div class="panel-head"><div><h2>${esc(sec.name)}</h2><p class="small muted" style="margin:2px 0 0">${esc(sec.desc)}</p></div></div>${extra}${table}</section>`;
   }).join('');
-  el.innerHTML = tiles + body + `<p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף היסטורי, אחוזונים ותנועה לאורך זמן. "מהקודם" = מול הפרסום הקודם (יום, שבוע או חודש לפי הסדרה). שינויים בריביות ובמרווחים בנקודות בסיס (נ"ב), בשיעורים חודשיים בנקודות אחוז, ובשאר הסדרות באחוזים. מקורות: FRED, הלמ"ס, בנק ישראל, EIA ו-Yahoo Finance.</p>`;
+  el.innerHTML = tiles + analogSection() + body + `<p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף היסטורי, אחוזונים ותנועה לאורך זמן. "מהקודם" = מול הפרסום הקודם (יום, שבוע או חודש לפי הסדרה). שינויים בריביות ובמרווחים בנקודות בסיס (נ"ב), בשיעורים חודשיים בנקודות אחוז, ובשאר הסדרות באחוזים. מקורות: FRED, הלמ"ס, בנק ישראל, EIA, ‏NYISO, ‏ISO-NE ו-Yahoo Finance.</p>`;
   $$('#macMov button', el).forEach(b => b.addEventListener('click', () => { S.macMov = +b.dataset.v; $$('#macMov button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMovers(); }));
   renderMovers();
   for (const [id, cfg] of Object.entries(MAC_CHARTS)) macLines('mac-ch-' + id, cfg);
   drawCurve();
   drawRatingBars((secs.find(s => s.id === 'credit') || { ids: [] }).ids);
+}
+// ---------------- macro analogs: past months that looked like today ----------------
+function analogSection() {
+  const A = MAC && MAC.analogs; if (!A || !A.analogs || !A.analogs.length) return '';
+  const ym = m => { const [y, mo] = m.split('-'); return `${mo}/${y}`; };
+  const vfmt = (v, u) => v == null ? '—' : u === '%' ? fmtN(v, 1) + '%' : fmtS(v, 2);
+  const now = A.vars.map(v => `<div class="an-var"><span class="k">${esc(v.name)}</span><b class="ltr num">${vfmt(v.now, v.unit)}</b><span class="small muted">אחוזון ${fmtN(v.pct, 0)} מאז 1976</span></div>`).join('');
+  const f = (o, k) => (o && o[k] != null ? o[k] : null);
+  const b12 = A.base && A.base.fwd12;
+  const pctTxt = v => (v == null ? '—' : fmtN(v * 100, 0) + '%');
+  const tile = (k, o, base) => `<div class="tile"><span class="k">${k}</span><span class="val ${f(o, 'med') > 0 ? 'up-g' : f(o, 'med') < 0 ? 'up-f' : ''}">${ltr(fmtPct(f(o, 'med')))}</span><span class="s">חציון · ממוצע ${ltr(fmtPct(f(o, 'avg')))} · חיובי ב-${pctTxt(f(o, 'pos'))}${base ? `<br>כל החודשים מאז 1990: חציון ${ltr(fmtPct(base.med))}, חיובי ב-${pctTxt(base.pos)}` : ''}</span></div>`;
+  const tiles = `<div class="tiles idx-tiles">${tile('S&amp;P 500, 3 חודשים אחרי', A.fwd3)}${tile('S&amp;P 500, חצי שנה אחרי', A.fwd6)}${tile('S&amp;P 500, שנה אחרי', A.fwd12, b12)}
+    <div class="tile"><span class="k">הירידה הגדולה בשנה שאחרי</span><span class="val up-f">${ltr(fmtPct(A.dd.med))}</span><span class="s">חציון · הגרוע ${ltr(fmtPct(A.dd.worst))} · ירידה של 10%+ ב-${pctTxt(A.dd.p10)}, ושל 20%+ ב-${pctTxt(A.dd.p20)}${A.base ? `<br>כל החודשים: חציון ${ltr(fmtPct(A.base.ddMed))}, ‏10%+ ב-${pctTxt(A.base.p10)}` : ''}</span></div></div>`;
+  // what stands out today: plain-language flags from the current readings
+  const V = Object.fromEntries(A.vars.map(v => [v.key, v]));
+  const risks = [], opps = [];
+  if (b12 && A.fwd12 && A.fwd12.med != null) (A.fwd12.med >= b12.med ? opps : risks).push(`שנה אחרי תקופות דומות S&amp;P 500 ${A.fwd12.med >= 0 ? 'עלה' : 'ירד'} בחציון ${ltr(fmtPct(A.fwd12.med))}, ${A.fwd12.med >= b12.med ? 'יותר' : 'פחות'} מהחציון של כל החודשים מאז 1990, שעומד על ${ltr(fmtPct(b12.med))}.`);
+  if (A.dd.p10 != null && A.base && A.base.p10 != null) (A.dd.p10 > A.base.p10 + 0.05 ? risks : A.dd.p10 < A.base.p10 - 0.05 ? opps : risks).push(`ירידה של 10% ומעלה בשנה שאחרי: ב-${pctTxt(A.dd.p10)} מהתקופות הדומות, לעומת ${pctTxt(A.base.p10)} בכל החודשים.`);
+  if (V.curve && V.curve.now < 0) risks.push(`העקום הפוך (10 שנים פחות 2: ${ltr(fmtS(V.curve.now, 2))}). עקום הפוך קדם לכל מיתון בארה"ב מאז שנות ה-70, בדרך כלל בפער של שנה עד שנתיים.`);
+  if (V.unrate_chg6 && V.unrate_chg6.now >= 0.3) risks.push(`האבטלה עלתה ב-${ltr(fmtN(V.unrate_chg6.now, 1))} נקודות בחצי שנה. עלייה של חצי נקודה ומעלה בתוך שנה סימנה בעבר את תחילתו של מיתון (בקירוב לכלל Sahm).`);
+  if (V.cpi_chg6 && V.cpi_chg6.now >= 0.5) risks.push(`האינפלציה מאיצה (${ltr(fmtS(V.cpi_chg6.now, 1))} נקודות בחצי שנה), מה שמקשה על הפד להוריד ריבית.`);
+  if (V.cpi_chg6 && V.cpi_chg6.now <= -0.5) opps.push(`האינפלציה יורדת (${ltr(fmtS(V.cpi_chg6.now, 1))} נקודות בחצי שנה), מה שפותח לפד מרחב להוריד ריבית.`);
+  if (V.baa && V.baa.pct >= 80) risks.push(`מרווח האשראי BAA רחב (אחוזון ${fmtN(V.baa.pct, 0)}): שוק האשראי מתמחר סיכון גבוה.`);
+  if (V.baa && V.baa.pct <= 20) opps.push(`מרווח האשראי BAA צר (אחוזון ${fmtN(V.baa.pct, 0)}): תנאי מימון נוחים לחברות. מנגד, מרווח צר מאוד משאיר מעט מקום לטעות.`);
+  const secs = (A.sectors || []);
+  const top = secs.slice(0, 3), bot = secs.slice(-3).reverse();
+  const secTxt = x => `<li><b>${esc(x.name)}</b>: ${ltr(fmtPct(x.avg))} מעל השוק בממוצע בשנה שאחרי, והכה את השוק ב-${fmtN(x.n * x.hit, 0)} מתוך ${x.n} התקופות</li>`;
+  const secTable = secs.length ? `<div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>#</th><th>ענף</th><th>תשואה עודפת ממוצעת, שנה אחרי</th><th>הכה את השוק</th><th>תקופות</th></tr></thead><tbody>${secs.map((x, i) => `<tr><td class="num">${i + 1}</td><td><b>${esc(x.name)}</b></td>${heatTd(x.avg, .12)}<td>${fmtN(x.hit * 100, 0)}%</td><td class="muted">${x.n}</td></tr>`).join('')}</tbody></table></div>` : '<p class="small muted" style="margin:0">נתוני הענפים (Ken French) לא נטענו בעדכון האחרון.</p>';
+  const cols = ['cpi_yoy', 'unrate', 'fedfunds', 'gs10', 'curve', 'baa'];
+  const rows = A.analogs.map(a => { const bestInd = Object.entries(a.ind || {}).sort((x, y) => y[1] - x[1])[0];
+    return `<tr><td><b class="ltr">${ym(a.month)}</b></td>${cols.map(k => `<td>${ltr(vfmt(a.values[k], (V[k] || {}).unit))}</td>`).join('')}${heatTd(a.fwd3, .12)}${heatTd(a.fwd6, .2)}${heatTd(a.fwd12, .3)}<td class="${a.dd12 != null && a.dd12 <= -0.1 ? 'up-f' : ''}">${ltr(fmtPct(a.dd12))}</td><td>${bestInd ? esc((A.sectors.find(x => x.key === bestInd[0]) || { name: bestInd[0] }).name) : '—'}</td></tr>`; }).join('');
+  return `<section class="panel" id="mac-analogs"><div class="panel-head"><div><h2>תקופות עם נתוני מאקרו דומים</h2><p class="small muted" style="margin:2px 0 0">${A.analogs.length} החודשים מאז ${A.from ? ym(A.from) : '1990'} שבהם תמונת המאקרו בארה"ב הייתה הכי דומה להיום, ומה עשו אחריהם שוק המניות והענפים.</p></div><span class="small muted">נתוני ${ym(A.now)}</span></div>
+    <div class="an-vars">${now}</div>
+    ${tiles}
+    <div class="ix-grid">
+      <div class="panel inner an-box an-opp"><div class="panel-head"><h3>הזדמנויות</h3></div><ul>${opps.map(x => `<li>${x}</li>`).join('')}${top.length ? `<li>הענפים שהובילו בתקופות הדומות:<ul>${top.map(secTxt).join('')}</ul></li>` : ''}</ul></div>
+      <div class="panel inner an-box an-risk"><div class="panel-head"><h3>סכנות</h3></div><ul>${risks.map(x => `<li>${x}</li>`).join('')}${bot.length ? `<li>הענפים שפיגרו:<ul>${bot.map(secTxt).join('')}</ul></li>` : ''}</ul></div>
+    </div>
+    <details class="lagd"><summary>כל הענפים בתקופות הדומות</summary>${secTable}</details>
+    <div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>חודש</th><th>אינפלציה</th><th>אבטלה</th><th>ריבית הפד</th><th>10 שנים</th><th>עקום</th><th>BAA</th><th>S&amp;P, 3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ירידה מקס', שנה</th><th>הענף המוביל</th></tr></thead>
+      <tbody><tr class="secr"><td><b>היום</b></td>${cols.map(k => `<td><b>${ltr(vfmt((V[k] || {}).now, (V[k] || {}).unit))}</b></td>`).join('')}<td colspan="5" class="muted">—</td></tr>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:0">איך נבחרו: לכל חודש מאז 1990 נמדד המרחק מהיום על פני 8 משתנים (אינפלציה שנתית והשינוי בה בחצי שנה, אבטלה והשינוי בה, ריבית הפד, תשואת 10 שנים, העקום ומרווח BAA), כל משתנה בסטיות תקן מהממוצע שלו מאז 1976. נבחרו החודשים הקרובים ביותר, לפחות 9 חודשים זה מזה כדי שכל אחד יהיה תקופה נפרדת, ולא מהשנתיים האחרונות. תשואות S&amp;P 500 בלי דיבידנדים מסוף החודש. ענפים: 12 תיקי הענפים של Kenneth French, תשואה עודפת על כל השוק בשנה שאחרי. ${A.analogs.length} תקופות הן מדגם קטן: זו תמונה של מה שקרה, לא תחזית.</p></section>`;
 }
 function moveTable(meta, s) {
   if (!s || !s.v || s.v.length < 2) return '';
@@ -2593,7 +2817,7 @@ function loadIsrael() {
   return loadIsrael.p;
 }
 const IL_SECTIONS = {
-  breadth: ['רוחב שוק', 'כמה מהמניות הגדולות בת"א משתתפות בתנועה. מחושב ממדגם של כ-80 מניות, קירוב לת"א 125.', ['il_pct50', 'il_pct200', 'il_adr10', 'il_hl', 'il_mcsi']],
+  breadth: ['רוחב שוק', 'כמה ממניות ת"א 125 משתתפות בתנועה. מחושב מכל מניות המדד (ההרכב העדכני), כל מניה במשקל שווה.', ['il_pct50', 'il_pct200', 'il_adr10', 'il_hl', 'il_mcsi']],
   trend: ['מגמה, תנודתיות ותיאבון לסיכון', 'ת"א 35 מול הממוצע, התנודתיות בפועל (במקום VTA35), ומי מוביל: הבנקים והמניות הבינוניות מול המדד.', ['ta35_ma200', 'ta35_rv20', 'il_ew_rel3', 'il_banks_rel3']],
   foreign: ['כסף זר ושקל', 'במקום נתוני פעילות זרים בבורסה: זרימת הכסף ל-EIS בניו יורק, ביצועי ישראל מול ארה"ב, והשקל.', ['eis_cmf', 'eis_rel', 'ta35_usd', 'usdils_dev', 'usdils', 'eurils']],
   macro: ['מאקרו ישראל', 'ריבית, אינפלציה, אג"ח ממשלתי והפער מול ארה"ב (במקום CDS של ישראל), אבטלה ומחירי דירות.', ['boi_rate', 'il_cpi_yoy', 'il_cpi_mom', 'il_real_rate', 'il_10y', 'il_spread', 'il_unemp', 'il_house_yoy']],
@@ -2607,9 +2831,9 @@ function ilStocksTable() {
   const rows = ilStockRows(IL.stocks || []).slice().sort((a, b) => (b.rs ?? -1) - (a.rs ?? -1) || (b.raw ?? -99) - (a.raw ?? -99));
   const body = rows.map((r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td>
     <td><b>${esc(r.name)}</b> <a class="tvl" href="https://www.tradingview.com/symbols/TASE-${encodeURIComponent(r.sym)}/" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.sym)}</div></td>
-    <td>${esc(names[r.sec] || r.sec)}</td><td>${rsBadge(r.rs)}</td>${heatTd(r.w1, .05)}${heatTd(r.m1, .12)}${heatTd(r.m3, .25)}${heatTd(r.y1, .5)}${heatTd(r.mom, .5)}
+    <td>${esc(names[r.sec] || r.sec)}</td><td>${rsBadge(r.rs)}</td>${heatTd(r.raw, .5)}${heatTd(r.w1, .05)}${heatTd(r.m1, .12)}${heatTd(r.m3, .25)}${heatTd(r.y1, .5)}${heatTd(r.mom, .5)}
     <td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${chgTd(r.ma200, { sym: '' })}${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`).join('');
-  return rows.length ? `<table class="ft itbl ftab"><thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>RS</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>12 ח'</th><th>12-1</th><th>מהשיא</th><th>מול ממוצע 200</th><th></th></tr></thead><tbody>${body}</tbody></table>`
+  return rows.length ? `<table class="ft itbl ftab"><thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>RS</th><th>6-1</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>12 ח'</th><th>12-1</th><th>מהשיא</th><th>מול ממוצע 200</th><th></th></tr></thead><tbody>${body}</tbody></table>`
     : '<p class="muted">אין מניות שעומדות בסינון.</p>';
 }
 function renderIsrael() {
@@ -2647,17 +2871,17 @@ function renderIsrael() {
       : key === 'breadth' ? `<div class="panel inner"><div class="panel-head"><h3>% מניות מעל ממוצע 200 ומעל ממוצע 50</h3></div><div class="chart cx sm2" id="il-ch-breadth" role="img" aria-label="רוחב השוק בת&quot;א"></div></div>` : '';
     return `<section class="panel" id="il-${key}"><div class="panel-head"><div><h2>${name}</h2><p class="small muted" style="margin:2px 0 0">${desc}</p></div></div>${chart}${macTable(ids, { first: 'אינדיקטור' })}</section>`; };
   const names = IL.sectorNames || {};
-  const sectors = `<section class="panel" id="il-sectors"><div class="panel-head"><div><h2>סקטורים בת"א</h2><p class="small muted" style="margin:2px 0 0">סלים במשקל שווה מהמניות במדגם. לחיצה על כותרת עמודה ממיינת.</p></div></div>
+  const sectors = `<section class="panel" id="il-sectors"><div class="panel-head"><div><h2>סקטורים בת"א</h2><p class="small muted" style="margin:2px 0 0">סלים במשקל שווה ממניות ת"א 125 בכל סקטור. לחיצה על כותרת עמודה ממיינת.</p></div></div>
     <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>סקטור</th><th>מניות</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ת"א 125, 3 ח'</th></tr></thead><tbody>
     ${(IL.sectors || []).slice().sort((a, b) => (b.m3 ?? -9) - (a.m3 ?? -9)).map((x, i) => `<tr><td class="num">${i + 1}</td><td><b>${esc(x.name)}</b></td><td>${x.n}</td>${heatTd(x.w1, .04)}${heatTd(x.m1, .1)}${heatTd(x.m3, .2)}${heatTd(x.ytd, .3)}${heatTd(x.y1, .4)}${heatTd(x.rel3, .15)}</tr>`).join('')}
     </tbody></table></div></section>`;
-  const stocks = `<section class="panel" id="il-stocks"><div class="panel-head"><div><h2>RS ומומנטום למניות בת"א</h2><p class="small muted" style="margin:2px 0 0">RS = המהלך של שבועיים ביחס ל-ATR, כאחוזון מול המניות במדגם (${IL.n}). 12-1 = התשואה מלפני שנה עד לפני חודש.</p></div></div>
+  const stocks = `<section class="panel" id="il-stocks"><div class="panel-head"><div><h2>RS ומומנטום למניות בת"א</h2><p class="small muted" style="margin:2px 0 0">${IL.n} מניות ת"א 125. RS = התשואה מלפני 6 חודשים עד לפני חודש (6-1), כאחוזון מול מניות המדד. 12-1 = התשואה מלפני שנה עד לפני חודש.</p></div></div>
     <div class="rs-tools"><label class="fld"><span class="small muted">חיפוש</span><input type="search" id="ilQ" placeholder="סימול או שם" value="${esc(S.ilQ || '')}" autocomplete="off"></label>
       <label class="fld"><span class="small muted">סקטור</span><select id="ilSec"><option value="">כל הסקטורים</option>${Object.entries(names).map(([k, v]) => `<option value="${k}"${S.ilSec === k ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label></div>
     <div class="tbl-wrap" id="ilStk">${ilStocksTable()}</div>
     <p class="small muted" style="margin:0">↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
   const notes = `<details class="lagd"><summary>מה יש כאן, ממה זה מחושב, ומה חסר</summary><div class="rs-notes small">
-    <p><b>המדגם:</b> ${IL.n} מניות גדולות שנסחרות בת"א (${esc((IL.missing || []).map(m => m.replace('.TA', '')).join(', ')) ? 'לא נמצאו ב-Yahoo: ' + esc(IL.missing.map(m => m.replace('.TA', '')).join(', ')) + '. ' : ''}רוחב השוק והסקטורים מחושבים מהן, ולכן הם קירוב לת"א 125 ולא החישוב הרשמי של הבורסה.</p>
+    <p><b>המניות:</b> ${IL.n} מתוך ${IL.listed || 125} מניות ת"א 125 לפי ההרכב העדכני של המדד${(IL.missing || []).length ? ` (אין נתונים ב-Yahoo Finance ל: ${esc(IL.missing.map(m => m.split('|')[0].replace('.TA', '')).join(', '))})` : ''}. רוחב השוק והסקטורים מחושבים מהן כשכל מניה במשקל שווה, ולכן הם לא זהים למדד הרשמי של הבורסה, שמשוקלל לפי שווי שוק. כשהרכב המדד משתנה, הרשימה מתעדכנת ידנית.</p>
     <p><b>מדד הסנטימנט הישראלי:</b> ממוצע האחוזונים של 10 הרכיבים בטבלה, כל אחד מול 5 השנים שקדמו לו, אחרי התאמת כיוון. נדרשים לפחות 5 רכיבים ביום.</p>
     <p><b>מה שאין לו מקור חינמי, ומה במקומו:</b> מדד הפחד VTA35 ← התנודתיות בפועל של ת"א 35. CDS של ישראל ← פער התשואות מול ארה"ב. פעילות משקיעים זרים בבורסה ← זרימת הכסף ל-EIS ועוצמת השקל. Put/Call ישראלי וסקרי משקיעים מקומיים לא זמינים.</p>
     <p><b>מקורות:</b> Yahoo Finance (מניות ומדדי ת"א, EIS, שקל), FRED (תשואת האג"ח והאבטלה לפי OECD, מחירי דיור לפי BIS), הלמ"ס ובנק ישראל (אינפלציה וריבית).</p></div></details>`;
@@ -2725,7 +2949,7 @@ const NAV = {
     ...GROUPS.filter(([g]) => !['macro', 'other'].includes(g) && (!S.ind || [...S.ind.values()].some(i => i.group === g && i.pin && i.tab !== 'macro'))).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
-  momentum: { d: 'פקטורים, סקטורים ונושאים, RS לכל מניה ומומנטום בעולם', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מדדים ונכסים בעולם', '#momGlob'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
+  momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   israel: { d: 'סנטימנט, רוחב שוק, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
   analysis: { d: 'הניתוח הטכני שלך לכל מניה בתיק: גרף, רמות ושורה תחתונה', items: () => [['כל הניתוחים', '#anTop']] },
@@ -2796,7 +3020,7 @@ function cmdItems(q) {
     for (const r of RSD.list) {
       if (n >= 12) break;
       if (r.sym.toLowerCase().startsWith(q) || (q.length > 2 && r.name.toLowerCase().includes(q))) {
-        n++; out.push({ g: 'מניות · RS', l: `${r.sym} · ${r.name}`, s: `RS ${r.rs} · ${fmtS(r.ret, 1)}% בשבועיים`, w: r.sym.toLowerCase() === q ? 5 : starts(r.sym) ? 2 : 0, run: () => {
+        n++; out.push({ g: 'מניות · RS', l: `${r.sym} · ${r.name}`, s: `RS ${r.rs} · ${fmtS(r.ret, 1)}% ב-6-1`, w: r.sym.toLowerCase() === q ? 5 : starts(r.sym) ? 2 : 0, run: () => {
           const u = rsUi(); u.q = r.sym; u.sector = ''; u.minrs = 0; u.cap = 0; u.univ = 'all'; u.shown = 100; closeCmd();
           if (S.tab === 'momentum' && $('#rsPanel')) { $('#rsQ').value = r.sym; rsSyncSeg('rsMin', 0); rsSyncSeg('rsCap', 0); rsSyncSeg('rsUniv', 'all'); rsAll(); }
           goTo('momentum', '#rsPanel'); } });

@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import breadth, israel, macro, markets, rs, sources
+from . import analogs, breadth, israel, macro, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -110,6 +110,12 @@ def run(offline: bool = False) -> int:
             if cv:
                 dump_json(ROOT / "data" / "derived" / "curve.json", cv)
             st.add("macro", "מאקרו: FRED, הלמ\"ס, בנק ישראל, EIA", len(data) >= 40, _last(data.get("ust10y", {})), msg)
+        # 7c. Macro analogs: past months that looked like today, and what stocks and industries did next
+        res = step(st, "analogs", "מאקרו: תקופות דומות בעבר", lambda: analogs.run(macro.fred_series))
+        if res:
+            dump_json(analogs.OUT, res)
+            st.add("analogs", "מאקרו: תקופות דומות בעבר", True, res["now"], f"{len(res['analogs'])} תקופות דומות מאז {res['from']}"
+                   + ("" if res["ff"] else " · בלי נתוני תעשיות (Ken French לא זמין)"))
         # 8. Cboe daily put/call (best effort)
         res = step(st, "cboe_pc", "Cboe Put/Call יומי", sources.cboe_putcall)
         if res is not None:
@@ -216,7 +222,9 @@ def build(st: Status, u: dict, px) -> None:
     dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds, "macro": macro.site_meta()})
     curve_file = ROOT / "data" / "derived" / "curve.json"
     dump_json(tmp / "data" / "israel.json", israel.site_payload())
+    an_file = analogs.OUT
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
+                                             "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
                                              "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
@@ -234,7 +242,7 @@ def build(st: Status, u: dict, px) -> None:
         etf_file = ROOT / "data" / "derived" / "rs_etf.json"
         if etf_file.exists():
             etf = json.loads(etf_file.read_text(encoding="utf-8"))
-            mk["rs"] = {k: etf.get(k) for k in ("asof", "from", "prevAsof")}
+            mk["rs"] = {k: etf.get(k) for k in ("asof", "from", "to", "prevAsof", "method")}
             for sym, rec in etf.get("items", {}).items():
                 if sym in mk["items"]:
                     mk["items"][sym]["rs"] = rec

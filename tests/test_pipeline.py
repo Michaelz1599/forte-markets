@@ -88,19 +88,6 @@ def _snap(syms, close, high=None, low=None, price=None, cap=1e9, names=None, ind
                          "industry": ind}, index=pd.Index(syms, name="symbol"))
 
 
-def test_rs_window_math_matches_hand_calculation():
-    days = _dates(11)
-    c = pd.DataFrame({"A": [10, 11, 12, 11, 13, 14, 13, 15, 16, 15, 17.0]}, index=days)
-    h = c + 0.5
-    lo = c - 0.5
-    w = rs.window_stats(c, h, lo, 10)
-    trs = []
-    for i in range(1, 11):
-        hi_, lo_, pc = h["A"].iloc[i], lo["A"].iloc[i], c["A"].iloc[i - 1]
-        trs.append(max(hi_ - lo_, abs(hi_ - pc), abs(lo_ - pc)))
-    assert abs(w.at["A", "raw"] - (17 - 10) / np.mean(trs)) < 1e-9
-    assert abs(w.at["A", "ret"] - 0.7) < 1e-9
-
 
 def test_rs_percentiles_and_against_distribution():
     raw = pd.Series(np.arange(1, 201, dtype=float), index=[f"S{i}" for i in range(200)])
@@ -144,7 +131,7 @@ def test_rs_session_mapping():
     assert rs.session_of(dt.datetime(2026, 10, 19, 15, 0, tzinfo=utc), days) is None          # during the session
 
 
-def _snap_set(n_days=22, n=600, seed=1):
+def _snap_set_old(n_days=22, n=600, seed=1):
     rng = np.random.default_rng(seed)
     days = _dates(n_days)
     syms = [f"S{i:03d}" for i in range(n)]
@@ -157,82 +144,8 @@ def _snap_set(n_days=22, n=600, seed=1):
     return days, syms, paths, snaps
 
 
-def test_rs_compute_end_to_end_with_yahoo_override_and_corporate_actions():
-    days, syms, paths, snaps = _snap_set()
-    # a 1:10 reverse split on S105 halfway through the window: Yahoo close jumps 10x, NASDAQ price shows it a day later
-    k = len(days) - 5
-    for d in days[k:]:
-        for f in ("close", "high", "low", "open"):
-            snaps[d].at["S105", f] *= 10
-    snaps[days[k + 1]].at["S105", "price"] *= 10
-    # a flat, illiquid name
-    for d in days:
-        for f in ("close", "high", "low", "open", "price"):
-            snaps[d].at["S106", f] = 5.0
-    # S&P 500 members: S000..S049 via Yahoo, plus a member NASDAQ's list leaves out (XYZ)
-    members = {s: (f"Name {s}", "Information Technology") for s in syms[:50]}
-    members["XYZ"] = ("Xyz Corp", "Financials")
-    yc = pd.DataFrame(paths[:, :50], index=days, columns=syms[:50])
-    yc["XYZ"] = np.linspace(100, 130, len(days))
-    yf = {"close": yc, "high": yc * 1.01, "low": yc * 0.99}
-    spx = pd.Series(np.linspace(6000, 6100, len(days)), index=days)
-    res = rs.compute(snaps, days, members, yf, spx)
-    out = rs.payload(res)
-    cols = out["cols"]
-    rows = {r[0]: dict(zip(cols, r)) for r in out["rows"]}
-    assert "S105" not in rows and "S106" not in rows
-    assert any(x["sym"] == "S105" for x in out["corporateActions"])
-    assert out["excludedFlat"] >= 1
-    assert "XYZ" in rows and rows["XYZ"]["sp"] == 1 and rows["XYZ"]["gics"] == "Financials" and rows["XYZ"]["sec"] == "Finance"
-    assert rows["XYZ"]["rs"] >= 95          # a steady 30% climb beats random walks
-    assert out["nSp"] == 51 and out["nYahoo"] == 51
-    assert all(1 <= r["rs"] <= 100 for r in rows.values())
-    assert out["prevAsof"] == days[-1 - rs.PREV] and out["from"] == days[-1 - rs.N]
-    assert all(v["match"] == 1.0 for v in out["validation"]["sessions"].values())
-    assert {x["sector"] for x in out["sectors"]["gics"]} == {"Information Technology", "Financials"}
-    assert sum(x["n"] for x in out["sectors"]["nas"]) == len(rows)
-    # the ETF side ranks against the same distribution
-    assert res["_dists"] and len(res["_dist_now"]) == len(rows)
 
 
-def test_rs_refuses_snapshots_that_disagree_with_yahoo():
-    days, syms, paths, snaps = _snap_set()
-    members = {s: (s, "Industrials") for s in syms[:300]}
-    yc = pd.DataFrame(paths[:, :300], index=days, columns=syms[:300])
-    yc.iloc[-1] *= 1.05                   # e.g. a snapshot mapped to the wrong session
-    yf = {"close": yc, "high": yc * 1.01, "low": yc * 0.99}
-    try:
-        rs.compute(snaps, days, members, yf, None)
-    except ValueError as e:
-        assert "disagree" in str(e)
-    else:
-        raise AssertionError("expected a validation error")
-
-
-def test_rs_etf_against_stock_distribution(tmp_path, monkeypatch):
-    monkeypatch.setattr(rs, "DIST_CSV", tmp_path / "dist.csv")
-    monkeypatch.setattr(rs, "ETF_CSV", tmp_path / "etf.csv")
-    days, syms, paths, snaps = _snap_set()
-    res = rs.compute(snaps, days, None, None, None)
-    up = pd.Series(np.linspace(100, 140, len(days)), index=days)
-    dn = pd.Series(np.linspace(100, 70, len(days)), index=days)
-    close = pd.DataFrame({"UP": up, "DN": dn})
-    out = rs.etf_rs(res, {"close": close, "high": close * 1.005, "low": close * 0.995}, {"factors": ["UP", "DN"]})
-    it = out["items"]
-    assert it["UP"]["rs"] == 100 and it["DN"]["rs"] == 1
-    assert it["UP"]["peer"]["factors"] == [1, 2] and it["DN"]["peer"]["factors"] == [2, 2]
-    assert it["UP"]["rsPrev"] == 100 and len(it["UP"]["rsHist"]) >= 2
-    assert (tmp_path / "etf.csv").exists() and (tmp_path / "dist.csv").exists()
-
-
-def test_rs_drops_bad_snapshots_outside_the_window():
-    days, syms, paths, snaps = _snap_set()
-    members = {s: (s, "Industrials") for s in syms[:300]}
-    yc = pd.DataFrame(paths[:, :300], index=days, columns=syms[:300])
-    yc.iloc[1] *= 1.05                    # an old session, outside both windows
-    yf = {"close": yc, "high": yc * 1.01, "low": yc * 0.99}
-    out = rs.payload(rs.compute(snaps, days, members, yf, None))
-    assert out["validation"]["dropped"] == [days[1]] and days[1] not in out["validation"]["sessions"]
 
 
 # --------------------------------------------------------------------------- macro
@@ -299,3 +212,101 @@ def test_israel_composite_and_tables():
     cfg = israel.load()
     assert set(cfg["components"]) <= {s["id"] for s in cfg["series"]}
     assert all(d["tab"] == "israel" and not d["pin"] for d in israel.indicator_defs(cfg))
+
+
+
+def _snaps61(n=600, seed=3):
+    """Snapshots at offsets 0, 5, 21, 26, 126, 131 sessions back, with a known 6-1 return per stock."""
+    rng = np.random.default_rng(seed)
+    days = _dates(140)
+    syms = [f"S{i:03d}" for i in range(n)]
+    offs = (0, 5, rs.SKIP, rs.SKIP + 5, rs.LOOK, rs.LOOK + 5)
+    lvl = {o: 50 * np.exp(rng.normal(0, 0.3, n)) for o in offs}
+    snaps, at = {}, {}
+    for o in offs:
+        d = days[-1 - o]
+        snaps[d] = _snap(syms, lvl[o], cap=lvl[o] * 1e7)
+        at[o] = d
+    return days, syms, lvl, snaps, at
+
+
+def test_rs61_ranks_six_minus_one_and_drops_splits():
+    days, syms, lvl, snaps, at = _snaps61()
+    # S100: 1-for-10 reverse split between t-126 and t-21 (price x10, market value unchanged)
+    t1 = at[rs.SKIP]
+    snaps[t1].at["S100", "close"] *= 10
+    # S101: big share issuance, price and market value move differently but not by a split factor -> kept
+    snaps[t1].at["S101", "marketCap"] *= 1.27
+    res = rs.compute(snaps, at, None, None)
+    out = rs.payload(res)
+    rows = {r[0]: dict(zip(out["cols"], r)) for r in out["rows"]}
+    assert "S100" not in rows and "S101" in rows
+    exp = lvl[rs.SKIP] / lvl[rs.LOOK] - 1
+    best = syms[int(np.argmax([e if s not in ("S100",) else -9 for s, e in zip(syms, exp)]))]
+    assert rows[best]["rs"] == 100 and abs(rows[best]["ret"] - exp[syms.index(best)] * 100) < 0.01
+    assert out["from"] == at[rs.LOOK] and out["to"] == at[rs.SKIP] and out["prevAsof"] == at[5]
+    assert all(1 <= r["rs"] <= 100 for r in rows.values()) and any(r["rsPrev"] for r in rows.values())
+
+
+def test_rs61_yahoo_members_and_validation():
+    days, syms, lvl, snaps, at = _snaps61()
+    members = {s: (s, "Industrials") for s in syms[:300]}
+    members["NEW"] = ("New Co", "Financials")
+    yfc = pd.DataFrame({s: [lvl[o][i] if days[-1 - o] in at.values() else np.nan for o in range(140)][::-1] for i, s in enumerate(syms[:300])}, index=days)
+    for o, d in at.items():
+        yfc.loc[d, syms[:300]] = [lvl[o][i] for i in range(300)]
+    yfc["NEW"] = np.nan
+    for o, d in at.items():
+        yfc.loc[d, "NEW"] = 100.0 * (2.0 if o <= rs.SKIP else 1.0)
+    out = rs.payload(rs.compute(snaps, at, members, yfc))
+    rows = {r[0]: dict(zip(out["cols"], r)) for r in out["rows"]}
+    assert rows["NEW"]["sp"] == 1 and rows["NEW"]["gics"] == "Financials" and abs(rows["NEW"]["ret"] - 100) < 1e-6
+    assert out["nYahoo"] == 301 and all(v["match"] == 1.0 for v in out["validation"]["sessions"].values())
+    bad = yfc.copy()
+    bad.loc[at[0], syms[:300]] *= 1.05
+    try:
+        rs.compute(snaps, at, members, bad)
+    except ValueError as e:
+        assert "disagree" in str(e)
+    else:
+        raise AssertionError("expected a validation error")
+
+
+def test_rs61_etfs_against_stock_distribution(tmp_path, monkeypatch):
+    monkeypatch.setattr(rs, "DIST_CSV", tmp_path / "dist.csv")
+    monkeypatch.setattr(rs, "ETF_CSV", tmp_path / "etf.csv")
+    days, syms, lvl, snaps, at = _snaps61()
+    res = rs.compute(snaps, at, None, None)
+    idx = _dates(300, end=at[0])
+    px = pd.DataFrame({"UP": np.geomspace(100, 10000, 300), "DN": np.geomspace(100, 1, 300)}, index=idx)
+    out = rs.etf_rs(res, px, {"factors": ["UP", "DN"]})
+    it = out["items"]
+    assert it["UP"]["rs"] >= 90 and it["DN"]["rs"] <= 10
+    assert it["UP"]["peer"]["factors"] == [1, 2] and abs(it["UP"]["ret61"] - (px["UP"].iloc[-22] / px["UP"].iloc[-127] - 1)) < 1e-3
+
+
+def test_macro_analogs_pick_nearest_months_with_a_gap():
+    from pipeline import analogs
+    idx = pd.period_range("1990-01", periods=240, freq="M")
+    rng = np.random.default_rng(5)
+    state = pd.DataFrame(rng.normal(0, 1, (240, 3)), index=idx, columns=list("abc"))
+    now = idx[-1]
+    for p in (idx[30], idx[31], idx[100]):  # three months that look exactly like today
+        state.loc[p] = state.loc[now]
+    picks = analogs.find_analogs(state, now, idx[:200], k=4, gap=9)
+    months = [p for p, _ in picks]
+    assert months[0] in (idx[30], idx[31]) and idx[100] in months[:2]
+    assert not (idx[30] in months and idx[31] in months)  # months closer than the gap are one episode
+    assert all(abs((a - b).n) > 9 for i, a in enumerate(months) for b in months[i + 1:])
+
+
+def test_nyiso_onpeak_average():
+    from pipeline import macro
+    rows = ["Time Stamp,Name,PTID,LBMP ($/MWHr),Marginal Cost Losses ($/MWHr),Marginal Cost Congestion ($/MWHr)"]
+    for h in range(24):
+        rows.append(f"10/27/2026 {h:02d}:00,N.Y.C.,61761,{100 if 7 <= h <= 22 else 10},0,0")
+        rows.append(f"10/27/2026 {h:02d}:00,WEST,61752,5,0,0")
+    for h in range(24):  # a Saturday: no on-peak hours
+        rows.append(f"10/24/2026 {h:02d}:00,N.Y.C.,61761,50,0,0")
+    out = macro._nyiso_frame("\n".join(rows), "N.Y.C.")
+    assert out == {"2026-10-27": 100.0}

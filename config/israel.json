@@ -1,5 +1,5 @@
 {
- "_comment": "Israel tab. stocks = large TASE names (Yahoo symbols); breadth and sector baskets are computed from them, so they approximate TA-125. Missing symbols are skipped and reported.",
+ "_comment": "Israel tab. stocks = TA-125 members (list per investing.com, Oct 2026) as Yahoo symbols; 'A|B' = try A, then B. Breadth, sectors and RS are computed from them. Missing symbols are skipped and reported.",
  "index": "^TA125.TA",
  "ta35": "TA35.TA",
  "eis": "EIS",
@@ -47,8 +47,8 @@
    "banks"
   ],
   [
-   "JBNK.TA",
-   "בנק ירושלים",
+   "FIBIH.TA",
+   "פיבי אחזקות",
    "banks"
   ],
   [
@@ -77,6 +77,16 @@
    "fin"
   ],
   [
+   "AYAL.TA",
+   "איילון ביטוח",
+   "fin"
+  ],
+  [
+   "IDIN.TA",
+   "ביטוח ישיר",
+   "fin"
+  ],
+  [
    "ISCD.TA",
    "ישראכרט",
    "fin"
@@ -89,6 +99,26 @@
   [
    "IBI.TA",
    "אי.בי.אי",
+   "fin"
+  ],
+  [
+   "MTAV.TA",
+   "מיטב בית השקעות",
+   "fin"
+  ],
+  [
+   "MORE.TA",
+   "מור השקעות",
+   "fin"
+  ],
+  [
+   "GNRS.TA|GNRC.TA",
+   "ג'נריישן קפיטל",
+   "fin"
+  ],
+  [
+   "WESR.TA|WSR.TA",
+   "ווישור",
    "fin"
   ],
   [
@@ -122,28 +152,23 @@
    "re"
   ],
   [
-   "SKBN.TA",
-   "שיכון ובינוי",
+   "AFPR.TA",
+   "אפי נכסים",
    "re"
   ],
   [
-   "AFRE.TA",
-   "אפריקה נכסים",
+   "ARPT.TA",
+   "איירפורט סיטי",
    "re"
   ],
   [
-   "RIT1.TA",
-   "ריט 1",
+   "AZRM.TA",
+   "אזורים",
    "re"
   ],
   [
-   "ASHG.TA",
-   "אשטרום",
-   "re"
-  ],
-  [
-   "DIMRI.TA",
-   "דמרי",
+   "BLSR.TA",
+   "מליבו/בלו סקוור",
    "re"
   ],
   [
@@ -157,8 +182,108 @@
    "re"
   ],
   [
+   "ISRS.TA",
+   "ישרס",
+   "re"
+  ],
+  [
+   "MGOR.TA",
+   "מגה אור",
+   "re"
+  ],
+  [
+   "PRSK.TA",
+   "פרשקובסקי",
+   "re"
+  ],
+  [
+   "PTBL.TA",
+   "נכסים ובנין",
+   "re"
+  ],
+  [
+   "LAHAV.TA",
+   "להב",
+   "re"
+  ],
+  [
+   "VILR.TA",
+   "וילאר",
+   "re"
+  ],
+  [
+   "AFRE.TA",
+   "אפריקה מגורים",
+   "re"
+  ],
+  [
+   "ASHG.TA",
+   "אשטרום",
+   "re"
+  ],
+  [
+   "INRM.TA",
+   "אינרום",
+   "re"
+  ],
+  [
+   "SKBN.TA",
+   "שיכון ובינוי",
+   "re"
+  ],
+  [
+   "DIMRI.TA",
+   "דמרי",
+   "re"
+  ],
+  [
+   "DNYA.TA",
+   "דניה סיבוס",
+   "re"
+  ],
+  [
+   "ISCN.TA",
+   "ישראל קנדה",
+   "re"
+  ],
+  [
+   "RIT1.TA",
+   "ריט 1",
+   "re"
+  ],
+  [
    "SLARL.TA",
    "סלע נדל\"ן",
+   "re"
+  ],
+  [
+   "SMT.TA",
+   "סאמיט",
+   "re"
+  ],
+  [
+   "AURA.TA",
+   "אאורה",
+   "re"
+  ],
+  [
+   "ARGO.TA",
+   "ארגו נכסים",
+   "re"
+  ],
+  [
+   "KSTN.TA",
+   "קיסטון",
+   "re"
+  ],
+  [
+   "ACRO.TA",
+   "קבוצת אקרו",
+   "re"
+  ],
+  [
+   "AMRM.TA",
+   "עמרם אברהם",
    "re"
   ],
   [
@@ -187,33 +312,18 @@
    "tech"
   ],
   [
+   "FORTY.TA",
+   "פורמולה",
+   "tech"
+  ],
+  [
    "HLAN.TA",
    "חילן",
    "tech"
   ],
   [
    "ONE.TA",
-   "וואן טכנולוגיות",
-   "tech"
-  ],
-  [
-   "FORTY.TA",
-   "פורמולה מערכות",
-   "tech"
-  ],
-  [
-   "SPNS.TA",
-   "ספיינס",
-   "tech"
-  ],
-  [
-   "MGIC.TA",
-   "מג'יק",
-   "tech"
-  ],
-  [
-   "AUDC.TA",
-   "אודיוקודס",
+   "וואן",
    "tech"
   ],
   [
@@ -222,8 +332,28 @@
    "tech"
   ],
   [
-   "ALLT.TA",
-   "אלוט",
+   "PRTC.TA",
+   "פריורטק",
+   "tech"
+  ],
+  [
+   "QLTU.TA",
+   "קוואליטאו",
+   "tech"
+  ],
+  [
+   "NYAX.TA",
+   "נאייקס",
+   "tech"
+  ],
+  [
+   "PANW.TA|CYBR.TA",
+   "פאלו אלטו (סייברארק)",
+   "tech"
+  ],
+  [
+   "RIMO.TA",
+   "רימון",
    "tech"
   ],
   [
@@ -232,18 +362,23 @@
    "def"
   ],
   [
-   "NXSN.TA",
-   "נקסט ויז'ן",
-   "def"
-  ],
-  [
    "ARYT.TA",
    "אריה תעשיות",
    "def"
   ],
   [
-   "TATT.TA",
-   "TAT טכנולוגיות",
+   "BSEN.TA",
+   "בית שמש מנועים",
+   "def"
+  ],
+  [
+   "NXSN.TA",
+   "נקסט ויז'ן",
+   "def"
+  ],
+  [
+   "ISHI.TA",
+   "מספנות ישראל",
    "def"
   ],
   [
@@ -257,34 +392,39 @@
    "gas"
   ],
   [
+   "ISRA.TA",
+   "ישראמקו",
+   "gas"
+  ],
+  [
    "RATI.TA",
    "רציו",
+   "gas"
+  ],
+  [
+   "ORL.TA",
+   "בזן",
+   "gas"
+  ],
+  [
+   "PAZ.TA|PZOL.TA",
+   "פז",
+   "gas"
+  ],
+  [
+   "TMRP.TA",
+   "תמר פטרוליום",
+   "gas"
+  ],
+  [
+   "NVPT.TA",
+   "נאוויטס",
    "gas"
   ],
   [
    "ENOG.TA",
    "אנרג'יאן",
    "gas"
-  ],
-  [
-   "ISRA.TA",
-   "ישראמקו",
-   "gas"
-  ],
-  [
-   "PZOL.TA",
-   "פז",
-   "gas"
-  ],
-  [
-   "OPCE.TA",
-   "או.פי.סי אנרגיה",
-   "power"
-  ],
-  [
-   "ORA.TA",
-   "אורמת",
-   "power"
   ],
   [
    "ENLT.TA",
@@ -297,13 +437,38 @@
    "power"
   ],
   [
+   "ORA.TA",
+   "אורמת",
+   "power"
+  ],
+  [
+   "OPCE.TA",
+   "או.פי.סי",
+   "power"
+  ],
+  [
    "DORL.TA",
    "דוראל",
    "power"
   ],
   [
    "NOFR.TA",
-   "נופר אנרג'י",
+   "או.וויי נופר",
+   "power"
+  ],
+  [
+   "MSKE.TA",
+   "משק אנרגיה",
+   "power"
+  ],
+  [
+   "ECNR.TA",
+   "אקונרג'י",
+   "power"
+  ],
+  [
+   "SBEN.TA",
+   "שיכון ובינוי אנרגיה",
    "power"
   ],
   [
@@ -317,28 +482,48 @@
    "cons"
   ],
   [
-   "FOX.TA",
-   "פוקס",
-   "cons"
-  ],
-  [
-   "DELT.TA",
-   "דלתא גליל",
-   "cons"
-  ],
-  [
    "STRS.TA",
    "שטראוס",
    "cons"
   ],
   [
-   "ECP.TA",
-   "אלקטרה מוצרי צריכה",
+   "FOX.TA",
+   "פוקס",
    "cons"
   ],
   [
-   "DLEA.TA",
-   "דלק רכב",
+   "DELG.TA|DELT.TA",
+   "דלתא גליל",
+   "cons"
+  ],
+  [
+   "YHNF.TA",
+   "יוחננוף",
+   "cons"
+  ],
+  [
+   "MAXO.TA",
+   "מקס סטוק",
+   "cons"
+  ],
+  [
+   "NTML.TA",
+   "נטו מלינדה",
+   "cons"
+  ],
+  [
+   "CRSO.TA",
+   "כרסו מוטורס",
+   "cons"
+  ],
+  [
+   "DLTI.TA",
+   "דלתא ישראל",
+   "cons"
+  ],
+  [
+   "UNVO.TA|UMI.TA",
+   "יוניברסל מוטורס",
    "cons"
   ],
   [
@@ -347,13 +532,13 @@
    "tel"
   ],
   [
-   "PTNR.TA",
-   "פרטנר",
+   "CEL.TA",
+   "סלקום",
    "tel"
   ],
   [
-   "CEL.TA",
-   "סלקום",
+   "PTNR.TA",
+   "פרטנר",
    "tel"
   ],
   [
@@ -367,8 +552,8 @@
    "ind"
   ],
   [
-   "KEN.TA",
-   "קנון",
+   "ELTR.TA",
+   "אלקטרה",
    "ind"
   ],
   [
@@ -377,8 +562,8 @@
    "ind"
   ],
   [
-   "ELTR.TA",
-   "אלקטרה",
+   "KEN.TA",
+   "קנון",
    "ind"
   ],
   [
@@ -392,13 +577,58 @@
    "ind"
   ],
   [
+   "IES.TA",
+   "איי.אי.אס",
+   "ind"
+  ],
+  [
+   "LAPD.TA",
+   "לפידות",
+   "ind"
+  ],
+  [
    "DANE.TA",
    "דנאל",
    "ind"
   ],
   [
+   "EQTL.TA",
+   "אקויטל",
+   "ind"
+  ],
+  [
+   "ACKR.TA",
+   "אקרשטיין",
+   "ind"
+  ],
+  [
+   "VRDS.TA",
+   "ורידיס",
+   "ind"
+  ],
+  [
+   "TRPZ.TA",
+   "טורפז",
+   "ind"
+  ],
+  [
+   "RPOL.TA",
+   "אר.פי אופטיקל",
+   "ind"
+  ],
+  [
+   "AMPA.TA",
+   "אמפא",
+   "ind"
+  ],
+  [
    "TEVA.TA",
    "טבע",
+   "pharma"
+  ],
+  [
+   "OPK.TA",
+   "אופקו",
    "pharma"
   ],
   [
@@ -409,6 +639,11 @@
   [
    "FTAL.TA",
    "פתאל",
+   "travel"
+  ],
+  [
+   "ISRO.TA",
+   "ישרוטל",
    "travel"
   ]
  ],
@@ -543,8 +778,8 @@
   {
    "id": "eis_cmf",
    "sec": "foreign",
-   "name": "זרימת כסף ל-EIS",
-   "short": "Chaikin Money Flow, ‏20 ימים",
+   "name": "Chaikin Money Flow · EIS",
+   "short": "זרימת כסף ל-EIS (מניות ישראל בניו יורק), ‏20 ימים",
    "freq": "d",
    "pol": 1,
    "dec": 3,
@@ -673,5 +908,6 @@
    "il_cpi_yoy",
    "il_cpi_mom"
   ]
- }
+ },
+ "version": 2
 }

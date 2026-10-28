@@ -174,6 +174,97 @@ def eia_power(backfill: bool) -> dict[str, dict[str, float]]:
     return out
 
 
+# --------------------------------------------------------------------------- daily day-ahead power (ISO files)
+def _onpeak(day: dt.date, hour_beginning: int) -> bool:
+    """Eastern on-peak block: weekdays, hours beginning 07:00 to 22:00."""
+    return day.weekday() < 5 and 7 <= hour_beginning <= 22
+
+
+def _nyiso_frame(text: str, zone: str) -> dict[str, float]:
+    df = pd.read_csv(io.StringIO(text))
+    ts = next(c for c in df.columns if "time" in c.lower())
+    lb = next(c for c in df.columns if c.lower().startswith("lbmp"))
+    df = df[df["Name"].astype(str).str.upper() == zone]
+    t = pd.to_datetime(df[ts], format="%m/%d/%Y %H:%M", errors="coerce")
+    df = df.assign(_t=t).dropna(subset=["_t"])
+    df = df[[_onpeak(x.date(), x.hour) for x in df["_t"]]]
+    g = df.groupby(df["_t"].dt.strftime("%Y-%m-%d"))[lb].mean()
+    return {d: round(float(v), 3) for d, v in g.items()}
+
+
+def nyiso_da(zone: str = "N.Y.C.", backfill_months: int = 0) -> dict[str, float]:
+    """NYISO day-ahead zonal LBMP, on-peak average per day (public CSV files)."""
+    import zipfile
+    base = "http://mis.nyiso.com/public/csv/damlbmp/"
+    out = {}
+    today = today_utc()
+    if backfill_months:
+        m = dt.date(today.year, today.month, 1)
+        for _ in range(backfill_months):
+            m = (m - dt.timedelta(days=1)).replace(day=1)
+            try:
+                z = zipfile.ZipFile(io.BytesIO(get(f"{base}{m:%Y%m}01damlbmp_zone_csv.zip", timeout=60, tries=2).content))
+                for name in z.namelist():
+                    out.update(_nyiso_frame(z.read(name).decode("utf-8", "replace"), zone))
+            except Exception:
+                continue
+    d = today - dt.timedelta(days=40 if backfill_months else 12)
+    while d <= today + dt.timedelta(days=1):
+        if d.weekday() < 5 and d.isoformat() not in out:
+            try:
+                out.update(_nyiso_frame(get(f"{base}{d:%Y%m%d}damlbmp_zone.csv", timeout=30, tries=1).text, zone))
+            except Exception:
+                pass
+        d += dt.timedelta(days=1)
+    if not out:
+        raise ValueError("NYISO: no data")
+    return {k: v for k, v in out.items() if k <= (today + dt.timedelta(days=1)).isoformat()}
+
+
+def isone_da(days: int = 12, have: dict | None = None) -> dict[str, float]:
+    """ISO New England day-ahead LMP at the Internal Hub, on-peak (HE 8-23) average per day."""
+    base = "https://www.iso-ne.com/static-transform/csv/histRpts/da-lmp/WW_DALMP_ISO_"
+    have = have or {}
+    out, fails = {}, 0
+    today = today_utc()
+    for k in range(days, -2, -1):
+        d = today - dt.timedelta(days=k)
+        if d.weekday() >= 5 or d.isoformat() in have:
+            continue
+        try:
+            text = get(f"{base}{d:%Y%m%d}.csv", timeout=30, tries=1).text
+        except Exception:
+            fails += 1
+            if fails >= 8 and not out:      # blocked or down: don't spend minutes on every day of a backfill
+                break
+            continue
+        vals = []
+        for row in csv.reader(io.StringIO(text)):
+            if len(row) > 6 and row[0] == "D" and row[4].strip().upper() == ".H.INTERNAL_HUB":
+                try:
+                    he = int(row[2])
+                    if 8 <= he <= 23:
+                        vals.append(float(row[6]))
+                except ValueError:
+                    continue
+        if vals:
+            out[d.isoformat()] = round(sum(vals) / len(vals), 3)
+    if not out and not have:
+        raise ValueError(f"ISO-NE: no data ({fails} requests failed)")
+    return out
+
+
+def gas_daily() -> dict[str, float]:
+    """Henry Hub spot (FRED/EIA, about a week behind) extended with the front-month future (Yahoo NG=F)."""
+    from .markets import read_prices
+    spot = read_series("hh_gas")
+    px = read_prices()
+    fut = px["NG=F"].dropna() if "NG=F" in px.columns else pd.Series(dtype=float)
+    last = max(spot) if spot else ""
+    ext = {d: float(v) for d, v in fut.items() if d > last}
+    return {**spot, **ext}
+
+
 def spark(power: dict[str, float], gas: dict[str, float]) -> dict[str, float]:
     if not power or not gas:
         return {}
@@ -263,7 +354,15 @@ def run() -> tuple[dict, dict, str]:
                 out[sid] = hubs[key]
     except Exception as e:
         failed.append(f"EIA: {str(e)[:100]}")
-    gas = {**read_series("hh_gas"), **out.get("hh_gas", {})}
+    # daily ISO day-ahead prices, so the spark spread is current (EIA's ICE file comes out twice a month)
+    for sid, fn in (("pw_nyc", lambda: nyiso_da("N.Y.C.", 24 if len(read_series("pw_nyc")) < 300 else 0)),
+                    ("pw_isone", lambda: isone_da(150 if len(read_series("pw_isone")) < 60 else 12, read_series("pw_isone")))):
+        if any(x["id"] == sid for x in specs):
+            try:
+                out[sid] = fn()
+            except Exception as e:
+                failed.append(f"{sid}: {str(e)[:80]}")
+    gas = {**gas_daily(), **out.get("hh_gas", {})}
     for s in specs:
         if s.get("spark"):
             pw = {**read_series(s["spark"]), **out.get(s["spark"], {})}
@@ -309,11 +408,12 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
     """Macro series as indicator definitions, so the site's detail view, charts and search work for them."""
     cfg = cfg or load()
     src_name = lambda s: ("FRED · " + s["fred"]) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
-                                                                         "בנק ישראל" if s.get("boi") else "EIA (ICE)" if s.get("eia") else
-                                                                         "EIA ו-FRED, חישוב" if s.get("spark") else "")
+                                                                         "בנק ישראל" if s.get("boi") else "EIA (ICE)" if s.get("eia") else "NYISO" if s.get("iso") == "nyiso" else "ISO New England" if s.get("iso") == "isone" else
+                                                                         (("NYISO" if s.get("spark") == "pw_nyc" else "ISO-NE" if s.get("spark") == "pw_isone" else "EIA (ICE)") + " ו-Henry Hub, חישוב") if s.get("spark") else "")
     src_url = lambda s: (f"https://fred.stlouisfed.org/series/{s['fred']}" if s.get("fred") else
                          "https://www.cbs.gov.il/he/subjects/Pages/מדד-המחירים-לצרכן.aspx" if s.get("cbs") or s.get("cbs_mom") else
-                         "https://www.boi.org.il/" if s.get("boi") else "https://www.eia.gov/electricity/wholesale/")
+                         "https://www.boi.org.il/" if s.get("boi") else "https://www.nyiso.com/energy-market-operational-data" if s.get("iso") == "nyiso" else
+                         "https://www.iso-ne.com/isoexpress/" if s.get("iso") == "isone" else "https://www.eia.gov/electricity/wholesale/")
     out = []
     for i, s in enumerate(cfg["series"]):
         out.append({"id": s["id"], "order": 900 + i, "group": "m_" + s["sec"], "tab": "macro", "name": s["name"], "short": s.get("short", ""),

@@ -67,17 +67,14 @@ def composite(series: dict[str, pd.Series], comps: list[str], pols: dict[str, in
 
 
 def stock_rows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, info: dict) -> list[dict]:
-    """RS (2-week move in ATR units, percentile within these stocks) and momentum for each stock."""
-    from .rs import N, rank_rs
+    """RS (6-month return excluding the last month, percentile within these stocks) and momentum for each stock."""
+    from .rs import LOOK, SKIP, rank_rs
     c = c.sort_index()
     if len(c) < 30:
         return []
-    last = c.iloc[-1]
-    prev = c.shift(1)
-    tr = pd.concat([h - lo, (h - prev).abs(), (lo - prev).abs()]).groupby(level=0).max().reindex(c.index)
-    atr = tr.iloc[-N:].mean()
-    move = (last - c.iloc[-1 - N]) / atr.replace(0, np.nan)
-    ok = move.notna() & c.iloc[-N - 1:].notna().all()
+    r61 = (c.iloc[-1 - SKIP] / c.iloc[-1 - LOOK] - 1) if len(c) > LOOK else pd.Series(np.nan, index=c.columns)
+    move = r61.replace([np.inf, -np.inf], np.nan)
+    ok = move.notna()
     rs = rank_rs(move[ok]) if ok.any() else pd.Series(dtype=int)
     out = []
     for sym in c.columns:
@@ -91,7 +88,7 @@ def stock_rows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, info: dict) -
         hi = s.iloc[-252:].max()
         nm, sec = info.get(sym, (sym, ""))
         out.append({"sym": sym.replace(".TA", ""), "y": sym, "name": nm, "sec": sec, "px": _r(s.iloc[-1], 2),
-                    "rs": int(rs[sym]) if sym in rs.index else None, "raw": _r(move.get(sym), 2),
+                    "rs": int(rs[sym]) if sym in rs.index else None, "raw": _r(move.get(sym), 4),
                     "w1": _r(ret(5)), "m1": _r(ret(21)), "m3": _r(ret(63)), "y1": _r(ret(252)),
                     "mom": _r(float(s.iloc[-22] / s.iloc[-253] - 1)) if len(s) > 253 else None,
                     "dd52": _r(float(s.iloc[-1] / hi - 1)),
@@ -137,16 +134,25 @@ def _monthly_mean(pts: dict) -> pd.Series:
 def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     """Returns ({series id: points}, payload for the site, status message)."""
     cfg = load()
-    info = {s: (n, k) for s, n, k in cfg["stocks"]}
-    syms = list(info)
-    backfill = min(len(read_series("il_pct200")), len(read_series("il_ew_rel3"))) < 500
+    entries = [(alts.split("|"), n, k) for alts, n, k in cfg["stocks"]]
+    cands = [a for alts, _, _ in entries for a in alts]
+    prev = json.loads(DERIVED.read_text(encoding="utf-8")) if DERIVED.exists() else {}
+    new_universe = prev.get("version") != cfg.get("version")
+    backfill = new_universe or min(len(read_series("il_pct200")), len(read_series("il_ew_rel3"))) < 500
     start = "2013-01-01" if backfill else (today_utc() - dt.timedelta(days=520)).isoformat()
-    bars = yf_ohlc(syms, start)
+    bars = yf_ohlc(cands, start)
     if not bars or bars["close"].empty:
         raise ValueError("no TASE prices")
-    c = bars["close"].dropna(axis=1, how="all")
-    missing = [s for s in syms if s not in c.columns or c[s].dropna().empty]
-    c = c[[s for s in syms if s not in missing]]
+    allc = bars["close"].dropna(axis=1, how="all")
+    info, chosen, missing = {}, [], []
+    for alts, n, k in entries:     # first alternative with recent data wins
+        got = next((a for a in alts if a in allc.columns and allc[a].iloc[-30:].notna().sum() >= 10), None)
+        if got:
+            info[got] = (n, k)
+            chosen.append(got)
+        else:
+            missing.append(alts[0])
+    c = allc[chosen]
     # a partial newest row (some names not yet updated) would skew the counts
     if len(c) > 2 and c.iloc[-1].notna().sum() < 0.8 * c.iloc[-2].notna().sum():
         c = c.iloc[:-1]
@@ -154,8 +160,13 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     lo = bars["low"].reindex(index=c.index, columns=c.columns)
     keep_from = c.index[0] if backfill else c.index[-15]
     out = {}
-    # breadth by stock count, as for the S&P 500, but over the names that traded on each day
-    b = breadth.compute(c, min_cover=0.7)
+    if new_universe:
+        # a different list of stocks: rebuild the stock-based series from scratch rather than mix universes
+        from .common import SERIES_DIR
+        for sid in ("il_pct50", "il_pct200", "il_adr10", "il_hl", "il_mco", "il_mcsi", "il_ew_rel3", "il_banks_rel3", "il_sent"):
+            (SERIES_DIR / f"{sid}.csv").unlink(missing_ok=True)
+    # breadth by stock count, as for the S&P 500, over the names that traded on each day (at least 40)
+    b = breadth.compute(c, min_cover=min(0.9, 40 / max(40, c.shape[1])))
     for src, dst, nd in (("sp_pct50", "il_pct50", 1), ("sp_pct200", "il_pct200", 1), ("sp_adr10", "il_adr10", 3),
                          ("sp_hl", "il_hl", 2), ("sp_mco", "il_mco", 1)):
         s = b[src].dropna()
@@ -174,6 +185,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
             ratio = j.iloc[:, 0] / j.iloc[:, 1]
             out[sid] = _pts((ratio / ratio.shift(63) - 1) * 100, 2, keep_from)
     if ta35 is not None:
+        out["ta35_px"] = _pts(ta35, 2)       # the benchmark for the Israeli indicators' charts and level statistics
         out["ta35_ma200"] = _pts((ta35 / ta35.rolling(200).mean() - 1) * 100, 2)
         out["ta35_rv20"] = _pts(np.log(ta35).diff().rolling(20).std() * math.sqrt(252) * 100, 2)
     ext = yf_ohlc([cfg["eis"], cfg["eurils"]], "2013-01-01" if len(read_series("eis_cmf")) < 500 else (today_utc() - dt.timedelta(days=90)).isoformat())
@@ -223,11 +235,11 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
         cp = pd.Series(cpi)
         out["il_real_rate"] = _pts((rm.reindex(cp.index) - cp).dropna(), 3)
     # payload: stocks and sectors (computed from this run's bars; RS needs the daily range)
-    payload = {"asof": c.index[-1], "n": int(c.shape[1]), "missing": missing,
+    payload = {"asof": c.index[-1], "n": int(c.shape[1]), "listed": len(entries), "missing": missing, "version": cfg.get("version"),
                "stocks": stock_rows(c.iloc[-300:], h.iloc[-300:], lo.iloc[-300:], {s: (info[s][0], info[s][1]) for s in c.columns}),
                "sectors": sector_rows(c.iloc[-300:], info, cfg["sectors"], idx[idx.index >= c.index[-min(300, len(c))]] if idx is not None else None),
                "sectorNames": cfg["sectors"]}
-    msg = f"{c.shape[1]} מניות{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
+    msg = f"{c.shape[1]}/{len(entries)} מניות ת\"א 125{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
           (f" · {'; '.join(errs)}" if errs else "")
     return out, payload, msg
 
@@ -277,12 +289,12 @@ def site_payload() -> dict:
     cfg = load()
     epoch = dt.date(1970, 1, 1)
     ser = {}
-    for s in cfg["series"]:
+    for s in cfg["series"] + [{"id": "ta35_px", "freq": "d"}]:
         pts = read_series(s["id"])
         if not pts:
             continue
         ks = sorted(pts)
-        if s.get("freq") == "d" and len(ks) > 900:
+        if s.get("freq") == "d" and len(ks) > 900 and s["id"] != "ta35_px":   # the benchmark stays daily: forward returns count sessions
             cut = (dt.date.fromisoformat(ks[-1]) - dt.timedelta(days=3 * 365)).isoformat()
             old = pd.Series({k: pts[k] for k in ks if k < cut})
             if len(old):

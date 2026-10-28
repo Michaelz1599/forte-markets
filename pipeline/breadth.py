@@ -139,6 +139,6 @@ def run() -> tuple[dict, str, dict, dict]:
         s = s.dropna()
         s = s[s.index >= max(keep_from, warm if sid == "sp_mco" else keep_from)]
         out[sid] = {d: round(float(v), nd[sid]) for d, v in s.items()}
-    recent = close.index[-40:]
+    recent = close.index[-170:]   # RS needs the closes 6 months back
     extra = {"members": info, "bars": {k: v.reindex(index=recent) for k, v in bars.items()}}
     return out, f"{got} מניות ({src}){' · השלמת היסטוריה' if backfill else ''}", stock_momentum(close.iloc[-300:], info), extra

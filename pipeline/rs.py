@@ -1,14 +1,13 @@
 """Relative strength (RS) for every US stock, and for the factor, sector and theme ETFs.
 
-The method is the one on the RS Leaders page:
-    move in ATR  = (Close_t - Close_t-10) / ATR(10)        ATR = mean True Range of the last 10 sessions
-    RS           = percentile of that move across all ranked US common stocks, rounded up to 1..100
+    RS = percentile of the 6-month return excluding the most recent month (close 21 sessions ago over the
+         close 126 sessions ago), across all ranked US common stocks, rounded up to 1..100.
 
-Stock prices come from the daily snapshots of NASDAQ's stock list (OHLC, market cap, sector) kept
-in the git history of ozkanpakdil/top-us-stock-tickers. Each snapshot is taken before the US open
-and holds the previous session. S&P 500 members use Yahoo daily bars instead (split-adjusted, and
-it covers the members NASDAQ's list leaves out); the overlap is also how each snapshot is validated.
-ETFs are ranked against the same stock distribution, so an ETF's RS is on the same scale as a stock's.
+Stock prices come from the daily snapshots of NASDAQ's stock list (close, market cap, sector) kept in the git
+history of ozkanpakdil/top-us-stock-tickers; only the snapshots at the needed dates are read. S&P 500 members use
+split-adjusted Yahoo closes instead (that also covers the members NASDAQ's list leaves out), and the overlap is how
+each snapshot is validated. A split shows up as a price move that the market value does not share, and those
+stocks are left out. ETFs are ranked against the same stock distribution, so their RS is on the same scale.
 """
 from __future__ import annotations
 
@@ -27,12 +26,10 @@ from .common import ROOT, dump_json
 SNAP_REPO = "https://github.com/ozkanpakdil/top-us-stock-tickers.git"
 CACHE = ROOT / ".cache"
 DERIVED = ROOT / "data" / "derived"
-DIST_CSV = DERIVED / "rs_dist.csv"      # daily quantiles of the stock distribution (for ETF RS history)
-ETF_CSV = DERIVED / "rs_etf.csv"        # daily RS of every ETF in the universe
+DIST_CSV = DERIVED / "rs61_dist.csv"    # daily quantiles of the stocks' 6-1 returns (for ETF RS history)
+ETF_CSV = DERIVED / "rs61_etf.csv"      # daily 6-1 RS of every ETF in the universe
 RS_JSON = DERIVED / "rs.json"           # the stock table and sector ranking (site payload)
 ETF_JSON = DERIVED / "rs_etf.json"      # current ETF RS, merged into markets.json at build time
-N = 10                                  # look-back and ATR length, in sessions
-PREV = 5                                # "a week ago" = 5 sessions back
 
 # --------------------------------------------------------------------------- security types
 _EXCL = [
@@ -130,7 +127,8 @@ def session_of(t: dt.datetime, trading_days: list[str]) -> str | None:
     return cand[-1] if cand else None
 
 
-def read_snapshots(repo, trading_days: list[str], want: int = 22) -> dict[str, pd.DataFrame]:
+def snapshot_sessions(repo, trading_days: list[str]) -> dict[str, str]:
+    """{session: commit} for every snapshot that clearly holds one finished session (newest commit wins)."""
     log = _git(["-C", str(repo), "log", "--format=%H %cI", "--", "tickers/all.csv"]).split("\n")
     out = {}
     for line in log:
@@ -138,37 +136,55 @@ def read_snapshots(repo, trading_days: list[str], want: int = 22) -> dict[str, p
             continue
         h, t = line.split()
         s = session_of(dt.datetime.fromisoformat(t), trading_days)
-        if s is None or s in out:
-            continue          # newest commit for a session wins; commits during market hours are skipped
-        raw = _git(["-C", str(repo), "show", f"{h}:tickers/all.csv"], timeout=60)
-        df = pd.read_csv(io.StringIO(raw), dtype={"symbol": str})
-        if not {"symbol", "high", "low", "close"}.issubset(df.columns):
-            continue          # snapshots from before OHLC was added
-        df = df.drop_duplicates("symbol").set_index("symbol")
-        out[s] = df
-        if len(out) >= want:
-            break
-    return dict(sorted(out.items()))
+        if s is not None and s not in out:
+            out[s] = h
+    return out
+
+
+def load_snapshot(repo, commit: str) -> pd.DataFrame | None:
+    raw = _git(["-C", str(repo), "show", f"{commit}:tickers/all.csv"], timeout=60)
+    df = pd.read_csv(io.StringIO(raw), dtype={"symbol": str})
+    if "close" not in df.columns:
+        if "price" not in df.columns:
+            return None
+        df["close"] = df["price"]       # snapshots from before OHLC was added: NASDAQ's last sale
+    return df.drop_duplicates("symbol").set_index("symbol")
+
+
+def pick_session(have: dict, trading_days: list[str], pos: int, slack: int = 4) -> str | None:
+    """The stored session at trading-day position pos, or the nearest earlier one within `slack` days."""
+    for k in range(slack + 1):
+        if pos - k < 0:
+            return None
+        d = trading_days[pos - k]
+        if d in have:
+            return d
+    return None
+
+
+def read_snapshots(repo, trading_days: list[str], offsets: tuple[int, ...]) -> tuple[dict[str, pd.DataFrame], dict[int, str]]:
+    """Load only the snapshots at the given session offsets back from the newest one."""
+    have = snapshot_sessions(repo, trading_days)
+    if not have:
+        return {}, {}
+    asof = max(have)
+    ti = trading_days.index(asof)
+    at, snaps = {}, {}
+    for off in offsets:
+        d = pick_session(have, trading_days, ti - off, 0 if off == 0 else 4)
+        if d is None:
+            continue
+        if d not in snaps:
+            df = load_snapshot(repo, have[d])
+            if df is None:
+                continue
+            snaps[d] = df
+        at[off] = d
+    return snaps, at
 
 
 # --------------------------------------------------------------------------- core computation
-def window_stats(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, end: int) -> pd.DataFrame:
-    """moveATR, return and ATR% over sessions end-N..end (row positions) for every column with full data.
-    raw is NaN when the range was zero all window long."""
-    if end - N < 0:
-        return pd.DataFrame(columns=["raw", "ret", "atr", "flat"])
-    cw, hw, lw = c.iloc[end - N:end + 1], h.iloc[end - N:end + 1], lo.iloc[end - N:end + 1]
-    full = cw.notna().all() & hw.iloc[1:].notna().all() & lw.iloc[1:].notna().all() & (cw > 0).all()
-    cw, hw, lw = cw.loc[:, full], hw.loc[:, full], lw.loc[:, full]
-    prev = cw.shift(1).iloc[1:]
-    hh, ll = hw.iloc[1:], lw.iloc[1:]
-    tr = pd.concat([(hh - ll), (hh - prev).abs(), (ll - prev).abs()]).groupby(level=0).max()
-    atr = tr.mean()
-    move = cw.iloc[-1] - cw.iloc[0]
-    flat = (cw.diff().iloc[1:] == 0).sum()
-    df = pd.DataFrame({"raw": move / atr.replace(0, np.nan), "ret": cw.iloc[-1] / cw.iloc[0] - 1,
-                       "atr": atr / cw.iloc[-1], "flat": flat, "close": cw.iloc[-1]})
-    return df.replace([np.inf, -np.inf], np.nan)
+LOOK, SKIP = 126, 21          # RS = 6-month return excluding the most recent month
 
 
 def rank_rs(raw: pd.Series) -> pd.Series:
@@ -191,185 +207,113 @@ def rs_from_quantiles(x: float, q: np.ndarray) -> int | None:
     return int(min(100, max(1, math.ceil(frac * 100))))
 
 
-_SPLITS = [2, 3, 4, 5, 8, 10, 12, 15, 20, 25, 30, 40, 50, 100, 1.5]
+_SPLIT_FACTORS = (1.5, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 30, 35, 40, 50, 60, 75, 100, 150, 200, 250)
 
 
-def split_like(r: float) -> bool:
-    if not math.isfinite(r) or r <= 0 or 0.55 < r < 1.8:
-        return False
-    return any(abs(r / k - 1) < 0.04 or abs(r * k - 1) < 0.04 for k in _SPLITS)
+def split_between(a: pd.DataFrame, b: pd.DataFrame, syms, tol: float = 1.4) -> set:
+    """Stocks whose price moved very differently from their market value between two snapshots: a split,
+    a reverse split or another change in the share count, which unadjusted closes cannot show."""
+    j = [s for s in syms if s in a.index and s in b.index]
+    if not j:
+        return set()
+    pr = (b.loc[j, "close"] / a.loc[j, "close"]).astype(float)
+    mr = (b.loc[j, "marketCap"] / a.loc[j, "marketCap"]).astype(float)
+    q = np.exp((np.log(pr) - np.log(mr)).abs())
+    # new shares from offerings change the share count by arbitrary amounts and the price return stays real;
+    # a split changes it by a round factor
+    near = q.map(lambda x: math.isfinite(x) and x >= tol and any(abs(x / k - 1) < 0.08 for k in _SPLIT_FACTORS))
+    return set(q[near].index)
 
 
-def corporate_actions(snaps: dict[str, pd.DataFrame], sessions: list[str], syms) -> dict[str, str]:
-    """Symbols whose price series is broken inside the window by a split or another corporate action.
-
-    NASDAQ's own last-sale price in snapshot s+1 is the close of session s, so a gap between it and the
-    Yahoo close in snapshot s means one side was adjusted and the other not."""
-    flags = {}
-    for a, b in zip(sessions, sessions[1:]):
-        A, B = snaps.get(a), snaps.get(b)
-        if A is None or B is None or "price" not in B.columns:
-            continue
-        j = A.index.intersection(B.index)
-        d = (B.loc[j, "price"] / A.loc[j, "close"] - 1).abs().dropna()
-        if len(d) and (d > 0.02).mean() > 0.03:
-            continue          # the whole pair disagrees: a timing problem, not corporate actions
-        for s in d[d > 0.02].index:
-            flags.setdefault(s, f"{b}: מחיר NASDAQ {B.at[s, 'price']:.2f} מול סגירה {A.at[s, 'close']:.2f}")
-    last, prev = sessions[-1], sessions[-2]
-    L, P = snaps.get(last), snaps.get(prev)
-    if L is not None and P is not None:
-        j = L.index.intersection(P.index)
-        r = (L.loc[j, "close"] / P.loc[j, "close"]).dropna()
-        for s, v in r.items():
-            if split_like(float(v)):
-                flags.setdefault(s, f"{last}: יחס {v:.2f} ביום אחד, כמו פיצול")
-    return {s: m for s, m in flags.items() if s in set(syms)}
-
-
-def validate(snaps: dict[str, pd.DataFrame], yfc: pd.DataFrame | None, spx: pd.Series | None) -> dict:
+def validate(snaps: dict[str, pd.DataFrame], yfc: pd.DataFrame | None) -> dict:
     """How well each snapshot agrees with Yahoo's S&P 500 closes for the session it is mapped to."""
-    rep = {"sessions": {}}
-    if yfc is not None and not yfc.empty:
-        for s, df in snaps.items():
-            if s not in yfc.index:
-                continue
-            m = {norm_sym(k): k for k in df.index}
-            cols = [c for c in yfc.columns if c in m]
-            a = df.loc[[m[c] for c in cols], "close"].to_numpy(dtype=float)
-            b = yfc.loc[s, cols].to_numpy(dtype=float)
-            ok = np.isfinite(a) & np.isfinite(b) & (b > 0)
-            if ok.sum() < 200:
-                continue
-            share = float((np.abs(a[ok] / b[ok] - 1) < 0.005).mean())
-            rep["sessions"][s] = {"n": int(ok.sum()), "match": round(share, 4)}
-    if spx is not None and len(snaps) > 1:
-        diffs = {}
-        ss = sorted(snaps)
-        for a, b in zip(ss, ss[1:]):
-            if a not in spx.index or b not in spx.index:
-                continue
-            A, B = snaps[a], snaps[b]
-            j = A.index.intersection(B.index)
-            w = B.loc[j, "marketCap"].astype(float)
-            r = B.loc[j, "close"] / A.loc[j, "close"] - 1
-            ok = r.notna() & w.notna() & (w > 1e10) & (r.abs() < 0.5)
-            if ok.sum() < 100:
-                continue
-            cw = float((r[ok] * w[ok]).sum() / w[ok].sum())
-            diffs[b] = round((cw - float(spx[b] / spx[a] - 1)) * 100, 3)
-        rep["spxTrack"] = diffs
+    rep = {}
+    if yfc is None or yfc.empty:
+        return rep
+    for s, df in snaps.items():
+        if s not in yfc.index:
+            continue
+        m = {norm_sym(k): k for k in df.index}
+        cols = [c for c in yfc.columns if c in m]
+        a = df.loc[[m[c] for c in cols], "close"].to_numpy(dtype=float)
+        b = yfc.loc[s, cols].to_numpy(dtype=float)
+        ok = np.isfinite(a) & np.isfinite(b) & (b > 0)
+        if ok.sum() < 200:
+            continue
+        rep[s] = {"n": int(ok.sum()), "match": round(float((np.abs(a[ok] / b[ok] - 1) < 0.005).mean()), 4)}
     return rep
 
 
-def build_panel(snaps: dict[str, pd.DataFrame], sessions: list[str]):
-    fields = {}
-    for f in ("close", "high", "low"):
-        fields[f] = pd.DataFrame({s: snaps[s][f] for s in sessions if s in snaps}).T.reindex(sessions).apply(pd.to_numeric, errors="coerce")
-    return fields["close"], fields["high"], fields["low"]
-
-
-def compute(snaps: dict[str, pd.DataFrame], trading_days: list[str], members: dict | None = None,
-            yf: dict[str, pd.DataFrame] | None = None, spx: pd.Series | None = None) -> dict:
-    """Everything the site needs. members = {yahoo_symbol: (name, gics_sector)}; yf = {"close","high","low"} frames."""
-    if not snaps:
-        raise ValueError("no usable snapshots")
-    asof = max(snaps)
-    ti = trading_days.index(asof)
-    sessions = trading_days[max(0, ti - N - PREV - 5):ti + 1]
-    have = [s for s in sessions if s in snaps]
-    need_now = trading_days[ti - N:ti + 1]
-    missing_now = [s for s in need_now if s not in snaps]
-    if missing_now:
-        raise ValueError(f"missing snapshots for {', '.join(missing_now)}")
-    rep = validate({s: snaps[s] for s in have}, yf["close"] if yf else None, spx)
-    bad = [s for s, v in rep["sessions"].items() if v["match"] < 0.8]
-    if any(s in need_now for s in bad):
-        raise ValueError(f"snapshots disagree with Yahoo on {', '.join(s for s in bad if s in need_now)}")
-    if bad:   # outside the window: drop them so they feed neither the checks nor the history
-        snaps = {s: v for s, v in snaps.items() if s not in bad}
-        have = [s for s in have if s not in bad]
-        rep["sessions"] = {s: v for s, v in rep["sessions"].items() if s not in bad}
-        rep["dropped"] = bad
-
-    last = snaps[asof]
-    kinds = last["name"].fillna("").map(security_kind)
+def compute(snaps: dict[str, pd.DataFrame], at: dict[int, str], members: dict | None = None,
+            yfc: pd.DataFrame | None = None) -> dict:
+    """RS for every US stock: percentile of the return from t-126 to t-21 sessions (6 months, skipping the last month).
+    snaps = {session: snapshot}, at = {offset: session}; members = {yahoo_symbol: (name, gics)}; yfc = Yahoo closes of members."""
+    for k in (0, SKIP, LOOK):
+        if k not in at:
+            raise ValueError(f"no snapshot {k} sessions back")
+    val = validate({at[k]: snaps[at[k]] for k in at}, yfc)
+    bad = [s for s, v in val.items() if v["match"] < 0.8]
+    if bad:
+        raise ValueError(f"snapshots disagree with Yahoo on {', '.join(bad)}")
+    t0, t1, t6 = snaps[at[0]], snaps[at[SKIP]], snaps[at[LOOK]]
+    kinds = t0["name"].fillna("").map(security_kind)
     excluded = {k: int(v) for k, v in kinds[kinds != "stock"].value_counts().items()}
-    base = [s for s in last.index if kinds[s] == "stock"]
-    c, h, lo = build_panel(snaps, sessions)
-    c, h, lo = c[base], h[base], lo[base]
-    src = pd.Series("nasdaq", index=base, dtype=object)
-    info = {s: {"name": clean_name(last.at[s, "name"]), "sec": str(last.at[s, "industry"] or "Uncategorized"),
-                "mcap": float(last.at[s, "marketCap"]) / 1e6 if pd.notna(last.at[s, "marketCap"]) and last.at[s, "marketCap"] > 0 else None}
+    base = [s for s in t0.index if kinds[s] == "stock"]
+    info = {s: {"name": clean_name(t0.at[s, "name"]), "sec": str(t0.at[s, "industry"] or "Uncategorized"),
+                "mcap": float(t0.at[s, "marketCap"]) / 1e6 if pd.notna(t0.at[s, "marketCap"]) and t0.at[s, "marketCap"] > 0 else None}
             for s in base}
 
-    # S&P 500 members: Yahoo bars when Yahoo has the full window, also for members NASDAQ's list leaves out
+    def closes(off):
+        d = at.get(off)
+        return snaps[d]["close"].reindex(base).astype(float) if d else pd.Series(np.nan, index=base)
+    px = pd.DataFrame({off: closes(off) for off in at})
+    src = pd.Series("nasdaq", index=base, dtype=object)
+    # S&P 500 members: split-adjusted Yahoo closes at the same sessions (also those NASDAQ's list leaves out)
     gics, spset = {}, set()
     if members:
         bymap = {norm_sym(s): s for s in base}
-        oc, oh, ol = {}, {}, {}
         for ysym, (nm, sec) in members.items():
             key = bymap.get(norm_sym(ysym))
-            if yf and ysym in yf["close"].columns:
-                yc = yf["close"][ysym].reindex(sessions)
-                yh = yf["high"][ysym].reindex(sessions)
-                yl = yf["low"][ysym].reindex(sessions)
-                if yc.loc[need_now].notna().all() and yh.loc[need_now].notna().all() and yl.loc[need_now].notna().all():
+            if yfc is not None and ysym in yfc.columns:
+                yv = {off: yfc[ysym].get(d, np.nan) for off, d in at.items()}
+                if all(pd.notna(yv.get(k)) for k in (0, SKIP, LOOK)):
                     if key is None:
                         key = norm_sym(ysym)
                         info[key] = {"name": nm, "sec": GICS_TO_NAS.get(sec, "Uncategorized"), "mcap": None}
-                    oc[key], oh[key], ol[key] = yc, yh, yl
+                    px.loc[key] = pd.Series(yv)
                     src[key] = "yahoo"
             if key is not None:
                 gics[key] = sec
                 spset.add(key)
-        if oc:
-            def over(base_df, o):
-                o = pd.DataFrame(o, index=sessions)
-                return pd.concat([base_df.drop(columns=[k for k in o.columns if k in base_df.columns]), o], axis=1)
-            c, h, lo = over(c, oc), over(h, oh), over(lo, ol)
-    syms = list(c.columns)
-    ca = corporate_actions(snaps, have, [s for s in syms if src.get(s) == "nasdaq"])
+    nas = [s for s in px.index if src.get(s, "nasdaq") == "nasdaq"]
+    ca = split_between(t6, t1, nas) | split_between(t1, t0, nas)
+    prev_ok = (SKIP + 5) in at and (LOOK + 5) in at
+    if prev_ok:
+        ca_prev = split_between(snaps[at[LOOK + 5]], snaps[at[SKIP + 5]], nas)
 
-    def ranked(end_pos: int) -> pd.DataFrame:
-        w = window_stats(c, h, lo, end_pos)
-        w = w[~w.index.isin(list(ca))]
-        w = w[(w["flat"] < 4) & (w["close"] >= 1)]
-        return w.dropna(subset=["raw"])
-
-    pos_now = len(sessions) - 1
-    now = ranked(pos_now)
-    now["rs"] = rank_rs(now["raw"])
-    prev = pd.DataFrame()
-    pos_prev = pos_now - PREV
-    prev_date = sessions[pos_prev] if pos_prev >= 0 else None
-    if pos_prev - N >= 0 and all(s in snaps for s in sessions[pos_prev - N:pos_prev + 1]):
-        prev = ranked(pos_prev)
-        prev["rs"] = rank_rs(prev["raw"])
-
-    # the distribution of every date the stored snapshots can cover (for the ETF RS history)
-    dists = {}
-    for p in range(N, len(sessions)):
-        if all(s in snaps for s in sessions[p - N:p + 1]):
-            w = ranked(p)
-            if len(w) > 500:
-                dists[sessions[p]] = np.quantile(w["raw"].to_numpy(), np.linspace(0, 1, 101))
-
-    w_all = window_stats(c, h, lo, pos_now)
-    n_flat = int(((w_all["flat"] >= 4) & (w_all["close"] >= 1)).sum())
-    # report only the corporate actions that removed a stock that would otherwise be ranked
-    ca_shown = {s: m for s, m in ca.items() if s in w_all.index and w_all.at[s, "close"] >= 1 and w_all.at[s, "flat"] < 4}
+    def ranked(o1, o6, drop):
+        r = (px[o1] / px[o6] - 1).replace([np.inf, -np.inf], np.nan)
+        ok = r.notna() & (px[0] >= 1) & ~r.index.isin(list(drop))
+        return r[ok]
+    r61 = ranked(SKIP, LOOK, ca)
+    rs = rank_rs(r61)
+    prev = pd.Series(dtype=int)
+    r61p = pd.Series(dtype=float)
+    if prev_ok:
+        r61p = ranked(SKIP + 5, LOOK + 5, ca_prev)
+        prev = rank_rs(r61p)
+    m1 = (px[0] / px[SKIP] - 1).where(~px.index.isin(list(ca)))
     rows = []
-    for s, r in now.sort_values(["rs", "raw"], ascending=False).iterrows():
+    order = sorted(r61.index, key=lambda s: (-int(rs[s]), -float(r61[s])))
+    for s in order:
         inf = info.get(s, {"name": s, "sec": "Uncategorized", "mcap": None})
-        rp = int(prev.at[s, "rs"]) if s in prev.index else None
-        rows.append([disp(s), inf["name"], inf["sec"], gics.get(s, ""),
-                     1 if s in spset else 0, None if inf["mcap"] is None else round(inf["mcap"], 1),
-                     round(float(r["close"]), 2), round(float(r["ret"]) * 100, 2), round(float(r["atr"]) * 100, 2),
-                     round(float(r["raw"]), 2), int(r["rs"]), rp])
-    df = now.assign(sec=[info[s]["sec"] for s in now.index], gics=[gics.get(s, "") for s in now.index],
-                    mcap=[info[s]["mcap"] for s in now.index], sp=[s in spset for s in now.index])
-    df["rsPrev"] = prev["rs"].reindex(df.index) if len(prev) else np.nan
+        rows.append([disp(s), inf["name"], inf["sec"], gics.get(s, ""), 1 if s in spset else 0,
+                     None if inf["mcap"] is None else round(inf["mcap"], 1), round(float(px.at[s, 0]), 2),
+                     round(float(r61[s]) * 100, 2), None if pd.isna(m1.get(s)) else round(float(m1[s]) * 100, 2),
+                     int(rs[s]), int(prev[s]) if s in prev.index else None])
+    df = pd.DataFrame({"rs": rs, "ret": r61, "rsPrev": prev.reindex(r61.index) if len(prev) else np.nan,
+                       "sec": [info[s]["sec"] for s in r61.index], "gics": [gics.get(s, "") for s in r61.index],
+                       "mcap": [info[s]["mcap"] for s in r61.index], "sp": [s in spset for s in r61.index]}, index=r61.index)
 
     def sector_rows(d: pd.DataFrame, key: str, he: dict) -> list[dict]:
         out = []
@@ -380,7 +324,7 @@ def compute(snaps: dict[str, pd.DataFrame], trading_days: list[str], members: di
             okw = w.notna() & (w > 0)
             cap_ret = float((g.loc[okw, "ret"] * w[okw]).sum() / w[okw].sum()) if okw.any() else float(g["ret"].median())
             big = g[(g["mcap"].astype(float) >= 1000) | (g["sp"])]
-            lead = big.sort_values(["rs", "raw"], ascending=False).head(5)
+            lead = big.assign(_r=g["ret"]).sort_values(["rs", "_r"], ascending=False).head(5)
             out.append({"sector": sec, "heb": he.get(sec, sec), "n": int(len(g)), "med": float(g["rs"].median()),
                         "mean": round(float(g["rs"].mean()), 1),
                         "p80": round(float((g["rs"] >= 80).mean() * 100), 1), "p20": round(float((g["rs"] <= 20).mean() * 100), 1),
@@ -392,35 +336,23 @@ def compute(snaps: dict[str, pd.DataFrame], trading_days: list[str], members: di
             x["rank"] = i + 1
         return out
 
-    mism = {s: v for s, v in rep["sessions"].items()}
+    shown_ca = sorted(s for s in ca if s in px.index and pd.notna(px.at[s, 0]) and px.at[s, 0] >= 1)
     return {
-        "asof": asof, "from": sessions[pos_now - N], "prevAsof": prev_date if len(prev) else None,
-        "n": len(rows), "nSp": int(df["sp"].sum()), "nYahoo": int(sum(1 for s in now.index if src.get(s) == "yahoo")),
-        "universe": int(len(last)), "excludedTypes": excluded, "excludedFlat": n_flat,
-        "corporateActions": [{"sym": disp(s), "name": info.get(s, {}).get("name", s), "why": m} for s, m in sorted(ca_shown.items())],
-        "validation": {"sessions": mism, "spxTrack": {k: v for k, v in rep.get("spxTrack", {}).items() if k in snaps},
-                       "dropped": rep.get("dropped", [])},
+        "asof": at[0], "from": at[LOOK], "to": at[SKIP], "prevAsof": at.get(5) if prev_ok else None,
+        "method": "6-1",
+        "n": len(rows), "nSp": int(df["sp"].sum()), "nYahoo": int(sum(1 for s in r61.index if src.get(s) == "yahoo")),
+        "universe": int(len(t0)), "excludedTypes": excluded, "excludedFlat": 0,
+        "corporateActions": [{"sym": disp(s), "name": info.get(s, {}).get("name", s), "why": "פיצול או שינוי במספר המניות בחלון"} for s in shown_ca],
+        "validation": {"sessions": val, "spxTrack": {}, "dropped": []},
         "sectors": {"nas": sector_rows(df, "sec", NAS_HE), "gics": sector_rows(df[df["sp"]], "gics", GICS_HE)},
-        "cols": ["sym", "name", "sec", "gics", "sp", "mcap", "px", "ret", "atr", "raw", "rs", "rsPrev"],
+        "cols": ["sym", "name", "sec", "gics", "sp", "mcap", "px", "ret", "m1", "rs", "rsPrev"],
         "rows": rows,
-        "_dist_now": now["raw"].to_numpy(), "_dist_prev": prev["raw"].to_numpy() if len(prev) else np.array([]),
-        "_dists": dists,
+        "_dist_now": r61.to_numpy(), "_dist_prev": r61p.to_numpy(),
+        "_dists": {at[0]: np.quantile(r61.to_numpy(), np.linspace(0, 1, 101))} if len(r61) > 500 else {},
     }
 
 
 # --------------------------------------------------------------------------- ETFs
-def etf_moves(c: pd.Series, h: pd.Series, lo: pd.Series) -> pd.Series:
-    """moveATR for every date of one instrument's daily bars."""
-    j = pd.concat([c, h, lo], axis=1, keys=["c", "h", "l"]).dropna()
-    if len(j) <= N:
-        return pd.Series(dtype=float)
-    pc = j["c"].shift(1)
-    tr = pd.concat([j["h"] - j["l"], (j["h"] - pc).abs(), (j["l"] - pc).abs()], axis=1).max(axis=1)
-    tr[pc.isna()] = np.nan
-    atr = tr.rolling(N, min_periods=N).mean()
-    return ((j["c"] - j["c"].shift(N)) / atr.replace(0, np.nan)).dropna()
-
-
 def read_wide(path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
@@ -444,30 +376,37 @@ def merge_wide(path, new: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-def etf_rs(res: dict, ohlc: dict[str, pd.DataFrame], groups: dict[str, list[str]]) -> dict:
-    """RS of each ETF against the stock distribution, now, a week ago and every stored date."""
+def ret61(c: pd.Series, d: str) -> float | None:
+    c = c.dropna()
+    c = c[c.index <= d]
+    if len(c) <= LOOK or c.index[-1] != d:
+        return None
+    return float(c.iloc[-1 - SKIP] / c.iloc[-1 - LOOK] - 1)
+
+
+def etf_rs(res: dict, px: pd.DataFrame, groups: dict[str, list[str]]) -> dict:
+    """6-1 RS of each factor, sector and theme ETF against the same stock distribution, plus its rank among peers."""
     dist = merge_wide(DIST_CSV, pd.DataFrame({d: q for d, q in res["_dists"].items()}).T.rename(columns=lambda i: f"q{i}"))
     asof, prev_d = res["asof"], res["prevAsof"]
-    hist = {}
-    cur = {}
-    for sym in ohlc["close"].columns:
-        mv = etf_moves(ohlc["close"][sym], ohlc["high"][sym], ohlc["low"][sym])
-        if mv.empty:
-            continue
+    syms = list(dict.fromkeys(s for g in groups.values() for s in g if s in px.columns))
+    hist, cur = {}, {}
+    for sym in syms:
+        c = px[sym]
         hs = {}
         for d in dist.index:
-            if d in mv.index:
-                hs[d] = rs_from_quantiles(float(mv[d]), dist.loc[d].to_numpy(dtype=float))
-        if asof in mv.index:
-            hs[asof] = rs_against(float(mv[asof]), res["_dist_now"])
-        if prev_d and prev_d in mv.index and len(res["_dist_prev"]):
-            hs[prev_d] = rs_against(float(mv[prev_d]), res["_dist_prev"])
+            r = ret61(c, d)
+            if r is not None:
+                hs[d] = rs_from_quantiles(r, dist.loc[d].to_numpy(dtype=float))
+        r_now = ret61(c, asof)
+        if r_now is not None:
+            hs[asof] = rs_against(r_now, res["_dist_now"])
+        if prev_d and len(res["_dist_prev"]):
+            r_prev = ret61(c, prev_d)
+            if r_prev is not None:
+                hs[prev_d] = rs_against(r_prev, res["_dist_prev"])
         hist[sym] = hs
-        if asof in mv.index:
-            c = ohlc["close"][sym].dropna()
-            i = c.index.get_loc(asof)
-            cur[sym] = {"rs": hs.get(asof), "raw": round(float(mv[asof]), 2),
-                        "ret10": round(float(c.iloc[i] / c.iloc[i - N] - 1), 4) if i >= N else None}
+        if r_now is not None:
+            cur[sym] = {"rs": hs.get(asof), "raw": round(r_now, 4), "ret61": round(r_now, 4)}
     wide = pd.DataFrame(hist)
     allrs = merge_wide(ETF_CSV, wide) if not wide.empty else read_wide(ETF_CSV)
     for sym, rec in cur.items():
@@ -475,11 +414,11 @@ def etf_rs(res: dict, ohlc: dict[str, pd.DataFrame], groups: dict[str, list[str]
         s = s[s.index <= asof]
         rec["rsPrev"] = int(s[prev_d]) if prev_d and prev_d in s.index else None
         rec["rsHist"] = [[d, int(v)] for d, v in s.iloc[-40:].items()]
-    for g, syms in groups.items():
-        peer = sorted([s for s in syms if s in cur and cur[s]["rs"] is not None], key=lambda s: -cur[s]["raw"])
+    for g, gs in groups.items():
+        peer = sorted([s for s in gs if s in cur and cur[s]["rs"] is not None], key=lambda s: -cur[s]["raw"])
         for i, s in enumerate(peer):
             cur[s].setdefault("peer", {})[g] = [i + 1, len(peer)]
-    return {"asof": asof, "prevAsof": prev_d, "from": res["from"], "items": cur}
+    return {"asof": asof, "prevAsof": prev_d, "from": res["from"], "to": res["to"], "method": "6-1", "items": cur}
 
 
 def fill_mcaps(res: dict, budget_s: float = 60) -> None:
@@ -509,28 +448,27 @@ def payload(res: dict) -> dict:
     return {k: v for k, v in res.items() if not k.startswith("_")}
 
 
-def run(px: pd.DataFrame, u: dict, members: dict | None, yf_members: dict | None, ohlc_etf: dict | None) -> tuple[dict, str]:
-    """members = {yahoo_symbol: (name, gics_sector)}; yf_members / ohlc_etf = {"close","high","low"} frames."""
+def run(px: pd.DataFrame, u: dict, members: dict | None, yf_members: dict | None, ohlc_etf: dict | None = None) -> tuple[dict, str]:
+    """members = {yahoo_symbol: (name, gics_sector)}; yf_members = {"close": ...} Yahoo bars of the S&P 500 members."""
     spx = px["^GSPC"].dropna() if "^GSPC" in px.columns else None
     if spx is None or spx.empty:
         raise ValueError("no S&P 500 closes for the trading calendar")
     days = list(spx.index)
-    repo = clone_snapshots()
-    snaps = read_snapshots(repo, days)
-    res = compute(snaps, days, members, yf_members, spx)
+    repo = clone_snapshots(depth=200)
+    offsets = (0, 5, SKIP, SKIP + 5, LOOK, LOOK + 5)
+    snaps, at = read_snapshots(repo, days, offsets)
+    res = compute(snaps, at, members, yf_members["close"] if yf_members else None)
     fill_mcaps(res)
     out = payload(res)
     dump_json(RS_JSON, out)
-    etf = {}
-    if ohlc_etf:
-        groups = {g["id"]: [it["sym"] for it in g["items"]] for g in u["groups"] if g["kind"] == "factor"}
-        etf = etf_rs(res, ohlc_etf, groups)
-        dump_json(ETF_JSON, etf)
+    groups = {g["id"]: [it["sym"] for it in g["items"]] for g in u["groups"] if g["kind"] == "factor"}
+    etf = etf_rs(res, px, groups)
+    dump_json(ETF_JSON, etf)
     shutil.rmtree(repo, ignore_errors=True)
     v = res["validation"]["sessions"]
     worst = min((x["match"] for x in v.values()), default=None)
-    msg = (f"{res['n']:,} מניות · {res['from']} עד {res['asof']}"
+    msg = (f"{res['n']:,} מניות · 6-1: {res['from']} עד {res['to']} (נכון ל-{res['asof']})"
            + (f" · התאמה ל-Yahoo: {worst * 100:.1f}% לפחות" if worst is not None else "")
-           + (f" · {len(res['corporateActions'])} הוצאו בגלל פעולה תאגידית" if res["corporateActions"] else "")
-           + (f" · {len(etf.get('items', {}))} תעודות סל" if etf else ""))
+           + (f" · {len(res['corporateActions'])} הוצאו בגלל פיצול" if res["corporateActions"] else "")
+           + f" · {len(etf.get('items', {}))} תעודות סל")
     return out, msg
