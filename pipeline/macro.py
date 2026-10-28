@@ -360,7 +360,13 @@ def run() -> tuple[dict, dict, str]:
         if any(x["id"] == sid for x in specs):
             try:
                 # day-ahead prices are dated by delivery day and come out the day before: keep up to today, not tomorrow
-                out[sid] = {d: v for d, v in fn().items() if d <= today_utc().isoformat()}
+                got = {d: v for d, v in fn().items() if d <= today_utc().isoformat()}
+                have = read_series(sid)
+                if got:
+                    out[sid] = got
+                elif not have or max(have) < (today_utc() - dt.timedelta(days=5)).isoformat():
+                    failed.append(f"{sid}: no new data")
+                # else: nothing new since the last run (the stored days are skipped), which is fine
             except Exception as e:
                 failed.append(f"{sid}: {str(e)[:80]}")
     gas = {**gas_daily(), **out.get("hh_gas", {})}
