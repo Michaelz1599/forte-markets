@@ -8,7 +8,7 @@
 //   note           {text, at}                    the old "bottom line" summary (kept for reference)
 //   brief          {week, stance, headline, points[], actions[], at}   the weekly executive brief
 //   briefHist      [brief, ...]                  earlier weeks, newest first (up to 52)
-//   custom         {indicators:{}, overrides:{}, points:{id:{date:value}}}
+//   custom         {indicators:{}, overrides:{}, points:{id:{date:value}}, events:[{date, mkt, kind, title, what, src, ind}]}
 //   img:ID         image bytes (metadata: content type)
 
 const JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' };
@@ -120,6 +120,12 @@ async function handleApi(request, env, url) {
       indicators: body.indicators && typeof body.indicators === 'object' ? body.indicators : {},
       overrides: body.overrides && typeof body.overrides === 'object' ? body.overrides : {},
       points: body.points && typeof body.points === 'object' ? body.points : {},
+      events: Array.isArray(body.events) ? body.events.slice(0, 2000).map((e) => ({
+        date: String(e.date || '').slice(0, 10), mkt: ['US', 'IL', 'GLOBAL'].includes(e.mkt) ? e.mkt : 'US',
+        kind: ['panic', 'euphoria', 'relief', 'shock'].includes(e.kind) ? e.kind : 'shock',
+        title: String(e.title || '').slice(0, 120), what: String(e.what || '').slice(0, 600),
+        src: /^https?:\/\//.test(e.src || '') ? String(e.src).slice(0, 500) : '', ind: String(e.ind || '').slice(0, 60),
+      })).filter((e) => /^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.title) : [],
     };
     const text = JSON.stringify(custom);
     if (text.length > 20 * 1024 * 1024) return bad('too large', 413);

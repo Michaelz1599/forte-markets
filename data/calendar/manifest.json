@@ -1,0 +1,102 @@
+{
+ "app": "Forte Earnings Calendar",
+ "schema": 1,
+ "updated": "2026-10-25T04:41:43Z",
+ "marketAsOf": "2026-10-23",
+ "nextUpdate": "כל יום ראשון בבוקר (שעון ישראל)",
+ "weeks": [
+  {
+   "id": "2026-10-26",
+   "file": "data/weeks/2026-10-26.json",
+   "count": 211,
+   "label": "26–30 באוקטובר 2026",
+   "coverage": {
+    "US": "full",
+    "IL": "none"
+   },
+   "note": "עונת הדוחות של Q3 בארה\"ב בשיאה. בישראל רוב הדוחות יתפרסמו בנובמבר."
+  },
+  {
+   "id": "2026-11-02",
+   "file": "data/weeks/2026-11-02.json",
+   "count": 8,
+   "label": "2–6 בנובמבר 2026",
+   "coverage": {
+    "US": "preview",
+    "IL": "announced"
+   },
+   "note": "תצוגה מקדימה: רק מועדים שהחברות כבר הודיעו. הרשימה המלאה לארה\"ב תתעדכן בעדכון השבועי הבא."
+  },
+  {
+   "id": "2026-11-09",
+   "file": "data/weeks/2026-11-09.json",
+   "count": 4,
+   "label": "9–13 בנובמבר 2026",
+   "coverage": {
+    "US": "none",
+    "IL": "announced"
+   },
+   "note": "מועדים שהודיעו חברות ישראליות עד כה."
+  },
+  {
+   "id": "2026-11-16",
+   "file": "data/weeks/2026-11-16.json",
+   "count": 1,
+   "label": "16–20 בנובמבר 2026",
+   "coverage": {
+    "US": "none",
+    "IL": "announced"
+   },
+   "note": "מועדים שהודיעו חברות ישראליות עד כה."
+  }
+ ],
+ "market": "data/market/2026-10-23.json",
+ "profiles": "data/profiles.json",
+ "voices": "data/voices.json",
+ "logos": "data/logos.json",
+ "universes": [
+  {
+   "id": "SPX",
+   "he": "S&P 500"
+  },
+  {
+   "id": "NDX",
+   "he": "נאסד\"ק 100"
+  },
+  {
+   "id": "GLOBAL",
+   "he": "גלובלי (ADR)"
+  },
+  {
+   "id": "TA125",
+   "he": "ת\"א 125"
+  },
+  {
+   "id": "TASE",
+   "he": "ת\"א כל המניות"
+  }
+ ],
+ "sources": [
+  {
+   "label": "Earnings Whispers — לוח שבועי",
+   "url": "https://www.earningswhispers.com/calendar"
+  },
+  {
+   "label": "הודעות חברות (IR / PR Newswire / GlobeNewswire)",
+   "url": null
+  },
+  {
+   "label": "S&P 500 constituents + financials (GitHub datasets)",
+   "url": "https://github.com/datasets/s-and-p-500-companies-financials"
+  },
+  {
+   "label": "Yahoo Finance — Analysis / Key statistics",
+   "url": "https://finance.yahoo.com"
+  },
+  {
+   "label": "StockAnalysis — Statistics",
+   "url": "https://stockanalysis.com"
+  }
+ ],
+ "macro": "data/macro.json"
+}

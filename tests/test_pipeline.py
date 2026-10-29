@@ -341,3 +341,28 @@ def test_cpi_drivers_sum_to_headline_when_parts_move_alike():
     il = drivers.il(cbs)
     k = len(il["d"]) - 1
     assert abs(sum(p["v"][k] for p in il["parts"]) - 3.0) < 0.01 and il["headline"][k] == 3.0
+
+
+def test_earnings_live_numbers(tmp_path, monkeypatch):
+    import json as _j
+    from pipeline import earnings, markets
+    cal = tmp_path / "calendar"; (cal / "weeks").mkdir(parents=True); (cal / "market").mkdir()
+    days = _dates(40)
+    today = days[-1]
+    evs = [{"id": "AAA-1", "ticker": "AAA", "market": "US", "date": days[-3], "session": "AMC", "consensus": {"eps": 1.0}},
+           {"id": "BBB-1", "ticker": "BBB", "market": "US", "date": today, "session": "BMO"}]
+    (cal / "weeks" / "w.json").write_text(_j.dumps({"events": evs}))
+    (cal / "market" / "m.json").write_text(_j.dumps({"quotes": {"AAA": {"mcap": 5e9}, "BBB": {"mcap": 9e9}}}))
+    (cal / "manifest.json").write_text(_j.dumps({"weeks": [{"file": "data/weeks/w.json"}], "market": "data/market/m.json"}))
+    monkeypatch.setattr(earnings, "CAL", cal); monkeypatch.setattr(earnings, "LIVE", cal / "live.json")
+    monkeypatch.setattr(earnings, "today_utc", lambda: __import__("datetime").date.fromisoformat(today))
+    monkeypatch.setattr(earnings, "implied_move", lambda sym, react: {"move": 0.05, "spot": 10.0, "exp": react, "dte": 1, "iv": 0.6, "at": today + "T08:00+00:00"})
+    monkeypatch.setattr(earnings, "eps_actual", lambda sym, d: (1.2, 1.0))
+    px = pd.DataFrame({"^GSPC": np.linspace(100, 101, 40)}, index=days)
+    closes = pd.DataFrame({"AAA": [10.0] * 38 + [11.0, 11.0]}, index=days)
+    monkeypatch.setattr(markets, "yf_close", lambda syms, start: closes)
+    out, msg = earnings.run(px)
+    r = out["results"]["AAA-1"]
+    assert r["d1"] == days[-2] and abs(r["move"] - 0.1) < 1e-9 and r["surprise"] == 0.2
+    assert "עלתה 10.0%" in r["he"] and "מעל הצפי" in r["he"]
+    assert "BBB-1" in out["implied"] and "BBB-1" not in out["results"]

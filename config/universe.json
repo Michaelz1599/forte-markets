@@ -786,13 +786,12 @@
         {
           "sym": "B:MEMORY",
           "name": "זיכרון ואחסון",
-          "desc": "סל במשקל שווה: MU, SNDK, WDC, STX, PSTG, NTAP",
+          "desc": "סל במשקל שווה: MU, SNDK, WDC, STX, NTAP",
           "basket": [
             "MU",
             "SNDK",
             "WDC",
             "STX",
-            "PSTG",
             "NTAP"
           ],
           "core": true

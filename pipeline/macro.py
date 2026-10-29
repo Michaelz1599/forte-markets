@@ -112,6 +112,25 @@ def boi_rate() -> dict:
     return {d: float(v) for d, v in keep.items()}
 
 
+def boi_series(flow: str, key: str) -> dict:
+    """Any Bank of Israel SDMX series (e.g. flow ZCM: zero-coupon yields and inflation expectations)."""
+    url = f"https://edge.boi.gov.il/FusionEdgeServer/sdmx/v2/data/dataflow/BOI.STATISTICS/{flow}/1.0/{key}"
+    r = get(url, params={"startperiod": "2000-01-01", "format": "csv"}, timeout=40, tries=2)
+    out = {}
+    for row in csv.DictReader(io.StringIO(r.text)):
+        d, v = str(row.get("TIME_PERIOD") or ""), row.get("OBS_VALUE")
+        if len(d) == 7:
+            d += "-01"
+        try:
+            out[d[:10]] = round(float(v), 4)
+        except (TypeError, ValueError):
+            continue
+    if len(out) < 12:
+        save_probe(f"boi_{key}", r.text[:3000])
+        raise ValueError(f"BOI {flow}/{key}: {len(out)} rows")
+    return out
+
+
 # --------------------------------------------------------------------------- EIA wholesale power
 HUB_KEYS = {"pjm": ("pjm",), "ercot": ("ercot",), "sp15": ("sp15", "sp-15", "sp 15"), "nepool": ("mass", "nepool"),
             "midc": ("mid c", "mid-c", "midc"), "np15": ("np15", "np-15"), "palo": ("palo",), "indiana": ("indiana",)}
@@ -337,6 +356,8 @@ def run() -> tuple[dict, dict, str]:
                 except Exception:
                     fb = fred_series(s["fred_fallback"])
                     out[sid] = _transform(fb, {**s, "tf": None})
+            elif s.get("boi_key"):
+                out[sid] = boi_series(s.get("boi_flow", "ZCM"), s["boi_key"])
             elif s.get("boi"):
                 try:
                     out[sid] = boi_rate()
@@ -415,11 +436,11 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
     """Macro series as indicator definitions, so the site's detail view, charts and search work for them."""
     cfg = cfg or load()
     src_name = lambda s: ("FRED · " + s["fred"]) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
-                                                                         "בנק ישראל" if s.get("boi") else "EIA (ICE)" if s.get("eia") else "NYISO" if s.get("iso") == "nyiso" else "ISO New England" if s.get("iso") == "isone" else
+                                                                         "בנק ישראל" if s.get("boi") or s.get("boi_key") else "EIA (ICE)" if s.get("eia") else "NYISO" if s.get("iso") == "nyiso" else "ISO New England" if s.get("iso") == "isone" else
                                                                          (("NYISO" if s.get("spark") == "pw_nyc" else "ISO-NE" if s.get("spark") == "pw_isone" else "EIA (ICE)") + " ו-Henry Hub, חישוב") if s.get("spark") else "")
     src_url = lambda s: (f"https://fred.stlouisfed.org/series/{s['fred']}" if s.get("fred") else
                          "https://www.cbs.gov.il/he/subjects/Pages/מדד-המחירים-לצרכן.aspx" if s.get("cbs") or s.get("cbs_mom") else
-                         "https://www.boi.org.il/" if s.get("boi") else "https://www.nyiso.com/energy-market-operational-data" if s.get("iso") == "nyiso" else
+                         "https://www.boi.org.il/" if s.get("boi") or s.get("boi_key") else "https://www.nyiso.com/energy-market-operational-data" if s.get("iso") == "nyiso" else
                          "https://www.iso-ne.com/isoexpress/" if s.get("iso") == "isone" else "https://www.eia.gov/electricity/wholesale/")
     out = []
     for i, s in enumerate(cfg["series"]):

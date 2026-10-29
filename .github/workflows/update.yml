@@ -16,7 +16,7 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
-    paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt"]
+    paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt", "data/calendar/**"]
 permissions:
   contents: write
 concurrency:

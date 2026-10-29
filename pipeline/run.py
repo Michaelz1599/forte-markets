@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import analogs, drivers, breadth, israel, macro, markets, rs, sources
+from . import analogs, drivers, breadth, earnings, israel, macro, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -120,7 +120,6 @@ def run(offline: bool = False) -> int:
                     res[k] = fn(); msg.append(f"{k.upper()} עד {res[k]['d'][-1][:7]}")
                 except Exception as e:
                     msg.append(f"{k.upper()}: {type(e).__name__} {str(e)[:80]}")
-            drivers.boi_probe()
             if not res:
                 raise ValueError("; ".join(msg))
             old = json.loads(drivers.OUT.read_text(encoding="utf-8")) if drivers.OUT.exists() else {}
@@ -175,6 +174,11 @@ def run(offline: bool = False) -> int:
             else:
                 ohlc = None
             return rs.run(px, u, members, bextra["bars"] if bextra else None, ohlc)
+        # 10a. Economic calendar: implied moves for the coming reports, reactions and EPS for the reported ones
+        if (earnings.CAL / "manifest.json").exists():
+            res = step(st, "earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", lambda: earnings.run(px))
+            if res:
+                st.add("earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", True, res[0]["asof"][:10], res[1])
         # 10b. Israel: breadth, sentiment proxies, sectors, RS of the large TASE names, Israeli macro
         res = step(st, "israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", lambda: israel.run(px))
         if res:
@@ -221,6 +225,10 @@ def build(st: Status, u: dict, px) -> None:
     if (ROOT / "web" / "vendor").exists():
         shutil.copytree(ROOT / "web" / "vendor", tmp / "vendor")
     (tmp / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
+    if (ROOT / "web" / "calendar").exists():   # the economic calendar app and its data (weekly task + live.json)
+        shutil.copytree(ROOT / "web" / "calendar", tmp / "calendar")
+        if (ROOT / "data" / "calendar").exists():
+            shutil.copytree(ROOT / "data" / "calendar", tmp / "calendar" / "data")
     epoch = dt.date(1970, 1, 1)
     series = {}
     summation_from_oscillator()
@@ -246,6 +254,10 @@ def build(st: Status, u: dict, px) -> None:
                                              "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
                                              "drivers": json.loads(drivers.OUT.read_text(encoding="utf-8")) if drivers.OUT.exists() else {},
                                              "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
+    ev_file = ROOT / "config" / "events.jsonl"   # curated market events for the peaks and troughs of the charts
+    if ev_file.exists():
+        evs = [json.loads(x) for x in ev_file.read_text(encoding="utf-8").splitlines() if x.strip()]
+        dump_json(tmp / "data" / "events.json", {"events": evs})
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
         shutil.copy(mom_file, tmp / "data" / "momentum.json")
