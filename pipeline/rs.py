@@ -127,18 +127,28 @@ def session_of(t: dt.datetime, trading_days: list[str]) -> str | None:
     return cand[-1] if cand else None
 
 
-def snapshot_sessions(repo, trading_days: list[str]) -> dict[str, str]:
-    """{session: commit} for every snapshot that clearly holds one finished session (newest commit wins)."""
+def snapshot_sessions(repo, trading_days: list[str]) -> dict[str, list[str]]:
+    """{session: [commits, newest first]} for every snapshot that clearly holds one finished session."""
     log = _git(["-C", str(repo), "log", "--format=%H %cI", "--", "tickers/all.csv"]).split("\n")
-    out = {}
+    out: dict[str, list[str]] = {}
     for line in log:
         if not line.strip():
             continue
         h, t = line.split()
         s = session_of(dt.datetime.fromisoformat(t), trading_days)
-        if s is not None and s not in out:
-            out[s] = h
+        if s is not None:
+            out.setdefault(s, []).append(h)
     return out
+
+
+def same_closes(a: pd.DataFrame, b: pd.DataFrame) -> float:
+    """Share of names whose close is exactly the same in two snapshots. On real consecutive sessions this is small
+    (halted or untraded names); a snapshot that repeats the previous day's OHLC block (seen on 2026-09-22) is near 1."""
+    ix = a.index.intersection(b.index)
+    ca = pd.to_numeric(a.loc[ix, "close"], errors="coerce")
+    cb = pd.to_numeric(b.loc[ix, "close"], errors="coerce")
+    ok = (ca > 0) & (cb > 0)
+    return float((ca[ok] == cb[ok]).mean()) if ok.sum() >= 500 else 0.0
 
 
 def load_snapshot(repo, commit: str) -> pd.DataFrame | None:
@@ -151,35 +161,49 @@ def load_snapshot(repo, commit: str) -> pd.DataFrame | None:
     return df.drop_duplicates("symbol").set_index("symbol")
 
 
-def pick_session(have: dict, trading_days: list[str], pos: int, slack: int = 4) -> str | None:
-    """The stored session at trading-day position pos, or the nearest earlier one within `slack` days."""
-    for k in range(slack + 1):
-        if pos - k < 0:
-            return None
-        d = trading_days[pos - k]
-        if d in have:
-            return d
-    return None
-
-
-def read_snapshots(repo, trading_days: list[str], offsets: tuple[int, ...]) -> tuple[dict[str, pd.DataFrame], dict[int, str]]:
-    """Load only the snapshots at the given session offsets back from the newest one."""
+def read_snapshots(repo, trading_days: list[str], offsets: tuple[int, ...],
+                   yfc: pd.DataFrame | None = None) -> tuple[dict[str, pd.DataFrame], dict[int, str]]:
+    """Load only the snapshots at the given session offsets back from the newest one.
+    A snapshot is skipped when it repeats the previous session's closes or disagrees with Yahoo's S&P 500 closes;
+    then the next commit of the same session is tried, then up to 4 sessions earlier (not for the newest)."""
     have = snapshot_sessions(repo, trading_days)
     if not have:
         return {}, {}
     asof = max(have)
     ti = trading_days.index(asof)
+    loaded: dict[str, pd.DataFrame | None] = {}
+
+    def get(h):
+        if h not in loaded:
+            loaded[h] = load_snapshot(repo, h)
+        return loaded[h]
+
+    def good(d, h):
+        df = get(h)
+        if df is None:
+            return False
+        i = trading_days.index(d)
+        prev = next((trading_days[j] for j in range(i - 1, max(-1, i - 6), -1) if trading_days[j] in have), None)
+        if prev is not None:
+            pdf = get(have[prev][0])
+            if pdf is not None and same_closes(df, pdf) > 0.5:
+                return False
+        v = validate({d: df}, yfc)
+        return not (d in v and v[d]["match"] < 0.8)
+
     at, snaps = {}, {}
     for off in offsets:
-        d = pick_session(have, trading_days, ti - off, 0 if off == 0 else 4)
-        if d is None:
-            continue
-        if d not in snaps:
-            df = load_snapshot(repo, have[d])
-            if df is None:
-                continue
-            snaps[d] = df
-        at[off] = d
+        for k in range((0 if off == 0 else 4) + 1):
+            if ti - off - k < 0:
+                break
+            d = trading_days[ti - off - k]
+            if d not in snaps:
+                h = next((h for h in have.get(d, []) if good(d, h)), None)
+                if h is None:
+                    continue
+                snaps[d] = get(h)
+            at[off] = d
+            break
     return snaps, at
 
 
@@ -456,8 +480,9 @@ def run(px: pd.DataFrame, u: dict, members: dict | None, yf_members: dict | None
     days = list(spx.index)
     repo = clone_snapshots(depth=200)
     offsets = (0, 5, SKIP, SKIP + 5, LOOK, LOOK + 5)
-    snaps, at = read_snapshots(repo, days, offsets)
-    res = compute(snaps, at, members, yf_members["close"] if yf_members else None)
+    yfc = yf_members["close"] if yf_members else None
+    snaps, at = read_snapshots(repo, days, offsets, yfc)
+    res = compute(snaps, at, members, yfc)
     fill_mcaps(res)
     out = payload(res)
     dump_json(RS_JSON, out)

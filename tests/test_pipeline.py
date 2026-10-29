@@ -310,3 +310,19 @@ def test_nyiso_onpeak_average():
         rows.append(f"10/24/2026 {h:02d}:00,N.Y.C.,61761,50,0,0")
     out = macro._nyiso_frame("\n".join(rows), "N.Y.C.")
     assert out == {"2026-10-27": 100.0}
+
+
+def test_rs_skips_snapshot_that_repeats_previous_closes(monkeypatch):
+    days = _dates(140)
+    rng = np.random.default_rng(9)
+    syms = [f"S{i:03d}" for i in range(800)]
+    frames = {d: _snap(syms, 50 * np.exp(rng.normal(0, 0.02, 800).cumsum() * 0 + rng.normal(0, 0.05, 800))) for d in days}
+    stale_d = days[-1 - (rs.SKIP + 5)]
+    frames[stale_d] = frames[days[days.index(stale_d) - 1]].copy()   # the OHLC block of the day before
+    have = {d: ["c-" + d] for d in days}
+    monkeypatch.setattr(rs, "snapshot_sessions", lambda repo, td: have)
+    monkeypatch.setattr(rs, "load_snapshot", lambda repo, h: frames[h[2:]])
+    assert rs.same_closes(frames[stale_d], frames[days[days.index(stale_d) - 1]]) == 1.0
+    snaps, at = rs.read_snapshots(None, days, (0, 5, rs.SKIP, rs.SKIP + 5, rs.LOOK, rs.LOOK + 5))
+    assert at[rs.SKIP + 5] == days[days.index(stale_d) - 1] and at[0] == days[-1] and at[rs.SKIP] == days[-1 - rs.SKIP]
+    assert stale_d not in snaps
