@@ -1,0 +1,43 @@
+ACC|1.0|דוחות כספיים - בנק ישראל
+ATM|1.0|ATM משיכות ממכשירי
+BBS_99|1.0|Monthly Balance Sheets - Banks
+BFR_99|1.0|Financial Statements - Banks
+BIR|1.0|Interest rates and business volume - exc. housing loans
+BIR_MRTG_99|1.0|Interest rates and business volume - housing loans
+BKN|1.0|Banknotes and Coins
+BMB_99|1.0|Balances for housing
+BOP|1.0|מאזן תשלומים
+BR|1.0|BOI interest rate
+BTS_7|1.0|Business Tendency Survey
+CAP|1.0|מלאי הון
+CARDS|1.0|כרטיסי חיוב
+CCIR|1.0|Credit Card Companies - Interest Rates and Business Volume
+CCP|1.0|רכישות בכרטיסי אשראי
+CHEQUES|1.0|Checks
+CONS|1.0|Construction
+DEBT_AGG|1.0|Debt and credit aggregates
+DEM|1.0|דמוגרפיה
+DRV|1.0|Trade Turnover
+ECON_IND|1.0|אינדיקטורים לפעילות המשק
+ENR|1.0|Energy
+EXR|1.0|Exchange rates
+EXS|1.0|External Statistics
+EZER|1.0|EZER
+EZER_PIK_MOS|1.0|עזר פיקוח מו'ס
+FTR|1.0|Foreign Trade
+INSINV|1.0|מוסדיים
+INSINV2|1.0|Institutional Investors
+LBM|1.0|Labor Market
+MAG|1.0|Monetay Aggregates
+MASAV|1.0|ACH-MASAV
+MF|1.0|Mutual Funds
+MNF|1.0|Industry
+NA|1.0|National Accounts
+PRI|1.0|מדדי מחירים
+PS|1.0|Public Sector
+REAL_ES_DF|1.0|Real estate
+REV|1.0|מדדי פידיון
+SECDWH|1.0|Securities TASE
+TLB|1.0|Telbor rates
+ZAHAV|1.0|RTGS-ZAHAV
+ZCM|1.0|Inflation expectations and zero yield curve

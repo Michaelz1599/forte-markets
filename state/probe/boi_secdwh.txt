@@ -1,0 +1,88 @@
+SERIES_CODE,Series name,FREQ,Frequency,TIME_PERIOD,OBS_VALUE
+DWH_SRC_0299_MA,Yield spread between the nominal Tel Bond Index and unindexed, fixed rate government bonds, monthly average,M,Monthly,2026-09,1.3029846494
+DWH_SRC_0349_MA,Makam yield for 10 months, gross - monthly average,M,Monthly,2026-09,3.1794535319
+DWH_SRC_0325_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 26 years (monthly average),M,Monthly,2026-05,2.3243133332
+DWH_SRC_0350_MA,Makam yield for 11 months, gross - monthly average,M,Monthly,2026-09,3.1866031831
+DWH_SRC_0347_MA,Makam yield for 8 months, gross - monthly average,M,Monthly,2026-09,3.1868884922
+DWH_SRC_0323_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 24 years (monthly average),M,Monthly,2021-11,-0.099257048
+DWH_SRC_0348_MA,Makam yield for 9 months, gross - monthly average,M,Monthly,2026-09,3.1881874137
+DWH_SRC_0342_MA,Makam yield for 3 months, gross - monthly average,M,Monthly,2026-09,3.1208724964
+DWH_SRC_0340,Makam yield for 1-month, gross,D,Daily,2026-10-28,3.0891418457032
+DWH_SRC_0315_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 16 years (monthly average),M,Monthly,2026-02,1.9003871493
+DWH_SRC_0307_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 8 years (monthly average),M,Monthly,2026-04,2.0916268509
+DWH_SRC_0308_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 9 years (monthly average),M,Monthly,2025-04,2.2094665989
+DWH_SRC_0355_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -4 years (monthly average),M,Monthly,2026-09,3.6323529477
+DWH_SRC_0310_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 11 years (monthly average),M,Monthly,2026-09,2.1264332285
+DWH_SRC_0309_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 10 years (monthly average),M,Monthly,2026-09,2.0547429389
+DWH_SRC_0357_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -6 years (monthly average),M,Monthly,2026-09,3.7450355126
+DWH_SRC_0311_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 12 years (monthly average),M,Monthly,2024-10,2.2189094696
+DWH_SRC_0377_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -26 years (monthly average),M,Monthly,2026-09,4.5540756815
+DWH_SRC_0381_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -30 years (monthly average),M,Monthly,2023-05,4.2353827371
+DWH_SRC_0306_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 7 years (monthly average),M,Monthly,2026-09,1.8913214571
+DWH_SRC_0313_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 14 years (monthly average),M,Monthly,2022-11,0.621551287
+DWH_SRC_0343_MA,Makam yield for 4 months, gross - monthly average,M,Monthly,2026-09,3.1302623749
+DWH_SRC_0375_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -24 years (monthly average),M,Monthly,2023-08,4.2259295496
+DWH_SRC_0312_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 13 years (monthly average),M,Monthly,2023-10,1.752137843
+DWH_SRC_0326_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 27 years (monthly average),M,Monthly,2025-04,2.2602915131
+DWH_SRC_0349,Makam yield for 10 months, gross,D,Daily,2026-10-28,3.1047153472901
+DWH_SRC_0329_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 30 years (monthly average),M,Monthly,2026-09,2.4992707454
+DWH_SRC_0346_MA,Makam yield for 7 months, gross - monthly average,M,Monthly,2026-09,3.1305983861
+DWH_SRC_0344_MA,Makam yield for 5 months, gross - monthly average,M,Monthly,2026-09,3.1583475124
+DWH_SRC_0327_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 28 years (monthly average),M,Monthly,2024-04,2.1055694752
+DWH_SRC_0364_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -13 years (monthly average),M,Monthly,2024-10,5.086876338
+DWH_SRC_0348,Makam yield for 9 months, gross,D,Daily,2026-10-28,3.1037950515748
+DWH_SRC_0353_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -2 years (monthly average),M,Monthly,2026-09,3.4818511338
+DWH_SRC_0345_MA,Makam yield for 6 months, gross - monthly average,M,Monthly,2026-09,3.1304495014
+DWH_SRC_0366_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -15 years (monthly average),M,Monthly,2026-09,4.2082758662
+DWH_SRC_0328_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 29 years (monthly average),M,Monthly,2023-05,1.3184376129
+DWH_SRC_0379_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -28 years (monthly average),M,Monthly,2025-04,4.8513115719
+DWH_SRC_0340_MA,Makam yield for 1-month, gross - monthly average,M,Monthly,2026-09,3.1661292485
+DWH_SRC_0367_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -16 years (monthly average),M,Monthly,2026-07,4.0453261137
+DWH_SRC_0368_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -17 years (monthly average),M,Monthly,2025-07,4.420923189
+DWH_SRC_0342,Makam yield for 3 months, gross,D,Daily,2026-10-28,3.0700302124024
+DWH_SRC_0344,Makam yield for 5 months, gross,D,Daily,2026-10-28,3.0085659027101
+DWH_SRC_0346,Makam yield for 7 months, gross,D,Daily,2026-10-28,3.0590105056763
+DWH_SRC_0370_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -19 years (monthly average),M,Monthly,2023-07,3.9844005413
+DWH_SRC_0347,Makam yield for 8 months, gross,D,Daily,2026-10-28,3.0992221832276
+DWH_SRC_0363_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -12 years (monthly average),M,Monthly,2025-10,4.0372338519
+DWH_SRC_0341,Makam yield for 2 months, gross,D,Daily,2026-10-28,3.0558586120606
+DWH_SRC_0343,Makam yield for 4 months, gross,D,Daily,2026-10-28,3.1076622009278
+DWH_SRC_0350,Makam yield for 11 months, gross,D,Daily,2026-10-28,3.1219553947449
+DWH_SRC_0362_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -11 years (monthly average),M,Monthly,2026-09,4.0800885691
+DWH_SRC_0369_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -18 years (monthly average),M,Monthly,2024-07,5.1482114001
+DWH_SRC_0373_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -22 years (monthly average),M,Monthly,2025-08,4.5694683269
+DWH_SRC_0361_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -10 years (monthly average),M,Monthly,2026-04,3.9847043622
+DWH_SRC_0324_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 25 years (monthly average),M,Monthly,2026-09,2.4393408456
+DWH_SRC_0322_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 23 years (monthly average),M,Monthly,2022-11,0.8457526588
+DWH_SRC_0360_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -9 years (monthly average),M,Monthly,2026-09,3.9517293309
+DWH_SRC_0371_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -20 years (monthly average),M,Monthly,2026-09,4.4506700337
+DWH_SRC_0351,1-year makam yield, gross,D,Daily,2026-10-28,3.1226301193239
+DWH_SRC_0374_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -23 years (monthly average),M,Monthly,2024-08,5.1399428397
+DWH_SRC_0438_MA_T,Coporate bonds - banks branch - nominal - spread, monthly average,M,Monthly,2026-09,0.5408625429
+DWH_SRC_0358_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -7 years (monthly average),M,Monthly,2025-09,4.0577267816
+DWH_SRC_0305_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 6 years (monthly average),M,Monthly,2026-05,1.7773825871
+DWH_SRC_0314_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 15 years (monthly average),M,Monthly,2026-09,2.2043879992
+DWH_SRC_0359_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -8 years (monthly average),M,Monthly,2026-09,4.0659081936
+DWH_SRC_0372_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -21 years (monthly average),M,Monthly,2026-08,4.221242127
+DWH_SRC_0345,Makam yield for 6 months, gross,D,Daily,2026-10-28,2.9824590682985
+DWH_SRC_0356_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -5 years (monthly average),M,Monthly,2026-09,3.6993017627
+DWH_SRC_0378_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -27 years (monthly average),M,Monthly,2026-04,4.5161192119
+DWH_SRC_0352_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -1 years (monthly average),M,Monthly,2026-09,3.1276634902
+DWH_SRC_0354_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -3 years (monthly average),M,Monthly,2026-09,3.585040866
+DWH_SRC_0380_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -29 years (monthly average),M,Monthly,2024-04,5.1148053755
+DWH_SRC_0304_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 5 years (monthly average),M,Monthly,2026-09,1.8036186631
+DWH_SRC_0300_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 1 years (monthly average),M,Monthly,2026-09,1.5348590745
+DWH_SRC_0317_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 18 years (monthly average),M,Monthly,2024-02,1.762433257
+DWH_SRC_0376_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -25 years (monthly average),M,Monthly,2022-09,3.5375976306
+DWH_SRC_0302_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 3 years (monthly average),M,Monthly,2026-09,1.6141104367
+DWH_SRC_0316_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 17 years (monthly average),M,Monthly,2025-02,1.9539898336
+DWH_SRC_0303_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 4 years (monthly average),M,Monthly,2025-10,1.766961813
+DWH_SRC_0321_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 22 years (monthly average),M,Monthly,2023-11,2.0251344585
+DWH_SRC_0341_MA,Makam yield for 2 months, gross - monthly average,M,Monthly,2026-09,3.1285699209
+DWH_SRC_0351_MA,1-year makam yield, gross - monthly average,M,Monthly,2026-09,3.1935502937
+DWH_SRC_0320_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 21 years (monthly average),M,Monthly,2024-10,2.3135385662
+DWH_SRC_0318_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 19 years (monthly average),M,Monthly,2026-09,2.3391069223
+DWH_SRC_0301_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 2 years (monthly average),M,Monthly,2026-09,1.5533447266
+DWH_SRC_0365_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -14 years (monthly average),M,Monthly,2023-11,4.6074928546
+DWH_SRC_0319_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 20 years (monthly average),M,Monthly,2025-10,1.9334498094
+DWH_SRC_0498_MA_T,Coporate bonds - real-estate branch - nominal - spread, monthly average,M,Monthly,2026-09,2.9170251197

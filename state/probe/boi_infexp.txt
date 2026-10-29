@@ -1,0 +1,1 @@
+ERROR RuntimeError: https://edge.boi.gov.il/FusionEdgeServer/sdmx/v2/data/dataflow/BOI.STATISTICS/INFEXP/1.0?format=csv&lastNObservations=1& -> HTTP 404

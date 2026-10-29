@@ -1,0 +1,31 @@
+SERIES_CODE,Series name,FREQ,Frequency,TIME_PERIOD_TYPE,TIME_PERIOD,OBS_VALUE
+EXP_EXP_01Y_BI_MA,Inflation expectations for the first year,M,Monthly,CAL,2026-09,1.5746830431
+ZC_TSB_ZND_01Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 1 Year - Monthly average,M,Monthly,_Z,2026-09,3.1889044017
+EXP_EXB_FRW_ZD_02Y_03Y_MA,3rd year forward inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,2.1032101017
+SPF_FCT_CP_01Y_AVG_MA,חזאים - תחזית למדד שנתי - ל-12 חודשים קדימה - ממוצע תחזיות החזאים - ממוצע חודשי,M,Monthly,CAL,2026-09,2.0220666667
+ZC_TSB_ZRD_02Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 2 Years - Monthly average,M,Monthly,_Z,2026-09,1.589351078
+ZC_TSB_ZRD_04Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 4 Years - Monthly average,M,Monthly,_Z,2026-09,1.7125339416
+ZC_TSB_ZND_02Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 2 Years - Monthly average,M,Monthly,_Z,2026-09,3.4539664623
+EXP_EXB_FRW_ZD_03Y_05Y_MA,3–5 year forward inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,1.8738624306
+ZC_TSB_ZRD_15Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 15 Years - Monthly average,M,Monthly,_Z,2026-09,2.2590727172
+ZC_TSB_ZND_07Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 7 Years - Monthly average,M,Monthly,_Z,2026-09,3.8539882156
+ZC_TSB_ZRD_01Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 1 Year - Monthly average,M,Monthly,_Z,2026-09,1.5894191905
+ZC_TSB_ZRD_03Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 3 Years - Monthly average,M,Monthly,_Z,2026-09,1.645367986
+INF_MAX_TRGT_D,Inflation target range – upper bound,D,Daily,_Z,2026-10-28,3
+ZC_TSB_ZRD_07Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 7 Years - Monthly average,M,Monthly,_Z,2026-09,1.9100516643
+EXP_EXB_ZD_5Y_MA,5-year inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,1.9043170844
+EXP_HAZ_MAD_AVG_01Y_MA,Average of forecasters’ inflation projections for the coming 12 months,M,Monthly,CAL,2026-09,2.0220666667
+INF_MIN_TRGT_D,Inflation target range - lower bound,D,Daily,_Z,2026-10-28,1
+ZC_TSB_ZND_03Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 3 Years - Monthly average,M,Monthly,_Z,2026-09,3.6016751109
+ZC_TSB_ZND_04Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 4 Years - Monthly average,M,Monthly,_Z,2026-09,3.6647951811
+ZC_TSB_ZND_05Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 5 Years - Monthly average,M,Monthly,_Z,2026-09,3.716070154
+EXP_EXP_ISSWIT1_01Y_MA,1-year inflation expectations derived from forward contracts quotes,M,Monthly,_Z,2026-09,1.90636363636363
+ZC_TSB_ZRD_10Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 10 Years - Monthly average,M,Monthly,_Z,2026-09,2.1039092604
+EXP_EXB_FRW_ZD_05Y_10Y_MA,5–10 year forward inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,1.9297886532
+EXP_EXB_FRW_ZD_01Y_02Y_MA,2nd year forward inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,2.0969821087
+EXP_EXB_ZD_10Y_MA,10-year inflation expectations derived from the capital market,M,Monthly,CAL,2026-09,1.9170452905
+ZC_TSB_ZND_15Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 15 Years - Monthly average,M,Monthly,_Z,2026-09,4.2878208272
+ZC_TSB_ZND_10Y_MA,Nominal rate of return derived from the zero coupon yield curve estimation - 10 Years - Monthly average,M,Monthly,_Z,2026-09,4.0612965615
+EXP_EXP_IRB_1Y_MA,Inflation expectations for the coming year derived from banks’ internal interest rates,M,Monthly,CAL,2026-09,1.9029477328
+ZC_TSB_ZRD_20Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 20 Years - Monthly average,M,Monthly,_Z,2026-09,2.3767695284
+ZC_TSB_ZRD_05Y_MA,Real rate of return derived from the zero coupon yield curve estimation - 5 Years - Monthly average,M,Monthly,_Z,2026-09,1.7778839525
