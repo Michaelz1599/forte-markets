@@ -722,6 +722,201 @@
           "core": true
         }
       ]
+    },
+    {
+      "id": "tech",
+      "name": "טכנולוגיה לפי תת-תחום",
+      "kind": "factor",
+      "items": [
+        {
+          "sym": "SOXX",
+          "name": "שבבים",
+          "desc": "iShares Semiconductor ETF, ‏30 חברות השבבים הגדולות בארה\"ב",
+          "core": true
+        },
+        {
+          "sym": "B:AICHIP",
+          "name": "שבבי AI ומחשוב",
+          "desc": "סל במשקל שווה: NVDA, AVGO, AMD, MRVL, ARM, TSM, ALAB, CRDO",
+          "basket": [
+            "NVDA",
+            "AVGO",
+            "AMD",
+            "MRVL",
+            "ARM",
+            "TSM",
+            "ALAB",
+            "CRDO"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:SEMICAP",
+          "name": "ציוד לייצור שבבים",
+          "desc": "סל במשקל שווה: AMAT, LRCX, KLAC, ASML, TER, ONTO, NVMI, CAMT, ENTG, MKSI",
+          "basket": [
+            "AMAT",
+            "LRCX",
+            "KLAC",
+            "ASML",
+            "TER",
+            "ONTO",
+            "NVMI",
+            "CAMT",
+            "ENTG",
+            "MKSI"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:ANALOG",
+          "name": "שבבים אנלוגיים ותעשייתיים",
+          "desc": "סל במשקל שווה, שבבים מחזוריים (רכב, תעשייה): TXN, ADI, MCHP, NXPI, ON, STM, MPWR",
+          "basket": [
+            "TXN",
+            "ADI",
+            "MCHP",
+            "NXPI",
+            "ON",
+            "STM",
+            "MPWR"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:MEMORY",
+          "name": "זיכרון ואחסון",
+          "desc": "סל במשקל שווה: MU, SNDK, WDC, STX, PSTG, NTAP",
+          "basket": [
+            "MU",
+            "SNDK",
+            "WDC",
+            "STX",
+            "PSTG",
+            "NTAP"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:AIINFRA",
+          "name": "תשתית AI: שרתים, תקשורת וקירור",
+          "desc": "סל במשקל שווה: ANET, DELL, SMCI, VRT, CLS, CIEN, COHR, LITE, HPE",
+          "basket": [
+            "ANET",
+            "DELL",
+            "SMCI",
+            "VRT",
+            "CLS",
+            "CIEN",
+            "COHR",
+            "LITE",
+            "HPE"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:HYPER",
+          "name": "ענקיות הענן",
+          "desc": "סל במשקל שווה: MSFT, AMZN, GOOGL, ORCL",
+          "basket": [
+            "MSFT",
+            "AMZN",
+            "GOOGL",
+            "ORCL"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:NEOCLOUD",
+          "name": "ענן AI חדש (Neocloud)",
+          "desc": "סל במשקל שווה, מפעילות מרכזי נתונים ל-AI: CRWV, NBIS, IREN, APLD",
+          "basket": [
+            "CRWV",
+            "NBIS",
+            "IREN",
+            "APLD"
+          ],
+          "core": true
+        },
+        {
+          "sym": "IGV",
+          "name": "תוכנה",
+          "desc": "iShares Expanded Tech-Software ETF",
+          "core": true
+        },
+        {
+          "sym": "B:SEAT",
+          "name": "תוכנה לפי משתמש (Seat-based)",
+          "desc": "סל במשקל שווה, חברות שגובות לפי מספר משתמשים, החשופות לחשש ש-AI יקטין את מספר המשתמשים: CRM, ADBE, WDAY, NOW, HUBS, TEAM, DOCU, ZM, MNDY, ADSK, VEEV, FRSH, ASAN, BOX",
+          "basket": [
+            "CRM",
+            "ADBE",
+            "WDAY",
+            "NOW",
+            "HUBS",
+            "TEAM",
+            "DOCU",
+            "ZM",
+            "MNDY",
+            "ADSK",
+            "VEEV",
+            "FRSH",
+            "ASAN",
+            "BOX"
+          ],
+          "core": true
+        },
+        {
+          "sym": "B:USAGE",
+          "name": "תוכנה לפי שימוש (Consumption)",
+          "desc": "סל במשקל שווה, חברות שגובות לפי נפח שימוש (נתונים, מחשוב, תעבורה): SNOW, DDOG, MDB, NET, ESTC, TWLO, DT, FSLY",
+          "basket": [
+            "SNOW",
+            "DDOG",
+            "MDB",
+            "NET",
+            "ESTC",
+            "TWLO",
+            "DT",
+            "FSLY"
+          ],
+          "core": true
+        },
+        {
+          "sym": "CIBR",
+          "name": "סייבר",
+          "desc": "First Trust NASDAQ Cybersecurity ETF",
+          "core": true
+        },
+        {
+          "sym": "FDN",
+          "name": "אינטרנט וצרכנות דיגיטלית",
+          "desc": "First Trust Dow Jones Internet Index Fund",
+          "core": true
+        },
+        {
+          "sym": "B:ITSERV",
+          "name": "שירותי IT ומיקור חוץ",
+          "desc": "סל במשקל שווה: ACN, IBM, CTSH, EPAM, GLOB, INFY, WIT, IT",
+          "basket": [
+            "ACN",
+            "IBM",
+            "CTSH",
+            "EPAM",
+            "GLOB",
+            "INFY",
+            "WIT",
+            "IT"
+          ],
+          "core": true
+        },
+        {
+          "sym": "MAGS",
+          "name": "שבע המופלאות",
+          "desc": "Roundhill Magnificent Seven ETF",
+          "core": true
+        }
+      ]
     }
   ],
   "hidden": [
@@ -749,5 +944,39 @@
       "sym": "^MOVE",
       "name": "MOVE"
     }
-  ]
+  ],
+  "highs": [
+    "^GSPC",
+    "^NDX",
+    "RSP",
+    "MAGS",
+    "QQQ",
+    "^RUT",
+    "SOXX",
+    "SMH",
+    "IGV",
+    "XLK",
+    "CIBR",
+    "WCLD",
+    "FDN",
+    "ARKK",
+    "AIQ",
+    "XBI",
+    "XLF",
+    "KRE",
+    "ITB",
+    "XLE",
+    "XLV",
+    "XLP",
+    "XLU",
+    "GDX",
+    "KWEB",
+    "EEM",
+    "TA35.TA",
+    "^TA125.TA",
+    "EIS",
+    "BTC-USD",
+    "GC=F"
+  ],
+  "_comment_highs": "highs: symbols in the distance-from-high table (leading indices tab). Items with 'basket' are equal-weight baskets built from their members' closes."
 }

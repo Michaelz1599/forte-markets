@@ -129,11 +129,11 @@ class Status:
         }
 
 
-def save_probe(name: str, text: str) -> None:
+def save_probe(name: str, text: str, limit: int = 6000) -> None:
     """Keep a sample of an unexpected response so the parser can be fixed later."""
     d = STATE_DIR / "probe"
     d.mkdir(parents=True, exist_ok=True)
-    (d / f"{name}.txt").write_text(text[:6000], encoding="utf-8")
+    (d / f"{name}.txt").write_text(text[:limit], encoding="utf-8")
 
 
 def dump_json(path: Path, obj) -> None:

@@ -682,6 +682,19 @@ td.pcell { min-width: 150px; }
 .an-top { padding-top: 6px; border-top: 1px solid var(--line); }
 .brief-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; }
 @media (max-width: 760px) { .bc-grid, .brief-form { grid-template-columns: minmax(0, 1fr); } .bc-meta { margin-inline-start: 0; flex-basis: 100%; } .brief-card { padding: 16px; } }
+
+/* ---------- table headers that follow the page; chart range buttons ---------- */
+.fhead { position: fixed; z-index: 18; overflow: hidden; box-shadow: 0 8px 14px -10px rgba(0, 20, 14, .45); }
+.fhead > table { position: absolute; top: 0; left: 0; margin: 0; table-layout: fixed; }
+.fhead th { cursor: pointer; }
+.board { overflow: clip; }
+.board .tr.th { position: sticky; top: var(--mast-h, 96px); z-index: 4; }
+.zbar { justify-self: start; width: max-content; margin-bottom: 2px; }
+.zbar button { padding: 3px 10px; font-size: 12px; }
+.ddbar { display: inline-block; width: 70px; height: 6px; border-radius: 3px; background: var(--sunk); vertical-align: middle; margin-inline-end: 8px; position: relative; overflow: hidden; }
+.ddbar i { position: absolute; inset-block: 0; right: 0; background: var(--fear); opacity: .75; border-radius: 3px; }
+td.ddc { white-space: nowrap; }
+.chart.cx.sm3 { height: 380px; }
 </style>
 </head>
 <body>
@@ -873,7 +886,7 @@ const S = {
   loaded: { ind: false, ser: false, stk: false },
   win: lsGet('win', '5y'), showAll: lsGet('showAll', '0') === '1', tab: 'analysis',
   fBias: 'all', q: '', fSector: '', fSort: 'upd', openStock: null, viewVer: null, versions: null, detail: null,
-  mk: null, px: null, xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30, ilQ: '', ilSec: '',
+  mk: null, px: null, xLog: lsGet('xLog', '1') !== '0', xSeg: lsGet('xSeg', 'factors'), xSort: lsGet('xSort', 'score'), rsUi: null, macMov: 30, ilQ: '', ilSec: '',
 };
 const cache = { st: new Map(), rp: new Map(), comp: new Map() };
 
@@ -1385,7 +1398,8 @@ function drawChart(id, rangeDays) {
       { type: 'time', gridIndex: 1, axisLine: { lineStyle: { color: line } }, axisLabel: { show: false }, splitLine: { show: false }, min: 'dataMin', max: 'dataMax' },
     ],
     yAxis: [
-      { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, Math.min(dec, 2)) }, splitLine: { lineStyle: { color: line2 } } },
+      (id === 'spx' || id === 'ta35_px' || meta.log) ? { type: 'log', gridIndex: 0, min: e => e.min * 0.98, max: e => e.max * 1.02, axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { lineStyle: { color: line2 } } }
+        : { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, Math.min(dec, 2)) }, splitLine: { lineStyle: { color: line2 } } },
       { type: showSpx ? 'log' : 'value', gridIndex: 0, show: showSpx, position: 'right', scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { show: false } },
       { type: 'value', gridIndex: 1, min: 0, max: 100, interval: 50, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } },
     ],
@@ -1928,8 +1942,25 @@ function renderIndices() {
   }
   const table = `<section class="board-t"><div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד</th><th>שער</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>מתחילת השנה</th><th>12 ח'</th><th>מול ממוצע 200</th><th>RSI</th><th title="Chaikin Money Flow, 20 ימים">CMF</th><th>מהשיא</th><th>מגמה</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="small muted" style="margin:6px 0 0">תשואות מחיר, בלי דיבידנדים. "מהשיא" = מרחק מהסגירה הגבוהה ב-52 השבועות האחרונים. CMF = Chaikin Money Flow של 20 ימים: מעל 0 כסף נכנס, מתחת ל-0 כסף יוצא (רק לנכסים עם נתוני מחזור). בתשואת אג"ח השינוי בנקודות בסיס. לחיצה על שורה פותחת גרף וניתוח.</p></section>`;
-  el.innerHTML = tiles + table + `<p class="small muted" style="margin:0">מומנטום לפי פקטור וסקטור, מפת רוטציה וקורלציות נמצאים בלשונית <a href="#momentum" id="toMom">מומנטום</a>.</p>`;
+  el.innerHTML = tiles + highsSection(mk) + table + `<p class="small muted" style="margin:0">מומנטום לפי פקטור, סקטור ותת-תחום בטכנולוגיה, וקורלציות, נמצאים בלשונית <a href="#momentum" id="toMom">מומנטום</a>.</p>`;
   const tm = $('#toMom'); if (tm) tm.addEventListener('click', e => { e.preventDefault(); showTab('momentum'); window.scrollTo(0, 0); });
+}
+
+function highsSection(mk) {
+  const H = mk.highs || []; if (!H.length) return '';
+  const items = mk.items || {};
+  const bar = v => { const w = Math.min(100, Math.abs(v || 0) / 0.5 * 100); return `<span class="ddbar" dir="ltr"><i style="width:${w.toFixed(1)}%"></i></span>`; };
+  const rows = H.slice().sort((a, b) => b.ddAth - a.ddAth).map(h => {
+    const it = items[h.sym] || {}; const near = h.ddAth > -0.02;
+    return `<tr class="rowx" data-x="${esc(h.sym)}" tabindex="0"><td><b>${esc(h.name)}</b><div class="small muted"><span class="ltr">${esc(h.sym)}</span></div></td>
+      <td>${ltr(priceFmt(it.sym ? it : { sym: h.sym }, h.last))}<div class="small muted">${fmtDateShort(h.date)}</div></td>
+      <td class="ddc ${near ? 'up-g' : ''}">${bar(h.ddAth)}${ltr(fmtPct(h.ddAth))}</td>
+      <td>${fmtDate(h.athDate)}<div class="small muted">${h.sinceAth > 0 ? `לפני ${fmtN(h.sinceAth, 0)} ימים` : 'היום'}</div></td>
+      ${chgTd(h.dd52, { sym: '' })}${chgTd(h.m1, it)}${chgTd(h.ytd, it, 'hl')}</tr>`;
+  }).join('');
+  return `<section class="panel" id="idxHighs"><div class="panel-head"><div><h2>מרחק מהשיא</h2><p class="small muted" style="margin:2px 0 0">כמה כל מדד וקרן רחוקים מסגירת השיא שלהם. מסודר מהקרוב לשיא לרחוק ממנו, ולחיצה על כותרת עמודה ממיינת.</p></div></div>
+    <div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>מדד / קרן</th><th>שער</th><th>מהשיא של כל הזמנים</th><th>תאריך השיא</th><th>מהשיא של 52 שבועות</th><th>חודש</th><th>מתחילת השנה</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:0">שיא = הסגירה הגבוהה ביותר בכל ההיסטוריה של Yahoo Finance (מחיר, בלי דיבידנדים). ירוק = פחות מ-2% מהשיא. הפס מראה את הירידה מהשיא, עד 50%.</p></section>`;
 }
 
 let MOM = null, RSD = null;
@@ -1965,7 +1996,7 @@ function fmtCap(m) {
   if (m == null || !isFinite(m)) return '—';
   return m >= 1e6 ? `$${fmtN(m / 1e6, 2)}T` : m >= 1e3 ? `$${fmtN(m / 1e3, m >= 1e4 ? 0 : 1)}B` : `$${fmtN(m, 0)}M`;
 }
-const XSEG = { factors: ['פקטורים', 'פקטור'], sectors: ['סקטורים ותעשיות', 'סקטור'], themes: ['נושאים', 'נושא'] };
+const XSEG = { factors: ['פקטורים', 'פקטור'], sectors: ['סקטורים ותעשיות', 'סקטור'], themes: ['נושאים', 'נושא'], tech: ['טכנולוגיה לפי תת-תחום', 'תת-תחום'] };
 function renderMomentum() {
   const el = $('#momBody');
   disposeIdxCharts();
@@ -1992,7 +2023,7 @@ function renderMomentum() {
     const q = quadOf(it); const qq = q ? QUAD[q] : null; const ex = it.ex || {};
     const w = Math.abs(it.score || 0) / maxAbs * 50;
     const r = it.rs || {};
-    return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span></div></td>
+    return `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td class="num">${i + 1}</td><td><b>${esc(it.name)}</b><div class="small muted">${it.sym.startsWith('B:') ? `<span title="${esc(it.desc || '')}">סל במשקל שווה · ${esc((it.desc || '').split(': ')[1] || '').split(', ').slice(0, 4).join(', ')}…</span>` : `<span class="ltr">${esc(it.sym)}</span>`}</div></td>
       <td class="rsc">${rsBadge(r.rs, rsTip(it))}${rsDelta(r.rs, r.rsPrev)}</td>
       ${chgTd(ex.m1, it)}${chgTd(ex.m3, it)}${chgTd(ex.m6, it)}${chgTd(ex.y1, it)}
       <td class="scorec">${it.score == null ? '—' : `<div class="sbar" dir="ltr"><i class="${it.score >= 0 ? 'pos' : 'neg'}" style="${it.score >= 0 ? 'left:50%' : `left:${(50 - w).toFixed(1)}%`};width:${w.toFixed(1)}%"></i><b class="mid"></b></div><span class="small ltr num">${fmtS(it.score * 100, 1)}</span>`}</td>
@@ -2006,6 +2037,7 @@ function renderMomentum() {
       <div class="seg" role="group" aria-label="קבוצה" id="xSeg">${Object.entries(XSEG).map(([k, v]) => `<button type="button" data-s="${k}" aria-pressed="${seg === k}">${v[0]}</button>`).join('')}</div></div>
     <div class="xtools"><span class="small muted">מיון לפי</span><div class="seg" role="group" aria-label="מיון" id="xSort"><button type="button" data-v="score" aria-pressed="${!sortRs}">ציון מומנטום</button><button type="button" data-v="rs" aria-pressed="${sortRs}">RS</button></div><span class="small muted">${rsMeta}</span></div>
     <div class="tbl-wrap"><table class="ft itbl ftab"><thead><tr><th>#</th><th>${XSEG[seg][1]}</th><th>RS</th><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th><th>רוטציה</th></tr></thead><tbody>${frows || '<tr><td colspan="9" class="muted">אין נתונים</td></tr>'}</tbody></table></div>
+    ${seg === 'tech' ? `<p class="small" style="margin:0;line-height:1.7"><b>תת-תחומי הטכנולוגיה:</b> קרן סל כשיש קרן שמייצגת את התחום (שבבים, תוכנה, סייבר, אינטרנט), וסל במשקל שווה של המניות המרכזיות כשאין: שבבי AI, ציוד שבבים, זיכרון, תשתית AI, ענן, ושני מודלי התוכנה: <b>לפי משתמש (Seat-based)</b>, שגובה לפי מספר המשתמשים ולכן חשופה לחשש ש-AI יקטין צוותים, ו<b>לפי שימוש (Consumption)</b>, שגובה לפי נפח העבודה ונהנית מעומסי AI. לחיצה על שורה מראה את רשימת המניות בסל.</p>` : ''}
     <p class="small muted" style="margin:0"><b>RS</b>: התשואה של תעודת הסל מלפני 6 חודשים ועד לפני חודש (6-1), כאחוזון מול כל המניות בשוק, באותו סולם כמו בטבלת המניות למטה. 90 = חזק מ-90% מהמניות. החודש האחרון לא נכלל כי בטווח של חודש מניות נוטות לתקן את המהלך, ולכן הוא מוסיף רעש למדידת מומנטום. החץ: השינוי מול שבוע קודם. מעבר עם העכבר מראה את התשואה ואת המקום בקבוצה.
       שאר העמודות: תשואה עודפת על S&amp;P 500 (SPY). ציון מומנטום = ממוצע העודף של 3, 6 ו-12 חודשים. "רוטציה": העוצמה היחסית מול S&amp;P 500 ביחס לממוצע של 3 חודשים (מובילים ונחלשים מעליו, מפגרים ומשתפרים מתחתיו), והאם היא מתחזקת בשבועיים האחרונים.</p>
     <div class="panel inner"><div class="panel-head"><h3>מי זז עם מי</h3><span class="small muted">קורלציה של תשואות יומיות, 3 חודשים${coreNote}</span></div><div class="chart cx" id="heatChart" role="img" aria-label="מפת קורלציות"></div>
@@ -2284,7 +2316,7 @@ async function openIdx(sym) {
   const ta = it.ta && S.stk.get(it.ta);
   const tile = (k, v, s = '') => `<div class="tile"><span class="k">${k}</span><span class="val">${v}</span><span class="s">${s}</span></div>`;
   const pctTxt = (v) => it.chgMode === 'pp' ? `${ltr(fmtS((v ?? NaN) * 100, 0))} נ"ב` : ltr(fmtPct(v));
-  const html = `<div class="sh-head"><div><h2>${esc(it.name)}</h2><div class="sub ltr">${esc(sym)}${it.desc ? ' · ' + esc(it.desc) : ''}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+  const html = `<div class="sh-head"><div><h2>${esc(it.name)}</h2>${sym.startsWith('B:') ? `<div class="sub">${esc(it.desc || '')}</div>` : `<div class="sub ltr">${esc(sym)}${it.desc ? ' · ' + esc(it.desc) : ''}</div>`}</div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
     <div class="sh-body">
       <div class="tiles">
         ${tile(`שער · ${fmtDate(it.date)}`, ltr(priceFmt(it, it.last)), pctTxt(it.d1) + ' ביום')}
@@ -2302,6 +2334,7 @@ async function openIdx(sym) {
       <section class="panel">
         <div class="panel-head">
           <div class="seg" role="group" aria-label="טווח הגרף" id="xRange"><button type="button" data-r="182">6 ח'</button><button type="button" data-r="365" aria-pressed="true">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827">5 שנים</button><button type="button" data-r="0">10 שנים</button></div>
+          <label class="chk" for="xLog"><input type="checkbox" id="xLog" ${S.xLog !== false ? 'checked' : ''}>סולם לוגריתמי</label>
           <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
         </div>
         <div class="chart" id="xChart" role="img" aria-label="גרף מחיר של ${esc(it.name)} עם ממוצעים נעים"></div>
@@ -2313,6 +2346,7 @@ async function openIdx(sym) {
   S.detail = 'x:' + sym;
   const t = $('#toTa'); if (t) t.addEventListener('click', () => { closeOverlay(); openStock(it.ta); });
   $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
+  $('#xLog').addEventListener('change', e => { S.xLog = e.target.checked; lsSet('xLog', S.xLog ? '1' : '0'); const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
   const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
   try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
   if ($('#xChart')) { el.innerHTML = ''; S.lvlX = null; drawIdxChart(sym, 365, isFac); levelPanelIdx(sym); }
@@ -2351,7 +2385,9 @@ function drawIdxChart(sym, rangeDays, isFac) {
       for (const q of ps) { if (q.value[1] == null) continue; h += `<br>${q.marker}${esc(q.seriesName)}: <b dir="ltr">${q.seriesName === 'RSI' ? fmtN(q.value[1], 0) : priceFmt(it, q.value[1])}</b>`; }
       return `<div dir="rtl" style="text-align:right">${h}</div>`; } },
     xAxis: [{ type: 'time', gridIndex: 0, axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } }, { type: 'time', gridIndex: 1, axisLabel: { show: false }, axisLine: { lineStyle: { color: line } } }],
-    yAxis: [{ type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } },
+    yAxis: [S.xLog !== false && Math.min(...v.filter(x => x != null)) > 0
+      ? { type: 'log', gridIndex: 0, min: e => e.min * 0.98, max: e => e.max * 1.02, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } }
+      : { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } },
       { type: 'value', gridIndex: 1, scale: lower.min == null, min: lower.min ?? undefined, max: lower.max ?? undefined, splitNumber: 2, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } }],
     dataZoom: [{ type: 'inside', xAxisIndex: [0, 1], startValue: startV, endValue: lastT }, { type: 'slider', xAxisIndex: [0, 1], bottom: 4, height: 18, startValue: startV, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: x => fmtDate(isoOf(x)) }],
     series: [
@@ -2363,6 +2399,81 @@ function drawIdxChart(sym, rangeDays, isFac) {
       { name: lower.name, type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: lower.data, showSymbol: false, lineStyle: { width: 1, color: ink }, connectNulls: true,
         markLine: lower.name === 'RSI' ? { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: greed, type: 'dashed' } }, { yAxis: 30, lineStyle: { color: fear, type: 'dashed' } }] } : undefined },
     ] });
+}
+
+// ---------------- table headers follow the page while scrolling (every tab) ----------------
+// Tables sit in horizontal scroll wrappers, where CSS sticky cannot reach the page, so a copy of the header row
+// is shown under the masthead while its table is on screen. Clicks on the copy go to the real header (sorting).
+function initStickyHeads() {
+  const root = document.documentElement, mast = $('.mast');
+  const fh = document.createElement('div'); fh.className = 'fhead'; fh.hidden = true;
+  document.body.appendChild(fh);
+  let cur = null, sig = '', raf = 0;
+  const mastH = () => (mast ? mast.getBoundingClientRect().bottom : 0);
+  const setVar = () => root.style.setProperty('--mast-h', Math.round(mastH()) + 'px');
+  function widths() {
+    if (!cur || !fh.firstChild) return;
+    const src = cur.tHead.rows, dst = fh.firstChild.tHead.rows;
+    fh.firstChild.style.width = cur.getBoundingClientRect().width + 'px';
+    for (let r = 0; r < src.length && r < dst.length; r++) {
+      for (let i = 0; i < src[r].cells.length && i < dst[r].cells.length; i++) {
+        const w = src[r].cells[i].getBoundingClientRect().width + 'px';
+        const d = dst[r].cells[i].style; d.width = d.minWidth = d.maxWidth = w; d.boxSizing = 'border-box';
+      }
+    }
+  }
+  function build(t) {
+    const tb = document.createElement('table'); tb.className = t.className + ' fh-tbl';
+    const head = t.tHead.cloneNode(true);
+    head.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+    tb.appendChild(head); fh.replaceChildren(tb); cur = t; widths();
+  }
+  function sync() {
+    raf = 0;
+    if ($('#ov')) { fh.hidden = true; return; }
+    const top = mastH(); let t = null;
+    for (const x of $$('main.view:not([hidden]) table.ft')) {
+      if (!x.tHead || !x.offsetParent) continue;
+      const r = x.getBoundingClientRect(), hh = x.tHead.getBoundingClientRect().height;
+      if (r.top < top && r.bottom > top + hh * 2.5) { t = x; break; }
+    }
+    if (!t) { fh.hidden = true; cur = null; return; }
+    const s = t.tHead.innerHTML.length + '|' + Math.round(t.getBoundingClientRect().width);
+    if (t !== cur || s !== sig) { build(t); sig = s; }
+    const wrap = t.parentElement.getBoundingClientRect(), tr = t.getBoundingClientRect();
+    fh.hidden = false;
+    fh.style.top = top + 'px'; fh.style.left = Math.max(0, wrap.left) + 'px'; fh.style.width = Math.min(wrap.width, innerWidth) + 'px';
+    fh.style.height = t.tHead.getBoundingClientRect().height + 'px';
+    fh.firstChild.style.transform = `translateX(${tr.left - Math.max(0, wrap.left)}px)`;
+  }
+  const kick = () => { if (!raf) raf = requestAnimationFrame(sync); };
+  addEventListener('scroll', kick, { passive: true });
+  document.addEventListener('scroll', kick, { passive: true, capture: true });   // horizontal scroll inside a table wrapper
+  addEventListener('resize', () => { setVar(); sig = ''; kick(); });
+  new MutationObserver(recs => { if (recs.some(r => !fh.contains(r.target))) { sig = ''; kick(); } }).observe(document.body, { childList: true, subtree: true });
+  fh.addEventListener('click', e => {
+    const c = e.target.closest('th'); if (!c || !cur) return;
+    const ri = c.parentElement.sectionRowIndex, ci = c.cellIndex;
+    const o = cur.tHead.rows[ri] && cur.tHead.rows[ri].cells[ci]; if (!o) return;
+    const b = o.querySelector('button'); (b || o).click(); sig = ''; kick();
+  });
+  setVar(); kick();
+}
+
+// ---------------- zoom for time charts: range buttons over an ECharts chart with a slider ----------------
+const ZOOM_RANGES = [[365, 'שנה'], [1096, '3 שנים'], [1827, '5 שנים'], [3653, '10 שנים'], [0, 'הכל']];
+function zoomBar(chart, el, lastT, firstT, initDays) {
+  const host = el.parentElement; if (!host || host.querySelector(`.zbar[data-for="${el.id}"]`)) return;
+  const bar = document.createElement('div'); bar.className = 'seg zbar'; bar.dataset.for = el.id; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'טווח הגרף');
+  const near = ZOOM_RANGES.reduce((a, r) => (r[0] && Math.abs(r[0] - initDays) < Math.abs(a[0] - initDays) ? r : a), ZOOM_RANGES[0]);
+  bar.innerHTML = ZOOM_RANGES.map(([d, l]) => `<button type="button" data-d="${d}" aria-pressed="${d === near[0]}">${l}</button>`).join('');
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $$('button', bar).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    const d = +b.dataset.d;
+    chart.dispatchAction({ type: 'dataZoom', startValue: d ? Math.max(firstT, lastT - d * DAY) : firstT, endValue: lastT });
+  });
+  host.insertBefore(bar, el);
 }
 
 // ---------------- bottom line: the weekly executive brief (first tab, above the technical analyses) ----------------
@@ -2709,19 +2820,44 @@ function macLines(elId, cfg) {
   const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface');
   const series = cfg.ids.map((id, i) => {
     const s = S.ser.get(id), ind = S.ind.get(id); if (!s || !ind) return null;
-    const from = s.t[s.t.length - 1] - cfg.years * 365.25 * DAY;
-    const data = []; s.t.forEach((t, k) => { if (t >= from) data.push([t, s.v[k]]); });
+    const data = s.t.map((t, k) => [t, s.v[k]]);
     return { name: ind.name, type: 'line', data, showSymbol: false, sampling: 'lttb', lineStyle: { width: i ? 1.4 : 2, color: LINE_COLORS[i % LINE_COLORS.length] }, itemStyle: { color: LINE_COLORS[i % LINE_COLORS.length] },
       ...(i === 0 && cfg.mark ? { markLine: { symbol: 'none', silent: true, lineStyle: { color: muted, type: 'dashed' }, label: { formatter: cfg.mark[1], color: muted, fontSize: 10, position: 'insideStartTop' }, data: [{ yAxis: cfg.mark[0] }] } } : {}) };
   }).filter(Boolean);
   if (!series.length) { el.innerHTML = '<p class="muted" style="padding:16px">אין עדיין נתונים.</p>'; return; }
   const ind0 = S.ind.get(cfg.ids[0]);
+  const lastT = Math.max(...series.map(x => x.data.length ? x.data[x.data.length - 1][0] : 0));
+  const firstT = Math.min(...series.map(x => x.data.length ? x.data[0][0] : Infinity));
+  const startT = Math.max(firstT, lastT - cfg.years * 365.25 * DAY);
   const c = echarts.init(el); idxCharts.push(c);
-  c.setOption({ ...chartBase(), grid: { left: 48, right: 16, top: 34, bottom: 28 }, legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 }, itemWidth: 14, itemHeight: 3 },
+  c.setOption({ ...chartBase(), grid: { left: 48, right: 16, top: 34, bottom: 52 }, legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 }, itemWidth: 14, itemHeight: 3 },
+    dataZoom: [{ type: 'inside', startValue: startT, endValue: lastT }, { type: 'slider', bottom: 4, height: 18, startValue: startT, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: v => fmtDate(isoOf(v)) }],
     tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right">${fmtDate(isoOf(ps[0].value[0]))}${ps.map(p => `<br>${p.marker}${esc(p.seriesName)}: <b dir="ltr">${mFmt(S.ind.get(cfg.ids[p.seriesIndex]) || ind0, p.value[1])}</b>`).join('')}</div>` },
     xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
     yAxis: { type: 'value', scale: true, axisLabel: { color: muted, formatter: v => mUnit(ind0) === '%' ? v + '%' : v }, splitLine: { lineStyle: { color: line2 } } },
     series });
+  zoomBar(c, el, lastT, firstT, cfg.years * 365);
+}
+const DRV_COLORS = ['#0E6B52', '#2F6DB5', '#C9A227', '#B9482A', '#6B3FA0', '#7A8F86'];
+function drawDrivers(elId, D) {
+  const el = $('#' + elId); if (!el || typeof echarts === 'undefined') return;
+  if (!D || !D.d || !D.d.length) { el.innerHTML = '<p class="muted" style="padding:16px">הנתונים יופיעו אחרי העדכון הבא של האתר.</p>'; return; }
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface');
+  const t = D.d.map(tOf), lastT = t[t.length - 1], firstT = t[0], startT = Math.max(firstT, lastT - 5 * 365.25 * DAY);
+  const series = D.parts.map((p, i) => ({ name: p.name, type: 'bar', stack: 'c', data: t.map((x, k) => [x, p.v[k]]), barMaxWidth: 12, itemStyle: { color: DRV_COLORS[i % DRV_COLORS.length] }, emphasis: { focus: 'series' } }));
+  series.push({ name: 'אינפלציה שנתית (פורסם)', type: 'line', data: t.map((x, k) => [x, D.headline[k]]), showSymbol: false, lineStyle: { width: 2, color: ink }, itemStyle: { color: ink }, z: 5 });
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 40, right: 12, top: 58, bottom: 52 },
+    legend: { top: 0, right: 0, textStyle: { color: ink, fontSize: 11 }, itemWidth: 12, itemHeight: 8 },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => {
+      const k = t.indexOf(ps[0].value[0]); let sum = 0;
+      const rows = D.parts.map((p, i) => { const v = p.v[k]; if (v != null) sum += v; return `<br><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${DRV_COLORS[i % DRV_COLORS.length]}"></span> ${esc(p.name)} <span class="muted">(${fmtN(p.w, 1)}%)</span>: <b dir="ltr">${v == null ? '—' : fmtS(v, 2)}</b>`; }).join('');
+      return `<div dir="rtl" style="text-align:right"><b>${fmtDate(D.d[k]).slice(3)}</b>${rows}<br>סכום המרכיבים: <b dir="ltr">${fmtN(sum, 2)}%</b><br>אינפלציה שנתית שפורסמה: <b dir="ltr">${D.headline[k] == null ? '—' : fmtN(D.headline[k], 2) + '%'}</b></div>`; } },
+    xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', axisLabel: { color: muted, formatter: v => v + '%' }, splitLine: { lineStyle: { color: line2 } } },
+    dataZoom: [{ type: 'inside', startValue: startT, endValue: lastT }, { type: 'slider', bottom: 4, height: 18, startValue: startT, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: v => fmtDate(isoOf(v)) }],
+    series });
+  zoomBar(c, el, lastT, firstT, 5 * 365);
 }
 function drawCurve() {
   const el = $('#macCurve'); const cv = MAC && MAC.curve; if (!el || !cv || !cv.now || typeof echarts === 'undefined') return;
@@ -2804,6 +2940,10 @@ function renderMacro() {
     else if (sec.id === 'cds') extra = `<div class="xtools"><span class="small muted">שינוי ב-</span><div class="seg" role="group" id="macMov">${[[7, 'שבוע'], [30, 'חודש'], [91, '3 חודשים'], [365, 'שנה']].map(([d, l]) => `<button type="button" data-v="${d}" aria-pressed="${+(S.macMov || 30) === d}">${l}</button>`).join('')}</div></div><div class="movers" id="macMovers"></div>
       <p class="small muted" style="margin:0">מדורג לפי השינוי בנקודות בסיס. נתוני CDS עצמם (ריבוניים ותאגידיים) לא זמינים ממקור חינמי ויציב, ולכן הדירוג נעשה על מרווחי האשראי (OAS) של ICE BofA לפי דירוג ואזור, שמודדים את אותו סיכון. סדרת CDS שתוסיפו במסך הניהול בקבוצה "CDS" (למשל ייצוא מ-Bloomberg) תיכנס לדירוג אוטומטית.</p>`;
     else if (ch) extra = `<div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div>`;
+    if (sec.id === 'infl') extra += `<div class="ix-grid">${[['us', 'ארה"ב'], ['il', 'ישראל']].map(([k, l]) => `<div class="panel inner"><div class="panel-head"><h3>מה מושך את האינפלציה · ${l}</h3><span class="small muted">תרומה לאינפלציה השנתית, נקודות אחוז</span></div><div class="chart cx sm3" id="mac-drv-${k}" role="img" aria-label="מרכיבי האינפלציה ב${l}"></div></div>`).join('')}</div>
+      <p class="small muted" style="margin:0">כל עמודה מחולקת לפי התרומה של כל מרכיב: המשקל שלו בסל כפול השינוי השנתי במחיר שלו. הקו השחור הוא האינפלציה השנתית שפורסמה. המשקלות הם של הסל העדכני (ארה"ב: BLS, דצמבר 2025; ישראל: הלמ"ס, סל 2025), ולכן בשנים רחוקות החלוקה מקורבת והסכום יכול לסטות מעט מהקו. "שירותים ללא דיור ואנרגיה" בארה"ב מחושב מהפער בין כל השירותים לדיור. בישראל "דיור" הוא שכר הדירה (כולל שכר דירה זקוף לבעלי דירות), ו"תחזוקת הדירה" כוללת חשמל, מים וארנונה.</p>`;
+    if (sec.id === 'rates') extra += `<div class="ix-grid">${[['us', 'ארה"ב'], ['il', 'ישראל']].map(([k, l]) => `<div class="panel inner"><div class="panel-head"><h3>ריבית, אג"ח לשנתיים ואינפלציה צפויה · ${l}</h3></div><div class="chart cx sm2" id="mac-pol-${k}" role="img" aria-label="ריבית, אג&quot;ח לשנתיים ואינפלציה צפויה ב${l}"></div></div>`).join('')}</div>
+      <p class="small muted" style="margin:0">ריבית מעל האינפלציה הצפויה = מדיניות מרסנת. אג"ח לשנתיים מתחת לריבית = השוק מצפה להורדות ריבית בשנתיים הקרובות, ומעליה = להעלאות. ארה"ב: ריבית הפד (הגבול העליון), תשואת אג"ח ממשלתי לשנתיים, ואינפלציה צפויה לשנה לפי הפד של קליבלנד. ישראל: ריבית בנק ישראל, תשואת אג"ח ממשלתי לשנתיים, וציפיות האינפלציה לשנה משוק ההון (בנק ישראל).</p>`;
     const table = sec.id === 'commod'
       ? `<div class="tbl-wrap"><table class="ft itbl"><thead><tr><th>סחורה</th><th>מחיר</th><th>יומי</th><th>שבוע</th><th>חודש</th><th>מתחילת השנה</th><th>12 ח'</th><th>מהשיא</th></tr></thead><tbody>${commRows || '<tr><td colspan="8" class="muted">אין נתונים</td></tr>'}</tbody></table></div>`
       : sec.id === 'cds' ? macTable(sec.ids, { first: 'מרווח' }) : macTable(sec.ids);
@@ -2813,6 +2953,10 @@ function renderMacro() {
   $$('#macMov button', el).forEach(b => b.addEventListener('click', () => { S.macMov = +b.dataset.v; $$('#macMov button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMovers(); }));
   renderMovers();
   for (const [id, cfg] of Object.entries(MAC_CHARTS)) macLines('mac-ch-' + id, cfg);
+  macLines('mac-pol-us', { ids: ['fed_rate', 'ust2y', 'us_exp1y'], years: 5, title: '' });
+  macLines('mac-pol-il', { ids: ['boi_rate', 'il_2y', 'il_exp1y'], years: 5, title: '' });
+  drawDrivers('mac-drv-us', MAC.drivers && MAC.drivers.us);
+  drawDrivers('mac-drv-il', MAC.drivers && MAC.drivers.il);
   drawCurve();
   drawRatingBars((secs.find(s => s.id === 'credit') || { ids: [] }).ids);
 }
@@ -3026,9 +3170,9 @@ const NAV = {
   analysis: { d: 'הבריף השבועי: הנקודות העיקריות ואיך לפעול השבוע, והניתוחים הטכניים לכל מניה בתיק', items: () => [['הבריף השבועי', '#briefSec'], ['ניתוחים טכניים', '#anTop']] },
   market: { d: 'מצב הרוח בשוק, אחוזונים היסטוריים ומה קרה אחרי קריאות דומות', items: () => [['מדד הסנטימנט', '.hero'], ['אינדיקטורים בקיצון', '#xstrip'],
     ...GROUPS.filter(([g]) => !['macro', 'other'].includes(g) && (!S.ind || [...S.ind.values()].some(i => i.group === g && i.pin && i.tab !== 'macro'))).map(([g, n]) => [n, '#grp-' + g]), ['איך לקרוא את הלוח', '#howH']] },
-  indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
+  indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['מרחק מהשיא', '#idxHighs'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
-  momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים ונושאים', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
+  momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   israel: { d: 'סנטימנט, רוחב שוק, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
 };
@@ -3332,6 +3476,7 @@ async function boot() {
   loadMomentum().then(() => { if (S.tab === 'momentum' && !$('#ov')) renderMomentum(); });
 }
 initUI();
+initStickyHeads();
 boot();
 })();</script>
 </body>

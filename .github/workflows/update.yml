@@ -1,12 +1,18 @@
-# Daily update after the US close: fetch all sources, update the stored history, rebuild and deploy the site.
-# 21:47 UTC = 00:47 Israel summer time / 23:47 winter time. Mon-Fri. GitHub often starts scheduled runs 30-45 min late.
-# 10:23 UTC Tue-Sat: a second pass once the stock snapshots for the previous session are out (the RS table).
-# Every run is idempotent, so the second pass only adds what was not available at night.
+# Updates, Mon-Fri, Israel time:
+#   ~11:00  Israeli data and the RS table (the stock snapshots of the previous US session are out by then)
+#   ~16:30  around the US open: Israeli market mid-session, US data as of the last close
+#   after the US close (21:47 UTC = 23:47 Israel winter / 00:47 summer): the US closing data
+# GitHub cron runs in UTC with no daylight saving, so each Israel-time slot has a summer and a winter entry,
+# and the "gate" step lets through only the one that matches the current Israel time. Runs start up to ~20 min late.
+# Every run is idempotent: a later run only adds what was not available before.
 name: forte-markets-update
 on:
   schedule:
     - cron: "47 21 * * 1-5"
-    - cron: "23 10 * * 2-6"
+    - cron: "41 7 * * 1-5"
+    - cron: "41 8 * * 1-5"
+    - cron: "11 13 * * 1-5"
+    - cron: "11 14 * * 1-5"
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -24,25 +30,41 @@ jobs:
       TZ: UTC
       HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
     steps:
+      - name: Gate (Israel time)
+        if: github.event_name == 'schedule'
+        run: |
+          now=$(TZ=Asia/Jerusalem date +%H%M); now=$((10#$now))
+          case "${{ github.event.schedule }}" in
+            "41 7 * * 1-5"|"41 8 * * 1-5") lo=1030; hi=1135 ;;   # the 11:00 slot (10:41 + GitHub delay)
+            "11 13 * * 1-5"|"11 14 * * 1-5") lo=1600; hi=1705 ;; # the 16:30 slot (16:11 + GitHub delay)
+            *) lo=0; hi=2400 ;;
+          esac
+          if [ "$now" -lt "$lo" ] || [ "$now" -ge "$hi" ]; then
+            echo "SKIP=1" >> "$GITHUB_ENV"; echo "Israel time $now is outside this slot; the other DST entry runs it."
+          fi
       - uses: actions/checkout@v5
+        if: env.SKIP != '1'
       - uses: actions/setup-python@v6
+        if: env.SKIP != '1'
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -q -r requirements.txt
+        if: env.SKIP != '1'
       - name: Fetch, compute, build site
+        if: env.SKIP != '1'
         run: python -m pipeline.run
       - name: Commit data
-        if: always()
+        if: always() && env.SKIP != '1'
         run: bash .github/commit.sh "daily"
       - name: Deploy (Cloudflare)
-        if: env.HAS_CF == 'true'
+        if: env.HAS_CF == 'true' && env.SKIP != '1'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           EDITOR_CODE: ${{ secrets.EDITOR_CODE }}
         run: bash .github/deploy.sh
       - name: Commit deploy result
-        if: always() && env.HAS_CF == 'true'
+        if: always() && env.HAS_CF == 'true' && env.SKIP != '1'
         run: bash .github/commit.sh "deploy"

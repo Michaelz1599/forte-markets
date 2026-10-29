@@ -326,3 +326,18 @@ def test_rs_skips_snapshot_that_repeats_previous_closes(monkeypatch):
     snaps, at = rs.read_snapshots(None, days, (0, 5, rs.SKIP, rs.SKIP + 5, rs.LOOK, rs.LOOK + 5))
     assert at[rs.SKIP + 5] == days[days.index(stale_d) - 1] and at[0] == days[-1] and at[rs.SKIP] == days[-1 - rs.SKIP]
     assert stale_d not in snaps
+
+
+def test_cpi_drivers_sum_to_headline_when_parts_move_alike():
+    from pipeline import drivers
+    idx = pd.date_range("2014-01-01", "2026-09-01", freq="MS")
+    lvl = {c: 100 * 1.003 ** np.arange(len(idx)) for c in ["CUSR0000SAH1", "CUSR0000SACL1E", "CPIUFDSL", "CPIENGSL", "CUSR0000SASLE", "CPIAUCSL"]}
+    fred = lambda code: {d.strftime("%Y-%m-%d"): float(v) for d, v in zip(idx, lvl[code])}
+    us = drivers.us(fred)
+    k = len(us["d"]) - 1
+    total = sum(p["v"][k] for p in us["parts"])
+    assert abs(total - us["headline"][k]) < 0.05 and len(us["parts"]) == 5
+    cbs = lambda code: ({d.strftime("%Y-%m-%d"): 3.0 for d in idx}, {})
+    il = drivers.il(cbs)
+    k = len(il["d"]) - 1
+    assert abs(sum(p["v"][k] for p in il["parts"]) - 3.0) < 0.01 and il["headline"][k] == 3.0

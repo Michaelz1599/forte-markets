@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from . import analogs, breadth, israel, macro, markets, rs, sources
+from . import analogs, drivers, breadth, israel, macro, markets, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -33,7 +33,7 @@ def step(status: Status, key: str, name: str, fn):
 def run(offline: bool = False) -> int:
     st = Status()
     u = markets.load_universe()
-    px = markets.read_prices()
+    px = markets.with_baskets(markets.read_prices(), u)
 
     if not offline:
         # 1. Prices for indices, factors, sectors and volatility (Yahoo Finance)
@@ -42,7 +42,9 @@ def run(offline: bool = False) -> int:
             px, rep = res
             miss = rep["missing"]
             st.add("prices", "מחירי מדדים ופקטורים (Yahoo Finance)", len(miss) <= 3,
-                   px.dropna(how="all").index.max(), f"{len(px.columns)} סימולים" + (f" · חסרים: {', '.join(miss[:8])}" if miss else ""))
+                   px.dropna(how="all").index.max(), f"{len(px.columns)} סימולים" + (f" · חסרים: {', '.join(miss[:8])}" if miss else "")
+                   + (f" · חסרים בסלי הטכנולוגיה: {', '.join(rep['missingMembers'][:8])}" if rep.get("missingMembers") else ""))
+            step(st, "ath", "שיאי כל הזמנים למרחק מהשיא", lambda: markets.update_ath(u, px))
             spx = step(st, "spx", "S&P 500 מ-1990", lambda: markets.spx_long(read_series("spx")))
             if spx:
                 merge_series("spx", spx)
@@ -110,6 +112,23 @@ def run(offline: bool = False) -> int:
             if cv:
                 dump_json(ROOT / "data" / "derived" / "curve.json", cv)
             st.add("macro", "מאקרו: FRED, הלמ\"ס, בנק ישראל, EIA", len(data) >= 40, _last(data.get("ust10y", {})), msg)
+        # 7b2. What drives inflation (CPI components' contributions), US and Israel
+        def _drivers():
+            res, msg = {}, []
+            for k, fn in (("us", lambda: drivers.us(macro.fred_series)), ("il", lambda: drivers.il(macro.cbs_cpi))):
+                try:
+                    res[k] = fn(); msg.append(f"{k.upper()} עד {res[k]['d'][-1][:7]}")
+                except Exception as e:
+                    msg.append(f"{k.upper()}: {type(e).__name__} {str(e)[:80]}")
+            drivers.boi_probe()
+            if not res:
+                raise ValueError("; ".join(msg))
+            old = json.loads(drivers.OUT.read_text(encoding="utf-8")) if drivers.OUT.exists() else {}
+            dump_json(drivers.OUT, {**old, **res})
+            return msg
+        res = step(st, "drivers", "מאקרו: מרכיבי האינפלציה", _drivers)
+        if res:
+            st.add("drivers", "מאקרו: מרכיבי האינפלציה", not any(":" in m for m in res), None, " · ".join(res))
         # 7c. Macro analogs: past months that looked like today, and what stocks and industries did next
         res = step(st, "analogs", "מאקרו: תקופות דומות בעבר", lambda: analogs.run(macro.fred_series))
         if res:
@@ -225,6 +244,7 @@ def build(st: Status, u: dict, px) -> None:
     an_file = analogs.OUT
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
                                              "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
+                                             "drivers": json.loads(drivers.OUT.read_text(encoding="utf-8")) if drivers.OUT.exists() else {},
                                              "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
@@ -248,7 +268,7 @@ def build(st: Status, u: dict, px) -> None:
                     mk["items"][sym]["rs"] = rec
         dump_json(tmp / "data" / "markets.json", mk)
         dump_json(tmp / "data" / "ticker.json", markets.ticker_payload(px, u))
-        dump_json(tmp / "data" / "prices.json", markets.prices_payload(px))
+        dump_json(tmp / "data" / "prices.json", markets.prices_payload(px, u=u))
     shutil.rmtree(SITE_DIR, ignore_errors=True)
     tmp.rename(SITE_DIR)
 

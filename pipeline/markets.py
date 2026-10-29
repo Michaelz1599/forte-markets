@@ -19,14 +19,102 @@ def load_universe() -> dict:
 
 
 def all_symbols(u: dict) -> list[str]:
+    """Every Yahoo symbol to download: group items, hidden helpers, the members of equal-weight baskets."""
     seen, out = set(), []
+
+    def add(sym):
+        if sym not in seen:
+            seen.add(sym); out.append(sym)
     for g in u["groups"]:
         for it in g["items"]:
-            if it["sym"] not in seen:
-                seen.add(it["sym"]); out.append(it["sym"])
+            for m in it.get("basket", []):
+                add(m)
+            if not it.get("basket"):
+                add(it["sym"])
     for it in u.get("hidden", []):
-        if it["sym"] not in seen:
-            seen.add(it["sym"]); out.append(it["sym"])
+        add(it["sym"])
+    for sym in u.get("highs", []):
+        add(sym)
+    return out
+
+
+def basket_index(px: pd.DataFrame, members: list[str], min_n: int = 3) -> pd.Series:
+    """Equal-weight basket rebalanced daily (average of the members' daily returns), 100 at the start.
+    Members join from their first close, so a newly listed stock enters the average when it starts trading."""
+    cols = [m for m in members if m in px.columns]
+    if len(cols) < min_n:
+        return pd.Series(dtype=float)
+    p = px[cols].dropna(how="all")
+    r = p.pct_change(fill_method=None).clip(-0.6, 1.5)
+    m = r.mean(axis=1).where(r.notna().sum(axis=1) >= min_n)
+    first = m.first_valid_index()
+    if first is None:
+        return pd.Series(dtype=float)
+    m = m.loc[first:].fillna(0.0)
+    return ((1 + m).cumprod() * 100).reindex(px.index)
+
+
+def with_baskets(px: pd.DataFrame, u: dict) -> pd.DataFrame:
+    """The price table plus one column per basket item ("B:..."), computed from the members' closes."""
+    if px.empty:
+        return px
+    px = px.copy()
+    for g in u["groups"]:
+        for it in g["items"]:
+            if it.get("basket"):
+                b = basket_index(px, it["basket"])
+                if b.notna().sum() > 60:
+                    px[it["sym"]] = b
+    return px
+
+
+ATH_JSON = ROOT / "data" / "derived" / "ath.json"
+
+
+def update_ath(u: dict, px: pd.DataFrame) -> dict:
+    """All-time closing highs of the distance-from-high symbols: full Yahoo history once per symbol, then kept
+    current from the daily closes. {sym: {"ath": value, "date": "YYYY-MM-DD", "from": first date}}."""
+    cur = json.loads(ATH_JSON.read_text(encoding="utf-8")) if ATH_JSON.exists() else {}
+    new = [s for s in u.get("highs", []) if s not in cur]
+    if new:
+        full = yf_close(new, "1970-01-01")
+        for s in new:
+            if s in full.columns and full[s].notna().sum() > 60:
+                x = full[s].dropna()
+                cur[s] = {"ath": float(x.max()), "date": x.idxmax(), "from": x.index[0]}
+    for s, rec in cur.items():
+        if s in px.columns and px[s].notna().any():
+            x = px[s].dropna()
+            if float(x.max()) > rec["ath"]:
+                rec.update(ath=float(x.max()), date=x.idxmax())
+    ATH_JSON.parent.mkdir(parents=True, exist_ok=True)
+    ATH_JSON.write_text(json.dumps(cur, ensure_ascii=False, indent=1), encoding="utf-8")
+    return cur
+
+
+def highs_payload(px: pd.DataFrame, u: dict, ath: dict | None = None) -> list[dict]:
+    """Distance from the 52-week high and from the all-time closing high (full history when known, else since 2013)."""
+    ath = ath if ath is not None else (json.loads(ATH_JSON.read_text(encoding="utf-8")) if ATH_JSON.exists() else {})
+    names = {it["sym"]: it["name"] for g in u["groups"] for it in g["items"]}
+    names.update({it["sym"]: it["name"] for it in u.get("hidden", []) if it["sym"] not in names})
+    out = []
+    for sym in u.get("highs", []):
+        if sym not in px.columns:
+            continue
+        s = px[sym].dropna()
+        if len(s) < 60:
+            continue
+        last = float(s.iloc[-1])
+        w = s.iloc[-252:]
+        a = ath.get(sym)
+        ath_v, ath_d, first = (a["ath"], a["date"], a["from"]) if a and a["ath"] >= float(s.max()) else (float(s.max()), s.idxmax(), s.index[0])
+        prev_year = s[s.index < f"{s.index[-1][:4]}-01-01"]
+        out.append({"sym": sym, "name": names.get(sym, sym), "last": _r(last, 6), "date": s.index[-1],
+                    "dd52": _r(last / float(w.max()) - 1), "hi52Date": w.idxmax(),
+                    "ddAth": _r(last / ath_v - 1), "athDate": ath_d, "ath": _r(ath_v, 6),
+                    "sinceAth": int((dt.date.fromisoformat(s.index[-1]) - dt.date.fromisoformat(ath_d)).days), "from": first,
+                    "ytd": _r(last / float(prev_year.iloc[-1]) - 1) if len(prev_year) else None,
+                    "m1": _r(_ret(s, 21))})
     return out
 
 
@@ -155,15 +243,18 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
     out = out[[c for c in syms if c in out.columns]]
     today = iso(today_utc())
     out = out[out.index <= cutoff_date()]
+    members = {m for g in u["groups"] for it in g["items"] for m in it.get("basket", [])}
+    report["missingMembers"] = []
     for s in syms:
+        key = "missingMembers" if s in members else "missing"
         if s not in out.columns or out[s].dropna().empty:
-            report["missing"].append(s)
+            report[key].append(s)
         else:
             last_s = out[s].dropna().index.max()
             if (dt.date.fromisoformat(today) - dt.date.fromisoformat(last_s)).days > 6:
-                report["missing"].append(f"{s} (עד {last_s})")
+                report[key].append(f"{s} (עד {last_s})")
     write_prices(out)
-    return out, report
+    return with_baskets(out, u), report
 
 
 def spx_long(cur: dict) -> dict:
@@ -348,17 +439,23 @@ def build_markets(px: pd.DataFrame, u: dict) -> dict:
         "asof": max((it.get("date") or "") for it in items.values()),
         "groups": groups, "items": items,
         "corr": {"factors": corr_matrix(px, core("factors") + [u["benchmark"]]), "sectors": corr_matrix(px, core("sectors")),
-                 "themes": corr_matrix(px, core("themes") + [u["benchmark"]])},
+                 "themes": corr_matrix(px, core("themes") + [u["benchmark"]]), "tech": corr_matrix(px, core("tech") + [u["benchmark"]])},
+        "highs": highs_payload(px, u),
         "avgCorr": avg_corr_series(px, spdr),
         "breadth": {"n": len(lead), "above200": len(above), "up": sum(1 for s in lead if items[s].get("trend") == "up"),
                     "down": sum(1 for s in lead if items[s].get("trend") == "down")},
     }
 
 
-def prices_payload(px: pd.DataFrame, years: int = 10) -> dict:
+def prices_payload(px: pd.DataFrame, years: int = 10, u: dict | None = None) -> dict:
     start = (today_utc() - dt.timedelta(days=int(365.25 * years))).isoformat()
+    keep = None
+    if u:   # the site's own symbols; basket members stay out of the file
+        keep = {it["sym"] for g in u["groups"] for it in g["items"]} | {it["sym"] for it in u.get("hidden", [])} | set(u.get("highs", []))
     out = {}
     for c in px.columns:
+        if keep is not None and c not in keep:
+            continue
         s = px.loc[px.index >= start, c].dropna()
         if len(s) < 2:
             continue
