@@ -712,6 +712,11 @@ td.ddc { white-space: nowrap; }
 .cal-frame-wrap { width: 100%; }
 .cal-frame { display: block; width: 100%; height: calc(100vh - var(--mast-h, 96px)); height: calc(100dvh - var(--mast-h, 96px)); border: 0; background: var(--bg); }
 body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { display: none; }
+
+/* stock detail: smaller chart under the analyst's note */
+.sd-note { border-inline-start: 4px solid var(--frame); }
+.sd-img:has(img) { width: fit-content; max-width: 100%; margin-inline: auto; }
+.sd-img img { width: auto; max-width: 100%; max-height: min(58vh, 600px); margin-inline: auto; }
 </style>
 </head>
 <body>
@@ -1539,17 +1544,18 @@ function renderStockDetail() {
       </div>
     </div>
     <div class="small muted">${s.status === 'pending' ? 'עוד אין ניתוח למניה הזו.' : `עודכן ${fmtDate((s.updatedAt || '').slice(0, 10))} · ${daysAgo(s.updatedAt)}${who ? ' · ' + esc(who) : ''}`}</div>
-    <div class="sd-img">${s.img ? `<img src="/img/${esc(s.img)}" alt="גרף הניתוח של ${esc(s.ticker)}" id="sdImg">` : `<div class="noimg">אין גרף מצורף${S.canEdit && !S.viewVer ? ' · אפשר להוסיף בעדכון הניתוח' : ''}</div>`}</div>
-    <div class="sd-cols">
-      <div class="sd-box">
+    ${s.headline || (s.points || []).length || s.body ? `<div class="sd-box sd-note">
         ${s.headline ? `<p class="headline">${esc(s.headline)}</p>` : ''}
         ${(s.points || []).length ? `<h3>עיקרי הניתוח</h3><ul class="pts">${s.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
         ${s.body ? `<h3>הערות</h3><p class="body-text">${esc(s.body)}</p>` : ''}
-        ${!s.headline && !(s.points || []).length && !s.body ? '<p class="muted" style="margin:0">אין טקסט לניתוח.</p>' : ''}
-      </div>
+      </div>` : ''}
+    <div class="sd-img">${s.img ? `<img src="/img/${esc(s.img)}" alt="גרף הניתוח של ${esc(s.ticker)}" id="sdImg">` : `<div class="noimg">אין גרף מצורף${S.canEdit && !S.viewVer ? ' · אפשר להוסיף בעדכון הניתוח' : ''}</div>`}</div>
+    <div class="sd-cols">
       <div class="sd-box">
         <h3>רמות</h3>
         ${lvlRows(s) ? `<div class="tbl-wrap"><table class="ft"><tbody>${lvlRows(s)}</tbody></table></div>` : '<p class="muted" style="margin:0">לא הוזנו רמות.</p>'}
+      </div>
+      <div class="sd-box">
         <h3>גרסאות קודמות</h3>
         <div class="verlist">${S.versions == null ? '<span class="small muted">טוען…</span>' : vers.length ? vers.map((v, i) => `<button type="button" class="verbtn" data-v="${i}"><span>${fmtDate((v.updatedAt || '').slice(0, 10))}</span>${biasPill(v)}<span class="small muted" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(v.headline || '')}</span></button>`).join('') : '<span class="small muted">אין גרסאות קודמות.</span>'}</div>
       </div>
