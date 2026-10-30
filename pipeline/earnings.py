@@ -213,7 +213,7 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60) -> tuple[dic
         if r.get("epsAct") is None:
             continue
         foreign = (e or {}).get("market") != "US" or country.get((e or {}).get("ticker"), "US") not in ("US", None)
-        bad = (cons is None and foreign) or (cons and r.get("epsEst") and abs(r["epsEst"] / cons - 1) > 0.25)
+        bad = foreign or (cons and r.get("epsEst") and abs(r["epsEst"] / cons - 1) > 0.25)   # foreign issuers: unit/basis unclear
         if bad:
             for f in ("epsAct", "epsEst", "surprise"):
                 r.pop(f, None)
