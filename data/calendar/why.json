@@ -1,1 +1,106 @@
-{"note": "Main reason for each reported company's move, written each morning by the daily earnings-summary task (event id -> {he, src, at}).", "items": {}}
+{
+ "note": "Main reason for each reported company's move, written each morning by the daily earnings-summary task (event id -> {he, src, at}).",
+ "items": {
+  "GOOGL-2026-10-28": {
+   "he": "הכנסות החיפוש החטיאו את הציפיות זה רבעון שני ברציפות, והתזרים החופשי נעשה שלילי לצד זינוק בהשקעות ב-AI. זה האפיל על צמיחה חדה בענן, והרווח נפגע גם מהפסד של 8.7 מיליארד דולר על השקעות.",
+   "src": "https://www.xtb.com/int/market-analysis/news-and-research/alphabet-disappoints-wall-street-despite-record-results-shares-plunge-over-8-and-test-300",
+   "at": "2026-10-30"
+  },
+  "MSFT-2026-10-28": {
+   "he": "צמיחה של 48% ב-Azure ותחזית לרבעון הבא מעל הצפי הקפיצו את המניה אחרי שעות המסחר, אך העליות נמחקו לאחר שהחברה הנמיכה את תחזית ההשקעות ב-AI, מה שעורר חשש מהאטה בהשקעות, לפי הדיווחים.",
+   "src": "https://www.fxleaders.com/news/2026/10/29/msft-stock-reverses-to-530-as-investors-fear-lower-capex-might-signal-the-end-of-ai-bubble-despite-microsoft-beating-quarterly-earnings-and-revenue-expectations/",
+   "at": "2026-10-30"
+  },
+  "LLY-2026-10-29": {
+   "he": "לילי העלתה את תחזית ההכנסות השנתית ל-91-92 מיליארד דולר, על רקע צמיחה של 39% בהכנסות בהובלת Mounjaro ו-Zepbound, שקיזזה מכירות חלשות מהצפוי של Foundayo.",
+   "src": "https://247wallst.com/investing/2026/10/29/merck-rises-5-as-earnings-beat-lifts-profit-outlook-eli-lilly-climbs-7-johnson-johnson-edges-higher/",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm"
+   }
+  },
+  "MA-2026-10-29": {
+   "he": "ההכנסות צמחו ב-14% בהובלת שירותי הערך המוסף (19%), נפחי התשלומים חוצי הגבולות עלו ב-11%, וההנהלה צופה לרבעון הרביעי צמיחה בקצה העליון של טווח דו-ספרתי נמוך.",
+   "src": "https://247wallst.com/investing/2026/10/29/mastercard-rises-4-on-revenue-and-eps-beat-led-by-value-added-services-visa-and-american-express-gain-2-paypal-ticks-up/",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0001141391/000114139126000122/ma09302026-exx991xearnings.htm",
+    "transcriptCall": "https://www.fool.com/earnings/call-transcripts/2026/10/29/mastercard-ma-q3-2026-earnings-call-transcript/",
+    "transcriptCallSrc": "Motley Fool"
+   }
+  },
+  "MRK-2026-10-29": {
+   "he": "מרק העלתה את תחזית הרווח השנתית, על רקע צמיחה במכירות זיכיון Keytruda, כולל הגרסה התת-עורית Qlex, וזינוק במכירות Winrevair.",
+   "src": "https://247wallst.com/investing/2026/10/29/merck-rises-5-as-earnings-beat-lifts-profit-outlook-eli-lilly-climbs-7-johnson-johnson-edges-higher/",
+   "at": "2026-10-30"
+  },
+  "CAT-2026-10-29": {
+   "he": "החברה לא העלתה את תחזית המכירות השנתית (צמיחה בטווח העשרה הבינוני-גבוה, מעט מתחת לצפי) ולא את הערכת עלות המכסים (כ-2.2 מיליארד דולר), וקצב הגידול בצבר ההזמנות הואט, מה שגבר על עקיפת התחזיות.",
+   "src": "https://www.tradingpedia.com/2026/10/29/caterpillar-earnings-beat-fails-to-ease-growth-fears/",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0000018230/000001823026000052/ex991toformcat3q2026earnin.htm"
+   }
+  },
+  "KLAC-2026-10-28": {
+   "he": "KLA נתנה תחזית הכנסות לרבעון הבא של כ-4.7 מיליארד דולר, מעל ציפיות האנליסטים, על רקע ביקוש לציוד בקרה ובדיקה לשבבי AI, לזיכרון ולאריזה מתקדמת, לפי הדיווחים.",
+   "src": "https://goldesel.de/aktien/news/kla-aktie-quartalsgewinn-ubertrifft-erwartungen-q2-ausblick-liegt-uber-konsens",
+   "at": "2026-10-30"
+  },
+  "V-2026-10-27": {
+   "he": "ויזה צפתה לשנת הכספים 2027 צמיחה דו-ספרתית נמוכה בהכנסות עם הוצאות שיגדלו בקצב דומה, ואמרה שהרבעון השני יהיה נקודת השפל בצמיחה; התחזית המתונה קיזזה את הצמיחה בנפחים, לפי הדיווחים.",
+   "src": "https://www.zacks.com/stock/news/3017664/visa-q4-earnings-call-highlights-fy27-outlook-and-growth-priorities",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0001403161/000140316126000126/q42026earningsrelease.htm"
+   }
+  },
+  "SKHY-2026-10-27": {
+   "he": "SK הייניקס דיווחה על רווח תפעולי שיא של כ-83 טריליון וון, מעל תחזית האנליסטים, בזכות ביקוש ל-HBM ולזיכרון לשרתי AI, והודיעה על חלוקה נרחבת לבעלי המניות.",
+   "src": "https://news.bizwatch.co.kr/article/market/2026/10/28/0008/",
+   "at": "2026-10-30"
+  },
+  "SAN-2026-10-28": {
+   "he": "חולשה בברזיל העיבה על הרבעון: הרווח שם ירד ב-15% וההפרשות להפסדי אשראי עלו ב-23%. הכנסות הריבית נטו היו מעט מתחת לצפי, ועלויות ארגון מחדש בגין רכישת Webster הכבידו.",
+   "src": "https://gbm.com/media/noticia/noticia-en-vivo-cion-3-el-repunte-de-los-beneficios-de-santander-en-el-tercer-trimestre-se-ve-empanado-por-la-debilidad-de-brasil/",
+   "at": "2026-10-30"
+  },
+  "APH-2026-10-28": {
+   "he": "המכירות, 10.2 מיליארד דולר, עקפו בהרבה את תחזית החברה. אמפינול נתנה תחזית מכירות לרבעון הרביעי של 10.3-10.5 מיליארד דולר, מעל הקונצנזוס, והודיעה על תוכנית רכישה עצמית של 4 מיליארד דולר.",
+   "src": "https://www.tikr.com/blog/amphenol-soars-7-on-record-10-2-billion-quarter-raised-guidance-and-new-4-billion-buyback",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://s21.q4cdn.com/564806605/files/doc_financials/2026/q3/2026_10_28-PR-3Q-2026-Results_Dividend-Increase-and-Buyback.pdf"
+   }
+  },
+  "HSBC-2026-10-27": {
+   "he": "ההכנסות החטיאו את הציפיות (18.6 מיליארד דולר מול 19 מיליארד). הכנסות ניהול העושר נותרו שטוחות אחרי צמיחה חדה, והבנק לא העלה את יעדיו כפי שהשוק ציפה, מה שגבר על גידול ברווח ועל רכישה עצמית.",
+   "src": "https://www.khaleejtimes.com/business/hsbc-shares-tumble-6-after-third-quarter-revenue-disappoints-wealth-growth-slows",
+   "at": "2026-10-30"
+  },
+  "NVS-2026-10-27": {
+   "he": "נוברטיס העלתה את תחזית הרווח התפעולי הליבתי לשנה ליציבות עד צמיחה חד-ספרתית נמוכה, בזכות צמיחה ב-Kisqali (37%) וב-Kesimpta (22%) ושיפור במרווח הליבה.",
+   "src": "https://www.hl.co.uk/shares/stock-market-news/company--news/novartis-lifts-earnings-guidance-as-key-drug-sales-drive-q3-growth",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.novartis.com/news/media-releases/novartis-delivered-sales-growth-and-core-margin-expansion-q3-raised-fy-core-operating-income-guidance"
+   }
+  },
+  "WELL-2026-10-26": {
+   "he": "ההכנסות היו מעט מתחת לצפי וההנהלה ציינה הרעה בסביבה המאקרו-כלכלית; על רקע תמחור גבוה, זה גבר על העלאת תחזית ה-FFO השנתית ועל צמיחה חזקה בדיור המוגן, לפי הדיווחים.",
+   "src": "https://www.tikr.com/blog/welltower-fell-5-as-q3-revenue-misses-despite-raised-ffo-outlook",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0000766704/000076670426000043/a3q26pressreleaseprnnewswi.htm"
+   }
+  },
+  "VZ-2026-10-26": {
+   "he": "ההכנסות החטיאו את הציפיות בעיקר בגלל ירידה בהכנסות מציוד והיחלשות בהכנסה לחשבון, וזה גבר על שיא של חמש שנים בצירופי מנויי טלפון ועל העלאת תחזית הרווח.",
+   "src": "https://www.tikr.com/blog/verizon-sinks-4-on-revenue-miss-despite-record-subscriber-growth-fundamentally-stronger",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0000732712/000073271226000049/a2026q3exhibit99.htm"
+   }
+  }
+ }
+}
