@@ -121,7 +121,7 @@
       if (st.market === 'IL') note = 'מועדים שהחברות הישראליות כבר הודיעו עליהם. חברות נוספות מתווספות בעדכון השבועי.';
       if (note) wrap.append(h('p', { class: 'lede' }, note));
     }
-    if (st.market === 'US' && st.view !== 'month' && FC.digest) { const d = FC.digest(st); if (d) wrap.append(d); }
+    if ((st.market === 'US' || st.market === 'IL') && st.view !== 'month' && FC.digest) { const d = FC.digest(st); if (d) wrap.append(d); }
     const v = st.q && st.view !== 'month' ? 'list' : st.view;
     FC.views[v](wrap, st);
     wrap.append(footer());

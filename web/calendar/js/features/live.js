@@ -114,7 +114,8 @@
   /* the night's reports in short, at the top of the US week (written each night) */
   FC.digest = function (st) {
     const D = FC.store.digests || {};
-    const days = Object.keys(D).filter((d) => d >= st.week && d <= FC.addDays(st.week, 6)).sort();
+    const sfx = st.market === 'IL' ? '-IL' : '';
+    const days = Object.keys(D).filter((k) => (sfx ? k.endsWith(sfx) : k.length === 10) && k.slice(0, 10) >= st.week && k.slice(0, 10) <= FC.addDays(st.week, 6)).sort();
     if (!days.length) return null;
     let cur = days[days.length - 1];
     const box = h('section', { class: 'digest' });
@@ -123,7 +124,7 @@
       box.textContent = '';
       box.append(
         h('div', { class: 'dg-head' }, h('b', null, 'הדוחות בקצרה'),
-          h('span', { class: 'dg-days' }, ...days.map((x) => h('button', { type: 'button', class: 'dg-day' + (x === cur ? ' on' : ''), onclick: () => { cur = x; draw(); } }, FC.shortDate(x))))),
+          h('span', { class: 'dg-days' }, ...days.map((x) => h('button', { type: 'button', class: 'dg-day' + (x === cur ? ' on' : ''), onclick: () => { cur = x; draw(); } }, FC.shortDate(x.slice(0, 10)))))),
         d.bl ? h('p', { class: 'an-bl' }, d.bl) : null,
         h('ul', { class: 'an-pts' }, ...(d.pts || []).map((t) => h('li', null, t))));
     };
