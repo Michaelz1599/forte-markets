@@ -1,0 +1,13 @@
+{
+  "_comment": "Events added outside the weekly build: large companies the weekly build missed, and weeks before the calendar started. The site and the pipeline merge them; an event with the same id in a week file wins. The weekly job keeps this file.",
+  "weeks": [
+    {"id": "2026-10-19", "coverage": {"US": "full"}, "note": "שבוע לפני תחילת היומן: מוצגים רק דוחות שהוספו בדיעבד."}
+  ],
+  "events": [
+    {"id": "META-2026-10-21", "ticker": "META", "market": "US", "date": "2026-10-21", "session": "AMC", "period": "Q3 2026", "status": "confirmed",
+     "release": {"text": "after market close", "tz": "America/New_York"},
+     "call": {"time": "16:30", "tz": "America/New_York", "confirmed": true, "note": null, "webcast": "https://investor.atmeta.com", "dial": null},
+     "links": {},
+     "sources": [{"label": "הודעת החברה", "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx"}]}
+  ]
+}

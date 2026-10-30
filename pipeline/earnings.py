@@ -5,6 +5,8 @@ and what the stock did after each report, with EPS against consensus.
   implied volatility of that expiry and of the next one (the drop after the report).
 - reaction day: the report day for BMO, the next session for AMC (or unknown timing).
 - results are kept once computed (data/calendar/live.json), so each company's EPS lookup runs once.
+- report night: once a report is out and before its reaction day closes, the reported EPS against the estimate and
+  the move in extended trading (after-hours for AMC, pre-market for BMO) are kept under "reported".
 """
 from __future__ import annotations
 
@@ -28,6 +30,10 @@ def load_events() -> list[dict]:
         p = CAL / w["file"].replace("data/", "", 1)
         if p.exists():
             out += json.loads(p.read_text(encoding="utf-8")).get("events", [])
+    extra = CAL / "extra.json"      # events added outside the weekly build (missed companies, earlier weeks)
+    if extra.exists():
+        have = {e["id"] for e in out}
+        out += [e for e in json.loads(extra.read_text(encoding="utf-8")).get("events", []) if e.get("id") not in have]
     return out
 
 
@@ -112,6 +118,93 @@ def eps_actual(sym: str, date: str) -> tuple[float | None, float | None]:
     return f(act), f(est)
 
 
+def is_out(ev: dict, now_ny: dt.datetime) -> bool:
+    """The report has been published (AMC from 16:05 New York time on the report day)."""
+    d = now_ny.date().isoformat()
+    if ev["date"] < d:
+        return True
+    if ev["date"] > d:
+        return False
+    if ev.get("session") == "BMO":
+        return now_ny.hour >= 7
+    return now_ny.hour * 60 + now_ny.minute >= 16 * 60 + 5
+
+
+def extended_move(sym: str) -> tuple[float | None, str | None]:
+    """Move in extended trading against the last regular close: (change, "post" | "pre")."""
+    import yfinance as yf
+    info = yf.Ticker(sym).info or {}
+    reg = info.get("regularMarketPrice")
+    for key, kind in (("postMarketPrice", "post"), ("preMarketPrice", "pre")):
+        v = info.get(key)
+        state = info.get("marketState")
+        ok = state in ("POST", "POSTPOST", "CLOSED") if kind == "post" else state in ("PRE", "PREPRE")
+        if v and reg and v > 0 and reg > 0 and ok:
+            ch = v / reg - 1
+            if abs(ch) < 0.6:
+                return round(ch, 4), kind
+    return None, None
+
+
+def _row(q: pd.DataFrame, names: tuple[str, ...], col) -> float | None:
+    for n in names:
+        if n in q.index:
+            v = q.at[n, col]
+            if v is not None and not (isinstance(v, float) and math.isnan(v)):
+                return float(v)
+    return None
+
+
+def fin_actual(sym: str, date: str) -> dict | None:
+    """The reported quarter from Yahoo's quarterly income statement (GAAP): revenue, its yearly growth, gross and
+    operating margin and their change from a year earlier. None until Yahoo has the quarter (often a day or two)."""
+    import yfinance as yf
+    q = yf.Ticker(sym).quarterly_income_stmt
+    if q is None or q.empty:
+        return None
+    rd = pd.Timestamp(date)
+    cols = sorted(q.columns, key=pd.Timestamp)
+    cand = [c for c in cols if pd.Timestamp(c) <= rd and (rd - pd.Timestamp(c)).days <= 100]
+    if not cand:
+        return None
+    c = cand[-1]
+    ya = [x for x in cols if abs((pd.Timestamp(c) - pd.DateOffset(years=1) - pd.Timestamp(x)).days) <= 20]
+    REV, GP, OI = ("Total Revenue", "Operating Revenue"), ("Gross Profit",), ("Operating Income", "Total Operating Income As Reported")
+    rev = _row(q, REV, c)
+    if not rev or rev <= 0:
+        return None
+    out = {"q": pd.Timestamp(c).date().isoformat(), "rev": rev}
+    gp, oi = _row(q, GP, c), _row(q, OI, c)
+    if gp is not None:
+        out["gm"] = round(gp / rev, 4)
+    if oi is not None:
+        out["om"] = round(oi / rev, 4)
+    if ya:
+        r0 = _row(q, REV, ya[-1])
+        if r0 and r0 > 0:
+            out["revYoY"] = round(rev / r0 - 1, 4)
+            g0, o0 = _row(q, GP, ya[-1]), _row(q, OI, ya[-1])
+            if g0 is not None and "gm" in out:
+                out["gmYoY"] = round(out["gm"] - g0 / r0, 4)
+            if o0 is not None and "om" in out:
+                out["omYoY"] = round(out["om"] - o0 / r0, 4)
+    return out
+
+
+def reported_he(r: dict, im: dict | None) -> str:
+    parts = []
+    if r.get("epsAct") is not None and r.get("epsEst") is not None:
+        rel = "מעל הצפי" if r["epsAct"] > r["epsEst"] else "מתחת לצפי" if r["epsAct"] < r["epsEst"] else "בדיוק כמו הצפי"
+        parts.append(f"הרווח למניה, ${r['epsAct']:.2f}, היה {rel} של ${r['epsEst']:.2f}.")
+    elif r.get("epsAct") is not None:
+        parts.append(f"הרווח למניה: ${r['epsAct']:.2f}.")
+    if r.get("ext") is not None:
+        where = "במסחר המאוחר" if r.get("extKind") == "post" else "במסחר המוקדם"
+        parts.append(f"{where} המניה {'עלתה' if r['ext'] >= 0 else 'ירדה'} {abs(r['ext']) * 100:.1f}%"
+                     + (f" (האופציות תמחרו ±{im['move'] * 100:.1f}%)" if im and im.get("move") else "") + ".")
+    return " ".join(parts)
+
+
 def summary_he(name: str, r: dict, im: dict | None) -> str:
     mv, ex = r["move"], r.get("ex")
     s1 = (f"המניה {'עלתה' if mv >= 0 else 'ירדה'} {abs(mv) * 100:.1f}% ביום המסחר שאחרי הדוח"
@@ -125,12 +218,12 @@ def summary_he(name: str, r: dict, im: dict | None) -> str:
     return s1 + (" " + ", ו".join(parts) + "." if parts else "")
 
 
-def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60) -> tuple[dict, str]:
+def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int = 80, max_fin: int = 80) -> tuple[dict, str]:
     from .markets import yf_close
     events = load_events()
     cap = mcaps()
     live = json.loads(LIVE.read_text(encoding="utf-8")) if LIVE.exists() else {}
-    implied, results = live.get("implied", {}), live.get("results", {})
+    implied, results, reported, fin = live.get("implied", {}), live.get("results", {}), live.get("reported", {}), live.get("fin", {})
     today = today_utc().isoformat()
     spx = px["^GSPC"].dropna() if "^GSPC" in px.columns else pd.Series(dtype=float)
     sessions = [d for d in spx.index]
@@ -202,12 +295,54 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60) -> tuple[dic
             r["he"] = summary_he(e["ticker"], r, implied.get(e["id"]))
             r["at"] = today
             results[e["id"]] = r
+    # 3. report night: reports already out whose reaction day has not closed yet
+    from zoneinfo import ZoneInfo
+    now_ny = dt.datetime.now(ZoneInfo("America/New_York"))
+    recent = (today_utc() - dt.timedelta(days=5)).isoformat()
+    pend = sorted([e for e in us if e["id"] not in results and e["date"] >= recent and is_out(e, now_ny)], key=by_cap)[:max_rep]
+    stamp = dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes")
+    n_rep = 0
+    for e in pend:
+        sym = yahoo_sym(e["ticker"], "US")
+        r = dict(reported.get(e["id"], {}))
+        if r.get("epsAct") is None:
+            try:
+                act, est = eps_actual(sym, e["date"])
+            except Exception:
+                act, est = None, None
+            est = est if est is not None else (e.get("consensus") or {}).get("eps")
+            if act is not None:
+                r["epsAct"], r["epsEst"] = act, est
+                if est:
+                    r["surprise"] = round((act - est) / abs(est), 4)
+        try:
+            ext, kind = extended_move(sym)
+        except Exception:
+            ext, kind = None, None
+        if ext is not None:
+            r["ext"], r["extKind"] = ext, kind
+        if r:
+            r["at"] = stamp
+            reported[e["id"]] = r; n_rep += 1
+    reported = {k: v for k, v in reported.items() if k not in results and k in {e["id"] for e in us if e["date"] >= recent}}
+    # 4. the reported quarter's revenue, growth and margins, for every US report of the last 10 days (until Yahoo has it)
+    lo10 = (today_utc() - dt.timedelta(days=10)).isoformat()
+    for e in sorted([e for e in us if e["id"] not in fin and e["date"] >= lo10 and is_out(e, now_ny)], key=by_cap)[:max_fin]:
+        try:
+            f = fin_actual(yahoo_sym(e["ticker"], "US"), e["date"])
+        except Exception:
+            f = None
+        if f:
+            cons = e.get("consensus") or {}
+            if cons.get("rev"):
+                f["revEst"] = cons["rev"]
+            fin[e["id"]] = f
     # EPS from Yahoo can be in another unit or per-share basis for foreign issuers (ADRs): keep the comparison only
     # when Yahoo's estimate agrees with the calendar's consensus within 25%
     evmap = {e["id"]: e for e in events}
     prof_p = CAL / "profiles.json"
     country = {t: c.get("country") for t, c in (json.loads(prof_p.read_text(encoding="utf-8")).get("companies", {}) if prof_p.exists() else {}).items()}
-    for k, r in results.items():
+    for k, r in list(results.items()) + list(reported.items()):
         e = evmap.get(k)
         cons = ((e or {}).get("consensus") or {}).get("eps")
         if r.get("epsAct") is None:
@@ -217,14 +352,23 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60) -> tuple[dic
         if bad:
             for f in ("epsAct", "epsEst", "surprise"):
                 r.pop(f, None)
-            r["he"] = summary_he(k.split("-")[0], r, implied.get(k))
+            if k in results:
+                r["he"] = summary_he(k.split("-")[0], r, implied.get(k))
+    for k, r in reported.items():
+        r["he"] = reported_he(r, implied.get(k))
+    for k, f in fin.items():          # foreign issuers report in their own currency: keep growth and margins only
+        e = evmap.get(k)
+        if e and (e.get("market") != "US" or country.get(e.get("ticker"), "US") not in ("US", None)):
+            f.pop("revEst", None)
+            f["cur"] = "local"
     # keep the last ~10 weeks
     keep = {e["id"] for e in events}
     implied = {k: v for k, v in implied.items() if k in keep}
+    fin = {k: v for k, v in fin.items() if k in keep}
     results = {k: v for k, v in results.items() if k in keep or v.get("d1", "") >= (today_utc() - dt.timedelta(days=70)).isoformat()}
     # the week's largest reporters: the daily "why" task writes their explanation
     lo, hi = (today_utc() - dt.timedelta(days=10)).isoformat(), (today_utc() + dt.timedelta(days=7)).isoformat()
     focus = [e["id"] for e in sorted([e for e in us if lo <= e["date"] <= hi], key=by_cap)[:30]]
-    out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "implied": implied, "results": results, "focus": focus}
+    out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "implied": implied, "results": results, "reported": reported, "fin": fin, "focus": focus}
     LIVE.write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding="utf-8")
-    return out, f"{n_im} תנועות מגולמות חדשות · {len(results)} דוחות עם תוצאה"
+    return out, f"{n_im} תנועות מגולמות חדשות · {len(results)} דוחות עם תוצאה · {len(reported)} דוחות שפורסמו וממתינים ליום התגובה"

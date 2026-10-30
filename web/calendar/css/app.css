@@ -508,3 +508,12 @@ main .wrap > * { min-width: 0; }
 .res-sum { margin: 0 0 8px; line-height: 1.7; font-size: var(--fs-md); }
 .v.pos { color: var(--pos); }
 .v.neg { color: var(--neg); }
+
+/* report analysis, actual vs consensus, the nightly digest (features/live.js) */
+.an-bl { font-weight: 700; margin: 0 0 6px; line-height: 1.5; }
+.an-pts { margin: 0; padding-inline-start: 18px; display: grid; gap: 5px; line-height: 1.5; }
+.digest { border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); border-radius: var(--r-md); padding: 12px 14px; margin: 0 0 14px; background: var(--surface, transparent); }
+.dg-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.dg-days { display: flex; gap: 4px; flex-wrap: wrap; }
+.dg-day { font: inherit; font-size: var(--fs-xs); border: 1px solid var(--line); background: transparent; color: inherit; border-radius: 999px; padding: 2px 9px; cursor: pointer; }
+.dg-day.on { background: var(--accent); color: var(--accent-ink, #fff); border-color: var(--accent); }
