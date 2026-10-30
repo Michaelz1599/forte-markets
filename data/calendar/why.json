@@ -101,6 +101,61 @@
    "links": {
     "pressRelease": "https://www.sec.gov/Archives/edgar/data/0000732712/000073271226000049/a2026q3exhibit99.htm"
    }
+  },
+  "SHEL-2026-10-29": {
+   "he": "הרווח המתואם עקף את התחזיות בזכות מרווחי זיקוק בשיא של כ-42 דולר לחבית, על רקע זינוק במחירי האנרגיה, ושל העלתה את הרכישה העצמית הרבעונית ל-5 מיליארד דולר מ-3 מיליארד.",
+   "src": "https://www.tradingpedia.com/2026/10/29/shell-beats-q3-estimates-and-expands-share-buybacks/",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.globenewswire.com/news-release/2026/10/29/3390953/0/en/shell-plc-3rd-quarter-2026-and-nine-months-unaudited-results.html",
+    "transcriptCall": "https://www.investing.com/news/transcripts/earnings-call-transcript-shell-tops-q3-2026-estimates-as-shares-rise-25-93CH-4984716",
+    "transcriptCallSrc": "Investing.com"
+   }
+  },
+  "TTE-2026-10-29": {
+   "he": "הרווח עקף את הצפי בזכות רווח תפעולי שיא בזיקוק ועלייה ברווחי ה-LNG, והחברה אישרה רכישה עצמית של 2.5 מיליארד דולר לרבעון, למרות הכנסות נמוכות מהצפי.",
+   "src": "https://www.kucoin.com/news/flash/totalenergies-q3-2026-earnings-exceed-forecasts-shares-rise-1-5",
+   "at": "2026-10-30",
+   "links": {
+    "transcriptCall": "https://www.fool.com/earnings/call-transcripts/2026/10/29/totalenergies-tte-q3-2026-earnings-call-transcript/",
+    "transcriptCallSrc": "Motley Fool"
+   }
+  },
+  "LIN-2026-10-29": {
+   "he": "הרווח המדווח ירד ו-Linde העלתה את תחזית הרווח השנתית רק במעט (17.82-17.92 דולר למניה), למרות צמיחה במכירות ובנפחים; כתבות לא הצביעו על סיבה מפורשת לירידה, לפי הדיווחים.",
+   "src": "https://www.ad-hoc-news.de/boerse/news/corporate-news/linde-stock-weakens-as-q3-results-lift-adjusted-earnings-outlook/70429604",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0001707925/000165495426009199/lin_ex991.htm",
+    "transcriptCall": "https://www.fool.com/earnings/call-transcripts/2026/10/29/linde-lin-q3-2026-earnings-call-transcript/",
+    "transcriptCallSrc": "Motley Fool"
+   }
+  },
+  "BUD-2026-10-29": {
+   "he": "ירידה של כ-17% בנפחים בסין, על רקע מזג אוויר חריג וצריכה חלשה בבתי עסק, העיבה על צמיחה במותגי הפרימיום ועל עקיפת התחזיות, לפי הדיווחים.",
+   "src": "https://247wallst.com/cards/anheuser-busch-inbev-sa-q3-2026-earnings-bud-01m63s5j7p68zhrhsnst8jkb9v",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0001668717/000119312526437051/d159047dex991.htm",
+    "transcriptCall": "https://www.benzinga.com/news/26/10/62700154/anheuser-busch-inbev-q3-2026-earnings-call-transcript",
+    "transcriptCallSrc": "Benzinga"
+   }
+  },
+  "GEV-2026-10-28": {
+   "he": "קצב החוזים החדשים בטורבינות גז הואט (11 ג'יגה-וואט לעומת 20 ברבעון הקודם) וגם הזמנות החשמול ירדו, מה שגבר על הצבר ועל העלאת התחזית; לחץ על מניות תשתיות ה-AI הוסיף.",
+   "src": "https://www.marketbeat.com/articles/ge-vernovas-reservations-are-turning-into-real-ordersbut-the-market-still-wants-more/",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://www.sec.gov/Archives/edgar/data/0001996810/000199681026000162/gevpressrelease3q26.htm"
+   }
+  },
+  "KO-2026-10-27": {
+   "he": "החברה הזהירה שלחצי עלויות על הצרכנים עשויים להימשך גם ב-2027 והנפחים בצפון אמריקה היו כמעט ללא שינוי, וזה גבר על העלאת תחזית הרווח לשנה.",
+   "src": "https://www.tipranks.com/news/coca-cola-stock-ko-slips-despite-increasing-guidance-after-beating-earnings-estimates",
+   "at": "2026-10-30",
+   "links": {
+    "pressRelease": "https://investors.coca-colacompany.com/news-events/press-releases/detail/1176/coca-cola-reports-third-quarter-2026-results-and-raises-full-year-guidance"
+   }
   }
  }
 }
