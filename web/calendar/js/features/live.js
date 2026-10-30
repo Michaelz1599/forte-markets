@@ -5,6 +5,7 @@
    - data/why.json: written each night for the largest reporters: what was reported (rep), what happened to the stock
      and why (he), and links to the press release and the call transcript.
    - data/extra.json: events added outside the weekly build (missed companies, weeks before the calendar started).
+   - data/maya.json: Israeli report dates and conference-call times from Maya (pipeline/maya.py, every run).
    Adds two categories to the company panel and a "move" column to the day tables (week.js).
    ============================================================ */
 (function () {
@@ -13,13 +14,22 @@
   const load = FC.store.load.bind(FC.store);
   FC.store.load = async function () {
     const r = await load();
-    const [live, why, extra] = await Promise.all([FC.getJSON('data/live.json').catch(() => ({})), FC.getJSON('data/why.json').catch(() => ({})), FC.getJSON('data/extra.json').catch(() => ({}))]);
+    const [live, why, extra, maya] = await Promise.all([FC.getJSON('data/live.json').catch(() => ({})), FC.getJSON('data/why.json').catch(() => ({})), FC.getJSON('data/extra.json').catch(() => ({})), FC.getJSON('data/maya.json').catch(() => ({}))]);
     const have = new Set((this.events || []).map((e) => e.id));
     const add = (extra.events || []).filter((e) => e && e.id && !have.has(e.id));
     if (add.length) {
       this.events = this.events.concat(add);
       for (const e of add) (this.byTicker[e.ticker] = this.byTicker[e.ticker] || []).push(e);
     }
+    for (const [t, pr] of Object.entries(extra.profiles || {})) if (!this.profiles[t]) this.profiles[t] = pr;
+    // Israeli report dates and call times from Maya: new companies are added; known ones only gain a missing call time
+    const byId = new Map(this.events.map((e) => [e.id, e]));
+    for (const m of maya.events || []) {
+      const cur = byId.get(m.id);
+      if (!cur) { this.events.push(m); byId.set(m.id, m); (this.byTicker[m.ticker] = this.byTicker[m.ticker] || []).push(m); continue; }
+      if (cur.call && !cur.call.time && !cur.call.note && m.call && (m.call.time || m.call.note)) cur.call = Object.assign({}, cur.call, { time: m.call.time, tz: m.call.tz, note: m.call.note });
+    }
+    for (const [t, pr] of Object.entries(maya.profiles || {})) if (!this.profiles[t]) this.profiles[t] = pr;
     const wk = new Set((this.weeks || []).map((w) => w.id));
     const wAdd = (extra.weeks || []).filter((w) => w && w.id && !wk.has(w.id));
     if (wAdd.length) this.weeks = this.weeks.concat(wAdd).sort((a, b) => (a.id < b.id ? -1 : 1));

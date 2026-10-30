@@ -12,7 +12,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, macro, markets, rs, sources
+from . import analogs, drivers, breadth, earnings, israel, macro, markets, maya, rs, sources
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -180,6 +180,9 @@ def run(offline: bool = False) -> int:
             res = step(st, "earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", lambda: earnings.run(px))
             if res:
                 st.add("earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", True, res[0]["asof"][:10], res[1])
+            res = step(st, "maya", "יומן כלכלי: דוחות ושיחות ועידה בישראל (מאיה)", maya.run)
+            if res:
+                st.add("maya", "יומן כלכלי: דוחות ושיחות ועידה בישראל (מאיה)", True, res[0]["asof"][:10], res[1])
         # 10b. Israel: breadth, sentiment proxies, sectors, RS of the large TASE names, Israeli macro
         res = step(st, "israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", lambda: israel.run(px))
         if res:

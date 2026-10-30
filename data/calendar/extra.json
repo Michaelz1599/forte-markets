@@ -1,13 +1,487 @@
 {
-  "_comment": "Events added outside the weekly build: large companies the weekly build missed, and weeks before the calendar started. The site and the pipeline merge them; an event with the same id in a week file wins. The weekly job keeps this file.",
-  "weeks": [
-    {"id": "2026-10-19", "coverage": {"US": "full"}, "note": "שבוע לפני תחילת היומן: מוצגים רק דוחות שהוספו בדיעבד."}
-  ],
-  "events": [
-    {"id": "META-2026-10-21", "ticker": "META", "market": "US", "date": "2026-10-21", "session": "AMC", "period": "Q3 2026", "status": "confirmed",
-     "release": {"text": "after market close", "tz": "America/New_York"},
-     "call": {"time": "16:30", "tz": "America/New_York", "confirmed": true, "note": null, "webcast": "https://investor.atmeta.com", "dial": null},
-     "links": {},
-     "sources": [{"label": "הודעת החברה", "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx"}]}
-  ]
+ "_comment": "Events added outside the weekly build: large companies the weekly build missed, and weeks before the calendar started. The site and the pipeline merge them; an event with the same id in a week file wins. The weekly job keeps this file. Israeli reports are taken from Maya (maya.tase.co.il, מועדי פרסום דוחות ושיחות ועידה). \"maya\" maps Maya company ids to tickers (pipeline/maya.py); companies not in it show under their Hebrew name.",
+ "weeks": [
+  {
+   "id": "2026-10-19",
+   "coverage": {
+    "US": "full"
+   },
+   "note": "שבוע לפני תחילת היומן: מוצגים רק דוחות שהוספו בדיעבד."
+  }
+ ],
+ "events": [
+  {
+   "id": "META-2026-10-21",
+   "ticker": "META",
+   "market": "US",
+   "date": "2026-10-21",
+   "session": "AMC",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "after market close",
+    "tz": "America/New_York"
+   },
+   "call": {
+    "time": "16:30",
+    "tz": "America/New_York",
+    "confirmed": true,
+    "note": null,
+    "webcast": "https://investor.atmeta.com",
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "הודעת החברה",
+     "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx"
+    }
+   ]
+  },
+  {
+   "id": "UMH-2026-11-02",
+   "ticker": "UMH",
+   "market": "IL",
+   "date": "2026-11-02",
+   "session": "AMC",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": null,
+    "tz": null,
+    "confirmed": true,
+    "note": "שיחת משקיעים ביום ג' 3.11, 10:00 שעון ניו יורק (17:00 בישראל)",
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1770825"
+    }
+   ]
+  },
+  {
+   "id": "TATT-2026-11-02",
+   "ticker": "TATT",
+   "market": "IL",
+   "date": "2026-11-02",
+   "session": "TBD",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "שעת הפרסום לא צוינה במאיה"
+   },
+   "call": {
+    "time": null,
+    "tz": null,
+    "confirmed": true,
+    "note": "לא פורסמה שיחת משקיעים במאיה",
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+    }
+   ]
+  },
+  {
+   "id": "GVYM-2026-11-02",
+   "ticker": "GVYM",
+   "market": "IL",
+   "date": "2026-11-02",
+   "session": "TBD",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "שעת הפרסום לא צוינה במאיה"
+   },
+   "call": {
+    "time": "09:30",
+    "tz": "Asia/Jerusalem",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1778671"
+    }
+   ]
+  },
+  {
+   "id": "SOFW-2026-11-03",
+   "ticker": "SOFW",
+   "market": "IL",
+   "date": "2026-11-03",
+   "session": "TBD",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "שעת הפרסום לא צוינה במאיה"
+   },
+   "call": {
+    "time": "10:00",
+    "tz": "Asia/Jerusalem",
+    "confirmed": true,
+    "note": "במאיה רשומה שיחת ועידה; מועד פרסום הדוח לא רשום",
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+    }
+   ]
+  },
+  {
+   "id": "AMOT-2026-11-03",
+   "ticker": "AMOT",
+   "market": "IL",
+   "date": "2026-11-03",
+   "session": "TBD",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "שעת הפרסום לא צוינה במאיה"
+   },
+   "call": {
+    "time": "11:00",
+    "tz": "Asia/Jerusalem",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1776443"
+    }
+   ]
+  },
+  {
+   "id": "AUDC-2026-11-04",
+   "ticker": "AUDC",
+   "market": "IL",
+   "date": "2026-11-04",
+   "session": "BMO",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": "08:30",
+    "tz": "America/New_York",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1777047"
+    }
+   ]
+  },
+  {
+   "id": "NICE-2026-11-04",
+   "ticker": "NICE",
+   "market": "IL",
+   "date": "2026-11-04",
+   "session": "BMO",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": "08:30",
+    "tz": "America/New_York",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1778307"
+    }
+   ]
+  },
+  {
+   "id": "OPK-2026-11-04",
+   "ticker": "OPK",
+   "market": "IL",
+   "date": "2026-11-04",
+   "session": "AMC",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": "16:30",
+    "tz": "America/New_York",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1778339"
+    }
+   ]
+  },
+  {
+   "id": "CION-2026-11-05",
+   "ticker": "CION",
+   "market": "IL",
+   "date": "2026-11-05",
+   "session": "BMO",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": "11:00",
+    "tz": "America/New_York",
+    "confirmed": true,
+    "note": null,
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1773509"
+    }
+   ]
+  },
+  {
+   "id": "STRW-2026-11-05",
+   "ticker": "STRW",
+   "market": "IL",
+   "date": "2026-11-05",
+   "session": "AMC",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "לא צוין במאיה; משוער לפי מועד השיחה"
+   },
+   "call": {
+    "time": null,
+    "tz": null,
+    "confirmed": true,
+    "note": "שיחת משקיעים ביום ו' 6.11, 12:00 שעון ניו יורק (19:00 בישראל)",
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+    }
+   ]
+  },
+  {
+   "id": "ELAL-2026-11-05",
+   "ticker": "ELAL",
+   "market": "IL",
+   "date": "2026-11-05",
+   "session": "TBD",
+   "period": "Q3 2026",
+   "status": "confirmed",
+   "release": {
+    "text": "שעת הפרסום לא צוינה במאיה"
+   },
+   "call": {
+    "time": "10:00",
+    "tz": "Asia/Jerusalem",
+    "confirmed": true,
+    "note": "במאיה רשומה שיחת ועידה; מועד פרסום הדוח לא רשום",
+    "webcast": null,
+    "dial": null
+   },
+   "links": {},
+   "sources": [
+    {
+     "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+     "url": "https://maya.tase.co.il/he/reports/1777861"
+    }
+   ]
+  }
+ ],
+ "profiles": {
+  "UMH": {
+   "name": "יו.אמ.איץ' · UMH Properties",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Real Estate",
+   "sectorHe": "נדל\"ן",
+   "country": "US",
+   "exchange": "NYSE"
+  },
+  "TATT": {
+   "name": "תאת טכנולוגיות · TAT Technologies",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Industrials",
+   "sectorHe": "תעשייה",
+   "country": "IL",
+   "exchange": "NASDAQ"
+  },
+  "GVYM": {
+   "name": "גב ים · Gav-Yam",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Real Estate",
+   "sectorHe": "נדל\"ן",
+   "country": "IL",
+   "exchange": "TASE"
+  },
+  "SOFW": {
+   "name": "סופוויב מדיקל · Sofwave Medical",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Health Care",
+   "sectorHe": "בריאות",
+   "country": "IL",
+   "exchange": "TASE"
+  },
+  "AMOT": {
+   "name": "אמות · Amot Investments",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Real Estate",
+   "sectorHe": "נדל\"ן",
+   "country": "IL",
+   "exchange": "TASE"
+  },
+  "AUDC": {
+   "name": "אודיוקודס · AudioCodes",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Information Technology",
+   "sectorHe": "טכנולוגיה",
+   "country": "IL",
+   "exchange": "NASDAQ"
+  },
+  "NICE": {
+   "name": "נייס · NICE",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Information Technology",
+   "sectorHe": "טכנולוגיה",
+   "country": "IL",
+   "exchange": "NASDAQ"
+  },
+  "OPK": {
+   "name": "אופקו · OPKO Health",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Health Care",
+   "sectorHe": "בריאות",
+   "country": "US",
+   "exchange": "NASDAQ"
+  },
+  "CION": {
+   "name": "סיאון · CION Investment Corp",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Financials",
+   "sectorHe": "פיננסים",
+   "country": "US",
+   "exchange": "NYSE"
+  },
+  "STRW": {
+   "name": "סטרוברי · Strawberry Fields REIT",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Real Estate",
+   "sectorHe": "נדל\"ן",
+   "country": "US",
+   "exchange": "NYSE American"
+  },
+  "ELAL": {
+   "name": "אל על · El Al Israel Airlines",
+   "tags": [
+    "TASE"
+   ],
+   "sector": "Industrials",
+   "sectorHe": "תעופה",
+   "country": "IL",
+   "exchange": "TASE"
+  }
+ },
+ "maya": {
+  "2028": "TSEM",
+  "629": "TEVA",
+  "720": "ENLT",
+  "2174": "CAMT",
+  "2250": "ORA",
+  "2177": "NVMI",
+  "2356": "UMH",
+  "2110": "TATT",
+  "759": "GVYM",
+  "1886": "SOFW",
+  "1328": "AMOT",
+  "2134": "AUDC",
+  "273": "NICE",
+  "1610": "OPK",
+  "2409": "CION",
+  "2438": "STRW",
+  "1152": "ELAL",
+  "2030": "GILT",
+  "1682": "OPCE",
+  "1778": "TASE",
+  "281": "ICL",
+  "2095": "PTNR",
+  "2188": "CGEN",
+  "1916": "NXSN",
+  "1386": "BWAY",
+  "1581": "ENRG",
+  "1901": "TRPZ",
+  "1894": "NYAX",
+  "627": "DELG",
+  "230": "BEZQ",
+  "2252": "ALLT",
+  "445": "MTRX",
+  "1110": "HLAN",
+  "475": "NWMD"
+ }
 }
