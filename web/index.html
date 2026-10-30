@@ -2961,7 +2961,7 @@ function macLines(elId, cfg) {
   const series = cfg.ids.map((id, i) => {
     const s = S.ser.get(id), ind = S.ind.get(id); if (!s || !ind) return null;
     const data = s.t.map((t, k) => [t, s.v[k]]);
-    return { name: ind.name, type: 'line', data, showSymbol: false, sampling: 'lttb', lineStyle: { width: i ? 1.4 : 2, color: LINE_COLORS[i % LINE_COLORS.length] }, itemStyle: { color: LINE_COLORS[i % LINE_COLORS.length] },
+    return { name: ind.name, type: 'line', data, showSymbol: false, sampling: /_rate$/.test(id) ? undefined : 'lttb', step: /_rate$/.test(id) ? 'end' : undefined, lineStyle: { width: i ? 1.4 : 2, color: LINE_COLORS[i % LINE_COLORS.length] }, itemStyle: { color: LINE_COLORS[i % LINE_COLORS.length] },
       ...(i === 0 && cfg.mark ? { markLine: { symbol: 'none', silent: true, lineStyle: { color: muted, type: 'dashed' }, label: { formatter: cfg.mark[1], color: muted, fontSize: 10, position: 'insideStartTop' }, data: [{ yAxis: cfg.mark[0] }] } } : {}) };
   }).filter(Boolean);
   if (!series.length) { el.innerHTML = '<p class="muted" style="padding:16px">אין עדיין נתונים.</p>'; return; }

@@ -202,6 +202,22 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60) -> tuple[dic
             r["he"] = summary_he(e["ticker"], r, implied.get(e["id"]))
             r["at"] = today
             results[e["id"]] = r
+    # EPS from Yahoo can be in another unit or per-share basis for foreign issuers (ADRs): keep the comparison only
+    # when Yahoo's estimate agrees with the calendar's consensus within 25%
+    evmap = {e["id"]: e for e in events}
+    prof_p = CAL / "profiles.json"
+    country = {t: c.get("country") for t, c in (json.loads(prof_p.read_text(encoding="utf-8")).get("companies", {}) if prof_p.exists() else {}).items()}
+    for k, r in results.items():
+        e = evmap.get(k)
+        cons = ((e or {}).get("consensus") or {}).get("eps")
+        if r.get("epsAct") is None:
+            continue
+        foreign = (e or {}).get("market") != "US" or country.get((e or {}).get("ticker"), "US") not in ("US", None)
+        bad = (cons is None and foreign) or (cons and r.get("epsEst") and abs(r["epsEst"] / cons - 1) > 0.25)
+        if bad:
+            for f in ("epsAct", "epsEst", "surprise"):
+                r.pop(f, None)
+            r["he"] = summary_he(k.split("-")[0], r, implied.get(k))
     # keep the last ~10 weeks
     keep = {e["id"] for e in events}
     implied = {k: v for k, v in implied.items() if k in keep}
