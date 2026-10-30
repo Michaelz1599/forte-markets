@@ -106,8 +106,8 @@ def build(rows: list[dict], tickers: dict[str, str]) -> dict:
             "release": {"text": "שעת הפרסום לא צוינה במאיה" if rep else "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"},
             "call": call, "links": {}, "maya": cid,
             "sources": [{"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה", "url": f"{REPORT}{rid}" if rid else PAGE}]})
-        if str(cid) not in tickers:
-            profiles[ticker] = {"name": g["name"].strip(), "tags": ["TASE"], "country": "IL", "exchange": "TASE"}
+        # used only for tickers the calendar has no profile for
+        profiles[ticker] = {"name": g["name"].strip() + (f" · {ticker}" if str(cid) in tickers else ""), "tags": ["TASE"], "country": "IL", "exchange": "TASE"}
     events.sort(key=lambda e: (e["date"], e["ticker"]))
     return {"events": events, "profiles": profiles}
 
