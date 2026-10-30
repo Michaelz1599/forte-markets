@@ -8,7 +8,7 @@ import math
 import numpy as np
 import pandas as pd
 
-from .common import PRICES_CSV, ROOT, cutoff_date, iso, today_utc
+from .common import PRICES_CSV, ROOT, apply_cutoff, cutoff_date, iso, today_utc
 
 UNIVERSE = ROOT / "config" / "universe.json"
 BACKFILL_START = "2013-01-01"
@@ -143,7 +143,7 @@ def _yf_field(raw: pd.DataFrame, field: str, symbols: list[str]) -> pd.DataFrame
     f.index = idx.strftime("%Y-%m-%d")
     f = f.apply(pd.to_numeric, errors="coerce")
     f = f.where(f > 0)
-    return f[f.index <= cutoff_date()]
+    return apply_cutoff(f)
 
 
 def yf_ohlc(symbols: list[str], start: str) -> dict[str, pd.DataFrame]:
@@ -242,7 +242,7 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
         out["^TNX"] = out["^TNX"] / 10
     out = out[[c for c in syms if c in out.columns]]
     today = iso(today_utc())
-    out = out[out.index <= cutoff_date()]
+    out = apply_cutoff(out)
     members = {m for g in u["groups"] for it in g["items"] for m in it.get("basket", [])}
     report["missingMembers"] = []
     for s in syms:

@@ -32,6 +32,37 @@ def cutoff_date() -> str:
     return d.isoformat()
 
 
+IL_FX = ("ILS=X", "EURILS=X")
+
+
+def is_il(sym: str) -> bool:
+    """Israeli instruments: Tel Aviv listings and the shekel rates."""
+    return str(sym).endswith(".TA") or sym in IL_FX
+
+
+def il_live_date() -> str | None:
+    """Israeli instruments also show today's bar from 10:00 Israel time: live during the session (the 11:00 and
+    16:30 runs), final in the 17:45 run after the Tel Aviv close. None before 10:00."""
+    from zoneinfo import ZoneInfo
+    now = dt.datetime.now(ZoneInfo("Asia/Jerusalem"))
+    return now.date().isoformat() if now.hour >= 10 else None
+
+
+def apply_cutoff(f):
+    """Keep final values only (cutoff_date), except today's bar of Israeli instruments (il_live_date).
+    f: a frame indexed by date strings with one column per symbol."""
+    cut, live = cutoff_date(), il_live_date()
+    if not live or live <= cut:
+        return f[f.index <= cut]
+    f = f[f.index <= live].copy()
+    late = f.index > cut
+    other = [c for c in f.columns if not is_il(c)]
+    if late.any() and other:
+        f.loc[late, other] = float("nan")
+    keep = ~late | f.notna().any(axis=1)
+    return f[keep]
+
+
 def iso(d) -> str:
     return d.isoformat() if hasattr(d, "isoformat") else str(d)[:10]
 

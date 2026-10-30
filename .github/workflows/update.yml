@@ -1,6 +1,7 @@
 # Updates, Mon-Fri, Israel time:
-#   by ~11:00  Israeli data and the RS table (the stock snapshots of the previous US session are out by then)
+#   by ~11:00  the RS table (the stock snapshots of the previous US session are out by then); Israeli instruments live
 #   by ~16:30  around the US open: Israeli market mid-session, US data as of the last close
+#   ~17:45     after the Tel Aviv close: the Israeli indices, stocks and the shekel final for the day
 #   after the US close (21:47 UTC = 23:47 Israel winter / 00:47 summer): the US closing data
 # GitHub cron runs in UTC with no daylight saving, so each Israel-time slot has a summer and a winter entry,
 # and the "gate" step lets through only the one that matches the current Israel time. GitHub starts scheduled runs 30-50 min late, so the slots start early.
@@ -13,6 +14,8 @@ on:
     - cron: "10 8 * * 1-5"
     - cron: "40 12 * * 1-5"
     - cron: "40 13 * * 1-5"
+    - cron: "20 14 * * 1-5"
+    - cron: "20 15 * * 1-5"
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -25,7 +28,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     env:
       TZ: UTC
       HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
@@ -37,10 +40,13 @@ jobs:
           case "${{ github.event.schedule }}" in
             "10 7 * * 1-5"|"10 8 * * 1-5") lo=1005; hi=1110 ;;   # the 11:00 slot: 10:10 + GitHub's usual 30-50 min delay
             "40 12 * * 1-5"|"40 13 * * 1-5") lo=1535; hi=1640 ;; # the 16:30 slot: 15:40 + delay
+            "20 14 * * 1-5"|"20 15 * * 1-5") lo=1720; hi=1900; at=1740 ;; # the 17:45 slot: after the Tel Aviv close (17:25)
             *) lo=0; hi=2400 ;;
           esac
           if [ "$now" -lt "$lo" ] || [ "$now" -ge "$hi" ]; then
             echo "SKIP=1" >> "$GITHUB_ENV"; echo "Israel time $now is outside this slot; the other DST entry runs it."
+          elif [ -n "${at:-}" ] && [ "$now" -lt "$at" ]; then
+            w=$(( ((at / 100) * 60 + at % 100 - (now / 100) * 60 - now % 100) * 60 )); echo "waiting ${w}s for the Tel Aviv close to settle"; sleep "$w"
           fi
       - uses: actions/checkout@v5
         if: env.SKIP != '1'

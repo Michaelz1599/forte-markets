@@ -2,7 +2,7 @@
    LAYER: live market data for the calendar (written by the dashboard's daily pipeline)
    - data/live.json: implied move from the options market for upcoming reports, and the actual
      move + EPS vs consensus after each report; a short Hebrew summary per reported company.
-   - data/why.json: the main reason for the move (written each morning for the week's largest reporters).
+   - data/why.json: the main reason for the move and links to the report (written each night for the week's largest reporters).
    Adds two categories to the company panel and a "move" column to the day tables (week.js).
    ============================================================ */
 (function () {
@@ -14,6 +14,11 @@
     const [live, why] = await Promise.all([FC.getJSON('data/live.json').catch(() => ({})), FC.getJSON('data/why.json').catch(() => ({}))]);
     this.live = { implied: live.implied || {}, results: live.results || {}, asof: live.asof };
     this.why = why.items || {};
+    // links found by the nightly job (press release, call transcript) fill in what the weekly build has not linked yet
+    for (const ev of this.events || []) {
+      const w = this.why[ev.id];
+      if (w && w.links) ev.links = Object.assign({}, w.links, ev.links || {});
+    }
     return r;
   };
   const sgn = (v, d = 1) => (v == null || isNaN(v) ? '—' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v * 100).toFixed(d)}%`);

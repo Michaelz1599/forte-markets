@@ -10,9 +10,10 @@ import json
 import shutil
 import sys
 import traceback
+from zoneinfo import ZoneInfo
 
 from . import analogs, drivers, breadth, earnings, israel, macro, markets, rs, sources
-from .common import (ROOT, SITE_DIR, STATE_DIR, Status, dump_json, merge_series, read_series, today_utc)
+from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
 
@@ -42,7 +43,7 @@ def run(offline: bool = False) -> int:
             px, rep = res
             miss = rep["missing"]
             st.add("prices", "מחירי מדדים ופקטורים (Yahoo Finance)", len(miss) <= 3,
-                   px.dropna(how="all").index.max(), f"{len(px.columns)} סימולים" + (f" · חסרים: {', '.join(miss[:8])}" if miss else "")
+                   (px["^GSPC"].dropna().index.max() if "^GSPC" in px.columns else px.dropna(how="all").index.max()), f"{len(px.columns)} סימולים" + (f" · חסרים: {', '.join(miss[:8])}" if miss else "")
                    + (f" · חסרים בסלי הטכנולוגיה: {', '.join(rep['missingMembers'][:8])}" if rep.get("missingMembers") else ""))
             step(st, "ath", "שיאי כל הזמנים למרחק מהשיא", lambda: markets.update_ath(u, px))
             spx = step(st, "spx", "S&P 500 מ-1990", lambda: markets.spx_long(read_series("spx")))
@@ -187,6 +188,9 @@ def run(offline: bool = False) -> int:
                 if pts:
                     merge_series(sid, pts)
             dump_json(israel.DERIVED, payload)
+            live = il_live_date()
+            if live and live > cutoff_date() and payload.get("asof") == live:
+                msg += " · ת\"א ושער הדולר: נכון ל-" + dt.datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%H:%M")
             st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
         if res:
