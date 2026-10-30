@@ -1,18 +1,18 @@
 # Updates, Mon-Fri, Israel time:
-#   ~11:00  Israeli data and the RS table (the stock snapshots of the previous US session are out by then)
-#   ~16:30  around the US open: Israeli market mid-session, US data as of the last close
+#   by ~11:00  Israeli data and the RS table (the stock snapshots of the previous US session are out by then)
+#   by ~16:30  around the US open: Israeli market mid-session, US data as of the last close
 #   after the US close (21:47 UTC = 23:47 Israel winter / 00:47 summer): the US closing data
 # GitHub cron runs in UTC with no daylight saving, so each Israel-time slot has a summer and a winter entry,
-# and the "gate" step lets through only the one that matches the current Israel time. Runs start up to ~20 min late.
+# and the "gate" step lets through only the one that matches the current Israel time. GitHub starts scheduled runs 30-50 min late, so the slots start early.
 # Every run is idempotent: a later run only adds what was not available before.
 name: forte-markets-update
 on:
   schedule:
     - cron: "47 21 * * 1-5"
-    - cron: "41 7 * * 1-5"
-    - cron: "41 8 * * 1-5"
-    - cron: "11 13 * * 1-5"
-    - cron: "11 14 * * 1-5"
+    - cron: "10 7 * * 1-5"
+    - cron: "10 8 * * 1-5"
+    - cron: "40 12 * * 1-5"
+    - cron: "40 13 * * 1-5"
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -35,8 +35,8 @@ jobs:
         run: |
           now=$(TZ=Asia/Jerusalem date +%H%M); now=$((10#$now))
           case "${{ github.event.schedule }}" in
-            "41 7 * * 1-5"|"41 8 * * 1-5") lo=1030; hi=1135 ;;   # the 11:00 slot (10:41 + GitHub delay)
-            "11 13 * * 1-5"|"11 14 * * 1-5") lo=1600; hi=1705 ;; # the 16:30 slot (16:11 + GitHub delay)
+            "10 7 * * 1-5"|"10 8 * * 1-5") lo=1005; hi=1110 ;;   # the 11:00 slot: 10:10 + GitHub's usual 30-50 min delay
+            "40 12 * * 1-5"|"40 13 * * 1-5") lo=1535; hi=1640 ;; # the 16:30 slot: 15:40 + delay
             *) lo=0; hi=2400 ;;
           esac
           if [ "$now" -lt "$lo" ] || [ "$now" -ge "$hi" ]; then
