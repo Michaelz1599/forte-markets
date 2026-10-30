@@ -118,6 +118,15 @@ def run() -> tuple[dict, str]:
     if not rows:
         raise ValueError("Maya returned no rows")
     out = build(rows, {str(k): v for k, v in (extra.get("maya") or {}).items()})
+    # Maya lists only dates still ahead: keep the earlier ones (last 60 days) so reported companies stay in the calendar
+    if OUT.exists():
+        old = json.loads(OUT.read_text(encoding="utf-8"))
+        have = {e["id"] for e in out["events"]}
+        since = (dt.date.today() - dt.timedelta(days=60)).isoformat()
+        keep = [e for e in old.get("events", []) if e["id"] not in have and since <= e["date"] < dt.date.today().isoformat()]
+        out["events"] = sorted(out["events"] + keep, key=lambda e: (e["date"], e["ticker"]))
+        for t, pr in (old.get("profiles") or {}).items():
+            out["profiles"].setdefault(t, pr)
     out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), **out}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding="utf-8")
     nxt = [e for e in out["events"] if e["date"] >= dt.date.today().isoformat()]

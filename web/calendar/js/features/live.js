@@ -61,6 +61,7 @@
   const pp = (v) => (v == null || isNaN(v) ? '—' : (v * 100).toFixed(1) + '%');
   const pts = (v) => (v == null || isNaN(v) ? '' : ` (${v >= 0 ? '+' : '−'}${Math.abs(v * 100).toFixed(1)} נק' משנה שעברה)`);
   const gap = (a, e) => (a != null && e ? (a / e - 1) : null);
+  const cash = (v, cur) => (cur === 'ILS' ? (v == null || isNaN(v) ? '—' : '₪' + (Math.abs(v) >= 1e9 ? (v / 1e9).toFixed(2) + 'B' : (v / 1e6).toFixed(0) + 'M')) : FC.money(v));
 
   /* the report in short: a bottom line and 3-4 points (written each night for the largest reporters) */
   FC.sections.register({
@@ -80,7 +81,7 @@
     summary(c) {
       const n = numbers(c.ev); if (!n) return 'יתעדכן אחרי הדוח';
       const parts = [];
-      if (n.rev != null) parts.push('הכנסות ' + FC.money(n.rev) + (n.revEst ? ` (${sgn(gap(n.rev, n.revEst))} מהצפי)` : ''));
+      if (n.rev != null && n.cur !== 'local') parts.push('הכנסות ' + cash(n.rev, n.cur) + (n.revEst ? ` (${sgn(gap(n.rev, n.revEst))} מהצפי)` : ''));
       if (n.revYoY != null) parts.push('צמיחה ' + sgn(n.revYoY));
       return parts.join(' · ') || 'פורסם';
     },
@@ -91,9 +92,10 @@
       const revGap = gap(n.rev, n.revEst), epsGap = gap(n.eps, n.epsEst);
       return [
         h('div', { class: 'kv' },
-          n.rev != null ? row('הכנסות', n.cur === 'local' ? '—' : FC.money(n.rev), n.revEst ? `צפי ${FC.money(n.revEst)} · ${sgn(revGap)}` : '') : null,
+          n.rev != null ? row('הכנסות', n.cur === 'local' ? '—' : cash(n.rev, n.cur), n.revEst ? `צפי ${cash(n.revEst, n.cur)} · ${sgn(revGap)}` : '') : null,
+          n.ni != null ? row('רווח נקי', cash(n.ni, n.cur), n.niYoY != null ? `${sgn(n.niYoY)} משנה שעברה` : '') : null,
           n.revYoY != null ? row('צמיחה בהכנסות משנה שעברה', sgn(n.revYoY)) : null,
-          n.eps != null ? row(n.epsAdj ? 'רווח למניה (מתואם)' : 'רווח למניה', FC.usd(n.eps), n.epsEst != null ? `צפי ${FC.usd(n.epsEst)} · ${sgn(epsGap)}` : '') : null,
+          n.eps != null ? row(n.epsAdj ? 'רווח למניה (מתואם)' : 'רווח למניה', n.cur === 'ILS' ? '₪' + n.eps.toFixed(2) : FC.usd(n.eps), n.epsEst != null ? `צפי ${FC.usd(n.epsEst)} · ${sgn(epsGap)}` : '') : null,
           n.gm != null ? row('שולי רווח גולמי', pp(n.gm), pts(n.gmYoY)) : null,
           n.om != null ? row('שולי רווח תפעולי', pp(n.om), pts(n.omYoY)) : null,
           n.guide ? row('תחזית לרבעון הבא', n.guide) : null),
@@ -104,7 +106,7 @@
   function numbers(ev) {
     const L = FC.store.live || {}, w = (FC.store.why || {})[ev.id], f = (L.fin || {})[ev.id], r = (L.results || {})[ev.id] || (L.reported || {})[ev.id];
     const cons = ev.consensus || {};
-    if (w && w.fin && Object.keys(w.fin).length) return { from: 'pr', revEst: cons.rev, epsEst: cons.eps, ...w.fin };
+    if (w && w.fin && Object.keys(w.fin).length) return { from: 'pr', revEst: ev.market === 'US' ? cons.rev : null, epsEst: ev.market === 'US' ? cons.eps : null, ...w.fin };
     if (!f && !(r && r.epsAct != null)) return null;
     return { from: 'yahoo', ...(f || {}), eps: r && r.epsAct, epsEst: r && r.epsEst };
   }
