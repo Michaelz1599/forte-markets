@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-02T13:48+00:00",
+"asof": "2026-11-02T14:36+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -1096,6 +1096,34 @@
 ]
 },
 {
+"id": "פיימנט-2026-11-12",
+"ticker": "פיימנט",
+"market": "IL",
+"date": "2026-11-12",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1977,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779204"
+}
+]
+},
+{
 "id": "MVNE-2026-11-16",
 "ticker": "MVNE",
 "market": "IL",
@@ -1316,34 +1344,6 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
-}
-]
-},
-{
-"id": "פיימנט-2026-11-17",
-"ticker": "פיימנט",
-"market": "IL",
-"date": "2026-11-17",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "לא נרשמה שיחת משקיעים במאיה",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1977,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1778380"
 }
 ]
 },
@@ -2891,6 +2891,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פיימנט": {
+"name": "פיימנט",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מימון ישיר קב": {
 "name": "מימון ישיר קב",
 "tags": [
@@ -2949,14 +2957,6 @@
 },
 "NWMD": {
 "name": "ניו-מד אנרג יהש · NWMD",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"פיימנט": {
-"name": "פיימנט",
 "tags": [
 "TASE"
 ],
