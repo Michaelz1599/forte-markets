@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-02T14:36+00:00",
+"asof": "2026-11-02T16:19+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -2105,6 +2105,34 @@
 ]
 },
 {
+"id": "מספנות ישראל-2026-11-24",
+"ticker": "מספנות ישראל",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1810,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "ASHG-2026-11-25",
 "ticker": "ASHG",
 "market": "IL",
@@ -3181,6 +3209,14 @@
 },
 "הראל השקעות": {
 "name": "הראל השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מספנות ישראל": {
+"name": "מספנות ישראל",
 "tags": [
 "TASE"
 ],
