@@ -1,5 +1,5 @@
 {
-"asof": "2026-10-31T00:21+00:00",
+"asof": "2026-11-02T08:30+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -900,6 +900,34 @@
 ]
 },
 {
+"id": "ריט 1-2026-11-11",
+"ticker": "ריט 1",
+"market": "IL",
+"date": "2026-11-11",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1357,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779015"
+}
+]
+},
+{
 "id": "AFPR-2026-11-12",
 "ticker": "AFPR",
 "market": "IL",
@@ -980,6 +1008,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778592"
+}
+]
+},
+{
+"id": "יעקב פיננסים-2026-11-12",
+"ticker": "יעקב פיננסים",
+"market": "IL",
+"date": "2026-11-12",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 16.11, 11:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2364,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778918"
 }
 ]
 },
@@ -1460,6 +1516,62 @@
 ]
 },
 {
+"id": "אלוני חץ-2026-11-18",
+"ticker": "אלוני חץ",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 390,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779031"
+}
+]
+},
+{
+"id": "מגדל ביטוח-2026-11-18",
+"ticker": "מגדל ביטוח",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1041,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778900"
+}
+]
+},
+{
 "id": "ARBE-2026-11-19",
 "ticker": "ARBE",
 "market": "IL",
@@ -1601,6 +1713,34 @@
 ]
 },
 {
+"id": "ג'י סיטי-2026-11-19",
+"ticker": "ג'י סיטי",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "09:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 126,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778916"
+}
+]
+},
+{
 "id": "ג'נריישן קפיטל-2026-11-19",
 "ticker": "ג'נריישן קפיטל",
 "market": "IL",
@@ -1625,6 +1765,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1777281"
+}
+]
+},
+{
+"id": "תמר פטרוליום-2026-11-19",
+"ticker": "תמר פטרוליום",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1689,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778981"
 }
 ]
 },
@@ -1737,6 +1905,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778797"
+}
+]
+},
+{
+"id": "הראל השקעות-2026-11-23",
+"ticker": "הראל השקעות",
+"market": "IL",
+"date": "2026-11-23",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "13:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 585,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779039"
 }
 ]
 },
@@ -2078,6 +2274,34 @@
 ]
 },
 {
+"id": "מנורה מב החזקות-2026-11-25",
+"ticker": "מנורה מב החזקות",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 566,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778893"
+}
+]
+},
+{
 "id": "ANLT-2026-11-26",
 "ticker": "ANLT",
 "market": "IL",
@@ -2242,6 +2466,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778236"
+}
+]
+},
+{
+"id": "אקסל-2026-11-27",
+"ticker": "אקסל",
+"market": "IL",
+"date": "2026-11-27",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 30.11, 10:30 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 770,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779049"
 }
 ]
 },
@@ -2587,6 +2839,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ריט 1": {
+"name": "ריט 1",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"יעקב פיננסים": {
+"name": "יעקב פיננסים",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ביוהרווסט": {
 "name": "ביוהרווסט",
 "tags": [
@@ -2747,6 +3015,38 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"אלוני חץ": {
+"name": "אלוני חץ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מגדל ביטוח": {
+"name": "מגדל ביטוח",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ג'י סיטי": {
+"name": "ג'י סיטי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"תמר פטרוליום": {
+"name": "תמר פטרוליום",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ג'נריישן קפיטל": {
 "name": "ג'נריישן קפיטל",
 "tags": [
@@ -2843,6 +3143,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"הראל השקעות": {
+"name": "הראל השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "LAHAV": {
 "name": "להב · LAHAV",
 "tags": [
@@ -2915,6 +3223,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"מנורה מב החזקות": {
+"name": "מנורה מב החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "TLSY": {
 "name": "טלסיס · TLSY",
 "tags": [
@@ -2965,6 +3281,14 @@
 },
 "VILR": {
 "name": "וילאר · VILR",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אקסל": {
+"name": "אקסל",
 "tags": [
 "TASE"
 ],
