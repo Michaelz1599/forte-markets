@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T08:18+00:00",
+"asof": "2026-11-03T08:58+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -788,6 +788,34 @@
 ]
 },
 {
+"id": "פיסיבי טכנ-2026-11-10",
+"ticker": "פיסיבי טכנ",
+"market": "IL",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1221,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779280"
+}
+]
+},
+{
 "id": "BEZQ-2026-11-11",
 "ticker": "BEZQ",
 "market": "IL",
@@ -1152,6 +1180,34 @@
 ]
 },
 {
+"id": "ישראכרט-2026-11-16",
+"ticker": "ישראכרט",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1773,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779202"
+}
+]
+},
+{
 "id": "מלם-תים טכנו'-2026-11-16",
 "ticker": "מלם-תים טכנו'",
 "market": "IL",
@@ -1160,7 +1216,7 @@
 "period": "Q3 2026",
 "status": "confirmed",
 "release": {
-"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+"text": "שעת הפרסום לא צוינה במאיה"
 },
 "call": {
 "time": "12:00",
@@ -1204,6 +1260,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1779115"
+}
+]
+},
+{
+"id": "פריון נטוורק-2026-11-16",
+"ticker": "פריון נטוורק",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2240,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779273"
 }
 ]
 },
@@ -1540,6 +1624,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778206"
+}
+]
+},
+{
+"id": "אאורה-2026-11-18",
+"ticker": "אאורה",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 373,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779308"
 }
 ]
 },
@@ -2200,10 +2312,10 @@
 "text": "שעת הפרסום לא צוינה במאיה"
 },
 "call": {
-"time": null,
-"tz": null,
+"time": "11:00",
+"tz": "Asia/Jerusalem",
 "confirmed": true,
-"note": "לא נרשמה שיחת משקיעים במאיה",
+"note": null,
 "webcast": null,
 "dial": null
 },
@@ -2212,7 +2324,35 @@
 "sources": [
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+"url": "https://maya.tase.co.il/he/reports/1779267"
+}
+]
+},
+{
+"id": "הולמס פלייס-2026-11-24",
+"ticker": "הולמס פלייס",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1706,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779336"
 }
 ]
 },
@@ -2382,6 +2522,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1777184"
+}
+]
+},
+{
+"id": "אלקטרה צריכה-2026-11-25",
+"ticker": "אלקטרה צריכה",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 501,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779283"
 }
 ]
 },
@@ -3003,6 +3171,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פיסיבי טכנ": {
+"name": "פיסיבי טכנ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מרכנתיל הנפקות": {
 "name": "מרכנתיל הנפקות",
 "tags": [
@@ -3179,6 +3355,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ישראכרט": {
+"name": "ישראכרט",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פריון נטוורק": {
+"name": "פריון נטוורק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "MNRT": {
 "name": "מניבים ריט · MNRT",
 "tags": [
@@ -3293,6 +3485,14 @@
 },
 "SLARL": {
 "name": "סלע קפיטל נדל\"ן · SLARL",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אאורה": {
+"name": "אאורה",
 "tags": [
 "TASE"
 ],
@@ -3451,6 +3651,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"בית שמש": {
+"name": "בית שמש",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"הולמס פלייס": {
+"name": "הולמס פלייס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "BIG": {
 "name": "ביג · BIG",
 "tags": [
@@ -3461,14 +3677,6 @@
 },
 "LAHAV": {
 "name": "להב · LAHAV",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"בית שמש": {
-"name": "בית שמש",
 "tags": [
 "TASE"
 ],
@@ -3533,6 +3741,14 @@
 },
 "RMON": {
 "name": "רימון · RMON",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלקטרה צריכה": {
+"name": "אלקטרה צריכה",
 "tags": [
 "TASE"
 ],
