@@ -275,8 +275,13 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
     # 1c. the rest of the Israeli reports: options on the stock on the Tel Aviv exchange (about 22 large stocks)
     from . import taseopt
     il_all = [e for e in events if e.get("market") == "IL" and today <= e["date"] <= horizon
-              and (implied.get(e["id"]) or {}).get("at", "")[:10] != today]
+              and ((implied.get(e["id"]) or {}).get("at", "")[:10] != today or (implied.get(e["id"]) or {}).get("listing") == "TASE")]
     pages, sess, tase_note = {}, None, []
+    try:
+        _ild = json.loads((ROOT / "data" / "derived" / "israel.json").read_text(encoding="utf-8"))
+        ta_px = {x["sym"]: x["px"] for x in _ild.get("stocks", []) if x.get("px")}
+    except Exception:
+        ta_px = {}
     for e in sorted(il_all, key=lambda e: e["date"])[:30]:
         bid = taseopt.match(e)
         if not bid:
@@ -296,6 +301,15 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
             im = None
             tase_note.append(f"{e['ticker']}: {type(ex).__name__} {str(ex)[:60]}")
         if im:
+            # strikes are quoted in shekels for some stocks and in agorot for others: put the price in shekels using the
+            # stock's TASE close (agorot) from the Israel tab
+            ref = ta_px.get(taseopt.UNDER[bid][0])
+            if ref:
+                sh = ref / 100.0
+                if abs(im["spot"] / 100.0 - sh) < abs(im["spot"] - sh):
+                    im["spot"], im["strike"] = round(im["spot"] / 100.0, 2), im["strike"] / 100.0
+                if abs(im["spot"] / sh - 1) > 0.15:
+                    tase_note.append(f"{e['ticker']}: מחיר לא תואם"); continue
             im["src"] = f"{taseopt.URL}?baseid={bid}&showAll=true"
             implied[e["id"]] = im; n_im += 1
             tase_note.append(f"{e['ticker']}: ±{im['move'] * 100:.1f}%")
