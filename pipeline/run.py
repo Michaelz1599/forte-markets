@@ -12,7 +12,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, macro, markets, maya, rs, sources
+from . import analogs, drivers, breadth, earnings, israel, macro, markets, maya, rs, sources, uscal
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -177,6 +177,9 @@ def run(offline: bool = False) -> int:
             return rs.run(px, u, members, bextra["bars"] if bextra else None, ohlc)
         # 10a. Economic calendar: implied moves for the coming reports, reactions and EPS for the reported ones
         if (earnings.CAL / "manifest.json").exists():
+            res = step(st, "uscal", "יומן כלכלי: כל דוחות ארה\"ב מעל 10 מיליארד דולר (Nasdaq)", uscal.run)
+            if res:
+                st.add("uscal", "יומן כלכלי: כל דוחות ארה\"ב מעל 10 מיליארד דולר (Nasdaq)", True, res[0]["asof"][:10], res[1])
             res = step(st, "earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", lambda: earnings.run(px))
             if res:
                 st.add("earnings", "יומן כלכלי: תנועה מגולמת ותוצאות דוחות", True, res[0]["asof"][:10], res[1])

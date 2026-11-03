@@ -30,10 +30,11 @@ def load_events() -> list[dict]:
         p = CAL / w["file"].replace("data/", "", 1)
         if p.exists():
             out += json.loads(p.read_text(encoding="utf-8")).get("events", [])
-    extra = CAL / "extra.json"      # events added outside the weekly build (missed companies, earlier weeks)
-    if extra.exists():
-        have = {e["id"] for e in out}
-        out += [e for e in json.loads(extra.read_text(encoding="utf-8")).get("events", []) if e.get("id") not in have]
+    for name in ("extra.json", "nasdaq.json"):      # events added outside the weekly build
+        p = CAL / name
+        if p.exists():
+            have = {e["id"] for e in out}
+            out += [e for e in json.loads(p.read_text(encoding="utf-8")).get("events", []) if e.get("id") not in have]
     return out
 
 

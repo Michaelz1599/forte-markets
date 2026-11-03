@@ -6,6 +6,7 @@
      and why (he), and links to the press release and the call transcript.
    - data/extra.json: events added outside the weekly build (missed companies, weeks before the calendar started).
    - data/maya.json: Israeli report dates and conference-call times from Maya (pipeline/maya.py, every run).
+   - data/nasdaq.json: every US report of companies >= $10B from Nasdaq's calendar (pipeline/uscal.py, every run).
    Adds two categories to the company panel and a "move" column to the day tables (week.js).
    ============================================================ */
 (function () {
@@ -14,7 +15,7 @@
   const load = FC.store.load.bind(FC.store);
   FC.store.load = async function () {
     const r = await load();
-    const [live, why, extra, maya] = await Promise.all([FC.getJSON('data/live.json').catch(() => ({})), FC.getJSON('data/why.json').catch(() => ({})), FC.getJSON('data/extra.json').catch(() => ({})), FC.getJSON('data/maya.json').catch(() => ({}))]);
+    const [live, why, extra, maya, nasdaq] = await Promise.all([FC.getJSON('data/live.json').catch(() => ({})), FC.getJSON('data/why.json').catch(() => ({})), FC.getJSON('data/extra.json').catch(() => ({})), FC.getJSON('data/maya.json').catch(() => ({})), FC.getJSON('data/nasdaq.json').catch(() => ({}))]);
     const have = new Set((this.events || []).map((e) => e.id));
     const add = (extra.events || []).filter((e) => e && e.id && !have.has(e.id));
     if (add.length) {
@@ -30,6 +31,14 @@
       if (cur.call && !cur.call.time && !cur.call.note && m.call && (m.call.time || m.call.note)) cur.call = Object.assign({}, cur.call, { time: m.call.time, tz: m.call.tz, note: m.call.note });
     }
     for (const [t, pr] of Object.entries(maya.profiles || {})) if (!this.profiles[t]) this.profiles[t] = pr;
+    // US companies >= $10B from Nasdaq's calendar that the weekly build does not list (same ticker within 3 days = same report)
+    const near = (t, d) => (this.byTicker[t] || []).some((e) => Math.abs(new Date(e.date) - new Date(d)) <= 3 * 864e5);
+    for (const n of nasdaq.events || []) {
+      if (byId.has(n.id) || near(n.ticker, n.date)) continue;
+      this.events.push(n); byId.set(n.id, n); (this.byTicker[n.ticker] = this.byTicker[n.ticker] || []).push(n);
+      if (!this.profiles[n.ticker]) this.profiles[n.ticker] = { name: n.name || n.ticker, tags: [] };
+      if (!this.market[n.ticker] && n.mcap) this.market[n.ticker] = { mcap: n.mcap };
+    }
     const wk = new Set((this.weeks || []).map((w) => w.id));
     const wAdd = (extra.weeks || []).filter((w) => w && w.id && !wk.has(w.id));
     if (wAdd.length) this.weeks = this.weeks.concat(wAdd).sort((a, b) => (a.id < b.id ? -1 : 1));
