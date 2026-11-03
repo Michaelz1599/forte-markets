@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T16:34+00:00",
+"asof": "2026-11-03T21:48+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23222,7 +23222,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 412039741000.0,
+"mcap": 400606265000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23260,7 +23260,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 48312734000.0,
+"mcap": 49133515000.0,
 "name": "Vylor Inc.",
 "sources": [
 {
@@ -23271,7 +23271,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": -0.44,
-"epsN": 5.0,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23298,7 +23298,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 43389706000.0,
+"mcap": 44266643000.0,
 "name": "Franco-Nevada Corporation",
 "sources": [
 {
@@ -23336,7 +23336,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 18657591300.0,
+"mcap": 19123310600.0,
 "name": "CGI Inc.",
 "sources": [
 {
@@ -23374,7 +23374,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16554696700.0,
+"mcap": 16403822600.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23386,6 +23386,44 @@
 "period": "רבעון נוכחי",
 "eps": 1.13,
 "epsN": 8.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "TTEK-2026-11-11",
+"ticker": "TTEK",
+"market": "US",
+"date": "2026-11-11",
+"session": "AMC",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "after market close",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10131678200.0,
+"name": "Tetra Tech, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.47,
+"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -24120,7 +24158,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 4931824100000.0,
+"mcap": 4869646200000.0,
 "name": "NVIDIA Corporation",
 "sources": [
 {
@@ -24158,7 +24196,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 328439431000.0,
+"mcap": 340361806000.0,
 "name": "Home Depot, Inc. (The)",
 "sources": [
 {
@@ -24196,7 +24234,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 201122054000.0,
+"mcap": 204877545000.0,
 "name": "BHP Group Limited",
 "sources": [
 {
@@ -24227,7 +24265,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 191558648000.0,
+"mcap": 195305554000.0,
 "name": "Walt Disney Company (The)",
 "sources": [
 {
@@ -24265,7 +24303,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 123487969000.0,
+"mcap": 127005598000.0,
 "name": "Medtronic plc",
 "sources": [
 {
@@ -24303,7 +24341,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 111893193000.0,
+"mcap": 116263027000.0,
 "name": "PDD Holdings Inc.",
 "sources": [
 {
@@ -24341,7 +24379,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36262085000.0,
+"mcap": 34531488000.0,
 "name": "Elbit Systems Ltd.",
 "sources": [
 {
@@ -24379,7 +24417,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16412150800.0,
+"mcap": 17103659000.0,
 "name": "Amer Sports, Inc.",
 "sources": [
 {
@@ -24391,44 +24429,6 @@
 "period": "רבעון נוכחי",
 "eps": 0.34,
 "epsN": 5.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "SQM-2026-11-17",
-"ticker": "SQM",
-"market": "US",
-"date": "2026-11-17",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 15610105900.0,
-"name": "Sociedad Quimica y Minera S.A.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 2.16,
-"epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -24455,7 +24455,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15513498600.0,
+"mcap": 15667479600.0,
 "name": "ZTO Express (Cayman) Inc.",
 "sources": [
 {
@@ -24463,6 +24463,44 @@
 "url": "https://www.nasdaq.com/market-activity/earnings"
 }
 ]
+},
+{
+"id": "SQM-2026-11-17",
+"ticker": "SQM",
+"market": "US",
+"date": "2026-11-17",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 15615818800.0,
+"name": "Sociedad Quimica y Minera S.A.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 2.16,
+"epsN": 4.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
 },
 {
 "id": "FUTU-2026-11-17",
@@ -24486,7 +24524,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13799502800.0,
+"mcap": 14458291200.0,
 "name": "Futu Holdings Limited",
 "sources": [
 {
@@ -24517,7 +24555,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13236537300.0,
+"mcap": 14023489500.0,
 "name": "Tencent Music Entertainment Group",
 "sources": [
 {
