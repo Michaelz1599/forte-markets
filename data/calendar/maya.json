@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T07:10+00:00",
+"asof": "2026-11-03T07:58+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -279,6 +279,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1774121"
+}
+]
+},
+{
+"id": "מלרן פרוייקטים-2026-11-04",
+"ticker": "מלרן פרוייקטים",
+"market": "IL",
+"date": "2026-11-04",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום חמישי 5.11, 11:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1787,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779127"
 }
 ]
 },
@@ -1064,6 +1092,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1775239"
+}
+]
+},
+{
+"id": "פועלים-2026-11-16",
+"ticker": "פועלים",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "17:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 662,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779115"
 }
 ]
 },
@@ -1937,6 +1993,34 @@
 ]
 },
 {
+"id": "פלסאון תעשיות-2026-11-23",
+"ticker": "פלסאון תעשיות",
+"market": "IL",
+"date": "2026-11-23",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1057,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779124"
+}
+]
+},
+{
 "id": "BIG-2026-11-24",
 "ticker": "BIG",
 "market": "IL",
@@ -2386,6 +2470,34 @@
 ]
 },
 {
+"id": "נופר אנרג'י-2026-11-26",
+"ticker": "נופר אנרג'י",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1831,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779073"
+}
+]
+},
+{
 "id": "סוגת-2026-11-26",
 "ticker": "סוגת",
 "market": "IL",
@@ -2552,6 +2664,34 @@
 "url": "https://maya.tase.co.il/he/reports/1777384"
 }
 ]
+},
+{
+"id": "תיגבור קבוצה-2026-11-30",
+"ticker": "תיגבור קבוצה",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1460,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779147"
+}
+]
 }
 ],
 "profiles": {
@@ -2629,6 +2769,14 @@
 },
 "OPK": {
 "name": "אופקו · OPK",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מלרן פרוייקטים": {
+"name": "מלרן פרוייקטים",
 "tags": [
 "TASE"
 ],
@@ -2845,6 +2993,14 @@
 },
 "יעקב פיננסים": {
 "name": "יעקב פיננסים",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פועלים": {
+"name": "פועלים",
 "tags": [
 "TASE"
 ],
@@ -3107,6 +3263,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פלסאון תעשיות": {
+"name": "פלסאון תעשיות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מספנות ישראל": {
 "name": "מספנות ישראל",
 "tags": [
@@ -3243,8 +3407,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"VILR": {
-"name": "וילאר · VILR",
+"נופר אנרג'י": {
+"name": "נופר אנרג'י",
 "tags": [
 "TASE"
 ],
@@ -3253,6 +3417,14 @@
 },
 "אקסל": {
 "name": "אקסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"VILR": {
+"name": "וילאר · VILR",
 "tags": [
 "TASE"
 ],
@@ -3277,6 +3449,14 @@
 },
 "אלומה": {
 "name": "אלומה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"תיגבור קבוצה": {
+"name": "תיגבור קבוצה",
 "tags": [
 "TASE"
 ],
