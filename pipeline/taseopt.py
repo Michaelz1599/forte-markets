@@ -3,7 +3,7 @@
 TASE lists options on about 22 large stocks (Teva, Nice, the banks, Bezeq, ICL, Elbit and others). Globes publishes
 every series with its closing price: https://www.globes.co.il/portal/quotes/stock-options/?baseid=<id>&showAll=true
 Series names look like TVA-C013500M611: call, strike 135.00 shekels, expiry November 2026 (M + last digit of the year +
-month). Prices are in agorot for a contract of 10 shares.
+month). Prices are in agorot per contract; the contract size differs between stocks and is inferred from put-call parity.
 
 implied move = (call + put) at the strike where the two are closest (at the money) / the stock price, for the first
 expiry after the reaction day; the stock price is inferred from put-call parity at that strike (S = K + C - P).
@@ -92,8 +92,24 @@ def implied(rows: list[dict], react: str) -> dict | None:
     ks = sorted(set(calls) & set(puts), key=lambda k: abs(calls[k]["px"] - puts[k]["px"]))
     if not ks:
         return None
+    # contract size differs between stocks: C - P = (S - K) x size x 100 agorot, so the slope of C - P over the strikes
+    # gives the size (in agorot per shekel of strike), and the intercept the stock price
+    both = sorted(set(calls) & set(puts))
+    if len(both) < 3:
+        return None
+    xs = both
+    ys = [calls[k]["px"] - puts[k]["px"] for k in xs]
+    mx, my = sum(xs) / len(xs), sum(ys) / len(ys)
+    sxx = sum((x - mx) ** 2 for x in xs)
+    if not sxx:
+        return None
+    slope = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sxx
+    unit = -slope                      # agorot per contract for one shekel of the underlying
+    if unit <= 0:
+        return None
+    unit = min((1, 10, 100, 1000, 10000), key=lambda u: abs(math.log(unit / u)))   # 100 agorot x 1/10/100/... shares
     k = ks[0]
-    c, p = calls[k]["px"] / 1000.0, puts[k]["px"] / 1000.0      # agorot per 10-share contract -> shekels per share
+    c, p = calls[k]["px"] / unit, puts[k]["px"] / unit
     spot = k + c - p
     if spot <= 0:
         return None
