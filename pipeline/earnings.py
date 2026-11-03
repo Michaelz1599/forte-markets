@@ -276,7 +276,7 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
     from . import taseopt
     il_all = [e for e in events if e.get("market") == "IL" and today <= e["date"] <= horizon
               and (implied.get(e["id"]) or {}).get("at", "")[:10] != today]
-    pages, sess = {}, None
+    pages, sess, tase_note = {}, None, []
     for e in sorted(il_all, key=lambda e: e["date"])[:30]:
         bid = taseopt.match(e)
         if not bid:
@@ -290,11 +290,15 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
                 sess = sess or _rq.Session()
                 pages[bid] = taseopt.fetch(bid, sess)
             im = taseopt.implied(pages[bid], react)
-        except Exception:
+            if not im:
+                tase_note.append(f"{e['ticker']}: {len(pages[bid])} סדרות, אין תמחור")
+        except Exception as ex:
             im = None
+            tase_note.append(f"{e['ticker']}: {type(ex).__name__} {str(ex)[:60]}")
         if im:
             im["src"] = f"{taseopt.URL}?baseid={bid}&showAll=true"
             implied[e["id"]] = im; n_im += 1
+            tase_note.append(f"{e['ticker']}: ±{im['move'] * 100:.1f}%")
     # 2. results: the reaction-day move for every US report whose reaction day has closed
     done = [e for e in us if e["date"] <= today and e["id"] not in results]
     need = []
@@ -412,4 +416,4 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
     focus = [e["id"] for e in sorted([e for e in us if lo <= e["date"] <= hi], key=by_cap)[:30]]
     out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "implied": implied, "results": results, "reported": reported, "fin": fin, "focus": focus}
     LIVE.write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding="utf-8")
-    return out, f"{n_im} תנועות מגולמות חדשות · {len(results)} דוחות עם תוצאה · {len(reported)} דוחות שפורסמו וממתינים ליום התגובה"
+    return out, (f"אופציות ת\"א: {'; '.join(tase_note[:6])} · " if tase_note else "") + f"{n_im} תנועות מגולמות חדשות · {len(results)} דוחות עם תוצאה · {len(reported)} דוחות שפורסמו וממתינים ליום התגובה"
