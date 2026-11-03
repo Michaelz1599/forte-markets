@@ -118,7 +118,7 @@
       const cov = (w && w.coverage) || {};
       let note = null;
       if (st.market === 'US' && w) note = cov.US === 'full' ? w.note : 'תצוגה מקדימה: רק מועדים שהחברות כבר הודיעו. הרשימה המלאה תתעדכן ביום ראשון.';
-      if (st.market === 'IL') note = 'מועדים שהחברות הישראליות כבר הודיעו עליהם. חברות נוספות מתווספות בעדכון השבועי.';
+      if (st.market === 'IL') note = 'מועדי הדוחות ושיחות הוועידה לפי מאיה, מערכת הדיווחים של הבורסה בת"א, כפי שהחברות דיווחו. מתעדכן בכל ריצה של הדשבורד.';
       if (note) wrap.append(h('p', { class: 'lede' }, note));
     }
     if ((st.market === 'US' || st.market === 'IL') && st.view !== 'month' && FC.digest) { const d = FC.digest(st); if (d) wrap.append(d); }

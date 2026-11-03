@@ -25,11 +25,20 @@
     for (const [t, pr] of Object.entries(extra.profiles || {})) if (!this.profiles[t]) this.profiles[t] = pr;
     // Israeli report dates and call times from Maya: new companies are added; known ones only gain a missing call time
     const byId = new Map(this.events.map((e) => [e.id, e]));
+    // Maya is the source of record for Israeli dates: a listed event for the same company within 5 days takes Maya's date,
+    // gains Maya as a source, and Maya's call time when it had none
+    const mayaSrc = (m) => (m.sources || []).find((x) => /maya\.tase/.test(x.url || '')) || { label: 'מאיה', url: 'https://maya.tase.co.il/he/corporate-actions/financial-scheduled' };
     for (const m of maya.events || []) {
-      const cur = byId.get(m.id);
+      let cur = byId.get(m.id);
+      if (!cur) cur = (this.byTicker[m.ticker] || []).find((e) => e.market === 'IL' && Math.abs(new Date(e.date) - new Date(m.date)) <= 5 * 864e5);
       if (!cur) { this.events.push(m); byId.set(m.id, m); (this.byTicker[m.ticker] = this.byTicker[m.ticker] || []).push(m); continue; }
-      if (cur.call && !cur.call.time && !cur.call.note && m.call && (m.call.time || m.call.note)) cur.call = Object.assign({}, cur.call, { time: m.call.time, tz: m.call.tz, note: m.call.note });
+      if (cur.date !== m.date) { cur.note = ((cur.note ? cur.note + ' · ' : '') + `המועד עודכן לפי מאיה (במקור ${FC.shortDate(cur.date)})`); cur.date = m.date; }
+      const ms = mayaSrc(m);
+      if (!(cur.sources || []).some((x) => x.url === ms.url)) cur.sources = [ms].concat(cur.sources || []);
+      if (cur.call && !cur.call.time && !cur.call.note && m.call && (m.call.time || m.call.note)) cur.call = Object.assign({}, cur.call, { time: m.call.time, tz: m.call.tz, note: m.call.note, hebrewCallIL: cur.call.hebrewCallIL || m.call.hebrewCallIL });
     }
+    if (maya.events && this.manifest && Array.isArray(this.manifest.sources) && !this.manifest.sources.some((x) => /maya/.test(x.url || '')))
+      this.manifest.sources.unshift({ label: 'מאיה (בורסת ת"א) · מועדי דוחות ושיחות ועידה', url: 'https://maya.tase.co.il/he/corporate-actions/financial-scheduled' });
     for (const [t, pr] of Object.entries(maya.profiles || {})) if (!this.profiles[t]) this.profiles[t] = pr;
     // US companies >= $10B from Nasdaq's calendar that the weekly build does not list (same ticker within 3 days = same report)
     const near = (t, d) => (this.byTicker[t] || []).some((e) => Math.abs(new Date(e.date) - new Date(d)) <= 3 * 864e5);
@@ -186,14 +195,14 @@
     },
     render(c) {
       const im = ((FC.store.live || {}).implied || {})[c.ev.id];
-      if (!im) return h('p', { class: 'muted' }, 'אין נתוני אופציות לחברה הזו, או שהדוח רחוק מדי. התמחור מחושב לדוחות של 7 הימים הקרובים.');
+      if (!im) return h('p', { class: 'muted' }, c.ev.market === 'IL' ? 'למניה הזו אין שוק אופציות: בבורסה בת"א נסחרות אופציות רק על מדדים, ולכן התנועה המגולמת מחושבת רק לחברות שנסחרות גם בניו יורק (מהאופציות שם), לדוחות של 7 הימים הקרובים.' : 'אין נתוני אופציות לחברה הזו, או שהדוח רחוק מדי. התמחור מחושב לדוחות של 7 הימים הקרובים.');
       return [
         h('div', { class: 'kv' },
           h('div', null, h('span', { class: 'k' }, 'תנועה מגולמת (Straddle)'), h('span', { class: 'v hi' }, '±' + (im.move * 100).toFixed(1) + '%', h('small', null, ` · כ-${FC.usd(im.move * im.spot)} למניה`))),
           h('div', null, h('span', { class: 'k' }, 'תנודתיות גלומה (IV, באט-דה-מאני)'), h('span', { class: 'v' }, im.iv != null ? (im.iv * 100).toFixed(0) + '%' : '—', im.ivNext != null ? h('small', null, ` · אחרי הדוח: ${(im.ivNext * 100).toFixed(0)}%`) : null)),
           h('div', null, h('span', { class: 'k' }, 'פקיעה'), h('span', { class: 'v' }, FC.shortDate(im.exp), h('small', null, ` · ${im.dte} ימים`)))),
         h('p', { class: 'muted' }, 'התנועה המגולמת = מחיר ה-Straddle (קול ופוט במחיר המימוש הקרוב לשער) חלקי שער המניה, בפקיעה הראשונה שאחרי הדוח. זה הטווח שהשוק משלם עליו: בערך שני שלישים מהפעמים התנועה בפועל קטנה ממנו.' + (im.dte > 7 ? ' הפקיעה רחוקה מהדוח, ולכן חלק מהמחיר הוא זמן ולא הדוח עצמו.' : '')),
-        h('p', { class: 'src' }, `מקור: שרשרת האופציות ב-Yahoo Finance · ${im.at ? FC.shortDate(im.at.slice(0, 10)) : ''}`)
+        h('p', { class: 'src' }, `מקור: שרשרת האופציות ב-Yahoo Finance${im.listing === 'US' ? ' (האופציות על המניה בניו יורק)' : ''} · ${im.at ? FC.shortDate(im.at.slice(0, 10)) : ''}`)
       ];
     }
   });

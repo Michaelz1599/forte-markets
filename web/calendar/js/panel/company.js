@@ -24,7 +24,7 @@
       callV = h('span', { class: 'v' }, 'טרם פורסם', h('small', null, 'השעה תתעדכן כשהחברה תפרסם אותה'));
     }
     const actions = h('div', { class: 'when-actions' });
-    if (FC.ics) actions.append(h('a', { class: 'btn btn-primary', href: FC.ics.outlookLink(ev), target: '_blank', rel: 'noopener' }, FC.icon('cal'), 'הוספה ל-Outlook'));
+    if (FC.ics) actions.append(h('button', { class: 'btn btn-primary', type: 'button', title: 'שמירת קובץ ‎.ics‎ ליומן (Outlook, Google, אפל)', onclick: () => FC.ics.saveOne(ev) }, FC.icon('cal'), 'קובץ ליומן (ICS)'));
     if (ev.call && ev.call.webcast) actions.append(h('a', { class: 'btn', href: ev.call.webcast, target: '_blank', rel: 'noopener' }, FC.icon('mic'), 'שיחת הוועידה'));
     return h('div', { class: 'when' },
       h('div', { class: 'when-row' }, h('span', { class: 'k' }, 'מועד'), h('span', { class: 'v' }, FC.longDate(ev.date), h('small', null, [ev.period, ev.status === 'confirmed' ? 'מאומת מול הודעת החברה' : 'לפי לוח הדוחות; טרם אומת'].filter(Boolean).join(' · ')))),

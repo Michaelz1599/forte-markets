@@ -121,6 +121,50 @@ def sector_rows(c: pd.DataFrame, info: dict, sec_names: dict, idx: pd.Series | N
     return out
 
 
+def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFrame, info: dict, sec_names: dict) -> dict:
+    """Where money went in TA-125: an estimate from prices and turnover, since TASE publishes no net buying per stock.
+
+    turnover = close x volume (Yahoo quotes TASE shares in agorot, so / 100 for shekels).
+    money flow = turnover x the close's position in the day's range, from +1 (closed at the high: buyers pushed)
+    to -1 (closed at the low) - the Chaikin accumulation/distribution weight. Summed over 5 and 20 sessions, per stock,
+    per sector and for the whole index; also as a share of the turnover (the 20-day share is Chaikin Money Flow)."""
+    c, h, lo, v = c.iloc[-130:], h.iloc[-130:], lo.iloc[-130:], v.reindex(index=c.index, columns=c.columns).iloc[-130:]
+    turn = (c / 100.0) * v
+    rng = (h - lo).where((h - lo) > 0)
+    w = (((c - lo) - (h - c)) / rng).clip(-1, 1).fillna(0.0)
+    flow = (w * turn).where(turn > 0)
+    def win(df, n):
+        return df.iloc[-n:].sum(min_count=max(1, n // 2))
+    rows = []
+    for sym in c.columns:
+        t20, f20, f5, t5 = win(turn[[sym]], 20)[sym], win(flow[[sym]], 20)[sym], win(flow[[sym]], 5)[sym], win(turn[[sym]], 5)[sym]
+        t60 = turn[sym].iloc[-60:].mean()
+        if not (t20 and t20 > 0):
+            continue
+        name, sec = info[sym]
+        rows.append({"sym": sym.replace(".TA", ""), "name": name, "sec": sec,
+                     "n5": round(f5 / 1e6, 2) if pd.notna(f5) else None, "n20": round(f20 / 1e6, 2) if pd.notna(f20) else None,
+                     "r5": round(f5 / t5, 3) if pd.notna(f5) and t5 else None, "r20": round(f20 / t20, 3) if pd.notna(f20) else None,
+                     "t20": round(t20 / 20 / 1e6, 2), "surge": round((t5 / 5) / t60, 2) if t60 and pd.notna(t5) else None})
+    sectors = []
+    for k, nm in sec_names.items():
+        mem = [r for r in rows if r["sec"] == k]
+        if not mem:
+            continue
+        n5, n20 = sum(r["n5"] or 0 for r in mem), sum(r["n20"] or 0 for r in mem)
+        t20 = sum(r["t20"] for r in mem) * 20
+        sectors.append({"key": k, "name": nm, "n": len(mem), "n5": round(n5, 1), "n20": round(n20, 1), "r20": round(n20 / t20, 3) if t20 else None,
+                        "t20": round(t20 / 20, 1)})
+    daily = flow.sum(axis=1, min_count=40) / 1e6
+    dturn = turn.sum(axis=1, min_count=40) / 1e6
+    hist = daily.dropna().iloc[-120:]
+    r20 = daily.rolling(20, min_periods=15).sum().reindex(hist.index)
+    fin = lambda x: None if x is None or pd.isna(x) else round(float(x), 1)
+    tot = {"n5": fin(daily.iloc[-5:].sum(min_count=3)), "n20": fin(daily.iloc[-20:].sum(min_count=10)), "turn20": fin(dturn.iloc[-20:].mean())}
+    return {"asof": c.index[-1], "unit": "מיליוני ש\"ח", "total": tot, "stocks": rows, "sectors": sectors,
+            "hist": {"d": list(hist.index), "net": [round(float(x), 1) for x in hist], "r20": [None if pd.isna(x) else round(float(x), 1) for x in r20]}}
+
+
 def _monthly_mean(pts: dict) -> pd.Series:
     s = pd.Series(pts, dtype=float)
     if s.empty:
@@ -239,6 +283,12 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
                "stocks": stock_rows(c.iloc[-300:], h.iloc[-300:], lo.iloc[-300:], {s: (info[s][0], info[s][1]) for s in c.columns}),
                "sectors": sector_rows(c.iloc[-300:], info, cfg["sectors"], idx[idx.index >= c.index[-min(300, len(c))]] if idx is not None else None),
                "sectorNames": cfg["sectors"]}
+    try:
+        vol = bars.get("volume")
+        if vol is not None and not vol.empty:
+            payload["flows"] = money_flows(c, h, lo, vol, info, cfg["sectors"])
+    except Exception as e:     # the flows are an extra: never fail the Israel step for them
+        errs.append(f"זרימות כסף: {type(e).__name__}")
     msg = f"{c.shape[1]}/{len(entries)} מניות ת\"א 125{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
           (f" · {'; '.join(errs)}" if errs else "")
     return out, payload, msg

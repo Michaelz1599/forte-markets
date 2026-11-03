@@ -30,7 +30,7 @@ def load_events() -> list[dict]:
         p = CAL / w["file"].replace("data/", "", 1)
         if p.exists():
             out += json.loads(p.read_text(encoding="utf-8")).get("events", [])
-    for name in ("extra.json", "nasdaq.json"):      # events added outside the weekly build
+    for name in ("extra.json", "nasdaq.json", "maya.json"):      # events added outside the weekly build
         p = CAL / name
         if p.exists():
             have = {e["id"] for e in out}
@@ -254,6 +254,23 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
         except Exception:
             im = None
         if im:
+            implied[e["id"]] = im; n_im += 1
+    # 1b. Israeli reports: only companies also listed in New York have an options market (TASE lists options on indices only)
+    import re as _re
+    il = [e for e in events if e.get("market") == "IL" and _re.fullmatch(r"[A-Z]{1,5}", e.get("ticker") or "") and today <= e["date"] <= horizon]
+    for e in sorted(il, key=lambda e: e["date"])[:40]:
+        prev = implied.get(e["id"])
+        if prev and prev.get("at", "")[:10] == today:
+            continue
+        react = reaction_day(e, cal_sessions)
+        if not react:
+            continue
+        try:
+            im = implied_move(e["ticker"], react)
+        except Exception:
+            im = None
+        if im:
+            im["listing"] = "US"
             implied[e["id"]] = im; n_im += 1
     # 2. results: the reaction-day move for every US report whose reaction day has closed
     done = [e for e in us if e["date"] <= today and e["id"] not in results]

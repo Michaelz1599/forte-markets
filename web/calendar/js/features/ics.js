@@ -157,7 +157,7 @@
         h('p', { class: 'muted' }, 'ייווצרו ', countEl, ' אירועים. אירוע נקבע לשעת שיחת הוועידה כשהיא ידועה; אחרת לשעת הפרסום; אחרת כאירוע של יום שלם. החודש כולל רק שבועות שכבר נטענו.'),
         h('div', { class: 'when-actions' }, saveBtn, copyBtn),
         status, ta,
-        h('p', { class: 'src' }, 'הקובץ נשמר בתוך ZIP כי התצוגה לא מאפשרת לשמור ‎.ics‎ ישירות. לאירוע בודד אפשר להשתמש בכפתור "הוספה ל-Outlook" בכרטיס החברה.')));
+        h('p', { class: 'src' }, 'קובץ ‎.ics‎ נפתח ב-Outlook, ביומן Google וביומן של אפל. לאירוע בודד יש כפתור "קובץ ליומן" בכרטיס החברה.')));
     status.hidden = false; status.textContent = 'בחרו טווח ושמרו.';
     const wrap = h('div', { class: 'modal' }, h('div', { class: 'scrim', onclick: close }), card);
     document.body.append(wrap);
@@ -167,5 +167,16 @@
     FC.closeModal = close;
   }
 
-  FC.ics = { outlookLink, buildIcs, zip, openDialog };
+  /** one event as an .ics file (opens in Outlook, Google Calendar or Apple Calendar) */
+  async function saveOne(ev) {
+    const ics = buildIcs([ev], 'פורטה · ' + titleOf(ev));
+    const name = ('forte-' + (ev.ticker || ev.id || 'event') + '-' + (ev.date || '')).replace(/[^\w.-]+/g, '_');
+    const dl = await downloads();
+    try {
+      if (dl && dl.direct) return await dl.save({ filename: name + '.ics', data: enc.encode(ics) });
+      if (dl) return await dl.save({ filename: name + '.zip', data: zip(name + '.ics', enc.encode(ics)) });
+    } catch (e) { /* fall through to the Outlook link */ }
+    window.open(outlookLink(ev), '_blank', 'noopener');
+  }
+  FC.ics = { outlookLink, buildIcs, zip, openDialog, saveOne };
 })();

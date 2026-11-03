@@ -76,7 +76,7 @@
         e.time ? h('p', { class: 'muted' }, `בשעון ${st.tz === FC.TZ.IL ? 'ניו יורק' : 'ישראל'}: ${w.alt}`) : null,
         e.note ? h('p', { class: 'muted' }, e.note) : null,
         h('div', { class: 'when-actions' },
-          FC.ics ? h('a', { class: 'btn sm', href: FC.ics.outlookLink(e), target: '_blank', rel: 'noopener' }, FC.icon('cal'), 'הוספה ל-Outlook') : null,
+          FC.ics ? h('button', { class: 'btn sm', type: 'button', title: 'שמירת קובץ ‎.ics‎ ליומן', onclick: () => FC.ics.saveOne(e) }, FC.icon('cal'), 'קובץ ליומן (ICS)') : null,
           e.src && e.src.url ? h('a', { class: 'btn ghost sm', href: e.src.url, target: '_blank', rel: 'noopener' }, FC.icon('link'), 'מקור: ' + e.src.label) : null)));
     return det;
   }
