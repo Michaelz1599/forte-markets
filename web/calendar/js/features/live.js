@@ -195,14 +195,16 @@
     },
     render(c) {
       const im = ((FC.store.live || {}).implied || {})[c.ev.id];
-      if (!im) return h('p', { class: 'muted' }, c.ev.market === 'IL' ? 'למניה הזו אין שוק אופציות: בבורסה בת"א נסחרות אופציות רק על מדדים, ולכן התנועה המגולמת מחושבת רק לחברות שנסחרות גם בניו יורק (מהאופציות שם), לדוחות של 7 הימים הקרובים.' : 'אין נתוני אופציות לחברה הזו, או שהדוח רחוק מדי. התמחור מחושב לדוחות של 7 הימים הקרובים.');
+      if (!im) return h('p', { class: 'muted' }, c.ev.market === 'IL' ? 'אין לחברה הזו אופציות סחירות. התנועה המגולמת מחושבת לחברות שנסחרות גם בניו יורק (מהאופציות שם) ולכ-22 המניות הגדולות שיש עליהן אופציות בבורסה בת"א, לדוחות של 7 הימים הקרובים.' : 'אין נתוני אופציות לחברה הזו, או שהדוח רחוק מדי. התמחור מחושב לדוחות של 7 הימים הקרובים.');
       return [
         h('div', { class: 'kv' },
-          h('div', null, h('span', { class: 'k' }, 'תנועה מגולמת (Straddle)'), h('span', { class: 'v hi' }, '±' + (im.move * 100).toFixed(1) + '%', h('small', null, ` · כ-${FC.usd(im.move * im.spot)} למניה`))),
+          h('div', null, h('span', { class: 'k' }, 'תנועה מגולמת (Straddle)'), h('span', { class: 'v hi' }, '±' + (im.move * 100).toFixed(1) + '%', h('small', null, ` · כ-${im.cur === 'ILS' ? '₪' + (im.move * im.spot).toFixed(2) : FC.usd(im.move * im.spot)} למניה`))),
           h('div', null, h('span', { class: 'k' }, 'תנודתיות גלומה (IV, באט-דה-מאני)'), h('span', { class: 'v' }, im.iv != null ? (im.iv * 100).toFixed(0) + '%' : '—', im.ivNext != null ? h('small', null, ` · אחרי הדוח: ${(im.ivNext * 100).toFixed(0)}%`) : null)),
           h('div', null, h('span', { class: 'k' }, 'פקיעה'), h('span', { class: 'v' }, FC.shortDate(im.exp), h('small', null, ` · ${im.dte} ימים`)))),
         h('p', { class: 'muted' }, 'התנועה המגולמת = מחיר ה-Straddle (קול ופוט במחיר המימוש הקרוב לשער) חלקי שער המניה, בפקיעה הראשונה שאחרי הדוח. זה הטווח שהשוק משלם עליו: בערך שני שלישים מהפעמים התנועה בפועל קטנה ממנו.' + (im.dte > 7 ? ' הפקיעה רחוקה מהדוח, ולכן חלק מהמחיר הוא זמן ולא הדוח עצמו.' : '')),
-        h('p', { class: 'src' }, `מקור: שרשרת האופציות ב-Yahoo Finance${im.listing === 'US' ? ' (האופציות על המניה בניו יורק)' : ''} · ${im.at ? FC.shortDate(im.at.slice(0, 10)) : ''}`)
+        im.listing === 'TASE'
+          ? h('p', { class: 'src' }, 'מקור: שערי הנעילה של האופציות על המניה בבורסה בת"א (', h('a', { href: im.src || 'https://www.globes.co.il/portal/quotes/stock-options/', target: '_blank', rel: 'noopener' }, 'גלובס'), `). ${im.traded ? '' : 'באופציות האלה כמעט אין מסחר, ובסדרות שנבחרו לא היו עסקאות באותו יום, אז השער לא משקף עסקה בפועל. '}מחיר המניה נגזר מהאופציות עצמן; התנודתיות היא קירוב. · ${im.at ? FC.shortDate(im.at.slice(0, 10)) : ''}`)
+          : h('p', { class: 'src' }, `מקור: שרשרת האופציות ב-Yahoo Finance${im.listing === 'US' ? ' (האופציות על המניה בניו יורק)' : ''} · ${im.at ? FC.shortDate(im.at.slice(0, 10)) : ''}`)
       ];
     }
   });

@@ -272,6 +272,29 @@ def run(px: pd.DataFrame, max_implied: int = 90, max_eps: int = 60, max_rep: int
         if im:
             im["listing"] = "US"
             implied[e["id"]] = im; n_im += 1
+    # 1c. the rest of the Israeli reports: options on the stock on the Tel Aviv exchange (about 22 large stocks)
+    from . import taseopt
+    il_all = [e for e in events if e.get("market") == "IL" and today <= e["date"] <= horizon
+              and (implied.get(e["id"]) or {}).get("at", "")[:10] != today]
+    pages, sess = {}, None
+    for e in sorted(il_all, key=lambda e: e["date"])[:30]:
+        bid = taseopt.match(e)
+        if not bid:
+            continue
+        react = reaction_day(e, cal_sessions)
+        if not react:
+            continue
+        try:
+            if bid not in pages:
+                import requests as _rq
+                sess = sess or _rq.Session()
+                pages[bid] = taseopt.fetch(bid, sess)
+            im = taseopt.implied(pages[bid], react)
+        except Exception:
+            im = None
+        if im:
+            im["src"] = f"{taseopt.URL}?baseid={bid}&showAll=true"
+            implied[e["id"]] = im; n_im += 1
     # 2. results: the reaction-day move for every US report whose reaction day has closed
     done = [e for e in us if e["date"] <= today and e["id"] not in results]
     need = []
