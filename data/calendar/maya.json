@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T07:58+00:00",
+"asof": "2026-11-03T08:10+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -531,6 +531,62 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "פרודלים השקעות-2026-11-09",
+"ticker": "פרודלים השקעות",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2534,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779198"
+}
+]
+},
+{
+"id": "קמהדע-2026-11-09",
+"ticker": "קמהדע",
+"market": "IL",
+"date": "2026-11-09",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1267,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779151"
 }
 ]
 },
@@ -1572,6 +1628,34 @@
 ]
 },
 {
+"id": "ריטיילורס-2026-11-18",
+"ticker": "ריטיילורס",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום חמישי 19.11, 15:30 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1908,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779185"
+}
+]
+},
+{
 "id": "ARBE-2026-11-19",
 "ticker": "ARBE",
 "market": "IL",
@@ -2358,6 +2442,34 @@
 ]
 },
 {
+"id": "פוקס-2026-11-25",
+"ticker": "פוקס",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "12:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1140,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779177"
+}
+]
+},
+{
 "id": "ANLT-2026-11-26",
 "ticker": "ANLT",
 "market": "IL",
@@ -2610,6 +2722,34 @@
 ]
 },
 {
+"id": "תיגבור קבוצה-2026-11-29",
+"ticker": "תיגבור קבוצה",
+"market": "IL",
+"date": "2026-11-29",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 30.11, 11:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1460,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779147"
+}
+]
+},
+{
 "id": "אלומה-2026-11-30",
 "ticker": "אלומה",
 "market": "IL",
@@ -2662,34 +2802,6 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1777384"
-}
-]
-},
-{
-"id": "תיגבור קבוצה-2026-11-30",
-"ticker": "תיגבור קבוצה",
-"market": "IL",
-"date": "2026-11-30",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
-},
-"call": {
-"time": "11:00",
-"tz": "Asia/Jerusalem",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1460,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779147"
 }
 ]
 }
@@ -2847,6 +2959,30 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"קמהדע": {
+"name": "קמהדע",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פרודלים השקעות": {
+"name": "פרודלים השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מרכנתיל הנפקות": {
+"name": "מרכנתיל הנפקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "BWAY": {
 "name": "בריינסוויי · BWAY",
 "tags": [
@@ -2895,22 +3031,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מרכנתיל הנפקות": {
-"name": "מרכנתיל הנפקות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ריט 1": {
-"name": "ריט 1",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "דלתא מותגים": {
 "name": "דלתא מותגים",
 "tags": [
@@ -2945,6 +3065,22 @@
 },
 "BEZQ": {
 "name": "בזק · BEZQ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ריט 1": {
+"name": "ריט 1",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"יעקב פיננסים": {
+"name": "יעקב פיננסים",
 "tags": [
 "TASE"
 ],
@@ -2991,8 +3127,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"יעקב פיננסים": {
-"name": "יעקב פיננסים",
+"MVNE": {
+"name": "מבנה · MVNE",
 "tags": [
 "TASE"
 ],
@@ -3001,14 +3137,6 @@
 },
 "פועלים": {
 "name": "פועלים",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"MVNE": {
-"name": "מבנה · MVNE",
 "tags": [
 "TASE"
 ],
@@ -3137,6 +3265,14 @@
 },
 "אלוני חץ": {
 "name": "אלוני חץ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ריטיילורס": {
+"name": "ריטיילורס",
 "tags": [
 "TASE"
 ],
@@ -3367,6 +3503,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פוקס": {
+"name": "פוקס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"נופר אנרג'י": {
+"name": "נופר אנרג'י",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "כפרית": {
 "name": "כפרית",
 "tags": [
@@ -3407,8 +3559,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"נופר אנרג'י": {
-"name": "נופר אנרג'י",
+"VILR": {
+"name": "וילאר · VILR",
 "tags": [
 "TASE"
 ],
@@ -3423,8 +3575,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"VILR": {
-"name": "וילאר · VILR",
+"תיגבור קבוצה": {
+"name": "תיגבור קבוצה",
 "tags": [
 "TASE"
 ],
@@ -3449,14 +3601,6 @@
 },
 "אלומה": {
 "name": "אלומה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"תיגבור קבוצה": {
-"name": "תיגבור קבוצה",
 "tags": [
 "TASE"
 ],

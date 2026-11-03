@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T07:56+00:00",
+"asof": "2026-11-03T08:09+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -11293,6 +11293,44 @@
 "period": "רבעון נוכחי",
 "eps": 3.43,
 "epsN": 10.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "TLK-2026-10-30",
+"ticker": "TLK",
+"market": "US",
+"date": "2026-10-30",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 11065249800.0,
+"name": "PT Telekomunikasi Indonesia, Tbk",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.65,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
