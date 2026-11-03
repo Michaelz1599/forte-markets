@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T08:10+00:00",
+"asof": "2026-11-03T08:18+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -1148,6 +1148,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1775239"
+}
+]
+},
+{
+"id": "מלם-תים טכנו'-2026-11-16",
+"ticker": "מלם-תים טכנו'",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 731,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779200"
 }
 ]
 },
@@ -3143,6 +3171,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"מלם-תים טכנו'": {
+"name": "מלם-תים טכנו'",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "MNRT": {
 "name": "מניבים ריט · MNRT",
 "tags": [
@@ -3263,16 +3299,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אלוני חץ": {
-"name": "אלוני חץ",
+"ריטיילורס": {
+"name": "ריטיילורס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"ריטיילורס": {
-"name": "ריטיילורס",
+"אלוני חץ": {
+"name": "אלוני חץ",
 "tags": [
 "TASE"
 ],
