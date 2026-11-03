@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T14:33+00:00",
+"asof": "2026-11-03T16:01+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -2946,6 +2946,62 @@
 ]
 },
 {
+"id": "וילי פוד-2026-11-29",
+"ticker": "וילי פוד",
+"market": "IL",
+"date": "2026-11-29",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 371,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "ויליפוד אינטרנש-2026-11-29",
+"ticker": "ויליפוד אינטרנש",
+"market": "IL",
+"date": "2026-11-29",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2123,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "תיגבור קבוצה-2026-11-29",
 "ticker": "תיגבור קבוצה",
 "market": "IL",
@@ -3865,6 +3921,22 @@
 },
 "תיגבור קבוצה": {
 "name": "תיגבור קבוצה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ויליפוד אינטרנש": {
+"name": "ויליפוד אינטרנש",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"וילי פוד": {
+"name": "וילי פוד",
 "tags": [
 "TASE"
 ],
