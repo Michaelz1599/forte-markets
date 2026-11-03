@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-03T08:58+00:00",
+"asof": "2026-11-03T11:44+00:00",
 "events": [
 {
 "id": "AMOT-2026-11-03",
@@ -1484,6 +1484,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "ארגו פרופרטיז-2026-11-17",
+"ticker": "ארגו פרופרטיז",
+"market": "IL",
+"date": "2026-11-17",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1884,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779357"
 }
 ]
 },
@@ -3365,6 +3393,14 @@
 },
 "פריון נטוורק": {
 "name": "פריון נטוורק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ארגו פרופרטיז": {
+"name": "ארגו פרופרטיז",
 "tags": [
 "TASE"
 ],
