@@ -125,14 +125,18 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
     """Where money went in TA-125: an estimate from prices and turnover, since TASE publishes no net buying per stock.
 
     turnover = close x volume (Yahoo quotes TASE shares in agorot, so / 100 for shekels).
-    money flow = turnover x the close's position in the day's range, from +1 (closed at the high: buyers pushed)
-    to -1 (closed at the low) - the Chaikin accumulation/distribution weight. Summed over 5 and 20 sessions, per stock,
-    per sector and for the whole index; also as a share of the turnover (the 20-day share is Chaikin Money Flow)."""
+    pressure weight = half the close's position in the day's range (+1 at the high, -1 at the low: Chaikin) and half
+    the direction of the close against the previous close (+1 up, -1 down), so a day that gapped down and recovered
+    part of it is not counted as full buying. flow = weight x turnover, summed over 5 and 20 sessions, per stock, per
+    sector and for the index; also as a share of the turnover, and against the stock's own history (z: how unusual the
+    last 20 days are compared with the stock's 20-day readings of the past six months)."""
     c, h, lo, v = c.iloc[-130:], h.iloc[-130:], lo.iloc[-130:], v.reindex(index=c.index, columns=c.columns).iloc[-130:]
     turn = (c / 100.0) * v
     rng = (h - lo).where((h - lo) > 0)
-    w = (((c - lo) - (h - c)) / rng).clip(-1, 1).fillna(0.0)
+    clv = (((c - lo) - (h - c)) / rng).clip(-1, 1).fillna(0.0)
+    w = 0.5 * clv + 0.5 * pd.DataFrame(np.sign(c.diff().values), index=c.index, columns=c.columns).fillna(0.0)
     flow = (w * turn).where(turn > 0)
+    r20s = flow.rolling(20, min_periods=15).sum() / turn.rolling(20, min_periods=15).sum()
     def win(df, n):
         return df.iloc[-n:].sum(min_count=max(1, n // 2))
     rows = []
@@ -142,7 +146,13 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
         if not (t20 and t20 > 0):
             continue
         name, sec = info[sym]
-        rows.append({"sym": sym.replace(".TA", ""), "name": name, "sec": sec,
+        hist = r20s[sym].dropna()
+        z = None
+        if len(hist) > 60:
+            base = hist.iloc[-130:-20]
+            if len(base) > 30 and base.std() > 0:
+                z = round(float((hist.iloc[-1] - base.mean()) / base.std()), 2)
+        rows.append({"z20": z, "sym": sym.replace(".TA", ""), "name": name, "sec": sec,
                      "n5": round(f5 / 1e6, 2) if pd.notna(f5) else None, "n20": round(f20 / 1e6, 2) if pd.notna(f20) else None,
                      "r5": round(f5 / t5, 3) if pd.notna(f5) and t5 else None, "r20": round(f20 / t20, 3) if pd.notna(f20) else None,
                      "t20": round(t20 / 20 / 1e6, 2), "surge": round((t5 / 5) / t60, 2) if t60 and pd.notna(t5) else None})
@@ -289,6 +299,16 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
             payload["flows"] = money_flows(c, h, lo, vol, info, cfg["sectors"])
     except Exception as e:     # the flows are an extra: never fail the Israel step for them
         errs.append(f"זרימות כסף: {type(e).__name__}")
+    try:                       # actual institutional buying and selling in the TA-35 stocks (Funder)
+        from . import ilinst
+        names = {n: a.split("|")[0].replace(".TA", "") for a, n, k in cfg["stocks"]}
+        store, note = ilinst.run(names)
+        turn = {r["sym"]: r["t20"] for r in (payload.get("flows") or {}).get("stocks", [])}
+        payload["inst"] = ilinst.payload(store, turn)
+        payload["inst"]["sec"] = {r["sym"]: r["sec"] for r in payload["stocks"]}
+        errs.append("מוסדיים: " + note)
+    except Exception as e:
+        errs.append(f"מוסדיים (פאנדר): {type(e).__name__} {str(e)[:60]}")
     msg = f"{c.shape[1]}/{len(entries)} מניות ת\"א 125{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
           (f" · {'; '.join(errs)}" if errs else "")
     return out, payload, msg
