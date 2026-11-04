@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import math
+import re
 
 import numpy as np
 import pandas as pd
@@ -175,6 +176,29 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
             "hist": {"d": list(hist.index), "net": [round(float(x), 1) for x in hist], "r20": [None if pd.isna(x) else round(float(x), 1) for x in r20]}}
 
 
+def vta35(backfill: bool) -> dict[str, float]:
+    """VTA35, the Tel Aviv volatility index (implied volatility of TA-35 options, 30 days), from TASE's end-of-day API.
+    pType 7 = the last five years (paged by 30), 1 = the last month."""
+    import requests
+    url = "https://api.tase.co.il/api/index/historyeod"
+    hdr = {"Content-Type": "application/json", "Accept": "application/json", "Accept-Language": "he-IL",
+           "Origin": "https://market.tase.co.il", "Referer": "https://market.tase.co.il/",
+           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"}
+    out, s = {}, requests.Session()
+    for page in range(1, 50 if backfill else 2):
+        r = s.post(url, json={"pType": 7 if backfill else 1, "oId": 598, "pageNum": page, "TotalRec": 1, "lang": "0"}, headers=hdr, timeout=30)
+        r.raise_for_status()
+        items = (r.json() or {}).get("Items") or []
+        if not items:
+            break
+        for x in items:
+            d = re.sub(r"\D", "", str(x.get("TradeDate") or ""))
+            v = x.get("CloseRate")
+            if len(d) == 8 and v:
+                out[f"{d[4:]}-{d[2:4]}-{d[:2]}"] = round(float(v), 2)
+    return out
+
+
 def _monthly_mean(pts: dict) -> pd.Series:
     s = pd.Series(pts, dtype=float)
     if s.empty:
@@ -261,6 +285,12 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     # macro: FRED / OECD / BIS
     from .macro import fred_series
     errs = []
+    try:
+        v = vta35(len(read_series("vta35")) < 500)
+        if v:
+            out["vta35"] = v
+    except Exception as e:
+        errs.append(f"VTA35: {type(e).__name__} {str(e)[:60]}")
     for sid, code in cfg["fred"].items():
         try:
             pts = fred_series(code)

@@ -3203,7 +3203,7 @@ function loadIsrael() {
 }
 const IL_SECTIONS = {
   breadth: ['רוחב שוק', 'כמה ממניות ת"א 125 משתתפות בתנועה. מחושב מכל מניות המדד (ההרכב העדכני), כל מניה במשקל שווה.', ['il_pct50', 'il_pct200', 'il_adr10', 'il_hl', 'il_mcsi']],
-  trend: ['מגמה, תנודתיות ותיאבון לסיכון', 'ת"א 35 מול הממוצע, התנודתיות בפועל (במקום VTA35), ומי מוביל: הבנקים והמניות הבינוניות מול המדד.', ['ta35_ma200', 'ta35_rv20', 'il_ew_rel3', 'il_banks_rel3']],
+  trend: ['מגמה, תנודתיות ותיאבון לסיכון', 'ת"א 35 מול הממוצע, מדד הפחד VTA35 והתנודתיות בפועל, ומי מוביל: הבנקים והמניות הבינוניות מול המדד.', ['ta35_ma200', 'vta35', 'ta35_rv20', 'il_ew_rel3', 'il_banks_rel3']],
   foreign: ['כסף זר ושקל', 'במקום נתוני פעילות זרים בבורסה: זרימת הכסף ל-EIS בניו יורק, ביצועי ישראל מול ארה"ב, והשקל.', ['eis_cmf', 'eis_rel', 'ta35_usd', 'usdils_dev', 'usdils', 'eurils']],
   macro: ['מאקרו ישראל', 'ריבית, אינפלציה, אג"ח ממשלתי והפער מול ארה"ב (במקום CDS של ישראל), אבטלה ומחירי דירות.', ['boi_rate', 'il_cpi_yoy', 'il_cpi_mom', 'il_real_rate', 'il_10y', 'il_spread', 'il_unemp', 'il_house_yoy']],
 };
@@ -3334,8 +3334,8 @@ function renderIsrael() {
   const notes = `<details class="lagd"><summary>מה יש כאן, ממה זה מחושב, ומה חסר</summary><div class="rs-notes small">
     <p><b>המניות:</b> ${IL.n} מתוך ${IL.listed || 125} מניות ת"א 125 לפי ההרכב העדכני של המדד${(IL.missing || []).length ? ` (אין נתונים ב-Yahoo Finance ל: ${esc(IL.missing.map(m => m.split('|')[0].replace('.TA', '')).join(', '))})` : ''}. רוחב השוק והסקטורים מחושבים מהן כשכל מניה במשקל שווה, ולכן הם לא זהים למדד הרשמי של הבורסה, שמשוקלל לפי שווי שוק. כשהרכב המדד משתנה, הרשימה מתעדכנת ידנית.</p>
     <p><b>מדד הסנטימנט הישראלי:</b> ממוצע האחוזונים של 10 הרכיבים בטבלה, כל אחד מול 5 השנים שקדמו לו, אחרי התאמת כיוון. נדרשים לפחות 5 רכיבים ביום.</p>
-    <p><b>מה שאין לו מקור חינמי, ומה במקומו:</b> מדד הפחד VTA35 ← התנודתיות בפועל של ת"א 35. CDS של ישראל ← פער התשואות מול ארה"ב. פעילות משקיעים זרים בבורסה ← זרימת הכסף ל-EIS ועוצמת השקל. Put/Call ישראלי וסקרי משקיעים מקומיים לא זמינים.</p>
-    <p><b>מקורות:</b> Yahoo Finance (מניות ומדדי ת"א, EIS, שקל), FRED (תשואת האג"ח והאבטלה לפי OECD, מחירי דיור לפי BIS), הלמ"ס ובנק ישראל (אינפלציה וריבית).</p></div></details>`;
+    <p><b>מה שאין לו מקור חינמי, ומה במקומו:</b> CDS של ישראל ← פער התשואות מול ארה"ב. פעילות משקיעים זרים בבורסה ← זרימת הכסף ל-EIS ועוצמת השקל. Put/Call ישראלי וסקרי משקיעים מקומיים לא זמינים.</p>
+    <p><b>מקורות:</b> הבורסה בת"א (VTA35), Yahoo Finance (מניות ומדדי ת"א, EIS, שקל), FRED (תשואת האג"ח והאבטלה לפי OECD, מחירי דיור לפי BIS), הלמ"ס ובנק ישראל (אינפלציה וריבית).</p></div></details>`;
   el.innerHTML = tiles + hero + sec('breadth') + sec('trend') + sec('foreign') + `<div id="ilFlowsBox">${ilFlowsHtml()}</div>` + sectors + stocks + sec('macro') + notes;
   const bindFw = () => {
     for (const [id, key] of [['#ilFw', 'ilFw'], ['#ilIw', 'ilIw']]) { const g = $(id); if (g) g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S[key] = +b.dataset.w; $('#ilFlowsBox').innerHTML = ilFlowsHtml(); bindFw(); }); }
