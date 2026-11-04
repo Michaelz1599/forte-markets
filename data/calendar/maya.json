@@ -1,202 +1,6 @@
 {
-"asof": "2026-11-04T21:57+00:00",
+"asof": "2026-11-04T22:32+00:00",
 "events": [
-{
-"id": "AUDC-2026-11-04",
-"ticker": "AUDC",
-"market": "IL",
-"date": "2026-11-04",
-"session": "BMO",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "08:30",
-"tz": "America/New_York",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 2134,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1777047"
-}
-]
-},
-{
-"id": "CAMT-2026-11-04",
-"ticker": "CAMT",
-"market": "IL",
-"date": "2026-11-04",
-"session": "BMO",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "09:00",
-"tz": "America/New_York",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 2174,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
-}
-]
-},
-{
-"id": "NICE-2026-11-04",
-"ticker": "NICE",
-"market": "IL",
-"date": "2026-11-04",
-"session": "BMO",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "08:30",
-"tz": "America/New_York",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 273,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1778307"
-}
-]
-},
-{
-"id": "OPK-2026-11-04",
-"ticker": "OPK",
-"market": "IL",
-"date": "2026-11-04",
-"session": "AMC",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "16:30",
-"tz": "America/New_York",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1610,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1778339"
-}
-]
-},
-{
-"id": "ORA-2026-11-04",
-"ticker": "ORA",
-"market": "IL",
-"date": "2026-11-04",
-"session": "AMC",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום חמישי 5.11, 10:00 שעון ניו יורק",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 2250,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1774121"
-}
-]
-},
-{
-"id": "מלרן פרוייקטים-2026-11-04",
-"ticker": "מלרן פרוייקטים",
-"market": "IL",
-"date": "2026-11-04",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום חמישי 5.11, 11:00 שעון ישראל",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1787,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779127"
-}
-]
-},
-{
-"id": "פרוספקט-2026-11-04",
-"ticker": "פרוספקט",
-"market": "IL",
-"date": "2026-11-04",
-"session": "AMC",
-"period": "Q1 2027",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום חמישי 5.11, 09:00 שעון ניו יורק",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 2514,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779541"
-}
-]
-},
 {
 "id": "CION-2026-11-05",
 "ticker": "CION",
@@ -282,6 +86,34 @@
 ]
 },
 {
+"id": "ORA-2026-11-05",
+"ticker": "ORA",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2250,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1774121"
+}
+]
+},
+{
 "id": "STRW-2026-11-05",
 "ticker": "STRW",
 "market": "IL",
@@ -306,6 +138,62 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "מלרן פרוייקטים-2026-11-05",
+"ticker": "מלרן פרוייקטים",
+"market": "IL",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1787,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779127"
+}
+]
+},
+{
+"id": "פרוספקט-2026-11-05",
+"ticker": "פרוספקט",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q1 2027",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "09:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2514,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779541"
 }
 ]
 },
@@ -1274,7 +1162,7 @@
 "text": "שעת הפרסום לא צוינה במאיה"
 },
 "call": {
-"time": "12:00",
+"time": "17:00",
 "tz": "Asia/Jerusalem",
 "confirmed": true,
 "note": null,
@@ -3170,6 +3058,14 @@
 }
 ],
 "profiles": {
+"CION": {
+"name": "סיאון · CION",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ORA": {
 "name": "אורמת טכנו · ORA",
 "tags": [
@@ -3178,32 +3074,24 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"AUDC": {
-"name": "אודיוקודס · AUDC",
+"NVMI": {
+"name": "נובה · NVMI",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"CAMT": {
-"name": "קמטק · CAMT",
+"STRW": {
+"name": "סטרוברי אינק · STRW",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"NICE": {
-"name": "נייס · NICE",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"OPK": {
-"name": "אופקו · OPK",
+"ELAL": {
+"name": "אל על · ELAL",
 "tags": [
 "TASE"
 ],
@@ -3226,32 +3114,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ELAL": {
-"name": "אל על · ELAL",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"STRW": {
-"name": "סטרוברי אינק · STRW",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"NVMI": {
-"name": "נובה · NVMI",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"CION": {
-"name": "סיאון · CION",
+"PTNR": {
+"name": "פרטנר · PTNR",
 "tags": [
 "TASE"
 ],
@@ -3268,14 +3132,6 @@
 },
 "CGEN": {
 "name": "קומפיוגן · CGEN",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"PTNR": {
-"name": "פרטנר · PTNR",
 "tags": [
 "TASE"
 ],
@@ -3314,14 +3170,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מרכנתיל הנפקות": {
-"name": "מרכנתיל הנפקות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "BWAY": {
 "name": "בריינסוויי · BWAY",
 "tags": [
@@ -3330,8 +3178,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ENRG": {
-"name": "אנרג'יקס · ENRG",
+"מרכנתיל הנפקות": {
+"name": "מרכנתיל הנפקות",
 "tags": [
 "TASE"
 ],
@@ -3346,8 +3194,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"OPCE": {
-"name": "או.פי.סי אנרגיה · OPCE",
+"ENRG": {
+"name": "אנרג'יקס · ENRG",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"GILT": {
+"name": "גילת · GILT",
 "tags": [
 "TASE"
 ],
@@ -3362,8 +3218,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"GILT": {
-"name": "גילת · GILT",
+"OPCE": {
+"name": "או.פי.סי אנרגיה · OPCE",
 "tags": [
 "TASE"
 ],
@@ -3402,14 +3258,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"BEZQ": {
-"name": "בזק · BEZQ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "ריט 1": {
 "name": "ריט 1",
 "tags": [
@@ -3418,8 +3266,32 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"BEZQ": {
+"name": "בזק · BEZQ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "בינלאומי": {
 "name": "בינלאומי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פיימנט": {
+"name": "פיימנט",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מימון ישיר קב": {
+"name": "מימון ישיר קב",
 "tags": [
 "TASE"
 ],
@@ -3442,24 +3314,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פיימנט": {
-"name": "פיימנט",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "ALLT": {
 "name": "אלוט · ALLT",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מימון ישיר קב": {
-"name": "מימון ישיר קב",
 "tags": [
 "TASE"
 ],
@@ -3490,6 +3346,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פריון נטוורק": {
+"name": "פריון נטוורק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מלם-תים טכנו'": {
 "name": "מלם-תים טכנו'",
 "tags": [
@@ -3506,8 +3370,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פריון נטוורק": {
-"name": "פריון נטוורק",
+"תדיראן גרופ": {
+"name": "תדיראן גרופ",
 "tags": [
 "TASE"
 ],
@@ -3522,8 +3386,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"תדיראן גרופ": {
-"name": "תדיראן גרופ",
+"NWMD": {
+"name": "ניו-מד אנרג יהש · NWMD",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"LUMI": {
+"name": "לאומי · LUMI",
 "tags": [
 "TASE"
 ],
@@ -3554,14 +3426,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"LUMI": {
-"name": "לאומי · LUMI",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "MTRX": {
 "name": "מטריקס · MTRX",
 "tags": [
@@ -3572,14 +3436,6 @@
 },
 "HLAN": {
 "name": "חילן · HLAN",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"NWMD": {
-"name": "ניו-מד אנרג יהש · NWMD",
 "tags": [
 "TASE"
 ],
@@ -3618,14 +3474,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אברא": {
-"name": "אברא",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "SLARL": {
 "name": "סלע קפיטל נדל\"ן · SLARL",
 "tags": [
@@ -3636,6 +3484,14 @@
 },
 "DSCT": {
 "name": "דיסקונט · DSCT",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אברא": {
+"name": "אברא",
 "tags": [
 "TASE"
 ],
@@ -3666,16 +3522,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אאורה": {
-"name": "אאורה",
+"ריטיילורס": {
+"name": "ריטיילורס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"ריטיילורס": {
-"name": "ריטיילורס",
+"אאורה": {
+"name": "אאורה",
 "tags": [
 "TASE"
 ],
@@ -3698,8 +3554,24 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ARBE": {
+"name": "ארבה רובוטיקס · ARBE",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "תמר פטרוליום": {
 "name": "תמר פטרוליום",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"MTAV": {
+"name": "מיטב בית השקעות · MTAV",
 "tags": [
 "TASE"
 ],
@@ -3722,16 +3594,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ARBE": {
-"name": "ארבה רובוטיקס · ARBE",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"MTAV": {
-"name": "מיטב בית השקעות · MTAV",
+"אקרשטיין קבוצה": {
+"name": "אקרשטיין קבוצה",
 "tags": [
 "TASE"
 ],
@@ -3746,8 +3610,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אקרשטיין קבוצה": {
-"name": "אקרשטיין קבוצה",
+"לודן-טק": {
+"name": "לודן-טק",
 "tags": [
 "TASE"
 ],
@@ -3762,48 +3626,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"לודן-טק": {
-"name": "לודן-טק",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מיכפל": {
-"name": "מיכפל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "עמל הולדינגס": {
 "name": "עמל הולדינגס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"NAWI": {
-"name": "נאוי · NAWI",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"הראל השקעות": {
-"name": "הראל השקעות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלעד": {
-"name": "אלעד",
 "tags": [
 "TASE"
 ],
@@ -3818,16 +3642,56 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מספנות ישראל": {
-"name": "מספנות ישראל",
+"הראל השקעות": {
+"name": "הראל השקעות",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"הולמס פלייס": {
-"name": "הולמס פלייס",
+"NAWI": {
+"name": "נאוי · NAWI",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלעד": {
+"name": "אלעד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מיכפל": {
+"name": "מיכפל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"BIG": {
+"name": "ביג · BIG",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"LAHAV": {
+"name": "להב · LAHAV",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מספנות ישראל": {
+"name": "מספנות ישראל",
 "tags": [
 "TASE"
 ],
@@ -3850,40 +3714,24 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"LAHAV": {
-"name": "להב · LAHAV",
+"הולמס פלייס": {
+"name": "הולמס פלייס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"BIG": {
-"name": "ביג · BIG",
+"פוקס": {
+"name": "פוקס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"לוינשטין הנדסה": {
-"name": "לוינשטין הנדסה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ASHG": {
-"name": "אשטרום קבוצה · ASHG",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"טיב טעם": {
-"name": "טיב טעם",
+"אלקטרה צריכה": {
+"name": "אלקטרה צריכה",
 "tags": [
 "TASE"
 ],
@@ -3898,8 +3746,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"AZRG": {
-"name": "עזריאלי קבוצה · AZRG",
+"בתי זיקוק": {
+"name": "בתי זיקוק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ASHG": {
+"name": "אשטרום קבוצה · ASHG",
 "tags": [
 "TASE"
 ],
@@ -3930,48 +3786,24 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"בתי זיקוק": {
-"name": "בתי זיקוק",
+"טיב טעם": {
+"name": "טיב טעם",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"אלקטרה צריכה": {
-"name": "אלקטרה צריכה",
+"לוינשטין הנדסה": {
+"name": "לוינשטין הנדסה",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"פוקס": {
-"name": "פוקס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"נופר אנרג'י": {
-"name": "נופר אנרג'י",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סוגת": {
-"name": "סוגת",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ANLT": {
-"name": "אנליסט · ANLT",
+"AZRG": {
+"name": "עזריאלי קבוצה · AZRG",
 "tags": [
 "TASE"
 ],
@@ -4002,6 +3834,30 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"סוגת": {
+"name": "סוגת",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"נופר אנרג'י": {
+"name": "נופר אנרג'י",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ANLT": {
+"name": "אנליסט · ANLT",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "VILR": {
 "name": "וילאר · VILR",
 "tags": [
@@ -4018,16 +3874,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אטראו שוקי הון": {
-"name": "אטראו שוקי הון",
+"תיגבור קבוצה": {
+"name": "תיגבור קבוצה",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"תיגבור קבוצה": {
-"name": "תיגבור קבוצה",
+"אטראו שוקי הון": {
+"name": "אטראו שוקי הון",
 "tags": [
 "TASE"
 ],
@@ -4068,6 +3924,38 @@
 },
 "גוטו": {
 "name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"AUDC": {
+"name": "אודיוקודס · AUDC",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"CAMT": {
+"name": "קמטק · CAMT",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"NICE": {
+"name": "נייס · NICE",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"OPK": {
+"name": "אופקו · OPK",
 "tags": [
 "TASE"
 ],
