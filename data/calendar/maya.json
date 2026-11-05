@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-05T14:37+00:00",
+"asof": "2026-11-05T16:24+00:00",
 "events": [
 {
 "id": "CION-2026-11-05",
@@ -755,6 +755,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1777461"
+}
+]
+},
+{
+"id": "הייפר-2026-11-11",
+"ticker": "הייפר",
+"market": "IL",
+"date": "2026-11-11",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2369,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
 }
 ]
 },
@@ -2412,6 +2440,34 @@
 ]
 },
 {
+"id": "מור השקעות-2026-11-24",
+"ticker": "מור השקעות",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1692,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "מספנות ישראל-2026-11-24",
 "ticker": "מספנות ישראל",
 "market": "IL",
@@ -3450,6 +3506,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"הייפר": {
+"name": "הייפר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מימון ישיר קב": {
 "name": "מימון ישיר קב",
 "tags": [
@@ -3514,6 +3578,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פז אנרגיה": {
+"name": "פז אנרגיה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "פריון נטוורק": {
 "name": "פריון נטוורק",
 "tags": [
@@ -3538,22 +3610,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פז אנרגיה": {
-"name": "פז אנרגיה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מזרחי טפחות": {
-"name": "מזרחי טפחות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "תדיראן גרופ": {
 "name": "תדיראן גרופ",
 "tags": [
@@ -3564,6 +3620,14 @@
 },
 "ארגו פרופרטיז": {
 "name": "ארגו פרופרטיז",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מזרחי טפחות": {
+"name": "מזרחי טפחות",
 "tags": [
 "TASE"
 ],
@@ -3868,6 +3932,14 @@
 },
 "טיאסג'י": {
 "name": "טיאסג'י",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מור השקעות": {
+"name": "מור השקעות",
 "tags": [
 "TASE"
 ],
