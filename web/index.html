@@ -734,6 +734,12 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 
 .fl-part { display: grid; gap: 10px; }
 .fl-part h4 { margin: 0; font-size: 14.5px; }
+
+/* ---------- live intraday values ---------- */
+.chip-live { color: var(--greed); background: var(--greed-bg); font-size: 11.5px; padding: 1px 8px; }
+.chip-live::before { animation: livePulse 2s ease-in-out infinite; }
+@keyframes livePulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .chip-live::before { animation: none; } }
 </style>
 </head>
 <body>
@@ -1296,7 +1302,7 @@ function rowHTML(ind) {
   const ext = isExtreme(st) && fr.ok;
   return `<div class="tr row${ext ? ' ext' : ''}${fr.ok ? '' : ' stale'}" role="row" tabindex="0" data-ind="${esc(ind.id)}">
     <div class="c-name" role="cell"><b>${esc(ind.name)}</b><span class="sub">${sub}</span></div>
-    <div class="c-val" role="cell"><span class="v">${ltr(fmtVal(ind, st.x))}</span><span class="d">${fmtDate(st.d)}${fr.ok ? '' : ' <span class="chip chip-w">לא עדכני</span>'}</span></div>
+    <div class="c-val" role="cell"><span class="v">${ltr(fmtVal(ind, st.x))}</span><span class="d">${fmtDate(st.d)}${liveChip(ind.id, st.d)}${fr.ok ? '' : ' <span class="chip chip-w">לא עדכני</span>'}</span></div>
     <div class="c-chg" role="cell">${chgHTML(st, ind)}</div>
     <div class="c-pct" role="cell">${pbarHTML(st, ind)}</div>
     <div class="c-z" role="cell">${isFinite(st.z) ? ltr(fmtS(st.z, 1)) : '—'}</div>
@@ -1339,7 +1345,7 @@ function openInd(id) {
   const state = st ? stateOf(meta.pol, st.pct) : null;
   const src = meta.srcUrl ? `<a href="${esc(meta.srcUrl)}" target="_blank" rel="noopener">${esc(meta.src || meta.srcUrl)}</a>` : esc(meta.src || '');
   const tiles = st ? `
-    <div class="tile"><span class="k">ערך אחרון · ${fmtDate(st.d)}</span><span class="val">${ltr(fmtVal(meta, st.x))}</span><span class="s">${fr.ok ? 'עדכני' : '<span class="chip chip-w">לא עדכני</span>'}</span></div>
+    <div class="tile"><span class="k">ערך אחרון · ${fmtDate(st.d)}</span><span class="val">${ltr(fmtVal(meta, st.x))}</span><span class="s">${isLive(id, st.d) ? liveChip(id, st.d) : fr.ok ? 'עדכני' : '<span class="chip chip-w">לא עדכני</span>'}</span></div>
     <div class="tile"><span class="k">אחוזון · ${WIN_LABEL[S.win]}</span><span class="val">${st.pct != null ? ltr(Math.round(st.pct)) : '—'}</span><span class="s">${chip(state)}</span></div>
     <div class="tile"><span class="k">Z · ${WIN_LABEL[S.win]}</span><span class="val">${isFinite(st.z) ? ltr(fmtS(st.z, 2)) : '—'}</span><span class="s">ממוצע ${ltr(fmtVal(meta, st.mean))} · ס"ת ${ltr(fmtN(st.sd, meta.dec ?? 2))}</span></div>
     <div class="tile"><span class="k">חציון בחלון</span><span class="val">${ltr(fmtVal(meta, st.q50))}</span><span class="s">10%–90%: ${ltr(fmtVal(meta, st.q10) + ' – ' + fmtVal(meta, st.q90))}</span></div>
@@ -2525,6 +2531,33 @@ function zoomBar(chart, el, lastT, firstT, initDays) {
   host.insertBefore(bar, el);
 }
 
+
+// ---------------- today's values during the US session (data/live_us.json, pipeline/liveus.py) ----------------
+// The stored series end at the last US close; during the session the page adds today's value (CNN, VIX, ratios) as
+// one more point, in memory only, marked live. The night run's closing value replaces it.
+function applyLive(L) {
+  S.live = null;
+  if (!L || !L.date || !L.v) return;
+  const ids = new Set();
+  for (const [id, x] of Object.entries(L.v)) {
+    const b = S.base.get(id);
+    if (!b || !b.d.length || x == null || !isFinite(x) || L.date <= b.d[b.d.length - 1]) continue;
+    S.base.set(id, { t: [...b.t, tOf(L.date)], v: [...b.v, +x], d: [...b.d, L.date] });
+    ids.add(id);
+  }
+  if (ids.size) S.live = { ...L, ids };
+}
+function liveHM(id) {
+  const L = S.live; if (!L) return '';
+  try { return new Date((L.at && L.at[id]) || L.asof).toLocaleTimeString('he-IL', { timeZone: 'Asia/Jerusalem', hour: '2-digit', minute: '2-digit', hour12: false }); } catch (_) { return ''; }
+}
+function isLive(id, d) { return !!(S.live && S.live.ids.has(id) && d === S.live.date); }
+function liveChip(id, d) {
+  if (!isLive(id, d)) return '';
+  const hm = liveHM(id);
+  return ` <span class="chip chip-live" title="ערך תוך-יומי, לפני סגירת המסחר בארה&quot;ב (${esc((S.live.src && S.live.src[id]) || '')}). בלילה מוחלף בערך הסגירה.">חי${hm ? ' · ' + hm : ''}</span>`;
+}
+
 // ---------------- events at an indicator's peaks and troughs ----------------
 // Curated market events (data/events.json) plus events the editor adds. Each significant peak or trough of the
 // indicator gets a dot on its chart; clicking it shows the event that drove it, or lets the editor record one.
@@ -3706,9 +3739,10 @@ function applyHash() {
 async function boot() {
   bind(); renderAll();
   try {
-    const [meta, ser] = await Promise.all([fetchJSON('data/meta.json'), fetchJSON('data/series.json')]);
+    const [meta, ser, live] = await Promise.all([fetchJSON('data/meta.json'), fetchJSON('data/series.json'), fetchJSON('data/live_us.json').catch(() => null)]);
     S.meta = meta; S.status = meta.status;
     for (const [id, o] of Object.entries(ser)) { const t = o.t.map(x => x * DAY); S.base.set(id, { t, v: o.v, d: t.map(isoOf) }); }
+    applyLive(live);
     rebuildIndicators(); rebuildSeries();
     S.loaded.ind = S.loaded.ser = true;
   } catch (e) {

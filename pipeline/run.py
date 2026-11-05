@@ -2,6 +2,7 @@
 
 python -m pipeline.run            # full run (what GitHub Actions does)
 python -m pipeline.run --offline  # rebuild the site from stored data only (no network)
+python -m pipeline.run --live     # during the US session: only today's live values (liveus), then rebuild
 """
 from __future__ import annotations
 
@@ -12,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, macro, markets, maya, rs, sources, uscal
+from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, maya, rs, sources, uscal
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -31,12 +32,18 @@ def step(status: Status, key: str, name: str, fn):
         return None
 
 
-def run(offline: bool = False) -> int:
+def run(offline: bool = False, live: bool = False) -> int:
     st = Status()
+    if live:   # keep the status of the last full run; only the live entry is replaced
+        try:
+            prev = json.loads((STATE_DIR / "status.json").read_text(encoding="utf-8"))
+            st.sources = [x for x in prev.get("sources", []) if x.get("key") != "live_us"]
+        except Exception:
+            pass
     u = markets.load_universe()
     px = markets.with_baskets(markets.read_prices(), u)
 
-    if not offline:
+    if not offline and not live:
         # 1. Prices for indices, factors, sectors and volatility (Yahoo Finance)
         res = step(st, "prices", "מחירי מדדים ופקטורים (Yahoo Finance)", lambda: markets.update_prices(u))
         if res:
@@ -194,14 +201,22 @@ def run(offline: bool = False) -> int:
                 if pts:
                     merge_series(sid, pts)
             dump_json(israel.DERIVED, payload)
-            live = il_live_date()
-            if live and live > cutoff_date() and payload.get("asof") == live:
+            il_live = il_live_date()
+            if il_live and il_live > cutoff_date() and payload.get("asof") == il_live:
                 msg += " · ת\"א ושער הדולר: נכון ל-" + dt.datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%H:%M")
             st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
         if res:
             out, msg = res
             st.add("rs", "RS לכל המניות, הפקטורים והסקטורים", True, out["asof"], msg)
+
+    # 10b. Today's values of the US sentiment indicators during the session (shown as live until the close)
+    if not offline:
+        st.sources = [x for x in st.sources if x.get("key") != "live_us"]
+        res = step(st, "live_us", "ערכים תוך-יומיים בארה\"ב (CNN, VIX ועוד)", liveus.run)
+        if res:
+            pl, msg = res
+            st.add("live_us", "ערכים תוך-יומיים בארה\"ב (CNN, VIX ועוד)", True, pl["date"] if pl["v"] else None, msg)
 
     # 11. Build the site
     build(st, u, px)
@@ -271,6 +286,8 @@ def build(st: Status, u: dict, px) -> None:
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
         shutil.copy(mom_file, tmp / "data" / "momentum.json")
+    if liveus.OUT.exists():
+        shutil.copy(liveus.OUT, tmp / "data" / "live_us.json")
     rs_file = ROOT / "data" / "derived" / "rs.json"
     if rs_file.exists():
         shutil.copy(rs_file, tmp / "data" / "rs.json")
@@ -296,4 +313,4 @@ def build(st: Status, u: dict, px) -> None:
 
 
 if __name__ == "__main__":
-    sys.exit(run(offline="--offline" in sys.argv))
+    sys.exit(run(offline="--offline" in sys.argv, live="--live" in sys.argv))

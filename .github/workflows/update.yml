@@ -3,6 +3,8 @@
 #   by ~16:30  around the US open: Israeli market mid-session, US data as of the last close
 #   ~17:45     after the Tel Aviv close: the Israeli indices, stocks and the shekel final for the day
 #   after the US close (21:47 UTC = 23:47 Israel winter / 00:47 summer): the US closing data
+#   every hour of the US session (15:05-20:05 UTC + delay): a light "live" run, today's CNN Fear & Greed, VIX and the
+#   other intraday indicators only (pipeline.liveus), shown as live on the site until the night run's close replaces them
 # GitHub cron runs in UTC with no daylight saving, so each Israel-time slot has a summer and a winter entry,
 # and the "gate" step lets through only the one that matches the current Israel time. GitHub starts scheduled runs 30-50 min late, so the slots start early.
 # Every run is idempotent: a later run only adds what was not available before.
@@ -16,7 +18,13 @@ on:
     - cron: "40 13 * * 1-5"
     - cron: "20 14 * * 1-5"
     - cron: "20 15 * * 1-5"
-  workflow_dispatch: {}
+    - cron: "5 15-20 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      live:
+        description: "Live values only (fast)"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt", "data/calendar/**"]
@@ -41,6 +49,7 @@ jobs:
             "10 7 * * 1-5"|"10 8 * * 1-5") lo=1005; hi=1110 ;;   # the 11:00 slot: 10:10 + GitHub's usual 30-50 min delay
             "40 12 * * 1-5"|"40 13 * * 1-5") lo=1535; hi=1640 ;; # the 16:30 slot: 15:40 + delay
             "20 14 * * 1-5"|"20 15 * * 1-5") lo=1720; hi=1900; at=1740 ;; # the 17:45 slot: after the Tel Aviv close (17:25)
+            "5 15-20 * * 1-5") lo=0; hi=2400; echo "LIVE=1" >> "$GITHUB_ENV" ;;   # hourly live values during the US session
             *) lo=0; hi=2400 ;;
           esac
           if [ "$now" -lt "$lo" ] || [ "$now" -ge "$hi" ]; then
@@ -60,7 +69,7 @@ jobs:
         if: env.SKIP != '1'
       - name: Fetch, compute, build site
         if: env.SKIP != '1'
-        run: python -m pipeline.run
+        run: python -m pipeline.run ${{ (env.LIVE == '1' || inputs.live) && '--live' || '' }}
       - name: Commit data
         if: always() && env.SKIP != '1'
         run: bash .github/commit.sh "daily"
