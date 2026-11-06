@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-06T00:21+00:00",
+"asof": "2026-11-06T08:21+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23,7 +23,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 195663118000.0,
+"mcap": 195629498000.0,
 "name": "Coca Cola Femsa S.A.B. de C.V.",
 "sources": [
 {
@@ -61,7 +61,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 187501625000.0,
+"mcap": 191356109000.0,
 "name": "Verizon Communications Inc.",
 "sources": [
 {
@@ -99,7 +99,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 176924688000.0,
+"mcap": 181927903000.0,
 "name": "Welltower Inc.",
 "sources": [
 {
@@ -137,7 +137,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 88830198000.0,
+"mcap": 90413367000.0,
 "name": "Cadence Design Systems, Inc.",
 "sources": [
 {
@@ -175,7 +175,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 62291739000.0,
+"mcap": 64042459000.0,
 "name": "Public Storage",
 "sources": [
 {
@@ -213,7 +213,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 62057304000.0,
+"mcap": 60782264000.0,
 "name": "Nucor Corporation",
 "sources": [
 {
@@ -251,7 +251,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36079415000.0,
+"mcap": 36932465000.0,
 "name": "The Hartford Insurance Group, Inc.",
 "sources": [
 {
@@ -289,7 +289,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 32730470400.0,
+"mcap": 29804920800.0,
 "name": "Celestica, Inc.",
 "sources": [
 {
@@ -327,7 +327,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 28298092500.0,
+"mcap": 29240645600.0,
 "name": "Cincinnati Financial Corporation",
 "sources": [
 {
@@ -365,7 +365,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 23926333400.0,
+"mcap": 24913883100.0,
 "name": "Principal Financial Group Inc",
 "sources": [
 {
@@ -403,7 +403,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 23523584000.0,
+"mcap": 24508708900.0,
 "name": "Brown & Brown, Inc.",
 "sources": [
 {
@@ -441,7 +441,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16053552100.0,
+"mcap": 16568963100.0,
 "name": "Cemex S.A.B. de C.V.",
 "sources": [
 {
@@ -479,7 +479,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13762875400.0,
+"mcap": 14471907300.0,
 "name": "Sun Communities, Inc.",
 "sources": [
 {
@@ -517,7 +517,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 751187660000.0,
+"mcap": 780043750000.0,
 "name": "Visa Inc.",
 "sources": [
 {
@@ -555,7 +555,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 407820337000.0,
+"mcap": 412122251000.0,
 "name": "Coca-Cola Company (The)",
 "sources": [
 {
@@ -593,7 +593,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 303892234000.0,
+"mcap": 314806862000.0,
 "name": "Novartis AG",
 "sources": [
 {
@@ -631,7 +631,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 290090680000.0,
+"mcap": 304973971000.0,
 "name": "HSBC Holdings plc",
 "sources": [
 {
@@ -643,44 +643,6 @@
 "period": "רבעון נוכחי",
 "eps": 2.13,
 "epsN": 1.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "STX-2026-10-27",
-"ticker": "STX",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 139201266000.0,
-"name": "Seagate Technology Holdings PLC",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 7.17,
-"epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -707,7 +669,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 137339503000.0,
+"mcap": 140263637000.0,
 "name": "Boeing Company (The)",
 "sources": [
 {
@@ -745,7 +707,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 135102095000.0,
+"mcap": 139641930000.0,
 "name": "S&P Global Inc.",
 "sources": [
 {
@@ -762,8 +724,8 @@
 }
 },
 {
-"id": "GLW-2026-10-27",
-"ticker": "GLW",
+"id": "STX-2026-10-27",
+"ticker": "STX",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -783,8 +745,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 108657132000.0,
-"name": "Corning Incorporated",
+"mcap": 127879315000.0,
+"name": "Seagate Technology Holdings PLC",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -793,8 +755,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 0.89,
-"epsN": 5.0,
+"eps": 7.17,
+"epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -821,7 +783,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 96687981000.0,
+"mcap": 106681401000.0,
 "name": "HCA Healthcare, Inc.",
 "sources": [
 {
@@ -838,8 +800,8 @@
 }
 },
 {
-"id": "WM-2026-10-27",
-"ticker": "WM",
+"id": "GLW-2026-10-27",
+"ticker": "GLW",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -859,8 +821,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 93312983000.0,
-"name": "Waste Management, Inc.",
+"mcap": 102308610000.0,
+"name": "Corning Incorporated",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -869,8 +831,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 2.18,
-"epsN": 10.0,
+"eps": 0.89,
+"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -897,7 +859,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 92879823000.0,
+"mcap": 97252844000.0,
 "name": "United Parcel Service, Inc.",
 "sources": [
 {
@@ -914,8 +876,8 @@
 }
 },
 {
-"id": "JCI-2026-10-27",
-"ticker": "JCI",
+"id": "WM-2026-10-27",
+"ticker": "WM",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -935,8 +897,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 90806706000.0,
-"name": "Johnson Controls International plc",
+"mcap": 94831952000.0,
+"name": "Waste Management, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -945,46 +907,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.58,
-"epsN": 6.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "FCX-2026-10-27",
-"ticker": "FCX",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 88702804000.0,
-"name": "Freeport-McMoran, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.8,
-"epsN": 7.0,
+"eps": 2.18,
+"epsN": 10.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1011,7 +935,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 86858277000.0,
+"mcap": 90368967000.0,
 "name": "American Tower Corporation (REIT)",
 "sources": [
 {
@@ -1028,8 +952,8 @@
 }
 },
 {
-"id": "ECL-2026-10-27",
-"ticker": "ECL",
+"id": "FCX-2026-10-27",
+"ticker": "FCX",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -1049,8 +973,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 85452923000.0,
-"name": "Ecolab Inc.",
+"mcap": 89894699000.0,
+"name": "Freeport-McMoran, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -1059,8 +983,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 2.18,
-"epsN": 9.0,
+"eps": 0.8,
+"epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1087,7 +1011,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 83763872000.0,
+"mcap": 89107939000.0,
 "name": "Royal Caribbean Cruises Ltd.",
 "sources": [
 {
@@ -1099,6 +1023,44 @@
 "period": "רבעון נוכחי",
 "eps": 6.38,
 "epsN": 8.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "ECL-2026-10-27",
+"ticker": "ECL",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 88350155000.0,
+"name": "Ecolab Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 2.18,
+"epsN": 9.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1125,7 +1087,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 82350129000.0,
+"mcap": 87817265000.0,
 "name": "Sherwin-Williams Company (The)",
 "sources": [
 {
@@ -1142,8 +1104,8 @@
 }
 },
 {
-"id": "ITW-2026-10-27",
-"ticker": "ITW",
+"id": "JCI-2026-10-27",
+"ticker": "JCI",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -1163,8 +1125,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 81463091000.0,
-"name": "Illinois Tool Works Inc.",
+"mcap": 85124850000.0,
+"name": "Johnson Controls International plc",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -1173,7 +1135,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 2.99,
+"eps": 1.58,
 "epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -1201,7 +1163,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 80953762000.0,
+"mcap": 83779568000.0,
 "name": "Hilton Worldwide Holdings Inc.",
 "sources": [
 {
@@ -1213,6 +1175,44 @@
 "period": "רבעון נוכחי",
 "eps": 2.36,
 "epsN": 8.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "ITW-2026-10-27",
+"ticker": "ITW",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 83398492000.0,
+"name": "Illinois Tool Works Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 2.99,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1239,7 +1239,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 77154091000.0,
+"mcap": 78711939000.0,
 "name": "Robinhood Markets, Inc.",
 "sources": [
 {
@@ -1277,7 +1277,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 66237006000.0,
+"mcap": 66796560000.0,
 "name": "NXP Semiconductors N.V.",
 "sources": [
 {
@@ -1289,44 +1289,6 @@
 "period": "רבעון נוכחי",
 "eps": 3.78,
 "epsN": 7.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "OKE-2026-10-27",
-"ticker": "OKE",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 57963614000.0,
-"name": "ONEOK, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 1.46,
-"epsN": 8.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1353,7 +1315,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 53719339000.0,
+"mcap": 55893807000.0,
 "name": "PACCAR Inc.",
 "sources": [
 {
@@ -1370,8 +1332,8 @@
 }
 },
 {
-"id": "BKR-2026-10-27",
-"ticker": "BKR",
+"id": "OKE-2026-10-27",
+"ticker": "OKE",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -1391,8 +1353,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 52424614000.0,
-"name": "Baker Hughes Company",
+"mcap": 55857910000.0,
+"name": "ONEOK, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -1401,8 +1363,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 0.63,
-"epsN": 6.0,
+"eps": 1.46,
+"epsN": 8.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1429,7 +1391,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 48352621000.0,
+"mcap": 50005631000.0,
 "name": "PayPal Holdings, Inc.",
 "sources": [
 {
@@ -1441,6 +1403,44 @@
 "period": "רבעון נוכחי",
 "eps": 1.31,
 "epsN": 11.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "BKR-2026-10-27",
+"ticker": "BKR",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 49524822000.0,
+"name": "Baker Hughes Company",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.63,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1467,7 +1467,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 46028493000.0,
+"mcap": 47170744000.0,
 "name": "Ventas, Inc.",
 "sources": [
 {
@@ -1505,7 +1505,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 43274834000.0,
+"mcap": 43472593000.0,
 "name": "IQVIA Holdings, Inc.",
 "sources": [
 {
@@ -1543,7 +1543,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42052202000.0,
+"mcap": 39185752000.0,
 "name": "Teradyne, Inc.",
 "sources": [
 {
@@ -1581,7 +1581,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36781089000.0,
+"mcap": 37767238000.0,
 "name": "Arch Capital Group Ltd.",
 "sources": [
 {
@@ -1592,44 +1592,6 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 2.15,
-"epsN": 7.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "EQT-2026-10-27",
-"ticker": "EQT",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 33936033800.0,
-"name": "EQT Corporation",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.38,
 "epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -1657,7 +1619,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 33407189000.0,
+"mcap": 37630120000.0,
 "name": "Centene Corporation",
 "sources": [
 {
@@ -1695,7 +1657,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 32608299000.0,
+"mcap": 33612240900.0,
 "name": "Extra Space Storage Inc",
 "sources": [
 {
@@ -1707,6 +1669,44 @@
 "period": "רבעון נוכחי",
 "eps": 2.1,
 "epsN": 5.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "EQT-2026-10-27",
+"ticker": "EQT",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 32853833700.0,
+"name": "EQT Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.38,
+"epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1733,7 +1733,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29706811400.0,
+"mcap": 30542432300.0,
 "name": "Shinhan Financial Group Co Ltd",
 "sources": [
 {
@@ -1745,82 +1745,6 @@
 "period": "רבעון נוכחי",
 "eps": 2.52,
 "epsN": 1.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "CNP-2026-10-27",
-"ticker": "CNP",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 28192270300.0,
-"name": "CenterPoint Energy, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.5,
-"epsN": 5.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "FE-2026-10-27",
-"ticker": "FE",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 27317977100.0,
-"name": "FirstEnergy Corp.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.9,
-"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -1847,7 +1771,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 26781915100.0,
+"mcap": 28113942500.0,
 "name": "PPG Industries, Inc.",
 "sources": [
 {
@@ -1864,8 +1788,8 @@
 }
 },
 {
-"id": "HUBB-2026-10-27",
-"ticker": "HUBB",
+"id": "FE-2026-10-27",
+"ticker": "FE",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -1885,8 +1809,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 23737196500.0,
-"name": "Hubbell Inc",
+"mcap": 27312187400.0,
+"name": "FirstEnergy Corp.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -1895,7 +1819,45 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 5.75,
+"eps": 0.9,
+"epsN": 5.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "CNP-2026-10-27",
+"ticker": "CNP",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 27204579300.0,
+"name": "CenterPoint Energy, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.5,
 "epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -1923,7 +1885,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 23178311700.0,
+"mcap": 24254453800.0,
 "name": "LPL Financial Holdings Inc.",
 "sources": [
 {
@@ -1961,7 +1923,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22078042100.0,
+"mcap": 23174260700.0,
 "name": "Xylem Inc.",
 "sources": [
 {
@@ -1978,8 +1940,8 @@
 }
 },
 {
-"id": "CMS-2026-10-27",
-"ticker": "CMS",
+"id": "HUBB-2026-10-27",
+"ticker": "HUBB",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -1999,8 +1961,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21953794000.0,
-"name": "CMS Energy Corporation",
+"mcap": 23155482600.0,
+"name": "Hubbell Inc",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -2009,8 +1971,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.34,
-"epsN": 4.0,
+"eps": 5.75,
+"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2037,7 +1999,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21659633700.0,
+"mcap": 22447493100.0,
 "name": "SoFi Technologies, Inc.",
 "sources": [
 {
@@ -2049,6 +2011,44 @@
 "period": "רבעון נוכחי",
 "eps": 0.17,
 "epsN": 8.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "CMS-2026-10-27",
+"ticker": "CMS",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 22261145600.0,
+"name": "CMS Energy Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 1.34,
+"epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2075,7 +2075,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 20769994800.0,
+"mcap": 20164886500.0,
 "name": "Expand Energy Corporation",
 "sources": [
 {
@@ -2113,7 +2113,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 18752092200.0,
+"mcap": 18671114200.0,
 "name": "F5, Inc.",
 "sources": [
 {
@@ -2151,7 +2151,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17043007500.0,
+"mcap": 17468921900.0,
 "name": "Essex Property Trust, Inc.",
 "sources": [
 {
@@ -2163,6 +2163,44 @@
 "period": "רבעון נוכחי",
 "eps": 4.01,
 "epsN": 7.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "TRU-2026-10-27",
+"ticker": "TRU",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 15662190600.0,
+"name": "TransUnion",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 1.06,
+"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2189,7 +2227,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15602123800.0,
+"mcap": 15551589400.0,
 "name": "ICON plc",
 "sources": [
 {
@@ -2227,7 +2265,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15410365400.0,
+"mcap": 15127665700.0,
 "name": "Lincoln Electric Holdings, Inc.",
 "sources": [
 {
@@ -2244,8 +2282,8 @@
 }
 },
 {
-"id": "TRU-2026-10-27",
-"ticker": "TRU",
+"id": "MANH-2026-10-27",
+"ticker": "MANH",
 "market": "US",
 "date": "2026-10-27",
 "session": "TBD",
@@ -2265,8 +2303,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14979484700.0,
-"name": "TransUnion",
+"mcap": 15119897600.0,
+"name": "Manhattan Associates, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -2275,7 +2313,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.06,
+"eps": 1.03,
 "epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -2303,7 +2341,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14872558600.0,
+"mcap": 15040544800.0,
 "name": "W. P. Carey Inc.",
 "sources": [
 {
@@ -2315,44 +2353,6 @@
 "period": "רבעון נוכחי",
 "eps": 1.26,
 "epsN": 2.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "MANH-2026-10-27",
-"ticker": "MANH",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 14813911000.0,
-"name": "Manhattan Associates, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 1.03,
-"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2379,7 +2379,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14015537200.0,
+"mcap": 14291128300.0,
 "name": "RenaissanceRe Holdings Ltd.",
 "sources": [
 {
@@ -2391,82 +2391,6 @@
 "period": "רבעון נוכחי",
 "eps": 11.26,
 "epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "INIO-2026-10-27",
-"ticker": "INIO",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 13732500500.0,
-"name": "INNIO N.V.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.11,
-"epsN": 3.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "ARCC-2026-10-27",
-"ticker": "ARCC",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 13728926700.0,
-"name": "Ares Capital Corporation",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.48,
-"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2493,7 +2417,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13167851500.0,
+"mcap": 14198873100.0,
 "name": "Logitech International S.A.",
 "sources": [
 {
@@ -2505,6 +2429,44 @@
 "period": "רבעון נוכחי",
 "eps": 1.17,
 "epsN": 4.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "ARCC-2026-10-27",
+"ticker": "ARCC",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 14053914600.0,
+"name": "Ares Capital Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.48,
+"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2531,7 +2493,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12979061800.0,
+"mcap": 13305110500.0,
 "name": "Watsco, Inc.",
 "sources": [
 {
@@ -2569,7 +2531,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12979061800.0,
+"mcap": 13305110500.0,
 "name": "Watsco, Inc.",
 "sources": [
 {
@@ -2577,44 +2539,6 @@
 "url": "https://www.nasdaq.com/market-activity/earnings"
 }
 ]
-},
-{
-"id": "RRC-2026-10-27",
-"ticker": "RRC",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 12621640700.0,
-"name": "Range Resources Corporation",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.66,
-"epsN": 7.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
 },
 {
 "id": "CSGP-2026-10-27",
@@ -2638,7 +2562,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12601204700.0,
+"mcap": 13108150300.0,
 "name": "CoStar Group, Inc.",
 "sources": [
 {
@@ -2676,7 +2600,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12476783600.0,
+"mcap": 12939732000.0,
 "name": "Invesco Plc",
 "sources": [
 {
@@ -2687,6 +2611,44 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 0.75,
+"epsN": 7.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "RRC-2026-10-27",
+"ticker": "RRC",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 12175291400.0,
+"name": "Range Resources Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.66,
 "epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -2714,7 +2676,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11954113500.0,
+"mcap": 11935606800.0,
 "name": "Crane Company",
 "sources": [
 {
@@ -2726,158 +2688,6 @@
 "period": "רבעון נוכחי",
 "eps": 1.81,
 "epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "RGEN-2026-10-27",
-"ticker": "RGEN",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 11395684400.0,
-"name": "Repligen Corporation",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.46,
-"epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "AIT-2026-10-27",
-"ticker": "AIT",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 11142546400.0,
-"name": "Applied Industrial Technologies, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 2.86,
-"epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "PNR-2026-10-27",
-"ticker": "PNR",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 11132721200.0,
-"name": "Pentair plc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 1.07,
-"epsN": 6.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "ENSG-2026-10-27",
-"ticker": "ENSG",
-"market": "US",
-"date": "2026-10-27",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 10630252500.0,
-"name": "The Ensign Group, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 1.75,
-"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2904,7 +2714,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10439425000.0,
+"mcap": 11578668000.0,
 "name": "Universal Health Services, Inc.",
 "sources": [
 {
@@ -2916,6 +2726,234 @@
 "period": "רבעון נוכחי",
 "eps": 5.31,
 "epsN": 7.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "PNR-2026-10-27",
+"ticker": "PNR",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 11499926500.0,
+"name": "Pentair plc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 1.07,
+"epsN": 6.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "RGEN-2026-10-27",
+"ticker": "RGEN",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 11391210500.0,
+"name": "Repligen Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.46,
+"epsN": 4.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "INIO-2026-10-27",
+"ticker": "INIO",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 11054999600.0,
+"name": "INNIO N.V.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.11,
+"epsN": 3.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "ENSG-2026-10-27",
+"ticker": "ENSG",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10986130400.0,
+"name": "The Ensign Group, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 1.75,
+"epsN": 2.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "AIT-2026-10-27",
+"ticker": "AIT",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10892053500.0,
+"name": "Applied Industrial Technologies, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 2.86,
+"epsN": 4.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "BXP-2026-10-27",
+"ticker": "BXP",
+"market": "US",
+"date": "2026-10-27",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10531275800.0,
+"name": "BXP, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 1.8,
+"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -2942,7 +2980,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10336396300.0,
+"mcap": 10520201200.0,
 "name": "UMB Financial Corporation",
 "sources": [
 {
@@ -15077,37 +15115,6 @@
 ]
 },
 {
-"id": "TM-2026-11-04",
-"ticker": "TM",
-"market": "US",
-"date": "2026-11-04",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 259974808000.0,
-"name": "Toyota Motor Corp Ltd Ord",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-]
-},
-{
 "id": "ARM-2026-11-04",
 "ticker": "ARM",
 "market": "US",
@@ -15901,44 +15908,6 @@
 "period": "רבעון נוכחי",
 "eps": 0.32,
 "epsN": 6.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "VMRK-2026-11-04",
-"ticker": "VMRK",
-"market": "US",
-"date": "2026-11-04",
-"session": "AMC",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "after market close",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 50179498000.0,
-"name": "Vivmark Residential",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.97,
-"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -18569,15 +18538,46 @@
 }
 },
 {
+"id": "TM-2026-11-05",
+"ticker": "TM",
+"market": "US",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 259974808000.0,
+"name": "Toyota Motor Corp Ltd Ord",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
+},
+{
 "id": "COP-2026-11-05",
 "ticker": "COP",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18611,11 +18611,11 @@
 "ticker": "SONY",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18687,11 +18687,11 @@
 "ticker": "PH",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18725,11 +18725,11 @@
 "ticker": "SO",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18801,11 +18801,11 @@
 "ticker": "CNQ",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18839,11 +18839,11 @@
 "ticker": "DUK",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -18915,11 +18915,11 @@
 "ticker": "CI",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19029,11 +19029,11 @@
 "ticker": "APD",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19067,11 +19067,11 @@
 "ticker": "KMB",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19094,8 +19094,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.66,
-"epsN": 5.0,
+"eps": 1.69,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -19105,11 +19105,11 @@
 "ticker": "CMI",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19143,11 +19143,11 @@
 "ticker": "TRP",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19181,11 +19181,11 @@
 "ticker": "TRGP",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19219,11 +19219,11 @@
 "ticker": "CAH",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19295,11 +19295,11 @@
 "ticker": "BDX",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19371,11 +19371,11 @@
 "ticker": "SRE",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19405,15 +19405,53 @@
 }
 },
 {
+"id": "VMRK-2026-11-05",
+"ticker": "VMRK",
+"market": "US",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 50179498000.0,
+"name": "Vivmark Residential",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.97,
+"epsN": 5.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "ROK-2026-11-05",
 "ticker": "ROK",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19523,11 +19561,11 @@
 "ticker": "MT",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19599,11 +19637,11 @@
 "ticker": "AU",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19675,11 +19713,11 @@
 "ticker": "ONC",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19751,11 +19789,11 @@
 "ticker": "ZTS",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19789,11 +19827,11 @@
 "ticker": "IRM",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19903,11 +19941,11 @@
 "ticker": "GMAB",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -19979,11 +20017,11 @@
 "ticker": "DTE",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20055,11 +20093,11 @@
 "ticker": "VRSK",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20131,11 +20169,11 @@
 "ticker": "GPN",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20169,11 +20207,11 @@
 "ticker": "TPR",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20207,11 +20245,11 @@
 "ticker": "RL",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20245,11 +20283,11 @@
 "ticker": "USFD",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20397,11 +20435,11 @@
 "ticker": "VTRS",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20435,11 +20473,11 @@
 "ticker": "EVRG",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20473,11 +20511,11 @@
 "ticker": "BCE",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20511,11 +20549,11 @@
 "ticker": "U",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20549,11 +20587,11 @@
 "ticker": "MTSI",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20694,11 +20732,11 @@
 "ticker": "LAMR",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20884,11 +20922,11 @@
 "ticker": "BSY",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -20998,11 +21036,11 @@
 "ticker": "TIGO",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -21184,6 +21222,44 @@
 }
 },
 {
+"id": "MAIR-2026-11-05",
+"ticker": "MAIR",
+"market": "US",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 11845670900.0,
+"name": "Madison Air Solutions Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.3,
+"epsN": 3.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "GMED-2026-11-05",
 "ticker": "GMED",
 "market": "US",
@@ -21333,11 +21409,11 @@
 "ticker": "WMS",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -21371,11 +21447,11 @@
 "ticker": "OSCR",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -21485,11 +21561,11 @@
 "ticker": "ARW",
 "market": "US",
 "date": "2026-11-05",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -22258,44 +22334,6 @@
 ]
 },
 {
-"id": "CEG-2026-11-09",
-"ticker": "CEG",
-"market": "US",
-"date": "2026-11-09",
-"session": "BMO",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "before market open",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 93324567000.0,
-"name": "Constellation Energy Corporation",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 3.9,
-"epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
 "id": "KKR-2026-11-09",
 "ticker": "KKR",
 "market": "US",
@@ -22317,7 +22355,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 86164038000.0,
+"mcap": 90966393000.0,
 "name": "KKR & Co. Inc.",
 "sources": [
 {
@@ -22329,6 +22367,44 @@
 "period": "רבעון נוכחי",
 "eps": 1.41,
 "epsN": 7.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "CEG-2026-11-09",
+"ticker": "CEG",
+"market": "US",
+"date": "2026-11-09",
+"session": "BMO",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "before market open",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 87060406000.0,
+"name": "Constellation Energy Corporation",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 3.9,
+"epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22355,7 +22431,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 61025272000.0,
+"mcap": 66043859000.0,
 "name": "Barrick Mining Corporation",
 "sources": [
 {
@@ -22393,7 +22469,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 60408087000.0,
+"mcap": 57309209000.0,
 "name": "Occidental Petroleum Corporation",
 "sources": [
 {
@@ -22431,7 +22507,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 46813622000.0,
+"mcap": 48078803000.0,
 "name": "Ferguson Enterprises Inc.",
 "sources": [
 {
@@ -22469,7 +22545,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 40740798000.0,
+"mcap": 42303873000.0,
 "name": "Skydance Corporation",
 "sources": [
 {
@@ -22507,7 +22583,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 39748637000.0,
+"mcap": 40358814000.0,
 "name": "ORIX Corporation",
 "sources": [
 {
@@ -22538,7 +22614,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36459315000.0,
+"mcap": 39060214000.0,
 "name": "Take-Two Interactive Software, Inc.",
 "sources": [
 {
@@ -22576,7 +22652,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 34168963100.0,
+"mcap": 32875778000.0,
 "name": "Rocket Lab Corporation",
 "sources": [
 {
@@ -22614,7 +22690,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27896830000.0,
+"mcap": 28528212000.0,
 "name": "Credicorp Ltd.",
 "sources": [
 {
@@ -22652,7 +22728,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 26032521200.0,
+"mcap": 27614408700.0,
 "name": "Roivant Sciences Ltd.",
 "sources": [
 {
@@ -22690,7 +22766,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22102665200.0,
+"mcap": 22491099100.0,
 "name": "Grupo Cibest S.A.",
 "sources": [
 {
@@ -22702,82 +22778,6 @@
 "period": "רבעון נוכחי",
 "eps": 2.87,
 "epsN": 3.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "NRG-2026-11-09",
-"ticker": "NRG",
-"market": "US",
-"date": "2026-11-09",
-"session": "BMO",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "before market open",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 20234860500.0,
-"name": "NRG Energy, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 3.44,
-"epsN": 3.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "BEKE-2026-11-09",
-"ticker": "BEKE",
-"market": "US",
-"date": "2026-11-09",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 19885183000.0,
-"name": "KE Holdings Inc",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.21,
-"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22804,7 +22804,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17454651400.0,
+"mcap": 18066198500.0,
 "name": "Joint Stock Company Kaspi.kz",
 "sources": [
 {
@@ -22816,6 +22816,44 @@
 "period": "רבעון נוכחי",
 "eps": 3.12,
 "epsN": 1.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "NRG-2026-11-09",
+"ticker": "NRG",
+"market": "US",
+"date": "2026-11-09",
+"session": "BMO",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "before market open",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 17500022800.0,
+"name": "NRG Energy, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 3.44,
+"epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22842,7 +22880,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16936821800.0,
+"mcap": 17267290100.0,
 "name": "RB Global, Inc.",
 "sources": [
 {
@@ -22880,7 +22918,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15046130700.0,
+"mcap": 16072997900.0,
 "name": "Somnigroup International Inc.",
 "sources": [
 {
@@ -22918,7 +22956,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14518526000.0,
+"mcap": 14493770800.0,
 "name": "CNH Industrial N.V.",
 "sources": [
 {
@@ -22930,44 +22968,6 @@
 "period": "רבעון נוכחי",
 "eps": 0.1,
 "epsN": 8.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "ASTS-2026-11-09",
-"ticker": "ASTS",
-"market": "US",
-"date": "2026-11-09",
-"session": "AMC",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "after market close",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 14457572400.0,
-"name": "AST SpaceMobile, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": -0.41,
-"epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22994,7 +22994,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13065335800.0,
+"mcap": 13879242800.0,
 "name": "JBS N.V.",
 "sources": [
 {
@@ -23011,15 +23011,15 @@
 }
 },
 {
-"id": "SMMT-2026-11-09",
-"ticker": "SMMT",
+"id": "ASTS-2026-11-09",
+"ticker": "ASTS",
 "market": "US",
 "date": "2026-11-09",
-"session": "TBD",
+"session": "AMC",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "שעה לא צוינה",
+"text": "after market close",
 "tz": "America/New_York"
 },
 "call": {
@@ -23032,8 +23032,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12635677700.0,
-"name": "Summit Therapeutics Inc.",
+"mcap": 13862146000.0,
+"name": "AST SpaceMobile, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -23042,8 +23042,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": -0.28,
-"epsN": 3.0,
+"eps": -0.41,
+"epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23070,7 +23070,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11694770200.0,
+"mcap": 13175775200.0,
 "name": "Equinox Gold Corp.",
 "sources": [
 {
