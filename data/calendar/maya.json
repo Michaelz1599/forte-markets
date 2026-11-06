@@ -1,34 +1,6 @@
 {
-"asof": "2026-11-06T21:46+00:00",
+"asof": "2026-11-06T22:26+00:00",
 "events": [
-{
-"id": "STRW-2026-11-06",
-"ticker": "STRW",
-"market": "IL",
-"date": "2026-11-06",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
-},
-"call": {
-"time": "12:00",
-"tz": "America/New_York",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 2438,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
-}
-]
-},
 {
 "id": "CGEN-2026-11-09",
 "ticker": "CGEN",
@@ -3254,14 +3226,6 @@
 }
 ],
 "profiles": {
-"STRW": {
-"name": "סטרוברי אינק · STRW",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "לוינשטין נכסים": {
 "name": "לוינשטין נכסים",
 "tags": [
@@ -3318,14 +3282,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"BWAY": {
-"name": "בריינסוויי · BWAY",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "ENRG": {
 "name": "אנרג'יקס · ENRG",
 "tags": [
@@ -3342,6 +3298,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"BWAY": {
+"name": "בריינסוויי · BWAY",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "OPCE": {
 "name": "או.פי.סי אנרגיה · OPCE",
 "tags": [
@@ -3350,16 +3314,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"GILT": {
-"name": "גילת · GILT",
+"TASE": {
+"name": "הבורסה לניע בתא · TASE",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"TASE": {
-"name": "הבורסה לניע בתא · TASE",
+"GILT": {
+"name": "גילת · GILT",
 "tags": [
 "TASE"
 ],
@@ -3422,6 +3386,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ריט 1": {
+"name": "ריט 1",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "BEZQ": {
 "name": "בזק · BEZQ",
 "tags": [
@@ -3430,8 +3402,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ריט 1": {
-"name": "ריט 1",
+"ביוהרווסט": {
+"name": "ביוהרווסט",
 "tags": [
 "TASE"
 ],
@@ -3454,8 +3426,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ביוהרווסט": {
-"name": "ביוהרווסט",
+"ALLT": {
+"name": "אלוט · ALLT",
 "tags": [
 "TASE"
 ],
@@ -3464,14 +3436,6 @@
 },
 "מימון ישיר קב": {
 "name": "מימון ישיר קב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ALLT": {
-"name": "אלוט · ALLT",
 "tags": [
 "TASE"
 ],
@@ -3502,14 +3466,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פריון נטוורק": {
-"name": "פריון נטוורק",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "MVNE": {
 "name": "מבנה · MVNE",
 "tags": [
@@ -3534,6 +3490,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פריון נטוורק": {
+"name": "פריון נטוורק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "פועלים": {
 "name": "פועלים",
 "tags": [
@@ -3552,6 +3516,14 @@
 },
 "MAXO": {
 "name": "מקס סטוק · MAXO",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"NWMD": {
+"name": "ניו-מד אנרג יהש · NWMD",
 "tags": [
 "TASE"
 ],
@@ -3590,24 +3562,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"NWMD": {
-"name": "ניו-מד אנרג יהש · NWMD",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "ארגו פרופרטיז": {
 "name": "ארגו פרופרטיז",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מזרחי טפחות": {
-"name": "מזרחי טפחות",
 "tags": [
 "TASE"
 ],
@@ -3622,16 +3578,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פאלו אלטו": {
-"name": "פאלו אלטו",
+"מזרחי טפחות": {
+"name": "מזרחי טפחות",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"ריטיילורס": {
-"name": "ריטיילורס",
+"פאלו אלטו": {
+"name": "פאלו אלטו",
 "tags": [
 "TASE"
 ],
@@ -3670,14 +3626,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ONE": {
-"name": "וואן טכנולוגיות · ONE",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "CAST": {
 "name": "קסטרו · CAST",
 "tags": [
@@ -3688,6 +3636,14 @@
 },
 "אורבניקה (פאלו)": {
 "name": "אורבניקה (פאלו)",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ONE": {
+"name": "וואן טכנולוגיות · ONE",
 "tags": [
 "TASE"
 ],
@@ -3710,8 +3666,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מגדל ביטוח": {
-"name": "מגדל ביטוח",
+"ריטיילורס": {
+"name": "ריטיילורס",
 "tags": [
 "TASE"
 ],
@@ -3720,6 +3676,14 @@
 },
 "אלוני חץ": {
 "name": "אלוני חץ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מגדל ביטוח": {
+"name": "מגדל ביטוח",
 "tags": [
 "TASE"
 ],
@@ -3736,6 +3700,14 @@
 },
 "תמר פטרוליום": {
 "name": "תמר פטרוליום",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ARBE": {
+"name": "ארבה רובוטיקס · ARBE",
 "tags": [
 "TASE"
 ],
@@ -3760,14 +3732,6 @@
 },
 "אלטשולר שחם פנ": {
 "name": "אלטשולר שחם פנ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ARBE": {
-"name": "ארבה רובוטיקס · ARBE",
 "tags": [
 "TASE"
 ],
@@ -3902,16 +3866,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"זנלכל": {
-"name": "זנלכל",
+"הולמס פלייס": {
+"name": "הולמס פלייס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"הולמס פלייס": {
-"name": "הולמס פלייס",
+"זנלכל": {
+"name": "זנלכל",
 "tags": [
 "TASE"
 ],
@@ -3974,6 +3938,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"PHOE": {
+"name": "הפניקס · PHOE",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "טיב טעם": {
 "name": "טיב טעם",
 "tags": [
@@ -3990,16 +3962,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"TLSY": {
-"name": "טלסיס · TLSY",
+"מנורה מב החזקות": {
+"name": "מנורה מב החזקות",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"PHOE": {
-"name": "הפניקס · PHOE",
+"TLSY": {
+"name": "טלסיס · TLSY",
 "tags": [
 "TASE"
 ],
@@ -4014,8 +3986,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מנורה מב החזקות": {
-"name": "מנורה מב החזקות",
+"בתי זיקוק": {
+"name": "בתי זיקוק",
 "tags": [
 "TASE"
 ],
@@ -4024,14 +3996,6 @@
 },
 "אלקטרה צריכה": {
 "name": "אלקטרה צריכה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"בתי זיקוק": {
-"name": "בתי זיקוק",
 "tags": [
 "TASE"
 ],
@@ -4176,6 +4140,14 @@
 },
 "גוטו": {
 "name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"STRW": {
+"name": "סטרוברי אינק · STRW",
 "tags": [
 "TASE"
 ],
