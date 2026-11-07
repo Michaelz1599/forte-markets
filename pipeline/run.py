@@ -237,7 +237,7 @@ def vix_futures_spread() -> tuple[str, str]:
     then the last two weeks). vix_fut_spread: (highest contract / spot VIX - 1) x 100. Negative = spot VIX above
     every futures contract, i.e. the whole curve is inverted."""
     cur = read_series("vix_fut_max")
-    full = len(cur) < 2500 or min(cur) > "2013-01-31"
+    full = len(cur) < 2500   # the stored history starts 2013-05-20: Cboe's early-2013 files carry no settle prices
     since = None if full else (dt.date.fromisoformat(max(cur)) - dt.timedelta(days=14)).isoformat()
     res = sources.vix_futures(since)
     rep = merge_series("vix_fut_max", res["max"])
