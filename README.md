@@ -29,6 +29,8 @@
 |---|---|
 | Fear & Greed ורכיביו (Put/Call 5 ימים, McClellan, שיאים/שפלים, Junk, Safe Haven) | API של CNN. גיבוי: המראה `whit3rabbit/fear-greed-data` |
 | VIX, ‏VIX3M, ‏VVIX, ‏SKEW | קובצי ההיסטוריה של Cboe. גיבוי: Yahoo |
+| מרווח חוזי VIX מעל ה-VIX (McClellan) | קובצי הסליקה היומיים של כל חוזה VX חודשי ב-Cboe, מ-2013 |
+| פוזיציות ספקולנטים (S&P 500, נאסד״ק 100, דאו, ראסל 2000) | דוח ה-COT ‏(Legacy) של ה-CFTC דרך ה-API שלו (Socrata), מ-2006 |
 | Put/Call כולל ומניות | עמוד הסטטיסטיקה היומי של Cboe (best effort), נבדק מול ההיסטוריה מ-TradingView |
 | AAII | עמוד התוצאות של AAII |
 | פער HY, עקום 10Y-2Y, ‏NFCI | FRED |

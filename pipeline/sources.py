@@ -243,6 +243,77 @@ def cftc() -> dict:
     return out
 
 
+# --------------------------------------------------------------------------- CFTC legacy COT: speculators by index
+# Legacy futures-only report (dataset 6dca-aqww), weekly as of Tuesday, published Friday. Net positions per group:
+# large speculators = non-commercial, small speculators = non-reportable, commercials (hedgers). The three nets sum
+# to zero (spreading positions are equal long and short), so net specs = large + small = -commercials.
+COT_INDEXES = {   # our key: (name, CFTC contract codes summed)
+    "sp": ("S&P 500 · E-mini", ("13874A",)),
+    "nq": ("Nasdaq 100 · E-mini", ("209742",)),
+    "dj": ("Dow · $5", ("124603",)),
+    "rty": ("Russell 2000 · E-mini", ("239742", "23977A")),   # CME from 2017; ICE before (same $50 contract)
+}
+COT_FIELDS = ("noncomm_positions_long_all", "noncomm_positions_short_all", "nonrept_positions_long_all",
+              "nonrept_positions_short_all", "comm_positions_long_all", "comm_positions_short_all")
+
+
+def cot_parse(rows: list[dict]) -> dict[str, dict[str, int]]:
+    """{lg, sm, cm, spec: {date: net contracts}} summed over the rows of each report date."""
+    acc: dict[str, list[int]] = {}
+    for r in rows:
+        try:
+            d = r["report_date_as_yyyy_mm_dd"][:10]
+            x = [int(float(r[f])) for f in COT_FIELDS]
+        except (KeyError, TypeError, ValueError):
+            continue
+        a = acc.setdefault(d, [0, 0, 0])
+        a[0] += x[0] - x[1]
+        a[1] += x[2] - x[3]
+        a[2] += x[4] - x[5]
+    out = {"lg": {}, "sm": {}, "cm": {}, "spec": {}}
+    for d, (lg, sm, cm) in acc.items():
+        out["lg"][d], out["sm"][d], out["cm"][d], out["spec"][d] = lg, sm, cm, lg + sm
+    return out
+
+
+def cot_legacy(since: str | None = None) -> tuple[dict, list[str]]:
+    """{series id: {date: contracts}} for cot_<key>_{spec,lg,sm,cm} (full history from 2006 when since is None);
+    plus notes for indexes that failed."""
+    full = since is None
+    since = since or "2006-01-01"
+    out, notes = {}, []
+    for key, (name, codes) in COT_INDEXES.items():
+        try:
+            rows = get(SOCRATA.format(ds="6dca-aqww"), expect_json=True, params={
+                "$select": "report_date_as_yyyy_mm_dd,cftc_contract_market_code," + ",".join(COT_FIELDS),
+                "$where": f"cftc_contract_market_code in({','.join(repr(c) for c in codes)}) "
+                          f"AND report_date_as_yyyy_mm_dd >= '{since}T00:00:00'",
+                "$order": "report_date_as_yyyy_mm_dd", "$limit": "20000"})
+            p = cot_parse(rows)
+            need = 100 if full else 1
+            if len(p["spec"]) < need:
+                if rows:
+                    save_probe(f"cot_{key}", json.dumps(rows[:3]))
+                raise ValueError(f"only {len(p['spec'])} reports")
+            for part, s in p.items():
+                out[f"cot_{key}_{part}"] = s
+        except Exception as e:
+            notes.append(f"{name}: {type(e).__name__} {str(e)[:100]}")
+    if notes:
+        try:   # keep the list of index contracts so a changed code can be fixed
+            names = get(SOCRATA.format(ds="6dca-aqww"), expect_json=True, params={
+                "$select": "cftc_contract_market_code,market_and_exchange_names,max(report_date_as_yyyy_mm_dd)",
+                "$where": "upper(market_and_exchange_names) like '%RUSSELL%' OR upper(market_and_exchange_names) like '%DJIA%'"
+                          " OR upper(market_and_exchange_names) like '%NASDAQ%' OR upper(market_and_exchange_names) like '%S&P 500%'",
+                "$group": "cftc_contract_market_code,market_and_exchange_names", "$limit": "500"})
+            save_probe("cot_names", json.dumps(names, ensure_ascii=False))
+        except Exception:
+            pass
+    if not out:
+        raise ValueError("CFTC COT: " + "; ".join(notes))
+    return out, notes
+
+
 # --------------------------------------------------------------------------- AAII
 AAII_URL = "https://www.aaii.com/sentimentsurvey/sent_results"
 MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}

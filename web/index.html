@@ -922,7 +922,7 @@ const MIN_COMP = { d: 200, w: 40, m: 24 };     // fewer than this: shown but fla
 const MIN_ROLL = { d: 250, w: 52, m: 24 };     // rolling percentile (history chart, composite, analogs) needs a year of prior data
 const FRESH = { d: 5, w: 12, m: 45 };          // days since last observation before a series counts as stale
 const FREQ_LABEL = { d: 'יומי', w: 'שבועי', m: 'חודשי' };
-const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['breadth', 'רוחב שוק'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['cds', 'CDS'], ['other', 'אחר']];
+const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['pos', 'פוזיציות ספקולנטים בחוזים (CFTC)'], ['breadth', 'רוחב שוק'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['cds', 'CDS'], ['other', 'אחר']];
 const BIAS = { bull: 'שורי', bear: 'דובי', neutral: 'ניטרלי', watch: 'במעקב', pending: 'ממתין לניתוח' };
 const HORIZON = { short: 'קצר (ימים–שבועות)', mid: 'בינוני (שבועות–חודשים)', long: 'ארוך (חודשים+)' };
 const COMP_ID = '__comp';
@@ -1472,6 +1472,16 @@ function drawChart(id, rangeDays) {
     s0.markLine = { symbol: 'none', silent: true, data: [{ yAxis: 0, lineStyle: { color: ink2, type: 'solid', width: 1 }, label: { formatter: '0', color: muted, fontSize: 10, position: 'insideStartTop' } }] };
     s0.markPoint.itemStyle = { color: lastV >= 0 ? greed : fear, borderColor: surface, borderWidth: 2 };
     option.visualMap = [{ show: false, type: 'piecewise', seriesIndex: 0, dimension: 1, pieces: [{ min: -10, max: 0, color: fear }, { min: 0, max: 10, color: greed }] }];   // bounded pieces: open-ended ones break the line gradient in ECharts 5.6
+  }
+  if (meta.parts && meta.parts.length) {
+    // positioning (COT): one bar per trader group under the net line, as in the usual positioning charts
+    const PAL = ['#4C83C3', '#D2604F', '#D9A93B'];
+    const names = [];
+    meta.parts.forEach((p, k) => {
+      const ps = S.ser.get(p.id); if (!ps) return; names.push(p.name);
+      option.series.push({ name: p.name, type: 'bar', xAxisIndex: 0, yAxisIndex: 0, data: ps.t.map((t, i) => [t, ps.v[i]]), barMaxWidth: 7, barGap: '10%', itemStyle: { color: p.color || PAL[k % PAL.length], opacity: .78 }, z: 2 });
+    });
+    if (names.length) { option.legend = { show: true, top: 0, right: 8, itemWidth: 12, itemHeight: 8, textStyle: { color: muted, fontFamily: font, fontSize: 11 }, data: [meta.name, ...names] }; option.grid[0].top = 34; }
   }
   lvDecorate(option, id);
   evDecorate(option, id, meta, s);

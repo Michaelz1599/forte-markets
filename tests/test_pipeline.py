@@ -174,7 +174,9 @@ def test_macro_definitions_are_consistent():
     assert all(d["tab"] == "macro" and not d["pin"] and not d["comp"] and d["pol"] == 0 for d in defs)
     inds = json.loads((macro.ROOT / "config" / "indicators.json").read_text(encoding="utf-8"))
     assert not {d["id"] for d in defs} & {i["id"] for i in inds}
-    assert not any(i["group"] == "pos" for i in inds)
+    # the institutional COT cut (asset managers / leveraged funds) was removed on 22.10; speculators returned on 7.11
+    assert not any(i["id"] in ("cot_es_am", "cot_es_lev", "cot_nq_am", "cot_vix_nc") for i in inds)
+    assert all(i["id"].startswith("cot_") and i["id"].endswith("_spec") for i in inds if i["group"] == "pos")
     assert any(i["id"] == "sp_mcsi" and i["comp"] for i in inds) and not any(i["id"] == "mcsi" and i["comp"] for i in inds)
 
 
@@ -382,3 +384,14 @@ def test_vx_expiry_and_parse():
            "2024-01-17,F (Jan 2024),13.0,13.0,13.0,13.0,13.1200,0,0,0,0\n")
     pts = sources.vx_parse(txt, "2024-01-17")
     assert pts == {"2024-01-02": 14.05, "2024-01-03": 14.8}   # zero settle and the expiry morning are dropped
+
+
+def test_cot_parse_nets_and_sums_exchanges():
+    from pipeline import sources
+    row = lambda d, c, *v: dict(zip(("report_date_as_yyyy_mm_dd", "cftc_contract_market_code") + sources.COT_FIELDS, (d, c) + v))
+    rows = [row("2017-07-11T00:00:00.000", "23977A", "100", "300", "50", "20", "400", "230"),
+            row("2017-07-11T00:00:00.000", "239742", "1000", "500", "60", "90", "500", "970"),
+            row("2017-07-18T00:00:00.000", "239742", "x", "1", "1", "1", "1", "1")]
+    p = sources.cot_parse(rows)
+    assert p["lg"] == {"2017-07-11": 300} and p["sm"] == {"2017-07-11": 0} and p["cm"] == {"2017-07-11": -300}
+    assert p["spec"]["2017-07-11"] == -p["cm"]["2017-07-11"]   # the nets of the three groups sum to zero

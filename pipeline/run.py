@@ -109,6 +109,10 @@ def run(offline: bool = False, live: bool = False) -> int:
             rep = merge_series("aaii_spread", res["aaii_spread"])
             merge_series("aaii_bull", res["aaii_bull"]); merge_series("aaii_bear", res["aaii_bear"])
             st.add("aaii", "AAII", True, _last(res["aaii_spread"]), "שבוע חדש נוסף" if rep["added"] else "אין פרסום חדש")
+        # 6b. CFTC COT: speculators' net position in the S&P 500, Nasdaq, Dow and Russell futures
+        res = step(st, "cot", "CFTC COT · פוזיציות ספקולנטים", cot_update)
+        if res:
+            st.add("cot", "CFTC COT · פוזיציות ספקולנטים", res[0] is not None and not res[2], res[0], res[1])
         # 7. FRED
         res = step(st, "fred", "FRED: פער HY, עקום, NFCI", sources.fred)
         if res:
@@ -254,6 +258,23 @@ def vix_futures_spread() -> tuple[str, str]:
     return last, msg
 
 
+def cot_update() -> tuple[str | None, str, list[str]]:
+    """Full history from 2006 on the first run, then the last 8 weeks (CFTC revises recent reports)."""
+    cur = read_series("cot_sp_spec")
+    since = None if len(cur) < 500 else (dt.date.fromisoformat(max(cur)) - dt.timedelta(days=56)).isoformat()
+    data, notes = sources.cot_legacy(since)
+    added = 0
+    for sid, pts in data.items():
+        rep = merge_series(sid, pts)
+        if sid.endswith("_spec"):
+            added += rep["added"]
+    last = max((max(v) for k, v in data.items() if k.endswith("_spec") and v), default=None)
+    msg = (f"{'היסטוריה מ-2006' if since is None else 'עדכון'} · {added} דוחות חדשים"
+           + (f" · S&P 500: {data['cot_sp_spec'][last]:+,} חוזים" if last and last in data.get('cot_sp_spec', {}) else "")
+           + (" · נכשלו: " + "; ".join(notes) if notes else ""))
+    return last, msg, notes
+
+
 def summation_from_oscillator() -> None:
     """McClellan Summation by stock count: the running total of the stored S&P 500 McClellan Oscillator."""
     mco = read_series("sp_mco")
@@ -290,11 +311,12 @@ def build(st: Status, u: dict, px) -> None:
     for ind in inds:
         if ind.get("derive") or ind.get("tab"):
             continue
-        s = read_series(ind["id"])
-        if not s:
-            continue
-        ks = sorted(s)
-        series[ind["id"]] = {"t": [(dt.date.fromisoformat(k) - epoch).days for k in ks], "v": [s[k] for k in ks]}
+        for sid in [ind["id"]] + [p["id"] for p in ind.get("parts", [])]:   # parts: the bars drawn under the line
+            s = read_series(sid)
+            if not s:
+                continue
+            ks = sorted(s)
+            series[sid] = {"t": [(dt.date.fromisoformat(k) - epoch).days for k in ks], "v": [s[k] for k in ks]}
     dump_json(tmp / "data" / "series.json", series)
     status = st.to_dict()
     dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds, "macro": macro.site_meta()})
