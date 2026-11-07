@@ -366,3 +366,19 @@ def test_earnings_live_numbers(tmp_path, monkeypatch):
     assert r["d1"] == days[-2] and abs(r["move"] - 0.1) < 1e-9 and r["surprise"] == 0.2
     assert "עלתה 10.0%" in r["he"] and "מעל הצפי" in r["he"]
     assert "BBB-1" in out["implied"] and "BBB-1" not in out["results"]
+
+
+def test_vx_expiry_and_parse():
+    from pipeline import sources
+    # the Wednesday 30 days before the next month's third Friday
+    assert sources.vx_expiry(2026, 11).isoformat() == "2026-11-18"
+    assert sources.vx_expiry(2024, 1).isoformat() == "2024-01-17"
+    assert sources.vx_expiry(2025, 12).isoformat() == "2025-12-17"
+    assert all(sources.vx_expiry(y, m).weekday() == 2 for y in range(2013, 2028) for m in range(1, 13))
+    txt = ("﻿Trade Date,Futures,Open,High,Low,Close,Settle,Change,Total Volume,EFP,Open Interest\n"
+           "2024-01-02,F (Jan 2024),13.5,14.2,13.4,14.1,14.0500,0.6,50000,10,200000\n"
+           "01/03/2024,F (Jan 2024),14.1,14.9,14.0,14.7,14.8000,0.75,50000,10,200000\n"
+           "2024-01-04,F (Jan 2024),0,0,0,0,0,0,0,0,0\n"
+           "2024-01-17,F (Jan 2024),13.0,13.0,13.0,13.0,13.1200,0,0,0,0\n")
+    pts = sources.vx_parse(txt, "2024-01-17")
+    assert pts == {"2024-01-02": 14.05, "2024-01-03": 14.8}   # zero settle and the expiry morning are dropped

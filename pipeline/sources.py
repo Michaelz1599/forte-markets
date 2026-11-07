@@ -100,6 +100,102 @@ def cboe_history(sym: str) -> dict:
     return out
 
 
+# --------------------------------------------------------------------------- Cboe VIX futures (McClellan's spread)
+# One CSV per monthly VX contract, named by its final settlement date; history from 2013 (older files are in a
+# different archive). Columns: Trade Date, Futures, Open, High, Low, Close, Settle, Change, Total Volume, EFP, OI.
+VX_URL = "https://cdn.cboe.com/data/us/futures/market_statistics/historical_data/VX/VX_{d}.csv"
+VX_START = dt.date(2013, 1, 1)
+VX_MIN_CONTRACTS = 5          # fewer monthly contracts with a settle on a day = incomplete curve, the day is skipped
+
+
+def vx_expiry(y: int, m: int) -> dt.date:
+    """Monthly VX expiry: the Wednesday 30 days before the third Friday of the following month.
+    On an exchange holiday Cboe moves it to the business day before (the caller tries those too)."""
+    ny, nm = (y + 1, 1) if m == 12 else (y, m + 1)
+    first = dt.date(ny, nm, 1)
+    third_fri = first + dt.timedelta(days=(4 - first.weekday()) % 7 + 14)
+    return third_fri - dt.timedelta(days=30)
+
+
+def vx_parse(text: str, expiry: str) -> dict[str, float]:
+    """{trade date: settle} of one contract. The expiry day itself is dropped: the contract settles at that
+    morning's opening quotation, so its last 'settle' is not a closing price comparable to spot VIX."""
+    lines = text.replace("\ufeff", "").splitlines()
+    k = next((i for i, l in enumerate(lines) if l.lstrip('"').startswith("Trade Date")), None)
+    if k is None:
+        raise ValueError("no 'Trade Date' header")
+    rows = list(csv.reader(io.StringIO("\n".join(lines[k:]))))
+    head = [h.strip().strip('"').lower() for h in rows[0]]
+    di, si = head.index("trade date"), head.index("settle")
+    out = {}
+    for r in rows[1:]:
+        if len(r) <= si:
+            continue
+        d = _parse_date(r[di])
+        try:
+            v = float(r[si])
+        except ValueError:
+            continue
+        if d and d < expiry and 5 <= v <= 150:
+            out[d] = v
+    return out
+
+
+def _vx_contract(y: int, m: int) -> tuple[str, dict] | None:
+    nominal = vx_expiry(y, m)
+    for back in (0, 1, 2):
+        d = (nominal - dt.timedelta(days=back)).isoformat()
+        try:
+            r = get(VX_URL.format(d=d), tries=3, timeout=30)
+        except RuntimeError as e:
+            if "HTTP 403" in str(e) or "HTTP 404" in str(e):
+                continue
+            raise
+        pts = vx_parse(r.text, d)
+        if not pts and nominal < today_utc():
+            save_probe(f"vx_{d}", r.text[:3000])
+        return d, pts
+    return None
+
+
+def vix_futures(since: str | None = None) -> dict:
+    """Highest settle among the monthly VX contracts on each trading day (from `since`, or the full history).
+
+    Returns {"max": {date: settle}, "n": {date: contracts}, "files": int, "missing": [expiries]}."""
+    from concurrent.futures import ThreadPoolExecutor
+    today = today_utc()
+    start = VX_START if since is None else max(VX_START, dt.date.fromisoformat(since))
+    months = []
+    y, m = start.year, start.month
+    while True:
+        e = vx_expiry(y, m)
+        if e > today + dt.timedelta(days=340):
+            break
+        if e >= start - dt.timedelta(days=5):
+            months.append((y, m))
+        y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+    with ThreadPoolExecutor(6) as ex:
+        got = list(ex.map(lambda ym: (ym, _vx_contract(*ym)), months))
+    missing = [vx_expiry(*ym) for ym, res in got if (res is None or not res[1]) and vx_expiry(*ym) < today]
+    # a contract that could not be read leaves a hole in the curve: skip every day it was listed (~9 months)
+    holes = [((e - dt.timedelta(days=300)).isoformat(), e.isoformat()) for e in missing]
+    best, cnt = {}, {}
+    cut, lo = cutoff_date(), start.isoformat()
+    for _, res in got:
+        if not res:
+            continue
+        for d, v in res[1].items():
+            if lo <= d <= cut and not any(a <= d <= b for a, b in holes):
+                cnt[d] = cnt.get(d, 0) + 1
+                if v > best.get(d, 0):
+                    best[d] = v
+    days = [d for d in best if cnt[d] >= VX_MIN_CONTRACTS]
+    if since is None and len(days) < 2500:
+        raise ValueError(f"Cboe VX: only {len(days)} days with a full curve")
+    return {"max": {d: round(best[d], 4) for d in days}, "n": {d: cnt[d] for d in days},
+            "files": sum(1 for _, r in got if r and r[1]), "missing": [e.isoformat() for e in missing]}
+
+
 # --------------------------------------------------------------------------- CFTC
 SOCRATA = "https://publicreporting.cftc.gov/resource/{ds}.json"
 

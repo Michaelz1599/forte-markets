@@ -99,6 +99,10 @@ def run(offline: bool = False, live: bool = False) -> int:
         errs = [k[:-4] for k in cb if k.endswith("_err")]
         st.add("cboe", "Cboe VIX, VIX3M, VVIX, SKEW", bool(cb.get("VIX")), _last(cb.get("VIX", {})),
                ("Yahoo כגיבוי עבור " + ", ".join(errs)) if errs else "")
+        # 5. VIX futures: % spread from the highest monthly contract to spot VIX (McClellan)
+        res = step(st, "vx", "Cboe חוזי VIX (מרווח מהחוזה הגבוה)", vix_futures_spread)
+        if res:
+            st.add("vx", "Cboe חוזי VIX (מרווח מהחוזה הגבוה)", True, res[0], res[1])
         # 6. AAII
         res = step(st, "aaii", "AAII", sources.aaii)
         if res:
@@ -226,6 +230,28 @@ def run(offline: bool = False, live: bool = False) -> int:
     if status["failed"]:
         print("::warning title=sources failed::" + ", ".join(status["failed"]))
     return 0
+
+
+def vix_futures_spread() -> tuple[str, str]:
+    """vix_fut_max: the highest settle among the monthly VX contracts each day (full history on the first run,
+    then the last two weeks). vix_fut_spread: (highest contract / spot VIX - 1) x 100. Negative = spot VIX above
+    every futures contract, i.e. the whole curve is inverted."""
+    cur = read_series("vix_fut_max")
+    full = len(cur) < 2500 or min(cur) > "2013-01-31"
+    since = None if full else (dt.date.fromisoformat(max(cur)) - dt.timedelta(days=14)).isoformat()
+    res = sources.vix_futures(since)
+    rep = merge_series("vix_fut_max", res["max"])
+    vix, mx = read_series("vix"), read_series("vix_fut_max")
+    spread = {d: round((v / vix[d] - 1) * 100, 2) for d, v in mx.items() if vix.get(d, 0) > 0}
+    if not spread:
+        raise ValueError("no day with both spot VIX and a futures curve")
+    merge_series("vix_fut_spread", spread)
+    last = max(spread)
+    msg = (f"{'היסטוריה מלאה' if full else 'עדכון'}: {res['files']} חוזים, {rep['added']} ימים חדשים · "
+           f"{last}: {spread[last]:+.1f}% ({res['n'].get(last, '—')} חוזים)")
+    if res["missing"]:
+        msg += " · חסרים: " + ", ".join(res["missing"])
+    return last, msg
 
 
 def summation_from_oscillator() -> None:

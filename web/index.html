@@ -1370,7 +1370,7 @@ function openInd(id) {
             <button type="button" data-r="365">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827" aria-pressed="true">5 שנים</button><button type="button" data-r="3653">10 שנים</button><button type="button" data-r="0">הכל</button>
           </div>
           <div class="grp" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-            ${id !== 'spx' && id !== 'ta35_px' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID || id === 'il_sent' ? 'checked' : ''}><span id="dSpxName">${esc(benchOf(id, meta).name)}</span> ברקע</label>` : ''}
+            ${id !== 'spx' && id !== 'ta35_px' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID || id === 'il_sent' || meta.spxBg ? 'checked' : ''}><span id="dSpxName">${esc(benchOf(id, meta).name)}</span> ברקע</label>` : ''}
             <button type="button" class="btn ghost sm" id="dCsv" hidden>הורדת CSV</button>
             ${adminBtns}
           </div>
