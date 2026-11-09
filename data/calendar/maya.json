@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-09T08:33+00:00",
+"asof": "2026-11-09T13:54+00:00",
 "events": [
 {
 "id": "CGEN-2026-11-09",
@@ -1567,6 +1567,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778900"
+}
+]
+},
+{
+"id": "מור גמל פנסיה-2026-11-18",
+"ticker": "מור גמל פנסיה",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2358,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
 }
 ]
 },
@@ -3676,6 +3704,14 @@
 },
 "סלקום": {
 "name": "סלקום",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מור גמל פנסיה": {
+"name": "מור גמל פנסיה",
 "tags": [
 "TASE"
 ],
