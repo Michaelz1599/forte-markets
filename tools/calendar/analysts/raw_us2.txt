@@ -1,0 +1,170 @@
+T SE|SE|USD|73.43|NA
+M 45.47B|40.50B|28.67|17.47|1.64|3.66|15.09|0.94|StockAnalysis|https://stockanalysis.com/stocks/se/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/se/forecast/|2026-10-26|22|4|2|0|0|70|150.04|195
+S Investing.com|https://www.investing.com/equities/sea-limited-consensus-estimates|2026-11-09|NA|27|2|0|NA|105|154.93|195
+R StockAnalysis|2026-09-15|Morgan Stanley|Buy|153
+R StockAnalysis|2026-09-07|Arete Research|Buy|152
+R StockAnalysis|2026-09-03|Bank of America Securities|Buy|NA
+R StockAnalysis|2026-08-17|TD Cowen|Hold|100 → 115
+R StockAnalysis|2026-08-17|J.P. Morgan|Buy|162 → 173
+R StockAnalysis|2026-08-17|Phillip Securities|Buy|170
+R StockAnalysis|2026-08-12|UOB Kay Hian|Buy|181
+R StockAnalysis|2026-08-12|Barclays|Buy|122 → 156
+R Investing.com|2026-10-01|DBS Group|Hold|105.00
+R Investing.com|2026-09-08|Arete|Buy|152.00
+R Investing.com|2026-08-17|Phillip Securities|Buy|170.00
+R Investing.com|2026-08-13|Morgan Stanley|Buy|153.00
+R Investing.com|2026-08-13|Barclays|Buy|156.00
+N SE: StockAnalysis price 73.43 (date not shown, analyst data 2026-10-26) conflicts with Investing.com price 93.77 ("Closed 16/10", year not shown). Investing.com counts 27 buy + 2 hold = 29 but its FAQ says 28 analysts (StockAnalysis: 28). Investing.com table truncated to 5 rows.
+T SKYD|SKYD|USD|8.01|2026-11-06
+M 39.18B|53.75B|NA|NA|1.35|0.74|16.24|NA|StockAnalysis|https://stockanalysis.com/stocks/skyd/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/skyd/forecast/|2026-10-27|3|3|10|3|5|4.20|9.15|13.74
+S Investing.com|https://www.investing.com/equities/viacom-cl-b-consensus-estimates|2026-11-09|NA|4|9|9|NA|2|9.92|16
+R StockAnalysis|2026-10-16|Bernstein|Sell|12 → 6
+R StockAnalysis|2026-10-07|Barclays|Sell|8 → 6.85
+R StockAnalysis|2026-10-01|Needham|Hold|NA
+R StockAnalysis|2026-09-25|Bank of America Securities|Sell|9
+R StockAnalysis|2026-09-22|StoneX|Buy|16
+R StockAnalysis|2026-09-22|Morgan Stanley|Buy|10 → 12
+R StockAnalysis|2026-09-22|UBS|Sell|8
+R StockAnalysis|2026-09-15|Citizens JMP|Buy|NA
+R Investing.com|2026-10-01|Needham|Hold|NA
+R Investing.com|2026-10-01|Citizens|Buy|14.00
+R Investing.com|2026-09-22|StoneX|Buy|16.00
+R Investing.com|2026-09-22|Morgan Stanley|Buy|11.50
+R Investing.com|2026-09-22|Citizens|Buy|14.00
+N SKYD: company is Skydance / Paramount Skydance (Investing.com URL slug is viacom-cl-b). StockAnalysis price 8.01 is the 2026-11-06 close but analyst data is dated 2026-10-27. Investing.com price 9.34 is the "01/10" close (stale), its counts 4+9+9=22 vs StockAnalysis 24 analysts; Investing.com table truncated to 5 rows.
+T TTWO|TTWO|USD|203.69|2026-10-23
+M 40.18B|41.29B|NA|25.73|6.01|11.14|53.87|0.99|StockAnalysis|https://stockanalysis.com/stocks/ttwo/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/ttwo/forecast/|2026-10-19|25|3|0|1|0|170|286.44|368
+S Investing.com|https://www.investing.com/equities/take-two-interactive-consensus-estimates|2026-11-09|NA|28|0|1|NA|170|286.44|368
+R Investing.com|2026-10-15|Citi|Buy|270.00
+R Investing.com|2026-10-14|StoneX|Buy|300.00
+R Investing.com|2026-10-14|Raymond James|Buy|300.00
+R Investing.com|2026-10-12|Wells Fargo|Buy|300.00
+R Investing.com|2026-09-28|JPMorgan|Buy|310.00
+N TTWO: StockAnalysis ratings page was not returned by search, so no StockAnalysis R lines. Investing.com price 205.28 is the "16/10" close (year not shown); Investing.com table truncated to 5 rows.
+T KB|KB|USD|118.81|NA
+M 42.85B|NA|10.88|8.25|3.86|1.06|NA|NA|StockAnalysis|https://stockanalysis.com/stocks/kb/statistics/
+S Investing.com|https://www.investing.com/equities/kb-financial-group-inc-consensus-estimates|2026-11-09|NA|1|0|0|NA|166.6252897|166.63|166.6252897
+N KB (KB Financial Group ADR, NYSE): no StockAnalysis forecast/ratings page was surfaced by search (fetch of /stocks/kb/forecast/ was refused), so no StockAnalysis S line; unknown whether coverage exists there. Price 118.81 is from Investing.com ("16/10" close, year not shown), StockAnalysis EV shown as n/a. Investing.com shows a single analyst (Buy, target 166.63, so low=high=avg); no ratings table on the page.
+T IX|IX|USD|34.61|NA
+M 40.04B|74.93B|10.24|7.90|1.88|1.34|10.57|NA|StockAnalysis|https://stockanalysis.com/stocks/ix/statistics/
+S Investing.com|https://www.investing.com/equities/orix-consensus-estimates|2026-11-09|NA|0|1|0|NA|41.09368|41.09|41.09368
+N IX (ORIX ADR, NYSE): no StockAnalysis forecast/ratings page surfaced by search, so no StockAnalysis S line. Price 34.61 from Investing.com (real-time label, no date). Investing.com shows a single analyst (Hold, target 41.09 USD); no ratings table.
+T ALC|ALC|USD|69.99|2026-10-26
+M 33.95B|37.71B|54.61|18.23|3.13|1.57|15.69|NA|StockAnalysis|https://stockanalysis.com/stocks/alc/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/alc/forecast/|2026-10-13|17|4|5|1|0|62|82.48|103
+S Investing.com|https://www.investing.com/equities/alcon-ag-consensus-estimates|2026-11-09|NA|20|6|1|NA|47.35016807|73.82|85.42264491
+R StockAnalysis|2026-09-11|Berenberg Bank|Buy|104
+R StockAnalysis|2026-08-17|Deutsche Bank|Buy|86 → 90
+R StockAnalysis|2026-08-14|UBS|Buy|106 → 102
+R StockAnalysis|2026-08-13|Mizuho Securities|Buy|85
+R StockAnalysis|2026-08-13|J.P. Morgan|Hold|78
+R StockAnalysis|2026-08-11|William Blair|Hold|NA
+R StockAnalysis|2026-08-11|Needham|Buy|95 → 98
+R StockAnalysis|2026-07-21|Bank of America Securities|Sell|61 → 59
+R Investing.com|2026-08-17|Deutsche Bank|Buy|73.00
+R Investing.com|2026-08-14|UBS|Buy|83.00
+R Investing.com|2026-08-13|BNP Paribas Exane|Hold|64.00
+R Investing.com|2026-08-12|Bernstein SocGen Group|Buy|76.15
+R Investing.com|2026-08-12|JPMorgan|Hold|63.50
+N ALC: Investing.com page is the Swiss line "Alcon (ALCC)", currency not stated on page; its targets (e.g. Deutsche 73 vs StockAnalysis USD 90) look like CHF, so Investing.com S and R numbers are probably NOT USD (unverified, do not mix). Investing.com price 61.12 (date not shown), counts 20+6+1=27 but FAQ says 17 analysts; table truncated. StockAnalysis: analyst data 2026-10-13 vs price 2026-10-26; ratings page says "Last checked 2026-09-05".
+T VOD|VOD|USD|15.52|2026-10-14
+M 36.40B|87.32B|NA|13.75|0.78|0.58|8.46|NA|StockAnalysis|https://stockanalysis.com/stocks/vod/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/vod/forecast/|2026-10-02|2|1|0|2|0|12.28|16.05|20.15
+S Investing.com|https://www.investing.com/equities/vodafone-group-plc-exch-consensus-estimates|2026-11-09|NA|3|0|2|NA|12.67827251|16.24|20.09597143
+R Investing.com|2026-10-02|Berenberg|Buy|18.50
+R Investing.com|2026-09-04|Goldman Sachs|Buy|20.93
+R Investing.com|2026-07-10|New Street Research|Buy|NA
+R Investing.com|2026-05-26|BofA Securities|Sell|13.13
+N VOD (Vodafone ADR): StockAnalysis ratings page not surfaced, so no StockAnalysis R lines. StockAnalysis counts are 2+1+2=5 matching 5 analysts; Investing.com shows 2 sells but only 1 sell row visible; table truncated. Investing.com price 15.65 (date not shown).
+T NBIS|NBIS|USD|153.27|2026-10-26
+M 35.49B|37.65B|788.31|NA|26.19|3.43|145.92|NA|StockAnalysis|https://stockanalysis.com/stocks/nbis/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/nbis/forecast/|2026-10-22|13|2|6|0|1|84|281|410
+S Investing.com|https://www.investing.com/equities/yandex-nv-consensus-estimates|2026-11-09|NA|15|5|2|NA|84|283.60|410
+R Investing.com|2026-10-07|Rosenblatt|Buy|304.00
+R Investing.com|2026-09-30|William Blair|Buy|NA
+R Investing.com|2026-09-24|BNP Paribas Exane|Buy|399.00
+R Investing.com|2026-09-21|Rothschild Redburn|Sell|84.00
+R Investing.com|2026-09-09|Truist Securities|Buy|355.00
+N NBIS: StockAnalysis ratings page not surfaced, so no StockAnalysis R lines. Investing.com counts total 22 but its FAQ says 20 analysts; price 165.47 on Investing.com (no date) vs 153.27 on StockAnalysis; table truncated.
+T RKLB|RKLB|USD|53.82|2026-10-26
+M 31.76B|29.51B|NA|3768.87|41.29|9.09|NA|NA|StockAnalysis|https://stockanalysis.com/stocks/rklb/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/rklb/forecast/|2026-10-20|13|5|4|0|0|64|102.15|150
+S Investing.com|https://za.investing.com/equities/vector-acquisition-consensus-estimates|2026-11-09|NA|18|4|0|NA|64|102.150|150
+R StockAnalysis|2026-10-20|Cantor Fitzgerald|Buy|NA
+R StockAnalysis|2026-10-19|Morgan Stanley|Buy|105
+R StockAnalysis|2026-10-16|Needham|Buy|120
+R StockAnalysis|2026-10-16|Citizens JMP|Buy|130 → 90
+R StockAnalysis|2026-10-15|Goldman Sachs|Hold|75 → 67
+R StockAnalysis|2026-10-15|Stifel Nicolaus|Buy|132
+R StockAnalysis|2026-10-15|Clear Street|Buy|129 → 105
+R StockAnalysis|2026-10-15|Roth MKM|Buy|110
+R Investing.com|2026-11-02|Citizens|Buy|90.00
+R Investing.com|2026-10-26|Cantor Fitzgerald|Buy|122.00
+R Investing.com|2026-10-19|Cantor Fitzgerald|Buy|122.00
+R Investing.com|2026-10-16|Needham|Buy|120.00
+R Investing.com|2026-10-16|Citizens|Buy|90.00
+N RKLB: forward PE 3,768.87 on StockAnalysis looks like an outlier (reported as shown). Investing.com price 59.207 vs StockAnalysis 53.82 (different dates); Investing.com ptHigh 150 and low 64 taken from the page; "102.150" uses a decimal point (equals 102.15); Investing.com table truncated. StockAnalysis FY forecast table lists 17 analysts vs 22 in the ratings count. Investing.com Citizens rows show 90 vs StockAnalysis 130 → 90 consistent.
+T EC|EC|USD|17.23|2026-10-12
+M 38.18B|75.87B|8.91|7.15|0.98|1.14|5.17|NA|StockAnalysis|https://stockanalysis.com/stocks/ec/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/ec/forecast/|2026-10-07|0|0|7|1|3|9.00|14.3|18
+S Investing.com|https://www.investing.com/equities/ecopetrol-sa-adr-consensus-estimates|2026-11-09|NA|0|7|4|NA|9|13.65|18
+R Investing.com|2026-08-14|UBS|Hold|16.00
+R Investing.com|2026-06-03|Citi|Hold|18.00
+R Investing.com|2026-05-27|UBS|Hold|14.00
+R Investing.com|2026-05-05|UBS|Hold|13.50
+R Investing.com|2026-03-20|Goldman Sachs|Hold|13.00
+N EC: StockAnalysis ratings page not surfaced, so no StockAnalysis R lines. StockAnalysis analyst data 2026-10-07 vs price 2026-10-12. Investing.com price 17.17 is the 14/08 close (stale); table truncated and includes entries older than 3 months.
+T VG|VG|USD|13.78|2026-10-27
+M 35.00B|74.69B|11.02|8.64|2.06|4.08|10.17|0.18|StockAnalysis|https://stockanalysis.com/stocks/vg/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/vg/forecast/|2026-10-20|7|4|7|0|0|14|17.22|22
+S Investing.com|https://www.investing.com/equities/venture-global-inc-consensus-estimates|2026-11-09|NA|11|8|0|NA|14|16.47|22
+R StockAnalysis|2026-10-20|Morgan Stanley|Buy|22
+R StockAnalysis|2026-10-16|RBC Capital|Buy|16
+R StockAnalysis|2026-10-15|Bank of America Securities|Buy|16 → 18
+R StockAnalysis|2026-10-09|J.P. Morgan|Buy|17 → 19
+R StockAnalysis|2026-10-09|Goldman Sachs|Buy|18
+R StockAnalysis|2026-10-08|Wells Fargo|Hold|15
+R StockAnalysis|2026-09-22|Bernstein|Hold|14
+R StockAnalysis|2026-09-11|UBS|Buy|21
+N VG: StockAnalysis price date uncertain (page shows 2026-10-27 timestamp but "last checked 2026-10-21"). Investing.com has no ratings table on the page; its price 14.64 (no date).
+T ROIV|ROIV|USD|36.60|2026-10-23
+M 26.36B|22.62B|NA|NA|3499.41|6.23|NA|NA|StockAnalysis|https://stockanalysis.com/stocks/roiv/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/roiv/forecast/|2026-10-22|9|2|2|0|0|41|48.27|55
+S Investing.com|https://www.investing.com/equities/montes-archimedes-acquisition-consensus-estimates|2026-11-09|NA|11|2|0|NA|41|50.000|62
+R Investing.com|2026-10-28|Citi|Buy|56.00
+R Investing.com|2026-10-12|Citi|Buy|46.00
+R Investing.com|2026-10-12|Wolfe Research|Hold|NA
+R Investing.com|2026-09-24|Cantor Fitzgerald|Buy|NA
+R Investing.com|2026-09-17|JPMorgan|Buy|NA
+N ROIV: StockAnalysis ratings page not surfaced, so no StockAnalysis R lines. StockAnalysis ptHigh 55 may be stale (its table shows TD Cowen raising 55 → 62 on 2026-10-21; Investing.com high is 62). PS 3,499.41 reflects tiny revenue (not meaningful). Investing.com price 40.77 vs StockAnalysis 36.60 (no date); Investing.com Citi row upside figures inconsistent with price.
+T BAP|BAP|USD|388.38|2026-10-21
+M 29.70B|26.42B|13.78|12.15|4.56|2.66|NA|0.92|StockAnalysis|https://stockanalysis.com/stocks/bap/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/bap/forecast/|2026-09-16|8|4|2|0|0|219|427.48|482
+S Investing.com|https://www.investing.com/equities/credicorp-ltd-consensus-estimates|2026-11-09|NA|11|3|0|NA|219|403.49|480
+R Investing.com|2026-07-16|Goldman Sachs|Hold|374.00
+R Investing.com|2026-06-17|Morgan Stanley|Buy|480.00
+R Investing.com|2026-06-15|JPMorgan|Hold|415.00
+R Investing.com|2026-05-26|UBS|Buy|412.00
+R Investing.com|2026-05-19|HSBC|Buy|350.00
+N BAP: StockAnalysis ratings page not surfaced, so no StockAnalysis R lines. StockAnalysis analyst data is stale (2026-09-16) vs price 2026-10-21; its FY forecast table lists 6 analysts vs 14 in ratings. Investing.com price 372.22 is the 12/08 close (stale), table rows are mostly 5-6 months old.
+T CRWV|CRWV|USD|58.14|NA
+M 25.59B|71.62B|NA|NA|3.37|5.09|18.90|NA|StockAnalysis|https://stockanalysis.com/stocks/crwv/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/crwv/forecast/|2026-10-27|24|8|7|1|2|39|134.58|278
+S Investing.com|https://ca.investing.com/equities/coreweave-consensus-estimates|2026-11-09|NA|32|7|3|NA|39|131.53|278
+R StockAnalysis|2026-10-23|UBS|Buy|120 → 105
+R StockAnalysis|2026-10-23|Morgan Stanley|Hold|99 → 70
+R StockAnalysis|2026-10-22|Bank of America Securities|Buy|140
+R StockAnalysis|2026-10-21|Piper Sandler|Buy|153 → 124
+R StockAnalysis|2026-10-20|HSBC|Sell|39
+R StockAnalysis|2026-10-20|Barclays|Hold|105
+R StockAnalysis|2026-10-19|Exane BNP Paribas|Buy|169 → 117
+R StockAnalysis|2026-10-19|Goldman Sachs|Buy|139 → 106
+R Investing.com|2026-11-09|Rosenblatt|Buy|160.00
+R Investing.com|2026-11-09|Wells Fargo|Buy|115.00
+R Investing.com|2026-10-26|Cantor Fitzgerald|Buy|176.00
+R Investing.com|2026-10-26|Raymond James|Buy|75.00
+R Investing.com|2026-10-23|UBS|Buy|105.00
+N CRWV: StockAnalysis price 58.14 has no date shown; Investing.com price 48.60 (no date) differs. Investing.com counts 32+7+3=42 vs FAQ 38 analysts (StockAnalysis: 42). Investing.com table truncated; its page is the ca.investing.com mirror.

@@ -46,6 +46,17 @@ For each focus ticker:
 - **Voices** — 1 search per mega-cap for notable investor/CEO commentary in the last ~3 months; add to `knowledge_manual.VOICES` with a one-line Hebrew paraphrase (never long quotes) and the real URL from the search result.
 If WebFetch refuses a constructed URL (provenance), WebSearch first with `allowed_domains` so the URL comes from a result. Clear last week's lines from cons/ks/val first.
 
+## 4d. Analysts' views and multiples (data/calendar/analysts.json)
+Scope: the ~30 largest US reporters of the TARGET week (by market cap; one share class per company) and every Israeli
+company reporting that week (Maya events; Hebrew keys stay as they are).
+1. Move last week's `tools/calendar/analysts/raw_*.txt` into `tools/calendar/analysts/old/` (keep them).
+2. Split the companies into 4 lists and run 4 parallel subagents (model sonnet), each told to read
+   `tools/calendar/analysts/AGENT_TASK.md` and write `tools/calendar/analysts/raw_<name>.txt`. Give each company's
+   calendar key exactly, and the English name for Hebrew keys.
+3. Read the N lines; add to `EXCLUDE` in `build_analysts.py` any site row in another currency or stale.
+4. `python3 tools/calendar/analysts/build_analysts.py --keep` (keeps companies of earlier weeks; prints counts).
+   Spot-check 3 companies against the pages. Publish `data/calendar/analysts.json` with the rest of the data.
+
 ## 4c. Macro calendar (separate layer → data/macro.json)
 Files: `pipeline/macro_us.jsonl`, `pipeline/macro_il.jsonl` (one JSON per line: date, time [ET for US / Israel time for IL], country, cat, imp 1–3, en, he, period, prev, fcst, src, note). Keep a rolling window of ~8 weeks ahead.
 Each week: (a) add `actual` to last week's events and refresh `prev` for the coming ones; (b) add consensus (`fcst`) for the next 2 weeks from a reputable source; (c) extend the window and confirm new dates from official calendars (federalreserve.gov, bls.gov, bea.gov, census.gov, ISM, boi.org.il, cbs.gov.il); unconfirmed dates get a note with "לא אומת"/"משוער". Delegate US and Israel to two parallel subagents (model sonnet). Then `python3 build_macro.py` and publish `data/macro.json`.

@@ -1,0 +1,76 @@
+T CGEN|CGEN|USD|2.31|NA
+M 183.76M|61.49M|5.20|NA|2.48|2.07|2.00|NA|StockAnalysis|https://stockanalysis.com/stocks/cgen/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/cgen/forecast/|2026-10-01|5|0|0|0|0|4.00|4.60|6.00
+N Verified: Compugen (Nasdaq CGEN, US listing used). Price date not shown on forecast page (Oct 1, 2026 is the analyst-data date); counts: 5 analysts vs FY2026 estimate field says 4 on same page (used 5; strongbuy=5).
+N StockAnalysis ratings page for CGEN could not be fetched (not in search results); no R lines. Investing.com consensus page https://www.investing.com/equities/compugen-consensus-estimates shows analyst targets behind paywall (buy/hold/sell/targets N/A, no rating rows), price 657.2 on the Tel Aviv quote (likely agorot); no S line for Investing.com.
+T NXSN|NXSN|ILA|18460|2026-10-12
+M 17.04B|15.29B|40.44|24.41|22.78|8.50|34.73|0.39|StockAnalysis|https://stockanalysis.com/quote/tlv/NXSN/statistics/
+S Investing.com|https://www.investing.com/equities/next-vision-stabilized-systems-consensus-estimates|2026-11-09|NA|2|0|0|NA|37963.46|39311|40658.58
+N Verified: NXSN = NextVision Stabilized Systems (Tel Aviv only; not Nexus). M page values in ILS; price in agorot (ILA). Investing.com targets in agorot, its price 21,610 (close, no date) vs StockAnalysis 18,460 (2026-10-12) and 19,000 (2026-10-23 on overview page).
+N StockAnalysis overview page https://stockanalysis.com/quote/tlv/NXSN/ shows 4 analysts, rating Strong Buy, price target 38,090 ILA (+100%); no /forecast/ page found so no S StockAnalysis line and no breakdown. Investing.com shows 2 analysts, no rating rows.
+T PTNR|PTNR|ILA|3699|2026-09-29
+M 6.78B|7.69B|21.02|NA|2.16|3.36|7.79|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/PTNR/statistics/
+S Investing.com|https://www.investing.com/equities/partner-comms-consensus-estimates|2026-11-09|NA|1|0|0|NA|5100|5100|5100
+R Investing.com|2025-12-02|Barclays|Sell|34.00
+N Verified: Partner Communications Company (TLV:PTNR). Only the Tel Aviv page appeared in search; no US listing page found, so TLV used. M in ILS, price in agorot; EV/EBITDA 7.79 as shown but EV/EBITDA implied by page figures is about 9.0; market cap 6.78B vs about 6.94B implied by price x shares (price date 2026-09-29 vs stats updated 2026-09-28).
+N Investing.com conflict: consensus shows 1 Buy and 5,100 target (agorot), but only listed action is Barclays Sell target 34.00 (ILS); price 3,425 ILA. Treat Investing.com data as unreliable. StockAnalysis shows no analysts for PTNR.
+T BWAY|BWAY|USD|11.44|2026-10-16
+M 475.14M|422.34M|50.33|32.67|7.83|6.00|49.79|NA|StockAnalysis|https://stockanalysis.com/stocks/bway/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/bway/forecast/|2026-09-10|3|0|0|0|0|18.8|19.27|20
+S Investing.com|https://www.investing.com/equities/brainsway-ltd-consensus-estimates|2026-11-09|NA|3|0|0|NA|18.8|19.27|20
+R Investing.com|2026-11-03|H.C. Wainwright|Buy|19.00
+R Investing.com|2026-10-30|H.C. Wainwright|Buy|19.00
+R Investing.com|2026-10-20|H.C. Wainwright|Buy|19.00
+R Investing.com|2026-08-31|H.C. Wainwright|Buy|19.00
+R Investing.com|2026-08-13|Ladenburg Thalmann|Buy|18.80
+N Verified: BrainsWay (Nasdaq BWAY). StockAnalysis analyst data dated 2026-09-10 (older than Investing.com rows through 2026-11-03); strongbuy=3. Investing.com price 11.52 vs StockAnalysis 11.44. Investing.com table has a "Show More" button, more rows may exist. StockAnalysis ratings page not fetchable; no StockAnalysis R lines.
+T ENRG|ENRG|ILA|1883|2026-10-14
+M 11.27B|NA|77.37|NA|NA|NA|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/ENRG/
+N Verified: Energix - Renewable Energies (TLV:ENRG). Only the overview page was found (no statistics page in search), so only market cap (ILS) and PE shown. StockAnalysis shows no analysts or price target. Investing.com page https://uk.investing.com/equities/energix-consensus-estimates has no analyst data (all N/A; price 1,922 ILA): no analyst coverage shown on either site.
+T GILT|GILT|USD|7.87|NA
+M 573.10M|423.56M|17.69|19.08|1.17|1.05|7.55|2.45|StockAnalysis|https://stockanalysis.com/stocks/gilt/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/gilt/forecast/|2026-08-06|2|1|0|0|0|18.4|19.2|20
+N Verified: Gilat Satellite Networks (Nasdaq GILT). Price date not shown (page says Last checked 2026-10-20). Analyst data from 2026-08-06 is stale; targets (18.4-20) are far above the 7.87 price, so stale or inconsistent; verify.
+N Investing.com https://www.investing.com/equities/gilat-satellite-consensus-estimates has no analyst data (not provided / paywalled; Tel Aviv price 2,944 ILA close 16/09): no S line. StockAnalysis ratings page not fetchable; no R lines.
+T OPCE|OPCE|ILA|9309|2026-11-09
+M 28.88B|36.06B|79.31|NA|7.09|3.28|30.65|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/OPCE/statistics/
+N Verified: OPC Energy (TLV:OPCE). M in ILS, price in agorot. No analyst coverage on StockAnalysis (n/a). Investing.com https://uk.investing.com/equities/opc-energy-consensus-estimates shows no analyst data (only 52-week range 2,950-9,885): no analyst coverage shown.
+T TASE|TASE|ILA|13490|2026-11-05
+M 12.51B|12.09B|49.49|35.13|18.81|18.80|33.04|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/TASE/statistics/
+S Investing.com|https://www.investing.com/equities/tel-aviv-stock-exchange-consensus-estimates|2026-11-09|NA|1|0|0|NA|15100|15100|15100
+N Verified: The Tel-Aviv Stock Exchange Ltd. (TLV:TASE). M in ILS, price in agorot (PS 18.81 and PB 18.80 as shown). Investing.com: 1 analyst (single target 15,100 in agorot, price 11,290, no date), no rating rows, page has placeholder text and disclaimer; low reliability. StockAnalysis shows no analysts.
+T TRPZ|TRPZ|ILA|5378|2026-11-06
+M 5.86B|NA|74.72|NA|NA|NA|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/TRPZ/
+N Verified: Turpaz Industries (TLV:TRPZ). Only overview page found; market cap in ILS, price in agorot. No analysts on StockAnalysis. Investing.com https://www.investing.com/equities/turpaz-industries-consensus-estimates analyst targets paywalled (price 6,129): no S line.
+T BEZQ|BEZQ|ILA|684|2026-11-06
+M 18.79B|26.00B|15.52|16.18|2.17|6.76|7.27|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/BEZQ/statistics/
+S Investing.com|https://www.investing.com/equities/bezeq-ord-consensus-estimates|2026-11-09|NA|2|2|0|NA|780|855|880
+R Investing.com|2026-03-24|UBS|Hold|8.80
+R Investing.com|2025-12-02|Barclays|Buy|8.00
+N Verified: Bezeq The Israel Telecommunication Corp. (TLV:BEZQ). M in ILS, price in agorot. Investing.com says 4 analysts (2 buy, 2 hold) but table has only 2 rows; table targets (8.80, 8.00) are in ILS while summary targets (855 avg) and price 686.6 are agorot.
+N StockAnalysis overview page https://stockanalysis.com/quote/tlv/BEZQ/ shows 4 analysts, rating Buy, price target 855 ILA (+24.8%), price 685 on 2026-11-06; no forecast page found, so no S StockAnalysis line. Earnings date shown 2026-11-11.
+T DELG|DELG|ILA|17790|2026-10-01
+M 4.67B|6.45B|15.87|NA|0.70|1.67|5.86|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/DELG/statistics/
+N Verified: TLV:DELG = Delta Galil Industries (NOT Delek Group, which is TLV:DLEKG). Calendar key kept as given; the company in the request list label is wrong. M in ILS, price in agorot, price dated 2026-10-01 (page updated 2026-10-04). No analysts on StockAnalysis.
+N Investing.com https://mx.investing.com/equities/delta-gal-consensus-estimates (Delta Gal, DELG, Tel Aviv) has no analyst data (N/D; price 19,420 ILA): no analyst coverage shown.
+T ICL|ICL|USD|5.83|2026-09-03
+M 6.21B|8.85B|20.61|11.94|0.82|1.02|6.48|NA|StockAnalysis|https://stockanalysis.com/stocks/icl/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/icl/forecast/|2026-08-11|0|0|4|0|0|5.50|5.81|6.00
+N Verified: ICL Group (NYSE ICL). Price date 2026-09-03 is the page's "At close" stamp but the page also says Last checked 2026-08-25, so uncertain. Analyst data dated 2026-08-11 (stale). Investing.com consensus page not found in two searches (only news articles): no S line. StockAnalysis ratings page not fetchable; no R lines.
+T NYAX|NYAX|USD|45.89|2026-10-16
+M 1.84B|1.90B|241.17|37.71|4.07|7.51|55.75|NA|StockAnalysis|https://stockanalysis.com/stocks/nyax/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/nyax/forecast/|2026-10-07|4|1|1|0|0|68.3|75.66|83
+S Investing.com|https://www.investing.com/equities/nayax-consensus-estimates|2026-11-09|NA|1|2|0|NA|21157.44|21220.91|21284.38
+N Verified: Nayax (Nasdaq NYAX, US listing used). Investing.com page is the Tel Aviv listing: targets and price 14,600 are in ILA (agorot), not USD. Investing.com says 2 analysts but its counts as extracted (1 buy, 2 hold) sum to 3: mismatch, treat with caution. No rating rows. StockAnalysis ratings page not fetchable.
+T AFPR|AFPR|ILA|17440|2026-09-29
+M 7.13B|NA|7.06|NA|NA|NA|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/AFPR/
+N Verified: TLV:AFPR = AFI Properties Ltd (formerly Africa Israel Properties). Only overview page found; market cap assumed ILS, price in agorot. No analysts on StockAnalysis. Investing.com consensus page not found (search returned unrelated AFI companies): no S line.
+T ALLT|ALLT|USD|8.95|2026-11-09
+M 443.95M|348.66M|45.17|24.67|4.07|3.72|33.87|NA|StockAnalysis|https://stockanalysis.com/stocks/allt/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/allt/forecast/|2026-08-13|5|1|0|0|0|10.5|13.48|17
+R StockAnalysis|2026-10-13|TD Cowen|Buy|$8 → $11
+R StockAnalysis|2026-08-13|Northland Securities|Buy|$19 → $17
+R StockAnalysis|2026-08-12|William Blair|Buy|NA
+R StockAnalysis|2026-08-12|Needham|Buy|$11
+R StockAnalysis|2026-08-03|Cantor Fitzgerald|Buy|$15
+N Verified: Allot (Nasdaq ALLT). Price 8.95 (2026-11-09) is from the ratings page; forecast page shows 8.39 (close 2026-10-09). Forecast summary says 6 analysts (data 2026-08-13, targets 10.5-17) but ratings table has 5 rows, newest 2026-10-13 (TD Cowen $8 → $11 as written, odd); Needham upside inconsistent with $11 target. Investing.com consensus page not found (searched twice): no S line.

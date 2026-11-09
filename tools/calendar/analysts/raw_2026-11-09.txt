@@ -1,0 +1,35 @@
+# One block per company. Lines:
+#   T <calendar key>|<symbol used on the sites>|<currency of price & targets>|<price>|<asof YYYY-MM-DD>
+#   M <mcap>|<ev>|<pe>|<fpe>|<ps>|<pb>|<evEbitda>|<peg>|<src>|<url>      (mcap/ev in the quote currency, B/T/M suffix ok)
+#   S <src>|<url>|<asof>|<strongbuy>|<buy>|<hold>|<sell>|<strongsell>|<ptLow>|<ptAvg>|<ptHigh>   (counts as the site shows them)
+#   R <src>|<date>|<firm>|<rating>|<target>      (individual ratings; target "a → b" keeps b; NA if none)
+#   N <free note, English>                         (coverage gaps, conflicts on the page)
+T CSCO|CSCO|USD|104.51|2026-10-30
+M 435.50B|450.77B|33.17|21.48|6.86|8.65|24.13|2.13|StockAnalysis|https://stockanalysis.com/stocks/csco/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/csco/forecast/|2026-10-26|14|5|10|0|0|110|136.16|170
+S Investing.com|https://www.investing.com/equities/cisco-sys-inc-consensus-estimates|2026-11-09|NA|19|10|0|NA|110|136.16|170
+R StockAnalysis|2026-10-15|Morgan Stanley|Buy|135
+R StockAnalysis|2026-10-09|Citi|Buy|139
+R StockAnalysis|2026-10-07|Bernstein|Hold|110
+R StockAnalysis|2026-09-22|Piper Sandler|Hold|$132 → $125
+R StockAnalysis|2026-08-31|Deutsche Bank|Buy|135
+R StockAnalysis|2026-08-24|Truist Financial|Buy|140
+R StockAnalysis|2026-08-17|Evercore ISI|Buy|150
+R StockAnalysis|2026-08-17|J.P. Morgan|Buy|150
+R Investing.com|2026-09-30|Bernstein SocGen Group|Hold|110
+R Investing.com|2026-08-14|HSBC|Hold|120
+T AMAT|AMAT|USD|389.84|2026-10-22
+M 308.30B|306.42B|33.51|22.03|9.97|12.00|30.10|0.71|StockAnalysis|https://stockanalysis.com/stocks/amat/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/amat/forecast/|2026-10-26|29|5|6|0|0|358|627.83|900
+S Investing.com|https://www.investing.com/equities/applied-matls-inc-consensus-estimates|2026-11-09|NA|33|7|0|NA|358|635.33|900
+R StockAnalysis|2026-10-16|Needham|Buy|$740 → $560
+R StockAnalysis|2026-10-14|Goldman Sachs|Buy|670
+R StockAnalysis|2026-10-14|J.P. Morgan|Buy|NA
+R StockAnalysis|2026-10-14|RBC Capital|Buy|600
+R StockAnalysis|2026-10-14|Bank of America Securities|Buy|650
+R StockAnalysis|2026-10-13|Cantor Fitzgerald|Buy|850
+R StockAnalysis|2026-10-13|Evercore ISI|Buy|$700 → $590
+R StockAnalysis|2026-09-28|Morgan Stanley|Hold|$642 → $563
+R Investing.com|2026-09-08|Citi|Buy|710
+R Investing.com|2026-09-01|UBS|Buy|695
+R Investing.com|2026-08-25|Mizuho|Buy|590

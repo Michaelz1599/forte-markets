@@ -1,0 +1,58 @@
+T לוינשטין נכסים|LVPR|ILA|NA|NA
+M 1.29B|1.92B|35.25|NA|15.91|0.98|28.90|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/LVPR/statistics
+N Multiples in ILS. Statistics page title was only "Levinstein Properties Statistics" (no TLV:LVPR in title) and showed no price; the overview page cached price 8,429 ILA dated 2024-12-19 (stale), so price left NA. Symbol LVPR confirmed via search results (Levinstein Properties Ltd, TLV: LVPR) and il.investing id 1119080. No analyst coverage found on StockAnalysis/Investing.com.
+T פרודלים השקעות|PRDM|NA|NA|NA
+N Company identified as Prodalim Investments (bizportal article describes ingredients/juice/Solos business); symbol PRDM taken from StockAnalysis TLV stock list only (mcap 1.50B, price 514.30 shown without date). No StockAnalysis PRDM statistics page was returned by search, so no M line. Bizportal quote showed 488.5 on 2026-11-09 with no stated currency/unit (not used). No analyst coverage found.
+T מרכנתיל הנפקות|NA|NA|NA|NA
+N Could not identify a listed equity: Mercantile Issuances looks like a bond-issuance vehicle (Mercantile Discount Bank group) with no share symbol on StockAnalysis; searches returned nothing relevant.
+T קמהדע|KMDA|USD|7.77|2026-10-23
+M 453.92M|397.72M|20.61|17.16|2.37|1.68|9.58|NA|StockAnalysis|https://stockanalysis.com/stocks/kmda/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/kmda/forecast/|2026-08-14|3|0|0|0|0|11|13.5|15
+N US (Nasdaq) listing used. StockAnalysis forecast says 4 analysts but breakdown totals 3 (3 Strong Buy); forecast page shows current price 8.02 vs 7.77 on main page (2026-10-23 close). Analyst data dated 2026-08-14 (stale). StockAnalysis ratings page not returned by search, so no R lines. Investing.com Kamada consensus page not found by search, so no Investing.com S line.
+T פיסיבי טכנ|PCBT|ILA|1399.00|2026-10-26
+M 1.02B|1.10B|31.48|NA|1.81|3.59|17.15|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/PCBT/statistics/
+N Tel Aviv only. Multiples in ILS, price in ILA (agorot). No analyst coverage on StockAnalysis or Investing.com found.
+T אבגול|AVGL|ILA|89.90|2026-09-07
+M 269.84M|624.80M|NA|NA|0.23|0.44|4.52|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/AVGL/statistics/
+N Avgol Industries 1953. Multiples in ILS, price in ILA. Price date 2026-09-07 is stale. PE NA (net loss). No analyst coverage found.
+T בינלאומי|FIBI|ILA|23470|2026-10-26
+M 23.54B|NA|10.92|NA|3.43|1.50|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/FIBI/statistics/
+N First International Bank of Israel (not F.I.B.I. Holdings, FIBIH). Multiples in ILS, price in ILA. No analyst coverage on StockAnalysis (no forecast page returned) or Investing.com found.
+T דלתא מותגים|DLTI|ILA|10570|2026-10-30
+M 2.65B|3.10B|18.04|NA|1.96|4.99|9.55|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/DLTI/statistics/
+N Delta Israel Brands. Multiples in ILS, price in ILA. No analyst coverage found.
+T הייפר|HIPR|ILA|2984.00|2026-10-26
+M 1.53B|1.65B|24.73|NA|1.54|3.81|17.04|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/HIPR/statistics/
+N Matched Hebrew name הייפר to Hiper Global Ltd. (TLV: HIPR) by name similarity only; Hebrew name not confirmed on any page, moderate confidence. Multiples in ILS, price in ILA. No analyst coverage found.
+T ריט 1|RIT1|ILA|2060.00|2026-08-17
+M 4.35B|9.29B|10.22|NA|8.53|0.90|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/RIT1/statistics/
+N Multiples in ILS, price in ILA. Price date 2026-08-17 is stale; market cap (4.35B) does not match 2,060 ILA x 202.29M shares (about 4.17B). No analyst coverage found.
+T ביוהרווסט|BHST|USD|1.690|2026-10-26
+M 45.79M|45.26M|NA|NA|1.28|2.35|NA|NA|StockAnalysis|https://stockanalysis.com/stocks/bhst/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/bhst/forecast/|2026-08-12|2|1|0|0|0|5.00|10.5|15
+S Investing.com|https://www.investing.com/equities/midnight-star-ventures-corp-consensus-estimates|2026-11-09|NA|4|0|0|NA|5|10.5|15
+N US (Nasdaq: BHST) listing used. StockAnalysis says 4 analysts but breakdown totals 3 (2 Strong Buy, 1 Buy); forecast page price 1.800 vs 1.690 on main page. Targets (5-15) are far above price; StockAnalysis data dated 2026-08-12 (stale). Investing.com price shown 2.0499 (stale vs 1.69); its URL slug says midnight-star-ventures-corp but content is BioHarvest. StockAnalysis ratings page failed to load (client_error), so no StockAnalysis R lines; Investing.com page has no per-firm rows.
+T יעקב פיננסים|JCFN|ILA|2777.00|2026-10-01
+M 682.70M|NA|7.82|NA|NA|NA|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/JCFN/
+N Matched to Jacob Finance and Investments Ltd (non-bank lender, Tel Aviv) by name; moderate confidence. M values come from the overview page (statistics page not returned by search), so PS/PB/EV/EV-EBITDA are NA only because that page did not show them. Price date 2026-10-01 is stale. No analyst coverage found.
+T מימון ישיר קב|DIFI|ILA|60460|2026-08-21
+M 1.79B|NA|8.91|NA|2.36|1.19|NA|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/DIFI/statistics/
+N Direct Finance of Direct Group (2006) Ltd. Multiples in ILS, price in ILA. Price date 2026-08-21 is stale. No analyst coverage found.
+T ליניאג תרפיוטיק|LCTX|USD|0.9925|2026-10-22
+M 228.68M|180.15M|NA|NA|17.48|3.75|NA|NA|StockAnalysis|https://stockanalysis.com/stocks/lctx/statistics/
+S StockAnalysis|https://stockanalysis.com/stocks/lctx/forecast/|2026-09-25|5|1|1|0|0|3.00|5.50|9.00
+S Investing.com|https://www.investing.com/equities/biotime-consensus-estimates|2026-11-09|NA|6|1|0|NA|3|4.5|9
+R StockAnalysis|2026-09-25|B. Riley Securities|Buy|$4
+R StockAnalysis|2026-08-12|Maxim Group|Buy|$3
+R StockAnalysis|2026-08-07|Canaccord Genuity|Buy|$9
+R StockAnalysis|2026-08-07|H.C. Wainwright|Buy|$7 → $9
+R StockAnalysis|2026-07-15|Craig-Hallum|Buy|NA
+R Investing.com|2026-03-25|B.Riley|Buy|4.00
+R Investing.com|2026-03-06|H.C. Wainwright|Buy|9.00
+R Investing.com|2025-09-23|Baird|Buy|5.00
+R Investing.com|2025-09-09|H.C. Wainwright|Buy|9.00
+R Investing.com|2025-08-05|Maxim Group|Buy|3.00
+N Lineage Cell Therapeutics (Nasdaq LCTX, US listing used). Calendar key says "ליניאג תרפיוטיק" and match to Lineage Cell Therapeutics is by name. StockAnalysis forecast page price 0.9475 vs 0.9925 on main page. Investing.com page is stale (latest row 2026-03-25; price shown 1.555 vs 0.99; avg target 4.5 vs StockAnalysis 5.5; B.Riley row also lists a 3.00 prior target). StockAnalysis 5+1+1=7 matches 7 analysts; Investing.com 6+1=7.
+T פיימנט|PMNT|ILA|370.90|2026-10-23
+M 145.88M|278.09M|8.10|NA|2.42|1.68|8.74|NA|StockAnalysis|https://stockanalysis.com/quote/tlv/PMNT/statistics/
+N Matched to Payment Financial Technologies (TLV: PMNT) by name; moderate confidence. Multiples in ILS, price in ILA. No analyst coverage found.
