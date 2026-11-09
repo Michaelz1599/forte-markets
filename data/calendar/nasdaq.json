@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-09T16:42+00:00",
+"asof": "2026-11-09T21:48+00:00",
 "events": [
 {
 "id": "AAPL-2026-11-02",
@@ -12910,7 +12910,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 257539490000.0,
+"mcap": 256860193000.0,
 "name": "Palo Alto Networks, Inc.",
 "sources": [
 {
@@ -12948,7 +12948,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 152445403000.0,
+"mcap": 148826489000.0,
 "name": "TJX Companies, Inc. (The)",
 "sources": [
 {
@@ -12986,7 +12986,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 127493915000.0,
+"mcap": 125984678000.0,
 "name": "Lowe's Companies, Inc.",
 "sources": [
 {
@@ -13024,7 +13024,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 71756169000.0,
+"mcap": 71965147000.0,
 "name": "Target Corporation",
 "sources": [
 {
@@ -13062,7 +13062,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31136753700.0,
+"mcap": 32239736800.0,
 "name": "Everpure, Inc.",
 "sources": [
 {
@@ -13100,7 +13100,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30458871800.0,
+"mcap": 29922975700.0,
 "name": "Williams-Sonoma, Inc.",
 "sources": [
 {
@@ -13138,7 +13138,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 18118504400.0,
+"mcap": 18735829000.0,
 "name": "Woodward, Inc.",
 "sources": [
 {
