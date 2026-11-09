@@ -356,6 +356,12 @@ def build(st: Status, u: dict, px) -> None:
         dump_json(tmp / "data" / "markets.json", mk)
         dump_json(tmp / "data" / "ticker.json", markets.ticker_payload(px, u))
         dump_json(tmp / "data" / "prices.json", markets.prices_payload(px, u=u))
+        try:   # candles for the index charts (data/ohlc/<symbol>.json, loaded when a chart opens)
+            (tmp / "data" / "ohlc").mkdir(parents=True, exist_ok=True)
+            for sym, rec in markets.ohlc_payloads(px, u=u).items():
+                dump_json(tmp / "data" / "ohlc" / markets.ohlc_file(sym), rec)
+        except Exception:
+            traceback.print_exc()
     shutil.rmtree(SITE_DIR, ignore_errors=True)
     tmp.rename(SITE_DIR)
 

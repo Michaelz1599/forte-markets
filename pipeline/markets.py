@@ -127,6 +127,66 @@ def read_prices() -> pd.DataFrame:
     return df.sort_index()
 
 
+# Open / high / low of the same instruments, one CSV per field next to close.csv, for the candlestick charts.
+OHL_FIELDS = ("open", "high", "low")
+
+
+def ohl_csv(field: str):
+    return PRICES_CSV.parent / f"{field}.csv"
+
+
+def read_ohl() -> dict[str, pd.DataFrame]:
+    out = {}
+    for f in OHL_FIELDS:
+        p = ohl_csv(f)
+        if p.exists():
+            df = pd.read_csv(p, index_col=0)
+            df.index = df.index.astype(str)
+            out[f] = df.sort_index()
+        else:
+            out[f] = pd.DataFrame()
+    return out
+
+
+def _merge_frame(cur: pd.DataFrame, f: pd.DataFrame) -> pd.DataFrame:
+    if f is None or f.empty:
+        return cur
+    out = cur.reindex(cur.index.union(f.index)) if not cur.empty else pd.DataFrame(index=f.index)
+    for c in f.columns:
+        if c not in out.columns:
+            out[c] = np.nan
+        vals = f[c].dropna()
+        out.loc[vals.index, c] = vals.values
+    return out
+
+
+def clean_ohl(ohl: dict[str, pd.DataFrame], close: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Keep a bar only where open, high and low all exist and enclose the close (Yahoo has odd rows,
+    such as an index quoted with high = low = close, or a stale open); otherwise the chart draws that
+    day from the closes alone."""
+    cols = [c for c in close.columns if all(c in ohl[f].columns for f in OHL_FIELDS)]
+    if not cols:
+        return {f: pd.DataFrame(index=close.index) for f in OHL_FIELDS}
+    idx = close.index
+    o, h, l = (ohl[f].reindex(index=idx, columns=cols) for f in OHL_FIELDS)
+    c = close.reindex(columns=cols)
+    tol = 1e-6
+    ok = o.notna() & h.notna() & l.notna() & c.notna() & (h >= l) \
+        & (h >= c * (1 - tol)) & (l <= c * (1 + tol)) & (h >= o * (1 - tol)) & (l <= o * (1 + tol)) & (h > l)
+    return {"open": o.where(ok), "high": h.where(ok), "low": l.where(ok)}
+
+
+def write_ohl(ohl: dict[str, pd.DataFrame], cols: list[str]) -> None:
+    for f in OHL_FIELDS:
+        df = ohl.get(f)
+        if df is None or df.empty:
+            continue
+        df = df[[c for c in cols if c in df.columns]].dropna(how="all").sort_index()
+        df.index.name = "date"
+        ohl_csv(f).parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(ohl_csv(f), float_format="%.6g")
+
+
 def write_prices(df: pd.DataFrame) -> None:
     PRICES_CSV.parent.mkdir(parents=True, exist_ok=True)
     df = df.sort_index()
@@ -147,7 +207,7 @@ def _yf_field(raw: pd.DataFrame, field: str, symbols: list[str]) -> pd.DataFrame
 
 
 def yf_ohlc(symbols: list[str], start: str) -> dict[str, pd.DataFrame]:
-    """Daily close, high and low (split-adjusted, not dividend-adjusted), date-string-indexed."""
+    """Daily open, high, low, close and volume (split-adjusted, not dividend-adjusted), date-string-indexed."""
     import yfinance as yf
     if not symbols:
         return {}
@@ -157,7 +217,7 @@ def yf_ohlc(symbols: list[str], start: str) -> dict[str, pd.DataFrame]:
         return {}
     close = _yf_field(raw, "Close", symbols).dropna(how="all")
     out = {"close": close}
-    for k, f in (("high", "High"), ("low", "Low"), ("volume", "Volume")):
+    for k, f in (("open", "Open"), ("high", "High"), ("low", "Low"), ("volume", "Volume")):
         try:
             out[k] = _yf_field(raw, f, symbols).reindex(index=close.index, columns=close.columns)
         except KeyError:
@@ -217,29 +277,33 @@ def spy_cmf(cur: dict, sym: str = "SPY") -> dict:
 def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
     syms = all_symbols(u)
     cur = read_prices()
+    ohl = read_ohl()
     have = [s for s in syms if s in cur.columns and cur[s].notna().sum() > 200]
-    new = [s for s in syms if s not in have]
-    report = {"incremental": len(have), "backfilled": new, "missing": []}
+    # instruments whose open/high/low history is still missing get their whole history again (once)
+    have_ohl = [s for s in have if s in ohl["high"].columns and ohl["high"][s].notna().sum() > 200]
+    new = [s for s in syms if s not in have_ohl]
+    report = {"incremental": len(have_ohl), "backfilled": [s for s in new if s not in have], "ohlBackfilled": len([s for s in new if s in have]), "missing": []}
     frames = []
-    if have:
-        last = cur[have].dropna(how="all").index.max()
+    if have_ohl:
+        last = cur[have_ohl].dropna(how="all").index.max()
         start = (dt.date.fromisoformat(last) - dt.timedelta(days=12)).isoformat()
-        frames.append(yf_close(have, start))
-    if new:
-        frames.append(yf_close(new, BACKFILL_START))
+        frames.append(yf_ohlc(have_ohl, start))
+    for i in range(0, len(new), 60):   # backfills in chunks, so one bad symbol cannot sink the whole download
+        frames.append(yf_ohlc(new[i:i + 60], BACKFILL_START))
     out = cur.copy()
     for f in frames:
-        if f.empty:
+        if not f or f.get("close") is None or f["close"].empty:
             continue
-        out = out.reindex(out.index.union(f.index))
-        for c in f.columns:
-            if c not in out.columns:
-                out[c] = np.nan
-            vals = f[c].dropna()
-            out.loc[vals.index, c] = vals.values
+        out = _merge_frame(out, f["close"])
+        for k in OHL_FIELDS:
+            if k in f:
+                ohl[k] = _merge_frame(ohl[k], f[k])
     # Yahoo quotes the 10-year yield in percent; guard against the old x10 convention.
     if "^TNX" in out.columns and out["^TNX"].dropna().median() > 20:
         out["^TNX"] = out["^TNX"] / 10
+    for k in OHL_FIELDS:
+        if "^TNX" in ohl[k].columns and ohl[k]["^TNX"].dropna().median() > 20:
+            ohl[k]["^TNX"] = ohl[k]["^TNX"] / 10
     out = out[[c for c in syms if c in out.columns]]
     today = iso(today_utc())
     out = apply_cutoff(out)
@@ -254,6 +318,11 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
             if (dt.date.fromisoformat(today) - dt.date.fromisoformat(last_s)).days > 6:
                 report[key].append(f"{s} (עד {last_s})")
     write_prices(out)
+    try:
+        cols = [c for c in syms if c in out.columns]
+        write_ohl({k: apply_cutoff(v) if not v.empty else v for k, v in clean_ohl(ohl, out[cols]).items()}, cols)
+    except Exception as e:   # the candles are a nice-to-have; the closes above are what the site runs on
+        report["ohlError"] = f"{type(e).__name__}: {e}"[:200]
     return with_baskets(out, u), report
 
 
@@ -461,6 +530,39 @@ def prices_payload(px: pd.DataFrame, years: int = 10, u: dict | None = None) -> 
             continue
         out[c] = {"t": [int((dt.date.fromisoformat(d) - dt.date(1970, 1, 1)).days) for d in s.index],
                   "v": [float(f"{v:.6g}") for v in s.values]}
+    return out
+
+
+def ohlc_file(sym: str) -> str:
+    """File name (under data/ohlc/) of one instrument's candles; the site builds the same name."""
+    import re
+    return re.sub(r"[^A-Za-z0-9]", "_", sym) + ".json"
+
+
+def ohlc_payloads(px: pd.DataFrame, years: int = 10, u: dict | None = None) -> dict[str, dict]:
+    """Per instrument: open, high and low aligned to the closes in prices.json (same days), null where the
+    day has no valid bar. Loaded by the site only when a chart opens."""
+    ohl = read_ohl()
+    if ohl["high"].empty:
+        return {}
+    start = (today_utc() - dt.timedelta(days=int(365.25 * years))).isoformat()
+    keep = None
+    if u:
+        keep = {it["sym"] for g in u["groups"] for it in g["items"]} | {it["sym"] for it in u.get("hidden", [])} | set(u.get("highs", []))
+    out = {}
+    for c in px.columns:
+        if (keep is not None and c not in keep) or c not in ohl["high"].columns:
+            continue
+        s = px.loc[px.index >= start, c].dropna()
+        if len(s) < 2:
+            continue
+        o, h, l = (ohl[f][c].reindex(s.index) if c in ohl[f].columns else pd.Series(index=s.index, dtype=float) for f in OHL_FIELDS)
+        n_ok = int((o.notna() & h.notna() & l.notna()).sum())
+        if n_ok < 20:
+            continue
+        num = lambda x: None if x is None or not np.isfinite(x) else float(f"{x:.6g}")
+        out[c] = {"sym": c, "t": [int((dt.date.fromisoformat(d) - dt.date(1970, 1, 1)).days) for d in s.index],
+                  "o": [num(x) for x in o.values], "h": [num(x) for x in h.values], "l": [num(x) for x in l.values]}
     return out
 
 

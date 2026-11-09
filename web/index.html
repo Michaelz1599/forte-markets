@@ -45,6 +45,8 @@
   --warn-bg: #F5E8CC;
   --chart-line: #002F22;
   --chart-2: #8FA59C;
+  --up: #089981;
+  --down: #F23645;
   --corr-neg: #2F6DB5;
   --corr-mid: #F4F7F5;
   --corr-pos: #0E5A45;
@@ -59,7 +61,7 @@
     --line: #21443A; --line-2: #183429; --frame: #4E9C80; --mast: #03231A; --mast-ink: #9AD4B9; --mast-ink-2: #C6E6D7;
     --t1: #0E3D2E; --t1-ink: #9AD4B9; --t2: #1C5644; --t2-ink: #E3F4EB; --hl: #133829; --accent: #9AD4B9; --accent-ink: #002F22;
     --mint: #9AD4B9; --fear: #F08B68; --fear-bg: #3A1D14; --greed: #6AD3A4; --greed-bg: #10392A; --neutral: #93A9A0; --neutral-bg: #17302A;
-    --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
+    --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --up: #22AB94; --down: #F7525F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
     --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 28px rgba(0, 0, 0, .3); color-scheme: dark;
   }
 }
@@ -68,7 +70,7 @@
   --line: #21443A; --line-2: #183429; --frame: #4E9C80; --mast: #03231A; --mast-ink: #9AD4B9; --mast-ink-2: #C6E6D7;
   --t1: #0E3D2E; --t1-ink: #9AD4B9; --t2: #1C5644; --t2-ink: #E3F4EB; --hl: #133829; --accent: #9AD4B9; --accent-ink: #002F22;
   --mint: #9AD4B9; --fear: #F08B68; --fear-bg: #3A1D14; --greed: #6AD3A4; --greed-bg: #10392A; --neutral: #93A9A0; --neutral-bg: #17302A;
-  --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
+  --warn: #E9B75A; --warn-bg: #352812; --chart-line: #9AD4B9; --chart-2: #5E7A6F; --up: #22AB94; --down: #F7525F; --corr-neg: #4C8BD6; --corr-mid: #0F241C; --corr-pos: #6AD3A4;
   --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 28px rgba(0, 0, 0, .3); color-scheme: dark;
 }
 
@@ -272,6 +274,10 @@ label.chk { display: inline-flex; align-items: center; gap: 8px; font-size: 14px
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 10px; min-width: 0; }
 .panel-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
 .chart { width: 100%; height: 460px; direction: ltr; }
+.ctools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ohlc { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13px; color: var(--ink-2); direction: ltr; justify-content: flex-start; min-height: 20px; font-variant-numeric: tabular-nums; }
+.ohlc b { font-weight: 700; }
+.ohlc .u { color: var(--up); } .ohlc .dn { color: var(--down); }
 .tbl-wrap { overflow-x: auto; }
 table.ft { border-collapse: collapse; width: 100%; font-size: 13.5px; background: var(--surface); }
 table.ft th { background: var(--t1); color: var(--t1-ink); font-weight: 700; padding: 7px 10px; text-align: start; white-space: nowrap; }
@@ -1369,14 +1375,16 @@ function openInd(id) {
           <div class="seg" role="group" aria-label="טווח הגרף" id="dRange">
             <button type="button" data-r="365">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827" aria-pressed="true">5 שנים</button><button type="button" data-r="3653">10 שנים</button><button type="button" data-r="0">הכל</button>
           </div>
+          ${candleOk(id, meta) ? candleTools('d', meta.freq || 'd') : ''}
           <div class="grp" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
             ${id !== 'spx' && id !== 'ta35_px' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID || id === 'il_sent' || meta.spxBg ? 'checked' : ''}><span id="dSpxName">${esc(benchOf(id, meta).name)}</span> ברקע</label>` : ''}
             <button type="button" class="btn ghost sm" id="dCsv" hidden>הורדת CSV</button>
             ${adminBtns}
           </div>
         </div>
+        <div class="ohlc" id="dOhlc"></div>
         <div class="chart" id="dChart" role="img" aria-label="גרף היסטורי של ${esc(meta.name)} עם קווי אחוזונים ואחוזון מתגלגל"></div>
-        <p class="small muted" style="margin:0">${/cmf/.test(id) ? 'ירוק = מעל 0, צבירה (כסף נכנס). אדום = מתחת ל-0, הפצה (כסף יוצא).' : `קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות.`} קו כתום: הרמה שנבחרה בסטטיסטיקה למטה, ונקודות: הכניסות לאזור. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו. עיגולים: שיאים ושפלים בולטים, צבעוני = יש אירוע, ולחיצה מראה מה קרה.</p>
+        <p class="small muted" style="margin:0">${/cmf/.test(id) ? 'ירוק = מעל 0, צבירה (כסף נכנס). אדום = מתחת ל-0, הפצה (כסף יוצא).' : `קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות.`} קו כתום: הרמה שנבחרה בסטטיסטיקה למטה, ונקודות: הכניסות לאזור. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו. עיגולים: שיאים ושפלים בולטים, צבעוני = יש אירוע, ולחיצה מראה מה קרה. <span id="dCandleNote"></span></p>
         <div class="evbox" id="dEvent" hidden></div>
       </section>
       ${moveTable(meta, s)}
@@ -1404,6 +1412,7 @@ function openInd(id) {
   { const b = $('#dCsv'); b.hidden = false; b.addEventListener('click', () => downloadCSV(id)); }
   drawChart(id, 1827);
   levelPanel(id);
+  bindCandleTools('d', meta.freq || 'd', () => { const p = $('#dRange [aria-pressed="true"]'); drawChart(id, p ? +p.dataset.r : 1827); });
   if (!EVENTS) loadEvents().then(() => { if (S.detail === id) lvRedraw(id); });
   $$('#dRange button').forEach(b => b.addEventListener('click', () => { $$('#dRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawChart(id, +b.dataset.r); }));
   const sp = $('#dSpx'); if (sp) sp.addEventListener('change', () => { const pressed = $('#dRange [aria-pressed="true"]'); drawChart(id, pressed ? +pressed.dataset.r : 1827); });
@@ -1420,6 +1429,98 @@ function renderAnalog(id) {
   el.innerHTML = head + `<p class="small" style="margin:0">ימים שבהם הקריאה הייתה ב<b>${cond}</b>, כמו היום: <b>${a.condDays.toLocaleString('en-US')}</b> ימים ב-<b>${a.episodes}</b> אפיזודות נפרדות, מ-${fmtDate(a.from)}.</p>
     <div class="tbl-wrap"><table class="ft"><thead><tr><th>אופק</th><th>חציון אחרי קריאה דומה</th><th>ממוצע</th><th>% חיובי</th><th>ימים</th><th>חציון כל הימים</th><th>% חיובי כל הימים</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="small muted" style="margin:0">תשואת מחיר של S&amp;P 500 בלי דיבידנדים, מהסגירה ביום הקריאה (או יום המסחר הבא). פחות מ-5 ימים בתנאי = לא מוצג. האפיזודות נספרות כרצף ימים בתנאי בלי הפסקה של יותר מחודש.</p>`;
+}
+// ---------------- candlesticks (TradingView-style) ----------------
+// Bars come from data/ohlc/<symbol>.json for indices; any day without a bar (and every sentiment reading)
+// opens at the previous close, so it draws as a body without wicks. Weekly / monthly candles aggregate days.
+const CANDLE_TF = { d: 'יומי', w: 'שבועי', m: 'חודשי' };
+function candleType() { return lsGet('cType', 'candle') === 'line' ? 'line' : 'candle'; }
+function candleTf(ctx, freq) {
+  const v = lsGet('cTf.' + ctx + '.' + freq, null);
+  const def = ctx === 'x' ? 'd' : (freq === 'd' ? 'w' : 'm');
+  const tf = v === 'd' || v === 'w' || v === 'm' ? v : def;
+  return freq !== 'd' && tf === 'd' ? (freq === 'w' ? 'w' : 'm') : tf;
+}
+function candleOk(id, meta) { return !/cmf/.test(id) && !(meta.parts && meta.parts.length) && id !== COMP_ID; }
+function candleTools(ctx, freq) {
+  const tf = candleTf(ctx, freq), ty = candleType();
+  return `<div class="ctools" id="${ctx}Ctools"><div class="seg" role="group" aria-label="סוג גרף"><button type="button" data-ct="candle" aria-pressed="${ty === 'candle'}">נרות</button><button type="button" data-ct="line" aria-pressed="${ty === 'line'}">קו</button></div>` +
+    `<div class="seg" role="group" aria-label="גודל נר">${Object.entries(CANDLE_TF).map(([k, l]) => `<button type="button" data-tf="${k}" aria-pressed="${tf === k}"${ty !== 'candle' || (k === 'd' && freq !== 'd') ? ' disabled' : ''}>${l}</button>`).join('')}</div></div>`;
+}
+function bindCandleTools(ctx, freq, redraw) {
+  const box = $('#' + ctx + 'Ctools'); if (!box) return;
+  const sync = () => { const ty = candleType(), tf = candleTf(ctx, freq);
+    $$('[data-ct]', box).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ct === ty)));
+    $$('[data-tf]', box).forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.tf === tf)); b.disabled = ty !== 'candle' || (b.dataset.tf === 'd' && freq !== 'd'); }); };
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b || b.disabled) return;
+    if (b.dataset.ct) lsSet('cType', b.dataset.ct); else if (b.dataset.tf) lsSet('cTf.' + ctx + '.' + freq, b.dataset.tf); else return;
+    sync(); redraw();
+  });
+}
+function candlePeriod(t, tf) {
+  if (tf === 'm') { const x = new Date(t); return Date.UTC(x.getUTCFullYear(), x.getUTCMonth(), 1); }
+  const dow = new Date(t).getUTCDay(); return t - ((dow + 6) % 7) * DAY;
+}
+// t: ms timestamps, c: closes, o/h/l: arrays aligned to t (or null). Returns [time, open, close, low, high] rows.
+function buildCandles(t, c, o, h, l, tf) {
+  const day = []; let real = 0, prev = null;
+  for (let i = 0; i < t.length; i++) {
+    const cl = c[i]; if (cl == null || !isFinite(cl)) continue;
+    const oo = o && o[i], hh = h && h[i], ll = l && l[i];
+    if (oo != null && hh != null && ll != null && isFinite(oo) && isFinite(hh) && isFinite(ll)) { real++; day.push([t[i], oo, cl, Math.min(ll, oo, cl), Math.max(hh, oo, cl)]); }
+    else { const op = prev == null ? cl : prev; day.push([t[i], op, cl, Math.min(op, cl), Math.max(op, cl)]); }
+    prev = cl;
+  }
+  if (tf === 'd') return { data: day, real, n: day.length };
+  const out = []; let cur = null, key = null;
+  for (const k of day) {
+    const p = candlePeriod(k[0], tf);
+    if (p !== key) { if (cur) out.push(cur); key = p; cur = k.slice(); } else { cur[2] = k[2]; cur[3] = Math.min(cur[3], k[3]); cur[4] = Math.max(cur[4], k[4]); }
+  }
+  if (cur) out.push(cur);
+  return { data: out, real, n: day.length };
+}
+// turns series[0] of a chart option into candles, with a TradingView-style last-price tag and an O/H/L/C strip
+function applyCandles(option, cd, fmt, stripId) {
+  const upC = tok('--up'), dnC = tok('--down'); const s0 = option.series[0];
+  const lk = cd.data[cd.data.length - 1]; const lastUp = lk[2] >= lk[1];
+  const ml = ((s0.markLine && s0.markLine.data) || []).slice();
+  ml.push({ yAxis: lk[2], name: 'last', lineStyle: { color: lastUp ? upC : dnC, type: 'dotted', width: 1 }, label: { show: true, position: 'end', formatter: fmt(lk[2]), color: '#fff', backgroundColor: lastUp ? upC : dnC, padding: [2, 4], borderRadius: 2, fontSize: 10 } });
+  option.series[0] = { name: s0.name, type: 'candlestick', xAxisIndex: s0.xAxisIndex, yAxisIndex: s0.yAxisIndex, data: cd.data, encode: { x: 0, y: [1, 2, 3, 4] }, barMaxWidth: 12, z: 3,
+    itemStyle: { color: upC, color0: dnC, borderColor: upC, borderColor0: dnC, borderWidth: 1 }, markLine: { symbol: 'none', silent: true, data: ml } };
+  option.grid.forEach(g => { if (g.right < 58) g.right = 58; });
+  option.axisPointer = { ...(option.axisPointer || {}), label: { backgroundColor: tok('--ink-2') } };
+  if (option.tooltip) option.tooltip.axisPointer = { type: 'cross', crossStyle: { color: tok('--muted') }, lineStyle: { color: tok('--muted'), type: 'dashed' } };
+  const ts = cd.data.map(k => k[0]);
+  const strip = (t) => {
+    const el = $('#' + stripId); if (!el) return;
+    let i = lb(ts, t); if (i >= ts.length || ts[i] > t) i--; if (i < 0) i = 0;
+    const [tt, o, c, l, h] = cd.data[i]; const pc = i > 0 ? cd.data[i - 1][2] : null; const cls = c >= o ? 'u' : 'dn';
+    el.innerHTML = `<span>${fmtDate(isoOf(tt))}</span><span>O <b class="${cls}">${fmt(o)}</b></span><span>H <b class="${cls}">${fmt(h)}</b></span><span>L <b class="${cls}">${fmt(l)}</b></span><span>C <b class="${cls}">${fmt(c)}</b></span>` +
+      (pc ? `<span class="${c >= pc ? 'u' : 'dn'}">${fmtS(c - pc, Math.abs(c) >= 1000 ? 0 : 2)} (${fmtS((c / pc - 1) * 100, 2)}%)</span>` : '');
+  };
+  strip(lk[0]);
+  return { strip, lastT: lk[0] };
+}
+// keeps a chart's own tooltip for its other lines and adds the candle's O/H/L/C on top
+function wrapCandleTip(option, cs, fmt) {
+  const f0 = option.tooltip.formatter;
+  option.tooltip.formatter = ps => {
+    if (!ps.length) return ''; const t = +ps[0].axisValue; cs.strip(t);
+    const k = ps.find(p => p.seriesType === 'candlestick');
+    const line = k ? (() => { const [o, c, l, h] = k.value.slice(-4); return `<br>${k.marker}${esc(k.seriesName)}: <b dir="ltr">${fmt(c)}</b><br><span dir="ltr" style="color:${tok('--muted')}">O ${fmt(o)} · H ${fmt(h)} · L ${fmt(l)}</span>`; })() : '';
+    const rest = ps.filter(p => p.seriesType !== 'candlestick');
+    const h = rest.length && typeof f0 === 'function' ? f0(rest) : `<div dir="rtl" style="text-align:right"><b>${fmtDate(isoOf(t))}</b></div>`;
+    return line ? h.replace('</b>', '</b>' + line) : h;
+  };
+}
+function candleNote(cd, tf, priced) {
+  const TFL = { d: 'יומיים', w: 'שבועיים', m: 'חודשיים' };
+  if (cd.real >= cd.n * 0.9) return `נרות ${TFL[tf]} מנתוני פתיחה, גבוה, נמוך וסגירה (Yahoo Finance).`;
+  if (cd.real > 0) return `נרות ${TFL[tf]}. לחלק מהימים אין נתוני פתיחה/גבוה/נמוך, ושם הנר נפתח בסגירה הקודמת, בלי פתילים.`;
+  return priced ? `נרות ${TFL[tf]} מהסגירות בלבד (נתוני OHLC יתווספו בעדכון הלילי הבא): כל יום נפתח בסגירה הקודמת${tf === 'd' ? ', בלי פתילים' : ''}.`
+    : `נרות ${TFL[tf]} שנבנו מהקריאות: פתיחה = הקריאה הראשונה בתקופה, סגירה = האחרונה, פתילים = הגבוהה והנמוכה.`;
 }
 function drawChart(id, rangeDays) {
   const el = $('#dChart'); if (!el || typeof echarts === 'undefined') { if (el) el.innerHTML = '<p class="muted" style="padding:20px">ספריית הגרפים לא נטענה.</p>'; return; }
@@ -1485,9 +1586,22 @@ function drawChart(id, rangeDays) {
   }
   lvDecorate(option, id);
   evDecorate(option, id, meta, s);
+  let cs = null;
+  const cnote = $('#dCandleNote');
+  if (candleOk(id, meta) && candleType() === 'candle') {
+    const tf = candleTf('d', meta.freq || 'd');
+    const cd = buildCandles(s.t, s.v, null, null, null, tf);
+    if (cd.data.length > 1) {
+      cs = applyCandles(option, cd, v => fmtVal(meta, v), 'dOhlc');
+      if (cnote) cnote.textContent = candleNote(cd, tf, false);
+    }
+  }
+  if (!cs) { const so = $('#dOhlc'); if (so) so.innerHTML = ''; if (cnote) cnote.textContent = ''; }
+  if (option.tooltip && cs) wrapCandleTip(option, cs, v => fmtVal(meta, v));
   if (chartInst) chartInst.dispose();
   chartInst = echarts.init(el, null, { renderer: 'canvas' });
   chartInst.setOption(option);
+  if (cs) chartInst.on('globalout', () => cs.strip(cs.lastT));
   evBind(id);
 }
 function downloadCSV(id) {
@@ -1932,6 +2046,13 @@ const NEUTRAL_SYMS = new Set(['ILS=X', 'DX-Y.NYB', '^TNX']);
 let idxCharts = [];
 async function loadMarkets() { if (!S.mk) S.mk = await fetchJSON('data/markets.json'); return S.mk; }
 async function loadPrices() { if (!S.px) S.px = await fetchJSON('data/prices.json'); return S.px; }
+// open/high/low of one instrument, aligned to its closes in prices.json; null when the file is not there yet
+async function loadOhlc(sym) {
+  S.ohlc = S.ohlc || {};
+  if (sym in S.ohlc) return S.ohlc[sym];
+  try { S.ohlc[sym] = await fetchJSON('data/ohlc/' + sym.replace(/[^A-Za-z0-9]/g, '_') + '.json'); } catch (e) { S.ohlc[sym] = null; }
+  return S.ohlc[sym];
+}
 function disposeIdxCharts() { idxCharts.forEach(c => { try { c.dispose(); } catch (e) { /* already gone */ } }); idxCharts = []; }
 function quadOf(it) {
   const p = it.rrg && it.rrg[it.rrg.length - 1]; if (!p) return null;
@@ -2399,11 +2520,13 @@ async function openIdx(sym) {
       <section class="panel">
         <div class="panel-head">
           <div class="seg" role="group" aria-label="טווח הגרף" id="xRange"><button type="button" data-r="182">6 ח'</button><button type="button" data-r="365" aria-pressed="true">שנה</button><button type="button" data-r="1096">3 שנים</button><button type="button" data-r="1827">5 שנים</button><button type="button" data-r="0">10 שנים</button></div>
+          ${candleTools('x', 'd')}
           <label class="chk" for="xLog"><input type="checkbox" id="xLog" ${S.xLog !== false ? 'checked' : ''}>סולם לוגריתמי</label>
           <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
         </div>
+        <div class="ohlc" id="xOhlc"></div>
         <div class="chart" id="xChart" role="img" aria-label="גרף מחיר של ${esc(it.name)} עם ממוצעים נעים"></div>
-        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים. נקודות כתומות: הכניסות לאזור שנבחר בסטטיסטיקה למטה.</p>
+        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים. נקודות כתומות: הכניסות לאזור שנבחר בסטטיסטיקה למטה. <span id="xCandleNote"></span></p>
       </section>
       <section class="panel" id="xLevels"></section>
     </div>`;
@@ -2412,8 +2535,10 @@ async function openIdx(sym) {
   const t = $('#toTa'); if (t) t.addEventListener('click', () => { closeOverlay(); openStock(it.ta); });
   $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
   $('#xLog').addEventListener('change', e => { S.xLog = e.target.checked; lsSet('xLog', S.xLog ? '1' : '0'); const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
+  bindCandleTools('x', 'd', () => { const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
   const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
   try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
+  await loadOhlc(sym);
   if ($('#xChart')) { el.innerHTML = ''; S.lvlX = null; drawIdxChart(sym, 365, isFac); levelPanelIdx(sym); }
 }
 function sma(v, n) { const out = new Array(v.length).fill(null); let s = 0; for (let i = 0; i < v.length; i++) { s += v[i]; if (i >= n) s -= v[i - n]; if (i >= n - 1) out[i] = s / n; } return out; }
@@ -2442,7 +2567,8 @@ function drawIdxChart(sym, rangeDays, isFac) {
   if (idxChart) { try { idxChart.dispose(); } catch (e) { /* gone */ } }
   idxChart = echarts.init(el); chartInst = idxChart;
   const it = S.mk.items[sym];
-  idxChart.setOption({ ...chartBase(),
+  const wantCandles = candleType() === 'candle';
+  const opt = { ...chartBase(),
     grid: [{ left: 62, right: 18, top: 16, height: '58%' }, { left: 62, right: 18, top: '74%', height: '14%' }],
     axisPointer: { link: [{ xAxisIndex: 'all' }], lineStyle: { color: muted } },
     tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => {
@@ -2463,7 +2589,18 @@ function drawIdxChart(sym, rangeDays, isFac) {
         data: (() => { const pm = new Map(t.map((x, i) => [x, v[i]])); return S.lvlX.sig.filter(x => pm.has(x)).map(x => [x, pm.get(x)]); })() }] : []),
       { name: lower.name, type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: lower.data, showSymbol: false, lineStyle: { width: 1, color: ink }, connectNulls: true,
         markLine: lower.name === 'RSI' ? { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: greed, type: 'dashed' } }, { yAxis: 30, lineStyle: { color: fear, type: 'dashed' } }] } : undefined },
-    ] });
+    ] };
+  const cnote = $('#xCandleNote'); let cs = null;
+  if (wantCandles) {
+    const tf = candleTf('x', 'd'); const ob = S.ohlc && S.ohlc[sym];
+    let o = null, h = null, l = null;
+    if (ob && ob.t) { const im = new Map(ob.t.map((x, i) => [x, i])); const pick = a => p.t.map(x => { const i = im.get(x); return i == null ? null : a[i]; }); o = pick(ob.o); h = pick(ob.h); l = pick(ob.l); }
+    const cd = buildCandles(t, v, o, h, l, tf);
+    if (cd.data.length > 1) { cs = applyCandles(opt, cd, x => priceFmt(it, x), 'xOhlc'); wrapCandleTip(opt, cs, x => priceFmt(it, x)); if (cnote) cnote.textContent = candleNote(cd, tf, true); }
+  }
+  if (!cs) { const so = $('#xOhlc'); if (so) so.innerHTML = ''; if (cnote) cnote.textContent = ''; }
+  idxChart.setOption(opt);
+  if (cs) idxChart.on('globalout', () => cs.strip(cs.lastT));
 }
 
 // ---------------- table headers follow the page while scrolling (every tab) ----------------

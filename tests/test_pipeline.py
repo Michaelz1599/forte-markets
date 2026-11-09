@@ -395,3 +395,32 @@ def test_cot_parse_nets_and_sums_exchanges():
     p = sources.cot_parse(rows)
     assert p["lg"] == {"2017-07-11": 300} and p["sm"] == {"2017-07-11": 0} and p["cm"] == {"2017-07-11": -300}
     assert p["spec"]["2017-07-11"] == -p["cm"]["2017-07-11"]   # the nets of the three groups sum to zero
+
+
+def test_ohlc_store_and_payload(tmp_path, monkeypatch):
+    from pipeline import markets
+    monkeypatch.setattr(markets, "PRICES_CSV", tmp_path / "close.csv")
+    monkeypatch.setattr(markets, "apply_cutoff", lambda df: df)
+    days = _dates(260)
+    u = {"groups": [{"kind": "index", "items": [{"sym": "AAA"}, {"sym": "BBB"}]}], "benchmark": "AAA"}
+    monkeypatch.setattr(markets, "all_symbols", lambda uu: ["AAA", "BBB"])
+    monkeypatch.setattr(markets, "today_utc", lambda: __import__("datetime").date.fromisoformat(days[-1]))
+    c = pd.DataFrame({"AAA": np.linspace(100, 120, 260), "BBB": np.linspace(10, 12, 260)}, index=days)
+    o = c * 0.995; h = c * 1.01; l = c * 0.99
+    l.iloc[5, 0] = c.iloc[5, 0] * 1.02          # a bad bar (low above the close) must be dropped
+    calls = []
+    def fake(syms, start):
+        calls.append((tuple(syms), start))
+        return {"close": c[syms], "open": o[syms], "high": h[syms], "low": l[syms], "volume": c[syms] * 0}
+    monkeypatch.setattr(markets, "yf_ohlc", fake)
+    px, rep = markets.update_prices(u)
+    assert calls[0][1] == markets.BACKFILL_START and rep["backfilled"] == ["AAA", "BBB"]
+    ohl = markets.read_ohl()
+    assert set(ohl["high"].columns) == {"AAA", "BBB"} and np.isnan(ohl["low"].loc[days[5], "AAA"])
+    # the next run is incremental: it has both the closes and the bars
+    calls.clear(); markets.update_prices(u)
+    assert calls and calls[0][1] != markets.BACKFILL_START
+    pay = markets.ohlc_payloads(px, u=u)
+    a = pay["AAA"]
+    assert len(a["t"]) == len(a["o"]) == len(a["h"]) == 260 and a["l"][5] is None and abs(a["h"][-1] - 121.2) < 1e-6
+    assert markets.ohlc_file("^GSPC") == "_GSPC.json" and markets.ohlc_file("ILS=X") == "ILS_X.json"
