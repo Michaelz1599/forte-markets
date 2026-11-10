@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-10T08:58+00:00",
+"asof": "2026-11-10T13:48+00:00",
 "events": [
 {
 "id": "BWAY-2026-11-10",
@@ -1735,7 +1735,7 @@
 "sources": [
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1778916"
+"url": "https://maya.tase.co.il/he/reports/1780400"
 }
 ]
 },
@@ -3718,6 +3718,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ג'י סיטי": {
+"name": "ג'י סיטי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ג'נריישן קפיטל": {
 "name": "ג'נריישן קפיטל",
 "tags": [
@@ -3728,14 +3736,6 @@
 },
 "אקרשטיין קבוצה": {
 "name": "אקרשטיין קבוצה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ג'י סיטי": {
-"name": "ג'י סיטי",
 "tags": [
 "TASE"
 ],
