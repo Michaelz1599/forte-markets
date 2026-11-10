@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-10T14:31+00:00",
+"asof": "2026-11-10T16:08+00:00",
 "events": [
 {
 "id": "BWAY-2026-11-10",
@@ -815,6 +815,34 @@
 ]
 },
 {
+"id": "פנינסולה-2026-11-16",
+"ticker": "פנינסולה",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 333,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "פריון נטוורק-2026-11-16",
 "ticker": "פריון נטוורק",
 "market": "IL",
@@ -1451,6 +1479,34 @@
 },
 "links": {},
 "maya": 2358,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "מיטב טרייד-2026-11-18",
+"ticker": "מיטב טרייד",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2428,
 "sources": [
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
@@ -3494,6 +3550,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פנינסולה": {
+"name": "פנינסולה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מניף-פיננסים": {
+"name": "מניף-פיננסים",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "תדיראן גרופ": {
 "name": "תדיראן גרופ",
 "tags": [
@@ -3504,14 +3576,6 @@
 },
 "מזרחי טפחות": {
 "name": "מזרחי טפחות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מניף-פיננסים": {
-"name": "מניף-פיננסים",
 "tags": [
 "TASE"
 ],
@@ -3670,14 +3734,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"מור גמל פנסיה": {
-"name": "מור גמל פנסיה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "סלקום": {
 "name": "סלקום",
 "tags": [
@@ -3694,16 +3750,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"טרמינל איקס": {
-"name": "טרמינל איקס",
+"מיטב טרייד": {
+"name": "מיטב טרייד",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"אבוג'ן": {
-"name": "אבוג'ן",
+"מור גמל פנסיה": {
+"name": "מור גמל פנסיה",
 "tags": [
 "TASE"
 ],
@@ -3720,6 +3776,22 @@
 },
 "ג'י סיטי": {
 "name": "ג'י סיטי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אבוג'ן": {
+"name": "אבוג'ן",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"טרמינל איקס": {
+"name": "טרמינל איקס",
 "tags": [
 "TASE"
 ],
