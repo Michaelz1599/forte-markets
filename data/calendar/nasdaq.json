@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-09T22:31+00:00",
+"asof": "2026-11-10T00:19+00:00",
 "events": [
 {
 "id": "AAPL-2026-11-02",
@@ -10576,7 +10576,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 0.18,
-"epsN": 4.0,
+"epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -11063,7 +11063,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 0.25,
-"epsN": 4.0,
+"epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -11961,7 +11961,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": -0.13,
-"epsN": 1.0,
+"epsN": null,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
