@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-11T00:25+00:00",
+"asof": "2026-11-11T08:23+00:00",
 "events": [
 {
 "id": "BEZQ-2026-11-11",
@@ -898,6 +898,34 @@
 ]
 },
 {
+"id": "זפירוס-2026-11-17",
+"ticker": "זפירוס",
+"market": "IL",
+"date": "2026-11-17",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2413,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780432"
+}
+]
+},
+{
 "id": "מזרחי טפחות-2026-11-17",
 "ticker": "מזרחי טפחות",
 "market": "IL",
@@ -950,6 +978,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780295"
+}
+]
+},
+{
+"id": "שירותי בנק אוטו-2026-11-17",
+"ticker": "שירותי בנק אוטו",
+"market": "IL",
+"date": "2026-11-17",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1774,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780421"
 }
 ]
 },
@@ -3315,6 +3371,22 @@
 },
 "מזרחי טפחות": {
 "name": "מזרחי טפחות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שירותי בנק אוטו": {
+"name": "שירותי בנק אוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"זפירוס": {
+"name": "זפירוס",
 "tags": [
 "TASE"
 ],

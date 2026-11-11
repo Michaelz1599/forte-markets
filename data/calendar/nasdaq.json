@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-11T00:24+00:00",
+"asof": "2026-11-11T08:22+00:00",
 "events": [
 {
 "id": "AAPL-2026-11-02",
@@ -11629,7 +11629,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 118254125000.0,
+"mcap": 119414112000.0,
 "name": "Petroleo Brasileiro S.A.- Petrobras",
 "sources": [
 {
@@ -11667,7 +11667,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 118254125000.0,
+"mcap": 119414112000.0,
 "name": "Petroleo Brasileiro S.A.- Petrobras",
 "sources": [
 {
@@ -11698,7 +11698,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 67373793000.0,
+"mcap": 66166555000.0,
 "name": "Transdigm Group Incorporated",
 "sources": [
 {
@@ -11736,7 +11736,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 47749292000.0,
+"mcap": 46383452000.0,
 "name": "Sea Limited",
 "sources": [
 {
@@ -11774,7 +11774,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 37547459000.0,
+"mcap": 37447516000.0,
 "name": "Alcon Inc.",
 "sources": [
 {
@@ -11812,7 +11812,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36377780000.0,
+"mcap": 36009845000.0,
 "name": "Vodafone Group Plc",
 "sources": [
 {
@@ -11843,7 +11843,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 32091580400.0,
+"mcap": 31968229400.0,
 "name": "Ecopetrol S.A.",
 "sources": [
 {
@@ -11881,7 +11881,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29501095900.0,
+"mcap": 28826071000.0,
 "name": "Venture Global, Inc.",
 "sources": [
 {
@@ -11919,7 +11919,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27014262800.0,
+"mcap": 25591298000.0,
 "name": "CoreWeave, Inc.",
 "sources": [
 {
@@ -11957,7 +11957,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22646767600.0,
+"mcap": 22544185300.0,
 "name": "On Holding AG",
 "sources": [
 {
@@ -11995,7 +11995,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 18550495200.0,
+"mcap": 18262890500.0,
 "name": "Telefonica Brasil S.A.",
 "sources": [
 {
@@ -12007,6 +12007,44 @@
 "period": "רבעון נוכחי",
 "eps": 0.24,
 "epsN": 2.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "EMBJ-2026-11-10",
+"ticker": "EMBJ",
+"market": "US",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 13385628700.0,
+"name": "Embraer S.A.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.87,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -12841,7 +12879,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27732217900.0,
+"mcap": 27940020200.0,
 "name": "Trip.com Group Limited",
 "sources": [
 {
@@ -12879,7 +12917,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27570673700.0,
+"mcap": 27856484400.0,
 "name": "Baidu, Inc.",
 "sources": [
 {
@@ -12890,6 +12928,44 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 0.57,
+"epsN": 2.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "BEKE-2026-11-16",
+"ticker": "BEKE",
+"market": "US",
+"date": "2026-11-16",
+"session": "BMO",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "before market open",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 21297481700.0,
+"name": "KE Holdings Inc",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.2,
 "epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -12917,7 +12993,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21062357000.0,
+"mcap": 20995514400.0,
 "name": "Tyson Foods, Inc.",
 "sources": [
 {
@@ -12929,44 +13005,6 @@
 "period": "רבעון נוכחי",
 "eps": 0.65,
 "epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "BEKE-2026-11-16",
-"ticker": "BEKE",
-"market": "US",
-"date": "2026-11-16",
-"session": "BMO",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "before market open",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 20789053400.0,
-"name": "KE Holdings Inc",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.2,
-"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -12993,7 +13031,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15440771100.0,
+"mcap": 15696015400.0,
 "name": "H World Group Limited",
 "sources": [
 {
@@ -13031,7 +13069,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14430834700.0,
+"mcap": 13850859500.0,
 "name": "Aramark",
 "sources": [
 {
