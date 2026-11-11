@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, maya, rs, sources, uscal
+from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
 
 CONFIG = ROOT / "config" / "indicators.json"
@@ -213,6 +213,17 @@ def run(offline: bool = False, live: bool = False) -> int:
             if il_live and il_live > cutoff_date() and payload.get("asof") == il_live:
                 msg += " · ת\"א ושער הדולר: נכון ל-" + dt.datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%H:%M")
             st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
+        # 10c. Marketing tab: the mega caps and the held stocks (day / month / year), news headlines per held company,
+        # and the Israeli corporate spread over government bonds (Tel Bond indices)
+        res = step(st, "mkt_px", "שיווק: מחירי המניות הגדולות והאחזקות", lambda: marketing.update_prices())
+        if res:
+            st.add("mkt_px", "שיווק: מחירי המניות הגדולות והאחזקות", True, max((v["date"] for v in res[0]["items"].values()), default=None), res[1])
+        res = step(st, "mkt_news", "שיווק: כותרות לחברות בתיק (Google News)", lambda: marketing.update_news())
+        if res:
+            st.add("mkt_news", "שיווק: כותרות לחברות בתיק (Google News)", True, res[0]["asof"][:10], res[1])
+        res = step(st, "mkt_spread", "שיווק: מרווח אג\"ח קונצרני בישראל (תל בונד)", lambda: marketing.update_spreads())
+        if res:
+            st.add("mkt_spread", "שיווק: מרווח אג\"ח קונצרני בישראל (תל בונד)", True, res[0], res[1])
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
         if res:
             out, msg = res
@@ -331,6 +342,10 @@ def build(st: Status, u: dict, px) -> None:
     if ev_file.exists():
         evs = [json.loads(x) for x in ev_file.read_text(encoding="utf-8").splitlines() if x.strip()]
         dump_json(tmp / "data" / "events.json", {"events": evs})
+    try:   # the marketing tab: holdings, profiles, prices, headlines, stories and the held companies' reports
+        dump_json(tmp / "data" / "marketing.json", marketing.build_payload())
+    except Exception:
+        traceback.print_exc()
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
         shutil.copy(mom_file, tmp / "data" / "momentum.json")

@@ -1,0 +1,5 @@
+{
+ "_comment": "Short Hebrew 'what matters now' per held issuer (key = issuer key in issuers.json), written by the daily marketing task for issuers with something new: an unusual move, a report, an appointment, a rating action or a material headline. items: {key: {at, sum, pts[], src[{t,u}]}}. Items older than 30 days are dropped.",
+ "asof": "2026-11-11T19:30+02:00",
+ "items": {}
+}

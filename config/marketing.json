@@ -1,0 +1,19 @@
+{
+  "_comment": "Marketing tab. megacaps: the big US names the public talks about (prices here, stories written daily into data/marketing/stories.json). us_sectors: the 11 GICS sector SPDRs for the sector-leaders chart. il_tb: Tel Bond indices whose spread over government bonds is read daily from Bizportal (index composition pages, column 'מרווח מהממשלתי', weighted by the index weights). The holdings list and the company profiles live in data/marketing/.",
+  "megacaps": [
+    ["NVDA", "אנבידיה", "NVIDIA"], ["AAPL", "אפל", "Apple"], ["MSFT", "מיקרוסופט", "Microsoft"], ["GOOGL", "אלפבית (גוגל)", "Alphabet"],
+    ["AMZN", "אמזון", "Amazon"], ["META", "מטא", "Meta"], ["TSLA", "טסלה", "Tesla"], ["AVGO", "ברודקום", "Broadcom"],
+    ["TSM", "TSMC", "TSMC"], ["BRK-B", "ברקשייר", "Berkshire Hathaway"], ["LLY", "אלי לילי", "Eli Lilly"], ["JPM", "ג'יי.פי מורגן", "JPMorgan"],
+    ["NFLX", "נטפליקס", "Netflix"], ["PLTR", "פלנטיר", "Palantir"], ["ORCL", "אורקל", "Oracle"], ["AMD", "AMD", "AMD"]
+  ],
+  "us_sectors": [
+    ["XLK", "טכנולוגיה"], ["XLC", "תקשורת"], ["XLY", "צריכה מחזורית"], ["XLF", "פיננסים"], ["XLI", "תעשייה"], ["XLV", "בריאות"],
+    ["XLP", "צריכה בסיסית"], ["XLE", "אנרגיה"], ["XLB", "חומרים"], ["XLU", "תשתיות חשמל"], ["XLRE", "נדל\"ן"]
+  ],
+  "il_tb": [
+    {"id": "il_tb20_spread", "name": "תל בונד 20", "desc": "20 האג\"ח הקונצרניות הצמודות הגדולות", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/33463333"},
+    {"id": "il_tb60_spread", "name": "תל בונד 60", "desc": "60 האג\"ח הקונצרניות הצמודות הגדולות, דירוג A- ומעלה", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/33493333"},
+    {"id": "il_tbs_spread", "name": "תל בונד שקלי", "desc": "אג\"ח קונצרניות שקליות (לא צמודות)", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/548"}
+  ],
+  "news": {"per_run": 120, "keep": 8, "days": 45, "sleep": 0.6}
+}

@@ -27,7 +27,7 @@ on:
         default: false
   push:
     branches: [main]
-    paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt", "data/calendar/**"]
+    paths: ["web/**", "worker/**", "pipeline/**", "config/**", "wrangler.jsonc", ".github/**", "requirements.txt", "data/calendar/**", "data/marketing/**"]
 permissions:
   contents: write
 concurrency:
