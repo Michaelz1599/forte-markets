@@ -2104,7 +2104,7 @@
 "k": "bond",
 "r": "BBB+",
 "s": "בנייה",
-"i": "aviv",
+"i": "aviv_group",
 "note": ""
 },
 {
@@ -2595,7 +2595,7 @@
 "k": "bond",
 "r": "לא מדורגות",
 "s": "בנייה",
-"i": "elbit_nd",
+"i": "elbit_imaging",
 "note": ""
 },
 {
@@ -2898,7 +2898,7 @@
 "k": "bond",
 "r": "לא מדורגות",
 "s": "בנייה",
-"i": "gabay",
+"i": "gabay_manivim",
 "note": ""
 },
 {
@@ -3152,7 +3152,7 @@
 "k": "bond",
 "r": "לא מדורגות",
 "s": "בנייה",
-"i": "elbit_nd",
+"i": "elbit_imaging",
 "note": ""
 },
 {
@@ -5829,7 +5829,7 @@
 "k": "bond",
 "r": "A+",
 "s": "נדלן מניב בישראל",
-"i": "levinstein",
+"i": "levinstein_prop",
 "note": ""
 },
 {
