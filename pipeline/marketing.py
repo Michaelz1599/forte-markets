@@ -6,6 +6,7 @@ Inputs (hand-kept and written by the daily marketing task, see data/marketing/):
   data/marketing/issuers.json  one profile per issuer: what it does, sector, competitors, Yahoo symbol, news query
   data/marketing/stories.json  the day's public stories about the mega caps (daily task)
   data/marketing/news.json     a short Hebrew "what's new" per issuer with something new (daily task)
+  data/marketing/weekly.json   the weekly brief for the marketing team: talking points on Israeli and US companies (weekly task)
 
 This step adds, on every full run:
   prices   day / month-to-date / year-to-date / 12 months for the mega caps and every priced holding, and how unusual
@@ -315,6 +316,36 @@ def _calendar(iss: dict) -> dict:
     return out
 
 
+def _upcoming(iss: dict, held: set, days: int = 10) -> list[dict]:
+    """The coming days for the weekly brief: reports of the companies we hold and the main macro releases (Israel, US)."""
+    today = today_utc()
+    end = (today + dt.timedelta(days=days)).isoformat()
+    t0 = today.isoformat()
+    alias = {}
+    for k, v in iss.items():
+        if k in held:
+            for a in v.get("cal") or []:
+                alias.setdefault(str(a).upper(), k)
+    evs = []
+    for p in sorted((CAL / "weeks").glob("*.json")):
+        evs += _read(p, {}).get("events", [])
+    for f in ("maya.json", "extra.json", "nasdaq.json"):
+        evs += _read(CAL / f, {}).get("events", [])
+    out, seen = [], set()
+    for e in sorted(evs, key=lambda e: e.get("date", "")):
+        d, k = e.get("date", ""), alias.get(str(e.get("ticker", "")).upper())
+        if k and t0 <= d <= end and (k, d) not in seen:
+            seen.add((k, d))
+            out.append({"date": d, "kind": "report", "key": k, "label": f"דוח {iss[k]['he']}" + (f" ({e.get('period')})" if e.get("period") else ""),
+                        "mkt": "IL" if iss[k].get("ctry") == "IL" else "US", "session": e.get("session")})
+    for e in _read(CAL / "macro.json", {}).get("events", []):
+        d = e.get("date", "")
+        if t0 <= d <= end and (e.get("imp") or 0) >= 2 and e.get("country") in ("IL", "US"):
+            out.append({"date": d, "kind": "macro", "label": e.get("he") or e.get("en") or "", "mkt": e.get("country"), "imp": e.get("imp"),
+                        "period": e.get("period")})
+    return sorted(out, key=lambda x: (x["date"], x["kind"] != "macro", x["mkt"] != "IL"))
+
+
 def _series_tail(sid: str, days: int = 400) -> dict:
     s = read_series(sid)
     if not s:
@@ -337,6 +368,7 @@ def build_payload() -> dict:
         "px": px.get("items", {}), "pxAsof": px.get("asof"),
         "headlines": {k: v.get("items", []) for k, v in news.get("items", {}).items() if v.get("items")}, "newsAsof": news.get("asof"),
         "stories": _read(MK / "stories.json", {}), "notes": _read(MK / "news.json", {}),
+        "weekly": _read(MK / "weekly.json", {}), "upcoming": _upcoming(iss, {h["i"] for h in hold}),
         "cal": _calendar(iss),
         "spreads": {ix["id"]: _series_tail(ix["id"]) for ix in cfg.get("il_tb", [])},
     }

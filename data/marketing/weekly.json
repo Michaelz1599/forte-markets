@@ -1,0 +1,244 @@
+{
+ "_comment": "Weekly brief for the marketing team (תקציר שבועי): talking points on Israeli (il) and US (us) companies, written every Sunday morning by the weekly marketing task from published articles and the dashboard's own data. current = this week's brief; hist = earlier weeks, newest first (up to 26). A point: title, text (2-3 sentences with numbers), why (one line to say to an investor), keys (issuer keys in issuers.json, shown as clickable chips), src [{t, u}] (u may be '#calendar' for the dashboard's own earnings calendar). The coming week's reports and macro releases are added automatically by the pipeline (payload 'upcoming').",
+ "current": {
+  "week": "8–14.11.2026",
+  "asof": "2026-11-11T20:30+02:00",
+  "partial": true,
+  "headline": "שבוע תנודתי: בארה\"ב מניות ה-AI חטפו מכה אחרי הבחירות לקונגרס והתאוששו חלקית, ומנכ\"ל אנבידיה בלב סערה; בארץ עונת הדוחות של הבנקים נפתחה ברווחים נשחקים, וענפי האנרגיה והנדל\"ן מספקים את החדשות הטובות.",
+  "il": [
+   {
+    "title": "הבנקים: הרווחים מתחילים להישחק, ומדד הבנקים צנח 3.6% ביום אחד",
+    "text": "הבנק הבינלאומי, הראשון מהגדולים שדיווח, הרוויח ברבעון השלישי 508 מיליון שקל, ירידה של כ-12%–13%, בעיקר בגלל ירידת האינפלציה והריבית ובגלל מיסים, וחילק דיבידנד של 254 מיליון שקל. ביום הדוח (11.11) צנח מדד הבנקים ב-3.6% ות\"א 35 ירד כ-1%.",
+    "why": "שנתיים של ריבית ואינפלציה גבוהות ניפחו את רווחי הבנקים; עכשיו הן יורדות, אבל הבנקים עדיין רווחיים מאוד ומחלקים דיבידנדים. בשבוע הבא מדווחים הפועלים, לאומי, מזרחי ודיסקונט.",
+    "keys": [
+     "fibi",
+     "fibih",
+     "leumi",
+     "poalim",
+     "mizrahi",
+     "discount"
+    ],
+    "src": [
+     {
+      "t": "YNET",
+      "u": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1jeXZ3QlFQQ2ljYXFTa2dVYUQ5U3BVSVJISnRkRGw1MHdaMFZqbmMzQmxxcndCa2RVNE5sd1FHUVM1Y0E1YUJHc2E5WEpUdWs1dkdvaHVwLVNhdWVnS1E?oc=5"
+     },
+     {
+      "t": "ביזפורטל",
+      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE8zWHNjc1hRcHJBNDROeUNodndpaXpEVDQ5WXI0RXRqM1U0UDVPckgyZ1dpR1BvYS1WdnVUZ0RpbFhnZENjNEZlOWxRV24xMl8zcU9IWWItS0pXSGpfUGM3RlJwdXQ2d1RMQlliLXQzVUY?oc=5"
+     },
+     {
+      "t": "ספונסר",
+      "u": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBNV01vejR3Um9laWxIVjVkVG9DajZQdmVKN3ltcHE2VkpDZW0wRTN5OHAwc0s5UkpHb0I3bmdtemRUZnRtcDl5ckJtOExDNHFXSzZtVXFtdWQ4RGdjM2RRU3NVWU52QQ?oc=5"
+     }
+    ]
+   },
+   {
+    "title": "הבורסה בת\"א: רבעון שיא, ובכל זאת המניה צנחה כ-9%",
+    "text": "הכנסות הבורסה ברבעון עלו 19% ל-175.3 מיליון שקל והרווח הנקי 37% ל-68.3 מיליון שקל, והחברה הציבה יעד צמיחה אורגנית של 15%–18% בשנה מ-2027. למחרת המניה ירדה כ-9% ומחקה כמיליארד שקל משוויה.",
+    "why": "המניה עלתה מאוד על גל מחזורי המסחר, כך שהציפיות היו גבוהות מאוד; העסק עצמו ממשיך לצמוח בקצב דו-ספרתי.",
+    "keys": [
+     "tase"
+    ],
+    "src": [
+     {
+      "t": "Calcalist",
+      "u": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1fU3VDdXpodjdiWHcyMTlwQnBfWDNLajNxU1o5MXlOYWJvQXlnbURmZGktcEZSaHhYWTJpMlVheklhQ1N0bnRzb0U4QzdmekhJbHpQc0tBcU5kWVJKdnpfRGNJUQ?oc=5"
+     },
+     {
+      "t": "ספונסר",
+      "u": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9ZenltRFU0bWpzbXI3MkxwNnlPMGQ5d0F0bVMwWnpiSjZFblV5Y2NhR0xLYVRPMVdqb0JvTlY0bVFoSVplaXVxajFsRW13NmNMeXc0cEdvZGNsSjlIOGoycXRzLWJfQQ?oc=5"
+     },
+     {
+      "t": "גלובס",
+      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9mYXRDbjhnQlUtWk55NWR2YURXdF9hcTVVQ1R4NFVCUzRKM1hOcHFZN0RPV01iMTBUc3VxZnVHNEdvbnVORTBkcm5kQUVUN1dKVGNiY1RCdHBXclduUGxtZnZPS1IyeVRR?oc=5"
+     }
+    ]
+   },
+   {
+    "title": "נדל\"ן מניב: תחזיות עולות, וחוות שרתים הן הטרנד החם",
+    "text": "ריט 1 העלתה את התחזית ל-2026 אחרי רבעון עם NOI של 142 מיליון שקל ותפוסה משופרת. מגה אור הודיעה שתיכנס לחוות שרתים באירופה דרך חברת בת, ונופר אנרג'י קונה מ-KKR חוות שרתים בפתח תקווה בכ-85 מיליון דולר. ולאומי פרטנרס תשקיע 100 מיליון דולר בהרבור גרופ, חברת דיור אמריקאית, לפי שווי של כ-1.3 מיליארד דולר.",
+    "why": "הביקוש של עולם ה-AI לחוות שרתים פותח לחברות הנדל\"ן והאנרגיה הישראליות מנוע צמיחה חדש, מעבר למשרדים ולקניונים.",
+    "keys": [
+     "reit1",
+     "megaor",
+     "nofar",
+     "leumi",
+     "azrieli"
+    ],
+    "src": [
+     {
+      "t": "ice (אייס)",
+      "u": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9wNWJZU3Z1aUZ3bFR3aE5EdEtaal9sV0lOMUtkVmVpVmxSNlU3dGMxN3F3QXpQRm5QYVowdzFGQXExb0RmSXBFbjhsd202cDFVTG01X0NsalI1VU41SWhj?oc=5"
+     },
+     {
+      "t": "TradingView",
+      "u": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8xc1cyMTJGVDhUYXBqS2NSTURRb0UxRnZ4RWRyOUxRUzE5VnVGaVhtVnFaVzhwb3c5d1RqaGNOTHJ4V21wakZTdnd0SjBqcjZCeDAtazBaUExnUHJTMTFJVFRyTHdGQzdYbjdB?oc=5"
+     },
+     {
+      "t": "גלובס",
+      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9TVmRadTBCN01rU2VMc1FJQWdURW1HalkyTjBpMU1hNXJWcDJFVDVrQm54QmVZdk9lOGlSOHZkQnkzOFNXcy0yN1VZaGx1OHd5V19aWWRUTjhRdUhrVXJCamdNREs5Z2hi?oc=5"
+     }
+    ]
+   },
+   {
+    "title": "אנרגיה: או.פי.סי מכפילה רווח, אנרג'יקס מורידה תחזית, אנלייט נערכת לגיוס",
+    "text": "או.פי.סי דיווחה על זינוק של 121% ברווח הנקי המתואם ל-126 מיליון דולר בזכות הביקוש לחשמל. אנרג'יקס הורידה את התחזית ל-2026 בגלל עיכובים בחיבור פרויקטים לרשת בארה\"ב, ואנלייט, שירדה כ-35% מהשיא, נערכת לאפשרות לגייס עד 400 מיליון דולר במניות.",
+    "why": "הביקוש לחשמל הוא רוח גבית לכל הענף; ההבדלים בין החברות הם בביצוע, בחיבור לרשת ובמימון.",
+    "keys": [
+     "opc",
+     "energix",
+     "enlight"
+    ],
+    "src": [
+     {
+      "t": "פאנדר",
+      "u": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBhcno1VWQ1UldFLU91ZDhmTGdsek42Q2ZDcDNGWjB4aTUwWXQ5R0ZiRTN3SC1ZUjl4Qk1WMWtqRm9Dd3RsbXBmdFdvZ3M2Z0p1?oc=5"
+     },
+     {
+      "t": "ביזפורטל",
+      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40Zklpd1lWX080dUZmbXBLUWI2X19PeXpndjkxRjFCcEdVd2hjX0h4cHJTOXZBQUZvSFhxR3I3Tm1FVFFJbVVEVFhGZnFKa3lScDdrZUtXN2ZPQm4yRmlKbHE1TnVXQW92SXlvamRoS24?oc=5"
+     },
+     {
+      "t": "ice (אייס)",
+      "u": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9rUE1SbnozMG9HT2theDRYRTJubnlwVlQtNFpnNzUySGZWc1p5Qy1Ta2xhMzQxTVNZOE9OTHJTR3ZnSVBseHVCaVVvNXBva1JLOWhLa2lmVERDYXg5OHpn?oc=5"
+     }
+    ]
+   },
+   {
+    "title": "שבבים וטכנולוגיה: תוצאות שיא, מניות בירידה",
+    "text": "נובה וקמטק עקפו את התחזיות עם הכנסות שיא (צמיחה של 28% אצל שתיהן), אבל המניות ירדו (נובה כ-6% מיד אחרי הפרסום, קמטק כ-8%), ונייס צנחה כ-11% אחרי החטאה בהכנסות הענן. מנגד, נקסט ויז'ן יותר מהכפילה את ההכנסות (+125%), ופי.סי.בי השלימה רכישה של 120 מיליון דולר בארה\"ב עם צבר הזמנות שיא.",
+    "why": "כשהמחיר כבר מגלם צמיחה חזקה, גם רבעון שיא לא מספיק; הירידות משקפות ציפיות גבוהות, לא בהכרח בעיה בעסק.",
+    "keys": [
+     "nova",
+     "camtek",
+     "NICE",
+     "next_vision",
+     "pcb"
+    ],
+    "src": [
+     {
+      "t": "יומן הדוחות בדשבורד",
+      "u": "#calendar"
+     },
+     {
+      "t": "פואנטה",
+      "u": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1hWFZadzRReDV0ZkU2QmktZUxHcjJQNERzNkpjUHNVUkhudlhWZEF5SzJSeHdJZ2lNN2xvTEs1VmprNzNGS1FSNTFnQ3ZuWXFZdDFZNkdGcWxzYmQxTFFJanF2QQ?oc=5"
+     },
+     {
+      "t": "פאנדר",
+      "u": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1obkZJVUJrODY1a3NJOG5DT2J0NWc1Z1dKSkVCQTlnYUJTekd1S2pRSDVLVVJkR0s3ckRXbTNJSVhIcXlLb1hUeVpWMTN0ODdk?oc=5"
+     }
+    ]
+   }
+  ],
+  "us": [
+   {
+    "title": "אנבידיה: הרומן של ג'נסן הואנג, חקירה בדירקטוריון, ודוח בשבוע הבא",
+    "text": "הואנג הודה ברומן עם אשת עסקים סינית שלפי הדיווחים קשורה למודיעין הסיני (בייג'ין מכחישה), והדירקטוריון פתח בחקירה בלתי תלויה. המניה ירדה ביום שני בכ-5%. ב-17.11 בערב (שעון ארה\"ב) תפרסם החברה את הדוח הרבעוני, ולמחרת הואנג מוזמן לתדריך סגור בקונגרס.",
+    "why": "זו שאלה של ממשל תאגידי וסיכון סביב המנכ\"ל, לא של ביקוש לשבבים; הדוח יראה אם העסק ממשיך לצמוח כמו קודם.",
+    "keys": [
+     "NVDA",
+     "TSM"
+    ],
+    "src": [
+     {
+      "t": "ABC News",
+      "u": "https://abc7news.com/story/nvidia-stock-falls-company-opens-probe-ceo-jensen-huang-alleged-affair-chinese-spy/20026775/"
+     },
+     {
+      "t": "AFP / Khaleej Times",
+      "u": "https://www.khaleejtimes.com/business/nvidia-shares-slide-as-board-probes-ceo-over-china-spy-reports-2"
+     }
+    ]
+   },
+   {
+    "title": "אחרי הבחירות לקונגרס: מכה למניות ה-AI ותיקון חלקי",
+    "text": "אחרי שהדמוקרטים זכו בשליטה בקונגרס, ב-5.11 ירד S&P 500 בכ-4.4% ונאסד\"ק בכ-5.5%, על רקע חשש מרגולציה על חוות שרתים ובינה מלאכותית; טסלה צנחה 10.8%. ב-9.11 השוק התאושש חלקית, אחרי שמורגן סטנלי ו-UBS העריכו שהמכירה הייתה מוגזמת, ומדד השבבים עלה 3.3%.",
+    "why": "שינוי פוליטי מוסיף אי-ודאות, אבל הנשיא עדיין יכול להטיל וטו, ובוול סטריט יש מי שרואים במכירה הזדמנות.",
+    "keys": [
+     "NVDA",
+     "MSFT",
+     "GOOGL",
+     "AMZN",
+     "META"
+    ],
+    "src": [
+     {
+      "t": "Reuters / GV Wire",
+      "u": "https://gvwire.com/2026/11/09/wall-street-rallies-after-last-weeks-ai-rout-nvidia-falls/"
+     },
+     {
+      "t": "Trefis",
+      "u": "https://www.trefis.com/stock/tsla/articles/623330/what-is-behind-the-move-in-tesla-stock/2026-11-06"
+     },
+     {
+      "t": "AP / AJC",
+      "u": "https://www.ajc.com/news/2026/11/nvidia-and-other-big-tech-stocks-lift-wall-street-and-make-up-for-a-drop-by-apple/"
+     }
+    ]
+   },
+   {
+    "title": "הפד: השוק מתמחר העלאת ריבית נוספת בדצמבר",
+    "text": "הפד העלה את הריבית בספטמבר ל-3.75%–4.00%, ההעלאה הראשונה מאז 2023, והשאיר אותה כך באוקטובר. אחרי דוח תעסוקה חזק, השווקים מתמחרים סיכוי של כ-75%–80% להעלאה נוספת בישיבה של 8–9 בדצמבר. דוח האינפלציה של אוקטובר (10.11) יוצא בלי שיעור שנתי, כי באוקטובר 2025 לא נאספו מחירים בגלל השבתת הממשל.",
+    "why": "בארה\"ב הכיוון הפוך מישראל: שם מדברים על העלאות ריבית, וזה לחץ על מניות הצמיחה ועל אג\"ח ארוכות.",
+    "keys": [
+     "ust"
+    ],
+    "src": [
+     {
+      "t": "Reuters / Khaleej Times",
+      "u": "https://www.khaleejtimes.com/business/wall-st-week-ahead-as-tech-swoon-roils-market-us-inflation-data-on-tap-3"
+     },
+     {
+      "t": "Political.org",
+      "u": "https://political.org/2026/11/09/inflation-stays-hot-ahead-of-key-october-cpi-report-as-fed-rate-hike-odds-climb-before-december-meeting/"
+     }
+    ]
+   },
+   {
+    "title": "ענקיות הטכנולוגיה: השוק מעניש את מי שמגדיל השקעות ב-AI",
+    "text": "בעונת הדוחות האחרונה אלפבית צנחה 12.6% ביום אחד, הירידה הגדולה בתולדותיה ביום דוחות, אחרי שהודיעה שההשקעות יגדלו משמעותית שוב ב-2027; מטא ירדה 7% ואמזון 1.4%. מיקרוסופט כמעט לא זזה, והשוק תגמל אותה על כך שריסנה את ההשקעות.",
+    "why": "השאלה הגדולה של המשקיעים היא מתי ההשקעות העצומות ב-AI יתחילו להחזיר את עצמן; מי שמראה משמעת בהוצאות מתוגמל.",
+    "keys": [
+     "GOOGL",
+     "META",
+     "AMZN",
+     "MSFT"
+    ],
+    "src": [
+     {
+      "t": "FourWeekMBA",
+      "u": "https://fourweekmba.com/ai-google-made-up-75-of-big-techs-665b-post-earnings-loss/"
+     },
+     {
+      "t": "Reuters / Virginia Business",
+      "u": "https://virginiabusiness.com/wall-street-falls-alphabet-revenue-miss-ai-spending/"
+     }
+    ]
+   },
+   {
+    "title": "דוחות של מניות שאנחנו מחזיקים: תגובות קיצוניות לשני הכיוונים",
+    "text": "מרקדו ליברה ירדה כ-8% למרות צמיחה של 45% בהכנסות, בגלל ירידה בשולי הרווח; נטרה ירדה כ-18% למרות שהעלתה את התחזית השנתית. מנגד, קונסטליישן אנרג'י זינקה 10.5% אחרי עקיפה חדה והעלאת תחזית, ואפל הציגה רבעון שיא בדוח הראשון של המנכ\"ל החדש ג'ון טרנוס, אך המניה ירדה בגלל תחזית רווחיות זהירה.",
+    "why": "בעונת הדוחות הזו השוק מגיב בעיקר לרווחיות ולתחזיות, הרבה יותר מאשר לצמיחה בהכנסות.",
+    "keys": [
+     "MELI",
+     "NTRA",
+     "CEG",
+     "AAPL"
+    ],
+    "src": [
+     {
+      "t": "יומן הדוחות בדשבורד",
+      "u": "#calendar"
+     },
+     {
+      "t": "Fortune",
+      "u": "https://fortune.com/2026/11/02/new-apple-ceo-john-ternus-chalks-up-some-early-wins-but-the-honeymoon-is-over/"
+     }
+    ]
+   }
+  ]
+ },
+ "hist": []
+}

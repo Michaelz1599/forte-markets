@@ -44,3 +44,17 @@ def test_holdings_link_to_profiles_and_payload_builds():
     assert all("שווי" not in json.dumps(h, ensure_ascii=False) for h in hold)
     p = m.build_payload()
     assert p["issuers"] and p["holdings"] and "spreads" in p
+
+
+def test_weekly_brief_links_and_upcoming():
+    iss = m.issuers()
+    w = json.loads((m.MK / "weekly.json").read_text(encoding="utf-8"))
+    for wk in [w["current"]] + w.get("hist", []):
+        for p in wk.get("il", []) + wk.get("us", []):
+            assert p["title"] and p["text"]
+            assert all(k in iss for k in p.get("keys", []))
+            assert all(s["u"].startswith(("http", "#calendar")) for s in p.get("src", []))
+    hold = json.loads((m.MK / "holdings.json").read_text(encoding="utf-8"))["holdings"]
+    up = m._upcoming(iss, {h["i"] for h in hold}, days=30)
+    assert all(x["kind"] in ("report", "macro") and x["mkt"] in ("IL", "US") for x in up)
+    assert up == sorted(up, key=lambda x: (x["date"], x["kind"] != "macro", x["mkt"] != "IL"))

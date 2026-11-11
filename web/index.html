@@ -859,6 +859,39 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 .co-an { display: grid; gap: 6px; font-size: 14px; }
 .co-an .bar { display: flex; height: 10px; border-radius: 6px; overflow: hidden; background: var(--sunk); }
 .co-an .bar i { display: block; }
+
+/* weekly brief */
+.wk { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-1); overflow: hidden; display: grid; }
+.wk-head { background: linear-gradient(135deg, #002F22 0%, #0B4A37 100%); color: #E3F4EB; padding: 18px 20px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; justify-content: space-between; }
+.wk-eyebrow { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--mint); margin-bottom: 6px; }
+.wk-head h2 { font-family: var(--f-disp); font-weight: 800; font-size: clamp(18px, 2.1vw, 24px); line-height: 1.35; color: #fff; max-width: 95ch; }
+.wk-head .wk-note { font-size: 12.5px; color: #BFE3D2; margin-top: 6px; display: block; }
+.wk-act { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.wk-act select { font: inherit; font-size: 13px; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(154, 212, 185, .5); background: rgba(0, 0, 0, .25); color: #E3F4EB; }
+.wk-act .btn { background: var(--mint); color: #002F22; border-color: var(--mint); }
+.wk-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; }
+.wk-col { padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.wk-col + .wk-col { border-inline-start: 1px solid var(--line-2); }
+.wk-col h3 { font-size: 17px; }
+.wk-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: wk; }
+.wk-pt { counter-increment: wk; position: relative; padding-inline-start: 38px; display: grid; gap: 5px; }
+.wk-pt::before { content: counter(wk); position: absolute; inset-inline-start: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--hl); color: var(--accent); font-weight: 800; display: grid; place-items: center; font-size: 13px; }
+.wk-t { font-size: 15.5px; line-height: 1.35; }
+.wk-pt p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.wk-pt .wk-why { color: var(--ink); background: var(--hl); border-radius: 8px; padding: 6px 9px; font-size: 13.5px; }
+.wk-pt .wk-why b { color: var(--accent); }
+.wk-meta { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+.wk-chip { all: unset; cursor: pointer; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); background: var(--surface); }
+.wk-chip:hover, .wk-chip:focus-visible { border-color: var(--accent); color: var(--accent); }
+.wk-ahead { border-top: 1px solid var(--line-2); padding: 14px 18px 18px; display: grid; gap: 10px; background: var(--bg); }
+.wk-ahead h3 { font-size: 16px; }
+.wk-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.wk-day { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; display: grid; gap: 6px; align-content: start; }
+.wk-day > b { font-size: 13.5px; }
+.wk-day .wk-items { display: flex; flex-wrap: wrap; gap: 5px; }
+.wk-mac { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--warn-bg); color: var(--warn); }
+.wk-mac.hi { background: var(--fear-bg); color: var(--fear); }
+@media (max-width: 900px) { .wk-grid { grid-template-columns: minmax(0, 1fr); } .wk-col + .wk-col { border-inline-start: 0; border-top: 1px solid var(--line-2); } }
 /* presentation mode: bigger type, no chrome; for showing the screen to an investor */
 body.mk-present .mast, body.mk-present .site-foot, body.mk-present .to-top, body.mk-present #v-marketing .mk-admin { display: none !important; }
 body.mk-present #v-marketing .wrap { max-width: 1500px; font-size: 17px; }
@@ -3755,6 +3788,47 @@ function mkPxOf(sym) {
   const p = MKT && MKT.px[sym]; if (p) return p;
   const it = S.mk && S.mk.items[sym]; return it ? { last: it.last, date: it.date, d1: it.d1, mtd: it.mtd ?? null, ytd: it.ytd, y1: it.y1, dd52: it.dd52 } : null;
 }
+// ---- 0. the weekly brief: talking points on Israeli and US companies, and the coming days
+const MK_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+function mkWeekList() { const w = MKT.weekly || {}; return [w.current, ...(w.hist || [])].filter(Boolean); }
+function mkSrcLinks(src) {
+  return (src || []).filter(x => x && (/^https?:\/\//.test(x.u) || x.u === '#calendar')).slice(0, 4)
+    .map(x => x.u === '#calendar' ? `<a href="#calendar" data-gocal="1">${esc(x.t || 'יומן הדוחות')}</a>` : `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t || 'מקור')}</a>`).join('');
+}
+function mkWeekly() {
+  const L = mkWeekList(); if (!L.length) return '';
+  const i = Math.min(S.wkIdx || 0, L.length - 1), w = L[i];
+  const chip = k => MKT.issuers[k] ? `<button type="button" class="wk-chip" data-iss="${esc(k)}">${esc(MKT.issuers[k].he)}</button>` : '';
+  const pt = p => `<li class="wk-pt"><b class="wk-t">${esc(p.title)}</b><p>${esc(p.text)}</p>${p.why ? `<p class="wk-why"><b>מה להגיד למשקיע:</b> ${esc(p.why)}</p>` : ''}
+    <div class="wk-meta">${(p.keys || []).map(chip).join('')}<span class="st-src">${mkSrcLinks(p.src)}</span></div></li>`;
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+  const up = i === 0 ? (MKT.upcoming || []).filter(x => x.date >= today) : [];
+  const days = [...new Set(up.map(x => x.date))].slice(0, 7);
+  const dayHtml = d => { const xs = up.filter(x => x.date === d), dt = new Date(d + 'T12:00:00');
+    return `<div class="wk-day"><b>יום ${MK_DAYS[dt.getDay()]} ${fmtDateShort(d)}</b><div class="wk-items">${xs.map(x => x.kind === 'macro'
+      ? `<span class="wk-mac${x.imp >= 3 ? ' hi' : ''}" title="${esc(x.period || '')}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc(x.label)}</span>`
+      : `<button type="button" class="wk-chip" data-iss="${esc(x.key)}" title="${esc(x.label)}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc((MKT.issuers[x.key] || {}).he || x.label)}</button>`).join('')}</div></div>`; };
+  const sel = L.length > 1 ? `<select id="wkSel" aria-label="שבוע">${L.map((x, j) => `<option value="${j}"${j === i ? ' selected' : ''}>${j === 0 ? 'השבוע · ' : ''}\u2066${esc(x.week)}\u2069</option>`).join('')}</select>` : '';
+  return `<section class="wk" id="mk-weekly"><div class="wk-head"><div><span class="wk-eyebrow">התקציר השבועי לצוות השיווק · <span dir="ltr">${esc(w.week)}</span></span><h2>${esc(w.headline || '')}</h2>
+      <span class="wk-note">${w.partial ? `נכון ל-${fmtDate((w.asof || '').slice(0, 10))}; השבוע עוד לא הסתיים. ` : `נכתב ${fmtDate((w.asof || '').slice(0, 10))}. `}מתעדכן כל יום ראשון בבוקר.</span></div>
+      <div class="wk-act">${sel}<button type="button" class="btn sm" id="wkCopy">העתקה לוואטסאפ / מייל</button></div></div>
+    <div class="wk-grid"><div class="wk-col"><h3>🇮🇱 חברות בישראל</h3><ol class="wk-list">${(w.il || []).map(pt).join('')}</ol></div>
+      <div class="wk-col"><h3>🇺🇸 חברות בארה"ב</h3><ol class="wk-list">${(w.us || []).map(pt).join('')}</ol></div></div>
+    ${days.length ? `<div class="wk-ahead"><h3>📅 בימים הקרובים: דוחות של חברות שאנחנו מחזיקים ונתוני מאקרו</h3><div class="wk-days">${days.map(dayHtml).join('')}</div>
+      <p class="small muted" style="margin:0">מתוך היומן הכלכלי של הדשבורד, מתעדכן אוטומטית. לחיצה על חברה פותחת את הכרטיס שלה.</p></div>` : ''}</section>`;
+}
+function mkWeeklyText() {
+  const L = mkWeekList(), w = L[Math.min(S.wkIdx || 0, L.length - 1)]; if (!w) return '';
+  const out = [`*התקציר השבועי של פורטה · ${w.week}*`, w.headline || '', ''];
+  const sec = (h, a) => { if (!(a || []).length) return; out.push(`*${h}*`); a.forEach((p, j) => { out.push(`${j + 1}. *${p.title}*`, p.text); if (p.why) out.push(`➜ ${p.why}`); out.push(''); }); };
+  sec('🇮🇱 חברות בישראל', w.il); sec('🇺🇸 חברות בארה"ב', w.us);
+  if ((S.wkIdx || 0) === 0) {
+    const today = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+    const up = (MKT.upcoming || []).filter(x => x.date >= today), days = [...new Set(up.map(x => x.date))].slice(0, 7);
+    if (days.length) { out.push('*📅 בימים הקרובים*'); days.forEach(d => out.push(`${fmtDateShort(d)}: ${up.filter(x => x.date === d).map(x => x.kind === 'macro' ? x.label : (MKT.issuers[x.key] || {}).he || x.label).join(', ')}`)); }
+  }
+  return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
 // ---- 1. macro picture + plain-language lines to use on a call
 function mkMacro() {
   const tile = (id, label) => {
@@ -3946,13 +4020,15 @@ function renderMarketing() {
   S.mkDone = true;
   const st = MKT.stories || {};
   $('#mkAsof').textContent = [MKT.pxAsof ? `מחירים: ${fmtDate(MKT.pxAsof.slice(0, 10))}` : '', st.asof ? `סיפורים: ${fmtDate(st.asof.slice(0, 10))}` : '', MKT.newsAsof ? `חדשות: ${fmtDate(MKT.newsAsof.slice(0, 10))}` : ''].filter(Boolean).join(' · ');
-  el.innerHTML = mkMacro() + mkSpreads() + mkStories() + mkSectors() + mkSearch()
+  el.innerHTML = mkWeekly() + mkMacro() + mkSpreads() + mkStories() + mkSectors() + mkSearch()
     + `<p class="small muted" style="margin:0">מקורות: FRED (ICE BofA, BLS), הלמ"ס, בנק ישראל, Bizportal (מדדי תל בונד), Yahoo Finance (מחירים), Google News (כותרות), ויומן הדוחות של הדשבורד. הסיפורים והתקצירים נכתבים כל בוקר מתוך כתבות שפורסמו, עם קישור למקור. זה חומר רקע לשיחה ולא המלצת השקעה.</p>`;
   mkResults();
 }
 function bindMarketing() {
   const body = $('#mkBody');
   body.addEventListener('click', e => {
+    const cal = e.target.closest('a[data-gocal]'); if (cal) { e.preventDefault(); goTo('calendar'); return; }
+    if (e.target.closest('#wkCopy')) { const t = mkWeeklyText(); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('התקציר הועתק. אפשר להדביק בוואטסאפ או במייל')).catch(() => { prompt('העתיקו את התקציר:', t); }); return; }
     if (e.target.closest('a')) return;
     const iss = e.target.closest('[data-iss]'); if (iss) { openIssuer(iss.dataset.iss); return; }
     const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; }
@@ -3961,6 +4037,7 @@ function bindMarketing() {
     if (e.target.closest('#hsMore')) { S.hsN = (S.hsN || 24) + 48; mkResults(); }
   });
   body.addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('div[data-ind], div[data-x]'); if (!r) return; e.preventDefault(); r.dataset.ind ? openInd(r.dataset.ind) : openIdx(r.dataset.x); });
+  body.addEventListener('change', e => { if (e.target.id !== 'wkSel') return; S.wkIdx = +e.target.value; const old = $('#mk-weekly'); if (old) old.outerHTML = mkWeekly(); });
   body.addEventListener('input', e => { if (e.target.id !== 'hsQ') return; S.hsQ = e.target.value; S.hsN = 24; mkResults(); });
   $('#mkPresent').addEventListener('click', () => mkPresent(!document.body.classList.contains('mk-present')));
   $('#mkPrint').addEventListener('click', () => window.print());
@@ -3977,7 +4054,7 @@ const NAV = {
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   calendar: { d: 'דוחות כספיים בארה"ב ובישראל, התנועה שהאופציות מתמחרות ומה קרה אחרי הדוח, ואירועי מאקרו', items: () => [['דוחות ארה"ב', 'cal:US'], ['דוחות ישראל', 'cal:IL'], ['מאקרו', 'cal:MACRO']] },
-  marketing: { d: 'לפני שיחה עם משקיע: מאקרו ומרווחים, סיפורי המניות הגדולות, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['תמונת המאקרו', '#mk-macro'], ['מרווחי אשראי', '#mk-spreads'], ['המניות הגדולות', '#mk-stories'], ['סקטורים מתחילת השנה', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
+  marketing: { d: 'לפני שיחה עם משקיע: התקציר השבועי, מאקרו ומרווחים, סיפורי המניות הגדולות, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['התקציר השבועי', '#mk-weekly'], ['תמונת המאקרו', '#mk-macro'], ['מרווחי אשראי', '#mk-spreads'], ['המניות הגדולות', '#mk-stories'], ['סקטורים מתחילת השנה', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
   israel: { d: 'סנטימנט, רוחב שוק, לאן הכסף זורם, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['לאן הכסף זורם', '#il-flows'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
 };
 const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', calendar: 'יומן כלכלי', marketing: 'שיווק', analysis: 'שורה תחתונה', manage: 'ניהול' };
