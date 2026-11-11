@@ -76,6 +76,16 @@ def run() -> tuple[dict, str]:
         time.sleep(0.4)
     if not n_days:
         raise ValueError("Nasdaq earnings calendar unreachable")
+    # Nasdaq is queried only from the previous Monday on: keep the earlier events (last 60 days) so companies that
+    # reported stay in the calendar with their nightly write-ups (why.json is keyed by these ids)
+    if OUT.exists():
+        try:
+            old = json.loads(OUT.read_text(encoding="utf-8")).get("events", [])
+        except ValueError:
+            old = []
+        have = {e["id"] for e in events}
+        since = (today - dt.timedelta(days=60)).isoformat()
+        events += [e for e in old if e.get("id") not in have and since <= e.get("date", "") < days[0].isoformat()]
     events.sort(key=lambda e: (e["date"], -(e["mcap"] or 0)))
     out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "events": events}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding="utf-8")

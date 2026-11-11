@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+from zoneinfo import ZoneInfo
 
 import requests
 
@@ -55,6 +56,11 @@ def _t(x: str | None) -> str | None:
         except ValueError:
             continue
     return None
+
+
+def _il_today() -> dt.date:
+    """Today's date in Israel (Maya's calendar), whatever the runner's time zone."""
+    return dt.datetime.now(ZoneInfo("Asia/Jerusalem")).date()
 
 
 def _he_date(d: str) -> str:
@@ -118,16 +124,23 @@ def run() -> tuple[dict, str]:
     if not rows:
         raise ValueError("Maya returned no rows")
     out = build(rows, {str(k): v for k, v in (extra.get("maya") or {}).items()})
-    # Maya lists only dates still ahead: keep the earlier ones (last 60 days) so reported companies stay in the calendar
+    # Maya lists only dates still ahead: keep the earlier ones (last 60 days) so reported companies stay in the calendar.
+    # Maya drops a day's events by Israel date, while the runner's clock is UTC: between Israel midnight and UTC midnight
+    # "today" in UTC is still the day Maya has already dropped, so a strict "< UTC today" lost every Israeli event of that
+    # day for good (e.g. BWAY-2026-11-10). Use the Israel date and keep events up to and including it; an event that is
+    # still ahead and left Maya was moved or cancelled, and a company + period Maya still lists is never kept twice.
     if OUT.exists():
         old = json.loads(OUT.read_text(encoding="utf-8"))
         have = {e["id"] for e in out["events"]}
-        since = (dt.date.today() - dt.timedelta(days=60)).isoformat()
-        keep = [e for e in old.get("events", []) if e["id"] not in have and since <= e["date"] < dt.date.today().isoformat()]
+        have_cp = {(e.get("maya"), e.get("period")) for e in out["events"]}
+        today = _il_today()
+        since = (today - dt.timedelta(days=60)).isoformat()
+        keep = [e for e in old.get("events", []) if e["id"] not in have and (e.get("maya"), e.get("period")) not in have_cp
+                and since <= e["date"] <= today.isoformat()]
         out["events"] = sorted(out["events"] + keep, key=lambda e: (e["date"], e["ticker"]))
         for t, pr in (old.get("profiles") or {}).items():
             out["profiles"].setdefault(t, pr)
     out = {"asof": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), **out}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding="utf-8")
-    nxt = [e for e in out["events"] if e["date"] >= dt.date.today().isoformat()]
+    nxt = [e for e in out["events"] if e["date"] >= _il_today().isoformat()]
     return out, f"{len(out['events'])} דוחות ושיחות ועידה מתוזמנים ({len(nxt)} קדימה) · עד {max((e['date'] for e in out['events']), default='—')}"

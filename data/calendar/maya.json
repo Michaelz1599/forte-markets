@@ -2,6 +2,904 @@
 "asof": "2026-11-11T13:54+00:00",
 "events": [
 {
+"id": "GVYM-2026-11-02",
+"ticker": "GVYM",
+"market": "IL",
+"date": "2026-11-02",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "09:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 759,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778671"
+}
+]
+},
+{
+"id": "TATT-2026-11-02",
+"ticker": "TATT",
+"market": "IL",
+"date": "2026-11-02",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2110,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "TSEM-2026-11-02",
+"ticker": "TSEM",
+"market": "IL",
+"date": "2026-11-02",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2028,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1775472"
+}
+]
+},
+{
+"id": "AMOT-2026-11-03",
+"ticker": "AMOT",
+"market": "IL",
+"date": "2026-11-03",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1328,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1776443"
+}
+]
+},
+{
+"id": "ENLT-2026-11-03",
+"ticker": "ENLT",
+"market": "IL",
+"date": "2026-11-03",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null,
+"hebrewCallIL": "13:00"
+},
+"links": {},
+"maya": 720,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1775400"
+}
+]
+},
+{
+"id": "SOFW-2026-11-03",
+"ticker": "SOFW",
+"market": "IL",
+"date": "2026-11-03",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1886,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "TEVA-2026-11-03",
+"ticker": "TEVA",
+"market": "IL",
+"date": "2026-11-03",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 629,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "UMH-2026-11-03",
+"ticker": "UMH",
+"market": "IL",
+"date": "2026-11-03",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2356,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1770825"
+}
+]
+},
+{
+"id": "AUDC-2026-11-04",
+"ticker": "AUDC",
+"market": "IL",
+"date": "2026-11-04",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2134,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777047"
+}
+]
+},
+{
+"id": "CAMT-2026-11-04",
+"ticker": "CAMT",
+"market": "IL",
+"date": "2026-11-04",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "09:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2174,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "NICE-2026-11-04",
+"ticker": "NICE",
+"market": "IL",
+"date": "2026-11-04",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 273,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778307"
+}
+]
+},
+{
+"id": "OPK-2026-11-04",
+"ticker": "OPK",
+"market": "IL",
+"date": "2026-11-04",
+"session": "AMC",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "16:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1610,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778339"
+}
+]
+},
+{
+"id": "CION-2026-11-05",
+"ticker": "CION",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2409,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1773509"
+}
+]
+},
+{
+"id": "ELAL-2026-11-05",
+"ticker": "ELAL",
+"market": "IL",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1152,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777861"
+}
+]
+},
+{
+"id": "NVMI-2026-11-05",
+"ticker": "NVMI",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2177,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1776309"
+}
+]
+},
+{
+"id": "ORA-2026-11-05",
+"ticker": "ORA",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2250,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1774121"
+}
+]
+},
+{
+"id": "מלרן פרוייקטים-2026-11-05",
+"ticker": "מלרן פרוייקטים",
+"market": "IL",
+"date": "2026-11-05",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1787,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779127"
+}
+]
+},
+{
+"id": "פרוספקט-2026-11-05",
+"ticker": "פרוספקט",
+"market": "IL",
+"date": "2026-11-05",
+"session": "BMO",
+"period": "Q1 2027",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "09:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2514,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779541"
+}
+]
+},
+{
+"id": "STRW-2026-11-06",
+"ticker": "STRW",
+"market": "IL",
+"date": "2026-11-06",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2438,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "CGEN-2026-11-09",
+"ticker": "CGEN",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "15:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2188,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777990"
+}
+]
+},
+{
+"id": "NXSN-2026-11-09",
+"ticker": "NXSN",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "15:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1916,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1778497"
+}
+]
+},
+{
+"id": "PTNR-2026-11-09",
+"ticker": "PTNR",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "14:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2095,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777898"
+}
+]
+},
+{
+"id": "לוינשטין נכסים-2026-11-09",
+"ticker": "לוינשטין נכסים",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1536,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "פרודלים השקעות-2026-11-09",
+"ticker": "פרודלים השקעות",
+"market": "IL",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2534,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779198"
+}
+]
+},
+{
+"id": "קמהדע-2026-11-09",
+"ticker": "קמהדע",
+"market": "IL",
+"date": "2026-11-09",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1267,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779151"
+}
+]
+},
+{
+"id": "BWAY-2026-11-10",
+"ticker": "BWAY",
+"market": "IL",
+"date": "2026-11-10",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1386,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "ENRG-2026-11-10",
+"ticker": "ENRG",
+"market": "IL",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1581,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777881"
+}
+]
+},
+{
+"id": "GILT-2026-11-10",
+"ticker": "GILT",
+"market": "IL",
+"date": "2026-11-10",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "09:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2030,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1776294"
+}
+]
+},
+{
+"id": "TASE-2026-11-10",
+"ticker": "TASE",
+"market": "IL",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "20:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1778,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1775348"
+}
+]
+},
+{
+"id": "TRPZ-2026-11-10",
+"ticker": "TRPZ",
+"market": "IL",
+"date": "2026-11-10",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null,
+"hebrewCallIL": "09:30"
+},
+"links": {},
+"maya": 1901,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1777906"
+}
+]
+},
+{
+"id": "מרכנתיל הנפקות-2026-11-10",
+"ticker": "מרכנתיל הנפקות",
+"market": "IL",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1266,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "פיסיבי טכנ-2026-11-10",
+"ticker": "פיסיבי טכנ",
+"market": "IL",
+"date": "2026-11-10",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1221,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779280"
+}
+]
+},
+{
 "id": "BEZQ-2026-11-11",
 "ticker": "BEZQ",
 "market": "IL",
