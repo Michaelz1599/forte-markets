@@ -13,7 +13,7 @@
   "il_tb": [
     {"id": "il_tb20_spread", "name": "תל בונד 20", "desc": "20 האג\"ח הקונצרניות הצמודות הגדולות", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/33463333"},
     {"id": "il_tb60_spread", "name": "תל בונד 60", "desc": "60 האג\"ח הקונצרניות הצמודות הגדולות, דירוג A- ומעלה", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/33493333"},
-    {"id": "il_tbs_spread", "name": "תל בונד שקלי", "desc": "אג\"ח קונצרניות שקליות (לא צמודות)", "url": "https://www.bizportal.co.il/bonds/indices/indexcomposition/548"}
+    {"id": "il_tbs_spread", "name": "תל בונד שקלי 60", "desc": "60 האג\"ח הקונצרניות השקליות (לא צמודות) הגדולות", "url": "https://www.bizportal.co.il/capitalmarket/indices/indexcomposition/787"}
   ],
   "news": {"per_run": 120, "keep": 8, "days": 45, "sleep": 0.6}
 }
