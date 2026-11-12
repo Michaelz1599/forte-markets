@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-12T06:19+00:00",
+"asof": "2026-11-12T07:58+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23471,11 +23471,11 @@
 "ticker": "GIB",
 "market": "US",
 "date": "2026-11-11",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -23803,7 +23803,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": -0.13,
-"epsN": null,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
