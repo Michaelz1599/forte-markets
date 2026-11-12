@@ -365,29 +365,6 @@
     }
    ]
   },
-  "next_vision": {
-   "at": "2026-11-12",
-   "sum": "נקסט ויז'ן הכפילה את המכירות ברבעון השלישי והרווח יותר מהוכפל, והמניה עלתה 6.8% ב-10.11. מנגד, צבר ההזמנות התכווץ ב-21%, נקודה שחשוב להכיר בשיחה עם משקיע.",
-   "pts": [
-    "הכנסות של 106.4 מיליון דולר ברבעון",
-    "צמיחה של כ-115% ברווח",
-    "צבר ההזמנות ירד ב-21%"
-   ],
-   "src": [
-    {
-     "t": "ביזפורטל",
-     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20047740"
-    },
-    {
-     "t": "גלובס",
-     "u": "https://www.globes.co.il/news/article.aspx?did=1001562544"
-    },
-    {
-     "t": "ספונסר",
-     "u": "https://www.sponser.co.il/Article.aspx?ArticleId=123897"
-    }
-   ]
-  },
   "elbit_imaging": {
    "at": "2026-11-12",
    "sum": "מניית אלביט נדל\"ן ירדה ב-7.0% ב-10.11, ולא זוהה גורם ספציפי לירידה: לא נמצאה ידיעה או דיווח מהימים האחרונים שמסבירים אותה. המניה במגמת ירידה מתמשכת מתחילת השנה.",
@@ -420,47 +397,6 @@
     {
      "t": "גלובס",
      "u": "https://www.globes.co.il/news/article.aspx?did=1001563125"
-    }
-   ]
-  },
-  "INMD": {
-   "at": "2026-11-12",
-   "sum": "אינמוד דיווחה על הכנסות של 92.1 מיליון דולר ברבעון השלישי, רווח למניה מתואם מעל הצפי, והותירה את תחזית 2026 ללא שינוי; המניה עלתה 3.5% ב-11.11. ההכנסות ירדו מעט משנה קודמת ועדיין יש לחץ על המרווחים.",
-   "pts": [
-    "הכנסות GAAP: 92.1 מיליון דולר (ירידה של כ-1.2% לפי דיווחים)",
-    "רווח מתואם למניה: 0.37 דולר מול צפי 0.32 (לפי דיווחי בורסה)",
-    "תחזית הכנסות 2026: 365-375 מיליון דולר"
-   ],
-   "src": [
-    {
-     "t": "PR Newswire",
-     "u": "https://www.prnewswire.com/news-releases/inmode-reports-third-quarter-2026-financial-results-quarterly-gaap-revenues-of-92-1-million-reaffirms-full-year-2026-financial-outlook-302935662.html"
-    },
-    {
-     "t": "Chartmill",
-     "u": "https://www.chartmill.com/news/INMD/Chartmill-58535-InMode-NASDAQINMD-Q3-2026-EPS-Beat-and-Reaffirmed-Outlook-Offset-In-Line-Revenue"
-    }
-   ]
-  },
-  "GPRO": {
-   "at": "2026-11-12",
-   "sum": "מניית גו-פרו ירדה 18.4% ב-11.11 לאחר שהחברה דחתה את הגשת דוח הרבעון השלישי בשל סוגיות מימון, והזהירה שוויתורים מהמלווים קריטיים להשלמת המיזוג עם Starman. מדובר בסיכון ממשי לעסקה ולמבנה החוב.",
-   "pts": [
-    "הדוח הרבעוני (10-Q) לא הוגש במועד; החברה מציינת אי-עמידה בתנאי הלוואות",
-    "הירידה מצטרפת לירידה של כ-26% מתחילת החודש (נתוני המערכת)"
-   ],
-   "src": [
-    {
-     "t": "Bicycle Retailer",
-     "u": "https://www.bicycleretailer.com/industry-news/2026/11/10/gopros-q3-earnings-report-delayed"
-    },
-    {
-     "t": "TradingPedia",
-     "u": "https://www.tradingpedia.com/2026/11/11/gopro-slides-as-reporting-delays-threaten-starman-deal/"
-    },
-    {
-     "t": "Investing.com",
-     "u": "https://www.investing.com/news/stock-market-news/why-is-gopro-stock-plunging-today-93CH-5019228"
     }
    ]
   },
