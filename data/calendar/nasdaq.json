@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-12T16:22+00:00",
+"asof": "2026-11-12T21:46+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -22690,44 +22690,6 @@
 }
 },
 {
-"id": "KSPI-2026-11-09",
-"ticker": "KSPI",
-"market": "US",
-"date": "2026-11-09",
-"session": "BMO",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "before market open",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 16933985300.0,
-"name": "Joint Stock Company Kaspi.kz",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 3.12,
-"epsN": 1.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
 "id": "CNH-2026-11-09",
 "ticker": "CNH",
 "market": "US",
@@ -23543,6 +23505,44 @@
 }
 },
 {
+"id": "KSPI-2026-11-11",
+"ticker": "KSPI",
+"market": "US",
+"date": "2026-11-11",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 16933985300.0,
+"name": "Joint Stock Company Kaspi.kz",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 3.12,
+"epsN": 1.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "CSCO-2026-11-12",
 "ticker": "CSCO",
 "market": "US",
@@ -23564,7 +23564,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 397255049000.0,
+"mcap": 386964914000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23602,7 +23602,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 313534480000.0,
+"mcap": 295638860000.0,
 "name": "Applied Materials, Inc.",
 "sources": [
 {
@@ -23640,7 +23640,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 103007502000.0,
+"mcap": 103928119000.0,
 "name": "Brookfield Corporation",
 "sources": [
 {
@@ -23678,7 +23678,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 59821900000.0,
+"mcap": 58656539000.0,
 "name": "Nu Holdings Ltd.",
 "sources": [
 {
@@ -23716,7 +23716,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42053284000.0,
+"mcap": 36428599000.0,
 "name": "Nebius Group N.V.",
 "sources": [
 {
@@ -23754,7 +23754,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24012974100.0,
+"mcap": 22250248200.0,
 "name": "Cerebras Systems Inc.",
 "sources": [
 {
@@ -23765,7 +23765,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": -0.13,
-"epsN": null,
+"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23792,7 +23792,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17082428400.0,
+"mcap": 16905200600.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23807,6 +23807,37 @@
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
+},
+{
+"id": "BNT-2026-11-12",
+"ticker": "BNT",
+"market": "US",
+"date": "2026-11-12",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 14393624600.0,
+"name": "Brookfield Wealth Solutions Ltd.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
 },
 {
 "id": "QXO-2026-11-12",
@@ -23830,7 +23861,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14327746600.0,
+"mcap": 14244747300.0,
 "name": "QXO, Inc.",
 "sources": [
 {
@@ -24310,7 +24341,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 4070249070000.0,
+"mcap": 4186892930000.0,
 "name": "NVIDIA Corporation",
 "sources": [
 {
@@ -24348,7 +24379,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 350189060000.0,
+"mcap": 350498357000.0,
 "name": "Home Depot, Inc. (The)",
 "sources": [
 {
@@ -24386,7 +24417,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 206443594000.0,
+"mcap": 208435741000.0,
 "name": "BHP Group Limited",
 "sources": [
 {
@@ -24417,7 +24448,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 205838352000.0,
+"mcap": 206598095000.0,
 "name": "Walt Disney Company (The)",
 "sources": [
 {
@@ -24455,7 +24486,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 113017676000.0,
+"mcap": 112462553000.0,
 "name": "PDD Holdings Inc.",
 "sources": [
 {
@@ -24493,7 +24524,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 39260377000.0,
+"mcap": 40147489000.0,
 "name": "Viking Holdings Ltd",
 "sources": [
 {
@@ -24531,7 +24562,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 38048641000.0,
+"mcap": 37430399000.0,
 "name": "JD.com, Inc.",
 "sources": [
 {
@@ -24569,7 +24600,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 34424517000.0,
+"mcap": 33739440100.0,
 "name": "Elbit Systems Ltd.",
 "sources": [
 {
@@ -24607,7 +24638,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17767282700.0,
+"mcap": 17332301800.0,
 "name": "Amer Sports, Inc.",
 "sources": [
 {
@@ -24645,7 +24676,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15775264800.0,
+"mcap": 15752168400.0,
 "name": "ZTO Express (Cayman) Inc.",
 "sources": [
 {
@@ -24676,7 +24707,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15547266000.0,
+"mcap": 15635813400.0,
 "name": "Sociedad Quimica y Minera S.A.",
 "sources": [
 {
@@ -24714,7 +24745,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14684528600.0,
+"mcap": 14511399900.0,
 "name": "Tencent Music Entertainment Group",
 "sources": [
 {
@@ -26300,7 +26331,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 4.07,
-"epsN": null,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
