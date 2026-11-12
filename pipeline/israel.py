@@ -12,10 +12,14 @@ import pandas as pd
 
 from . import breadth
 from .common import ROOT, merge_series, read_series, today_utc, write_series
-from .markets import _r, cmf, yf_ohlc
+from .markets import OHL_FIELDS, _merge_frame, _r, clean_ohl, cmf, metrics, yf_ohlc
 
 CONFIG = ROOT / "config" / "israel.json"
 DERIVED = ROOT / "data" / "derived" / "israel.json"
+# daily open/high/low/close of the TA-125 stocks (Yahoo symbols as columns), for the candlestick charts
+IL_OHLC = {f: ROOT / "data" / "prices" / f"il_{f}.csv" for f in ("open", "high", "low", "close")}
+OHLC_FROM = "2013-01-01"
+CHART_YEARS = 10
 
 
 def load() -> dict:
@@ -256,6 +260,109 @@ def _monthly_mean(pts: dict) -> pd.Series:
     return m
 
 
+UNIT_JUMP = 30   # a one-day move of more than x30 (or under 1/30) is a change of quoting unit, never a real move
+
+
+def fix_units(bars: dict) -> list[str]:
+    """Yahoo quotes some TASE stocks in shekels for part of their history and in agorot for the rest, so the series
+    jumps x100 on the day the unit changes (seen in 11.2026 on CYBR, RATI, ISRA, NVPT, RPOL, NXSN, AMRM and AMPA).
+    Rescale open/high/low/close before each such jump to the unit of the latest data, in place (volume is a share
+    count and is left alone). An unadjusted reverse split would be rescaled the same way, which is also right.
+    Returns the symbols that were fixed."""
+    c = bars.get("close")
+    if c is None or c.empty:
+        return []
+    fixed = []
+    for sym in c.columns:
+        s = c[sym].dropna()
+        if len(s) < 2:
+            continue
+        r = (s / s.shift(1)).iloc[1:]
+        jumps = r[(r > UNIT_JUMP) | (r < 1 / UNIT_JUMP)]
+        if jumps.empty:
+            continue
+        factor = pd.Series(1.0, index=c.index)
+        for d, x in jumps.items():
+            factor[factor.index < d] *= 10.0 ** round(math.log10(x))
+        for k in ("open", "high", "low", "close"):
+            if k in bars and bars[k] is not None and sym in bars[k].columns:
+                bars[k][sym] = bars[k][sym] * factor.reindex(bars[k].index).fillna(1.0)
+        fixed.append(sym)
+    return fixed
+
+
+def read_ohlc() -> dict[str, pd.DataFrame]:
+    out = {}
+    for f, p in IL_OHLC.items():
+        df = pd.read_csv(p, index_col=0) if p.exists() else pd.DataFrame()
+        df.index = df.index.astype(str)
+        out[f] = df.sort_index()
+    return out
+
+
+def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
+    """Merge this run's bars into data/prices/il_*.csv. A stock that is not stored yet (all of them the first time)
+    gets its whole history from OHLC_FROM once. Bars whose open/high/low do not enclose the close are dropped (the
+    chart then draws that day from the close), as for the indices. Columns of stocks no longer configured are removed."""
+    cur = read_ohlc()
+    have = set(cur["close"].columns) if len(cur["close"]) >= 250 else set()
+    new = [s for s in syms if s not in have]
+    frames = []
+    if new:
+        full = yf_ohlc(new, OHLC_FROM)
+        if full and not full["close"].empty:
+            fix_units(full)
+            frames.append(full)
+    frames.append({f: bars[f].reindex(columns=[s for s in syms if s in bars[f].columns]) for f in IL_OHLC})   # newest wins
+    out = {}
+    for f in IL_OHLC:
+        df = cur[f]
+        for fr in frames:
+            df = _merge_frame(df, fr.get(f))
+        out[f] = df
+    fix_units(out)
+    close = out["close"][[c for c in out["close"].columns if c in keep]].dropna(how="all").sort_index()
+    ohl = clean_ohl({f: out[f] for f in OHL_FIELDS}, close)
+    for f, df in (("close", close), *ohl.items()):
+        df = df.reindex(columns=close.columns).dropna(how="all")
+        df.index.name = "date"
+        IL_OHLC[f].parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(IL_OHLC[f], float_format="%.6g")
+    return f"נרות: {close.shape[1]} מניות עד {close.index[-1]}" + (f", היסטוריה מלאה ל-{len(new)} חדשות" if new else "")
+
+
+def chart_payloads(years: int = CHART_YEARS) -> tuple[dict, dict]:
+    """For each stock in the current table: its candles (data/ohlc/<symbol>.json; the closes are included because these
+    stocks are not in prices.json) and the chart header (the same metrics as the indices, plus RS and CMF)."""
+    ohl = read_ohlc()
+    close = ohl["close"]
+    tables = json.loads(DERIVED.read_text(encoding="utf-8")) if DERIVED.exists() else {}
+    if close.empty or not tables.get("stocks"):
+        return {}, {}
+    names = tables.get("sectorNames", {})
+    start = (today_utc() - dt.timedelta(days=int(365.25 * years))).isoformat()
+    epoch = dt.date(1970, 1, 1)
+    num = lambda x: None if x is None or not np.isfinite(x) else float(f"{x:.6g}")
+    files, items = {}, {}
+    for r in tables["stocks"]:
+        y = r.get("y")
+        if not y or y not in close.columns:
+            continue
+        s = close[y].dropna()
+        if len(s) < 30:
+            continue
+        m = metrics(s)
+        m.pop("spark", None)
+        items[y] = {**m, "sym": y, "name": r["name"], "desc": names.get(r["sec"], "") + " · שער באגורות", "il": True, "ta": r["sym"],
+                    **({"rs": {"rs": r["rs"], "ret61": r.get("raw")}} if r.get("rs") is not None else {}),
+                    **({"cmf": {"cmf": r["cmf"]}} if r.get("cmf") is not None else {})}
+        w = s[s.index >= start]
+        o, h, lo = (ohl[f][y].reindex(w.index) if y in ohl[f].columns else pd.Series(np.nan, index=w.index) for f in OHL_FIELDS)
+        files[y] = {"sym": y, "t": [(dt.date.fromisoformat(d) - epoch).days for d in w.index], "c": [num(x) for x in w.values],
+                    "o": [num(x) for x in o.values], "h": [num(x) for x in h.values], "l": [num(x) for x in lo.values]}
+    return files, items
+
+
 def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     """Returns ({series id: points}, payload for the site, status message)."""
     cfg = load()
@@ -268,6 +375,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     bars = yf_ohlc(cands, start)
     if not bars or bars["close"].empty:
         raise ValueError("no TASE prices")
+    unit_fixed = fix_units(bars)
     allc = bars["close"].dropna(axis=1, how="all")
     info, chosen, missing = {}, [], []
     for alts, n, k in entries:     # first alternative with recent data wins
@@ -376,6 +484,19 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
             payload["flows"] = money_flows(c, h, lo, vol, info, cfg["sectors"])
     except Exception as e:     # the flows are an extra: never fail the Israel step for them
         errs.append(f"זרימות כסף: {type(e).__name__}")
+    try:                       # Chaikin Money Flow (20) of each stock, for the chart's header
+        vol = bars.get("volume")
+        for r in payload["stocks"]:
+            y = r["y"]
+            if vol is not None and y in vol.columns:
+                x = cmf(h[y], lo[y], c[y], vol[y].reindex(c.index))
+                r["cmf"] = _r(float(x.iloc[-1]), 3) if len(x) else None
+    except Exception as e:
+        errs.append(f"CMF: {type(e).__name__}")
+    try:                       # the candles, kept in data/prices/il_*.csv (a full history once for each new stock)
+        errs.append(store_ohlc(bars, chosen, set(cands)))
+    except Exception as e:
+        errs.append(f"נרות: {type(e).__name__} {str(e)[:60]}")
     try:                       # actual institutional buying and selling in the TA-35 stocks (Funder)
         from . import ilinst
         names = {n: a.split("|")[0].replace(".TA", "") for a, n, k in cfg["stocks"]}
@@ -386,6 +507,8 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
         errs.append("מוסדיים: " + note)
     except Exception as e:
         errs.append(f"מוסדיים (פאנדר): {type(e).__name__} {str(e)[:60]}")
+    if unit_fixed:
+        errs.append(f"תוקנה קפיצת יחידות (שקל/אגורה) ב-{', '.join(x.replace('.TA', '') for x in unit_fixed[:10])}")
     msg = f"{c.shape[1]}/{len(entries)} מניות ת\"א 125{' · השלמת היסטוריה' if backfill else ''}" + (f" · חסרות: {', '.join(m.replace('.TA', '') for m in missing[:10])}" if missing else "") + \
           (f" · {'; '.join(errs)}" if errs else "")
     return out, payload, msg

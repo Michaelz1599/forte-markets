@@ -2748,8 +2748,8 @@ function idxSummary(it) {
   const side = (v, a, b) => `${fmtN(Math.abs(v) * 100, 1)}% ${v >= 0 ? a : b}`;
   if (it.ma200 != null && it.ma50 != null) p.push(`השער ${side(it.ma200, 'מעל ', 'מתחת ל')}ממוצע 200 הימים, ו-${side(it.ma50, 'מעל ', 'מתחת ל')}ממוצע 50 הימים.`);
   if (it.pctD200 != null) {
-    if (it.pctD200 >= 90) p.push(`המרחק מממוצע 200 גבוה מ-${Math.round(it.pctD200)}% מהימים ב-10 השנים האחרונות: המדד מתוח כלפי מעלה.`);
-    else if (it.pctD200 <= 10) p.push(`המרחק מממוצע 200 נמוך מ-${Math.round(100 - it.pctD200)}% מהימים ב-10 השנים האחרונות: המדד מתוח כלפי מטה.`);
+    if (it.pctD200 >= 90) p.push(`המרחק מממוצע 200 גבוה מ-${Math.round(it.pctD200)}% מהימים ב-10 השנים האחרונות: ${it.il ? 'המניה מתוחה' : 'המדד מתוח'} כלפי מעלה.`);
+    else if (it.pctD200 <= 10) p.push(`המרחק מממוצע 200 נמוך מ-${Math.round(100 - it.pctD200)}% מהימים ב-10 השנים האחרונות: ${it.il ? 'המניה מתוחה' : 'המדד מתוח'} כלפי מטה.`);
   }
   if (it.rsi != null) p.push(it.rsi >= 70 ? `RSI ‏${fmtN(it.rsi, 0)}: קניית יתר.` : it.rsi <= 30 ? `RSI ‏${fmtN(it.rsi, 0)}: מכירת יתר.` : `RSI ‏${fmtN(it.rsi, 0)}, באזור ניטרלי.`);
   if (it.cmf && it.cmf.cmf != null) p.push(`Chaikin Money Flow של 20 ימים: ${fmtS(it.cmf.cmf, 2)}, ${it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'בלי לחץ ברור לכיוון אחד'}.`);
@@ -2757,13 +2757,15 @@ function idxSummary(it) {
   if (it.score != null) { const q = quadOf(it); p.push(`מול S&P 500: ${fmtS(it.ex.m3 * 100, 1)}% ב-3 חודשים, ${fmtS(it.ex.y1 * 100, 1)}% בשנה${q ? `. ברוטציה מול המדד: ${QUAD[q][0]}` : ''}.`); }
   if (it.rs && it.rs.rs != null) {
     const r = it.rs;
-    p.push(`RS ${r.rs}: התשואה מלפני 6 חודשים ועד לפני חודש (${fmtPct(r.ret61)}) ${r.rs >= 50 ? `חזקה מ-${r.rs}%` : `חלשה מ-${100 - r.rs}%`} מהמניות בשוק${r.rsPrev != null ? `, לעומת RS ${r.rsPrev} לפני שבוע` : ''}.`);
+    p.push(`RS ${r.rs}: התשואה מלפני 6 חודשים ועד לפני חודש (${fmtPct(r.ret61)}) ${r.rs >= 50 ? `חזקה מ-${r.rs}%` : `חלשה מ-${100 - r.rs}%`} ${it.il ? 'ממניות ת"א 125' : 'מהמניות בשוק'}${r.rsPrev != null ? `, לעומת RS ${r.rsPrev} לפני שבוע` : ''}.`);
   }
   return p.join(' ');
 }
 let idxChart = null;
+// the chart header of an instrument: indices and ETFs from markets.json, Israeli stocks from israel.json (items)
+function xItem(sym) { return (S.mk && S.mk.items[sym]) || (IL && IL.items && IL.items[sym]) || null; }
 async function openIdx(sym) {
-  const it = S.mk && S.mk.items[sym]; if (!it) return;
+  const it = xItem(sym); if (!it) return;
   const isFac = it.score != null || it.ex;
   const tr = TREND[it.trend] || TREND.na;
   const ta = it.ta && S.stk.get(it.ta);
@@ -2805,7 +2807,9 @@ async function openIdx(sym) {
   bindCandleTools('x', 'd', () => { const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
   const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
   try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
-  await loadOhlc(sym);
+  const ob = await loadOhlc(sym);
+  if (!S.px[sym] && ob && ob.c) S.px[sym] = { t: ob.t, v: ob.c };
+  if (!S.px[sym]) { el.innerHTML = '<p class="muted" style="padding:20px">הגרף יופיע אחרי העדכון הבא של האתר.</p>'; return; }
   if ($('#xChart')) { el.innerHTML = ''; S.lvlX = null; drawIdxChart(sym, 365, isFac); levelPanelIdx(sym); }
 }
 function sma(v, n) { const out = new Array(v.length).fill(null); let s = 0; for (let i = 0; i < v.length; i++) { s += v[i]; if (i >= n) s -= v[i - n]; if (i >= n - 1) out[i] = s / n; } return out; }
@@ -2833,7 +2837,7 @@ function drawIdxChart(sym, rangeDays, isFac) {
   const lastT = t[t.length - 1]; const startV = rangeDays ? lastT - rangeDays * DAY : t[0];
   if (idxChart) { try { idxChart.dispose(); } catch (e) { /* gone */ } }
   idxChart = echarts.init(el); chartInst = idxChart;
-  const it = S.mk.items[sym];
+  const it = xItem(sym);
   const wantCandles = candleType() === 'candle';
   const opt = { ...chartBase(),
     grid: [{ left: 62, right: 18, top: 16, height: '58%' }, { left: 62, right: 18, top: '74%', height: '14%' }],
@@ -3336,14 +3340,14 @@ const LVX_METRICS = {
 };
 function levelPanelIdx(sym) {
   const el = $('#xLevels'); const p = S.px && S.px[sym]; if (!el || !p) return;
-  const it = S.mk.items[sym];
+  const it = xItem(sym);
   const mKey = (S.lvx && S.lvx.metric) || 'rsi';
   const [mName, mDec, fn] = LVX_METRICS[mKey];
   const t = p.t.map(z => z * DAY);
   const x = { t, v: fn(p.v) };
   const self = { id: 'self', name: it.name, ser: { t, v: p.v } };
-  const spxSym = S.px['^GSPC'] ? '^GSPC' : S.px.SPY ? 'SPY' : null;
-  const benches = [self].concat(spxSym && spxSym !== sym ? [{ id: 'spx', name: 'S&P 500', ser: { t: S.px[spxSym].t.map(z => z * DAY), v: S.px[spxSym].v } }] : []);
+  const spxSym = it.il && S.px['^TA125.TA'] ? '^TA125.TA' : S.px['^GSPC'] ? '^GSPC' : S.px.SPY ? 'SPY' : null;
+  const benches = [self].concat(spxSym && spxSym !== sym ? [{ id: 'spx', name: spxSym === '^TA125.TA' ? 'ת"א 125' : 'S&P 500', ser: { t: S.px[spxSym].t.map(z => z * DAY), v: S.px[spxSym].v } }] : []);
   const head = `<div class="xtools"><label class="fld" style="min-width:220px"><span class="small muted">מדד טכני</span><select id="lvMetric">${Object.entries(LVX_METRICS).map(([k, m]) => `<option value="${k}"${k === mKey ? ' selected' : ''}>${m[0]}</option>`).join('')}</select></label></div><div id="xLvBody"></div>`;
   el.innerHTML = head;
   $('#lvMetric', el).addEventListener('change', e => { S.lvx = { metric: e.target.value }; levelPanelIdx(sym); });
@@ -3692,13 +3696,20 @@ function ilStockRows(list) {
   const q = (S.ilQ || '').trim().toLowerCase(), sec = S.ilSec || '';
   return list.filter(r => (!sec || r.sec === sec) && (!q || r.sym.toLowerCase().startsWith(q) || r.name.includes(S.ilQ.trim())));
 }
+// a row that opens the stock's candlestick chart (or, without a chart yet, the analysis if there is one)
+function ilRowAttr(sym) {
+  const y = String(sym).replace(/\.TA$/, '') + '.TA';
+  if (IL && IL.items && IL.items[y]) return ` class="rowx" data-x="${esc(y)}" tabindex="0" title="לחיצה פותחת גרף נרות"`;
+  return S.stk.has(sym) ? ` class="rowx" data-t="${esc(sym)}" tabindex="0"` : '';
+}
+function ilTaChip(sym) { return S.stk.has(sym) ? `<button type="button" class="chip chip-plain" data-t="${esc(sym)}" title="פתיחת הניתוח הטכני שלך">יש ניתוח</button>` : ''; }
 function ilStocksTable() {
   const names = IL.sectorNames || {};
   const rows = ilStockRows(IL.stocks || []).slice().sort((a, b) => (b.rs ?? -1) - (a.rs ?? -1) || (b.raw ?? -99) - (a.raw ?? -99));
-  const body = rows.map((r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td>
+  const body = rows.map((r, i) => `<tr${ilRowAttr(r.y || r.sym)}><td class="num muted">${i + 1}</td>
     <td><b>${esc(r.name)}</b> <a class="tvl" href="https://www.tradingview.com/symbols/TASE-${encodeURIComponent(r.sym)}/" target="_blank" rel="noopener" title="פתיחה ב-TradingView">↗</a><div class="small muted ltr" style="display:block">${esc(r.sym)}</div></td>
     <td>${esc(names[r.sec] || r.sec)}</td><td>${rsBadge(r.rs)}</td>${heatTd(r.raw, .5)}${heatTd(r.w1, .05)}${heatTd(r.m1, .12)}${heatTd(r.m3, .25)}${heatTd(r.y1, .5)}${heatTd(r.mom, .5)}
-    <td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${chgTd(r.ma200, { sym: '' })}${S.stk.has(r.sym) ? '<td><span class="chip chip-plain">יש ניתוח</span></td>' : '<td></td>'}</tr>`).join('');
+    <td class="${r.dd52 > -0.03 ? 'up-g' : ''}">${ltr(fmtPct(r.dd52))}</td>${chgTd(r.ma200, { sym: '' })}<td>${ilTaChip(r.sym)}</td></tr>`).join('');
   return rows.length ? `<table class="ft itbl ftab"><thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>RS</th><th>6-1</th><th>שבוע</th><th>חודש</th><th>3 ח'</th><th>12 ח'</th><th>12-1</th><th>מהשיא</th><th>מול ממוצע 200</th><th></th></tr></thead><tbody>${body}</tbody></table>`
     : '<p class="muted">אין מניות שעומדות בסינון.</p>';
 }
@@ -3731,7 +3742,7 @@ function ilInstHtml() {
   const bySec = {};
   for (const r of st) { const k = sec[r.sym] || 'other'; const b = bySec[k] || (bySec[k] = { name: names[k] || 'אחר', n: 0, v: 0, t: 0 }); b.n++; b.v += r['all' + n] || 0; b.t += (r.turnDay || 0) * n; }
   const secs = Object.values(bySec).map(b => ({ ...b, share: b.t ? b.v / b.t : null })).sort((a, b) => b.v - a.v);
-  const rows = st.slice().sort((a, b) => b['all' + n] - a['all' + n]).map((r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span></td><td>${esc(names[sec[r.sym]] || '')}</td><td class="${flC(r['all' + n])}"><b>${ltr(flM(r['all' + n]))}</b></td><td class="${flC(r['mf' + n])}">${ltr(flM(r['mf' + n]))}</td><td class="${flC(r['pen' + n])}">${ltr(flM(r['pen' + n]))}</td><td class="${flC(r['oth' + n])}">${ltr(flM(r['oth' + n]))}</td><td>${r.turnDay ? flPct(r['all' + n] / (r.turnDay * n)) : '—'}</td></tr>`).join('');
+  const rows = st.slice().sort((a, b) => b['all' + n] - a['all' + n]).map((r, i) => `<tr${ilRowAttr(r.sym)}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span></td><td>${esc(names[sec[r.sym]] || '')}</td><td class="${flC(r['all' + n])}"><b>${ltr(flM(r['all' + n]))}</b></td><td class="${flC(r['mf' + n])}">${ltr(flM(r['mf' + n]))}</td><td class="${flC(r['pen' + n])}">${ltr(flM(r['pen' + n]))}</td><td class="${flC(r['oth' + n])}">${ltr(flM(r['oth' + n]))}</td><td>${r.turnDay ? flPct(r['all' + n] / (r.turnDay * n)) : '—'}</td></tr>`).join('');
   const seg = [[1, 'יום'], [5, '5 ימים'], [20, '20 ימים'], [60, '60 ימים']].map(([v, l]) => `<button type="button" data-w="${v}" aria-pressed="${n === v}">${l}</button>`).join('');
   return `<div class="panel inner fl-part"><div class="panel-head"><div><h3>מוסדיים במניות ת"א 35 · נתון בפועל</h3><p class="small muted" style="margin:2px 0 0">הקניות והמכירות שביצעו בפועל קרנות הנאמנות, קופות הגמל והפנסיה וגופים מוסדיים אחרים, לפי פאנדר (גרסת בטא). כשהמוסדיים קונים נטו, הצד השני שמוכר הוא משקיעים זרים, פרטיים ואחרים. נכון ל-${fmtDate(I.asof)}.</p></div>
       <div class="seg" role="group" aria-label="טווח" id="ilIw">${seg}</div></div>
@@ -3752,7 +3763,7 @@ function ilPressureHtml() {
   const secs = (F.sectors || []).map(x => ({ ...x, share: x[rk] !== undefined ? x[rk] : (x.t20 ? (x[k] || 0) / (x.t20 * +w) : null) })).sort((a, b) => (b[k] ?? 0) - (a[k] ?? 0));
   const st = (F.stocks || []).filter(r => r[k] != null);
   const fromNote = r => r['from' + w] ? ` <span class="small muted">(נסחרת מ-${fmtDateShort(r['from' + w])})</span>` : '';
-  const row = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span>${long ? fromNote(r) : ''}</td><td>${esc(names[r.sec] || r.sec)}</td><td class="${flC(r[k])}">${ltr(flM(r[k]))}</td><td>${flPct(r[rk])}</td>${long ? '' : `<td>${r.z20 == null ? '—' : ltr((r.z20 > 0 ? '+' : '') + r.z20.toFixed(1))}</td><td>${r.surge == null ? '—' : ltr('×' + r.surge.toFixed(1))}</td>`}</tr>`;
+  const row = (r, i) => `<tr${ilRowAttr(r.sym)}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span>${long ? fromNote(r) : ''}</td><td>${esc(names[r.sec] || r.sec)}</td><td class="${flC(r[k])}">${ltr(flM(r[k]))}</td><td>${flPct(r[rk])}</td>${long ? '' : `<td>${r.z20 == null ? '—' : ltr((r.z20 > 0 ? '+' : '') + r.z20.toFixed(1))}</td><td>${r.surge == null ? '—' : ltr('×' + r.surge.toFixed(1))}</td>`}</tr>`;
   const head = `<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>לחץ בש"ח</th><th>מהמחזור</th>${long ? '' : '<th>חריגות (z, 20 ימים)</th><th>מחזור מול הרגיל</th>'}</tr></thead>`;
   let up, dn, upT, dnT;
   if (long) {   // the long views: where the money went, in shekels
@@ -3842,7 +3853,7 @@ function renderIsrael() {
     <div class="rs-tools"><label class="fld"><span class="small muted">חיפוש</span><input type="search" id="ilQ" placeholder="סימול או שם" value="${esc(S.ilQ || '')}" autocomplete="off"></label>
       <label class="fld"><span class="small muted">סקטור</span><select id="ilSec"><option value="">כל הסקטורים</option>${Object.entries(names).map(([k, v]) => `<option value="${k}"${S.ilSec === k ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label></div>
     <div class="tbl-wrap" id="ilStk">${ilStocksTable()}</div>
-    <p class="small muted" style="margin:0">↗ פותח את המניה ב-TradingView. שורה עם "יש ניתוח" פותחת את הניתוח שלך.</p></section>`;
+    <p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף נרות של המניה (יומי, שבועי או חודשי) עם ממוצעים, RSI וסטטיסטיקה. ↗ פותח את המניה ב-TradingView, ו"יש ניתוח" פותח את הניתוח שלך.</p></section>`;
   const notes = `<details class="lagd"><summary>מה יש כאן, ממה זה מחושב, ומה חסר</summary><div class="rs-notes small">
     <p><b>המניות:</b> ${IL.n} מתוך ${IL.listed || 125} מניות ת"א 125 לפי ההרכב העדכני של המדד${(IL.missing || []).length ? ` (אין נתונים ב-Yahoo Finance ל: ${esc(IL.missing.map(m => m.split('|')[0].replace('.TA', '')).join(', '))})` : ''}. רוחב השוק והסקטורים מחושבים מהן כשכל מניה במשקל שווה, ולכן הם לא זהים למדד הרשמי של הבורסה, שמשוקלל לפי שווי שוק. כשהרכב המדד משתנה, הרשימה מתעדכנת ידנית.</p>
     <p><b>מדד הסנטימנט הישראלי:</b> ממוצע האחוזונים של 10 הרכיבים בטבלה, כל אחד מול 5 השנים שקדמו לו, אחרי התאמת כיוון. נדרשים לפחות 5 רכיבים ביום.</p>
@@ -4483,7 +4494,8 @@ function bind() {
   $('#fSort').addEventListener('change', e => { S.fSort = e.target.value; renderAnalysis(); });
   $('#stkGrid').addEventListener('click', e => { const c = e.target.closest('[data-t]'); if (c) openStock(c.dataset.t); });
   $('#newStock').addEventListener('click', () => openStockEditor(null));
-  $('#ilBody').addEventListener('click', e => { if (e.target.closest('a, input, select')) return; const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) { openIdx(x.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t) openStock(t.dataset.t); });
+  $('#ilBody').addEventListener('click', e => { if (e.target.closest('a, input, select')) return; const tb = e.target.closest('button[data-t]'); if (tb) { openStock(tb.dataset.t); return; } const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) { openIdx(x.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t) openStock(t.dataset.t); });
+  $('#ilBody').addEventListener('keydown', e => { if ((e.key !== 'Enter' && e.key !== ' ') || e.target.tagName !== 'TR') return; const r = e.target; if (r.dataset.x) { e.preventDefault(); openIdx(r.dataset.x); } else if (r.dataset.t) { e.preventDefault(); openStock(r.dataset.t); } });
   $('#macBody').addEventListener('click', e => { const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; } const x = e.target.closest('[data-x]'); if (x) openIdx(x.dataset.x); });
   $('#macBody').addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('tr[data-ind], tr[data-x]'); if (!r) return; e.preventDefault(); r.dataset.ind ? openInd(r.dataset.ind) : openIdx(r.dataset.x); });
   $('#idxBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) openIdx(r.dataset.x); });
@@ -4500,7 +4512,7 @@ function bind() {
     if (S.tab === 'israel' && !$('#ov')) renderIsrael();
     if (S.tab === 'marketing' && !$('#ov') && S.mkDone) renderMarketing();
     if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
-    if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = S.mk.items[sym]; drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
+    if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = xItem(sym); if (it) drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
   };
   try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', reTheme); } catch (e) { /* older browsers */ }
   new MutationObserver(reTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });

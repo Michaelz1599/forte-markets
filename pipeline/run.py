@@ -342,7 +342,15 @@ def build(st: Status, u: dict, px) -> None:
     status = st.to_dict()
     dump_json(tmp / "data" / "meta.json", {"built": status["finished"], "status": status, "indicators": inds, "macro": macro.site_meta()})
     curve_file = ROOT / "data" / "derived" / "curve.json"
-    dump_json(tmp / "data" / "israel.json", israel.site_payload())
+    il_pay = israel.site_payload()
+    try:   # candles for each Israeli stock (data/ohlc/<symbol>.json) and the chart headers (items in israel.json)
+        il_files, il_pay["items"] = israel.chart_payloads()
+        (tmp / "data" / "ohlc").mkdir(parents=True, exist_ok=True)
+        for sym, rec in il_files.items():
+            dump_json(tmp / "data" / "ohlc" / markets.ohlc_file(sym), rec)
+    except Exception:
+        traceback.print_exc()
+    dump_json(tmp / "data" / "israel.json", il_pay)
     an_file = analogs.OUT
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
                                              "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
