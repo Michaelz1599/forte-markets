@@ -589,6 +589,7 @@ main.view:not([hidden]) { animation: viewIn .35s var(--ease); }
 .mdn { color: var(--corr-neg); }
 .chart.cx.sm2 { height: 300px; }
 .mtbl td { white-space: nowrap; }
+.mtbl .msig { margin-top: 3px; }
 .mtile { all: unset; box-sizing: border-box; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; box-shadow: var(--shadow-1); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
 .mtile:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
 .mtile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -1061,7 +1062,7 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
 
 <main id="v-macro" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1 data-eyebrow="MACRO">מאקרו</h1><p class="lede">התמונה הכלכלית שמאחורי השווקים: אינפלציה בארה"ב ובישראל, ריביות ועקום התשואות, מרווחי אשראי לפי דירוג, שוק העבודה, היצע הכסף, סחורות, דלק, חשמל ומרווח ספארק.</p></div><span class="small muted" id="macAsof"></span></div>
+    <div class="toolbar"><div><h1 data-eyebrow="MACRO">מאקרו</h1><p class="lede">התמונה הכלכלית שמאחורי השווקים: צמיחה ומחזור העסקים (כלי התמ"ג), אינפלציה בארה"ב ובישראל, ריביות ועקום התשואות, מרווחי אשראי לפי דירוג, שוק העבודה, היצע הכסף, סחורות, דלק, חשמל ומרווח ספארק.</p></div><span class="small muted" id="macAsof"></span></div>
     <div id="macBody" style="display:grid;gap:18px;min-width:0"></div>
   </div>
 </main>
@@ -1153,11 +1154,11 @@ try { document.documentElement.setAttribute('dir', 'rtl'); document.documentElem
 const DAY = 864e5;
 const WIN = { '1y': 365, '3y': 1096, '5y': 1827, '10y': 3653, 'all': Infinity };
 const WIN_LABEL = { '1y': 'שנה', '3y': '3 שנים', '5y': '5 שנים', '10y': '10 שנים', 'all': 'כל ההיסטוריה' };
-const MIN_N = { d: 60, w: 12, m: 8 };          // fewer observations than this: no percentile at all
-const MIN_COMP = { d: 200, w: 40, m: 24 };     // fewer than this: shown but flagged, kept out of the composite
-const MIN_ROLL = { d: 250, w: 52, m: 24 };     // rolling percentile (history chart, composite, analogs) needs a year of prior data
-const FRESH = { d: 5, w: 12, m: 45 };          // days since last observation before a series counts as stale
-const FREQ_LABEL = { d: 'יומי', w: 'שבועי', m: 'חודשי' };
+const MIN_N = { d: 60, w: 12, m: 8, q: 8 };          // fewer observations than this: no percentile at all
+const MIN_COMP = { d: 200, w: 40, m: 24, q: 12 };     // fewer than this: shown but flagged, kept out of the composite
+const MIN_ROLL = { d: 250, w: 52, m: 24, q: 12 };     // rolling percentile (history chart, composite, analogs) needs a year of prior data
+const FRESH = { d: 5, w: 12, m: 45, q: 150 };          // days since last observation before a series counts as stale
+const FREQ_LABEL = { d: 'יומי', w: 'שבועי', m: 'חודשי', q: 'רבעוני' };
 const GROUPS = [['sent', 'סנטימנט משקיעים'], ['opt', 'אופציות ותנודתיות'], ['pos', 'פוזיציות ספקולנטים בחוזים (CFTC)'], ['breadth', 'רוחב שוק'], ['credit', 'אשראי ומאקרו'], ['risk', 'תיאבון לסיכון ומומנטום'], ['macro', 'אשראי ומומנטום'], ['cds', 'CDS'], ['other', 'אחר']];
 const BIAS = { bull: 'שורי', bear: 'דובי', neutral: 'ניטרלי', watch: 'במעקב', pending: 'ממתין לניתוח' };
 const HORIZON = { short: 'קצר (ימים–שבועות)', mid: 'בינוני (שבועות–חודשים)', long: 'ארוך (חודשים+)' };
@@ -1333,6 +1334,26 @@ function cnnBand(v) {
   if (v <= 75) return { k: 's-g', t: 'חמדנות' };
   return { k: 's-xg', t: 'חמדנות קיצונית' };
 }
+function hasSig(ind) { return !!ind && Array.isArray(ind.sig) && ind.sig.length > 0; }
+function sigThr(lt, s) {
+  if (typeof lt === 'number') return lt;
+  const m = /^med:(\d+)$/.exec(String(lt)); if (m) return median(s.v.slice(-(+m[1])));
+  const r = /^ind:(.+)$/.exec(String(lt)); if (r) { const o = S.ser.get(r[1]); if (!o) return NaN; const i = o.d.indexOf(s.d[s.d.length - 1]); return i < 0 ? NaN : o.v[i]; }
+  return NaN;
+}
+function sigOf(ind) {
+  if (!hasSig(ind)) return null; const s = S.ser.get(ind.id); if (!s || !s.v.length) return null;
+  const x = s.v[s.v.length - 1];
+  const pv = ind.sig.find(b => b.lt != null && typeof b.lt !== 'number');
+  const ref = pv ? sigThr(pv.lt, s) : null;
+  const thr = ref != null && isFinite(ref) ? { thr: ref, thrL: String(pv.lt).startsWith('med:') ? 'המגמה' : 'הכותרת' } : {};
+  for (const b of ind.sig) {
+    if (b.lt == null) return { k: b.k || 's-n', t: b.t, ...thr };
+    const v = sigThr(b.lt, s); if (!isFinite(v)) return null;
+    if (x < v) return { k: b.k || 's-n', t: b.t, ...thr };
+  }
+  return null;
+}
 function chip(st) { return st ? `<span class="chip ${st.k}">${st.t}</span>` : '<span class="muted small">—</span>'; }
 function isExtreme(st) { return !!st && st.pct != null && (st.pct <= 5 || st.pct >= 95 || Math.abs(st.z) >= 2); }
 
@@ -1403,7 +1424,7 @@ function analogs(id, win) {
 // ---------------- small SVGs ----------------
 function sparkSVG(id) {
   const s = series(id); const meta = indMeta(id) || {}; if (!s || s.v.length < 2) return '';
-  const k = meta.freq === 'w' ? 52 : meta.freq === 'm' ? 24 : 126;
+  const k = meta.freq === 'w' ? 52 : meta.freq === 'm' ? 24 : meta.freq === 'q' ? 20 : 126;
   const v = s.v.slice(-k); const st = stats(id, S.win);
   let lo = Math.min(...v), hi = Math.max(...v);
   if (st && st.pct != null) { lo = Math.min(lo, st.q10); hi = Math.max(hi, st.q90); }
@@ -1572,16 +1593,25 @@ function openOverlay(html, narrow = false) {
   const x = $('.xclose', root); if (x) { x.addEventListener('click', closeOverlay); setTimeout(() => x.focus(), 0); }
   return root;
 }
+// a description with several lines: one paragraph each, with the lead-in before a colon in bold ("מה זה: ...")
+function paras(text) {
+  const parts = String(text || '').split(/\n+/).map(x => x.trim()).filter(Boolean);
+  return parts.map(x => {
+    const m = parts.length > 1 ? /^([^:]{2,40}):\s+([\s\S]+)$/.exec(x) : null;
+    return m && !/\d/.test(m[1]) ? `<p><b>${esc(m[1])}:</b> ${esc(m[2])}</p>` : `<p>${esc(x)}</p>`;
+  }).join('');
+}
 function openInd(id) {
   const meta = indMeta(id); if (!meta) return;
   S.detail = id;
   const st = stats(id, S.win); const fr = fresh(id); const s = id === COMP_ID ? composite(S.win).series : series(id);
   const winRows = ['1y', '3y', '5y', '10y', 'all'].map(w => { const x = stats(id, w); return `<td class="${w === S.win ? 'hl' : ''}">${x && x.pct != null ? ltr(Math.round(x.pct)) + (x.partial ? '<sup title="ההיסטוריה קצרה מהחלון">*</sup>' : '') : '—'}</td>`; }).join('');
   const winZ = ['1y', '3y', '5y', '10y', 'all'].map(w => { const x = stats(id, w); return `<td class="${w === S.win ? 'hl' : ''}">${x && isFinite(x.z) ? ltr(fmtS(x.z, 1)) : '—'}</td>`; }).join('');
-  const state = st ? stateOf(meta.pol, st.pct) : null;
+  const state = st && !hasSig(meta) ? stateOf(meta.pol, st.pct) : null;
+  const sigSt = st && hasSig(meta) ? sigOf(meta) : null;
   const src = meta.srcUrl ? `<a href="${esc(meta.srcUrl)}" target="_blank" rel="noopener">${esc(meta.src || meta.srcUrl)}</a>` : esc(meta.src || '');
   const tiles = st ? `
-    <div class="tile"><span class="k">ערך אחרון · ${fmtDate(st.d)}</span><span class="val">${ltr(fmtVal(meta, st.x))}</span><span class="s">${isLive(id, st.d) ? liveChip(id, st.d) : fr.ok ? 'עדכני' : '<span class="chip chip-w">לא עדכני</span>'}</span></div>
+    <div class="tile"><span class="k">ערך אחרון · ${fmtDate(st.d)}</span><span class="val">${ltr(fmtVal(meta, st.x))}</span><span class="s">${sigSt ? chip(sigSt) + (sigSt.thr != null ? ` <span class="small">${sigSt.thrL} ${ltr(fmtVal(meta, sigSt.thr))}</span>` : '') + '<br>' : ''}${isLive(id, st.d) ? liveChip(id, st.d) : fr.ok ? 'עדכני' : '<span class="chip chip-w">לא עדכני</span>'}</span></div>
     <div class="tile"><span class="k">אחוזון · ${WIN_LABEL[S.win]}</span><span class="val">${st.pct != null ? ltr(Math.round(st.pct)) : '—'}</span><span class="s">${chip(state)}</span></div>
     <div class="tile"><span class="k">Z · ${WIN_LABEL[S.win]}</span><span class="val">${isFinite(st.z) ? ltr(fmtS(st.z, 2)) : '—'}</span><span class="s">ממוצע ${ltr(fmtVal(meta, st.mean))} · ס"ת ${ltr(fmtN(st.sd, meta.dec ?? 2))}</span></div>
     <div class="tile"><span class="k">חציון בחלון</span><span class="val">${ltr(fmtVal(meta, st.q50))}</span><span class="s">10%–90%: ${ltr(fmtVal(meta, st.q10) + ' – ' + fmtVal(meta, st.q90))}</span></div>
@@ -1626,7 +1656,8 @@ function openInd(id) {
       </section>
       <section class="panel" id="dAnalog"></section>
       <section class="about">
-        ${meta.desc ? `<p>${esc(meta.desc)}</p>` : ''}
+        ${paras(meta.desc)}
+        ${meta.il ? String(meta.il).split(/\n+/).filter(x => x.trim()).map((x, i) => i ? `<p>${esc(x)}</p>` : `<p><b>ישראל${meta.ilAt ? ' · נכון ל-' + fmtDate(meta.ilAt) : ''}:</b> ${esc(x)}</p>`).join('') : ''}
         ${meta.note ? `<p><b>הערה:</b> ${esc(meta.note)}</p>` : ''}
         ${src ? `<p><b>מקור:</b> ${src}${meta.auto ? ' · מתעדכן אוטומטית' : ' · מתעדכן ידנית'}</p>` : ''}
         ${meta.pol ? `<p><b>כיוון:</b> ${meta.pol > 0 ? 'ערך גבוה = חמדנות / אופטימיות' : 'ערך גבוה = פחד / גידור'}</p>` : ''}
@@ -1671,7 +1702,7 @@ function candleTf(ctx, freq) {
   const tf = v === 'd' || v === 'w' || v === 'm' ? v : def;
   return freq !== 'd' && tf === 'd' ? (freq === 'w' ? 'w' : 'm') : tf;
 }
-function candleOk(id, meta) { return !/cmf/.test(id) && !(meta.parts && meta.parts.length) && id !== COMP_ID; }
+function candleOk(id, meta) { return !/cmf/.test(id) && !(meta.parts && meta.parts.length) && id !== COMP_ID && meta.freq !== 'q'; }
 function candleTools(ctx, freq) {
   const tf = candleTf(ctx, freq), ty = candleType();
   return `<div class="ctools" id="${ctx}Ctools"><div class="seg" role="group" aria-label="סוג גרף"><button type="button" data-ct="candle" aria-pressed="${ty === 'candle'}">נרות</button><button type="button" data-ct="line" aria-pressed="${ty === 'line'}">קו</button></div>` +
@@ -1759,9 +1790,9 @@ function drawChart(id, rangeDays) {
   const ink = tok('--ink'), ink2 = tok('--ink-2'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), cl = tok('--chart-line'), c2 = tok('--chart-2'), fear = tok('--fear'), greed = tok('--greed'), surface = tok('--surface');
   const font = tok('--f-body');
   const data = s.t.map((t, i) => [t, s.v[i]]);
-  const rpData = s.t.map((t, i) => [t, isNaN(rp[i]) ? null : Math.round(rp[i] * 10) / 10]);
+  const rpData = s.t.map((t, i) => [t, meta.nopct || isNaN(rp[i]) ? null : Math.round(rp[i] * 10) / 10]);
   const weekly = meta.freq !== 'd';
-  const ml = st && st.pct != null ? [[st.q05, '5%'], [st.q25, '25%'], [st.q50, '50%'], [st.q75, '75%'], [st.q95, '95%']].map(([y, n]) => ({ yAxis: y, name: n, lineStyle: { color: n === '50%' ? ink2 : (n === '5%' || n === '95%') ? (meta.pol < 0 ? (n === '5%' ? greed : fear) : meta.pol > 0 ? (n === '5%' ? fear : greed) : muted) : muted, type: 'dashed', width: n === '50%' ? 1.2 : 1, opacity: .85 }, label: { formatter: n, color: muted, fontSize: 10, position: 'insideEndTop' } })) : [];
+  const ml = st && st.pct != null && !meta.nopct ? [[st.q05, '5%'], [st.q25, '25%'], [st.q50, '50%'], [st.q75, '75%'], [st.q95, '95%']].map(([y, n]) => ({ yAxis: y, name: n, lineStyle: { color: n === '50%' ? ink2 : (n === '5%' || n === '95%') ? (meta.pol < 0 ? (n === '5%' ? greed : fear) : meta.pol > 0 ? (n === '5%' ? fear : greed) : muted) : muted, type: 'dashed', width: n === '50%' ? 1.2 : 1, opacity: .85 }, label: { formatter: n, color: muted, fontSize: 10, position: 'insideEndTop' } })) : [];
   (meta.refs || []).forEach(r => ml.push({ yAxis: r.v, name: r.t, lineStyle: { color: ink2, type: 'dotted' }, label: { formatter: r.t || '', color: ink2, fontSize: 10, position: 'insideStartTop' } }));
   const showSpx = !!($('#dSpx') && $('#dSpx').checked);
   const bm = benchOf(id, meta); const spx = S.ser.get(bm.id);
@@ -1782,7 +1813,7 @@ function drawChart(id, rangeDays) {
     ],
     yAxis: [
       (id === 'spx' || id === 'ta35_px' || meta.log) ? { type: 'log', gridIndex: 0, min: e => e.min * 0.98, max: e => e.max * 1.02, axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { lineStyle: { color: line2 } } }
-        : { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, Math.min(dec, 2)) }, splitLine: { lineStyle: { color: line2 } } },
+        : { type: 'value', gridIndex: 0, scale: true, minInterval: dec === 0 ? 1 : 0, axisLabel: { color: muted, formatter: v => fmtN(v, Math.min(dec, 2)) }, splitLine: { lineStyle: { color: line2 } } },
       { type: showSpx ? 'log' : 'value', gridIndex: 0, show: showSpx, position: 'right', scale: true, axisLabel: { color: muted, formatter: v => fmtN(v, 0) }, splitLine: { show: false } },
       { type: 'value', gridIndex: 1, min: 0, max: 100, interval: 50, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } },
     ],
@@ -2949,7 +2980,7 @@ function allEvents() {
   const mine = ((S.custom && S.custom.events) || []).map(e => ({ ...e, t: tOf(e.date), mine: true }));
   return (EVENTS || []).concat(mine);
 }
-const EV_WIN = { d: 63, w: 13, m: 4 };      // a peak or trough is the highest or lowest point within this many observations each side
+const EV_WIN = { d: 63, w: 13, m: 4, q: 2 };      // a peak or trough is the highest or lowest point within this many observations each side
 function extremes(s, rp, freq) {
   const w = EV_WIN[freq || 'd'], n = s.v.length, out = [];
   for (let i = 0; i < n; i++) {
@@ -3123,8 +3154,8 @@ function openBriefEditor() {
 
 // ---------------- level statistics: what the market did after an indicator crossed a chosen level ----------------
 const LV_H = [[5, 'שבוע'], [21, 'חודש'], [63, '3 חודשים'], [126, '6 חודשים'], [252, 'שנה']];
-const LV_LAG = { d: 0, w: 6, m: 45 };      // days until a reading is public (monthly data is dated at the start of the month)
-const LV_GAP = { d: 30, w: 30, m: 90 };    // days out of the zone before a new crossing counts as a new episode
+const LV_LAG = { d: 0, w: 6, m: 45, q: 45 };      // days until a reading is public (monthly data is dated at the start of the month)
+const LV_GAP = { d: 30, w: 30, m: 90, q: 180 };    // days out of the zone before a new crossing counts as a new episode
 const IL_RE = /^(il_|ta35|ta125|tlv|eis_|usdils|eurils|boi_|il$)/;
 function benchOf(id, meta, useState = true) {
   const st = useState && S.lvState && S.lvState['i:' + id];
@@ -3199,7 +3230,7 @@ function lvRender(el, ctx) {
       ${basisSeg}
       <div class="fld"><span class="small muted">תנאי</span><div class="seg" role="group" id="lvOp"><button type="button" data-v="le" aria-pressed="${st.op === 'le'}">שווה או מתחת ל-</button><button type="button" data-v="ge" aria-pressed="${st.op === 'ge'}">שווה או מעל</button></div></div>
       <label class="fld lv-thr"><span class="small muted">רמה</span><input type="number" id="lvThr" inputmode="decimal" step="${ctx.dec > 0 ? (1 / 10 ** Math.min(ctx.dec, 3)) : 1}" value="${st.thr}" dir="ltr"></label>
-      <div class="fld"><span class="small muted">ספירה</span><div class="seg" role="group" id="lvMode"><button type="button" data-v="ep" aria-pressed="${st.mode === 'ep'}">כל כניסה לאזור</button><button type="button" data-v="day" aria-pressed="${st.mode === 'day'}">כל ${ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור</button></div></div>
+      <div class="fld"><span class="small muted">ספירה</span><div class="seg" role="group" id="lvMode"><button type="button" data-v="ep" aria-pressed="${st.mode === 'ep'}">כל כניסה לאזור</button><button type="button" data-v="day" aria-pressed="${st.mode === 'day'}">כל ${ctx.freq === 'q' ? 'רבעון' : ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור</button></div></div>
       ${benchSel}
     </div>
     <div class="lvchips" aria-label="רמות מוכנות">${chips}</div>
@@ -3211,7 +3242,7 @@ function lvRender(el, ctx) {
     if (!isFinite(st.thr)) { out.innerHTML = '<p class="small muted" style="margin:0">הזינו רמה.</p>'; return; }
     const r = levelStudy(ctx.x, b.ser, { op: st.op, thr: st.thr, lag: ctx.lag ?? LV_LAG[ctx.freq || 'd'], gap: LV_GAP[ctx.freq || 'd'], mode: st.mode });
     const opTxt = st.op === 'le' ? 'שווה או מתחת ל-' : 'שווה או מעל ';
-    const unitW = ctx.freq === 'm' ? 'חודשים' : ctx.freq === 'w' ? 'שבועות' : ctx.thin ? 'תצפיות' : 'ימים';
+    const unitW = ctx.freq === 'q' ? 'רבעונים' : ctx.freq === 'm' ? 'חודשים' : ctx.freq === 'w' ? 'שבועות' : ctx.thin ? 'תצפיות' : 'ימים';
     const pctZone = r.obs ? r.inZone / r.obs * 100 : 0;
     const head = `<p class="small" style="margin:0;line-height:1.75">${esc(ctx.name)}: ${opTxt}<b>${ltr(esc(ctx.fmt(st.thr)))}</b> ב-<b>${fmtN(r.inZone, 0)}</b> ${unitW} מתוך ${fmtN(r.obs, 0)} (${fmtN(pctZone, pctZone < 1 ? 1 : 0)}% מהזמן) מאז ${fmtDate(isoOf(r.from))}, ב-<b>${fmtN(r.eps, 0)}</b> כניסות נפרדות לאזור.
       ${r.nowIn ? '<span class="chip s-n">הקריאה האחרונה בתוך האזור</span>' : '<span class="chip chip-plain">הקריאה האחרונה מחוץ לאזור</span>'}</p>`;
@@ -3228,7 +3259,7 @@ function lvRender(el, ctx) {
       <div class="tbl-wrap"><table class="ft lvtbl"><thead><tr><th>אופק</th><th>חציון</th><th>ממוצע</th><th>% חיובי</th><th>הגרוע</th><th>הטוב</th><th>מקרים</th><th class="sep">חציון, כל הימים</th><th>% חיובי, כל הימים</th></tr></thead><tbody>${rows}</tbody></table></div>
       ${ddTxt ? `<p class="small" style="margin:0;line-height:1.75">${ddTxt}</p>` : ''}
       ${epList ? `<details class="lagd"><summary>${st.mode === 'ep' ? '' : 'תחילת '}הכניסות האחרונות לאזור (${Math.min(12, r.eps)} מתוך ${fmtN(r.eps, 0)})</summary><div class="tbl-wrap"><table class="ft"><thead><tr><th>תאריך</th><th>ערך</th>${LV_H.slice(1).map(h => `<th>${h[1]}</th>`).join('')}<th>ירידה מקס', 3 ח'</th></tr></thead><tbody>${epList}</tbody></table></div></details>` : ''}
-      <p class="small muted" style="margin:0">תשואת מחיר של ${esc(b.name)} בלי דיבידנדים, מסגירת יום ${ctx.lagNote || 'הקריאה'}${(ctx.lag ?? LV_LAG[ctx.freq || 'd']) ? ` (${ctx.lag ?? LV_LAG[ctx.freq || 'd']} ימים אחרי תאריך הנתון, כדי לא להשתמש במידע שעוד לא פורסם)` : ''}. ${st.mode === 'ep' ? `"כל כניסה לאזור": נספר רק היום הראשון של כל כניסה, וכניסה חדשה נספרת רק אחרי ${LV_GAP[ctx.freq || 'd']} ימים מחוץ לאזור, כך שכל מקרה הוא אירוע נפרד.` : `"כל ${ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור": כל קריאה נספרת, ולכן מקרים צמודים חופפים והמספר מנפח את הביטחון.`} ירוק/אדום בחציון ובממוצע = טוב או גרוע מהממוצע של כל הימים באותן שנים. ביצועי עבר אינם מבטיחים את העתיד.</p>`;
+      <p class="small muted" style="margin:0">תשואת מחיר של ${esc(b.name)} בלי דיבידנדים, מסגירת יום ${ctx.lagNote || 'הקריאה'}${(ctx.lag ?? LV_LAG[ctx.freq || 'd']) ? ` (${ctx.lag ?? LV_LAG[ctx.freq || 'd']} ימים אחרי תאריך הנתון, כדי לא להשתמש במידע שעוד לא פורסם)` : ''}. ${st.mode === 'ep' ? `"כל כניסה לאזור": נספר רק היום הראשון של כל כניסה, וכניסה חדשה נספרת רק אחרי ${LV_GAP[ctx.freq || 'd']} ימים מחוץ לאזור, כך שכל מקרה הוא אירוע נפרד.` : `"כל ${ctx.freq === 'q' ? 'רבעון' : ctx.freq === 'm' ? 'חודש' : ctx.freq === 'w' ? 'שבוע' : 'יום'} באזור": כל קריאה נספרת, ולכן מקרים צמודים חופפים והמספר מנפח את הביטחון.`} ירוק/אדום בחציון ובממוצע = טוב או גרוע מהממוצע של כל הימים באותן שנים. ביצועי עבר אינם מבטיחים את העתיד.</p>`;
     ctx.onChange && ctx.onChange(st, r);
   };
   const sync = (id, v) => $$(`#${id} button`, el).forEach(z => z.setAttribute('aria-pressed', String(z.dataset.v === v)));
@@ -3346,6 +3377,7 @@ function mChg(ind, a, b) {
   const u = mUnit(ind);
   const mk = (v, n, unit) => ({ v, n, u: unit, txt: unit ? `${n} ${unit}` : n });
   if (u === 'bp') return mk(a - b, fmtS(a - b, 0), 'נ"ב');
+  if (ind.chg === 'pt' && (u !== '%' || ind.freq === 'q')) return mk(a - b, fmtS(a - b, Math.min(ind.dec ?? 2, 2)), 'נק\'');
   if (u === '%' && ind.freq !== 'm' && ind.chg !== 'pt') return mk(a - b, fmtS((a - b) * 100, 0), 'נ"ב');
   if (u === '%') return mk(a - b, fmtS(a - b, 1), 'נק\'');
   if (!b) return null;
@@ -3374,13 +3406,14 @@ function macTable(ids, opts = {}) {
     const st = stats(id, '10y');
     const fr = fresh(id);
     return `<tr class="rowx" data-ind="${esc(id)}" tabindex="0"><td><b>${esc(ind.name)}</b><div class="small muted">${esc(ind.short || '')}</div></td>
-      <td><b>${ltr(mFmt(ind, last))}</b><div class="small muted">${fmtDate(s.d[n])}${fr.ok ? '' : ' · <span class="chip chip-w">לא עדכני</span>'}</div></td>
+      <td><b>${ltr(mFmt(ind, last))}</b><div class="small muted">${fmtDate(s.d[n])}${fr.ok ? '' : ' · <span class="chip chip-w">לא עדכני</span>'}</div>${hasSig(ind) ? `<div class="msig">${chip(sigOf(ind))}</div>` : ''}</td>
       ${mChgTd(ind, last, prev)}${mChgTd(ind, last, m3 && m3.v)}${mChgTd(ind, last, y1 && y1.v)}
-      <td class="pcell">${st && st.pct != null ? `<div class="pbar ${!ind.pol ? 'nopol' : ind.pol < 0 ? 'inv' : ''}"><div class="track" dir="ltr"><b class="mk" style="left:${st.pct.toFixed(1)}%"></b></div><span class="pv num">${Math.round(st.pct)}</span></div>` : '—'}</td></tr>`;
+      <td class="pcell">${!ind.nopct && st && st.pct != null ? `<div class="pbar ${!ind.pol ? 'nopol' : ind.pol < 0 ? 'inv' : ''}"><div class="track" dir="ltr"><b class="mk" style="left:${st.pct.toFixed(1)}%"></b></div><span class="pv num">${Math.round(st.pct)}</span></div>` : '—'}</td></tr>`;
   }).join('');
   return `<div class="tbl-wrap"><table class="ft itbl mtbl"><thead><tr><th>${opts.first || 'סדרה'}</th><th>אחרון</th><th>מהקודם</th><th>3 חודשים</th><th>שנה</th><th>אחוזון · 10 שנים</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 const MAC_CHARTS = {
+  growth: { ids: ['us_gdp_yoy', 'il_gdp_yoy', 'us_core_yoy'], years: 25, mark: [0, ''], title: 'צמיחה ריאלית שנתית: ארה"ב, ישראל ותמ"ג הליבה בארה"ב' },
   infl: { ids: ['us_cpi_yoy', 'us_core_cpi_yoy', 'us_core_pce_yoy', 'il_cpi_yoy'], years: 10, mark: [2, 'יעד הפד 2%'], title: 'אינפלציה שנתית, ארה"ב וישראל' },
   rates: { ids: ['fed_rate', 'boi_rate', 'ust2y', 'ust10y'], years: 10, title: 'ריבית ותשואות, 10 שנים' },
   labor: { ids: ['unrate'], years: 20, title: 'שיעור האבטלה בארה"ב, 20 שנה' },
@@ -4152,7 +4185,7 @@ const NAV = {
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['מרחק מהשיא', '#idxHighs'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
-  macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, תמחור השוק (אינדיקטור באפט), סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
+  macro: { d: 'צמיחה ומחזור העסקים, אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, תמחור השוק (אינדיקטור באפט), סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   calendar: { d: 'דוחות כספיים בארה"ב ובישראל, התנועה שהאופציות מתמחרות ומה קרה אחרי הדוח, ואירועי מאקרו', items: () => [['דוחות ארה"ב', 'cal:US'], ['דוחות ישראל', 'cal:IL'], ['מאקרו', 'cal:MACRO']] },
   marketing: { d: 'לפני שיחה עם משקיע: חדשות השבוע, סיפורי המניות הגדולות, מאקרו ומרווחים, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['חדשות השבוע', '#mk-weekly'], ['המניות הגדולות', '#mk-stories'], ['מאקרו ומרווחי אשראי', '#mk-macro'], ['מי הוביל ומי בפיגור', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
   israel: { d: 'סנטימנט, רוחב שוק, לאן הכסף זורם, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['לאן הכסף זורם', '#il-flows'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },

@@ -1,4 +1,5 @@
-"""Macro tab: inflation, rates, credit spreads by rating, labour, money, fuel and power (FRED, CBS, Bank of Israel, EIA)."""
+"""Macro tab: GDP growth and the business cycle, inflation, rates, credit spreads by rating, labour, money, fuel and power
+(FRED, CBS, Bank of Israel, EIA)."""
 from __future__ import annotations
 
 import csv
@@ -15,6 +16,7 @@ from .common import ROOT, cutoff_date, get, merge_series, read_series, save_prob
 CONFIG = ROOT / "config" / "macro.json"
 DAILY_FROM = "2000-01-01"
 MONTHLY_FROM = "1989-01-01"
+QUARTERLY_FROM = "1960-01-01"
 HEAT_RATE = 7.0   # MMBtu of gas per MWh, a typical combined-cycle plant
 
 
@@ -45,18 +47,75 @@ def fred_series(code: str) -> dict[str, float]:
 
 
 def _transform(pts: dict[str, float], spec: dict) -> dict[str, float]:
+    """tf: yoy (12-month change, %), diff (change from the previous reading), yoy_diff (change in the yoy rate from the
+    previous reading: the acceleration), or none. Quarterly series (freq q) are stamped at the quarter's last day."""
     s = pd.Series(pts).sort_index()
-    tf = spec.get("tf")
-    if tf == "yoy":
+    tf, freq = spec.get("tf"), spec.get("freq")
+    if tf in ("yoy", "yoy_diff"):
         s.index = pd.to_datetime(s.index)
-        s = (s / s.shift(12, freq="MS").reindex(s.index) - 1) * 100 if spec.get("freq") == "m" else s.pct_change(252) * 100
+        s = (s / s.shift(12, freq="MS").reindex(s.index) - 1) * 100 if freq in ("m", "q") else s.pct_change(252) * 100
         s.index = s.index.strftime("%Y-%m-%d")
+        if tf == "yoy_diff":
+            s = s.dropna().diff()
     elif tf == "diff":
         s = s.diff()
     s = s * float(spec.get("scale", 1))
-    start = DAILY_FROM if spec.get("freq") == "d" else MONTHLY_FROM
+    if freq == "q":
+        s.index = _quarter_end(s.index)
+    start = spec.get("from") or (DAILY_FROM if freq == "d" else QUARTERLY_FROM if freq == "q" else MONTHLY_FROM)
     s = s[(s.index >= start) & (s.index <= cutoff_date())].dropna()
     return {d: round(float(v), 6) for d, v in s.items()}
+
+
+def _quarter_end(idx) -> list[str]:
+    """FRED dates a quarter by its first day; the site shows the last day, so 30.09 reads as the third quarter."""
+    return list((pd.to_datetime(pd.Index(idx)).to_period("Q").to_timestamp(how="end")).strftime("%Y-%m-%d"))
+
+
+def _quarterly_mean(pts: dict[str, float]) -> dict[str, float]:
+    """Daily or monthly readings averaged by calendar quarter, complete quarters only, stamped at the quarter's end."""
+    s = pd.Series(pts).sort_index()
+    s.index = pd.to_datetime(s.index)
+    g = s.groupby(s.index.to_period("Q")).mean()
+    g.index = g.index.to_timestamp(how="end").strftime("%Y-%m-%d")
+    return {d: float(v) for d, v in g.items() if d <= cutoff_date()}
+
+
+def expr_series(spec: dict, raw: dict) -> dict[str, float]:
+    """A series computed from FRED series: expr = {op: sub | add | count_neg, args: [{fred, minus, tf, agg}]}.
+    Each argument is transformed on its own (tf as in _transform, agg q = quarterly mean), then the arguments are
+    combined on the dates they share. tf on the spec itself is applied to the result (e.g. yoy of a sum)."""
+    def one(code: str, a: dict) -> dict[str, float]:
+        pts = raw[code]
+        if isinstance(pts, Exception):
+            raise pts
+        if a.get("agg") == "q":
+            return _quarterly_mean(pts)
+        return _transform(pts, {"freq": spec.get("freq"), "tf": a.get("tf"), "from": "0000"})
+    parts = []
+    for a in spec["expr"]["args"]:
+        pts = one(a["fred"], a)
+        if a.get("minus"):     # e.g. the 10-year yield minus the 3-month bill, before averaging the quarter
+            m = one(a["minus"], a)
+            pts = {d: v - m[d] for d, v in pts.items() if d in m}
+        parts.append(pd.Series(pts, dtype=float))
+    df = pd.concat(parts, axis=1).dropna().sort_index()
+    op = spec["expr"]["op"]
+    if op == "sub":
+        r = df.iloc[:, 0] - df.iloc[:, 1]
+    elif op == "add":
+        r = df.sum(axis=1)
+    elif op == "count_neg":
+        r = (df < 0).sum(axis=1).astype(float)
+    else:
+        raise ValueError(f"expr op {op}")
+    pts = {d: float(v) for d, v in r.items()}
+    if spec.get("tf"):
+        # the arguments are already stamped at quarter end; go back to quarter starts so the 12-month shift lines up
+        q0 = {(pd.Timestamp(d).to_period("Q").start_time.strftime("%Y-%m-%d") if spec.get("freq") == "q" else d): v for d, v in pts.items()}
+        return _transform(q0, spec)
+    start = DAILY_FROM if spec.get("freq") == "d" else QUARTERLY_FROM if spec.get("freq") == "q" else MONTHLY_FROM
+    return {d: round(v, 6) for d, v in pts.items() if start <= d <= cutoff_date()}
 
 
 # --------------------------------------------------------------------------- Israel
@@ -335,15 +394,18 @@ def _safe(fn, *a):
 def run() -> tuple[dict, dict, str]:
     """Returns ({series id: points}, curve snapshot, message). Series that fail keep their stored history."""
     cfg = load()
-    specs = [s for s in cfg["series"] if not s.get("calc")]   # calc: computed elsewhere (valuation.py)
-    codes = sorted({s["fred"] for s in specs if s.get("fred")} | {c[0] for c in cfg["curve"]})
+    specs = [s for s in cfg["series"] if not isinstance(s.get("calc"), str)]   # calc: computed elsewhere (valuation.py)
+    codes = sorted({s["fred"] for s in specs if s.get("fred")} | {c[0] for c in cfg["curve"]}
+                   | {x for s in specs if s.get("expr") for a in s["expr"]["args"] for x in (a["fred"], a.get("minus")) if x})
     with ThreadPoolExecutor(6) as ex:
         raw = dict(zip(codes, ex.map(lambda c: _safe(fred_series, c), codes)))
     out, failed = {}, []
     for s in specs:
         sid = s["id"]
         try:
-            if s.get("fred"):
+            if s.get("expr"):
+                out[sid] = expr_series(s, raw)
+            elif s.get("fred"):
                 pts = raw[s["fred"]]
                 if isinstance(pts, Exception):
                     raise pts
@@ -435,10 +497,11 @@ def payload(cfg: dict | None = None) -> dict:
 def indicator_defs(cfg: dict | None = None) -> list[dict]:
     """Macro series as indicator definitions, so the site's detail view, charts and search work for them."""
     cfg = cfg or load()
-    src_name = lambda s: ("FRED · " + s["fred"]) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
+    src_name = lambda s: ("FRED · " + ", ".join(x for a in s["expr"]["args"] for x in (a["fred"], a.get("minus")) if x) + " · חישוב") if s.get("expr") else ("FRED · " + s["fred"]) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
                                                                          "בנק ישראל" if s.get("boi") or s.get("boi_key") else "EIA (ICE)" if s.get("eia") else "NYISO" if s.get("iso") == "nyiso" else "ISO New England" if s.get("iso") == "isone" else
                                                                          (("NYISO" if s.get("spark") == "pw_nyc" else "ISO-NE" if s.get("spark") == "pw_isone" else "EIA (ICE)") + " ו-Henry Hub, חישוב") if s.get("spark") else "")
-    src_url = lambda s: (f"https://fred.stlouisfed.org/series/{s['fred']}" if s.get("fred") else
+    src_url = lambda s: (f"https://fred.stlouisfed.org/series/{s['expr']['args'][0]['fred']}" if s.get("expr") else
+                         f"https://fred.stlouisfed.org/series/{s['fred']}" if s.get("fred") else
                          "https://www.cbs.gov.il/he/subjects/Pages/מדד-המחירים-לצרכן.aspx" if s.get("cbs") or s.get("cbs_mom") else
                          "https://www.boi.org.il/" if s.get("boi") or s.get("boi_key") else "https://www.nyiso.com/energy-market-operational-data" if s.get("iso") == "nyiso" else
                          "https://www.iso-ne.com/isoexpress/" if s.get("iso") == "isone" else "https://www.eia.gov/electricity/wholesale/")
@@ -452,7 +515,9 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
                     "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": True, "src": s.get("src") or src_name(s),
                     "srcUrl": s.get("srcUrl") or src_url(s), **({"note": note} if note else {}),
                     "desc": s.get("desc", ""), **({"rating": s["rating"]} if "rating" in s else {}), **({"key": True} if s.get("key") else {}),
-                    **({"staleDays": s["stale"]} if s.get("stale") else {})})
+                    **({"staleDays": s["stale"]} if s.get("stale") else {}),
+                    # rule-based state chips, change in points, reference lines, a note on Israel (growth section)
+                    **{k: s[k] for k in ("sig", "chg", "refs", "nopct", "il", "ilAt") if k in s}})
     return out
 
 
@@ -461,5 +526,7 @@ def site_meta(cfg: dict | None = None) -> dict:
     secs = []
     for sec in cfg["sections"]:
         ids = [s["id"] for s in cfg["series"] if s["sec"] == sec["id"]] + cfg.get("reuse", {}).get(sec["id"], [])
-        secs.append({**sec, "ids": ids})
+        if sec.get("order"):       # an explicit row order (e.g. a reused series placed next to the tool it belongs to)
+            ids = [i for i in sec["order"] if i in ids] + [i for i in ids if i not in sec["order"]]
+        secs.append({**{k: v for k, v in sec.items() if k != "order"}, "ids": ids})
     return {"sections": secs}

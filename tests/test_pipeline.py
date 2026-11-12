@@ -165,6 +165,25 @@ def test_macro_transforms_and_spark():
     assert sp == {"2026-10-05": 60.0 - 7 * 3.0}          # gas older than 4 days is not used
 
 
+def test_macro_quarterly_growth_tools():
+    q = pd.date_range("2018-01-01", "2026-07-01", freq="QS").strftime("%Y-%m-%d")
+    lvl = {d: 100 * 1.02 ** (i / 4) * (1.01 if i == len(q) - 1 else 1) for i, d in enumerate(q)}
+    yoy = macro._transform(lvl, {"freq": "q", "tf": "yoy"})
+    assert "2026-09-30" in yoy and "2026-07-01" not in yoy                 # stamped at the quarter's end
+    assert abs(yoy["2026-06-30"] - 2.0) < 1e-6 and abs(yoy["2026-09-30"] - 3.02) < 1e-6
+    acc = macro._transform(lvl, {"freq": "q", "tf": "yoy_diff"})
+    assert abs(acc["2026-09-30"] - 1.02) < 1e-6 and abs(acc["2026-06-30"]) < 1e-6
+    daily = {d.strftime("%Y-%m-%d"): 4.0 + (d.month > 6) for d in pd.date_range("2025-01-01", "2026-09-30", freq="B")}
+    raw = {"LVL": lvl, "Y10": daily, "Y3M": {k: 4.5 for k in daily}}
+    gap = macro.expr_series({"freq": "q", "expr": {"op": "sub", "args": [{"fred": "Y10", "agg": "q"}, {"fred": "LVL", "tf": "yoy"}]}}, raw)
+    assert abs(gap["2026-09-30"] - (5.0 - 3.02)) < 1e-6 and abs(gap["2026-03-31"] - (4.0 - 2.0)) < 1e-6
+    lights = macro.expr_series({"freq": "q", "expr": {"op": "count_neg", "args": [
+        {"fred": "LVL", "tf": "yoy_diff"}, {"fred": "Y10", "minus": "Y3M", "agg": "q"}]}}, raw)
+    assert lights["2026-03-31"] == 1 and lights["2026-09-30"] == 0      # flat growth, inverted then positive curve
+    core = macro.expr_series({"freq": "q", "tf": "yoy", "expr": {"op": "add", "args": [{"fred": "LVL"}, {"fred": "LVL"}]}}, raw)
+    assert abs(core["2026-06-30"] - 2.0) < 1e-6
+
+
 def test_macro_definitions_are_consistent():
     cfg = macro.load()
     secs = {s["id"] for s in cfg["sections"]}
@@ -174,6 +193,15 @@ def test_macro_definitions_are_consistent():
     assert all(d["tab"] == "macro" and not d["pin"] and not d["comp"] and d["pol"] == 0 for d in defs)
     inds = json.loads((macro.ROOT / "config" / "indicators.json").read_text(encoding="utf-8"))
     assert not {d["id"] for d in defs} & {i["id"] for i in inds}
+    # the growth tools: quarterly, with state chips whose references exist
+    grow = [s for s in cfg["series"] if s["sec"] == "growth"]
+    assert grow and all(s["freq"] == "q" and s.get("sig") for s in grow)
+    for s in cfg["series"]:
+        for b in s.get("sig", []):
+            lt = b.get("lt")
+            assert lt is None or isinstance(lt, (int, float)) or str(lt).startswith("med:") or str(lt)[4:] in ids
+    order = next(x for x in macro.site_meta(cfg)["sections"] if x["id"] == "growth")["ids"]
+    assert order[:2] == ["us_gdp_yoy", "us_gdp_acc"] and "t10y3m" in order
     # the institutional COT cut (asset managers / leveraged funds) was removed on 22.10; speculators returned on 7.11
     assert not any(i["id"] in ("cot_es_am", "cot_es_lev", "cot_nq_am", "cot_vix_nc") for i in inds)
     assert all(i["id"].startswith("cot_") and i["id"].endswith("_spec") for i in inds if i["group"] == "pos")
