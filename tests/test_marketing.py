@@ -44,6 +44,7 @@ def test_holdings_link_to_profiles_and_payload_builds():
     assert all("שווי" not in json.dumps(h, ensure_ascii=False) for h in hold)
     p = m.build_payload()
     assert p["issuers"] and p["holdings"] and "spreads" in p
+    assert set(p["issuers"]) <= {h["i"] for h in hold}   # a profile no holding points to never reaches the tab
 
 
 def test_weekly_brief_links_and_upcoming():

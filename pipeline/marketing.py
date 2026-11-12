@@ -54,8 +54,14 @@ def _read(p, default):
         return default
 
 
+def holdings() -> list[dict]:
+    return _read(MK / "holdings.json", {}).get("holdings", [])
+
+
 def issuers() -> dict:
-    return _read(MK / "issuers.json", {}).get("issuers", {})
+    """Profiles of the issuers we hold. holdings.json decides: a profile no holding points to is ignored."""
+    held = {h.get("i") for h in holdings()}
+    return {k: v for k, v in _read(MK / "issuers.json", {}).get("issuers", {}).items() if k in held}
 
 
 def symbols(cfg: dict | None = None) -> list[str]:
@@ -358,7 +364,7 @@ def _series_tail(sid: str, days: int = 400) -> dict:
 def build_payload() -> dict:
     cfg = load_cfg()
     iss = issuers()
-    hold = _read(MK / "holdings.json", {}).get("holdings", [])
+    hold = holdings()
     px = _read(PX_OUT, {})
     news = _read(NEWS_OUT, {})
     return {

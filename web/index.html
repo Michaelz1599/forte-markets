@@ -784,6 +784,9 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 .st-name { font-weight: 800; font-size: 17px; }
 .st-name .st-tk { font-size: 12px; font-weight: 600; color: var(--muted); margin-inline-start: 8px; }
 .st-tag { font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--hl); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.st-chips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.st-out { font-size: 11.5px; font-weight: 700; color: var(--muted); border: 1px dashed currentColor; border-radius: 999px; padding: 1px 8px; opacity: .85; white-space: nowrap; }
+.st-mini .st-out { font-size: 10.5px; padding: 0 6px; margin-inline-start: 4px; font-weight: 600; }
 .st-perf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .st-perf div { background: var(--bg); border-radius: 8px; padding: 6px 8px; display: grid; gap: 1px; text-align: center; }
 .st-perf .k { font-size: 11px; color: var(--muted); }
@@ -794,7 +797,7 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 .st-why b { color: var(--accent); }
 .st-src { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
 .st-src a { color: var(--accent); }
-.st-rest { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.st-rest { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
 .st-mini { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; font-size: 13px; }
 .st-mini b { font-size: 14px; }
 /* sector leaders */
@@ -3767,6 +3770,7 @@ function loadMkt() {
       return { k, v, h, nm: mkNorm(v.he), en: mkNorm(v.en), tk: [v.y, ...(v.cal || [])].filter(Boolean).map(x => mkNorm(String(x).replace(/\.TA$/i, ''))),
         hay: mkNorm([v.he, v.en, v.y, ...(v.cal || []), v.sec, ...h.map(x => x.n)].join(' | ')) };
     });
+    d.held = new Set(d.list.filter(x => x.h.length).flatMap(x => [x.k, x.v.y]).filter(Boolean));   // issuer keys and Yahoo symbols we hold
     d.notes = d.notes || {}; d.stories = d.stories || {}; d.px = d.px || {}; d.cal = d.cal || {}; d.headlines = d.headlines || {};
     MKT = d; return d;
   }).catch(e => { loadMkt.p = null; throw e; });
@@ -3878,17 +3882,18 @@ function mkStories() {
   const st = MKT.stories || {}, items = st.items || [];
   const megas = MKT.megacaps || [];
   const nameOf = sym => (megas.find(m => m[0] === sym) || [])[1] || (MKT.issuers[sym] || {}).he || sym;
+  const out = sym => MKT.held.has(sym) ? '' : `<span class="st-out" title="פורטה לא מחזיקה במניה הזו; היא מופיעה כי הציבור מדבר עליה">לא בתיק</span>`;
   const perf = p => `<div class="st-perf"><div><span class="k">היום${p && p.date ? ` · ${fmtDateShort(p.date)}` : ''}</span><b>${mkPct(p && p.d1, 2)}</b></div><div><span class="k">מתחילת החודש</span><b>${mkPct(p && p.mtd)}</b></div><div><span class="k">מתחילת השנה</span><b>${mkPct(p && p.ytd)}</b></div></div>`;
   const cards = items.map(x => {
     const p = mkPxOf(x.sym), cls = p && p.d1 != null ? (p.d1 >= 0 ? 'pos' : 'neg') : '';
     const src = (x.src || []).filter(s => s && /^https?:\/\//.test(s.u)).slice(0, 3).map(s => `<a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t || 'מקור')}</a>`).join('');
-    return `<article class="st-card ${cls}"><div class="st-top"><span class="st-name">${esc(x.name || nameOf(x.sym))}<span class="st-tk ltr">${esc(x.sym)}</span></span>${x.tag ? `<span class="st-tag">${esc(x.tag)}</span>` : ''}</div>
+    return `<article class="st-card ${cls}"><div class="st-top"><span class="st-name">${esc(x.name || nameOf(x.sym))}<span class="st-tk ltr">${esc(x.sym)}</span></span><span class="st-chips">${x.tag ? `<span class="st-tag">${esc(x.tag)}</span>` : ''}${out(x.sym)}</span></div>
       ${perf(p)}<div class="st-title">${esc(x.title)}</div><p class="st-body">${esc(x.story)}</p>${x.why ? `<p class="st-why"><b>מה להגיד למשקיע:</b> ${esc(x.why)}</p>` : ''}
       <div class="st-src">${x.date ? `<span>${fmtDate(x.date)}</span>` : ''}${src}</div></article>`;
   }).join('');
   const told = new Set(items.map(x => x.sym));
-  const rest = megas.filter(m => !told.has(m[0])).map(([sym, he]) => { const p = mkPxOf(sym); return p ? `<div class="st-mini"><b>${esc(he)} <span class="small muted ltr">${esc(sym)}</span></b><span>${mkPct(p.d1, 2)}</span><span class="small muted">מתחילת השנה</span><span>${mkPct(p.ytd)}</span></div>` : ''; }).join('');
-  return `<section id="mk-stories" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>המניות הגדולות: על מה כולם מדברים</h2><p>הסיפורים שהציבור שומע על הענקיות, בשפה פשוטה, עם מה שהמניה עשתה היום, מתחילת החודש ומתחילת השנה.</p></div><span class="small muted">${st.asof ? 'עודכן ' + fmtDate(st.asof.slice(0, 10)) : ''}</span></div>
+  const rest = megas.filter(m => !told.has(m[0])).map(([sym, he]) => { const p = mkPxOf(sym); return p ? `<div class="st-mini"><b>${esc(he)} <span class="small muted ltr">${esc(sym)}</span>${out(sym)}</b><span>${mkPct(p.d1, 2)}</span><span class="small muted">מתחילת השנה</span><span>${mkPct(p.ytd)}</span></div>` : ''; }).join('');
+  return `<section id="mk-stories" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>המניות הגדולות: על מה כולם מדברים</h2><p>הסיפורים שהציבור שומע על הענקיות, בשפה פשוטה, עם מה שהמניה עשתה היום, מתחילת החודש ומתחילת השנה. ענקית שאנחנו לא מחזיקים מסומנת <span class="st-out">לא בתיק</span>.</p></div><span class="small muted">${st.asof ? 'עודכן ' + fmtDate(st.asof.slice(0, 10)) : ''}</span></div>
     ${cards ? `<div class="st-grid">${cards}</div>` : '<p class="muted">הסיפורים של היום עוד לא נכתבו. הם מתעדכנים כל בוקר.</p>'}
     ${rest ? `<h3 style="font-size:15px;margin-top:4px">שאר הענקיות</h3><div class="st-rest">${rest}</div>` : ''}</section>`;
 }
