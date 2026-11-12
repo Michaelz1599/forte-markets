@@ -1,168 +1,184 @@
 {
  "_comment": "The day's public stories about the mega caps, in plain Hebrew, for the marketing tab. Written each morning by the daily marketing task from published articles (paraphrased, with links). items: sym (Yahoo symbol), name, tag, title, story (2-3 sentences), why (one line a salesperson can say), date (of the story), src [{t, u}].",
- "asof": "2026-11-11T19:30+02:00",
+ "asof": "2026-11-12T08:05+02:00",
  "items": [
   {
    "sym": "NVDA",
    "name": "אנבידיה",
    "tag": "ממשל תאגידי",
-   "date": "2026-11-09",
-   "title": "המנכ\"ל ג'נסן הואנג הודה ברומן עם אשת עסקים סינית שנחשדת בריגול, והדירקטוריון פתח בחקירה",
-   "story": "בסוף השבוע הודה הואנג במכתב לעובדים שבגד באשתו, אחרי פרסומים על קשר עם אשת עסקים סינית שלפי הדיווחים קשורה למודיעין הסיני (בייג'ין מכחישה). הדירקטוריון הקים ועדה בלתי תלויה שתבדוק אם הואנג היה יעד למבצע מודיעיני, וחברי קונגרס רפובליקנים ביקשו ממנו תדריך סגור ב-18 בנובמבר. המניה ירדה ביום שני בכ-5%.",
-   "why": "זו שאלה של ממשל תאגידי וסיכון אישי סביב המנכ\"ל, לא של ביקוש: הביקוש לשבבי AI לא השתנה. המבחן הקרוב הוא הדוח הרבעוני ב-17.11 בערב (שעון ארה\"ב).",
+   "date": "2026-11-11",
+   "title": "הדירקטוריון של אנבידיה התכנס כדי להחליט אם להדיח את המנכ\"ל ג'נסן הואנג",
+   "story": "אחרי שהואנג הודה בסוף השבוע ברומן עם אשת עסקים שנחשדת בקשרים למודיעין הסיני, דיווח בניו יורק טיימס על קשר נוסף, עם בכירה בחברה הכפופה לו. לפי וול סטריט ג'ורנל הדירקטוריון נערך להדיח אותו ולמנות מנכ\"ל זמני; הישיבה נמשכה אל תוך הערב (שעון ארה\"ב), ועד בוקר יום חמישי (שעון ישראל) לא פורסמה החלטה. המניה עלתה כ-3% במסחר הרגיל ביום רביעי, אבל לפי גלובס צנחה ביותר מ-8% במסחר המאוחר.",
+   "why": "זה סיכון ניהולי ולא עסקי: הביקוש לשבבי AI לא השתנה, אבל הואנג מזוהה עם האסטרטגיה ועם הקשרים מול הלקוחות והממשל, ולכן גם הדחה וגם השארה עם סמכויות מצומצמות ישפיעו על המניה. המבחן הבא הוא הדוח הרבעוני ב-17.11.",
    "src": [
     {
-     "t": "ABC News",
-     "u": "https://abc7news.com/story/nvidia-stock-falls-company-opens-probe-ceo-jensen-huang-alleged-affair-chinese-spy/20026775/"
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001563130"
     },
     {
-     "t": "AFP / Khaleej Times",
-     "u": "https://www.khaleejtimes.com/business/nvidia-shares-slide-as-board-probes-ceo-over-china-spy-reports-2"
+     "t": "CNBC",
+     "u": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html"
+    },
+    {
+     "t": "Semafor",
+     "u": "https://www.semafor.com/article/11/11/2026/nvidia-board-preparing-to-oust-ceo-huang-wsj"
+    }
+   ]
+  },
+  {
+   "sym": "AMD",
+   "name": "AMD",
+   "tag": "ראלי שבבים",
+   "date": "2026-11-11",
+   "title": "מניות השבבים זינקו: הדוח של CoreWeave החזיר את האמון בהשקעות ה-AI",
+   "story": "ביום רביעי עלה מדד השבבים בכ-7% והנאסד\"ק בכ-2%, אחרי ש-CoreWeave, ספקית ענן AI ולקוחה גדולה של יצרניות השבבים, פרסמה תוצאות שהרגיעו את החשש מהאטה בהשקעות; המניה שלה עצמה עלתה ביותר מ-25%. AMD, מיקרון וברודקום היו בין המובילות, אחרי שבוע של מכירות חדות בסקטור שנבעו מהחשש שהקונגרס החדש יאט את בניית מרכזי הנתונים.",
+   "why": "הסקטור מגיב בחדות לכל אות על קצב ההשקעה במרכזי נתונים, בשני הכיוונים. נכון להציג את זה כתנודתיות סביב מגמה ולא כשינוי כיוון: השאלה הפתוחה היא אם הסביבה הפוליטית החדשה תאט את ההשקעות.",
+   "src": [
+    {
+     "t": "Yahoo Finance",
+     "u": "https://finance.yahoo.com/technology/ai/articles/mu-amd-avgo-other-chip-134142335.html"
     },
     {
      "t": "Motley Fool",
-     "u": "https://www.fool.com/investing/2026/11/09/why-nvidia-stock-was-falling-today/"
-    }
-   ]
-  },
-  {
-   "sym": "TSLA",
-   "name": "טסלה",
-   "tag": "פוליטיקה",
-   "date": "2026-11-09",
-   "title": "טסלה צנחה כמעט 11% אחרי הבחירות לקונגרס, ומאז מחזירה חלק מהירידה",
-   "story": "אחרי שהדמוקרטים זכו בשליטה בקונגרס בבחירות האמצע, טסלה ירדה ב-5 בנובמבר ב-10.8%, יותר מכפול מהירידה של S&P 500 באותו יום, על רקע חשש מרגולציה. ב-6 בנובמבר המניה עלתה 4.2% וב-9 בנובמבר עוד כ-4.5%, יחד עם SpaceX. ברקע: תוכנית להפעיל את שירות הרובוטקסי Cybercab בדאלאס עוד החודש.",
-   "why": "טסלה מתומחרת בעיקר על הסיפור העתידי (רובוטקסי, AI ורובוטים), ולכן היא רגישה במיוחד לחדשות פוליטיות ורגולטוריות, לשני הכיוונים.",
-   "src": [
-    {
-     "t": "Trefis",
-     "u": "https://www.trefis.com/stock/tsla/articles/623330/what-is-behind-the-move-in-tesla-stock/2026-11-06"
+     "u": "https://www.fool.com/coverage/stock-market-today/2026/11/11/stock-market-today-nov-11-nvidia-rebounds-as-coreweave-earnings-reignite-the-ai-trade/"
     },
     {
-     "t": "Reuters / GV Wire",
-     "u": "https://gvwire.com/2026/11/09/wall-street-rallies-after-last-weeks-ai-rout-nvidia-falls/"
-    },
-    {
-     "t": "Gotrade",
-     "u": "https://www.heygotrade.com/en/news/tesla-tsla-stock-news-november-9-2026/"
-    }
-   ]
-  },
-  {
-   "sym": "AAPL",
-   "name": "אפל",
-   "tag": "מנכ\"ל חדש",
-   "date": "2026-11-02",
-   "title": "הדוח הראשון של המנכ\"ל החדש ג'ון טרנוס: שיא מכירות, אבל המניה ירדה",
-   "story": "ג'ון טרנוס, שהחליף את טים קוק ב-1 בספטמבר, הציג רבעון שיא: הכנסות של 114.5 מיליארד דולר (+12%), בהובלת האייפון 18 והמק, ואחרי השקת האייפון המתקפל iPhone Duo. המניה בכל זאת ירדה, בגלל תחזית זהירה לשיעור הרווח הגולמי על רקע זינוק במחירי שבבי הזיכרון, והחטאה במכירות בסין ובאייפד.",
-   "why": "העסק חזק והחלפת המנכ\"ל עברה חלק; השאלה של המשקיעים היא הרווחיות, כי ה-AI מייקר לאפל את רכיבי הזיכרון.",
-   "src": [
-    {
-     "t": "Fortune",
-     "u": "https://fortune.com/2026/11/02/new-apple-ceo-john-ternus-chalks-up-some-early-wins-but-the-honeymoon-is-over/"
-    },
-    {
-     "t": "Fox Business",
-     "u": "https://www.foxbusiness.com/markets/apple-posts-record-september-quarter-under-new-ceo-iphone-mac-sales-surge"
-    },
-    {
-     "t": "iPhone Wired",
-     "u": "https://iphonewired.com/news/1200281/"
-    }
-   ]
-  },
-  {
-   "sym": "GOOGL",
-   "name": "אלפבית (גוגל)",
-   "tag": "דוחות",
-   "date": "2026-10-29",
-   "title": "הירידה החדה ביותר של גוגל ביום דוחות: כ-12.6% ביום אחד",
-   "story": "אחרי הדוח של 28 באוקטובר צנחה המניה מ-325 ל-284 דולר, הירידה היומית החדה בתולדותיה סביב דוח. המשקיעים התמקדו בהכנסות שהחטיאו את התחזיות ובקצב שבו ההשקעות בתשתיות AI שורפות מזומנים; סמנכ\"לית הכספים אמרה שההשקעות יעלו משמעותית שוב ב-2027. רוב האנליסטים השאירו המלצת קנייה.",
-   "why": "הבעיה היא לא ירידה בעסק אלא מחיר המרוץ ל-AI: השוק רוצה לראות שההשקעות העצומות יתחילו להחזיר את עצמן.",
-   "src": [
-    {
-     "t": "FourWeekMBA",
-     "u": "https://fourweekmba.com/ai-google-made-up-75-of-big-techs-665b-post-earnings-loss/"
-    },
-    {
-     "t": "Reuters / Virginia Business",
-     "u": "https://virginiabusiness.com/wall-street-falls-alphabet-revenue-miss-ai-spending/"
-    },
-    {
-     "t": "TheStreet Pro",
-     "u": "https://pro.thestreet.com/trade-ideas/microsoft-up-alphabet-down-same-growth-different-outcomes"
-    }
-   ]
-  },
-  {
-   "sym": "META",
-   "name": "מטא",
-   "tag": "השקעות AI",
-   "date": "2026-10-22",
-   "title": "מטא ירדה 7% אחרי הדוח, על חשש מגובה ההשקעות ב-AI",
-   "story": "מטא פתחה את עונת הדוחות של הענקיות ב-21 באוקטובר, ולמחרת המניה ירדה 7% (מ-698 ל-649 דולר). כמו אצל גוגל ואמזון, השוק הגיב לגובה ההשקעות בתשתיות בינה מלאכותית יותר מאשר לתוצאות עצמן.",
-   "why": "העסק המרכזי, פרסום ברשתות החברתיות, ממשיך לצמוח; הוויכוח הוא על ההחזר על ההשקעות הגדולות ב-AI.",
-   "src": [
-    {
-     "t": "FourWeekMBA",
-     "u": "https://fourweekmba.com/ai-google-made-up-75-of-big-techs-665b-post-earnings-loss/"
-    }
-   ]
-  },
-  {
-   "sym": "MSFT",
-   "name": "מיקרוסופט",
-   "tag": "דוחות",
-   "date": "2026-10-29",
-   "title": "מיקרוסופט עמדה יפה בעונת הדוחות, כי ריסנה את ההשקעות",
-   "story": "בניגוד לגוגל ולאמזון, מניית מיקרוסופט כמעט לא זזה אחרי הדוח של 28 באוקטובר. לפי הניתוחים, המשקיעים תגמלו אותה על כך שמיתנה את תוכניות ההשקעה בתשתיות, בזמן ש-Azure, עסקי הענן, הפך לחטיבה הגדולה של החברה.",
-   "why": "השוק מעדיף כרגע חברות שמראות משמעת בהוצאות ה-AI, ומיקרוסופט מוצגת כדוגמה לכך.",
-   "src": [
-    {
-     "t": "TheStreet Pro",
-     "u": "https://pro.thestreet.com/trade-ideas/microsoft-up-alphabet-down-same-growth-different-outcomes"
-    },
-    {
-     "t": "Trustnet",
-     "u": "https://www.trustnet.com/news/13487548/tech-giants-earnings-round-up-markets-disappointed-as-ai-spend-starts-to-bite"
-    }
-   ]
-  },
-  {
-   "sym": "AMZN",
-   "name": "אמזון",
-   "tag": "דוחות",
-   "date": "2026-10-29",
-   "title": "אמזון: רווחיות שיא לצד השקעות ענק בתשתיות",
-   "story": "בדוח של 29 באוקטובר הציגה אמזון רווחיות שיא, אבל גם היקף השקעות הוני חריג (לפני הדוח דובר על כ-220 מיליארד דולר לשנה). המניה ירדה בחדות במסחר שאחרי הדוח, ובסוף יום המסחר הבא סגרה בירידה מתונה של כ-1.4%.",
-   "why": "AWS ועסקי הפרסום מייצרים את הרווח; השאלה היא כמה זמן ייקח עד שההשקעות בענן וב-AI יחזירו את עצמן בתזרים.",
-   "src": [
-    {
-     "t": "Trustnet",
-     "u": "https://www.trustnet.com/news/13487548/fund/sectors"
-    },
-    {
-     "t": "FourWeekMBA",
-     "u": "https://fourweekmba.com/ai-google-made-up-75-of-big-techs-665b-post-earnings-loss/"
-    },
-    {
-     "t": "IfYouSpent (תצוגה מקדימה)",
-     "u": "https://news.ifyouspent.com/en/news/big-tech-earnings-what-to-watch-october-2026"
+     "t": "TokenPost",
+     "u": "https://www.tokenpost.com/news/investing/54247"
     }
    ]
   },
   {
    "sym": "TSM",
    "name": "TSMC",
-   "tag": "שבבים",
-   "date": "2026-11-09",
-   "title": "TSMC זינקה 6.5% דווקא ביום שאנבידיה ירדה",
-   "story": "ביום שבו אנבידיה ירדה בגלל החקירה סביב המנכ\"ל, ספקיות השבבים באסיה עלו, ו-TSMC זינקה 6.5%. המשקיעים הבחינו בין הסיכון האישי סביב הואנג לבין הביקוש לייצור שבבי AI, שעובר דרך TSMC כמעט בכל מקרה.",
-   "why": "TSMC מייצרת את השבבים המתקדמים לכל הענקיות, ולכן היא חשיפה רחבה יותר לגל ה-AI מאשר מניה של חברה אחת.",
+   "tag": "השקעות AI",
+   "date": "2026-11-11",
+   "title": "TSMC תשקיע עד מיליארד דולר ב-Anthropic וב-OpenAI",
+   "story": "הדירקטוריון של TSMC אישר השקעה של עד 500 מיליון דולר במניות Anthropic במחיר ההנפקה, ועוד עד 500 מיליון דולר במניות בכורה של OpenAI. המניה עלתה ביותר מ-4% ביום רביעי, גם על רקע מכירות אוקטובר שזינקו בכ-60% לעומת אשתקד.",
+   "why": "ההשקעה קטנה ביחס לגודל החברה, אבל מסמנת שיצרנית השבבים הגדולה בעולם רוצה נתח גם מהצלחת לקוחות-הקצה של ה-AI. המנוע של המניה נשאר הביקוש לייצור שבבים מתקדמים, כפי שמראות מכירות החודש.",
    "src": [
     {
-     "t": "Tech Insider",
-     "u": "https://tech-insider.org/?p=56472"
+     "t": "Investing.com",
+     "u": "https://www.investing.com/news/stock-market-news/tsmc-board-approves-1-bln--investment-in-anthropic-openai-shares-rise-93CH-5017730"
+    },
+    {
+     "t": "Nikkei Asia",
+     "u": "https://asia.nikkei.com/business/technology/artificial-intelligence/tsmc-earmarks-up-to-1bn-to-buy-anthropic-and-openai-shares"
+    },
+    {
+     "t": "MacRumors",
+     "u": "https://www.macrumors.com/2026/11/11/tsmc-approves-ai-investment/"
+    }
+   ]
+  },
+  {
+   "sym": "AMZN",
+   "name": "אמזון",
+   "tag": "הנפקה",
+   "date": "2026-11-11",
+   "title": "Anthropic יוצאת להנפקה לפי שווי של עד 1.4 טריליון דולר, ואמזון וגוגל בין המרוויחות הגדולות",
+   "story": "החברה שמפתחת את Claude קבעה טווח מחיר של 70-78 דולר למניה בהנפקה בנאסד\"ק, לפי שווי של עד כ-1.4 טריליון דולר, והתמחור צפוי בשבוע הבא. אמזון וגוגל הן מהמשקיעות הגדולות בחברה, ולפי הערכות שווי האחזקות שלהן יחד מגיע לכ-411 מיליארד דולר. לפי הדיווחים, כמה ענקיות טכנולוגיה, ביניהן גוגל ואנבידיה, התחייבו לרכוש מניות בהנפקה בהיקף כולל של כ-26 מיליארד דולר.",
+   "why": "זו צפויה להיות מההנפקות הגדולות אי פעם, ולכן מבחן לתיאבון המשקיעים ל-AI. עבור אמזון וגוגל יש כאן רווח הון גדול על הנייר, וגם לקוחה גדולה לעסקי הענן שלהן.",
+   "src": [
+    {
+     "t": "Yahoo Finance",
+     "u": "https://finance.yahoo.com/markets/stocks/articles/anthropic-sets-ipo-price-range-140602411.html"
+    },
+    {
+     "t": "24/7 Wall St.",
+     "u": "https://247wallst.com/investing/2026/11/11/amazon-and-google-are-sitting-on-a-411-billion-anthropic-windfall/"
+    },
+    {
+     "t": "24/7 Wall St.",
+     "u": "https://247wallst.com/investing/2026/11/10/google-nvidia-and-microsoft-are-among-7-tech-giants-putting-26-billion-into-anthropics-ipo/"
+    }
+   ]
+  },
+  {
+   "sym": "META",
+   "name": "מטא",
+   "tag": "הנהלה",
+   "date": "2026-11-11",
+   "title": "ראש התשתיות של מטא יפרוש ב-2027, ובכיר לשעבר ב-AWS יחליף אותו",
+   "story": "סנטוש ג'נרדהן, שמנהל את תשתיות המחשוב ומרכזי הנתונים של מטא, יעזוב בתחילת 2027, ואת מקומו יתפוס דייב בראון, בכיר לשעבר בחטיבת הענן של אמזון. ההחלפה מגיעה בזמן שהמשקיעים בוחנים מקרוב את גובה ההשקעות של מטא בתשתיות AI.",
+   "why": "מדובר בחילופי גברי מתוכננים ומדורגים, עם מחליף שניהל ענן בקנה מידה ענק, כלומר מסר של המשכיות. השאלה המרכזית למשקיע נשארת היחס בין ההשקעות בתשתיות להכנסות שהן מייצרות.",
+   "src": [
+    {
+     "t": "CNBC",
+     "u": "https://cnbc.com/2026/11/11/meta-infrastructure-departure-aws-cloud.html"
+    },
+    {
+     "t": "Bloomberg",
+     "u": "https://www.bloomberg.com/news/articles/2026-11-11/meta-s-head-of-infrastructure-engineering-to-step-down-in-2027"
+    },
+    {
+     "t": "Reuters / Investing.com",
+     "u": "https://investing.com/news/stock-market-news/metas-longtime-infrastructure-headjanardhan-to-depart-in-early-2027-5019662"
+    }
+   ]
+  },
+  {
+   "sym": "MSFT",
+   "name": "מיקרוסופט",
+   "tag": "תחרות",
+   "date": "2026-11-10",
+   "title": "Anthropic השיקה כלים שמתחרים באקסל ובאופיס, ומניית מיקרוסופט ירדה",
+   "story": "ביום שלישי הציגה Anthropic את Claude Sheets, Claude Whiteboards ו-Claude Data, כלים לבניית גיליונות, לוחות עבודה ודשבורדים בצוות שמתחרים ישירות בתוכנות המשרד של מיקרוסופט. המניה ירדה במהלך היום בכ-2%, בשבוע שבו מניות הטכנולוגיה נלחצו גם מתוצאות הבחירות לקונגרס ומנתוני אינפלציה גבוהים.",
+   "why": "השוק מתמחר סיכון תחרותי לעסקי Office, שהכנסותיהם צמחו ב-16% בשנה האחרונה. בינתיים זו תגובה לחשש ולא לפגיעה בפועל במכירות, ומיקרוסופט עצמה משלבת AI בכלים שלה.",
+   "src": [
+    {
+     "t": "Business Insider / Yahoo Finance",
+     "u": "https://uk.finance.yahoo.com/news/microsoft-stock-drops-anthropic-unveils-191336293.html"
+    },
+    {
+     "t": "Investing.com",
+     "u": "https://www.investing.com/news/stock-market-news/microsoft-stock-falls--as-anthropic-takes-aim-at-excel-and-workplace-software-5016411"
+    }
+   ]
+  },
+  {
+   "sym": "AAPL",
+   "name": "אפל",
+   "tag": "שיא",
+   "date": "2026-11-11",
+   "title": "אפל בשיא: שווי של יותר מ-5 טריליון דולר, החברה היקרה בעולם",
+   "story": "ביום שני נסגרה מניית אפל לראשונה מעל 350 דולר, לשווי שוק של כ-5.1 טריליון דולר, יותר מאנבידיה (כ-4.3 טריליון) וממיקרוסופט (כ-4 טריליון). ביום רביעי קבעה המניה שיא נוסף, אחרי שבית ההשקעות China Renaissance העלה את ההמלצה ל'קנייה' עם מחיר יעד של 425 דולר.",
+   "why": "אפל נתפסת כמקום מבטחים יחסי בתוך הטכנולוגיה, פחות תלויה בהשקעות ענק ב-AI. מנגד, ההנהלה הזהירה שעלויות הזיכרון לוחצות על המרווחים ברבעון הנוכחי (יעד מרווח גולמי של 45%-46%).",
+   "src": [
+    {
+     "t": "24/7 Wall St.",
+     "u": "https://247wallst.com/investing/2026/11/10/apple-is-above-5-trillion-after-its-first-ever-close-above-350/"
+    },
+    {
+     "t": "MacDailyNews",
+     "u": "https://macdailynews.com/2026/11/11/apple-shares-hit-new-all-time-intraday-and-closing-highs-95/"
+    },
+    {
+     "t": "MacDailyNews",
+     "u": "https://macdailynews.com/2026/11/11/china-renaissance-upgrades-apple-to-buy-ups-price-target-to-425"
+    }
+   ]
+  },
+  {
+   "sym": "TSLA",
+   "name": "טסלה",
+   "tag": "רובוטקסי",
+   "date": "2026-11-11",
+   "title": "טסלה מתאוששת מהנפילה שאחרי הבחירות: רובוטקסי בסן אנטוניו ואישור FSD בפינלנד",
+   "story": "שירות הרובוטקסי של טסלה התחיל לפעול בסן אנטוניו ביום שני, והמניה עלתה באותו יום בכ-5.5%; באותו שבוע הודיע מאסק שייצור הסייברטראק במפעל בטקסס יסתיים עד אמצע 2027 ושחלק מהמקדמות יוחזרו. ביום רביעי דווח על אישור למערכת הנהיגה העצמית (FSD) בפינלנד. העליות באות אחרי ירידה חדה בשבוע הבחירות לקונגרס.",
+   "why": "טסלה נסחרת בעיקר על ההבטחה של נהיגה אוטונומית, ולכן כל השקה או אישור רגולטורי מזיזים את המניה. מנגד, מכירות הרכבים בסין חלשות, ואחרי הבחירות יש אי-ודאות סביב תוכניות ההתרחבות של מאסק.",
+   "src": [
+    {
+     "t": "Gotrade",
+     "u": "https://www.heygotrade.com/en/news/tesla-tsla-stock-news-november-10-2026/"
+    },
+    {
+     "t": "Gotrade",
+     "u": "https://www.heygotrade.com/en/news/tesla-tsla-stock-news-november-12-2026/"
+    },
+    {
+     "t": "Bloomberg",
+     "u": "https://www.bloomberg.com/news/articles/2026-11-05/tesla-shares-tumble-again-in-deepening-post-election-slump"
     }
    ]
   }
