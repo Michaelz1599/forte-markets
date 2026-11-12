@@ -1,5 +1,5 @@
 {
- "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub). calc = computed by another module (valuation.py: Buffett indicator), with its own src/srcUrl. freq q = quarterly, stamped at the quarter end; tf yoy_diff = change in the yoy rate (acceleration). expr = {op: sub|add|count_neg, args: [{fred, minus, tf, agg: q}]} combines FRED series here (agg q = quarterly mean, minus = a spread). sig = state chips [{lt: number | med:N (median of the last N readings) | ind:ID (that series on the same date), t, k}]; il/ilAt = a dated note on Israel; chg pt = changes in points; a section's order = explicit row order.",
+ "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub). calc = computed by another module (valuation.py: Buffett indicator), with its own src/srcUrl. freq q = quarterly, stamped at the quarter end; tf yoy_diff = change in the yoy rate (acceleration). expr = {op: sub|add|count_neg, args: [{fred, minus, back, tf, agg: q}]} combines FRED series here (agg q = quarterly mean, minus = a spread). sig = state chips [{lt: number | med:N (median of the last N readings) | ind:ID (that series on the same date), t, k}]; il/ilAt = a dated note on Israel; chg pt = changes in points; a section's order = explicit row order. back = a FRED series with a longer history, used (same transform) before the main one starts.",
  "sections": [
   {
    "id": "growth",
@@ -985,9 +985,10 @@
      "t": "0"
     }
    ],
-   "desc": "מה זה: השינוי השנתי בהשקעה הריאלית בבנייה למגורים בארה״ב, רכיב של התמ״ג.\nמה הוא אומר: ערך שלילי הוא נורה צהובה. יחד עם עקום התשואות, 10 שנים פחות 3 חודשים: אחד שלילי, מגבירים מעקב. שניהם שליליים, נורה אדומה. ראו את השורה ״התראת מיתון״.\nהרציונל: הדיור הוא הענף הרגיש ביותר לריבית ונופל ראשון. בלשונו של אדוארד לימר (2007), הדיור הוא מחזור העסקים. בשנים 1960 עד 2026 שינוי שנתי שלילי הקדים 9 מתוך 9 מיתונים, בחציון של 3 רבעונים.\nמגבלה: הרבה אזעקות שווא. היו 7 אותות בלי מיתון, כך שרק 56% מהאותות היו אמת.",
+   "desc": "מה זה: השינוי השנתי בהשקעה הריאלית בבנייה למגורים בארה״ב, רכיב של התמ״ג. לפני 2008: מדד הכמות של מבני המגורים, כי הסדרה בדולרים קבועים מתחילה ב-2007.\nמה הוא אומר: ערך שלילי הוא נורה צהובה. יחד עם עקום התשואות, 10 שנים פחות 3 חודשים: אחד שלילי, מגבירים מעקב. שניהם שליליים, נורה אדומה. ראו את השורה ״התראת מיתון״.\nהרציונל: הדיור הוא הענף הרגיש ביותר לריבית ונופל ראשון. בלשונו של אדוארד לימר (2007), הדיור הוא מחזור העסקים. בשנים 1960 עד 2026 שינוי שנתי שלילי הקדים 9 מתוך 9 מיתונים, בחציון של 3 רבעונים.\nמגבלה: הרבה אזעקות שווא. היו 7 אותות בלי מיתון, כך שרק 56% מהאותות היו אמת.",
    "il": "התחלות הבנייה ב-12 החודשים עד יוני 2026 היו כ-76 אלף דירות, ירידה של כ-7%, אחרי זינוק של כ-28% בשנה שלפני (הלמ״ס). בנק ישראל מציין שהרמה עדיין גבוהה.",
-   "ilAt": "2026-11-12"
+   "ilAt": "2026-11-12",
+   "back": "B012RA3Q086SBEA"
   },
   {
    "id": "us_rec_lights",
@@ -1024,7 +1025,8 @@
     "args": [
      {
       "fred": "PRFIC1",
-      "tf": "yoy"
+      "tf": "yoy",
+      "back": "B012RA3Q086SBEA"
      },
      {
       "fred": "GS10",
@@ -1158,20 +1160,10 @@
      "k": "s-g"
     }
    ],
-   "desc": "מה זה: הצמיחה השנתית של הצריכה הפרטית ועוד ההשקעה הקבועה הפרטית, כלומר התמ״ג בלי ממשלה, מלאי וסחר חוץ. הלשכה לניתוח כלכלי (BEA) קוראת לזה מכירות סופיות לרוכשים פרטיים מקומיים. כאן זה קירוב, סכום שני הרכיבים במחירים קבועים.\nמה הוא אומר: מה קורה בביקוש הפרטי עצמו, בצריכה, בתעסוקה ובאשראי. זה המספר הרלוונטי לבנקים, לקמעונאות, לנדל״ן ולתחזית הריבית. התגית משווה לצמיחה השנתית של התמ״ג כולו באותו רבעון.\nהרציונל: המלאי, הסחר והממשלה קופצים מרבעון לרבעון ומטשטשים את התמונה. בארה״ב גל ההשקעות בבינה מלאכותית ובמחשוב מניע חלק גדול מהליבה, ולכן האטה בו תורגש כאן קודם.",
+   "desc": "מה זה: הצמיחה השנתית של הצריכה הפרטית ועוד ההשקעה הקבועה הפרטית, כלומר התמ״ג בלי ממשלה, מלאי וסחר חוץ. זה המדד של הלשכה לניתוח כלכלי (BEA), מכירות סופיות לרוכשים פרטיים מקומיים, לפי מדד הכמות המשורשר שלו.\nמה הוא אומר: מה קורה בביקוש הפרטי עצמו, בצריכה, בתעסוקה ובאשראי. זה המספר הרלוונטי לבנקים, לקמעונאות, לנדל״ן ולתחזית הריבית. התגית משווה לצמיחה השנתית של התמ״ג כולו באותו רבעון.\nהרציונל: המלאי, הסחר והממשלה קופצים מרבעון לרבעון ומטשטשים את התמונה. בארה״ב גל ההשקעות בבינה מלאכותית ובמחשוב מניע חלק גדול מהליבה, ולכן האטה בו תורגש כאן קודם.",
    "il": "המקבילה בישראל היא הצמיחה בלי ייצור בחו״ל. במחצית הראשונה של 2026, לפי האומדנים הראשונים של הלמ״ס: 3.2% עם ייצור בחו״ל ו-1.0% בלעדיו, כלומר הליבה חלשה מהכותרת. הייצור בחו״ל קפץ מ-1.3% ל-5.7% מהתמ״ג בשלוש שנים.",
    "ilAt": "2026-11-12",
-   "expr": {
-    "op": "add",
-    "args": [
-     {
-      "fred": "PCECC96"
-     },
-     {
-      "fred": "FPIC1"
-     }
-    ]
-   }
+   "fred": "IB0000033Q086SBEA"
   }
  ],
  "curve": [

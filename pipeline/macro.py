@@ -67,6 +67,20 @@ def _transform(pts: dict[str, float], spec: dict) -> dict[str, float]:
     return {d: round(float(v), 6) for d, v in s.items()}
 
 
+def _with_back(raw: dict, spec: dict, tf_spec: dict) -> dict[str, float]:
+    """The main FRED series, and before it starts the same transform of spec["back"], a series with a longer history
+    (e.g. BEA's chained dollars of a GDP component start in 2007; its quantity index goes back to 1947)."""
+    main = raw[spec["fred"]]
+    if isinstance(main, Exception):
+        raise main
+    out = _transform(main, tf_spec)
+    back = raw.get(spec.get("back")) if spec.get("back") else None
+    if out and isinstance(back, dict):
+        first = min(out)
+        out = {**{d: v for d, v in _transform(back, tf_spec).items() if d < first}, **out}
+    return out
+
+
 def _quarter_end(idx) -> list[str]:
     """FRED dates a quarter by its first day; the site shows the last day, so 30.09 reads as the third quarter."""
     return list((pd.to_datetime(pd.Index(idx)).to_period("Q").to_timestamp(how="end")).strftime("%Y-%m-%d"))
@@ -91,7 +105,7 @@ def expr_series(spec: dict, raw: dict) -> dict[str, float]:
             raise pts
         if a.get("agg") == "q":
             return _quarterly_mean(pts)
-        return _transform(pts, {"freq": spec.get("freq"), "tf": a.get("tf"), "from": "0000"})
+        return _with_back(raw, {**a, "fred": code}, {"freq": spec.get("freq"), "tf": a.get("tf"), "from": "0000"})
     parts = []
     for a in spec["expr"]["args"]:
         pts = one(a["fred"], a)
@@ -396,7 +410,8 @@ def run() -> tuple[dict, dict, str]:
     cfg = load()
     specs = [s for s in cfg["series"] if not isinstance(s.get("calc"), str)]   # calc: computed elsewhere (valuation.py)
     codes = sorted({s["fred"] for s in specs if s.get("fred")} | {c[0] for c in cfg["curve"]}
-                   | {x for s in specs if s.get("expr") for a in s["expr"]["args"] for x in (a["fred"], a.get("minus")) if x})
+                   | {x for s in specs if s.get("expr") for a in s["expr"]["args"] for x in (a["fred"], a.get("minus"), a.get("back")) if x}
+                   | {s["back"] for s in specs if s.get("back")})
     with ThreadPoolExecutor(6) as ex:
         raw = dict(zip(codes, ex.map(lambda c: _safe(fred_series, c), codes)))
     out, failed = {}, []
@@ -405,6 +420,8 @@ def run() -> tuple[dict, dict, str]:
         try:
             if s.get("expr"):
                 out[sid] = expr_series(s, raw)
+            elif s.get("fred") and s.get("back"):
+                out[sid] = _with_back(raw, s, s)
             elif s.get("fred"):
                 pts = raw[s["fred"]]
                 if isinstance(pts, Exception):
@@ -497,7 +514,7 @@ def payload(cfg: dict | None = None) -> dict:
 def indicator_defs(cfg: dict | None = None) -> list[dict]:
     """Macro series as indicator definitions, so the site's detail view, charts and search work for them."""
     cfg = cfg or load()
-    src_name = lambda s: ("FRED · " + ", ".join(x for a in s["expr"]["args"] for x in (a["fred"], a.get("minus")) if x) + " · חישוב") if s.get("expr") else ("FRED · " + s["fred"]) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
+    src_name = lambda s: ("FRED · " + ", ".join(x for a in s["expr"]["args"] for x in (a["fred"], a.get("minus"), a.get("back")) if x) + " · חישוב") if s.get("expr") else ("FRED · " + s["fred"] + (f" (לפני כן {s['back']})" if s.get("back") else "")) if s.get("fred") else ("הלמ\"ס" if s.get("cbs") or s.get("cbs_mom") else
                                                                          "בנק ישראל" if s.get("boi") or s.get("boi_key") else "EIA (ICE)" if s.get("eia") else "NYISO" if s.get("iso") == "nyiso" else "ISO New England" if s.get("iso") == "isone" else
                                                                          (("NYISO" if s.get("spark") == "pw_nyc" else "ISO-NE" if s.get("spark") == "pw_isone" else "EIA (ICE)") + " ו-Henry Hub, חישוב") if s.get("spark") else "")
     src_url = lambda s: (f"https://fred.stlouisfed.org/series/{s['expr']['args'][0]['fred']}" if s.get("expr") else

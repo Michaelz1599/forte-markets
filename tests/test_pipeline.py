@@ -180,6 +180,10 @@ def test_macro_quarterly_growth_tools():
     lights = macro.expr_series({"freq": "q", "expr": {"op": "count_neg", "args": [
         {"fred": "LVL", "tf": "yoy_diff"}, {"fred": "Y10", "minus": "Y3M", "agg": "q"}]}}, raw)
     assert lights["2026-03-31"] == 1 and lights["2026-09-30"] == 0      # flat growth, inverted then positive curve
+    back = {d: v / 7 for d, v in lvl.items()}                             # same growth, longer history
+    short = {d: v for d, v in lvl.items() if d >= "2022-01-01"}
+    spliced = macro._with_back({"S": short, "B": back}, {"fred": "S", "back": "B"}, {"freq": "q", "tf": "yoy"})
+    assert min(spliced) == "2019-03-31" and abs(spliced["2020-06-30"] - 2.0) < 1e-6 and spliced["2026-09-30"] == yoy["2026-09-30"]
     core = macro.expr_series({"freq": "q", "tf": "yoy", "expr": {"op": "add", "args": [{"fred": "LVL"}, {"fred": "LVL"}]}}, raw)
     assert abs(core["2026-06-30"] - 2.0) < 1e-6
 
