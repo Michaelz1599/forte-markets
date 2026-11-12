@@ -17,7 +17,7 @@ from .markets import OHL_FIELDS, _merge_frame, _r, clean_ohl, cmf, metrics, yf_o
 CONFIG = ROOT / "config" / "israel.json"
 DERIVED = ROOT / "data" / "derived" / "israel.json"
 # daily open/high/low/close of the TA-125 stocks (Yahoo symbols as columns), for the candlestick charts
-IL_OHLC = {f: ROOT / "data" / "prices" / f"il_{f}.csv" for f in ("open", "high", "low", "close")}
+IL_OHLC = {f: ROOT / "data" / "prices" / f"il_{f}.csv" for f in ("open", "high", "low", "close", "volume")}
 OHLC_FROM = "2013-01-01"
 CHART_YEARS = 10
 
@@ -330,9 +330,10 @@ def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
     cur = read_ohlc()
     have = set(cur["close"].columns) if len(cur["close"]) >= 250 else set()
     new = [s for s in syms if s not in have]
+    vnew = [s for s in syms if s not in set(cur["volume"].columns)]          # volume was added later (11.2026)
     frames = []
-    if new:
-        full = yf_ohlc(new, OHLC_FROM)
+    if new or vnew:
+        full = yf_ohlc(sorted(set(new) | set(vnew)), OHLC_FROM)
         if full and not full["close"].empty:
             fix_units(full)
             drop_spikes(full)
@@ -348,12 +349,13 @@ def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
     spikes = drop_spikes(out)
     close = out["close"][[c for c in out["close"].columns if c in keep]].dropna(how="all").sort_index()
     ohl = clean_ohl({f: out[f] for f in OHL_FIELDS}, close)
-    for f, df in (("close", close), *ohl.items()):
+    for f, df in (("close", close), *ohl.items(), ("volume", out["volume"])):
         df = df.reindex(columns=close.columns).dropna(how="all")
         df.index.name = "date"
         IL_OHLC[f].parent.mkdir(parents=True, exist_ok=True)
         df.to_csv(IL_OHLC[f], float_format="%.6g")
     return f"נרות: {close.shape[1]} מניות עד {close.index[-1]}" + (f", היסטוריה מלאה ל-{len(new)} חדשות" if new else "") + \
+        (f", ווליום היסטורי ל-{len(vnew)}" if vnew and not new else "") + \
         (f", {spikes} ימים עם ציטוט שגוי הוסרו" if spikes else "")
 
 
@@ -386,6 +388,9 @@ def chart_payloads(years: int = CHART_YEARS) -> tuple[dict, dict]:
         o, h, lo = (ohl[f][y].reindex(w.index) if y in ohl[f].columns else pd.Series(np.nan, index=w.index) for f in OHL_FIELDS)
         files[y] = {"sym": y, "t": [(dt.date.fromisoformat(d) - epoch).days for d in w.index], "c": [num(x) for x in w.values],
                     "o": [num(x) for x in o.values], "h": [num(x) for x in h.values], "l": [num(x) for x in lo.values]}
+        vv = ohl["volume"][y].reindex(w.index) if y in ohl["volume"].columns else None
+        if vv is not None and vv.notna().sum() >= 20:
+            files[y]["vol"] = [num(x) for x in vv.values]
     return files, items
 
 

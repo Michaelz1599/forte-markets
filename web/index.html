@@ -277,6 +277,22 @@ label.chk { display: inline-flex; align-items: center; gap: 8px; font-size: 14px
 .ctools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .ohlc { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13px; color: var(--ink-2); direction: ltr; justify-content: flex-start; min-height: 20px; font-variant-numeric: tabular-nums; }
 .ohlc b { font-weight: 700; }
+.ctool-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.dtools, .matools { display: inline-flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.dtool { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 4px 9px; font-size: 13px; color: var(--ink-2); line-height: 1.3; }
+.dtool:hover:not([aria-pressed="true"]) { background: var(--sunk); }
+.dtool[aria-pressed="true"] { background: var(--t1); color: var(--t1-ink); border-color: var(--t1); }
+.dcols { display: inline-flex; gap: 5px; margin-inline: 4px; }
+.dcol { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); padding: 0; }
+.dcol[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+.machip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 2px 9px; font-size: 12.5px; direction: ltr; }
+.machip i { width: 12px; height: 3px; border-radius: 2px; display: inline-block; }
+.machip b { color: var(--muted); font-weight: 400; margin-inline-start: 2px; }
+.machip:hover { border-color: var(--fear); }
+.maadd { display: inline-flex; gap: 4px; align-items: center; }
+.maadd input { width: 80px; padding: 4px 6px; }
+.maadd select { width: auto; padding: 4px 6px; }
+svg.drw { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: visible; }
 .ohlc .u { color: var(--up); } .ohlc .dn { color: var(--down); }
 .tbl-wrap { overflow-x: auto; }
 table.ft { border-collapse: collapse; width: 100%; font-size: 13.5px; background: var(--surface); }
@@ -1648,6 +1664,7 @@ function openInd(id) {
             ${adminBtns}
           </div>
         </div>
+        <div class="ctool-row">${drawToolsHtml('d')}</div>
         <div class="ohlc" id="dOhlc"></div>
         <div class="chart" id="dChart" role="img" aria-label="גרף היסטורי של ${esc(meta.name)} עם קווי אחוזונים ואחוזון מתגלגל"></div>
         <p class="small muted" style="margin:0">${/cmf/.test(id) ? 'ירוק = מעל 0, צבירה (כסף נכנס). אדום = מתחת ל-0, הפצה (כסף יוצא).' : `קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} האחרונות.`} קו כתום: הרמה שנבחרה בסטטיסטיקה למטה, ונקודות: הכניסות לאזור. גרף תחתון: האחוזון המתגלגל בכל יום, מחושב רק על הנתונים שקדמו לו. עיגולים: שיאים ושפלים בולטים, צבעוני = יש אירוע, ולחיצה מראה מה קרה. <span id="dCandleNote"></span></p>
@@ -1680,6 +1697,7 @@ function openInd(id) {
   drawChart(id, 1827);
   levelPanel(id);
   bindCandleTools('d', meta.freq || 'd', () => { const p = $('#dRange [aria-pressed="true"]'); drawChart(id, p ? +p.dataset.r : 1827); });
+  bindDrawTools('d');
   if (!EVENTS) loadEvents().then(() => { if (S.detail === id) lvRedraw(id); });
   $$('#dRange button').forEach(b => b.addEventListener('click', () => { $$('#dRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawChart(id, +b.dataset.r); }));
   const sp = $('#dSpx'); if (sp) sp.addEventListener('change', () => { const pressed = $('#dRange [aria-pressed="true"]'); drawChart(id, pressed ? +pressed.dataset.r : 1827); });
@@ -1696,6 +1714,146 @@ function renderAnalog(id) {
   el.innerHTML = head + `<p class="small" style="margin:0">ימים שבהם הקריאה הייתה ב<b>${cond}</b>, כמו היום: <b>${a.condDays.toLocaleString('en-US')}</b> ימים ב-<b>${a.episodes}</b> אפיזודות נפרדות, מ-${fmtDate(a.from)}.</p>
     <div class="tbl-wrap"><table class="ft"><thead><tr><th>אופק</th><th>חציון אחרי קריאה דומה</th><th>ממוצע</th><th>% חיובי</th><th>ימים</th><th>חציון כל הימים</th><th>% חיובי כל הימים</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="small muted" style="margin:0">תשואת מחיר של S&amp;P 500 בלי דיבידנדים, מהסגירה ביום הקריאה (או יום המסחר הבא). פחות מ-5 ימים בתנאי = לא מוצג. האפיזודות נספרות כרצף ימים בתנאי בלי הפסקה של יותר מחודש.</p>`;
+}
+// ---------------- chart tools: moving averages, volume and drawings (trend / horizontal / vertical lines) ----------------
+// The settings (which averages, volume on or off) and the lines drawn on each chart are kept in this browser
+// (localStorage), per instrument or indicator.
+const MA_COLORS = ['#2F6DB5', '#C9A227', '#6B3FA0', '#E07B39', '#0F766E', '#9C6B98'];
+const MA_DEFAULT = [{ n: 50, k: 's' }, { n: 200, k: 's' }];
+function maList() {
+  try { const v = JSON.parse(lsGet('xMa', '')); if (Array.isArray(v)) return v.filter(m => m && Number.isInteger(m.n) && m.n >= 2 && m.n <= 500 && (m.k === 's' || m.k === 'e')).slice(0, 6); } catch (e) { /* the default below */ }
+  return MA_DEFAULT.map(m => ({ ...m }));
+}
+function maSave(l) { lsSet('xMa', JSON.stringify(l)); }
+function emaArr(v, n) {
+  const out = new Array(v.length).fill(null), a = 2 / (n + 1); let e = null, s = 0, k = 0;
+  for (let i = 0; i < v.length; i++) {
+    const x = v[i]; if (x == null || !isFinite(x)) { out[i] = e; continue; }
+    if (e == null) { s += x; if (++k === n) { e = s / n; out[i] = e; } } else { e = x * a + e * (1 - a); out[i] = e; }
+  }
+  return out;
+}
+function maLabel(m, tf) { return `${m.k === 'e' ? 'EMA' : 'ממוצע'} ${m.n}${tf === 'w' ? ' שבועות' : tf === 'm' ? ' חודשים' : ''}`; }
+function fmtVol(x) { if (x == null || !isFinite(x)) return '—'; const a = Math.abs(x); return a >= 1e9 ? fmtN(x / 1e9, 2) + 'B' : a >= 1e6 ? fmtN(x / 1e6, 2) + 'M' : a >= 1e3 ? fmtN(x / 1e3, 1) + 'K' : fmtN(x, 0); }
+function maToolsHtml() {
+  const l = maList();
+  return `<div class="matools" id="xMaBox"><span class="small muted">ממוצעים נעים</span>${l.map((m, i) => `<button type="button" class="machip" data-ma-del="${i}" title="הסרת הממוצע"><i style="background:${MA_COLORS[i % MA_COLORS.length]}"></i>${m.k === 'e' ? 'EMA' : 'SMA'} ${m.n}<b aria-hidden="true">×</b></button>`).join('')}${l.length < 6 ? `<span class="maadd"><input type="number" id="xMaN" min="2" max="500" step="1" placeholder="תקופה" aria-label="תקופת הממוצע" dir="ltr"><select id="xMaK" aria-label="סוג הממוצע"><option value="s">SMA</option><option value="e">EMA</option></select><button type="button" class="dtool" id="xMaAdd">הוספה</button></span>` : ''}</div>`;
+}
+function bindMaTools(redraw) {
+  const box = $('#xMaBox'); if (!box) return;
+  const rebuild = () => { box.outerHTML = maToolsHtml(); bindMaTools(redraw); redraw(); };
+  const add = () => {
+    const n = Math.round(+($('#xMaN') || {}).value), k = ($('#xMaK') || {}).value || 's';
+    if (!(n >= 2 && n <= 500)) { toast('תקופת ממוצע בין 2 ל-500.', true); return; }
+    const l = maList(); if (l.some(m => m.n === n && m.k === k)) { toast('הממוצע הזה כבר מוצג.', true); return; }
+    l.push({ n, k }); maSave(l); rebuild();
+  };
+  box.addEventListener('click', e => { const d = e.target.closest('[data-ma-del]'); if (d) { const l = maList(); l.splice(+d.dataset.maDel, 1); maSave(l); rebuild(); return; } if (e.target.closest('#xMaAdd')) add(); });
+  const inp = $('#xMaN'); if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+}
+const DRAW_TOOLS = [['trend', 'קו מגמה', '╱'], ['h', 'קו אופקי', '―'], ['v', 'קו אנכי', '│'], ['del', 'מחיקת קו', '⌫']];
+const DRAW_COLORS = ['#2F6DB5', '#B9482A', '#13765A', '#C9A227'];
+function drawLoad(key) { try { const v = JSON.parse(lsGet('draw.' + key, '[]')); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+function drawSave(key, a) { lsSet('draw.' + key, JSON.stringify(a.slice(-200))); }
+function drawToolsHtml(ctx) {
+  const mode = S.drawMode || '', col = S.drawColor || DRAW_COLORS[0];
+  return `<div class="dtools" id="${ctx}Dtools" role="group" aria-label="כלי ציור על הגרף">${DRAW_TOOLS.map(([k, l, ic]) => `<button type="button" class="dtool" data-dm="${k}" aria-pressed="${mode === k}" title="${l}"><span aria-hidden="true">${ic}</span> ${l}</button>`).join('')}
+    <span class="dcols">${DRAW_COLORS.map(c => `<button type="button" class="dcol" data-dc="${c}" style="background:${c}" aria-pressed="${col === c}" aria-label="צבע קו"></button>`).join('')}</span>
+    <button type="button" class="dtool" data-da="undo" title="ביטול הקו האחרון">↶ ביטול</button><button type="button" class="dtool" data-da="clear" title="מחיקת כל הקווים בגרף הזה">ניקוי הכל</button>
+    <span class="small muted dhint" id="${ctx}Dhint"></span></div>`;
+}
+function bindDrawTools(ctx) {
+  const box = $('#' + ctx + 'Dtools'); if (!box) return;
+  box.addEventListener('click', async e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const api = S.drwApi && S.drwApi[ctx];
+    if (b.dataset.dm) { S.drawMode = S.drawMode === b.dataset.dm ? '' : b.dataset.dm; if (api) api.cancel(); }
+    else if (b.dataset.dc) S.drawColor = b.dataset.dc;
+    else if (b.dataset.da === 'undo') { if (api) api.undo(); }
+    else if (b.dataset.da === 'clear') { if (api && api.count() && await askConfirm('למחוק את כל הקווים בגרף הזה?', 'מחיקה')) api.clear(); }
+    $$('[data-dm]', box).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.dm === (S.drawMode || ''))));
+    $$('[data-dc]', box).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.dc === (S.drawColor || DRAW_COLORS[0]))));
+    if (api) api.hint();
+  });
+}
+// Lines drawn on a chart are kept in data coordinates (date, value) and drawn on an SVG layer over the chart, clipped to
+// the main grid; they are redrawn after every render, so they follow zoom, resize, log scale and the candle size.
+function attachDrawings(ctx, chart, el, key, fmt, times) {
+  S.drwApi = S.drwApi || {};
+  const NS = 'http://www.w3.org/2000/svg';
+  el.style.position = 'relative';
+  el.querySelectorAll('svg.drw').forEach(x => x.remove());
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'drw'); svg.setAttribute('aria-hidden', 'true'); el.appendChild(svg);
+  let items = drawLoad(key), pend = null, cur = null, down = null;
+  const save = () => drawSave(key, items);
+  const px = (finder, v) => { try { const r = chart.convertToPixel(finder, v); return Array.isArray(r) ? (r.every(isFinite) ? r : null) : (isFinite(r) ? r : null); } catch (e) { return null; } };
+  const toPx = (t, p) => px({ xAxisIndex: 0, yAxisIndex: 0 }, [t, p]);
+  const fromPx = (x, y) => { try { const r = chart.convertFromPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [x, y]); return r && r.every(isFinite) ? r : null; } catch (e) { return null; } };
+  const grid = () => { try { return chart.getModel().getComponent('grid', 0).coordinateSystem.getRect(); } catch (e) { return null; } };
+  const snapT = t => { if (!times || !times.length) return t; let i = lb(times, t); if (i >= times.length) i = times.length - 1; if (i > 0 && Math.abs(times[i - 1] - t) < Math.abs(times[i] - t)) i--; return times[i]; };
+  const hint = () => {
+    const h = $('#' + ctx + 'Dhint'); if (!h) return; const m = S.drawMode || '';
+    h.textContent = m === 'trend' ? (pend ? 'עכשיו לחצו על נקודת הסוף (Esc לביטול)' : 'לחצו על נקודת ההתחלה של הקו') : m === 'h' ? 'לחצו על הגרף בגובה הרצוי' : m === 'v' ? 'לחצו על התאריך הרצוי'
+      : m === 'del' ? 'לחצו על קו כדי למחוק אותו' : items.length ? `${items.length} ${items.length === 1 ? 'קו' : 'קווים'} בגרף · נשמרים בדפדפן הזה` : '';
+  };
+  const lab = (x, y, txt, col, anchor) => { const w = String(txt).length * 6.3 + 10, x0 = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x;
+    return `<rect x="${x0.toFixed(1)}" y="${(y - 9).toFixed(1)}" width="${w.toFixed(1)}" height="17" rx="3" fill="${col}"/><text x="${(x0 + w / 2).toFixed(1)}" y="${(y + 3.5).toFixed(1)}" fill="#fff" font-size="11" text-anchor="middle" direction="ltr">${esc(txt)}</text>`; };
+  function render() {
+    const r = grid(); if (!r || !el.isConnected) { svg.innerHTML = ''; return; }
+    svg.setAttribute('width', el.clientWidth); svg.setAttribute('height', el.clientHeight);
+    const cid = 'drwc-' + ctx, R = r.x + r.width, B = r.y + r.height;
+    let g = `<defs><clipPath id="${cid}"><rect x="${r.x}" y="${r.y}" width="${r.width}" height="${r.height}"/></clipPath></defs><g clip-path="url(#${cid})">`;
+    for (const d of items.concat(cur ? [cur] : [])) {
+      const col = d.c || DRAW_COLORS[0], dash = d === cur ? ' stroke-dasharray="5 4"' : '';
+      if (d.k === 'h') { const y = px({ yAxisIndex: 0 }, d.p); if (y == null) continue; g += `<line x1="${r.x}" x2="${R}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="1.4"${dash}/>` + lab(R - 2, y, fmt(d.p), col, 'end'); }
+      else if (d.k === 'v') { const x = px({ xAxisIndex: 0 }, d.t); if (x == null) continue; g += `<line x1="${x}" x2="${x}" y1="${r.y}" y2="${B}" stroke="${col}" stroke-width="1.4"${dash}/>` + lab(x, B - 11, fmtDate(isoOf(d.t)), col, 'middle'); }
+      else if (d.k === 'trend') {
+        const a = toPx(d.a[0], d.a[1]), b = toPx(d.b[0], d.b[1]); if (!a || !b) continue;
+        g += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${col}" stroke-width="1.7" stroke-linecap="round"${dash}/><circle cx="${a[0]}" cy="${a[1]}" r="3" fill="${col}"/><circle cx="${b[0]}" cy="${b[1]}" r="3" fill="${col}"/>`;
+        if (d.a[1] && isFinite(d.b[1] / d.a[1])) g += lab(b[0] + (b[0] >= a[0] ? 6 : -6), b[1] - 14, `${fmtS((d.b[1] / d.a[1] - 1) * 100, 1)}%`, col, b[0] >= a[0] ? 'start' : 'end');
+      }
+    }
+    if (pend && !cur) { const a = toPx(pend[0], pend[1]); if (a) g += `<circle cx="${a[0]}" cy="${a[1]}" r="4" fill="${S.drawColor || DRAW_COLORS[0]}"/>`; }
+    svg.innerHTML = g + '</g>';
+  }
+  const dist = (d, x, y) => {
+    if (d.k === 'h') { const yy = px({ yAxisIndex: 0 }, d.p); return yy == null ? Infinity : Math.abs(y - yy); }
+    if (d.k === 'v') { const xx = px({ xAxisIndex: 0 }, d.t); return xx == null ? Infinity : Math.abs(x - xx); }
+    const a = toPx(d.a[0], d.a[1]), b = toPx(d.b[0], d.b[1]); if (!a || !b) return Infinity;
+    const dx = b[0] - a[0], dy = b[1] - a[1], L = dx * dx + dy * dy, u = L ? Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / L)) : 0;
+    return Math.hypot(x - (a[0] + u * dx), y - (a[1] + u * dy));
+  };
+  chart.on('finished', render);
+  const zr = chart.getZr();
+  zr.on('mousedown', e => { down = [e.offsetX, e.offsetY]; });
+  zr.on('click', e => {
+    const m = S.drawMode; if (!m) return;
+    const x = e.offsetX, y = e.offsetY;
+    if (down && Math.hypot(x - down[0], y - down[1]) > 5) return;      // the end of a drag (panning), not a click
+    if (!chart.containPixel({ gridIndex: 0 }, [x, y])) return;
+    const v = fromPx(x, y); if (!v) return;
+    const col = S.drawColor || DRAW_COLORS[0];
+    if (m === 'h') { items.push({ k: 'h', p: v[1], c: col }); save(); }
+    else if (m === 'v') { items.push({ k: 'v', t: snapT(v[0]), c: col }); save(); }
+    else if (m === 'trend') {
+      const pt = [snapT(v[0]), v[1]];
+      if (!pend) pend = pt;
+      else { if (pt[0] !== pend[0]) { items.push({ k: 'trend', a: pend, b: pt, c: col }); save(); } pend = null; cur = null; }
+    } else if (m === 'del') {
+      let best = -1, bd = 9; items.forEach((d, i) => { const q = dist(d, x, y); if (q < bd) { bd = q; best = i; } });
+      if (best >= 0) { items.splice(best, 1); save(); }
+    }
+    render(); hint();
+  });
+  zr.on('mousemove', e => {
+    const m = S.drawMode; if (!m) return;
+    zr.setCursorStyle(m === 'del' ? 'pointer' : 'crosshair');
+    if (m === 'trend' && pend) { const v = fromPx(e.offsetX, e.offsetY); if (v) { cur = { k: 'trend', a: pend, b: [v[0], v[1]], c: S.drawColor || DRAW_COLORS[0] }; render(); } }
+  });
+  const api = { render, hint, count: () => items.length, pending: () => !!pend,
+    cancel: () => { pend = null; cur = null; render(); hint(); }, undo: () => { items.pop(); save(); render(); hint(); }, clear: () => { items = []; save(); render(); hint(); } };
+  S.drwApi[ctx] = api; hint(); requestAnimationFrame(render);
+  return api;
 }
 // ---------------- candlesticks (TradingView-style) ----------------
 // Bars come from data/ohlc/<symbol>.json for indices; any day without a bar (and every sentiment reading)
@@ -1870,6 +2028,7 @@ function drawChart(id, rangeDays) {
   chartInst.setOption(option);
   if (cs) chartInst.on('globalout', () => cs.strip(cs.lastT));
   evBind(id);
+  attachDrawings('d', chartInst, el, 'i:' + id, v => fmtVal(meta, v), s.t);
 }
 function downloadCSV(id) {
   const s = id === COMP_ID ? composite(S.win).series : series(id); if (!s) return;
@@ -2766,6 +2925,7 @@ let idxChart = null;
 function xItem(sym) { return (S.mk && S.mk.items[sym]) || (IL && IL.items && IL.items[sym]) || null; }
 async function openIdx(sym) {
   const it = xItem(sym); if (!it) return;
+  S.drawMode = '';
   const isFac = it.score != null || it.ex;
   const tr = TREND[it.trend] || TREND.na;
   const ta = it.ta && S.stk.get(it.ta);
@@ -2793,9 +2953,11 @@ async function openIdx(sym) {
           <label class="chk" for="xLog"><input type="checkbox" id="xLog" ${S.xLog !== false ? 'checked' : ''}>סולם לוגריתמי</label>
           <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
         </div>
+        <div class="ctool-row">${maToolsHtml()}<label class="chk" for="xVol" id="xVolLbl"><input type="checkbox" id="xVol" ${lsGet('xVol', '1') === '1' ? 'checked' : ''}>ווליום</label></div>
+        <div class="ctool-row">${drawToolsHtml('x')}</div>
         <div class="ohlc" id="xOhlc"></div>
         <div class="chart" id="xChart" role="img" aria-label="גרף מחיר של ${esc(it.name)} עם ממוצעים נעים"></div>
-        <p class="small muted" style="margin:0">קו מקווקו: ממוצע 50 ימים. קו מנוקד: ממוצע 200 ימים. נקודות כתומות: הכניסות לאזור שנבחר בסטטיסטיקה למטה. <span id="xCandleNote"></span></p>
+        <p class="small muted" style="margin:0">הממוצעים הנעים מחושבים על הנרות שבתצוגה (יומיים, שבועיים או חודשיים). הווליום בתחתית הגרף: ירוק ביום (או בנר) שנסגר בעלייה, אדום בירידה. נקודות כתומות: הכניסות לאזור שנבחר בסטטיסטיקה למטה. הממוצעים, הווליום והקווים שציירתם נשמרים בדפדפן הזה. <span id="xCandleNote"></span></p>
       </section>
       <section class="panel" id="xLevels"></section>
     </div>`;
@@ -2805,6 +2967,9 @@ async function openIdx(sym) {
   $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
   $('#xLog').addEventListener('change', e => { S.xLog = e.target.checked; lsSet('xLog', S.xLog ? '1' : '0'); const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
   bindCandleTools('x', 'd', () => { const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
+  const redrawX = () => { const q = $('#xRange [aria-pressed="true"]'); if ($('#xChart') && S.px && S.px[sym]) drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); };
+  bindMaTools(redrawX); bindDrawTools('x');
+  $('#xVol').addEventListener('change', e => { lsSet('xVol', e.target.checked ? '1' : '0'); redrawX(); });
   const el = $('#xChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
   try { await loadPrices(); } catch (e) { el.innerHTML = '<p class="muted" style="padding:20px">לא ניתן לטעון את היסטוריית המחירים.</p>'; return; }
   const ob = await loadOhlc(sym);
@@ -2825,7 +2990,6 @@ function rsiArr(v, n = 14) {
 function drawIdxChart(sym, rangeDays, isFac) {
   const el = $('#xChart'); const p = S.px && S.px[sym]; if (!el || !p || typeof echarts === 'undefined') return;
   const t = p.t.map(x => x * DAY), v = p.v;
-  const m50 = sma(v, 50), m200 = sma(v, 200);
   let lower;
   if (isFac && S.px.SPY) {
     const b = S.px.SPY; const bm = new Map(b.t.map((x, i) => [x, b.v[i]]));
@@ -2839,39 +3003,58 @@ function drawIdxChart(sym, rangeDays, isFac) {
   idxChart = echarts.init(el); chartInst = idxChart;
   const it = xItem(sym);
   const wantCandles = candleType() === 'candle';
+  // bars (candles of the chosen size) first: the moving averages and the volume follow them
+  const tf = wantCandles ? candleTf('x', 'd') : 'd', ob = S.ohlc && S.ohlc[sym];
+  let o = null, h = null, l = null, vol = null;
+  if (ob && ob.t) { const im = new Map(ob.t.map((x, i) => [x, i])); const pick = a => p.t.map(x => { const i = im.get(x); return i == null ? null : a[i]; }); o = pick(ob.o); h = pick(ob.h); l = pick(ob.l); if (ob.vol) vol = pick(ob.vol); }
+  const cd = wantCandles ? buildCandles(t, v, o, h, l, tf) : null, useC = !!(cd && cd.data.length > 1);
+  const bt = useC ? cd.data.map(k => k[0]) : t, bc = useC ? cd.data.map(k => k[2]) : v;
+  const maSeries = maList().map((m, i) => { const a = m.k === 'e' ? emaArr(bc, m.n) : sma(bc, m.n), col = MA_COLORS[i % MA_COLORS.length];
+    return { name: maLabel(m, useC ? tf : 'd'), type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: bt.map((x, j) => [x, a[j] == null ? null : +a[j].toPrecision(7)]), showSymbol: false, lineStyle: { width: 1.3, color: col }, itemStyle: { color: col }, z: 4 }; });
+  const hasVol = !!(vol && vol.some(x => x != null && x > 0)), volOn = hasVol && lsGet('xVol', '1') === '1';
+  const vbox = $('#xVol'); if (vbox) { vbox.disabled = !hasVol; const lb2 = $('#xVolLbl'); if (lb2) lb2.title = hasVol ? '' : 'אין נתוני ווליום למדד הזה ב-Yahoo Finance'; }
+  let volSeries = [];
+  if (volOn) {
+    let vv, up;
+    if (useC) { const agg = new Map(); t.forEach((x, i) => { if (vol[i] == null) return; const k = tf === 'd' ? x : candlePeriod(x, tf); agg.set(k, (agg.get(k) || 0) + vol[i]); });
+      vv = cd.data.map(k => agg.get(tf === 'd' ? k[0] : candlePeriod(k[0], tf)) ?? null); up = cd.data.map(k => k[2] >= k[1]); }
+    else { vv = vol; up = v.map((x, i) => i === 0 || x >= v[i - 1]); }
+    const upC = tok('--up'), dnC = tok('--down');
+    volSeries = [true, false].map(u => ({ name: 'ווליום', type: 'bar', xAxisIndex: 0, yAxisIndex: 2, data: bt.map((x, i) => [x, up[i] === u ? vv[i] : null]), barMaxWidth: 12, barGap: '-100%', z: 1,
+      itemStyle: { color: u ? upC : dnC, opacity: .4 }, emphasis: { disabled: true } }));
+  }
   const opt = { ...chartBase(),
     grid: [{ left: 62, right: 18, top: 16, height: '58%' }, { left: 62, right: 18, top: '74%', height: '14%' }],
     axisPointer: { link: [{ xAxisIndex: 'all' }], lineStyle: { color: muted } },
     tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => {
       if (!ps.length) return ''; let h = `<b>${fmtDate(isoOf(ps[0].value[0]))}</b>`;
-      for (const q of ps) { if (q.value[1] == null) continue; h += `<br>${q.marker}${esc(q.seriesName)}: <b dir="ltr">${q.seriesName === 'RSI' ? fmtN(q.value[1], 0) : priceFmt(it, q.value[1])}</b>`; }
+      for (const q of ps) { if (q.value[1] == null) continue; h += `<br>${q.marker}${esc(q.seriesName)}: <b dir="ltr">${q.seriesName === 'RSI' ? fmtN(q.value[1], 0) : q.seriesName === 'ווליום' ? fmtVol(q.value[1]) : priceFmt(it, q.value[1])}</b>`; }
       return `<div dir="rtl" style="text-align:right">${h}</div>`; } },
     xAxis: [{ type: 'time', gridIndex: 0, axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } }, { type: 'time', gridIndex: 1, axisLabel: { show: false }, axisLine: { lineStyle: { color: line } } }],
     yAxis: [S.xLog !== false && Math.min(...v.filter(x => x != null)) > 0
       ? { type: 'log', gridIndex: 0, min: e => e.min * 0.98, max: e => e.max * 1.02, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } }
       : { type: 'value', gridIndex: 0, scale: true, axisLabel: { color: muted, formatter: x => priceFmt(it, x) }, splitLine: { lineStyle: { color: line2 } } },
-      { type: 'value', gridIndex: 1, scale: lower.min == null, min: lower.min ?? undefined, max: lower.max ?? undefined, splitNumber: 2, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } }],
+      { type: 'value', gridIndex: 1, scale: lower.min == null, min: lower.min ?? undefined, max: lower.max ?? undefined, splitNumber: 2, axisLabel: { color: muted, fontSize: 10 }, splitLine: { lineStyle: { color: line2 } } },
+      ...(volOn ? [{ type: 'value', gridIndex: 0, show: false, min: 0, max: e => e.max * 4.5, splitLine: { show: false }, axisPointer: { show: false } }] : [])],
     dataZoom: [{ type: 'inside', xAxisIndex: [0, 1], startValue: startV, endValue: lastT }, { type: 'slider', xAxisIndex: [0, 1], bottom: 4, height: 18, startValue: startV, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: x => fmtDate(isoOf(x)) }],
     series: [
       { name: it.name, type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, v[i]]), showSymbol: false, lineStyle: { width: 1.6, color: cl }, z: 3 },
-      { name: 'ממוצע 50', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m50[i]]), showSymbol: false, lineStyle: { width: 1, color: c2, type: 'dashed' } },
-      { name: 'ממוצע 200', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: t.map((x, i) => [x, m200[i]]), showSymbol: false, lineStyle: { width: 1.2, color: muted, type: 'dotted' } },
+      ...maSeries, ...volSeries,
       ...(S.lvlX && S.lvlX.sym === sym && S.lvlX.sig.length && S.lvlX.sig.length <= 400 ? [{ name: 'כניסה לאזור', type: 'scatter', xAxisIndex: 0, yAxisIndex: 0, z: 5, symbolSize: 7, itemStyle: { color: tok('--warn'), borderColor: surface, borderWidth: 1 },
         data: (() => { const pm = new Map(t.map((x, i) => [x, v[i]])); return S.lvlX.sig.filter(x => pm.has(x)).map(x => [x, pm.get(x)]); })() }] : []),
       { name: lower.name, type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: lower.data, showSymbol: false, lineStyle: { width: 1, color: ink }, connectNulls: true,
         markLine: lower.name === 'RSI' ? { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: greed, type: 'dashed' } }, { yAxis: 30, lineStyle: { color: fear, type: 'dashed' } }] } : undefined },
     ] };
   const cnote = $('#xCandleNote'); let cs = null;
-  if (wantCandles) {
-    const tf = candleTf('x', 'd'); const ob = S.ohlc && S.ohlc[sym];
-    let o = null, h = null, l = null;
-    if (ob && ob.t) { const im = new Map(ob.t.map((x, i) => [x, i])); const pick = a => p.t.map(x => { const i = im.get(x); return i == null ? null : a[i]; }); o = pick(ob.o); h = pick(ob.h); l = pick(ob.l); }
-    const cd = buildCandles(t, v, o, h, l, tf);
-    if (cd.data.length > 1) { cs = applyCandles(opt, cd, x => priceFmt(it, x), 'xOhlc'); wrapCandleTip(opt, cs, x => priceFmt(it, x)); if (cnote) cnote.textContent = candleNote(cd, tf, true); }
-  }
+  if (useC) { cs = applyCandles(opt, cd, x => priceFmt(it, x), 'xOhlc'); wrapCandleTip(opt, cs, x => priceFmt(it, x)); if (cnote) cnote.textContent = candleNote(cd, tf, true); }
+  // the crosshair's labels on the axes: the price as on the axis, the date as dd.mm.yyyy, RSI as a whole number
+  opt.yAxis[0].axisPointer = { label: { formatter: q => priceFmt(it, q.value) } };
+  opt.yAxis[1].axisPointer = { label: { formatter: q => lower.name === 'RSI' ? fmtN(q.value, 0) : fmtN(q.value, 1) } };
+  opt.xAxis.forEach(a => { a.axisPointer = { label: { formatter: q => fmtDate(isoOf(q.value)) } }; });
   if (!cs) { const so = $('#xOhlc'); if (so) so.innerHTML = ''; if (cnote) cnote.textContent = ''; }
   idxChart.setOption(opt);
   if (cs) idxChart.on('globalout', () => cs.strip(cs.lastT));
+  attachDrawings('x', idxChart, el, 'x:' + sym, x => priceFmt(it, x), t);
 }
 
 // ---------------- table headers follow the page while scrolling (every tab) ----------------
@@ -4503,7 +4686,9 @@ function bind() {
   $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
   $('#importHold').addEventListener('click', openHoldingsImport);
   bindMarketing();
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; } if ($('#ov')) closeOverlay(); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; }
+    if ($('#ov') && S.drawMode) { S.drawMode = ''; Object.values(S.drwApi || {}).forEach(a => a.cancel()); $$('.dtools [data-dm]').forEach(x => x.setAttribute('aria-pressed', 'false')); return; }
+    if ($('#ov')) closeOverlay(); } });
   const reTheme = () => {
     renderMarket();
     if (S.tab === 'indices' && !$('#ov')) renderIndices();

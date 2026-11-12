@@ -18,7 +18,7 @@ def _bars(syms, start, end="2026-11-12", seed=0):
 
 
 def _paths(tmp_path, monkeypatch):
-    monkeypatch.setattr(israel, "IL_OHLC", {f: tmp_path / f"il_{f}.csv" for f in ("open", "high", "low", "close")})
+    monkeypatch.setattr(israel, "IL_OHLC", {f: tmp_path / f"il_{f}.csv" for f in ("open", "high", "low", "close", "volume")})
     monkeypatch.setattr(israel, "DERIVED", tmp_path / "israel.json")
 
 
@@ -72,6 +72,7 @@ def test_chart_payloads(tmp_path, monkeypatch):
     assert all(x is not None for x in f["c"])
     assert it["il"] and it["ta"] == "LUMI" and it["rs"]["rs"] == 80 and it["cmf"]["cmf"] == 0.12
     assert it["last"] == f["c"][-1] and "spark" not in it and it["desc"].startswith("בנקים")
+    assert len(f["vol"]) == len(f["t"]) and f["vol"][-1] == 1e5
     json.dumps(files, allow_nan=False)
 
 

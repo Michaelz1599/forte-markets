@@ -135,6 +135,27 @@ def ohl_csv(field: str):
     return PRICES_CSV.parent / f"{field}.csv"
 
 
+# Daily volume (shares or contracts) of the same instruments, for the volume bars under the candles. A column is kept
+# even when Yahoo has no volume for it (indices such as ^VIX), so its history is not downloaded again every run.
+def vol_csv():
+    return PRICES_CSV.parent / "volume.csv"
+
+
+def read_volume() -> pd.DataFrame:
+    if not vol_csv().exists():
+        return pd.DataFrame()
+    df = pd.read_csv(vol_csv(), index_col=0)
+    df.index = df.index.astype(str)
+    return df.sort_index()
+
+
+def write_volume(df: pd.DataFrame, cols: list[str]) -> None:
+    df = df[[c for c in cols if c in df.columns]].sort_index()
+    df.index.name = "date"
+    vol_csv().parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(vol_csv(), float_format="%.6g")
+
+
 def read_ohl() -> dict[str, pd.DataFrame]:
     out = {}
     for f in OHL_FIELDS:
@@ -290,6 +311,10 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
         frames.append(yf_ohlc(have_ohl, start))
     for i in range(0, len(new), 60):   # backfills in chunks, so one bad symbol cannot sink the whole download
         frames.append(yf_ohlc(new[i:i + 60], BACKFILL_START))
+    vol = read_volume()
+    vnew = [s for s in syms if s not in vol.columns and s not in new]   # volume history, once per symbol
+    vframes = [yf_ohlc(vnew[i:i + 60], BACKFILL_START) for i in range(0, len(vnew), 60)]
+    report["volBackfilled"] = len(vnew)
     out = cur.copy()
     for f in frames:
         if not f or f.get("close") is None or f["close"].empty:
@@ -323,6 +348,13 @@ def update_prices(u: dict) -> tuple[pd.DataFrame, dict]:
         write_ohl({k: apply_cutoff(v) if not v.empty else v for k, v in clean_ohl(ohl, out[cols]).items()}, cols)
     except Exception as e:   # the candles are a nice-to-have; the closes above are what the site runs on
         report["ohlError"] = f"{type(e).__name__}: {e}"[:200]
+    try:
+        for f in vframes + frames:      # the one-time histories first, this run's bars last (newest wins)
+            if f and f.get("volume") is not None:
+                vol = _merge_frame(vol, f["volume"])
+        write_volume(apply_cutoff(vol) if not vol.empty else vol, [c for c in syms if c in out.columns])
+    except Exception as e:
+        report["volError"] = f"{type(e).__name__}: {e}"[:200]
     return with_baskets(out, u), report
 
 
@@ -545,6 +577,7 @@ def ohlc_payloads(px: pd.DataFrame, years: int = 10, u: dict | None = None) -> d
     ohl = read_ohl()
     if ohl["high"].empty:
         return {}
+    vol = read_volume()
     start = (today_utc() - dt.timedelta(days=int(365.25 * years))).isoformat()
     keep = None
     if u:
@@ -563,6 +596,9 @@ def ohlc_payloads(px: pd.DataFrame, years: int = 10, u: dict | None = None) -> d
         num = lambda x: None if x is None or not np.isfinite(x) else float(f"{x:.6g}")
         out[c] = {"sym": c, "t": [int((dt.date.fromisoformat(d) - dt.date(1970, 1, 1)).days) for d in s.index],
                   "o": [num(x) for x in o.values], "h": [num(x) for x in h.values], "l": [num(x) for x in l.values]}
+        vv = vol[c].reindex(s.index) if c in vol.columns else None
+        if vv is not None and vv.notna().sum() >= 20:
+            out[c]["vol"] = [num(x) for x in vv.values]
     return out
 
 

@@ -443,7 +443,10 @@ def test_ohlc_store_and_payload(tmp_path, monkeypatch):
     calls = []
     def fake(syms, start):
         calls.append((tuple(syms), start))
-        return {"close": c[syms], "open": o[syms], "high": h[syms], "low": l[syms], "volume": c[syms] * 0}
+        v = c[syms] * 0 + 1000.0
+        if "BBB" in v.columns:
+            v["BBB"] = np.nan                      # an index without volume on Yahoo
+        return {"close": c[syms], "open": o[syms], "high": h[syms], "low": l[syms], "volume": v}
     monkeypatch.setattr(markets, "yf_ohlc", fake)
     px, rep = markets.update_prices(u)
     assert calls[0][1] == markets.BACKFILL_START and rep["backfilled"] == ["AAA", "BBB"]
@@ -456,3 +459,7 @@ def test_ohlc_store_and_payload(tmp_path, monkeypatch):
     a = pay["AAA"]
     assert len(a["t"]) == len(a["o"]) == len(a["h"]) == 260 and a["l"][5] is None and abs(a["h"][-1] - 121.2) < 1e-6
     assert markets.ohlc_file("^GSPC") == "_GSPC.json" and markets.ohlc_file("ILS=X") == "ILS_X.json"
+    # volume: stored once with its history (a symbol without volume keeps an empty column, so it is not refetched)
+    assert set(markets.read_volume().columns) == {"AAA", "BBB"} and a["vol"][-1] == 1000 and "vol" not in pay["BBB"]
+    calls.clear(); markets.update_prices(u)
+    assert all(start != markets.BACKFILL_START for _, start in calls)
