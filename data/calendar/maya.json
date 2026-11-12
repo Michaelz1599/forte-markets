@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-12T09:01+00:00",
+"asof": "2026-11-12T13:55+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -1460,6 +1460,34 @@
 ]
 },
 {
+"id": "עלבד-2026-11-16",
+"ticker": "עלבד",
+"market": "IL",
+"date": "2026-11-16",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 625,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780706"
+}
+]
+},
+{
 "id": "פועלים-2026-11-16",
 "ticker": "פועלים",
 "market": "IL",
@@ -1904,6 +1932,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780421"
+}
+]
+},
+{
+"id": "שמן נדלן-2026-11-17",
+"ticker": "שמן נדלן",
+"market": "IL",
+"date": "2026-11-17",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום רביעי 18.11, 12:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 634,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780840"
 }
 ]
 },
@@ -2609,6 +2665,34 @@
 ]
 },
 {
+"id": "חברה לישראל-2026-11-19",
+"ticker": "חברה לישראל",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 576,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780874"
+}
+]
+},
+{
 "id": "טרמינל איקס-2026-11-19",
 "ticker": "טרמינל איקס",
 "market": "IL",
@@ -3197,6 +3281,34 @@
 ]
 },
 {
+"id": "פריורטק-2026-11-24",
+"ticker": "פריורטק",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 328,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780790"
+}
+]
+},
+{
 "id": "ASHG-2026-11-25",
 "ticker": "ASHG",
 "market": "IL",
@@ -3590,6 +3702,62 @@
 ]
 },
 {
+"id": "שטראוס גרופ-2026-11-25",
+"ticker": "שטראוס גרופ",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "14:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 746,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780800"
+}
+]
+},
+{
+"id": "תדהר-2026-11-25",
+"ticker": "תדהר",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2557,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780449"
+}
+]
+},
+{
 "id": "ANLT-2026-11-26",
 "ticker": "ANLT",
 "market": "IL",
@@ -3670,6 +3838,62 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
+"id": "איידיאיי ביטוח-2026-11-26",
+"ticker": "איידיאיי ביטוח",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1608,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1780791"
+}
+]
+},
+{
+"id": "אמפא-2026-11-26",
+"ticker": "אמפא",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "11:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2471,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779416"
 }
 ]
 },
@@ -4147,6 +4371,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"עלבד": {
+"name": "עלבד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "פועלים": {
 "name": "פועלים",
 "tags": [
@@ -4261,6 +4493,14 @@
 },
 "ארגו פרופרטיז": {
 "name": "ארגו פרופרטיז",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שמן נדלן": {
+"name": "שמן נדלן",
 "tags": [
 "TASE"
 ],
@@ -4491,6 +4731,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"חברה לישראל": {
+"name": "חברה לישראל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ורידיס": {
 "name": "ורידיס",
 "tags": [
@@ -4605,6 +4853,14 @@
 },
 "מור השקעות": {
 "name": "מור השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פריורטק": {
+"name": "פריורטק",
 "tags": [
 "TASE"
 ],
@@ -4755,6 +5011,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"שטראוס גרופ": {
+"name": "שטראוס גרופ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "אר פי אופטיקל": {
 "name": "אר פי אופטיקל",
 "tags": [
@@ -4771,8 +5035,32 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"תדהר": {
+"name": "תדהר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אמפא": {
+"name": "אמפא",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "אפקון החזקות": {
 "name": "אפקון החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"איידיאיי ביטוח": {
+"name": "איידיאיי ביטוח",
 "tags": [
 "TASE"
 ],
