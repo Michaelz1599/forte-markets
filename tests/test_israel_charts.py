@@ -96,3 +96,14 @@ def test_large_real_moves_are_not_touched():
         b[k].loc[b[k].index >= d, "A.TA"] *= 8      # a x8 day (e.g. a biotech) stays as it is
     before = b["close"]["A.TA"].copy()
     assert israel.fix_units(b) == [] and b["close"]["A.TA"].equals(before)
+
+
+def test_single_day_bad_ticks_are_blanked():
+    b = _bars(["A.TA", "B.TA"], "2025-01-01")
+    d = b["close"].index[60]
+    for k in ("open", "high", "low", "close"):
+        b[k].loc[d, "A.TA"] = b["close"].loc[d, "A.TA"] / 7     # one bad tick that recovers the next day
+    b["close"].loc[b["close"].index[80]:, "B.TA"] /= 3          # a real fall of two thirds that stays
+    assert israel.drop_spikes(b) == 1
+    assert np.isnan(b["close"].loc[d, "A.TA"]) and np.isnan(b["high"].loc[d, "A.TA"])
+    assert b["close"]["B.TA"].notna().all()

@@ -291,6 +291,29 @@ def fix_units(bars: dict) -> list[str]:
     return fixed
 
 
+def drop_spikes(bars: dict) -> int:
+    """Yahoo's old TASE data has single-day bad ticks (e.g. TSEM at ~1,060 agorot on days between ~5,000 and ~8,000 in
+    2013-2017): a close at least x2 away from both neighbours, in the same direction, while the neighbours are within
+    30% of each other. Such a day is blanked (open/high/low/close), in place. Returns how many days were blanked."""
+    c = bars.get("close")
+    if c is None or c.empty:
+        return 0
+    n = 0
+    for sym in c.columns:
+        s = c[sym].dropna()
+        if len(s) < 3:
+            continue
+        a, b, ab = s / s.shift(1), s.shift(-1) / s, s.shift(-1) / s.shift(1)
+        bad = (((a < 0.5) & (b > 2)) | ((a > 2) & (b < 0.5))) & (ab > 1 / 1.3) & (ab < 1.3)
+        days = list(bad[bad].index)
+        if days:
+            for k in ("open", "high", "low", "close"):
+                if k in bars and bars[k] is not None and sym in bars[k].columns:
+                    bars[k].loc[bars[k].index.isin(days), sym] = np.nan
+            n += len(days)
+    return n
+
+
 def read_ohlc() -> dict[str, pd.DataFrame]:
     out = {}
     for f, p in IL_OHLC.items():
@@ -312,6 +335,7 @@ def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
         full = yf_ohlc(new, OHLC_FROM)
         if full and not full["close"].empty:
             fix_units(full)
+            drop_spikes(full)
             frames.append(full)
     frames.append({f: bars[f].reindex(columns=[s for s in syms if s in bars[f].columns]) for f in IL_OHLC})   # newest wins
     out = {}
@@ -321,6 +345,7 @@ def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
             df = _merge_frame(df, fr.get(f))
         out[f] = df
     fix_units(out)
+    spikes = drop_spikes(out)
     close = out["close"][[c for c in out["close"].columns if c in keep]].dropna(how="all").sort_index()
     ohl = clean_ohl({f: out[f] for f in OHL_FIELDS}, close)
     for f, df in (("close", close), *ohl.items()):
@@ -328,7 +353,8 @@ def store_ohlc(bars: dict, syms: list[str], keep: set[str]) -> str:
         df.index.name = "date"
         IL_OHLC[f].parent.mkdir(parents=True, exist_ok=True)
         df.to_csv(IL_OHLC[f], float_format="%.6g")
-    return f"נרות: {close.shape[1]} מניות עד {close.index[-1]}" + (f", היסטוריה מלאה ל-{len(new)} חדשות" if new else "")
+    return f"נרות: {close.shape[1]} מניות עד {close.index[-1]}" + (f", היסטוריה מלאה ל-{len(new)} חדשות" if new else "") + \
+        (f", {spikes} ימים עם ציטוט שגוי הוסרו" if spikes else "")
 
 
 def chart_payloads(years: int = CHART_YEARS) -> tuple[dict, dict]:
@@ -376,6 +402,7 @@ def run(px: pd.DataFrame) -> tuple[dict, dict, str]:
     if not bars or bars["close"].empty:
         raise ValueError("no TASE prices")
     unit_fixed = fix_units(bars)
+    drop_spikes(bars)
     allc = bars["close"].dropna(axis=1, how="all")
     info, chosen, missing = {}, [], []
     for alts, n, k in entries:     # first alternative with recent data wins
