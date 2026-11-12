@@ -1,0 +1,5 @@
+oId=137 status=200 n=22 first={"TradeDate": "11/11/2026", "BaseRate": 3977.57, "OpenRate": 3989.47, "CloseRate": 3952.0, "HighRate": 3989.47, "LowRate": 3941.9, "MarketValue": null}
+oId=142 status=200 n=22 first={"TradeDate": "11/11/2026", "BaseRate": 4100.78, "OpenRate": 4116.19, "CloseRate": 4058.75, "HighRate": 4116.19, "LowRate": 4047.57, "MarketValue": null}
+oId=168 status=200 n=22 first={"TradeDate": "11/11/2026", "BaseRate": 3077.14, "OpenRate": 3081.04, "CloseRate": 3089.9, "HighRate": 3100.04, "LowRate": 3077.99, "MarketValue": null}
+oId=145 status=200 n=22 first={"TradeDate": "11/11/2026", "BaseRate": 592.53, "OpenRate": 594.11, "CloseRate": 595.92, "HighRate": 599.36, "LowRate": 592.64, "MarketValue": null}
+oId=143 status=200 n=22 first={"TradeDate": "11/11/2026", "BaseRate": 3616.07, "OpenRate": 3615.73, "CloseRate": 3641.7, "HighRate": 3658.88, "LowRate": 3608.74, "MarketValue": null}

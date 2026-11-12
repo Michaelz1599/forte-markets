@@ -1,0 +1,561 @@
+SERIES_CODE,Series name,FREQ,Frequency,UNIT_MEASURE,Unit of Measure,UNIT_MULT,Unit multiplier,TIME_PERIOD,OBS_VALUE
+BI_PCT_G_CIV_W1NO_TAX_Q_FP,General government expenditure - compensation of employees excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.11572001166294
+BI_PCT_CLS11_GDP_D_E_Q_FC_SA,GDP by Industries - Electricity and water supply, sewerage, waste management- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.24301204753923
+BI_PCT_X_GDS_NO_DIA_A_PR,Exports of goods - excl. Diamonds - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.93672188140606
+BI_PCT_C_DOM_HOUS_NO_WATER_A_PR,Private consumption - Housing excl. Water and Electricity - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.5483155004848
+G_NO_MDEF_Q_FP_SA,General government expenditure - excl. defense imports,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,105050.615
+G_DEF_Q_N,Defence General Government Consumption,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,39805.786
+BI_PCT_M_TAX_GDS_DEF2_Q_PR,Projection on defence import - excl. V.A.T - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-47.9536305025119
+GNP_Q_N,Gross National Income (GNI),Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,530703.487
+BI_PCT_G_NO_MDEF_Q_FP_SA,General government expenditure - excl. defense imports - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.53434686270981
+BI_PCT_G_DEF_SALE_Q_FP_SA,General Government Consumption - Sale of defence products - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-50.8802811636875
+CLS11_GDP_R_S_Q_FC_SA_ANNPCH,GDP by Industries - Education, Arts, entertainment and recreation, Other service activities, Activities of households as employers - at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2021-Q1,-18.05683912
+BI_PCT_G_DEF_PUR_Q_FP,General Government Consumption - Defence purchases - Quantity change,Q,Quarterly,PT,Percent,0,Units,2022-Q1,-25.3518700736267
+BI_PCT_M_TAX_GDS_A_FP,Tax on import of goods - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,-3.26575004844353
+BI_PCT_X_GDS_A_FP,Exports of goods - incl. subsidies - Quantity change,A,Annual,PT,Percent,0,Units,2025,11.203130001121
+GDP_HOUS_Q_FC_SA,GDP by Industries - Ownership of dwellings - at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,41950.12
+BI_PCT_I_CAP_NO_BLD1_A_FP,Fixed investment - Quantity change,A,Annual,PT,Percent,0,Units,2025,5.10989000020823
+BI_PCT_X_GDS_NO_SUB_Q_FP,Exports of goods - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.57500000343407
+BI_PCT_X_SER_OTH_A_PR,Exports of other services - incl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.53064865804367
+CLS11_GDP_J_Q_FC_SA_ANNPCH,GDP by Industries - Information and communication- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.2690313189
+BI_PCT_CLS11_GDP_K_L_M_N_Q_FC,GDP by Industries - Financial and insurance activities, Real estate, Professional, scientific and tecnical, Administrative and support services- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2021-Q1,-3.90811421083194
+BI_PCT_X_Q_PR,Exports of goods and services - Total - incl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.17351836005399
+BI_PCT_M_SER2_Q_FP,Imports of services - Tourism - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,19.3453805752133
+GDP_USD_Q_N_MVSUM4,Gross domestic product - in U.S Dollars - moving annual average,Q,Quarterly,USD,US dollar,6,Millions,2026-Q2,694224.08842
+BI_PCT_M_TAX_GDS_DEF1_Q_FP,V.A.T on defence import - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.33274750672403
+BI_PCT_I_CAP_Q_FP_SA,Gross domestic fixed capital formation - excl. change in stock - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.00516331829872
+BI_PCT_X_NO_STARTUP_Q_FP,Exports of goods and services - excl. startup - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.59782997332381
+BI_PCT_G_CIV_W2NO_TAX_Q_PR,General government expenditure - Pension - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.96951942289252
+I_Q_FP_SA,Gross capital formation - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,113240.797
+M_NO_MDEF_DIA_Q_N,Imports excl. defence import, ships, aircrafts & diamond,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,132245.823
+M_NO_TAX_Q_FP_SA,Imports of goods & services - excl. taxes,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,132615.672
+BI_PCT_GDP_NO_STOCK_Q_FP_SA,GDP excl. change in stocks - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.05262031277731
+C_DOM_SER_Q_FP_SA_ANNPCH,Private consumption - Other services - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.2049299764
+BI_PCT_I_CAP_TR11_A_PR,Investment - Transport equipment - Land and transport equipment - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.597200069097004
+BI_PCT_I_CAP_TR12_A_FP,Communication &Investment - Machinery and other equipment - Transport - Quantity change,A,Annual,PT,Percent,0,Units,2025,-27.3527136840495
+BI_PCT_C_PER_CAPITA_Q_FP,Private consumption, per capita - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.5229681807377
+GDP_BS_Q_FP_SA_ANNPCH,GDP - Business sector - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,17.705015659
+BI_PCT_GDP_GOV_A_PR,GDP - Services of general government - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.21219935245878
+BI_PCT_M_NO_MDEF_DIA_A_PR,Imports excl. defence import, ships, aircrafts & diamond - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.94711111367417
+BI_PCT_X_SER_NO_SUB_Q_FP,Exports of services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.71621998007998
+TRANSF_FAB_NET_Q_N,Current transfers from abroad (net),Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,458.097
+BI_PCT_GDP_Q_FC,Gross domestic product - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.97492041960323
+BI_PCT_C_DOM_A_PR,Private consumption - Domestic consumption - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.71172194768532
+BI_PCT_GDP_NO_STARTUP_A_PR,GDP excl. Startup - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.48800359896886
+BI_PCT_I_CAP_BLD_A_FP,Building and others constuctuin works - Quantity change,A,Annual,PT,Percent,0,Units,2025,9.5966999876371
+BI_PCT_M_FSA_A_FP,Imports - Fuel, ships and aircrafts - Quantity change,A,Annual,PT,Percent,0,Units,2025,-0.54212992222239
+BI_PCT_M_SER1_A_PR,Imports of services - excl. tourism - incl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.92861950704325
+BI_PCT_CLS11_GDP_D_E_A_FC,GDP by Industries - Electricity and water supply, sewerage, waste management- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,0.055582831205348
+GDP_Q_FP_SA_ANNPCH,GDP - Rate of change in annual terms (GDP growth),Q,Quarterly,PT,Percent,0,Units,2026-Q2,15.376640564
+BI_PCT_X_SUB_GDS_Q_FP,Subsidies to exports of goods - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.53967303499001
+CLS11_GDP_D_E_Q_FC_SA_ANNPCH,GDP by Industries - Electricity and water supply, sewerage, waste management- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,22.679804796
+X_SER_NO_SUB_Q_FP_SA_ANNPCH,Exports of services - excl. subsidies - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,19.330497757
+BI_PCT_X_GDS_AGR_Q_PR,Exports of goods - agriculture - incl. subsidy - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-5.44049170362471
+CLS11_GDP_F_Q_FC_SA,GDP by Industries - Construction- at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,20372.151
+G_CIV_Q_N,Civilian General government expenditure,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,97535.33
+BI_PCT_C_DOM_VEH_A_FP,Private consumption - Passengers cars - Quantity change,A,Annual,PT,Percent,0,Units,2025,-26.3116798813926
+BI_PCT_C_DOM_SER_Q_FP,Private consumption - Other services - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.28435002321488
+M_NO_TAX_Q_N,Imports of goods & services - excl. taxes,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,139184.3
+BI_PCT_CLS11_GDP_R_S_Q_FC_SA,GDP by Industries - Education, Arts, entertainment and recreation, Other service activities, Activities of households as employers - at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2021-Q1,-4.8567071277249
+BI_PCT_M_DEF_A_FP,Civilian Imports - incl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.50899999934724
+INCOME_CURRENT_Q_N,Total national income,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,531161.585
+BI_PCT_I_A_FP,Gross capital formation - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,6.87404999759031
+BI_PCT_M_DEF_Q_PR,Civilian Imports - incl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.79750188158166
+BI_PCT_G_DEF_W2NO_TAX_A_FP,General Government Consumption - Defense wage payments excl. imputed to pensions - Quantity change,A,Annual,PT,Percent,0,Units,2025,-1.88702947559135
+X_NO_SUB_Q_N,Exports of goods & services - excl. subsidies,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,162587.593
+BI_PCT_I_CAP_BLD2_Q_FP,Fixed capital formation - Non-residential building - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,11.2768799504159
+BI_PCT_X_SUB_SER_A_PR,Subsidies to exports of services - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,117.827431860319
+BI_PCT_G_DEF_WTAX_Q_PR,General Government Consumption - Taxes on defense wage payments - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.56631237424049
+BI_PCT_G_DEF_Q_FP_SA,Defence General Government Consumption - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.74385738971508
+I_CAP_BLD1_Q_FP_SA_ANNPCH,Fixed capital formation - Residential building - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,21.024754454
+BI_PCT_GDP_HOUS_A_FP,GDP - Ownership of dwellings - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.6436099832889
+BI_PCT_G_NO_MDEF_Q_PR,General government expenditure - excl. defense imports - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.66755391630782
+BI_PCT_I_BR_NO_TR2_A_FP,Fixed investment excl. ships & aircrafts - Quantity change,A,Annual,PT,Percent,0,Units,2025,5.24802998518914
+BI_PCT_M_DEF_Q_FP,Civilian Imports - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.33275068462042
+BI_PCT_C_DOM_SER_A_FP,Private consumption - Other services - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.33677001009016
+BI_PCT_M_NO_TAX_SER_Q_FP,Imports of services - Total - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.91879008428679
+BI_PCT_X_GDS_NO_SUB_A_FP,Exports of goods - excl. subsidies- Quantity change,A,Annual,PT,Percent,0,Units,2025,11.2121500055907
+BI_PCT_GDP_GOV_Q_FP,GDP - Services of general government - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.0542099862223
+BI_PCT_I_CAP_NO_BLD1_Q_FP,Fixed investment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.46617999405483
+BI_PCT_C_DOM_FOOD_Q_FP_SA,Private consumption - Food, tobacco and beverage - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.42340781423918
+CHAINED_GDP_Q_N,Gross domestic product - Linked data,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,559279.7439
+BI_PCT_CLS11_GDP_A_A_FC,GDP by Industries - Agriculture, forestry and fishing- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,3.24678305977983
+BI_PCT_I_CAP_TR11_Q_FP,Investment - Transport equipment - Land and transport equipment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.58906005665192
+GDP_A_FP,Gross domestic product,A,Annual,ILS,New Israeli shekel,6,Millions,2025,1749745.139
+BI_PCT_C_A_FP,Private consumption - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.9196300009422
+BI_PCT_X_GDS_AGR_Q_FP,Exports of goods - agriculture - incl. subsidy - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-57.9095495990986
+BI_PCT_G_CIV_W1NO_TAX_A_PR,General government expenditure - compensation of employees excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.89169775242051
+BI_PCT_G_DEF_Q_PR,Defence General Government Consumption - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.82590255253148
+BI_PCT_X_SUB_SER_Q_FP,Subsidies to exports of services - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.60479534761324
+BI_PCT_G_CIV_DEP2_A_FP,Civilian government consuption - Consumption of fixed capital - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.46059019642197
+C_Q_N,Private consumption - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,263316.246
+X_NO_SUB_Q_FP_SA,Exports of goods & services - excl. subsidies,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,140388.044
+BI_PCT_G_CIV_WTAX_Q_PR,General Government Consumption - V.A.T on civilian salaries - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.64119885098198
+BI_PCT_G_CIV_WTAX_A_FP,General Government Consumption - V.A.T on civilian salaries - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.58460951402704
+BI_PCT_I_CAP_A_PR,Gross domestic fixed capital formation - excl. change in stock - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.15310884797424
+BI_PCT_GDP_BS_Q_FC_SA,GDP - Business sector - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.96935893848787
+BI_PCT_G_DEF_PUR_A_PR,General Government Consumption - Defence purchases - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2021,4.6870546943959
+BI_PCT_M_GDS_OTH_Q_FP_SA,Imports of goods - excl. defence imports ,diamonds, fuel and ships - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.52522465577657
+BI_PCT_M_SER1_Q_FP,Imports of services - excl. tourism - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.74093992142614
+BI_PCT_M_TAX_GDS_Q_FP,Tax on import of goods - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.57363989442767
+BI_PCT_M_FSA_Q_PR,Imports - Fuel, ships and aircrafts - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,38.4047216629045
+BI_PCT_X_GDS_NO_DIA_Q_PR,Exports of goods - excl. Diamonds - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.9173423011176
+BI_PCT_G_Q_FP_SA,General government expenditure - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.17414575833297
+G_R_GDP_Q_N,Share of public consumption in GDP (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,24.55678334
+GC_Q_N,Final consumption,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,400657.361
+BI_PCT_X_NO_STARTUP_A_FP,Exports of goods and services - excl. startup - Quantity change,A,Annual,PT,Percent,0,Units,2025,8.18683999489636
+X_NO_SUB_A_FP,Exports of goods & services - excl. subsidies,A,Annual,ILS,New Israeli shekel,6,Millions,2025,492029.989
+BI_PCT_C_MALKAR_Q_FP_SA,Private consumption - Non-profit institutions serving households - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.89209029403426
+BI_PCT_I_A_PR,Gross capital formation - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.18524456753695
+BI_PCT_X_SER_NO_SUB_A_PR,Exports of services - excl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.18403266448396
+BI_PCT_G_DEF_WAGE_A_FP,General Government Consumption - Defense wage payments (incl. imputed to pensions and taxes) - Quantity change,A,Annual,PT,Percent,0,Units,2025,-5.77651009607775
+BI_PCT_C_DOM_VEH_Q_FP,Private consumption - Passengers cars - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.02143009532241
+BI_PCT_X_SER_OTH_Q_PR,Exports of other services - incl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.96908758617727
+BI_PCT_X_Q_FP_SA,Exports of goods and services - Total - incl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.07758906506863
+BI_PCT_M_NO_MDEF_DIA_Q_FP,Imports excl. defence import, ships, aircrafts & diamond - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.94435004039546
+BI_PCT_GDP_PER_CAPITA_Q_FP,GDP per capita - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.51741442960558
+BI_PCT_I_CAP_TR12_Q_PR,Communication &Investment - Machinery and other equipment - Transport - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.6709043997318
+BI_PCT_M_GDS_OTH_Q_PR,Imports of goods - excl. defence imports ,diamonds, fuel and ships - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-3.79271124197107
+BI_PCT_G_Q_PR,General government expenditure - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.34384929667624
+BI_PCT_GDP_A_PR,Gross domestic product - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.51316291236239
+BI_PCT_X_GDS_NO_DIA_Q_FP_SA,Exports of goods - excl. Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,9.47548842761452
+BI_PCT_G_DEF_W1NO_TAX_A_PR,General Government Consumption - Defense wage payments excl. imputed to pensions - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,4.68380690862624
+BI_PCT_G_DEF_W2NO_TAX_Q_FP,General Government Consumption - Defense wage payments excl. imputed to pensions - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.599995257579322
+BI_PCT_USE_A_FP,Use of ressources - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.62993999808226
+BI_PCT_I_CAP_BLD2_A_FP,Fixed capital formation - Non-residential building - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.40875002694803
+BI_PCT_M_TAX_GDS_DEF1_A_PR,V.A.T on defence import - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.22095303603185
+BI_PCT_M_NO_TAX_A_PR,Imports of goods & services - excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.86537867588567
+BI_PCT_USE_DOM_NO_MDEF_Q_FP_SA,Domestic use of ressources - excl. direct defence imports - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.31237066913628
+BI_PCT_M_SER2_A_PR,Imports of services - Tourism - incl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.73876399213525
+BI_PCT_X_SUB_GDS_A_PR,Subsidies to exports of goods - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.4571129768971
+C_DOM_CUR_Q_FP_SA_ANNPCH,Domestic private consumption - Non-durables - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.5048342487
+GDP_BS_Q_FC_SA,GDP by Industries - Business sector - at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,299933.88
+BI_PCT_GDP_BS_A_PR,GDP - Business sector - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.40561816558711
+BI_PCT_M_NO_TAX_SER_A_FP,Imports of services - Total - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,17.5596799800821
+BI_PCT_X_GDS_A_PR,Exports of goods - incl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.08973758652034
+BI_PCT_I_CAP_BLD_Q_FP,Building and others constuctuin works - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.52722995939914
+BI_PCT_X_NO_DIA_Q_FP,Exports of goods and services - excl. diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.41204999279359
+BI_PCT_C_DOM_FOOD_Q_PR,Private consumption - Food, tobacco and beverage - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.818701313241088
+BI_PCT_X_GDS_AGR_A_FP,Exports of goods - agriculture - incl. subsidy - Quantity change,A,Annual,PT,Percent,0,Units,2025,12.3934392027666
+BI_PCT_X_GDS_DIA_Q_PR,Exports of goods - Diamonds - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-5.46615348221742
+I_A_FP,Gross capital formation - Total,A,Annual,ILS,New Israeli shekel,6,Millions,2025,422819.95
+BI_PCT_M_TAX_GDS_A_PR,Tax on import of goods - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.690573904928282
+BI_PCT_G_CIV_W2NO_TAX_Q_FP,General government expenditure - Pension - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.32648625611835
+CHAINED_GDP_A_FP,Gross domestic product - Linked data,A,Annual,ILS,New Israeli shekel,6,Millions,2025,1749745.1388
+BI_PCT_I_CAP_TR12_A_PR,Communication &Investment - Machinery and other equipment - Transport - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-0.855902460254887
+BI_PCT_GDP_A_FP,Gross domestic product - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.48596000137178
+BI_PCT_G_DEF_W2NO_TAX_Q_PR,General Government Consumption - Defense wage payments excl. imputed to pensions - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.10663923727023
+BI_PCT_GDP_NO_STOCK_A_PR,GDP excl. change in stocks - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.51262023431491
+BI_PCT_I_CAP_BLD1_A_FP,Fixed capital formation - Residential building - Quantity change,A,Annual,PT,Percent,0,Units,2025,15.9002299785951
+BI_PCT_C_DOM_DUR_A_FP,Private consumption - Durable goods - Quantity change,A,Annual,PT,Percent,0,Units,2025,-10.9065299349831
+BI_PCT_M_SER2_Q_PR,Imports of services - Tourism - incl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.54213390195093
+BI_PCT_G_DEF_W1NO_TAX_Q_FP,General Government Consumption - Defense wage payments excl. imputed to pensions - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.39140957904552
+BI_PCT_I_CAP_EQ1_A_PR,Fixed capital formation - Machinery and equipment - imported - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.67798435638712
+BI_PCT_X_GDS_NO_SUB_Q_PR,Exports of goods - excl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.85477329394738
+BI_PCT_C_DOM_Q_FP,Private consumption - Domestic consumption - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.31379000015886
+BI_PCT_I_CAP_TR11_A_FP,Investment - Transport equipment - Land and transport equipment - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.26152003611608
+M_NO_TAX_Q_FP_SA_ANNPCH,Imports of goods & services - excl. taxes - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,30.894042799
+BI_PCT_X_SER_OTH_NO_SUB_Q_FP_SA,Exports of other services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.8618988493271
+BI_PCT_I_CAP_EQTR_Q_FP_SA,Investment - Machinery and equipment - transport equipment - total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.80391071957745
+BI_PCT_M_TAX_GDS_CIV3_Q_FP,V.A.T on civilian import of goods - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.11295035882973
+BI_PCT_CLS11_GDP_A_Q_FC_SA,GDP by Industries - Agriculture, forestry and fishing- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.45092313477771
+CLS11_GDP_G_I_Q_FC_SA,GDP by Industries - Wholesale and retail trade, repair of motor vehicles, Accommodation and food service activities- at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,45492.472
+GDP_Q_FP_SA,Gross domestic product,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,457963.659
+I_Q_FP_SA_ANNPCH,Gross capital formation - Total - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,9.022771592
+BI_PCT_X_NO_STARTUP_Q_PR,Exports of goods and services - excl. startup - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.30800166972006
+BI_PCT_M_TAX_GDS_DEF1_Q_PR,V.A.T on defence import - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.79752634740662
+BI_PCT_M_NO_TAX_GDS_CIV_Q_PR,Civilian Imports of goods - excl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.357173123366494
+BI_PCT_GDP_HOUS_Q_FP,GDP - Ownership of dwellings - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.667189988974903
+BI_PCT_M_SER1_A_FP,Imports of services - excl. tourism - incl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,15.3849999738112
+BI_PCT_X_SER_NO_SUB_Q_PR,Exports of services - excl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.52500587099628
+BI_PCT_C_DOM_A_FP,Private consumption - Domestic consumption - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.4686200050051
+BI_PCT_X_NO_SUB_A_FP,Exports of goods & services - excl. subsidies - Quantity change,A,Annual,PT,Percent,0,Units,2025,8.11309999333909
+C_DOM_DUR_Q_N,Private consumption - Durable goods,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,19265.663
+BI_PCT_M_FSA_A_PR,Imports - Fuel, ships and aircrafts - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-20.2672033689592
+BI_PCT_GDP_GOV_A_FC,GDP by Industries - Services of general government - at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,1.38092052082714
+BI_PCT_GDP_GOV_A_FP,GDP - Services of general government - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.38092001222461
+BI_PCT_I_CAP_BLD1_Q_FP_SA,Fixed capital formation - Residential building - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.88624484776961
+BI_PCT_I_CAP_BLD2_Q_PR,Fixed capital formation - Non-residential building - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.03803405371796
+BI_PCT_M_TAX_GDS_DEF2_A_FP,Projection on defence import - excl. V.A.T - Quantity change,A,Annual,PT,Percent,0,Units,2025,-26.0249169906632
+BI_PCT_M_NO_MDEF_DIA_A_FP,Imports excl. defence import, ships, aircrafts & diamond - Quantity change,A,Annual,PT,Percent,0,Units,2025,9.64111000388996
+M_DEF_Q_N,Defence Imports - incl. taxes,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,6597.184
+BI_PCT_C_FIS_Q_FP,Private consumption - by non-residents - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-26.5022215929807
+BI_PCT_G_CIV_DEP1_A_PR,Civilian General government expenditure - Government amortisation - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.13213527819742
+BI_PCT_I_CAP_A_FP,Gross domestic fixed capital formation - excl. change in stock - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.68193000199247
+C_Q_FP_SA,Private consumption - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,223216.932
+BI_PCT_G_CIV_W1NO_TAX_Q_PR,General government expenditure - compensation of employees excl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.32433947424413
+BI_PCT_M_GDS_OTH_A_PR,Imports of goods - excl. defence imports ,diamonds, fuel and ships - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.13644318775179
+CLS11_GDP_B_C_Q_FC_SA,GDP by Industries - Manufacturing, mining and quarrying - at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,67331.523
+BI_PCT_GDP_PF_TAB_Q_FP,GDP - Factor payments abroad - Quantity change,Q,Quarterly,PT,Percent,0,Units,2024-Q3,0.982759780495512
+BI_PCT_USE_DOM_NO_MDEF_Q_PR,Domestic use of ressources - excl. direct defence imports - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.58715412292263
+BI_PCT_G_DEF_W2NO_TAX_A_PR,General Government Consumption - Defense wage payments excl. imputed to pensions - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.71303988579346
+BI_PCT_USE_Q_FP,Use of ressources - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.38640999168614
+BI_PCT_GDP_HOUS_Q_FP_SA,GDP - Ownership of dwellings - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.667189988974903
+BI_PCT_I_CAP_EQ2_A_FP,Fixed capital formation - Machinery and equipment  - domestic production - Quantity change,A,Annual,PT,Percent,0,Units,2025,8.93856020185431
+CLS11_GDP_R_S_Q_FC_SA,GDP by Industries - Education, Arts, entertainment and recreation, Other service activities, Activities of households as employers - at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2021-Q1,15442
+BI_PCT_C_DOM_VEH_A_PR,Private consumption - Passengers cars - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.34742039478628
+BI_PCT_C_DOM_FOOD_A_PR,Private consumption - Food, tobacco and beverage - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.02658773658613
+BI_PCT_G_CIV_PUR_A_FP,General government expenditure - Civilian purchases - Total (non-profit institutions and government) - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.69600001113779
+BI_PCT_M_SER1_Q_FP_SA,Imports of services - excl. tourism - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.34357981546507
+BI_PCT_C_DOM_HOUS_NO_WATER_A_FP,Private consumption - Housing excl. Water and Electricity - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.59477997839201
+BI_PCT_G_DEF_SALE_A_PR,General Government Consumption - Sale of defence products - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.49354292061878
+BI_PCT_I_CAP_NO_TR2_A_PR,Fixed capital formation - excl. aircraft, ships and change in stocks - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.17412246842385
+BI_PCT_C_MALKAR_Q_PR,Private consumption - Non-profit institutions serving households - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.8098391259273
+BI_PCT_M_A_PR,Imports of goods and services - Total - incl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.36694795741808
+BI_PCT_M_GDS_DIA_Q_PR,Imports - Diamonds - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-5.46615127900034
+BI_PCT_G_DEF_WAGE_Q_FP_SA,General Government Consumption - Defense wage payments (incl. imputed to pensions and taxes) - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.02348509570207
+CLS11_GDP_B_C_Q_FC_SA_ANNPCH,GDP by Industries - Manufacturing, mining and quarrying - at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,45.89313644
+BI_PCT_GDP_NO_STOCK_Q_PR,GDP excl. change in stocks - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.34694611504451
+BI_PCT_I_CAP_Q_FP,Gross domestic fixed capital formation - excl. change in stock - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.94379004170684
+BI_PCT_M_NO_TAX_Q_FP,Imports of goods & services - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.84260998763828
+BI_PCT_GDP_PER_CAPITA_A_FP,GDP per capita - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.54011427603216
+CLS11_GDP_H_Q_FC_SA_ANNPCH,GDP by Industries - Transportation and storage, postal and courier activities- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,17.097784423
+BI_PCT_C_DOM_Q_FP_SA,Private consumption - Domestic consumption - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.35570423527474
+BI_PCT_GDP_BS_A_FP,GDP - Business sector - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.9518700012233
+BI_PCT_I_CAP_TR12_Q_FP,Communication &Investment - Machinery and other equipment - Transport - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,32.6206991077715
+BI_PCT_I_NO_STARTUP_A_PR,Gross capital formation excl. startup - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.04567064410677
+BI_PCT_GDP_GOV_Q_PR,GDP - Services of general government - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.41418093334851
+BI_PCT_GDP_BS_Q_FP_SA,GDP - Business sector - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.15946565324554
+BI_PCT_I_CAP_EQ1_Q_PR,Fixed capital formation - Machinery and equipment - imported - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.83985725248123
+C_DOM_HOUS_NO_WATER_Q_N,Private consumption - Housing excl. Water and Electricity,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,56630.214
+BI_PCT_GDP_BS_NO_STOCK_Q_FP_SA,GDP - Business Sector excl. stock - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.21166242885
+BI_PCT_G_CIV_W2NO_TAX_A_FP,General government expenditure - Pension - Quantity change,A,Annual,PT,Percent,0,Units,2025,-3.88763059335633
+X_NO_STARTUP_DIA_Q_FP_SA,Exports of goods and services - excl. startup and diamonds,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,134930.272
+BI_PCT_I_CAP_EQ_A_PR,Fixed capital formation - Machinery and equipment - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.08020701240964
+BI_PCT_G_CIV_DEP1_A_FP,Civilian General government expenditure - Government amortisation - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.64263982393518
+BI_PCT_X_SUB_GDS_Q_PR,Subsidies to exports of goods - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,46.2416603582821
+BI_PCT_M_TAX_GDS_CIV3_A_PR,V.A.T on civilian import of goods - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-1.57297426203118
+BI_PCT_X_NO_STARTUP_A_PR,Exports of goods and services - excl. startup - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.20026671949936
+BI_PCT_G_DEF_PUR_A_FP,General Government Consumption - Defence purchases - Quantity change,A,Annual,PT,Percent,0,Units,2021,-3.35723992311697
+BI_PCT_I_Q_FP_SA,Gross capital formation - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.1831542625254
+BI_PCT_M_NO_MDEF_DIA_Q_FP_SA,Imports excl. defence import, ships, aircrafts & diamond - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.52046489381499
+BI_PCT_M_NO_TAX_GDS_CIV_A_PR,Civilian Imports of goods - excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-6.07018905916376
+BI_PCT_GDP_BS_A_FC,GDP by Industries - Business sector - at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,4.2358891056526
+BI_PCT_I_CAP_BLD_Q_FP_SA,Building and others constuctuin works - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.76482992735048
+BI_PCT_X_GDS_NO_SUB_A_PR,Exports of goods - excl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.09437099911323
+BI_PCT_X_SUB_SER_Q_PR,Subsidies to exports of services - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-15.1742174910405
+BI_PCT_X_GDS_DIA_A_PR,Exports of goods - Diamonds - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-9.99112189091839
+BI_PCT_GDP_HOUS_Q_FC,GDP - Ownership of dwellings - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.667192358242663
+BI_PCT_G_CIV_DEP2_Q_PR,Civilian government consuption - Consumption of fixed capital - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.88098590964871
+BI_PCT_M_Q_FP,Imports of goods and services - Total - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.41591003072113
+BI_PCT_I_CAP_BLD21_Q_PR,Capital formation - buildings - Non-residential building - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.918526541765141
+X_NO_SUB_Q_FP_SA_ANNPCH,Exports of goods & services - excl. subsidies - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,26.62484547
+BI_PCT_M_FSA_Q_FP,Imports - Fuel, ships and aircrafts - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.67889946153026
+BI_PCT_X_A_FP,Exports of goods and services - Total - incl. subsidies - Quantity change,A,Annual,PT,Percent,0,Units,2025,8.10978999137852
+I_Q_N,Gross capital formation - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,135219.09
+I_CAP_TR1_Q_N,Fixed capital formation - Land and transport equipment,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,9404.268
+BI_PCT_C_DOM_SER_Q_FP_SA,Private consumption - Other services - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.51639073322054
+X_GDS_NO_DIA_Q_N,Exports of goods - excl. Diamonds,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,82973.202
+BI_PCT_C_NO_DUR_Q_FP_SA,Private consumption - excl. durables - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.43718290409867
+BI_PCT_G_CIV_DEP1_Q_FP,Civilian General government expenditure - Government amortisation - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.261690888223298
+BI_PCT_M_GDS_OTH_Q_FP,Imports of goods - excl. defence imports ,diamonds, fuel and ships - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.90138005242409
+BI_PCT_X_GDS_AGR_Q_FP_SA,Exports of goods - agriculture - incl. subsidy - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-8.37655787417217
+BI_PCT_X_SUB_Q_FP,Subsidies to exports - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.79210537801298
+BI_PCT_I_CAP_EQ_Q_PR,Fixed capital formation - Machinery and equipment - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-3.34969297595178
+X_GDS_NO_DIA_Q_FP_SA_ANNPCH,Exports of goods - excl. Diamonds - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,43.637406747
+BI_PCT_X_NO_SUB_Q_FP,Exports of goods & services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.65723996889687
+BI_PCT_I_CAP_IP_A_FP,Fixed capital formation - Intellectual property products - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.89165998167107
+BI_PCT_I_CAP_BLD2_A_PR,Fixed capital formation - Non-residential building - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.0539485099363
+GDP_Q_N,Gross domestic product,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,559279.744
+BI_PCT_C_Q_PR,Private consumption - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.3469382966067
+BI_PCT_G_DEF_SALE_Q_PR,General Government Consumption - Sale of defence products - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.631539546629689
+BI_PCT_I_CAP_NO_BLD1_Q_FP_SA,Fixed investment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.64870405195792
+BI_PCT_G_CIV_PUR_Q_FP,General government expenditure - Civilian purchases - Total (non-profit institutions and government) - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.2182100329764
+G_NO_MDEF_Q_N,General government expenditure - excl. defense imports,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,132818.431
+G_IND_Q_FP_SA,General government consumption - Individual,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,57312.802
+BI_PCT_M_DEF_NO_TAX_A_FP,Defence Imports - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.91942005585353
+BI_PCT_X_GDS_IND_Q_FP_SA,Exports of goods - Industry excl. diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,9.75559195815785
+BI_PCT_I_CAP_NO_TR2_Q_PR,Fixed capital formation - excl. aircraft, ships and change in stocks - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.458654923691948
+I_CAP_TR1_Q_FP_SA_ANNPCH,Fixed capital formation - Land and transport equipment - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-55.57410507
+BI_PCT_G_DEF_W1NO_TAX_A_FP,General Government Consumption - Defense wage payments excl. imputed to pensions - Quantity change,A,Annual,PT,Percent,0,Units,2025,-6.51062999994597
+BI_PCT_I_BR_NO_TR2_A_PR,Fixed investment excl. ships & aircrafts - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.789162956690559
+BI_PCT_G_Q_FP,General government expenditure - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.8190599854597
+BI_PCT_C_FIS_A_FP,Private consumption - by non-residents - Quantity change,A,Annual,PT,Percent,0,Units,2025,28.673170478365
+BI_PCT_GDP_Q_FP,Gross domestic product - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.98819001151351
+BI_PCT_G_A_FP,General government expenditure - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.81049999171741
+BI_PCT_X_SER_OTH_A_FP,Exports of other services - incl. subsidies- Quantity change,A,Annual,PT,Percent,0,Units,2025,4.76120001499936
+BI_PCT_I_CAP_EQ2_Q_FP,Fixed capital formation - Machinery and equipment  - domestic production - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-8.63064937156343
+M_NO_TAX_A_FP,Imports of goods & services - excl. taxes,A,Annual,ILS,New Israeli shekel,6,Millions,2025,456495.737
+BI_PCT_C_DOM_VEH_Q_PR,Private consumption - Passengers cars - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.03731875866585
+BI_PCT_GDP_HOUS_A_FC,GDP by Industries - Ownership of dwellings - at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,3.64361123600809
+C_DOM_CUR_Q_N,Domestic private consumption - Non-durables,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,220039.198
+BI_PCT_I_CAP_EQ1_Q_FP_SA,Fixed capital formation - Machinery and equipment - imported - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.83521223748642
+BI_PCT_GDP_BS_Q_PR,GDP - Business sector - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.320743582567573
+C_R_GDP_Q_N,Share of private consumption in GDP (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,47.081312854
+BI_PCT_X_SER_OTH_Q_FP,Exports of other services - incl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.37693007248325
+BI_PCT_GDP_Q_FP_SA,Gross domestic product - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.64049360942991
+BI_PCT_X_GDS_IND_A_FP,Exports of goods - Industry excl. diamonds - Quantity change,A,Annual,PT,Percent,0,Units,2025,11.9591799828244
+I_CAP_NO_TR2_Q_N,Fixed capital formation - excl. aircraft, ships and change in stocks,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,134188.902
+BI_PCT_I_CAP_EQTR_A_PR,Investment - Machinery and equipment - transport equipment - total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-1.65569858288597
+BI_PCT_M_TAX_GDS_CIV3_Q_PR,V.A.T on civilian import of goods - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.26596246744288
+I_R_GDP_BS_Q_FP_SA,Share of investment in principal industries in business product (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,32.834198745
+BI_PCT_C_DOM_DUR_Q_FP_SA,Private consumption - Durable goods - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.03984946523035
+BI_PCT_I_CAP_TR1_A_PR,Fixed capital formation - Land and transport equipment - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.748486482431931
+G_R_GDP_Q_FP,Share of public consumption in GDP (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,24.158673474
+BI_PCT_C_IS_A_PR,Private consumption - Israeli households - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.43824169829463
+BI_PCT_G_DEF_WAGE_Q_PR,General Government Consumption - Defense wage payments (incl. imputed to pensions and taxes) - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.71727791722645
+BI_PCT_C_DOM_Q_PR,Private consumption - Domestic consumption - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.3600353082319
+BI_PCT_C_DOM_HOUS0_A_FP,Private consumption - Housing - charging - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.9367100251561
+BI_PCT_X_GDS_DIA_Q_FP,Exports of goods - Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-64.1322314990678
+BI_PCT_I_CAP_EQ2_Q_PR,Fixed capital formation - Machinery and equipment  - domestic production - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.602162034922082
+BI_PCT_M_DEF_NO_TAX_A_PR,Defence Imports - excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.82398723090996
+I_CAP_BLD1_Q_N,Fixed capital formation - Residential building,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,35558.702
+BI_PCT_G_NO_MDEF_A_FP,General government expenditure - excl. defense imports - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.20115000665946
+BI_PCT_C_FIS_Q_FP_SA,Private consumption - by non-residents - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-37.7277656438532
+SAV_R_INCOME_Q_N,Share of gross national savings in total national income (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,24.569590062
+BI_PCT_G_DEF_W1NO_TAX_Q_PR,General Government Consumption - Defense wage payments excl. imputed to pensions - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.45658256752037
+BI_PCT_M_NO_TAX_GDS_CIV_Q_FP,Civilian Imports of goods - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.89814001540949
+BI_PCT_M_NO_TAX_SER_Q_FP_SA,Imports of services - Total - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.26024273673053
+BI_PCT_M_TAX_GDS_Q_PR,Tax on import of goods - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.9242427410237
+BI_PCT_X_SUB_A_PR,Subsidies to exports - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,17.3374430673595
+BI_PCT_M_CIV_A_FP,Civilian Imports of goods and services - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,9.22796999150133
+BI_PCT_C_DOM_FOOD_Q_FP,Private consumption - Food, tobacco and beverage - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.156790027222575
+BI_PCT_C_Q_FP,Private consumption - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.96064998242607
+BI_PCT_G_CIV_DEP2_Q_FP,Civilian government consuption - Consumption of fixed capital - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.370261982209397
+BI_PCT_G_DEF_WTAX_A_PR,General Government Consumption - Taxes on defense wage payments - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,7.3274986551336
+CLS11_GDP_G_I_Q_FC_SA_ANNPCH,GDP by Industries - Wholesale and retail trade, repair of motor vehicles, Accommodation and food service activities- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,26.830231654
+BI_PCT_M_A_FP,Imports of goods and services - Total - incl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.78288999590113
+BI_PCT_X_NO_SUB_Q_PR,Exports of goods & services - excl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-2.17998325352374
+G_PER_CAPITA_Q_FP,General government consumption - Total - per capita,Q,Quarterly,ILS,New Israeli shekel,0,Units,2026-Q1,10494.291086
+BI_PCT_USE_DOM_NO_MDEF_Q_FP,Domestic use of ressources - excl. direct defence imports - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.45203000422132
+C_DOM_HOUS_NO_WTR_Q_FP_SA_ANNPCH,Private consumption - Housing excl. Water and Electricity - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.9139942177
+BI_PCT_G_DEF_SALE_A_FP,General Government Consumption - Sale of defence products - Quantity change,A,Annual,PT,Percent,0,Units,2025,-4.91073683021009
+BI_PCT_M_GDS_OTH_A_FP,Imports of goods - excl. defence imports ,diamonds, fuel and ships - Quantity change,A,Annual,PT,Percent,0,Units,2025,5.33915000191876
+BI_PCT_M_GDS_DIA_Q_FP,Imports - Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,52.1290671762753
+BI_PCT_GDP_BS_NO_STOCK_A_FP,GDP - Business Sector excl. stock - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.18262999732162
+BI_PCT_C_PER_CAPITA_A_FP,Private consumption, per capita - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.29059097720903
+CLS11_GDP_K_L_M_N_Q_FC_SA,GDP by Industries - Financial and insurance activities, Real estate, Professional, scientific and tecnical, Administrative and support services- at basis price,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2021-Q1,54953.34
+BI_PCT_C_DOM_VEH_Q_FP_SA,Private consumption - Passengers cars - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.02152500840822
+BI_PCT_G_CIV_Q_PR,Civilian General government expenditure - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.96250192370029
+CLS11_GDP_A_Q_FC_SA_ANNPCH,GDP by Industries - Agriculture, forestry and fishing- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,14.534805228
+BI_PCT_I_CAP_BLD21_Q_FP,Capital formation - buildings - Non-residential building - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.98468997656174
+BI_PCT_C_NO_DUR_Q_FP,Private consumption - excl. durables - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.40013001112658
+BI_PCT_C_IAB_A_PR,Private consumption - by Israelis abroad - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-4.73871654960163
+BI_PCT_I_CAP_NO_TR2_Q_FP_SA,Fixed capital formation - excl. aircraft, ships and change in stocks - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.93610583601782
+BI_PCT_M_TAX_GDS_CIV1_A_FP,Tax on civilian import of goods - excl. V.A.T - Quantity change,A,Annual,PT,Percent,0,Units,2025,-7.46810000505912
+C_Q_FP_SA_ANNPCH,Private consumption - Total - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,14.603427227
+BI_PCT_CLS11_GDP_G_I_Q_FC_SA,GDP by Industries - Wholesale and retail trade, repair of motor vehicles, Accommodation and food service activities- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.12206602953187
+BI_PCT_GDP_PER_CAPITA_Q_FP_SA,GDP per capita - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.34212047635565
+BI_PCT_G_CIV_PUR_A_PR,General government expenditure - Civilian purchases - Total (non-profit institutions and government) - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,4.00519743632519
+BI_PCT_I_CAP_BLD1_A_PR,Fixed capital formation - Residential building - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.28487954360042
+BI_PCT_I_CAP_TR11_Q_PR,Investment - Transport equipment - Land and transport equipment - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.78526855585933
+BI_PCT_G_CIV_DEP_Q_PR,Civilian General government expenditure - Amortisation - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.12252979326322
+BI_PCT_C_DOM_DUR_A_PR,Private consumption - Durable goods - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.353192963995408
+BI_PCT_C_MALKAR_Q_FP,Private consumption - Non-profit institutions serving households - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.30612970581341
+BI_PCT_GDP_NO_STOCK_A_FP,GDP excl. change in stocks - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.65248000049192
+BI_PCT_G_CIV_DEP2_A_PR,Civilian government consuption - Consumption of fixed capital - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-2.22521968389865
+BI_PCT_C_FIS_Q_PR,Private consumption - by non-residents - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.54479826806773
+BI_PCT_C_IS_Q_FP,Private consumption - Israeli households - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.98256000450121
+BI_PCT_CLS11_GDP_F_Q_FC,GDP by Industries - Construction- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.56726505698122
+BI_PCT_GDP_Q_FC_SA,Gross domestic product - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.15801976958887
+BI_PCT_I_CAP_BLD22_A_FP,Capital formation - Buildings and other construction works - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.04637002559994
+BI_PCT_M_TAX_GDS_DEF2_A_PR,Projection on defence import - excl. V.A.T - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,30.2417113353037
+BI_PCT_M_DEF_NO_TAX_Q_FP,Defence Imports - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-5.13268076401985
+BI_PCT_GDP_Q_PR,Gross domestic product - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.22675842997742
+BI_PCT_G_DEF_A_PR,Defence General Government Consumption - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.47469252713695
+BI_PCT_GDP_HOUS_Q_FC_SA,GDP - Ownership of dwellings - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.667189990575934
+G_Q_FP_SA,General government expenditure - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,110790.208
+C_A_FP,Private consumption - Total,A,Annual,ILS,New Israeli shekel,6,Millions,2025,861297.512
+BI_PCT_C_IS_Q_PR,Private consumption - Israeli households - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.16244771299832
+BI_PCT_G_CIV_W2NO_TAX_A_PR,General government expenditure - Pension - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.86271198175307
+BI_PCT_C_DOM_HOUS0_Q_FP,Private consumption - Housing - charging - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.650000032747777
+BI_PCT_C_IAB_Q_FP_SA,Private consumption - by Israelis abroad - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-10.0964924823317
+BI_PCT_I_CAP_EQ2_A_PR,Fixed capital formation - Machinery and equipment  - domestic production - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-0.930642699091266
+BI_PCT_M_Q_PR,Imports of goods and services - Total - incl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.02543925868085
+BI_PCT_G_DEF_WTAX_Q_FP,General Government Consumption - Taxes on defense wage payments - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-14.7234170972859
+BI_PCT_X_NO_SUB_Q_FP_SA,Exports of goods & services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.07907689790477
+BI_PCT_GDP_A_FC,GDP by Industries - Whole economy - at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,3.64337220445954
+BI_PCT_M_SER2_Q_FP_SA,Imports of services - Tourism - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-9.53365309511649
+BI_PCT_G_DEF_PUR_Q_FP_SA,General Government Consumption - Defence purchases - Quantity change,Q,Quarterly,PT,Percent,0,Units,2022-Q1,-5.96404573484512
+BI_PCT_GDP_GOV_Q_FC,GDP - Services of general government - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.0542069397526
+BI_PCT_I_CAP_EQ_A_FP,Fixed capital formation - Machinery and equipment - Quantity change,A,Annual,PT,Percent,0,Units,2025,14.9358099980774
+BI_PCT_I_NO_STARTUP_A_FP,Gross capital formation excl. startup - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.19767999711818
+BI_PCT_X_GDS_IND_Q_FP,Exports of goods - Industry excl. diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,11.8625100548647
+BI_PCT_G_CIV_DEP_A_PR,Civilian General government expenditure - Amortisation - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.856807557271644
+BI_PCT_G_DEF_A_FP,Defence General Government Consumption - Quantity change,A,Annual,PT,Percent,0,Units,2025,-0.833769959209096
+BI_PCT_M_NO_TAX_Q_PR,Imports of goods & services - excl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.75925100884456
+BI_PCT_I_CAP_EQTR_Q_PR,Investment - Machinery and equipment - transport equipment - total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.148553976647636
+BI_PCT_I_CAP_TR1_Q_PR,Fixed capital formation - Land and transport equipment - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.15984273644537
+BI_PCT_X_SER_TOUR_NO_FRN_A_FP,Exports of services - Tourism - Quantity change,A,Annual,PT,Percent,0,Units,2025,28.9774402590143
+BI_PCT_G_A_PR,General government expenditure - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.56581648293253
+BI_PCT_C_DOM_FOOD_A_FP,Private consumption - Food, tobacco and beverage - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.14257002918232
+BI_PCT_C_DOM_DUR_Q_FP,Private consumption - Durable goods - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,11.404809810999
+BI_PCT_I_CAP_BLD1_Q_FP,Fixed capital formation - Residential building - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.36810998621988
+BI_PCT_I_CAP_EQ2_Q_FP_SA,Fixed capital formation - Machinery and equipment  - domestic production - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-7.40957618651041
+BI_PCT_G_CIV_A_PR,Civilian General government expenditure - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.60475912683977
+BI_PCT_X_GDS_Q_PR,Exports of goods - incl. subsidies - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.84099095983292
+BI_PCT_X_NO_SUB_A_PR,Exports of goods & services - excl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.10691082950669
+BI_PCT_X_GDS_DIA_A_FP,Exports of goods - Diamonds - Quantity change,A,Annual,PT,Percent,0,Units,2025,-11.1906296202694
+I_CAP_BLD2_Q_N,Fixed capital formation - Non-residential building,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,31965.028
+BI_PCT_G_CIV_DEP_Q_FP_SA,Civilian General government expenditure - Amortisation - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.292759403627252
+BI_PCT_X_A_PR,Exports of goods and services - Total - incl. subsidies - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.10002034083324
+BI_PCT_M_NO_TAX_GDS_CIV_A_FP,Civilian Imports of goods - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.85291001134502
+C_DOM_DUR_Q_FP_SA_ANNPCH,Private consumption - Durable goods - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,31.274985756
+X_Q_FP_SA,Exports of goods & services - incl. subsidies,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,140497.191212337
+BI_PCT_M_TAX_GDS_CIV3_A_FP,V.A.T on civilian import of goods - Quantity change,A,Annual,PT,Percent,0,Units,2025,0.197469968978559
+BI_PCT_C_DOM_HOUS0_Q_PR,Private consumption - Housing - charging - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.23144933911417
+BI_PCT_G_CIV_WAGE_A_PR,General Government Consumption - Civilian wage payments - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.73659873646892
+CHAINED_GDP_Q_FP,Gross domestic product - Linked data,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,449447.081
+BI_PCT_C_FIS_A_PR,Private consumption - by non-residents - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.19583397833061
+BI_PCT_I_CAP_BLD22_Q_FP,Capital formation - Buildings and other construction works - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,18.9362702330623
+BI_PCT_I_CAP_BLD21_A_PR,Capital formation - buildings - Non-residential building - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.98576008430946
+SAV_Q_N,Total gross national saving,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,130504.224
+BI_PCT_USE_DOM_NO_MDEF_A_PR,Domestic use of ressources - excl. direct defence imports - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.20542636412568
+BI_PCT_M_GDS_DIA_A_PR,Imports - Diamonds - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-11.3574463542573
+BI_PCT_G_DEF_SALE_Q_FP,General Government Consumption - Sale of defence products - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-50.8802811636875
+M_Q_FP_SA,Imports of goods & services - incl. taxes,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2020-Q3,99426.1846394253
+BI_PCT_GDP_BS_NO_STOCK_Q_FP,GDP - Business Sector excl. stock - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.69534998577341
+X_SER_NO_SUB_Q_N,Exports of services - excl. subsidies,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,79102.156
+BI_PCT_M_TAX_GDS_DEF2_Q_FP,Projection on defence import - excl. V.A.T - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,92.1363602601068
+BI_PCT_C_NO_DUR_A_FP,Private consumption - excl. durables - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.10473000495302
+GDP_HOUS_Q_FC_SA_ANNPCH,GDP by Industries - Ownership of dwellings - at basis price - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.6955875073
+BI_PCT_I_CAP_EQ_Q_FP,Fixed capital formation - Machinery and equipment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-3.46260977586341
+BI_PCT_G_CIV_Q_FP_SA,Civilian General government expenditure - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.32175323409782
+BI_PCT_M_TAX_GDS_CIV1_Q_FP,Tax on civilian import of goods - excl. V.A.T - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.1114105383722
+BI_PCT_C_IAB_Q_PR,Private consumption - by Israelis abroad - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.54165233204118
+BI_PCT_C_MALKAR_A_PR,Private consumption - Non-profit institutions serving households - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.37609953204321
+G_IND_PER_CAPITA_Q_FP,General government consumption - Individual - per capita,Q,Quarterly,ILS,New Israeli shekel,0,Units,2026-Q1,5536.3174492
+BI_PCT_M_NO_TAX_Q_FP_SA,Imports of goods & services - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.96211262115762
+BI_PCT_G_CIV_PUR_Q_PR,General government expenditure - Civilian purchases - Total (non-profit institutions and government) - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.835148972276611
+BI_PCT_I_CAP_TR1_Q_FP_SA,Fixed capital formation - Land and transport equipment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-18.358858880532
+BI_PCT_I_Q_FP,Gross capital formation - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.77548001713444
+C_DOM_SER_Q_N,Private consumption - Other services,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,92489.849
+BI_PCT_GDP_NO_STOCK_Q_FP,GDP excl. change in stocks - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.0330500082991
+BI_PCT_C_IS_A_FP,Private consumption - Israeli households,A,Annual,PT,Percent,0,Units,2025,2.9497999969772
+M_NO_MDEF_DIA_Q_FP_SA_ANNPCH,Imports excl. defence import, ships, aircrafts & diamond - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,23.978614745
+BI_PCT_G_DEF_PUR_Q_PR,General Government Consumption - Defence purchases - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2022-Q1,2.23462587917185
+BI_PCT_I_CAP_NO_BLD1_A_PR,Fixed investment - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.762536271813286
+BI_PCT_G_CIV_DEP1_Q_PR,Civilian General government expenditure - Government amortisation - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.461344172072131
+BI_PCT_I_CAP_EQTR_A_FP,Investment - Machinery and equipment - transport equipment - total - Quantity change,A,Annual,PT,Percent,0,Units,2025,10.4153299860205
+BI_PCT_M_DEF_A_PR,Civilian Imports - incl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-1.68034350887759
+I_CAP_BLD2_Q_FP_SA_ANNPCH,Fixed capital formation - Non-residential building - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,10.57473795
+BI_PCT_X_GDS_IND_A_PR,Exports of goods - Industry excl. diamonds - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.91136329852639
+BI_PCT_C_DOM_HOUS0_A_PR,Private consumption - Housing - charging - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.61758182687304
+BI_PCT_G_CIV_DEP_Q_FP,Civilian General government expenditure - Amortisation - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.292759403627252
+BI_PCT_M_NO_TAX_SER_A_PR,Imports of services - Total - excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-3.29529571456866
+CLS11_GDP_F_Q_FC_SA_ANNPCH,GDP by Industries - Construction- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,17.472598388
+BI_PCT_CLS11_GDP_A_Q_FC,GDP by Industries - Agriculture, forestry and fishing- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.94008013162635
+BI_PCT_X_GDS_NO_DIA_A_FP,Exports of goods - excl. Diamonds - Quantity change,A,Annual,PT,Percent,0,Units,2025,11.9672699780093
+BI_PCT_X_Q_FP,Exports of goods and services - Total - incl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,7.65573000122599
+BI_PCT_GDP_PF_TAB_A_FP,GDP - Factor payments abroad - Quantity change,A,Annual,PT,Percent,0,Units,2023,6.14385989776158
+BI_PCT_I_Q_PR,Gross capital formation - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.030341842620707
+BI_PCT_G_DEF_WTAX_A_FP,General Government Consumption - Taxes on defense wage payments - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.01205860229561
+BI_PCT_GDP_PF_FAB_Q_FP,GDP - Factor payments from abroad - Quantity change,Q,Quarterly,PT,Percent,0,Units,2024-Q3,4.94518995026414
+BI_PCT_X_SUB_Q_PR,Subsidies to exports - Total - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,29.930173417515
+BI_PCT_I_CAP_TR1_A_FP,Fixed capital formation - Land and transport equipment - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.61300005324885
+GDP_PER_HA_BS_Q_SA,Labor productivity (GDP per hour of work in the business sector),Q,Quarterly,I_Q1_06_L,Index, Q1 2006=100,0,Units,2026-Q2,227.121
+BI_PCT_GDP_BS_NO_STOCK_Q_PR,GDP - Business Sector excl. stock - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.480455053374351
+BI_PCT_I_CAP_NO_TR2_Q_FP,Fixed capital formation - excl. aircraft, ships and change in stocks - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.8772599983977
+GDP_BS_Q_FP_SA,GDP - Business sector,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,344886.738
+BI_PCT_X_SER_NO_SUB_Q_FP_SA,Exports of services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.51722431959194
+BI_PCT_CLS11_GDP_F_Q_FC_SA,GDP by Industries - Construction- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.10800967524798
+BI_PCT_M_GDS_DIA_Q_FP_SA,Imports - Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,32.9947374104509
+BI_PCT_G_NO_MDEF_A_PR,General government expenditure - excl. defense imports - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.7038635080993
+BI_PCT_M_DEF_Q_FP_SA,Civilian Imports - incl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.33275068462042
+BI_PCT_M_CIV_A_PR,Civilian Imports of goods and services - excl. taxes - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-5.04188543448463
+G_CIV_Q_FP_SA_ANNPCH,Civilian General government expenditure - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,18.440301517
+BI_PCT_C_IS_Q_FP_SA,Private consumption - Israeli households - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.40716213521595
+BI_PCT_I_CAP_IP_A_PR,Fixed capital formation - Intellectual property products - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.76643611585843
+BI_PCT_CLS11_GDP_R_S_Q_FC,GDP by Industries - Education, Arts, entertainment and recreation, Other service activities, Activities of households as employers - at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2021-Q1,-7.56969900362614
+BI_PCT_X_SUB_A_FP,Subsidies to exports - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,-0.895667022223601
+BI_PCT_I_CAP_BLD2_Q_FP_SA,Fixed capital formation - Non-residential building - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.54488246411413
+BI_PCT_C_A_PR,Private consumption - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.43623750217905
+BI_PCT_G_CIV_WTAX_Q_FP,General Government Consumption - V.A.T on civilian salaries - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.50764008015512
+BI_PCT_CLS11_GDP_B_C_A_FC,GDP by Industries - Agriculture, forestry and fishing- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,15.1247514722403
+I_CAP_EQ_Q_N,Fixed capital formation - Machinery and equipment,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,17184.213
+BI_PCT_C_NO_DUR_Q_PR,Private consumption - excl. durables - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.45524987395538
+BI_PCT_G_CIV_PUR_Q_FP_SA,General government expenditure - Civilian purchases - Total (non-profit institutions and government) - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.42026342063437
+BI_PCT_C_MALKAR_A_FP,Private consumption - Non-profit institutions serving households - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.02405011716726
+BI_PCT_CLS11_GDP_K_L_M_N_Q_FC_SA,GDP by Industries - Financial and insurance activities, Real estate, Professional, scientific and tecnical, Administrative and support services- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2021-Q1,0.149544525867928
+CHAINED_GDP_Q_FP_SA,Gross domestic product - Linked data,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,457963.6592
+BI_PCT_I_CAP_BLD22_A_PR,Capital formation - Buildings and other construction works - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.16201216565415
+G_Q_N,General government expenditure - Total,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,137341.115
+BI_PCT_X_GDS_NO_SUB_Q_FP_SA,Exports of goods - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.31408045280262
+BI_PCT_GDP_NO_STARTUP_A_FP,GDP excl. Startup - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.53081999760629
+BI_PCT_I_CAP_BLD_A_PR,Building and others constuctuin works - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.17492845164799
+BI_PCT_X_SUB_SER_A_FP,Subsidies to exports of services - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,5.98578278912698
+CHAINED_GDP_A_N,Gross domestic product - Linked data,A,Annual,ILS,New Israeli shekel,6,Millions,2025,2128300.2182
+BI_PCT_CLS11_GDP_G_I_Q_FC,GDP by Industries - Wholesale and retail trade, repair of motor vehicles, Accommodation and food service activities- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.14075442992534
+BI_PCT_CLS11_GDP_B_C_NO_34_A_FC,GDP by Industries - Manufacturing, mining and quarrying excluding diamonds- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,15.1197965028613
+BI_PCT_CLS11_GDP_D_E_Q_FC,GDP by Industries - Electricity and water supply, sewerage, waste management- at basis price - quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,11.4217766016075
+BI_PCT_I_CAP_EQ1_Q_FP,Fixed capital formation - Machinery and equipment - imported - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-0.338999872625678
+CLS11_GDP_K_L_M_N_Q_FC_SA_ANNPCH,GDP by Industries - Financial and insurance activities, Real estate, Professional, scientific and tecnical, Administrative and support services- at basis price - rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2021-Q1,0.5995212556
+G_Q_FP_SA_ANNPCH,General government expenditure - Total - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,22.359013058
+BI_PCT_G_DEF_WAGE_Q_FP,General Government Consumption - Defense wage payments (incl. imputed to pensions and taxes) - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.78203036032592
+BI_PCT_GDP_BS_Q_FP,GDP - Business sector - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.63245001549775
+BI_PCT_C_Q_FP_SA,Private consumption - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.46641463677808
+G_A_FP,General government expenditure - Total,A,Annual,ILS,New Israeli shekel,6,Millions,2025,429585.411
+BI_PCT_M_TAX_GDS_CIV1_Q_PR,Tax on civilian import of goods - excl. V.A.T - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,11.6142670930055
+BI_PCT_X_NO_DIA_A_FP,Exports of goods and services - excl. diamonds - Quantity change,A,Annual,PT,Percent,0,Units,2025,8.41330999329397
+BI_PCT_I_CAP_EQTR_Q_FP,Investment - Machinery and equipment - transport equipment - total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.93981013670745
+I_CAP_NO_TR2_Q_FP_SA_ANNPCH,Fixed capital formation - excl. aircraft, ships and change in stocks - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.7973276584
+BI_PCT_C_IAB_A_FP,Private consumption - by Israelis abroad - Quantity change,A,Annual,PT,Percent,0,Units,2025,26.9808201095572
+BI_PCT_M_NO_TAX_SER_Q_PR,Imports of services - Total - excl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.6996669977953
+BI_PCT_I_CAP_Q_PR,Gross domestic fixed capital formation - excl. change in stock - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.453069257628824
+BI_PCT_C_DOM_SER_Q_PR,Private consumption - Other services - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.17661135179739
+BI_PCT_X_GDS_NO_DIA_Q_FP,Exports of goods - excl. Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,10.1006900240129
+BI_PCT_C_DOM_DUR_Q_PR,Private consumption - Durable goods - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.086918896531252
+BI_PCT_X_NO_STARTUP_Q_FP_SA,Exports of goods and services - excl. startup - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.17434874943297
+BI_PCT_CLS11_GDP_G_I_A_FC,GDP by Industries - Wholesale and retail trade, repair of motor vehicles, Accommodation and food service activities- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,0.105341710092977
+BI_PCT_USE_A_PR,Use of ressources - Total - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,0.9211474608811
+BI_PCT_I_CAP_NO_BLD1_Q_PR,Fixed investment - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.276303174746495
+BI_PCT_GDP_HOUS_A_PR,GDP - Ownership of dwellings - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.92437401832422
+BI_PCT_G_NO_MDEF_Q_FP,General government expenditure - excl. defense imports - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.45171003698614
+BI_PCT_CLS11_GDP_K_L_M_N_A_FC,GDP by Industries - Financial and insurance activities, Real estate, Professional, scientific and tecnical, Administrative and support services- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,0.415056139230728
+BI_PCT_I_CAP_BLD22_Q_PR,Capital formation - Buildings and other construction works - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.22543668800035
+BI_PCT_X_GDS_DIA_Q_FP_SA,Exports of goods - Diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-52.0444393154937
+BI_PCT_I_CAP_NO_TR2_A_FP,Fixed capital formation - excl. aircraft, ships and change in stocks - Quantity change,A,Annual,PT,Percent,0,Units,2025,7.79794999775369
+C_DOM_CUR_A_FP_PCH,Domestic private consumption - Non-durables - Percent change,A,Annual,PT,Percent,0,Units,2025,3.4100300015
+BI_PCT_M_TAX_GDS_CIV1_A_PR,Tax on civilian import of goods - excl. V.A.T - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.13454086786404
+BI_PCT_G_DEF_WAGE_A_PR,General Government Consumption - Defense wage payments (incl. imputed to pensions and taxes) - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,4.66870751905686
+BI_PCT_X_SER_OTH_NO_SUB_Q_FP,Exports of other services - excl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.37668999155563
+G_DEF_Q_FP_SA_ANNPCH,Defence General Government Consumption - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,20.368882996
+BI_PCT_GDP_PF_FAB_A_FP,GDP - Factor payments from abroad - Quantity change,A,Annual,PT,Percent,0,Units,2023,6.33586001696032
+BI_PCT_G_CIV_W1NO_TAX_A_FP,General government expenditure - compensation of employees excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.58473999675632
+BI_PCT_I_CAP_TR1_Q_FP,Fixed capital formation - Land and transport equipment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.22553959322791
+BI_PCT_G_DEF_Q_FP,Defence General Government Consumption - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,2.09097989474014
+I_CAP_BLD_R_GDP_BS_Q_FP_SA,Share of building and others constuctuin works in business product (%),Q,Quarterly,PT,Percent,0,Units,2026-Q2,15.774803727
+BI_PCT_GDP_BS_NO_STOCK_A_PR,GDP - Business Sector excl. stock - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.40408853300376
+BI_PCT_CLS11_GDP_F_A_FC,GDP by Industries - Construction- at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,10.580388179296
+M_NO_TAX_SER_Q_FP_SA_ANNPCH,Imports of services - Total - excl. taxes - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.1370713382
+BI_PCT_G_CIV_A_FP,Civilian General government expenditure - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.98412998511528
+BI_PCT_X_GDS_IND_Q_PR,Exports of goods - Industry excl. diamonds - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.88114929203067
+BI_PCT_I_CAP_EQ_Q_FP_SA,Fixed capital formation - Machinery and equipment - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.65828079075467
+BI_PCT_G_CIV_Q_FP,Civilian General government expenditure - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.13936994034907
+BI_PCT_GDP_BS_Q_FC,GDP - Business sector - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,4.70501950402411
+BI_PCT_M_DEF_FOB_A_FP,Defence Imports - Total - f.o.b. - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.91469990543865
+BI_PCT_USE_Q_FP_SA,Use of ressources - Total - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,5.94954546369853
+BI_PCT_M_NO_TAX_GDS_CIV_Q_FP_SA,Civilian Imports of goods - excl. taxes - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.245056034934
+GDP_BS_Q_N,GDP - Business sector,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,411185.8
+BI_PCT_I_CAP_BLD21_A_FP,Capital formation - buildings - Non-residential building - Quantity change,A,Annual,PT,Percent,0,Units,2025,1.24154002941086
+I_CAP_EQ_Q_FP_SA_ANNPCH,Fixed capital formation - Machinery and equipment - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-6.469952493
+BI_PCT_I_CAP_EQ1_A_FP,Fixed capital formation - Machinery and equipment - imported - Quantity change,A,Annual,PT,Percent,0,Units,2025,18.3230801178213
+BI_PCT_GDP_GOV_Q_FC_SA,GDP - Services of general government - at basis price - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.71904282400009
+BI_PCT_M_SER2_A_FP,Imports of services - Tourism - incl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,26.9808200681955
+BI_PCT_USE_DOM_NO_MDEF_A_FP,Domestic use of ressources - excl. direct defence imports - Quantity change,A,Annual,PT,Percent,0,Units,2025,3.61781000214265
+BI_PCT_M_TAX_GDS_DEF1_A_FP,V.A.T on defence import - Quantity change,A,Annual,PT,Percent,0,Units,2025,4.50899023335387
+BI_PCT_GDP_HOUS_Q_PR,GDP - Ownership of dwellings - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,1.09501380580137
+BI_PCT_G_CIV_WTAX_A_PR,General Government Consumption - V.A.T on civilian salaries - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,1.84307928189347
+BI_PCT_I_CAP_BLD1_Q_PR,Fixed capital formation - Residential building - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.889706056728334
+BI_PCT_M_SER1_Q_PR,Imports of services - excl. tourism - incl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.73686190208629
+BI_PCT_X_GDS_Q_FP,Exports of goods - incl. subsidies - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,8.57205005258042
+BI_PCT_GDP_GOV_Q_FP_SA,GDP - Services of general government - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.71904267734839
+BI_PCT_I_CAP_BLD_Q_PR,Building and others constuctuin works - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,0.958677514899642
+BI_PCT_X_SER_NO_SUB_A_FP,Exports of services - excl. subsidies - Quantity change,A,Annual,PT,Percent,0,Units,2025,5.36891000138282
+GDP_PER_CAPITA$_PPP_ANNUAL_TERMS_Q_N,GDP per capita - purchasing power parity basis - annual terms,Q,Quarterly,PU,US dollar, converted using purchasing power parities,3,Thousands,2026-Q1,61.0604737709568
+BI_PCT_X_NO_DIA_Q_FP_SA,Exports of goods and services - excl. diamonds - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,6.08015282746015
+BI_PCT_X_SUB_GDS_A_FP,Subsidies to exports of goods - Total - Quantity change,A,Annual,PT,Percent,0,Units,2025,-1.7765550056329
+BI_PCT_C_IAB_Q_FP,Private consumption - by Israelis abroad - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,19.3453793521871
+BI_PCT_C_DOM_SER_A_PR,Private consumption - Other services - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,3.97491884490728
+BI_PCT_M_DEF_NO_TAX_Q_PR,Defence Imports - excl. taxes - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-4.145745712788
+M_NO_MDEF_DIA_Q_FP_SA,Imports excl. defence import, ships, aircrafts & diamond,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,125003.625
+BI_PCT_C_NO_DUR_A_PR,Private consumption - excl. durables - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,2.58904082897582
+BI_PCT_X_GDS_AGR_A_PR,Exports of goods - agriculture - incl. subsidy - Derived Price - Percent change,A,Annual,PT,Percent,0,Units,2025,-5.26831925855453
+BI_PCT_M_GDS_DIA_A_FP,Imports - Diamonds - Quantity change,A,Annual,PT,Percent,0,Units,2025,-8.27885034816617
+BI_PCT_M_NO_TAX_A_FP,Imports of goods & services - excl. taxes - Quantity change,A,Annual,PT,Percent,0,Units,2025,9.00994000193764
+GDP_BS_Q_FC_SA_ANNPCH,GDP by Industries - Business sector - at basis price - Rate of change in annual terms,Q,Quarterly,PT,Percent,0,Units,2026-Q2,16.848048809
+BI_PCT_C_PER_CAPITA_Q_FP_SA,Private consumption, per capita - Quantity change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,3.16857381024551
+BI_PCT_M_NO_MDEF_DIA_Q_PR,Imports excl. defence import, ships, aircrafts & diamond - Derived Price - Percent change,Q,Quarterly,PT,Percent,0,Units,2026-Q2,-1.49717962020748
+M_NO_TAX_SER_Q_N,Imports of services - Total - excl. taxes,Q,Quarterly,ILS,New Israeli shekel,6,Millions,2026-Q2,49010.781
+BI_PCT_CLS11_GDP_R_S_A_FC,GDP by Industries - Education, Arts, entertainment and recreation, Other service activities, Activities of households as employers - at basis price - quantity change,A,Annual,PT,Percent,0,Units,2025,3.10026898630744
+BI_PCT_G_CIV_DEP_A_FP,Civilian General government expenditure - Amortisation - Quantity change,A,Annual,PT,Percent,0,Units,2025,2.88069988891959

@@ -1,0 +1,88 @@
+SERIES_CODE,Series name,FREQ,Frequency,COMP_NAME,Comp name,UNIT_MEASURE,Unit of Measure,UNIT_MULT,Unit multiplier,TIME_PERIOD,OBS_VALUE
+DWH_SRC_0299_MA,Yield spread between the nominal Tel Bond Index and unindexed, fixed rate government bonds, monthly average,M,Monthly,I710,מדד  תלבונד שיקלי,PT,Percent,0,Units,2026-10,1.4502591995
+DWH_SRC_0343,Makam yield for 4 months, gross,D,Daily,BS106,Makam curve - maturity in month 4,PT,Percent,0,Units,2026-11-11,3.0516815185547
+DWH_SRC_0341,Makam yield for 2 months, gross,D,Daily,BS104,Makam curve - maturity in month 2,PT,Percent,0,Units,2026-11-11,3.0383491516114
+DWH_SRC_0348,Makam yield for 9 months, gross,D,Daily,BS111,Makam curve - maturity in month 9,PT,Percent,0,Units,2026-11-11,3.1404924392701
+DWH_SRC_0347,Makam yield for 8 months, gross,D,Daily,BS110,Makam curve - maturity in month 8,PT,Percent,0,Units,2026-11-11,3.1278824806214
+DWH_SRC_0351,1-year makam yield, gross,D,Daily,BS114,Makam curve - maturity in month 12,PT,Percent,0,Units,2026-11-11,3.1177020072938
+DWH_SRC_0344,Makam yield for 5 months, gross,D,Daily,BS107,Makam curve - maturity in month 5,PT,Percent,0,Units,2026-11-11,3.0380773544313
+DWH_SRC_0322_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 23 years (monthly average),M,Monthly,BS169,Indexed govt. bonds, fixed interest - 23 years,PT,Percent,0,Units,2022-11,0.8457526588
+DWH_SRC_0324_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 25 years (monthly average),M,Monthly,BS171,CPI-indexed government bond yield curve - maturity in 25 years,PT,Percent,0,Units,2026-10,2.6012459286
+DWH_SRC_0351_MA,1-year makam yield, gross - monthly average,M,Monthly,BS114,Makam curve - maturity in month 12,PT,Percent,0,Units,2026-10,3.1258780115
+DWH_SRC_0346_MA,Makam yield for 7 months, gross - monthly average,M,Monthly,BS109,Makam curve - maturity in month 7,PT,Percent,0,Units,2026-10,3.080641052
+DWH_SRC_0314_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 15 years (monthly average),M,Monthly,BS161,עקום תשואות ממשלתית צמוד - פדיון 15 שנים,PT,Percent,0,Units,2026-10,2.3312536143
+DWH_SRC_0350,Makam yield for 11 months, gross,D,Daily,BS113,Makam curve - maturity in month 11,PT,Percent,0,Units,2026-11-11,3.1228539507693
+DWH_SRC_0312_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 13 years (monthly average),M,Monthly,BS159,Indexed govt. bonds, fixed interest - 13 years,PT,Percent,0,Units,2023-10,1.752137843
+DWH_SRC_0438_MA_T,Coporate bonds - banks branch - nominal - spread, monthly average,M,Monthly,BS1096,שקלי - בנקים - כל החברות,PD,Percentage points,0,Units,2026-10,0.5858223685
+DWH_SRC_0345_MA,Makam yield for 6 months, gross - monthly average,M,Monthly,BS108,Makam curve - maturity in month 6,PT,Percent,0,Units,2026-10,2.9864424467
+DWH_SRC_0342,Makam yield for 3 months, gross,D,Daily,BS105,Makam curve - maturity in month 3,PT,Percent,0,Units,2026-11-11,3.0916881561281
+DWH_SRC_0349,Makam yield for 10 months, gross,D,Daily,BS112,Makam curve - maturity in month 10,PT,Percent,0,Units,2026-11-06,3.1503295898438
+DWH_SRC_0303_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 4 years (monthly average),M,Monthly,BS150,Indexed govt. bonds, fixed interest - 4 years,PT,Percent,0,Units,2026-10,1.9160428643
+DWH_SRC_0359_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -8 years (monthly average),M,Monthly,BS123,Non indexed govt. bonds, fixed interest -8 years,PT,Percent,0,Units,2026-10,4.0927719399
+DWH_SRC_0340,Makam yield for 1-month, gross,D,Daily,BS103,Makam curve - maturity in month 1,PT,Percent,0,Units,2026-11-11,2.9654693603516
+DWH_SRC_0498_MA_T,Coporate bonds - real-estate branch - nominal - spread, monthly average,M,Monthly,BS1006,שקלי - נדל"ן ובינוי - כל החברות,PD,Percentage points,0,Units,2026-10,3.0777348205
+DWH_SRC_0301_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 2 years (monthly average),M,Monthly,BS148,Indexed govt. bonds, fixed interest - 2 years,PT,Percent,0,Units,2026-10,1.5174718499
+DWH_SRC_0302_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 3 years (monthly average),M,Monthly,BS149,Indexed govt. bonds, fixed interest - 3 years,PT,Percent,0,Units,2026-10,1.6224669516
+DWH_SRC_0344_MA,Makam yield for 5 months, gross - monthly average,M,Monthly,BS107,Makam curve - maturity in month 5,PT,Percent,0,Units,2026-10,3.0147190521
+DWH_SRC_0316_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 17 years (monthly average),M,Monthly,BS163,עקום תשואות ממשלתית צמוד - פדיון 17 שנים,PT,Percent,0,Units,2025-02,1.9539898336
+DWH_SRC_0343_MA,Makam yield for 4 months, gross - monthly average,M,Monthly,BS106,Makam curve - maturity in month 4,PT,Percent,0,Units,2026-10,3.072969282
+DWH_SRC_0357_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -6 years (monthly average),M,Monthly,BS121,Non indexed govt. bonds, fixed interest -6 years,PT,Percent,0,Units,2026-10,3.889139697
+DWH_SRC_0379_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -28 years (monthly average),M,Monthly,BS143,Non indexed govt. bonds, fixed interest -28 years,PT,Percent,0,Units,2025-04,4.8513115719
+DWH_SRC_0315_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 16 years (monthly average),M,Monthly,BS162,עקום תשואות ממשלתית צמוד - פדיון 16 שנים,PT,Percent,0,Units,2026-02,1.9003871493
+DWH_SRC_0320_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 21 years (monthly average),M,Monthly,BS167,עקום תשואות ממשלתית צמוד - פדיון 21 שנים,PT,Percent,0,Units,2024-10,2.3135385662
+DWH_SRC_0353_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -2 years (monthly average),M,Monthly,BS117,Non indexed govt. bonds, fixed interest -2 years,PT,Percent,0,Units,2026-10,3.4604033879
+DWH_SRC_0317_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 18 years (monthly average),M,Monthly,BS164,עקום תשואות ממשלתית צמוד - פדיון 18 שנים,PT,Percent,0,Units,2024-02,1.762433257
+DWH_SRC_0366_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -15 years (monthly average),M,Monthly,BS130,Non indexed govt. bonds, fixed interest -15 years,PT,Percent,0,Units,2026-10,4.3800531849
+DWH_SRC_0319_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 20 years (monthly average),M,Monthly,BS166,עקום תשואות ממשלתית צמוד - פדיון 20 שנים,PT,Percent,0,Units,2025-10,1.9334498094
+DWH_SRC_0340_MA,Makam yield for 1-month, gross - monthly average,M,Monthly,BS103,Makam curve - maturity in month 1,PT,Percent,0,Units,2026-10,3.2509183884
+DWH_SRC_0342_MA,Makam yield for 3 months, gross - monthly average,M,Monthly,BS105,Makam curve - maturity in month 3,PT,Percent,0,Units,2026-10,3.0737607619
+DWH_SRC_0346,Makam yield for 7 months, gross,D,Daily,BS109,Makam curve - maturity in month 7,PT,Percent,0,Units,2026-11-11,3.1087756156923
+DWH_SRC_0345,Makam yield for 6 months, gross,D,Daily,BS108,Makam curve - maturity in month 6,PT,Percent,0,Units,2026-11-11,3.1113576889039
+DWH_SRC_0318_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 19 years (monthly average),M,Monthly,BS165,עקום תשואות ממשלתית צמוד - פדיון 19 שנים,PT,Percent,0,Units,2026-10,2.4716057442
+DWH_SRC_0355_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -4 years (monthly average),M,Monthly,BS119,Non indexed govt. bonds, fixed interest -4 years,PT,Percent,0,Units,2026-10,3.7469145358
+DWH_SRC_0381_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -30 years (monthly average),M,Monthly,BS145,Non indexed govt. bonds, fixed interest -30 years,PT,Percent,0,Units,2023-05,4.2353827371
+DWH_SRC_0368_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -17 years (monthly average),M,Monthly,BS132,Non indexed govt. bonds, fixed interest -17 years,PT,Percent,0,Units,2025-07,4.420923189
+DWH_SRC_0370_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -19 years (monthly average),M,Monthly,BS134,עקום תשואות ממשלתית שקלית - פדיון 19 שנים,PT,Percent,0,Units,2023-07,3.9844005413
+DWH_SRC_0371_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -20 years (monthly average),M,Monthly,BS135,עקום תשואות ממשלתית שקלית - פדיון 20 שנים,PT,Percent,0,Units,2026-10,4.5593987405
+DWH_SRC_0369_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -18 years (monthly average),M,Monthly,BS133,עקום תשואות ממשלתית שקלית - פדיון 18 שנים,PT,Percent,0,Units,2024-07,5.1482114001
+DWH_SRC_0373_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -22 years (monthly average),M,Monthly,BS137,עקום תשואות ממשלתית שקלית - פדיון 22 שנים,PT,Percent,0,Units,2025-08,4.5694683269
+DWH_SRC_0329_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 30 years (monthly average),M,Monthly,BS176,Indexed govt. bonds, fixed interest - 30 years,PT,Percent,0,Units,2026-09,2.4992707454
+DWH_SRC_0372_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -21 years (monthly average),M,Monthly,BS136,עקום תשואות ממשלתית שקלית - פדיון 21 שנים,PT,Percent,0,Units,2026-08,4.221242127
+DWH_SRC_0325_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 26 years (monthly average),M,Monthly,BS172,Indexed govt. bonds, fixed interest - 26 years,PT,Percent,0,Units,2026-05,2.3243133332
+DWH_SRC_0321_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 22 years (monthly average),M,Monthly,BS168,Indexed govt. bonds, fixed interest - 22 years,PT,Percent,0,Units,2023-11,2.0251344585
+DWH_SRC_0376_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -25 years (monthly average),M,Monthly,BS140,עקום תשואות ממשלתית שקלית - פדיון 25 שנים,PT,Percent,0,Units,2022-09,3.5375976306
+DWH_SRC_0323_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 24 years (monthly average),M,Monthly,BS170,Indexed govt. bonds, fixed interest - 24 years,PT,Percent,0,Units,2021-11,-0.099257048
+DWH_SRC_0364_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -13 years (monthly average),M,Monthly,BS128,Non indexed govt. bonds, fixed interest -13 years,PT,Percent,0,Units,2024-10,5.086876338
+DWH_SRC_0377_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -26 years (monthly average),M,Monthly,BS141,עקום תשואות ממשלתית שקלית - פדיון 26 שנים,PT,Percent,0,Units,2026-10,4.7050801888
+DWH_SRC_0300_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 1 years (monthly average),M,Monthly,BS147,Indexed govt. bonds, fixed interest - 1 years,PT,Percent,0,Units,2026-10,1.3390363455
+DWH_SRC_0363_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -12 years (monthly average),M,Monthly,BS127,עקום תשואות ממשלתית שקלית - פדיון 12 שנים,PT,Percent,0,Units,2025-10,4.0372338519
+DWH_SRC_0374_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -23 years (monthly average),M,Monthly,BS138,עקום תשואות ממשלתית שקלית - פדיון 23 שנים,PT,Percent,0,Units,2024-08,5.1399428397
+DWH_SRC_0362_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -11 years (monthly average),M,Monthly,BS126,Non indexed govt. bonds, fixed interest -11 years,PT,Percent,0,Units,2026-10,4.2534051687
+DWH_SRC_0375_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -24 years (monthly average),M,Monthly,BS139,עקום תשואות ממשלתית שקלית - פדיון 24 שנים,PT,Percent,0,Units,2023-08,4.2259295496
+DWH_SRC_0341_MA,Makam yield for 2 months, gross - monthly average,M,Monthly,BS104,Makam curve - maturity in month 2,PT,Percent,0,Units,2026-10,3.0733160973
+DWH_SRC_0361_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -10 years (monthly average),M,Monthly,BS125,Nominal government bond yield curve - maturity in 10 years,PT,Percent,0,Units,2026-04,3.9847043622
+DWH_SRC_0313_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 14 years (monthly average),M,Monthly,BS160,Indexed govt. bonds, fixed interest - 14 years,PT,Percent,0,Units,2022-11,0.621551287
+DWH_SRC_0304_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 5 years (monthly average),M,Monthly,BS151,Indexed govt. bonds, fixed interest - 5 years,PT,Percent,0,Units,2026-10,1.9315973624
+DWH_SRC_0307_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 8 years (monthly average),M,Monthly,BS154,Indexed govt. bonds, fixed interest - 8 years,PT,Percent,0,Units,2026-04,2.0916268509
+DWH_SRC_0360_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -9 years (monthly average),M,Monthly,BS124,Non indexed govt. bonds, fixed interest -9 years,PT,Percent,0,Units,2026-10,4.133023046
+DWH_SRC_0305_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 6 years (monthly average),M,Monthly,BS152,Indexed govt. bonds, fixed interest - 6 years,PT,Percent,0,Units,2026-05,1.7773825871
+DWH_SRC_0380_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -29 years (monthly average),M,Monthly,BS144,Non indexed govt. bonds, fixed interest -29 years,PT,Percent,0,Units,2024-04,5.1148053755
+DWH_SRC_0311_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 12 years (monthly average),M,Monthly,BS158,Indexed govt. bonds, fixed interest - 12 years,PT,Percent,0,Units,2024-10,2.2189094696
+DWH_SRC_0310_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 11 years (monthly average),M,Monthly,BS157,Indexed govt. bonds, fixed interest - 11 years,PT,Percent,0,Units,2026-10,2.2881656811
+DWH_SRC_0347_MA,Makam yield for 8 months, gross - monthly average,M,Monthly,BS110,Makam curve - maturity in month 8,PT,Percent,0,Units,2026-10,3.1110146286
+DWH_SRC_0352_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -1 years (monthly average),M,Monthly,BS116,Non indexed govt. bonds, fixed interest -1 years,PT,Percent,0,Units,2026-10,3.0463144072
+DWH_SRC_0306_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 7 years (monthly average),M,Monthly,BS153,Indexed govt. bonds, fixed interest - 7 years,PT,Percent,0,Units,2026-10,2.0229378417
+DWH_SRC_0358_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -7 years (monthly average),M,Monthly,BS122,Non indexed govt. bonds, fixed interest -7 years,PT,Percent,0,Units,2025-09,4.0577267816
+DWH_SRC_0378_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -27 years (monthly average),M,Monthly,BS142,עקום תשואות ממשלתית שקלית - פדיון 27 שנים,PT,Percent,0,Units,2026-04,4.5161192119
+DWH_SRC_0349_MA,Makam yield for 10 months, gross - monthly average,M,Monthly,BS112,Makam curve - maturity in month 10,PT,Percent,0,Units,2026-10,3.1141675439
+DWH_SRC_0348_MA,Makam yield for 9 months, gross - monthly average,M,Monthly,BS111,Makam curve - maturity in month 9,PT,Percent,0,Units,2026-10,3.1029477119
+DWH_SRC_0365_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -14 years (monthly average),M,Monthly,BS129,Non indexed govt. bonds, fixed interest -14 years,PT,Percent,0,Units,2023-11,4.6074928546
+DWH_SRC_0354_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -3 years (monthly average),M,Monthly,BS118,Nominal government bond yield curve - maturity in 3 years,PT,Percent,0,Units,2026-10,3.6920937921
+DWH_SRC_0350_MA,Makam yield for 11 months, gross - monthly average,M,Monthly,BS113,Makam curve - maturity in month 11,PT,Percent,0,Units,2026-10,3.109551598
+DWH_SRC_0326_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 27 years (monthly average),M,Monthly,BS173,עקום תשואות ממשלתית צמוד - פדיון 27 שנים,PT,Percent,0,Units,2025-04,2.2602915131
+DWH_SRC_0328_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 29 years (monthly average),M,Monthly,BS175,Indexed govt. bonds, fixed interest - 29 years,PT,Percent,0,Units,2026-10,
+DWH_SRC_0356_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -5 years (monthly average),M,Monthly,BS120,Nominal government bond yield curve - maturity in 5 years,PT,Percent,0,Units,2026-10,3.8278578967
+DWH_SRC_0367_MA,Gross yield to maturity- Non indexed govt. bonds, fixed interest -16 years (monthly average),M,Monthly,BS131,Non indexed govt. bonds, fixed interest -16 years,PT,Percent,0,Units,2026-07,4.0453261137
+DWH_SRC_0309_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 10 years (monthly average),M,Monthly,BS156,Indexed govt. bonds, fixed interest - 10 years,PT,Percent,0,Units,2026-10,2.1681378558
+DWH_SRC_0308_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 9 years (monthly average),M,Monthly,BS155,CPI-indexed government bond yield curve - maturity in 9 years,PT,Percent,0,Units,2025-04,2.2094665989
+DWH_SRC_0327_MA,Gross yield to maturity of Indexed govt. bonds, fixed interest - 28 years (monthly average),M,Monthly,BS174,Indexed govt. bonds, fixed interest - 28 years,PT,Percent,0,Units,2024-04,2.1055694752
