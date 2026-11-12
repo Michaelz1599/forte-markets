@@ -59,6 +59,8 @@ jobs:
           fi
       - uses: actions/checkout@v5
         if: env.SKIP != '1'
+        with:
+          ref: main   # the latest main when the run starts, not the commit that queued it (runs wait for each other)
       - uses: actions/setup-python@v6
         if: env.SKIP != '1'
         with:
