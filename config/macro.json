@@ -1,5 +1,5 @@
 {
- "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub).",
+ "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub). calc = computed by another module (valuation.py: Buffett indicator), with its own src/srcUrl.",
  "sections": [
   {
    "id": "infl",
@@ -30,6 +30,11 @@
    "id": "money",
    "name": "כסף ונזילות",
    "desc": "היצע הכסף M2 בארה\"ב ותנאים פיננסיים."
+  },
+  {
+   "id": "valuation",
+   "name": "תמחור השוק: אינדיקטור באפט",
+   "desc": "שווי השוק של כל המניות ביחס לתמ\"ג, בארה\"ב ובישראל. וורן באפט כינה אותו ב-2001 \"כנראה המדד הבודד הטוב ביותר\" לרמת התמחור של השוק. יחס גבוה מההיסטוריה = השוק יקר ביחס לכלכלה שמאחוריו. זה מדד לטווח ארוך ולא כלי לתזמון."
   },
   {
    "id": "commod",
@@ -565,6 +570,36 @@
    "key": true,
    "desc": "שינוי של 12 חודשים ב-M2. צמיחה מהירה תמכה היסטורית בנכסי סיכון ובאינפלציה.",
    "stale": 100
+  },
+  {
+   "id": "buffett_us",
+   "sec": "valuation",
+   "name": "אינדיקטור באפט · ארה\"ב",
+   "short": "שווי כל המניות ÷ התמ\"ג, %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 0,
+   "calc": "buffett_us",
+   "key": true,
+   "stale": 7,
+   "src": "Wilshire 5000 (Yahoo) ותמ\"ג (FRED/BEA); עד 1988: Z.1 של הפד",
+   "srcUrl": "https://fred.stlouisfed.org/series/GDP",
+   "desc": "שווי השוק של כל המניות הנסחרות בארה\"ב (מדד Wilshire 5000, נקודה במדד ≈ מיליארד דולר) חלקי התמ\"ג הנומינלי בקצב שנתי. הממוצע מאז 1970 כ-90%; בשיא הדוט-קום, במרץ 2000, כ-143%. כל חודש מחולק בתמ\"ג של הרבעון שלו, וכל עוד הרבעון לא פורסם, בתמ\"ג של הרבעון האחרון שפורסם. הנקודה האחרונה היא הקריאה של היום, ושאר הנקודות הן סוף כל חודש. עד 1988 (לפני שיש היסטוריה של Wilshire): שווי המניות של החברות הלא-פיננסיות לפי הפד (Z.1), מותאם לרמת ה-Wilshire. חלק גדל מהרווחים של החברות האמריקאיות מגיע מחו\"ל, ולכן היחס נוטה לעלות לאורך השנים גם בלי בועה."
+  },
+  {
+   "id": "buffett_il",
+   "sec": "valuation",
+   "name": "אינדיקטור באפט · ישראל",
+   "short": "שווי החברות הישראליות בת\"א ÷ התמ\"ג, %",
+   "freq": "m",
+   "unit": "%",
+   "dec": 0,
+   "calc": "buffett_il",
+   "key": true,
+   "stale": 7,
+   "src": "הבנק העולמי (WFE), מדד ת\"א-125 (Yahoo), בנק ישראל (תמ\"ג ושער יציג)",
+   "srcUrl": "https://data.worldbank.org/indicator/CM.MKT.LCAP.CD?locations=IL",
+   "desc": "שווי השוק של החברות הישראליות הנסחרות בבורסה בתל אביב (כולל הדואליות הישראליות, כמו טבע ואלביט) חלקי התמ\"ג הנומינלי של ארבעת הרבעונים האחרונים. בסוף כל שנה: השווי שמפרסם הבנק העולמי (לפי WFE), מתורגם לשקלים בשער היציג של סוף השנה. בין סופי שנים, ואחרי השנה האחרונה שפורסמה, השווי זז עם מדד ת\"א-125. פאלו אלטו, שנרשמה למסחר בת\"א בפברואר 2026 ושווה כטריליון ש\"ח, היא חברה אמריקאית ולכן לא נכללת. אחרת היחס היה קופץ בכ-45 נקודות בלי שום שינוי בכלכלה הישראלית. היא נכנסת רק דרך המשקל המוגבל שלה בת\"א-125 (מאוגוסט 2026)."
   },
   {
    "id": "gas_retail",

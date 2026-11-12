@@ -3500,7 +3500,8 @@ function renderMacro() {
     return `<button type="button" class="tile mtile" data-ind="${esc(id)}"><span class="k">${esc(label || ind.name)}</span><span class="val">${ltr(mFmt(ind, s.v[n]))}</span><span class="s">${fmtDateShort(s.d[n])}${c ? ` · בשנה ${chgHtml(c, c.v > 0 ? 'mup' : c.v < 0 ? 'mdn' : '')}` : ''}</span></button>`;
   };
   const tiles = `<section class="tiles idx-tiles">${[['us_cpi_yoy', 'אינפלציה ארה"ב'], ['us_core_pce_yoy', 'ליבת PCE'], ['il_cpi_yoy', 'אינפלציה בישראל'], ['fed_rate', 'ריבית הפד'], ['boi_rate', 'ריבית בנק ישראל'],
-    ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['spark_nyc', 'מרווח ספארק ניו יורק']].map(([id, l]) => tile(id, l)).join('')}</section>`;
+    ['ust10y', 'אג"ח 10 שנים'], ['unrate', 'אבטלה בארה"ב'], ['hy_oas', 'מרווח אג"ח זבל'], ['m2_yoy', 'צמיחת M2'], ['buffett_us', 'אינדיקטור באפט ארה"ב'], ['buffett_il', 'אינדיקטור באפט ישראל'],
+    ['spark_nyc', 'מרווח ספארק ניו יורק']].map(([id, l]) => tile(id, l)).join('')}</section>`;
   const commIds = (S.mk.groups.find(g => g.id === 'commod') || { items: [] }).items;
   const commRows = commIds.map(s => S.mk.items[s]).filter(Boolean).map(it => it.last == null ? '' : `<tr class="rowx" data-x="${esc(it.sym)}" tabindex="0"><td><b>${esc(it.name)}</b><div class="small muted"><span class="ltr">${esc(it.sym)}</span>${it.desc ? ' · ' + esc(it.desc) : ''}</div></td>
       <td>${ltr(priceFmt(it, it.last))}<div class="small muted">${fmtDateShort(it.date)}</div></td>${chgTd(it.d1, it)}${chgTd(it.w1, it)}${chgTd(it.m1, it)}${chgTd(it.ytd, it, 'hl')}${chgTd(it.y1, it)}${chgTd(it.dd52, { sym: '' })}</tr>`).join('');
@@ -3510,6 +3511,8 @@ function renderMacro() {
     if (sec.id === 'rates') extra = `<div class="ix-grid"><div class="panel inner"><div class="panel-head"><h3>עקום התשואות של ממשלת ארה"ב</h3><span class="small muted">היום מול חודש, חצי שנה ושנה</span></div><div class="chart cx sm2" id="macCurve" role="img" aria-label="עקום התשואות"></div><p class="small muted" style="margin:0">עקום שעולה משמאל לימין = תקין. עקום הפוך (קצר גבוה מארוך) = השוק מצפה להורדות ריבית, ולרוב קדם למיתון.</p></div>
       <div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div></div>`;
     else if (sec.id === 'credit') extra = `<div class="panel inner"><div class="panel-head"><h3>המרווח לפי דירוג</h3><span class="small muted">נקודות בסיס מעל אג"ח ממשלת ארה"ב · ICE BofA</span></div><div class="chart cx sm2" id="macRating" role="img" aria-label="מרווחים לפי דירוג"></div></div>`;
+    else if (sec.id === 'valuation') extra = `<div class="ix-grid">${[['buffett_us', 'ארה"ב'], ['buffett_il', 'ישראל']].map(([id, l]) => `<div class="panel inner"><div class="panel-head"><h3>${l}: שווי השוק ביחס לתמ"ג</h3><span class="small muted" id="bf-sub-${id}"></span></div><div class="chart cx sm2" id="bf-ch-${id}" role="img" aria-label="אינדיקטור באפט ב${l}: שווי השוק ביחס לתמ&quot;ג לאורך זמן, עם הממוצע ההיסטורי וטווח של סטיית תקן אחת"></div></div>`).join('')}</div>
+      <p class="small muted" style="margin:0">הקו המקווקו הוא הממוצע של כל ההיסטוריה בגרף, והרצועה הירוקה היא סטיית תקן אחת סביבו. 100% = שווי המניות שווה לתמ"ג של שנה. ארה"ב: מדד Wilshire 5000 חלקי התמ"ג (FRED); עד 1988 נתוני הפד. ישראל: שווי החברות הישראליות בבורסה לפי הבנק העולמי בסוף כל שנה, ובין לבין ואחרי השנה האחרונה שפורסמה לפי ת"א-125, חלקי התמ"ג של ארבעת הרבעונים האחרונים (בנק ישראל). פאלו אלטו, שנסחרת בת"א מפברואר 2026, היא חברה אמריקאית ואינה נכללת בשווי של ישראל. בארה"ב חלק גדל מהרווחים מגיע מחו"ל, ולכן היחס נוטה לעלות לאורך השנים גם בלי בועה. לחיצה על שורה בטבלה פותחת אחוזונים ופירוט.</p>`;
     else if (sec.id === 'cds') extra = `<div class="xtools"><span class="small muted">שינוי ב-</span><div class="seg" role="group" id="macMov">${[[7, 'שבוע'], [30, 'חודש'], [91, '3 חודשים'], [365, 'שנה']].map(([d, l]) => `<button type="button" data-v="${d}" aria-pressed="${+(S.macMov || 30) === d}">${l}</button>`).join('')}</div></div><div class="movers" id="macMovers"></div>
       <p class="small muted" style="margin:0">מדורג לפי השינוי בנקודות בסיס. נתוני CDS עצמם (ריבוניים ותאגידיים) לא זמינים ממקור חינמי ויציב, ולכן הדירוג נעשה על מרווחי האשראי (OAS) של ICE BofA לפי דירוג ואזור, שמודדים את אותו סיכון. סדרת CDS שתוסיפו במסך הניהול בקבוצה "CDS" (למשל ייצוא מ-Bloomberg) תיכנס לדירוג אוטומטית.</p>`;
     else if (ch) extra = `<div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div>`;
@@ -3522,7 +3525,7 @@ function renderMacro() {
       : sec.id === 'cds' ? macTable(sec.ids, { first: 'מרווח' }) : macTable(sec.ids);
     return `<section class="panel" id="mac-${sec.id}"><div class="panel-head"><div><h2>${esc(sec.name)}</h2><p class="small muted" style="margin:2px 0 0">${esc(sec.desc)}</p></div></div>${extra}${table}</section>`;
   }).join('');
-  el.innerHTML = tiles + analogSection() + body + `<p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף היסטורי, אחוזונים ותנועה לאורך זמן. "מהקודם" = מול הפרסום הקודם (יום, שבוע או חודש לפי הסדרה). שינויים בריביות ובמרווחים בנקודות בסיס (נ"ב), בשיעורים חודשיים בנקודות אחוז, ובשאר הסדרות באחוזים. מקורות: FRED, הלמ"ס, בנק ישראל, EIA, ‏NYISO, ‏ISO-NE ו-Yahoo Finance.</p>`;
+  el.innerHTML = tiles + analogSection() + body + `<p class="small muted" style="margin:0">לחיצה על שורה פותחת גרף היסטורי, אחוזונים ותנועה לאורך זמן. "מהקודם" = מול הפרסום הקודם (יום, שבוע או חודש לפי הסדרה). שינויים בריביות ובמרווחים בנקודות בסיס (נ"ב), בשיעורים חודשיים בנקודות אחוז, ובשאר הסדרות באחוזים. מקורות: FRED, הלמ"ס, בנק ישראל, הבנק העולמי, EIA, ‏NYISO, ‏ISO-NE ו-Yahoo Finance.</p>`;
   $$('#macMov button', el).forEach(b => b.addEventListener('click', () => { S.macMov = +b.dataset.v; $$('#macMov button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMovers(); }));
   renderMovers();
   for (const [id, cfg] of Object.entries(MAC_CHARTS)) macLines('mac-ch-' + id, cfg);
@@ -3532,6 +3535,35 @@ function renderMacro() {
   drawDrivers('mac-drv-il', MAC.drivers && MAC.drivers.il);
   drawCurve();
   drawRatingBars((secs.find(s => s.id === 'credit') || { ids: [] }).ids);
+  drawBuffett('buffett_us');
+  drawBuffett('buffett_il');
+}
+// Buffett indicator: the whole history, its average and a one-standard-deviation band
+function drawBuffett(id) {
+  const el = $('#bf-ch-' + id); if (!el || typeof echarts === 'undefined') return;
+  const s = S.ser.get(id), ind = S.ind.get(id);
+  if (!s || s.v.length < 24 || !ind) { el.innerHTML = '<p class="muted" style="padding:16px">הנתונים יופיעו אחרי העדכון הבא של האתר.</p>'; return; }
+  const n = s.v.length, mu = mean(s.v), sd = Math.sqrt(s.v.reduce((a, x) => a + (x - mu) ** 2, 0) / (n - 1));
+  const last = s.v[n - 1], pct = s.v.filter(x => x < last).length / n * 100, from = s.d[0].slice(0, 4);
+  const sub = $('#bf-sub-' + id);
+  if (sub) sub.textContent = `היום ${fmtN(last, 0)}% · ממוצע מאז ${from}: ${fmtN(mu, 0)}% · גבוה מ-${Math.round(pct)}% מהחודשים`;
+  const ink = tok('--ink'), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), surface = tok('--surface'), col = LINE_COLORS[0];
+  const data = s.t.map((t, k) => [t, s.v[k]]), firstT = s.t[0], lastT = s.t[n - 1];
+  const c = echarts.init(el); idxCharts.push(c);
+  c.setOption({ ...chartBase(), grid: { left: 48, right: 16, top: 16, bottom: 52 },
+    tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => {
+      const v = ps[0].value[1];
+      return `<div dir="rtl" style="text-align:right">${fmtDate(isoOf(ps[0].value[0]))}<br>${esc(ind.name)}: <b dir="ltr">${fmtN(v, 0)}%</b><br><span style="color:${muted}">מול הממוצע: <span dir="ltr">${fmtS((v - mu) / sd, 1)}</span> סטיות תקן</span></div>`; } },
+    xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
+    yAxis: { type: 'value', min: 0, axisLabel: { color: muted, formatter: v => v + '%' }, splitLine: { lineStyle: { color: line2 } } },
+    dataZoom: [{ type: 'inside', startValue: firstT, endValue: lastT }, { type: 'slider', bottom: 4, height: 18, startValue: firstT, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: v => fmtDate(isoOf(v)) }],
+    series: [{ name: ind.name, type: 'line', data, showSymbol: false, sampling: 'lttb', lineStyle: { width: 2, color: col }, itemStyle: { color: col },
+      markArea: { silent: true, itemStyle: { color: 'rgba(154,212,185,.22)' }, data: [[{ yAxis: Math.max(0, mu - sd) }, { yAxis: mu + sd }]] },
+      markLine: { symbol: 'none', silent: true, lineStyle: { color: muted, type: 'dashed' }, label: { color: muted, fontSize: 10, position: 'insideStartTop' },
+        data: [{ yAxis: mu, label: { formatter: `ממוצע ${fmtN(mu, 0)}%` } }, { yAxis: mu + 2 * sd, lineStyle: { type: 'dotted' }, label: { formatter: '+2 סטיות תקן' } }] },
+      markPoint: { symbol: 'circle', symbolSize: 8, itemStyle: { color: col, borderColor: surface, borderWidth: 2 }, label: { show: false }, data: [{ coord: data[n - 1] }] } }] });
+  zoomBar(c, el, lastT, firstT, 3653);
+  $$(`.zbar[data-for="${el.id}"] button`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === '0')));   // the chart opens on the whole history
 }
 // ---------------- macro analogs: past months that looked like today ----------------
 function analogSection() {
@@ -3615,7 +3647,7 @@ const IL_SECTIONS = {
   breadth: ['רוחב שוק', 'כמה ממניות ת"א 125 משתתפות בתנועה. מחושב מכל מניות המדד (ההרכב העדכני), כל מניה במשקל שווה.', ['il_pct50', 'il_pct200', 'il_adr10', 'il_hl', 'il_mcsi']],
   trend: ['מגמה, תנודתיות ותיאבון לסיכון', 'ת"א 35 מול הממוצע, מדד הפחד VTA35 והתנודתיות בפועל, ומי מוביל: הבנקים והמניות הבינוניות מול המדד.', ['ta35_ma200', 'vta35', 'ta35_rv20', 'il_ew_rel3', 'il_banks_rel3']],
   foreign: ['כסף זר ושקל', 'במקום נתוני פעילות זרים בבורסה: זרימת הכסף ל-EIS בניו יורק, ביצועי ישראל מול ארה"ב, והשקל.', ['eis_cmf', 'eis_rel', 'ta35_usd', 'usdils_dev', 'usdils', 'eurils']],
-  macro: ['מאקרו ישראל', 'ריבית, אינפלציה, אג"ח ממשלתי והפער מול ארה"ב (במקום CDS של ישראל), אבטלה ומחירי דירות.', ['boi_rate', 'il_cpi_yoy', 'il_cpi_mom', 'il_real_rate', 'il_10y', 'il_spread', 'il_unemp', 'il_house_yoy']],
+  macro: ['מאקרו ישראל', 'ריבית, אינפלציה, אג"ח ממשלתי והפער מול ארה"ב (במקום CDS של ישראל), אבטלה, מחירי דירות ותמחור השוק (אינדיקטור באפט).', ['boi_rate', 'il_cpi_yoy', 'il_cpi_mom', 'il_real_rate', 'il_10y', 'il_spread', 'il_unemp', 'il_house_yoy', 'buffett_il']],
 };
 function ilStockRows(list) {
   const q = (S.ilQ || '').trim().toLowerCase(), sec = S.ilSec || '';
@@ -4120,7 +4152,7 @@ const NAV = {
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['מרחק מהשיא', '#idxHighs'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
-  macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
+  macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, תמחור השוק (אינדיקטור באפט), סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   calendar: { d: 'דוחות כספיים בארה"ב ובישראל, התנועה שהאופציות מתמחרות ומה קרה אחרי הדוח, ואירועי מאקרו', items: () => [['דוחות ארה"ב', 'cal:US'], ['דוחות ישראל', 'cal:IL'], ['מאקרו', 'cal:MACRO']] },
   marketing: { d: 'לפני שיחה עם משקיע: חדשות השבוע, סיפורי המניות הגדולות, מאקרו ומרווחים, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['חדשות השבוע', '#mk-weekly'], ['המניות הגדולות', '#mk-stories'], ['מאקרו ומרווחי אשראי', '#mk-macro'], ['מי הוביל ומי בפיגור', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
   israel: { d: 'סנטימנט, רוחב שוק, לאן הכסף זורם, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['לאן הכסף זורם', '#il-flows'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },

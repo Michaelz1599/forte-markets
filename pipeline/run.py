@@ -13,8 +13,9 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal
-from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc)
+from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
+from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
+                     write_series)
 
 CONFIG = ROOT / "config" / "indicators.json"
 
@@ -128,6 +129,15 @@ def run(offline: bool = False, live: bool = False) -> int:
             if cv:
                 dump_json(ROOT / "data" / "derived" / "curve.json", cv)
             st.add("macro", "מאקרו: FRED, הלמ\"ס, בנק ישראל, EIA", len(data) >= 40, _last(data.get("ust10y", {})), msg)
+        # 7b1. Market value of stocks / GDP (Buffett indicator), US and Israel. Each run recomputes the whole series and
+        # replaces the file: the current month's point moves with the market and history follows GDP revisions.
+        res = step(st, "valuation", "מאקרו: אינדיקטור באפט (שווי שוק / תמ\"ג)", lambda: valuation.run(px))
+        if res:
+            data, msg, probs = res
+            for sid, pts in data.items():
+                write_series(sid, pts)
+            st.add("valuation", "מאקרו: אינדיקטור באפט (שווי שוק / תמ\"ג)", len(data) == 2,
+                   _last(data.get("buffett_us", {})), msg + (f" · {'; '.join(probs[:3])}" if probs else ""))
         # 7b2. What drives inflation (CPI components' contributions), US and Israel
         def _drivers():
             res, msg = {}, []

@@ -335,7 +335,7 @@ def _safe(fn, *a):
 def run() -> tuple[dict, dict, str]:
     """Returns ({series id: points}, curve snapshot, message). Series that fail keep their stored history."""
     cfg = load()
-    specs = cfg["series"]
+    specs = [s for s in cfg["series"] if not s.get("calc")]   # calc: computed elsewhere (valuation.py)
     codes = sorted({s["fred"] for s in specs if s.get("fred")} | {c[0] for c in cfg["curve"]})
     with ThreadPoolExecutor(6) as ex:
         raw = dict(zip(codes, ex.map(lambda c: _safe(fred_series, c), codes)))
@@ -442,11 +442,15 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
                          "https://www.cbs.gov.il/he/subjects/Pages/מדד-המחירים-לצרכן.aspx" if s.get("cbs") or s.get("cbs_mom") else
                          "https://www.boi.org.il/" if s.get("boi") or s.get("boi_key") else "https://www.nyiso.com/energy-market-operational-data" if s.get("iso") == "nyiso" else
                          "https://www.iso-ne.com/isoexpress/" if s.get("iso") == "isone" else "https://www.eia.gov/electricity/wholesale/")
+    from .valuation import notes
+    extra_notes = notes()
     out = []
     for i, s in enumerate(cfg["series"]):
+        note = s.get("note") or extra_notes.get(s["id"])
         out.append({"id": s["id"], "order": 900 + i, "group": "m_" + s["sec"], "tab": "macro", "name": s["name"], "short": s.get("short", ""),
                     "freq": s.get("freq", "d"), "pol": 0, "dec": s.get("dec", 2), "unit": "%" if s.get("unit") == "%" else "",
-                    "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": True, "src": src_name(s), "srcUrl": src_url(s),
+                    "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": True, "src": s.get("src") or src_name(s),
+                    "srcUrl": s.get("srcUrl") or src_url(s), **({"note": note} if note else {}),
                     "desc": s.get("desc", ""), **({"rating": s["rating"]} if "rating" in s else {}), **({"key": True} if s.get("key") else {}),
                     **({"staleDays": s["stale"]} if s.get("stale") else {})})
     return out
