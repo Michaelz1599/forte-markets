@@ -863,9 +863,62 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 .co-an .bar { display: flex; height: 10px; border-radius: 6px; overflow: hidden; background: var(--sunk); }
 .co-an .bar i { display: block; }
 
+/* collapsible rows: a headline you click to open (news of the week, mega caps, extras) */
+.acc > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 11px 8px; border-radius: 10px; transition: background .12s; }
+.acc > summary::-webkit-details-marker { display: none; }
+.acc > summary:hover { background: var(--bg); }
+.acc > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.acc-ch { flex: none; margin-inline-start: auto; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-2px) rotate(45deg); transition: transform .18s; }
+.acc[open] > summary .acc-ch { transform: translateY(2px) rotate(-135deg); }
+.acc[open] > summary { background: var(--bg); }
+.acc-b { display: grid; gap: 9px; padding: 8px 8px 14px; animation: acc-in .18s ease-out; }
+.acc-b > p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--ink-2); max-width: 85ch; }
+@keyframes acc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .acc-b { animation: none; } .acc-ch { transition: none; } }
+.mk-why { margin: 0; font-size: 14px; line-height: 1.55; background: var(--hl); border-radius: 8px; padding: 8px 11px; max-width: 85ch; }
+.mk-why b { color: var(--accent); }
+.acc-list { display: grid; }
+.acc-list > .acc + .acc { border-top: 1px solid var(--line-2); }
+.acc-n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--hl); color: var(--accent); font-weight: 800; display: grid; place-items: center; font-size: 12.5px; }
+.acc-t { font-weight: 700; font-size: 15px; line-height: 1.4; }
+.wk-acc .acc-b { padding-inline-start: 42px; }
+.wk-ahead { border-top: 1px solid var(--line-2); background: var(--bg); padding: 4px 10px; }
+.wk-ahead > summary { font-size: 14.5px; }
+.wk-ahead > summary:hover, .wk-ahead[open] > summary { background: var(--surface); }
+.mk-more { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 2px 6px; }
+.mk-more > summary { font-weight: 700; font-size: 14.5px; }
+.mk-sub { font-size: 15px; margin-top: 4px; }
+.mk-sub .small { font-weight: 400; }
+.sp-t { cursor: default; }
+.sp-t .val small { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+button.sp-t { cursor: pointer; }
+/* mega caps: one row per stock (name, headline, today / month / year) */
+.mc-list { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-1); padding: 4px 10px; display: grid; }
+.mc-head, .mc-row > summary { display: grid; grid-template-columns: minmax(130px, 175px) minmax(0, 1fr) repeat(3, 82px) 14px; gap: 12px; align-items: center; }
+.mc-head { font-size: 12px; color: var(--muted); padding: 8px 8px 6px; border-bottom: 1px solid var(--line-2); }
+.mc-row + .mc-row { border-top: 1px solid var(--line-2); }
+.mc-nm { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 7px; min-width: 0; }
+.mc-nm b { font-size: 15.5px; }
+.mc-tk { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.mc-nm .st-out { font-size: 10.5px; padding: 0 6px; font-weight: 600; }
+.mc-title { font-weight: 700; font-size: 15px; line-height: 1.4; }
+.mc-v { text-align: center; font-weight: 800; font-size: 14.5px; }
+.mc-head .mc-v { font-weight: 400; font-size: 12px; }
+.mc-row .acc-ch { margin-inline-start: 0; }
+.mc-row .acc-b { padding-inline-start: calc(min(175px, 100%) + 20px); }
+@media (max-width: 760px) {
+  .mc-head { display: none; }
+  .mc-row > summary { grid-template-columns: repeat(3, minmax(0, 1fr)) 14px; grid-template-areas: "nm nm nm ch" "t t t t" "d m y ."; gap: 6px 8px; }
+  .mc-nm { grid-area: nm; } .mc-title { grid-area: t; } .mc-row .acc-ch { grid-area: ch; }
+  .mc-row .mc-v:nth-of-type(3) { grid-area: d; } .mc-row .mc-v:nth-of-type(4) { grid-area: m; } .mc-row .mc-v:nth-of-type(5) { grid-area: y; }
+  .mc-row .mc-v { display: grid; background: var(--bg); border-radius: 8px; padding: 4px 6px; font-size: 14px; }
+  .mc-row .mc-v::before { content: attr(data-k); font-size: 11px; font-weight: 400; color: var(--muted); }
+  .mc-row .acc-b { padding-inline-start: 8px; }
+  .wk-acc .acc-b { padding-inline-start: 8px; }
+}
 /* weekly brief */
 .wk { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-1); overflow: hidden; display: grid; }
-.wk-head { background: linear-gradient(135deg, #002F22 0%, #0B4A37 100%); color: #E3F4EB; padding: 18px 20px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; justify-content: space-between; }
+.wk-head { background: linear-gradient(135deg, #002F22 0%, #0B4A37 100%); color: #E3F4EB; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; justify-content: space-between; }
 .wk-eyebrow { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--mint); margin-bottom: 6px; }
 .wk-head h2 { font-family: var(--f-disp); font-weight: 800; font-size: clamp(18px, 2.1vw, 24px); line-height: 1.35; color: #fff; max-width: 95ch; }
 .wk-head .wk-note { font-size: 12.5px; color: #BFE3D2; margin-top: 6px; display: block; }
@@ -873,9 +926,9 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 .wk-act select { font: inherit; font-size: 13px; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(154, 212, 185, .5); background: rgba(0, 0, 0, .25); color: #E3F4EB; }
 .wk-act .btn { background: var(--mint); color: #002F22; border-color: var(--mint); }
 .wk-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; }
-.wk-col { padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.wk-col { padding: 12px 12px 10px; display: grid; gap: 4px; align-content: start; }
 .wk-col + .wk-col { border-inline-start: 1px solid var(--line-2); }
-.wk-col h3 { font-size: 17px; }
+.wk-col h3 { font-size: 16px; padding: 2px 8px; }
 .wk-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: wk; }
 .wk-pt { counter-increment: wk; position: relative; padding-inline-start: 38px; display: grid; gap: 5px; }
 .wk-pt::before { content: counter(wk); position: absolute; inset-inline-start: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--hl); color: var(--accent); font-weight: 800; display: grid; place-items: center; font-size: 13px; }
@@ -1022,7 +1075,7 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
 
 <main id="v-marketing" class="view" dir="rtl" lang="he" hidden>
   <div class="wrap">
-    <div class="toolbar"><div><h1 data-eyebrow="MARKETING · INVESTOR CALLS">שיווק</h1><p class="lede">כל מה שצריך לפני שיחה עם משקיע: תמונת המאקרו והמרווחים, מה מדברים על המניות הגדולות, מי הוביל ומי פיגר השנה, וכרטיס לכל נייר שאנחנו מחזיקים.</p></div>
+    <div class="toolbar"><div><h1 data-eyebrow="MARKETING · INVESTOR CALLS">שיווק</h1><p class="lede">כל מה שצריך לפני שיחה עם משקיע. לחיצה על כותרת פותחת את הפרטים.</p></div>
       <div class="mk-admin" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="small muted" id="mkAsof"></span><button type="button" class="btn ghost sm" id="mkPrint">שמירה כ-PDF</button><button type="button" class="btn sm" id="mkPresent">מצב הצגה</button></div></div>
     <div id="mkBody" style="display:grid;gap:22px;min-width:0"></div>
   </div>
@@ -3792,34 +3845,37 @@ function mkPxOf(sym) {
   const p = MKT && MKT.px[sym]; if (p) return p;
   const it = S.mk && S.mk.items[sym]; return it ? { last: it.last, date: it.date, d1: it.d1, mtd: it.mtd ?? null, ytd: it.ytd, y1: it.y1, dd52: it.dd52 } : null;
 }
-// ---- 0. the weekly brief: talking points on Israeli and US companies, and the coming days
+// ---- 1. news of the week (the weekly brief): talking points on Israeli and US companies, and the coming days
 const MK_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 function mkWeekList() { const w = MKT.weekly || {}; return [w.current, ...(w.hist || [])].filter(Boolean); }
 function mkSrcLinks(src) {
   return (src || []).filter(x => x && (/^https?:\/\//.test(x.u) || x.u === '#calendar')).slice(0, 4)
     .map(x => x.u === '#calendar' ? `<a href="#calendar" data-gocal="1">${esc(x.t || 'יומן הדוחות')}</a>` : `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t || 'מקור')}</a>`).join('');
 }
+// one collapsible row: a headline you click to open the details
+const mkAcc = (cls, head, body, attrs = '') => `<details class="acc ${cls}"${attrs}><summary>${head}<span class="acc-ch" aria-hidden="true"></span></summary><div class="acc-b">${body}</div></details>`;
 function mkWeekly() {
   const L = mkWeekList(); if (!L.length) return '';
   const i = Math.min(S.wkIdx || 0, L.length - 1), w = L[i];
   const chip = k => MKT.issuers[k] ? `<button type="button" class="wk-chip" data-iss="${esc(k)}">${esc(MKT.issuers[k].he)}</button>` : '';
-  const pt = p => `<li class="wk-pt"><b class="wk-t">${esc(p.title)}</b><p>${esc(p.text)}</p>${p.why ? `<p class="wk-why"><b>מה להגיד למשקיע:</b> ${esc(p.why)}</p>` : ''}
-    <div class="wk-meta">${(p.keys || []).map(chip).join('')}<span class="st-src">${mkSrcLinks(p.src)}</span></div></li>`;
+  const pt = (p, j) => mkAcc('wk-acc', `<span class="acc-n">${j + 1}</span><span class="acc-t">${esc(p.title)}</span>`,
+    `<p>${esc(p.text)}</p>${p.why ? `<p class="mk-why"><b>מה להגיד למשקיע:</b> ${esc(p.why)}</p>` : ''}
+     <div class="wk-meta">${(p.keys || []).map(chip).join('')}<span class="st-src">${mkSrcLinks(p.src)}</span></div>`);
   const today = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
   const up = i === 0 ? (MKT.upcoming || []).filter(x => x.date >= today) : [];
-  const days = [...new Set(up.map(x => x.date))].slice(0, 7);
+  const days = [...new Set(up.map(x => x.date))].slice(0, 7), shown = up.filter(x => days.includes(x.date));
+  const nRep = shown.filter(x => x.kind !== 'macro').length, nMac = shown.length - nRep;
   const dayHtml = d => { const xs = up.filter(x => x.date === d), dt = new Date(d + 'T12:00:00');
     return `<div class="wk-day"><b>יום ${MK_DAYS[dt.getDay()]} ${fmtDateShort(d)}</b><div class="wk-items">${xs.map(x => x.kind === 'macro'
       ? `<span class="wk-mac${x.imp >= 3 ? ' hi' : ''}" title="${esc(x.period || '')}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc(x.label)}</span>`
       : `<button type="button" class="wk-chip" data-iss="${esc(x.key)}" title="${esc(x.label)}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc((MKT.issuers[x.key] || {}).he || x.label)}</button>`).join('')}</div></div>`; };
-  const sel = L.length > 1 ? `<select id="wkSel" aria-label="שבוע">${L.map((x, j) => `<option value="${j}"${j === i ? ' selected' : ''}>${j === 0 ? 'השבוע · ' : ''}\u2066${esc(x.week)}\u2069</option>`).join('')}</select>` : '';
-  return `<section class="wk" id="mk-weekly"><div class="wk-head"><div><span class="wk-eyebrow">התקציר השבועי לצוות השיווק · <span dir="ltr">${esc(w.week)}</span></span><h2>${esc(w.headline || '')}</h2>
-      <span class="wk-note">${w.partial ? `נכון ל-${fmtDate((w.asof || '').slice(0, 10))}; השבוע עוד לא הסתיים. ` : `נכתב ${fmtDate((w.asof || '').slice(0, 10))}. `}מתעדכן כל יום ראשון בבוקר.</span></div>
+  const sel = L.length > 1 ? `<select id="wkSel" aria-label="שבוע">${L.map((x, j) => `<option value="${j}"${j === i ? ' selected' : ''}>${j === 0 ? 'השבוע · ' : ''}⁦${esc(x.week)}⁩</option>`).join('')}</select>` : '';
+  const ahead = days.length ? mkAcc('wk-ahead', `<span>📅 <b>בימים הקרובים:</b> ${[nRep ? `${nRep} דוחות של חברות שאנחנו מחזיקים` : '', nMac ? `${nMac} נתוני מאקרו` : ''].filter(Boolean).join(' ו-')}</span>`,
+      `<div class="wk-days">${days.map(dayHtml).join('')}</div><p class="small muted" style="margin:0">מתוך היומן הכלכלי של הדשבורד. לחיצה על חברה פותחת את הכרטיס שלה.</p>`) : '';
+  return `<section class="wk" id="mk-weekly"><div class="wk-head"><div><span class="wk-eyebrow">חדשות השבוע · <span dir="ltr">${esc(w.week)}</span>${w.partial ? ' · השבוע עוד לא הסתיים' : ''}</span><h2>${esc(w.headline || '')}</h2></div>
       <div class="wk-act">${sel}<button type="button" class="btn sm" id="wkCopy">העתקה לוואטסאפ / מייל</button></div></div>
-    <div class="wk-grid"><div class="wk-col"><h3>🇮🇱 חברות בישראל</h3><ol class="wk-list">${(w.il || []).map(pt).join('')}</ol></div>
-      <div class="wk-col"><h3>🇺🇸 חברות בארה"ב</h3><ol class="wk-list">${(w.us || []).map(pt).join('')}</ol></div></div>
-    ${days.length ? `<div class="wk-ahead"><h3>📅 בימים הקרובים: דוחות של חברות שאנחנו מחזיקים ונתוני מאקרו</h3><div class="wk-days">${days.map(dayHtml).join('')}</div>
-      <p class="small muted" style="margin:0">מתוך היומן הכלכלי של הדשבורד, מתעדכן אוטומטית. לחיצה על חברה פותחת את הכרטיס שלה.</p></div>` : ''}</section>`;
+    <div class="wk-grid"><div class="wk-col"><h3>🇮🇱 ישראל</h3><div class="acc-list">${(w.il || []).map(pt).join('')}</div></div>
+      <div class="wk-col"><h3>🇺🇸 ארה"ב</h3><div class="acc-list">${(w.us || []).map(pt).join('')}</div></div></div>${ahead}</section>`;
 }
 function mkWeeklyText() {
   const L = mkWeekList(), w = L[Math.min(S.wkIdx || 0, L.length - 1)]; if (!w) return '';
@@ -3833,7 +3889,30 @@ function mkWeeklyText() {
   }
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
-// ---- 1. macro picture + plain-language lines to use on a call
+// ---- 2. what the public hears about the mega caps: one headline per stock, click to open the story
+function mkStories() {
+  const st = MKT.stories || {}, items = st.items || [];
+  const megas = MKT.megacaps || [];
+  const nameOf = sym => (megas.find(m => m[0] === sym) || [])[1] || (MKT.issuers[sym] || {}).he || sym;
+  const out = sym => MKT.held.has(sym) ? '' : `<span class="st-out" title="פורטה לא מחזיקה במניה הזו; היא מופיעה כי הציבור מדבר עליה">לא בתיק</span>`;
+  const pd = items.map(x => (mkPxOf(x.sym) || {}).date).filter(Boolean).sort().pop();
+  const nums = p => `<span class="mc-v" data-k="היום">${mkPct(p && p.d1, 2)}</span><span class="mc-v" data-k="החודש">${mkPct(p && p.mtd)}</span><span class="mc-v" data-k="השנה">${mkPct(p && p.ytd)}</span>`;
+  const rows = items.map(x => {
+    const p = mkPxOf(x.sym);
+    const src = (x.src || []).filter(s => s && /^https?:\/\//.test(s.u)).slice(0, 3).map(s => `<a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t || 'מקור')}</a>`).join('');
+    return mkAcc('mc-row', `<span class="mc-nm"><b>${esc(x.name || nameOf(x.sym))}</b><span class="mc-tk ltr">${esc(x.sym)}</span>${out(x.sym)}</span><span class="mc-title">${esc(x.title)}</span>${nums(p)}`,
+      `<p>${esc(x.story)}</p>${x.why ? `<p class="mk-why"><b>מה להגיד למשקיע:</b> ${esc(x.why)}</p>` : ''}
+       <div class="st-src">${x.tag ? `<span class="st-tag">${esc(x.tag)}</span>` : ''}${x.date ? `<span>${fmtDate(x.date)}</span>` : ''}${src}</div>`);
+  }).join('');
+  const told = new Set(items.map(x => x.sym));
+  const rest = megas.filter(m => !told.has(m[0])).map(([sym, he]) => { const p = mkPxOf(sym); return p ? `<div class="st-mini"><b>${esc(he)} <span class="small muted ltr">${esc(sym)}</span>${out(sym)}</b><span>${mkPct(p.d1, 2)}</span><span class="small muted">מתחילת השנה</span><span>${mkPct(p.ytd)}</span></div>` : ''; }).join('');
+  return `<section id="mk-stories" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>המניות הגדולות: על מה מדברים</h2><p>לחיצה על כותרת פותחת את הסיפור ומה להגיד למשקיע.</p></div><span class="small muted">${st.asof ? 'עודכן ' + fmtDate(st.asof.slice(0, 10)) : ''}</span></div>
+    ${rows ? `<div class="mc-list"><div class="mc-head" aria-hidden="true"><span>מניה</span><span>הסיפור</span><span class="mc-v">היום${pd ? ` · ${fmtDateShort(pd)}` : ''}</span><span class="mc-v">מתחילת החודש</span><span class="mc-v">מתחילת השנה</span><span></span></div>${rows}</div>`
+      : '<p class="muted">הסיפורים של היום עוד לא נכתבו. הם מתעדכנים כל בוקר.</p>'}
+    ${rest ? mkAcc('mk-more', `<span>שאר הענקיות: מה עשו היום ומתחילת השנה</span>`, `<div class="st-rest">${rest}</div>`) : ''}
+    ${MKT.held.size && megas.some(m => !MKT.held.has(m[0])) ? `<p class="small muted" style="margin:0"><span class="st-out">לא בתיק</span> = מניה שאנחנו לא מחזיקים; היא כאן כי הציבור מדבר עליה.</p>` : ''}</section>`;
+}
+// ---- 3. macro picture and credit spreads, then ready-made lines for a call (collapsed)
 function mkMacro() {
   const tile = (id, label) => {
     const ind = S.ind.get(id), s = S.ser.get(id); if (!ind || !s || !s.v.length) return '';
@@ -3842,6 +3921,16 @@ function mkMacro() {
   };
   const tiles = [['il_cpi_yoy', 'אינפלציה בישראל'], ['boi_rate', 'ריבית בנק ישראל'], ['il_10y', 'אג"ח ישראל 10 שנים'], ['usdils', 'דולר/שקל'],
     ['us_cpi_yoy', 'אינפלציה בארה"ב'], ['fed_rate', 'ריבית הפד'], ['ust10y', 'אג"ח ארה"ב 10 שנים'], ['unrate', 'אבטלה בארה"ב']].map(([i, l]) => tile(i, l)).join('');
+  // credit spreads: Israel (Tel Bond, weighted spread over government) and the US (ICE BofA OAS)
+  const ilSp = (MKT.ilTb || []).map(ix => {
+    const s = (MKT.spreads || {})[ix.id]; if (!s || !s.v || !s.v.length) return '';
+    const last = s.v[s.v.length - 1], first = s.v[0], ch = s.v.length > 1 ? (last - first) * 100 : null;
+    return `<div class="tile mtile sp-t" title="${esc(ix.desc || '')}: ממוצע משוקלל של המרווח מהממשלתי של הסדרות במדד (Bizportal)"><span class="k">🇮🇱 ${esc(ix.name)}</span><span class="val ltr num">${fmtN(last, 2)}%</span><span class="s">${fmtDateShort(s.d[s.d.length - 1])}${ch != null && Math.abs(ch) >= 1 ? ` · מאז ${fmtDateShort(s.d[0])} ${ltr(fmtS(ch, 0))} נ"ב` : ''}</span></div>`;
+  }).join('');
+  const usTile = (id, label, mult) => { const p = mkPctile(id); if (!p) return '';
+    const lvl = p.p <= 25 ? 'צר' : p.p >= 75 ? 'רחב' : 'רגיל';
+    return `<button type="button" class="tile mtile sp-t" data-ind="${id}" title="אחוזון ${fmtN(p.p, 0)} ב-10 השנים האחרונות"><span class="k">🇺🇸 ${label}</span><span class="val"><span class="ltr num">${fmtN(p.now * mult, 0)}</span> <small>נ"ב</small></span><span class="s">${lvl} ביחס ל-10 שנים (אחוזון ${fmtN(p.p, 0)})</span></button>`; };
+  const spTiles = ilSp + usTile('oas_ig', 'דירוג השקעה', 1) + usTile('hy_oas', 'אג"ח זבל', 100);
   const L = [], n = (x, d = 1) => fmtN(x, d);
   const ilc = mkLast('il_cpi_yoy'), boi = mkLast('boi_rate'), usc = mkLast('us_cpi_yoy'), fed = mkLast('fed_rate'), il10 = mkLast('il_10y'), us10 = mkLast('ust10y');
   if (ilc) L.push(`האינפלציה בישראל עומדת על ${n(ilc.v)}% (נתון ${mkMonth(ilc.d)}), ${ilc.v > 3 ? 'מעל' : ilc.v < 1 ? 'מתחת ל' : 'בתוך'} יעד בנק ישראל של 1%–3%.`);
@@ -3852,50 +3941,21 @@ function mkMacro() {
   if (tb && tb.v && tb.v.length) L.push(`אג"ח קונצרניות בישראל: תל בונד 60 נסחר במרווח ממוצע של ${n(tb.v[tb.v.length - 1], 2)}% מעל אג"ח ממשלתיות באותו מח"מ (נכון ל-${fmtDateShort(tb.d[tb.d.length - 1])}).`);
   const hy = mkPctile('hy_oas');
   if (hy) L.push(`מרווח אג"ח הזבל בארה"ב ${fmtN(hy.now * 100, 0)} נ"ב, ${hy.p <= 25 ? 'צר' : hy.p >= 75 ? 'רחב' : 'בטווח הרגיל'} ביחס ל-10 השנים האחרונות (אחוזון ${fmtN(hy.p, 0)}): ${hy.p <= 25 ? 'שוק האשראי רגוע ומתמחר סיכון נמוך' : hy.p >= 75 ? 'השוק דורש פיצוי גבוה על סיכון' : 'אין לחץ חריג בשוק האשראי'}.`);
-  return `<section id="mk-macro" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>תמונת המאקרו</h2><p>הנתונים העדכניים בישראל ובארה"ב, ומשפטים מוכנים לשיחה. לחיצה על נתון פותחת את ההיסטוריה שלו.</p></div></div>
-    <div class="mk-tiles">${tiles}</div>${L.length ? `<ul class="mk-talk">${L.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}</section>`;
+  return `<section id="mk-macro" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>מאקרו ומרווחי אשראי</h2><p>לחיצה על נתון פותחת את ההיסטוריה שלו.</p></div></div>
+    <div class="mk-tiles">${tiles}</div>
+    ${spTiles ? `<h3 class="mk-sub">מרווח אג"ח קונצרני מעל ממשלתי <span class="small muted">· צר = השוק רגוע, רחב = פחד</span></h3><div class="mk-tiles">${spTiles}</div>` : ''}
+    ${L.length ? mkAcc('mk-more', `<span>💬 משפטים מוכנים לשיחה</span>`, `<ul class="mk-talk">${L.map(x => `<li>${x}</li>`).join('')}</ul>`) : ''}
+    ${mkAcc('mk-more', `<span>📊 מרווחים בארה"ב לפי דירוג (AAA עד CCC)</span>`, mkSpreads(), ' id="mk-spreads"')}</section>`;
 }
-// ---- 2. credit spreads: corporate over government, Israel (Tel Bond) and the US by rating
+// US spreads by rating: where each one is within its 10-year range (inside the macro section, collapsed)
 function mkSpreads() {
-  const ilCards = (MKT.ilTb || []).map(ix => {
-    const s = (MKT.spreads || {})[ix.id];
-    if (!s || !s.v || !s.v.length) return `<div class="sp-card"><span class="k">${esc(ix.name)} · ${esc(ix.desc)}</span><span class="v muted">—</span><span class="s">הנתון נאסף מדי יום מהרכב המדד ב-Bizportal, החל מהעדכון הקרוב.</span></div>`;
-    const last = s.v[s.v.length - 1], first = s.v[0], dd = s.d[0];
-    return `<div class="sp-card"><span class="k">${esc(ix.name)} · ${esc(ix.desc)}</span><span class="v ltr num">${fmtN(last, 2)}%</span><span class="s">מעל אג"ח ממשלתיות · ${fmtDate(s.d[s.d.length - 1])}${s.v.length > 1 ? ` · מאז ${fmtDateShort(dd)}: ${ltr(fmtS((last - first) * 100, 0))} נ"ב` : ''}</span></div>`;
-  }).join('');
   const rows = [['oas_aaa', 'AAA'], ['oas_aa', 'AA'], ['oas_a', 'A'], ['oas_bbb', 'BBB'], ['oas_bb', 'BB'], ['oas_b', 'B'], ['oas_ccc', 'CCC']].map(([id, nm]) => {
     const p = mkPctile(id); if (!p) return '';
-    const bp = p.now;
-    return `<div class="sp-row" data-ind="${id}" role="button" tabindex="0" style="cursor:pointer"><span class="nm ltr">${nm}</span><div class="sp-track" title="אחוזון ${fmtN(p.p, 0)} ב-10 שנים"><div class="sp-fill" style="width:${Math.max(2, p.p).toFixed(1)}%"></div>${p.pAgo != null ? `<span class="sp-tick" style="inset-inline-start:${p.pAgo.toFixed(1)}%"></span>` : ''}</div><span class="ltr num"><b>${fmtN(bp, 0)}</b> נ"ב</span><span class="pc">אחוזון ${fmtN(p.p, 0)}${p.pAgo != null ? ` · לפני שנה ${fmtN(p.pAgo, 0)}` : ''}</span></div>`;
+    return `<div class="sp-row" data-ind="${id}" role="button" tabindex="0" style="cursor:pointer"><span class="nm ltr">${nm}</span><div class="sp-track" title="אחוזון ${fmtN(p.p, 0)} ב-10 שנים"><div class="sp-fill" style="width:${Math.max(2, p.p).toFixed(1)}%"></div>${p.pAgo != null ? `<span class="sp-tick" style="inset-inline-start:${p.pAgo.toFixed(1)}%"></span>` : ''}</div><span class="ltr num"><b>${fmtN(p.now, 0)}</b> נ"ב</span><span class="pc">אחוזון ${fmtN(p.p, 0)}${p.pAgo != null ? ` · לפני שנה ${fmtN(p.pAgo, 0)}` : ''}</span></div>`;
   }).join('');
-  const ig = mkLast('oas_ig'), hy = mkLast('hy_oas');
-  return `<section class="panel" id="mk-spreads"><div class="mk-sec-h"><div><h2>מרווחי אשראי: קונצרני מול ממשלתי</h2><p>כמה תשואה נוספת אג"ח של חברות משלמות מעל אג"ח ממשלתיות. מרווח צר = השוק רגוע ומוכן לקחת סיכון; מרווח רחב = פחד ודרישה לפיצוי.</p></div></div>
-    <div class="sp-grid"><div class="sp-il"><h3 style="font-size:15px">🇮🇱 ישראל · מדדי תל בונד</h3>${ilCards || '<p class="muted small">אין נתונים.</p>'}
-      <p class="small muted" style="margin:0">ממוצע משוקלל (לפי משקלי המדד) של "המרווח מהממשלתי" של כל סדרה במדד, כפי שמפורסם בהרכב המדד ב-Bizportal.</p></div>
-      <div style="display:grid;gap:10px;align-content:start"><h3 style="font-size:15px">🇺🇸 ארה"ב · לפי דירוג${ig ? ` <span class="small muted">· דירוג השקעה ${fmtN(ig.v, 0)} נ"ב${hy ? `, זבל ${fmtN(hy.v * 100, 0)} נ"ב` : ''}</span>` : ''}</h3>
-        <div class="sp-bars">${rows || '<p class="muted small">טוען…</p>'}</div>
-        <div class="sp-legend"><span><i></i>איפה המרווח היום בטווח של 10 השנים האחרונות (0 = הצר ביותר, 100 = הרחב ביותר)</span><span><i class="t"></i>לפני שנה</span></div>
-        <p class="small muted" style="margin:0">ICE BofA דרך FRED: מרווח (OAS) של אג"ח קונצרניות בדולר מעל אג"ח ממשלת ארה"ב, בנקודות בסיס.</p></div></div></section>`;
-}
-// ---- 3. what the public hears about the mega caps
-function mkStories() {
-  const st = MKT.stories || {}, items = st.items || [];
-  const megas = MKT.megacaps || [];
-  const nameOf = sym => (megas.find(m => m[0] === sym) || [])[1] || (MKT.issuers[sym] || {}).he || sym;
-  const out = sym => MKT.held.has(sym) ? '' : `<span class="st-out" title="פורטה לא מחזיקה במניה הזו; היא מופיעה כי הציבור מדבר עליה">לא בתיק</span>`;
-  const perf = p => `<div class="st-perf"><div><span class="k">היום${p && p.date ? ` · ${fmtDateShort(p.date)}` : ''}</span><b>${mkPct(p && p.d1, 2)}</b></div><div><span class="k">מתחילת החודש</span><b>${mkPct(p && p.mtd)}</b></div><div><span class="k">מתחילת השנה</span><b>${mkPct(p && p.ytd)}</b></div></div>`;
-  const cards = items.map(x => {
-    const p = mkPxOf(x.sym), cls = p && p.d1 != null ? (p.d1 >= 0 ? 'pos' : 'neg') : '';
-    const src = (x.src || []).filter(s => s && /^https?:\/\//.test(s.u)).slice(0, 3).map(s => `<a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t || 'מקור')}</a>`).join('');
-    return `<article class="st-card ${cls}"><div class="st-top"><span class="st-name">${esc(x.name || nameOf(x.sym))}<span class="st-tk ltr">${esc(x.sym)}</span></span><span class="st-chips">${x.tag ? `<span class="st-tag">${esc(x.tag)}</span>` : ''}${out(x.sym)}</span></div>
-      ${perf(p)}<div class="st-title">${esc(x.title)}</div><p class="st-body">${esc(x.story)}</p>${x.why ? `<p class="st-why"><b>מה להגיד למשקיע:</b> ${esc(x.why)}</p>` : ''}
-      <div class="st-src">${x.date ? `<span>${fmtDate(x.date)}</span>` : ''}${src}</div></article>`;
-  }).join('');
-  const told = new Set(items.map(x => x.sym));
-  const rest = megas.filter(m => !told.has(m[0])).map(([sym, he]) => { const p = mkPxOf(sym); return p ? `<div class="st-mini"><b>${esc(he)} <span class="small muted ltr">${esc(sym)}</span>${out(sym)}</b><span>${mkPct(p.d1, 2)}</span><span class="small muted">מתחילת השנה</span><span>${mkPct(p.ytd)}</span></div>` : ''; }).join('');
-  return `<section id="mk-stories" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>המניות הגדולות: על מה כולם מדברים</h2><p>הסיפורים שהציבור שומע על הענקיות, בשפה פשוטה, עם מה שהמניה עשתה היום, מתחילת החודש ומתחילת השנה. ענקית שאנחנו לא מחזיקים מסומנת <span class="st-out">לא בתיק</span>.</p></div><span class="small muted">${st.asof ? 'עודכן ' + fmtDate(st.asof.slice(0, 10)) : ''}</span></div>
-    ${cards ? `<div class="st-grid">${cards}</div>` : '<p class="muted">הסיפורים של היום עוד לא נכתבו. הם מתעדכנים כל בוקר.</p>'}
-    ${rest ? `<h3 style="font-size:15px;margin-top:4px">שאר הענקיות</h3><div class="st-rest">${rest}</div>` : ''}</section>`;
+  return `<div class="sp-bars">${rows || '<p class="muted small">טוען…</p>'}</div>
+    <div class="sp-legend"><span><i></i>איפה המרווח היום בטווח של 10 השנים האחרונות (0 = הצר ביותר, 100 = הרחב ביותר)</span><span><i class="t"></i>לפני שנה</span></div>
+    <p class="small muted" style="margin:0">ICE BofA דרך FRED: מרווח (OAS) של אג"ח קונצרניות בדולר מעל אג"ח ממשלת ארה"ב, בנקודות בסיס. בישראל: ממוצע משוקלל של "המרווח מהממשלתי" של הסדרות במדדי תל בונד, מהרכב המדד ב-Bizportal.</p>`;
 }
 // ---- 4. sector leaders and laggards since the start of the year
 function mkSecBox(title, flag, rows, asof, note) {
@@ -3913,7 +3973,7 @@ function mkSectors() {
   const us = (MKT.usSectors || []).map(([sym, name]) => { const it = S.mk && S.mk.items[sym]; return { name, v: it ? it.ytd : null, x: it ? sym : null, d: it && it.date }; });
   const usAsof = us.map(r => r.d).filter(Boolean).sort().pop();
   const il = (IL && IL.sectors || []).map(s => ({ name: s.name, v: s.ytd }));
-  return `<section id="mk-sectors" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>מי הוביל ומי פיגר השנה</h2><p>חמשת הסקטורים החזקים והחלשים מתחילת השנה, בישראל ובארה"ב.</p></div></div>
+  return `<section id="mk-sectors" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>מי הוביל ומי בפיגור השנה</h2><p>חמשת הסקטורים החזקים והחלשים מתחילת השנה.</p></div></div>
     <div class="sec-grid">${mkSecBox('ישראל', '🇮🇱', il, IL && IL.asof, `סלים במשקל שווה של מניות ת"א 125 בכל סקטור (${il.length} סקטורים).`)}
     ${mkSecBox('ארה"ב', '🇺🇸', us, usAsof, `11 הסקטורים של S&amp;P 500 (תעודות Select Sector SPDR), בדולרים, בלי דיבידנדים. לחיצה פותחת גרף.`)}</div></section>`;
 }
@@ -3921,7 +3981,7 @@ function mkSectors() {
 function mkSearch() {
   const nIss = MKT.list.filter(x => x.h.length).length, nSec = (MKT.holdings || []).length;
   const kinds = [['all', 'הכל'], ['stock', 'מניות'], ['bond', 'אג"ח קונצרני'], ['etf', 'תעודות סל'], ['gov', 'ממשלתי']];
-  return `<section class="panel" id="mk-search"><div class="mk-sec-h"><div><h2>חיפוש נייר שאנחנו מחזיקים</h2><p>${fmtN(nSec, 0)} ניירות של ${fmtN(nIss, 0)} חברות, מדדים ומנפיקים. לכל אחד: מה החברה עושה, מתחרות, חדשות אחרונות, דוחות, ביצועים ומה בדיוק אנחנו מחזיקים.</p></div></div>
+  return `<section class="panel" id="mk-search"><div class="mk-sec-h"><div><h2>חיפוש נייר שאנחנו מחזיקים</h2><p>${fmtN(nSec, 0)} ניירות של ${fmtN(nIss, 0)} חברות ומנפיקים. לחיצה על תוצאה פותחת כרטיס: מה החברה עושה, מתחרות, חדשות, דוחות וביצועים.</p></div></div>
     <div class="hs-tools"><input type="search" id="hsQ" class="hs-q" placeholder="חפשו: שם חברה, סימול או סדרה (לאומי, NVDA, ג'י סיטי אגח טז)" aria-label="חיפוש נייר" value="${esc(S.hsQ || '')}" autocomplete="off">
       <div class="seg" role="group" id="hsKind" aria-label="סוג נייר">${kinds.map(([k, l]) => `<button type="button" data-k="${k}" aria-pressed="${(S.hsKind || 'all') === k}">${l}</button>`).join('')}</div></div>
     <div id="hsRes" style="display:grid;gap:10px"></div></section>`;
@@ -3942,7 +4002,7 @@ function mkResults() {
       return { x, w };
     }).filter(o => o.w > 0).sort((a, b) => b.w - a.w || b.x.h.length - a.x.h.length).map(o => o.x);
   } else L = L.slice().sort((a, b) => b.h.length - a.h.length);
-  const N = S.hsN || 24, shown = L.slice(0, N);
+  const N = S.hsN || (q || kind !== 'all' ? 24 : 8), shown = L.slice(0, N); S.hsNcur = N;   // before typing: a short list, not a wall of cards
   const item = x => { const v = x.v, p = v.y ? mkPxOf(v.y) : null;
     return `<button type="button" class="hs-it" data-iss="${esc(x.k)}"><span class="n"><span>${esc(v.he)}</span>${p && p.ytd != null ? `<span class="small" title="מתחילת השנה">${mkPct(p.ytd)}</span>` : ''}</span>
       <span class="m">${esc(v.sec || '')}${v.y && !/^\^/.test(v.y) ? ` · <span class="ltr">${esc(String(v.y).replace(/\.TA$/, ''))}</span>` : ''}${!v.desc ? ' · פרופיל בהשלמה' : ''}</span><span class="hs-kinds">${mkKinds(x.h)}</span></button>`; };
@@ -4025,7 +4085,7 @@ function renderMarketing() {
   S.mkDone = true;
   const st = MKT.stories || {};
   $('#mkAsof').textContent = [MKT.pxAsof ? `מחירים: ${fmtDate(MKT.pxAsof.slice(0, 10))}` : '', st.asof ? `סיפורים: ${fmtDate(st.asof.slice(0, 10))}` : '', MKT.newsAsof ? `חדשות: ${fmtDate(MKT.newsAsof.slice(0, 10))}` : ''].filter(Boolean).join(' · ');
-  el.innerHTML = mkWeekly() + mkMacro() + mkSpreads() + mkStories() + mkSectors() + mkSearch()
+  el.innerHTML = mkWeekly() + mkStories() + mkMacro() + mkSectors() + mkSearch()
     + `<p class="small muted" style="margin:0">מקורות: FRED (ICE BofA, BLS), הלמ"ס, בנק ישראל, Bizportal (מדדי תל בונד), Yahoo Finance (מחירים), Google News (כותרות), ויומן הדוחות של הדשבורד. הסיפורים והתקצירים נכתבים כל בוקר מתוך כתבות שפורסמו, עם קישור למקור. זה חומר רקע לשיחה ולא המלצת השקעה.</p>`;
   mkResults();
 }
@@ -4038,15 +4098,18 @@ function bindMarketing() {
     const iss = e.target.closest('[data-iss]'); if (iss) { openIssuer(iss.dataset.iss); return; }
     const r = e.target.closest('[data-ind]'); if (r) { openInd(r.dataset.ind); return; }
     const x = e.target.closest('[data-x]'); if (x) { openIdx(x.dataset.x); return; }
-    const kb = e.target.closest('#hsKind button[data-k]'); if (kb) { S.hsKind = kb.dataset.k; S.hsN = 24; $$('#hsKind button').forEach(b => b.setAttribute('aria-pressed', String(b === kb))); mkResults(); return; }
-    if (e.target.closest('#hsMore')) { S.hsN = (S.hsN || 24) + 48; mkResults(); }
+    const kb = e.target.closest('#hsKind button[data-k]'); if (kb) { S.hsKind = kb.dataset.k; S.hsN = 0; $$('#hsKind button').forEach(b => b.setAttribute('aria-pressed', String(b === kb))); mkResults(); return; }
+    if (e.target.closest('#hsMore')) { S.hsN = (S.hsNcur || 24) + 48; mkResults(); }
   });
   body.addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest('div[data-ind], div[data-x]'); if (!r) return; e.preventDefault(); r.dataset.ind ? openInd(r.dataset.ind) : openIdx(r.dataset.x); });
   body.addEventListener('change', e => { if (e.target.id !== 'wkSel') return; S.wkIdx = +e.target.value; const old = $('#mk-weekly'); if (old) old.outerHTML = mkWeekly(); });
-  body.addEventListener('input', e => { if (e.target.id !== 'hsQ') return; S.hsQ = e.target.value; S.hsN = 24; mkResults(); });
+  body.addEventListener('input', e => { if (e.target.id !== 'hsQ') return; S.hsQ = e.target.value; S.hsN = 0; mkResults(); });
   $('#mkPresent').addEventListener('click', () => mkPresent(!document.body.classList.contains('mk-present')));
   $('#mkPrint').addEventListener('click', () => window.print());
   document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && document.body.classList.contains('mk-present')) mkPresent(false); });
+  // a printout / PDF shows everything: open the collapsed rows for the print, close them again after
+  window.addEventListener('beforeprint', () => $$('#v-marketing details:not([open])').forEach(d => { d.open = true; d.dataset.pr = '1'; }));
+  window.addEventListener('afterprint', () => $$('#v-marketing details[data-pr]').forEach(d => { d.open = false; delete d.dataset.pr; }));
 }
 
 // ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
@@ -4059,7 +4122,7 @@ const NAV = {
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
   macro: { d: 'אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   calendar: { d: 'דוחות כספיים בארה"ב ובישראל, התנועה שהאופציות מתמחרות ומה קרה אחרי הדוח, ואירועי מאקרו', items: () => [['דוחות ארה"ב', 'cal:US'], ['דוחות ישראל', 'cal:IL'], ['מאקרו', 'cal:MACRO']] },
-  marketing: { d: 'לפני שיחה עם משקיע: התקציר השבועי, מאקרו ומרווחים, סיפורי המניות הגדולות, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['התקציר השבועי', '#mk-weekly'], ['תמונת המאקרו', '#mk-macro'], ['מרווחי אשראי', '#mk-spreads'], ['המניות הגדולות', '#mk-stories'], ['סקטורים מתחילת השנה', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
+  marketing: { d: 'לפני שיחה עם משקיע: חדשות השבוע, סיפורי המניות הגדולות, מאקרו ומרווחים, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['חדשות השבוע', '#mk-weekly'], ['המניות הגדולות', '#mk-stories'], ['מאקרו ומרווחי אשראי', '#mk-macro'], ['מי הוביל ומי בפיגור', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
   israel: { d: 'סנטימנט, רוחב שוק, לאן הכסף זורם, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['לאן הכסף זורם', '#il-flows'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
 };
 const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', calendar: 'יומן כלכלי', marketing: 'שיווק', analysis: 'שורה תחתונה', manage: 'ניהול' };
