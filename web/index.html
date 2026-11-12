@@ -740,6 +740,12 @@ body[data-tab="calendar"] .site-foot, body[data-tab="calendar"] .to-top { displa
 @media (max-width: 640px) { .fl-row { grid-template-columns: 1fr; gap: 2px; } .fl-val { text-align: right; } }
 
 .fl-part { display: grid; gap: 10px; }
+.fl-lbls { display: grid; gap: 1px; direction: rtl; margin-top: -4px; }
+.fl-lbls span { display: grid; text-align: center; font-size: 11px; line-height: 1.3; min-width: 0; }
+.fl-lbls b { font-weight: 600; color: var(--muted); }
+.fl-lbls i { font-style: normal; font-variant-numeric: tabular-nums; }
+.fl-heat td, .fl-heat th { text-align: center; white-space: nowrap; }
+.fl-heat td:first-child, .fl-heat th:first-child { text-align: start; }
 .fl-part h4 { margin: 0; font-size: 14.5px; }
 
 /* ---------- live intraday values ---------- */
@@ -3700,12 +3706,17 @@ function ilStocksTable() {
 const flM = v => (v == null ? '—' : `${v >= 0 ? '+' : '−'}₪${Math.abs(v) >= 1000 ? (Math.abs(v) / 1000).toFixed(2) + ' מיליארד' : (Math.abs(v) < 10 ? Math.abs(v).toFixed(1) : Math.round(Math.abs(v))) + ' מ\''}`);
 const flC = v => (v == null ? '' : v >= 0 ? 'up-g' : 'up-f');
 const flPct = v => (v == null || !isFinite(v) ? '—' : ltr((Math.round(v * 100) || 0) + '%'));
-function flBarsSvg(dates, vals, label) {
+function flBarsSvg(dates, vals, label, fmtD = fmtDate, showLabels = false) {
   const n0 = Math.max(0, dates.length - 60), bars = vals.slice(n0), mx = Math.max(1, ...bars.map(x => Math.abs(x || 0)));
   if (!bars.length) return '';
   const W = 600, H = 90, bw = W / bars.length;
-  return `<svg class="fl-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${esc(label)}"><line x1="0" x2="${W}" y1="${H / 2}" y2="${H / 2}" class="fl-axis"/>${bars.map((x, i) => { const hh = Math.abs(x || 0) / mx * (H / 2 - 2); return `<rect x="${(W - (i + 1) * bw).toFixed(1)}" width="${Math.max(1, bw - 1).toFixed(1)}" y="${(x >= 0 ? H / 2 - hh : H / 2).toFixed(1)}" height="${hh.toFixed(1)}" class="${x >= 0 ? 'fl-in' : 'fl-out'}"><title>${fmtDate(dates[n0 + i])}: ${flM(x)}</title></rect>`; }).join('')}</svg>`;
+  const svg = `<svg class="fl-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${esc(label)}"><line x1="0" x2="${W}" y1="${H / 2}" y2="${H / 2}" class="fl-axis"/>${bars.map((x, i) => { const hh = Math.abs(x || 0) / mx * (H / 2 - 2); return `<rect x="${(W - (i + 1) * bw).toFixed(1)}" width="${Math.max(1, bw - 1).toFixed(1)}" y="${(x >= 0 ? H / 2 - hh : H / 2).toFixed(1)}" height="${hh.toFixed(1)}" class="${x >= 0 ? 'fl-in' : 'fl-out'}"><title>${fmtD(dates[n0 + i])}: ${flM(x)}</title></rect>`; }).join('')}</svg>`;
+  if (!showLabels) return svg;
+  // one label per bar (oldest on the right, like the bars), with the amount under it
+  return svg + `<div class="fl-lbls" style="grid-template-columns:repeat(${bars.length},minmax(0,1fr))">${bars.map((x, i) => `<span><b>${esc(fmtD(dates[n0 + i]))}</b><i class="${flC(x)}">${x == null ? '—' : ltr(fmtN(x / 1000, 1))}</i></span>`).join('')}</div>`;
 }
+const flMonth = m => { const [y, mo] = String(m).split('-'); return `${mo}/${y.slice(2)}`; };
+const FL_WIN = { '5': ['5 ימים', 'n5', 'r5'], '20': ['20 ימים', 'n20', 'r20'], '3m': ['3 חודשים', 'n3m', 'r3m'], '1y': ['שנה', 'n1y', 'r1y'] };
 function flSectorBars(list, key) {
   const mx = Math.max(1, ...list.map(x => Math.abs(x[key] || 0)));
   return `<div class="fl-list">${list.map(x => { const v = x[key] || 0, pct = Math.abs(v) / mx * 50;
@@ -3734,27 +3745,53 @@ function ilInstHtml() {
 }
 function ilPressureHtml() {
   const F = IL.flows; if (!F) return '';
-  const w = S.ilFw || 20, k = 'n' + w, names = IL.sectorNames || {};
-  const T = F.total || {}, tot = T[k], turnW = (T.turn20 || 0) * w;
-  const secs = (F.sectors || []).map(x => ({ ...x, share: x.t20 ? (x[k] || 0) / (x.t20 * w) : null })).sort((a, b) => (b[k] ?? 0) - (a[k] ?? 0));
+  const hasLong = F.total && F.total.n1y !== undefined;
+  const w = FL_WIN[S.ilFw] && (hasLong || !['3m', '1y'].includes(S.ilFw)) ? S.ilFw : '20', [wl, k, rk] = FL_WIN[w], long = w === '3m' || w === '1y', names = IL.sectorNames || {};
+  const T = F.total || {}, tot = T[k], share = T[rk] !== undefined ? T[rk] : (tot != null && T.turn20 ? tot / (T.turn20 * +w) : null);
+  const since = F.from && F.from[w] ? ` · מ-${fmtDate(F.from[w])}` : '';
+  const secs = (F.sectors || []).map(x => ({ ...x, share: x[rk] !== undefined ? x[rk] : (x.t20 ? (x[k] || 0) / (x.t20 * +w) : null) })).sort((a, b) => (b[k] ?? 0) - (a[k] ?? 0));
   const st = (F.stocks || []).filter(r => r[k] != null);
-  const row = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span></td><td>${esc(names[r.sec] || r.sec)}</td><td class="${flC(r[k])}">${ltr(flM(r[k]))}</td><td>${flPct(r['r' + w])}</td><td>${r.z20 == null ? '—' : ltr((r.z20 > 0 ? '+' : '') + r.z20.toFixed(1))}</td><td>${r.surge == null ? '—' : ltr('×' + r.surge.toFixed(1))}</td></tr>`;
-  const head = '<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>לחץ בש"ח</th><th>מהמחזור</th><th>חריגות (z, 20 ימים)</th><th>מחזור מול הרגיל</th></tr></thead>';
-  const zs = st.filter(r => r.z20 != null);
-  const up = zs.slice().sort((a, b) => b.z20 - a.z20).slice(0, 12), dn = zs.slice().sort((a, b) => a.z20 - b.z20).slice(0, 12);
-  const seg = [[5, '5 ימים'], [20, '20 ימים']].map(([v, l]) => `<button type="button" data-w="${v}" aria-pressed="${w === v}">${l}</button>`).join('');
+  const fromNote = r => r['from' + w] ? ` <span class="small muted">(נסחרת מ-${fmtDateShort(r['from' + w])})</span>` : '';
+  const row = (r, i) => `<tr${S.stk.has(r.sym) ? ` class="rowx" data-t="${esc(r.sym)}" tabindex="0"` : ''}><td class="num muted">${i + 1}</td><td><b>${esc(r.name)}</b> <span class="small muted ltr">${esc(r.sym)}</span>${long ? fromNote(r) : ''}</td><td>${esc(names[r.sec] || r.sec)}</td><td class="${flC(r[k])}">${ltr(flM(r[k]))}</td><td>${flPct(r[rk])}</td>${long ? '' : `<td>${r.z20 == null ? '—' : ltr((r.z20 > 0 ? '+' : '') + r.z20.toFixed(1))}</td><td>${r.surge == null ? '—' : ltr('×' + r.surge.toFixed(1))}</td>`}</tr>`;
+  const head = `<thead><tr><th>#</th><th>מניה</th><th>סקטור</th><th>לחץ בש"ח</th><th>מהמחזור</th>${long ? '' : '<th>חריגות (z, 20 ימים)</th><th>מחזור מול הרגיל</th>'}</tr></thead>`;
+  let up, dn, upT, dnT;
+  if (long) {   // the long views: where the money went, in shekels
+    up = st.filter(r => r[k] > 0).sort((a, b) => b[k] - a[k]).slice(0, 12); dn = st.filter(r => r[k] < 0).sort((a, b) => a[k] - b[k]).slice(0, 12);
+    upT = `הכי הרבה לחץ קנייה · ${wl}`; dnT = `הכי הרבה לחץ מכירה · ${wl}`;
+  } else {
+    const zs = st.filter(r => r.z20 != null);
+    up = zs.slice().sort((a, b) => b.z20 - a.z20).slice(0, 12); dn = zs.slice().sort((a, b) => a.z20 - b.z20).slice(0, 12);
+    upT = 'הכי חריגות כלפי קנייה'; dnT = 'הכי חריגות כלפי מכירה';
+  }
+  const seg = Object.entries(FL_WIN).filter(([v]) => hasLong || !['3m', '1y'].includes(v)).map(([v, [l]]) => `<button type="button" data-w="${v}" aria-pressed="${w === v}">${l}</button>`).join('');
+  const M = F.months || {}, Wk = F.weeks || {};
+  const timeline = w === '1y' && (M.m || []).length
+    ? `<div class="panel-head" style="margin-top:4px"><h4>לחץ לפי חודש</h4><span class="small muted">כל המדד, מיליארדי ש"ח · החודש האחרון חלקי</span></div>${flBarsSvg(M.m, M.net, 'לחץ קנייה ומכירה לפי חודש', flMonth, true)}`
+    : w === '3m' && (Wk.d || []).length
+      ? `<div class="panel-head" style="margin-top:4px"><h4>לחץ לפי שבוע</h4><span class="small muted">כל המדד, מיליארדי ש"ח · לפי היום האחרון בכל שבוע</span></div>${flBarsSvg(Wk.d.slice(-13), Wk.net.slice(-13), 'לחץ קנייה ומכירה לפי שבוע', fmtDateShort, true)}`
+      : `<div class="panel-head" style="margin-top:4px"><h4>לחץ יומי</h4><span class="small muted">60 ימי מסחר, מיליוני ש"ח</span></div>${flBarsSvg((F.hist || {}).d || [], (F.hist || {}).net || [], 'לחץ קנייה ומכירה יומי')}`;
+  // where and when: each sector's pressure (share of its turnover) by month
+  const heat = long && (M.secs || []).length ? (() => {
+    const ms = w === '3m' ? M.m.slice(-4) : M.m, off = M.m.length - ms.length;
+    const byKey = Object.fromEntries(M.secs.map(x => [x.key, x]));
+    const rows = secs.filter(x => byKey[x.key]).map(x => `<tr><td><b>${esc(x.name)}</b></td>${byKey[x.key].r.slice(off).map((v, i) => heatTd(v, 0.15).replace('<td', `<td title="${esc(x.name)} · ${flMonth(ms[i])}: ${byKey[x.key].n[off + i] == null ? '—' : flM(byKey[x.key].n[off + i])}"`)).join('')}<td class="${flC(x[k])}"><b>${flPct(x.share)}</b></td></tr>`).join('');
+    return `<div class="panel-head" style="margin-top:4px"><h4>מאיפה יצא ולאן נכנס, חודש אחרי חודש</h4><span class="small muted">לחץ כאחוז ממחזור הסקטור בכל חודש · ירוק = קנייה, אדום = מכירה</span></div>
+      <div class="tbl-wrap"><table class="ft itbl fl-heat"><thead><tr><th>סקטור</th>${ms.map(m => `<th>${flMonth(m)}</th>`).join('')}<th>${wl}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  })() : '';
   return `<div class="panel inner fl-part"><div class="panel-head"><div><h3>לחץ קנייה ומכירה בכל ת"א 125 · אומדן</h3><p class="small muted" style="margin:2px 0 0">לא נתון רשמי: אומדן מהמחיר והמחזור (פירוט החישוב בהערה למטה). מתאים לזהות לאן הלחץ נוטה, ופחות לסכומים מדויקים. נכון ל-${fmtDate(F.asof)}.</p></div>
       <div class="seg" role="group" aria-label="טווח" id="ilFw">${seg}</div></div>
-    <div class="tiles fl-tiles"><div class="tile"><span class="k">לחץ נטו לכל המדד, ${w} ימים</span><span class="val ${flC(tot)}">${ltr(flM(tot))}</span><span class="s">${tot != null && turnW ? flPct(tot / turnW) + ' מהמחזור' : ''}</span></div>
+    <div class="tiles fl-tiles"><div class="tile"><span class="k">לחץ נטו לכל המדד, ${wl}${since}</span><span class="val ${flC(tot)}">${ltr(flM(tot))}</span><span class="s">${share != null ? flPct(share) + ' מהמחזור' : ''}</span></div>
       <div class="tile"><span class="k">מחזור יומי ממוצע (20 ימים)</span><span class="val">${ltr(flM(T.turn20).replace('+', ''))}</span><span class="s">סכום מחזורי מניות המדד</span></div></div>
-    <div class="panel-head" style="margin-top:4px"><h4>לחץ יומי</h4><span class="small muted">60 ימי מסחר, מיליוני ש"ח</span></div>${flBarsSvg((F.hist || {}).d || [], (F.hist || {}).net || [], 'לחץ קנייה ומכירה יומי')}
-    <div class="panel-head" style="margin-top:4px"><h4>לפי סקטור</h4><span class="small muted">באחוזים: מתוך מחזור הסקטור</span></div>${flSectorBars(secs, k)}
-    <div class="ix-grid"><div><h4>הכי חריגות כלפי קנייה</h4><div class="tbl-wrap"><table class="ft itbl">${head}<tbody>${up.map(row).join('')}</tbody></table></div></div>
-      <div><h4>הכי חריגות כלפי מכירה</h4><div class="tbl-wrap"><table class="ft itbl">${head}<tbody>${dn.map(row).join('')}</tbody></table></div></div></div>
+    ${timeline}
+    <div class="panel-head" style="margin-top:4px"><h4>לפי סקטור</h4><span class="small muted">באחוזים: מתוך מחזור הסקטור${long ? ' באותה תקופה' : ''}</span></div>${flSectorBars(secs, k)}
+    ${heat}
+    <div class="ix-grid"><div><h4>${upT}</h4><div class="tbl-wrap"><table class="ft itbl">${head}<tbody>${up.map(row).join('')}</tbody></table></div></div>
+      <div><h4>${dnT}</h4><div class="tbl-wrap"><table class="ft itbl">${head}<tbody>${dn.map(row).join('')}</tbody></table></div></div></div>
+    ${long ? `<p class="small muted" style="margin:0">בחלונות הארוכים כל יום נספר לפי הכיוון שלו, ולכן בתקופה של עליות רוב המניות יראו לחץ קנייה. ההשוואה בין סקטורים ומניות, באחוזים מהמחזור, אומרת יותר מהסימן עצמו. החישוב לפי ההרכב העדכני של ת"א 125: מניות שיצאו מהמדד בתקופה לא נכללות, ומניה שנסחרת רק בחלק מהתקופה מסומנת בתאריך שממנו יש לה נתונים.</p>` : ''}
     <details class="lagd"><summary>איך מחושב האומדן</summary><div class="rs-notes small">
       <p><b>מחזור בש"ח</b> לכל מניה ויום = שער הסגירה × מספר המניות שנסחרו (Yahoo Finance).</p>
-      <p><b>משקל הלחץ</b> = חצי ממיקום הסגירה בטווח היומי (‎+1‎ בשיא, ‎−1‎ בשפל) וחצי מכיוון הסגירה מול אתמול (‎+1‎ עלייה, ‎−1‎ ירידה). כך יום שנפתח בנפילה והתאושש בחלקו לא נספר כקנייה מלאה.</p>
-      <p><b>לחץ</b> = משקל × מחזור, מסוכם על 5 או 20 ימים. <b>חריגות (z)</b> = עד כמה יחס הלחץ למחזור ב-20 הימים האחרונים חריג מול 20-הימים של המניה עצמה בחצי השנה שלפני, כך שמניות גדולות לא משתלטות על הדירוג.</p>
+      <p><b>משקל הלחץ</b> = חצי ממיקום הסגירה בטווח היומי (‎+1‎ בשיא, ‎−1‎ בשפל, כמו במדד של חייקין) וחצי מכיוון הסגירה מול אתמול (‎+1‎ עלייה, ‎−1‎ ירידה). כך יום שנפתח בנפילה והתאושש בחלקו לא נספר כקנייה מלאה.</p>
+      <p><b>לחץ</b> = משקל × מחזור, מסוכם על 5 או 20 ימי מסחר, או על 3 החודשים או השנה האחרונים. <b>מהמחזור</b> = הלחץ חלקי המחזור באותה תקופה. <b>חריגות (z)</b> = עד כמה יחס הלחץ למחזור ב-20 הימים האחרונים חריג מול 20-הימים של המניה עצמה בחצי השנה שלפני, כך שמניות גדולות לא משתלטות על הדירוג.</p>
       <p><b>מגבלות:</b> כל עסקה היא קנייה ומכירה באותו סכום, ולכן זה מודד לחץ ולא כסף שנכנס. מכרז הנעילה, שבו מתבצע חלק גדול מהמחזור בת"א (במיוחד בימי עדכון מדדים), קובע את שער הסגירה ולכן משפיע על המשקל. במניות דואליות חלק מהמסחר בניו יורק לא נכלל.</p></div></details></div>`;
 }
 function ilFlowsHtml() {
@@ -3813,7 +3850,7 @@ function renderIsrael() {
     <p><b>מקורות:</b> הבורסה בת"א (VTA35), Yahoo Finance (מניות ומדדי ת"א, EIS, שקל), FRED (תשואת האג"ח והאבטלה לפי OECD, מחירי דיור לפי BIS), הלמ"ס ובנק ישראל (אינפלציה וריבית).</p></div></details>`;
   el.innerHTML = tiles + hero + sec('breadth') + sec('trend') + sec('foreign') + `<div id="ilFlowsBox">${ilFlowsHtml()}</div>` + sectors + stocks + sec('macro') + notes;
   const bindFw = () => {
-    for (const [id, key] of [['#ilFw', 'ilFw'], ['#ilIw', 'ilIw']]) { const g = $(id); if (g) g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S[key] = +b.dataset.w; $('#ilFlowsBox').innerHTML = ilFlowsHtml(); bindFw(); }); }
+    for (const [id, key] of [['#ilFw', 'ilFw'], ['#ilIw', 'ilIw']]) { const g = $(id); if (g) g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S[key] = key === 'ilFw' ? b.dataset.w : +b.dataset.w; $('#ilFlowsBox').innerHTML = ilFlowsHtml(); bindFw(); }); }
   };
   bindFw();
   const reStk = () => { $('#ilStk').innerHTML = ilStocksTable(); };

@@ -122,30 +122,42 @@ def sector_rows(c: pd.DataFrame, info: dict, sec_names: dict, idx: pd.Series | N
     return out
 
 
+LONG_WINDOWS = {"3m": 91, "1y": 365}    # calendar days: the long views of the flows (3 months, a year)
+
+
 def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFrame, info: dict, sec_names: dict) -> dict:
     """Where money went in TA-125: an estimate from prices and turnover, since TASE publishes no net buying per stock.
 
     turnover = close x volume (Yahoo quotes TASE shares in agorot, so / 100 for shekels).
     pressure weight = half the close's position in the day's range (+1 at the high, -1 at the low: Chaikin) and half
     the direction of the close against the previous close (+1 up, -1 down), so a day that gapped down and recovered
-    part of it is not counted as full buying. flow = weight x turnover, summed over 5 and 20 sessions, per stock, per
-    sector and for the index; also as a share of the turnover, and against the stock's own history (z: how unusual the
-    last 20 days are compared with the stock's 20-day readings of the past six months)."""
-    c, h, lo, v = c.iloc[-130:], h.iloc[-130:], lo.iloc[-130:], v.reindex(index=c.index, columns=c.columns).iloc[-130:]
+    part of it is not counted as full buying. flow = weight x turnover, summed over 5 and 20 sessions and over the last
+    3 months and year (calendar), per stock, per sector and for the index; also as a share of the turnover of the same
+    window, and against the stock's own history (z: how unusual the last 20 days are compared with the stock's 20-day
+    readings of the past six months). For the long views also the index total by week and by month, and each sector's
+    pressure by month (share of its turnover)."""
+    n = 340     # about 16 months of sessions: a full year, and 13 whole months for the monthly view
+    c, h, lo, v = c.iloc[-n:], h.iloc[-n:], lo.iloc[-n:], v.reindex(index=c.index, columns=c.columns).iloc[-n:]
     turn = (c / 100.0) * v
     rng = (h - lo).where((h - lo) > 0)
     clv = (((c - lo) - (h - c)) / rng).clip(-1, 1).fillna(0.0)
     w = 0.5 * clv + 0.5 * pd.DataFrame(np.sign(c.diff().values), index=c.index, columns=c.columns).fillna(0.0)
     flow = (w * turn).where(turn > 0)
     r20s = flow.rolling(20, min_periods=15).sum() / turn.rolling(20, min_periods=15).sum()
-    def win(df, n):
-        return df.iloc[-n:].sum(min_count=max(1, n // 2))
+    asof = dt.date.fromisoformat(str(c.index[-1])[:10])
+    # the rows of each window: the last n sessions, or the sessions after a calendar cut-off
+    sel = {"5": c.index[-5:], "20": c.index[-20:]}
+    sel.update({k: c.index[c.index > (asof - dt.timedelta(days=d)).isoformat()] for k, d in LONG_WINDOWS.items()})
+    need = {"5": 2, "20": 10, "3m": 20, "1y": 20}     # fewest sessions with data for a reading
+    fsum = {k: flow.loc[ix].sum(min_count=need[k]) for k, ix in sel.items()}
+    tsum = {k: turn.loc[ix].sum(min_count=need[k]) for k, ix in sel.items()}
+    first = {k: turn.loc[ix].apply(lambda col: col.first_valid_index()) for k, ix in sel.items() if k in LONG_WINDOWS}
     rows = []
     for sym in c.columns:
-        t20, f20, f5, t5 = win(turn[[sym]], 20)[sym], win(flow[[sym]], 20)[sym], win(flow[[sym]], 5)[sym], win(turn[[sym]], 5)[sym]
-        t60 = turn[sym].iloc[-60:].mean()
-        if not (t20 and t20 > 0):
+        t20 = tsum["20"][sym]
+        if not (pd.notna(t20) and t20 > 0):
             continue
+        t60 = turn[sym].iloc[-60:].mean()
         name, sec = info[sym]
         hist = r20s[sym].dropna()
         z = None
@@ -153,27 +165,62 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
             base = hist.iloc[-130:-20]
             if len(base) > 30 and base.std() > 0:
                 z = round(float((hist.iloc[-1] - base.mean()) / base.std()), 2)
-        rows.append({"z20": z, "sym": sym.replace(".TA", ""), "name": name, "sec": sec,
-                     "n5": round(f5 / 1e6, 2) if pd.notna(f5) else None, "n20": round(f20 / 1e6, 2) if pd.notna(f20) else None,
-                     "r5": round(f5 / t5, 3) if pd.notna(f5) and t5 else None, "r20": round(f20 / t20, 3) if pd.notna(f20) else None,
-                     "t20": round(t20 / 20 / 1e6, 2), "surge": round((t5 / 5) / t60, 2) if t60 and pd.notna(t5) else None})
+        row = {"z20": z, "sym": sym.replace(".TA", ""), "name": name, "sec": sec, "t20": round(t20 / 20 / 1e6, 2),
+               "surge": round((tsum["5"][sym] / 5) / t60, 2) if t60 and pd.notna(tsum["5"][sym]) else None}
+        for k in sel:
+            f, t = fsum[k][sym], tsum[k][sym]
+            row["n" + k] = round(f / 1e6, 2) if pd.notna(f) else None
+            row["r" + k] = round(f / t, 3) if pd.notna(f) and pd.notna(t) and t > 0 else None
+        for k, fv in first.items():   # listed (or with data) only part of the window: say from when
+            d0 = fv.get(sym)
+            if row["n" + k] is not None and d0 is not None and str(d0) > str(sel[k][min(10, len(sel[k]) - 1)]):
+                row["from" + k] = str(d0)[:10]
+        rows.append(row)
+    ttot = {k: sum(tsum[k][s] for s in c.columns if pd.notna(tsum[k][s]) and pd.notna(fsum[k][s])) for k in sel}
     sectors = []
-    for k, nm in sec_names.items():
-        mem = [r for r in rows if r["sec"] == k]
+    for key, nm in sec_names.items():
+        mem = [r for r in rows if r["sec"] == key]
         if not mem:
             continue
-        n5, n20 = sum(r["n5"] or 0 for r in mem), sum(r["n20"] or 0 for r in mem)
-        t20 = sum(r["t20"] for r in mem) * 20
-        sectors.append({"key": k, "name": nm, "n": len(mem), "n5": round(n5, 1), "n20": round(n20, 1), "r20": round(n20 / t20, 3) if t20 else None,
-                        "t20": round(t20 / 20, 1)})
+        syms = [s for s in c.columns if info[s][1] == key and pd.notna(tsum["20"][s])]
+        x = {"key": key, "name": nm, "n": len(mem), "t20": round(sum(r["t20"] for r in mem), 1)}
+        for k in sel:
+            f = sum(fsum[k][s] for s in syms if pd.notna(fsum[k][s]))
+            t = sum(tsum[k][s] for s in syms if pd.notna(fsum[k][s]) and pd.notna(tsum[k][s]))
+            x["n" + k] = round(f / 1e6, 1)
+            x["r" + k] = round(f / t, 3) if t else None
+        sectors.append(x)
     daily = flow.sum(axis=1, min_count=40) / 1e6
     dturn = turn.sum(axis=1, min_count=40) / 1e6
     hist = daily.dropna().iloc[-120:]
     r20 = daily.rolling(20, min_periods=15).sum().reindex(hist.index)
     fin = lambda x: None if x is None or pd.isna(x) else round(float(x), 1)
-    tot = {"n5": fin(daily.iloc[-5:].sum(min_count=3)), "n20": fin(daily.iloc[-20:].sum(min_count=10)), "turn20": fin(dturn.iloc[-20:].mean())}
+    tot = {"turn20": fin(dturn.iloc[-20:].mean())}
+    for k, ix in sel.items():
+        tot["n" + k] = fin(daily.loc[ix].sum(min_count=need[k]))
+        tot["r" + k] = round(float(fsum[k].sum() / ttot[k]), 3) if ttot[k] else None
+    # the long views: when the pressure came (index total by week and by month) and where (sectors by month)
+    dd = daily.dropna()
+    di = pd.to_datetime(dd.index)
+    wk = dd.groupby(di.to_period("W-SAT")).agg(["sum", "count"])
+    wk_last = pd.Series(dd.index, index=di).groupby(di.to_period("W-SAT")).last()
+    wk = wk[wk["count"] >= 2].iloc[-14:]
+    mo = dd.groupby(di.to_period("M")).agg(["sum", "count"])
+    mo = mo[mo["count"] >= 3].iloc[-13:]
+    months = [str(p) for p in mo.index]
+    mi = pd.to_datetime(flow.index).to_period("M")
+    secm = []
+    for x in sectors:
+        syms = [s for s in c.columns if info[s][1] == x["key"]]
+        fm = flow[syms].sum(axis=1, min_count=1).groupby(mi).sum(min_count=1).reindex(mo.index)
+        tm = turn[syms].where(flow[syms].notna()).sum(axis=1, min_count=1).groupby(mi).sum(min_count=1).reindex(mo.index)
+        secm.append({"key": x["key"], "r": [round(float(f / t), 3) if pd.notna(f) and pd.notna(t) and t > 0 else None for f, t in zip(fm, tm)],
+                     "n": [fin(f / 1e6) if pd.notna(f) else None for f in fm]})
     return {"asof": c.index[-1], "unit": "מיליוני ש\"ח", "total": tot, "stocks": rows, "sectors": sectors,
-            "hist": {"d": list(hist.index), "net": [round(float(x), 1) for x in hist], "r20": [None if pd.isna(x) else round(float(x), 1) for x in r20]}}
+            "from": {k: str(ix[0])[:10] if len(ix) else None for k, ix in sel.items()},
+            "hist": {"d": list(hist.index), "net": [round(float(x), 1) for x in hist], "r20": [None if pd.isna(x) else round(float(x), 1) for x in r20]},
+            "weeks": {"d": [wk_last[p] for p in wk.index], "net": [fin(x) for x in wk["sum"]]},
+            "months": {"m": months, "net": [fin(x) for x in mo["sum"]], "secs": secm}}
 
 
 def vta35(backfill: bool) -> dict[str, float]:
