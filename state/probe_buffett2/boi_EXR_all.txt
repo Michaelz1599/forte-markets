@@ -1,0 +1,36 @@
+SERIES_CODE,Series name,FREQ,Frequency,UNIT_MEASURE,Unit of Measure,UNIT_MULT,Unit multiplier,TIME_PERIOD,OBS_VALUE
+RER_FIM_ILS,Representative Exchange Rate Finnish markka/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,0.6758
+RER_LBP_ILS,Representative Exchange Rate Lebanese pound/New Israeli shekel,D,Daily,ILS,New Israeli shekel,1,Tens,2026-11-11,0.0004
+RER_DKK_ILS,Representative Exchange Rate Danish krone/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,0.4726
+NER_ILS_BSK_PCT,Nominal effective exchange rate (NIS/basket) - Percent Change,D,Daily,PT,Percent,0,Units,2026-11-11,0.048120720794164747
+RER_ITL_ILS,Representative Exchange Rate Italian lira/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,2.0753
+RER_XEU_ILS,Representative Exchange Rate European Currency Unit (E.C.U.)/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,1998-12-31,4.8553
+RER_EUR_ILS,Representative Exchange Rate Euro/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,3.533
+RER_EGP_ILS,Representative Exchange Rate Egyptian pound/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,0.0593
+WEB_STD_IMPVOL_USDILS,Implied volatility in options - USD/ILS,W,Weekly,PT,Percent,0,Units,2026-10-28,9.39064398
+RER_SEK_ILS,Representative Exchange Rate Swedish krona/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,0.3197
+RER_ZAR_ILS,Representative Exchange Rate South African rand/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,0.1917
+RER_BEL_ILS,Representative Exchange Rate Belgian franc (financial)/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,0.9961
+RER_CHF_ILS,Representative Exchange Rate Swiss franc/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,3.8248
+EXR_STD_ACTUAL_USDILS,Actual Volatility - USD/ILS,D,Daily,PT,Percent,0,Units,2026-11-10,10.23884893
+RER_JOD_ILS,Representative Exchange Rate Jordanian dinar/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,4.4743
+RER_ILS_BSK_PCT,Real effective exchange rate (NIS/basket) - Percent Change,M,Monthly,PT,Percent,0,Units,2026-09,2.1739999024879
+RER_AUD_ILS,Representative Exchange Rate Australian dollar/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,2.1768
+RER_GBP_ILS,Representative Exchange Rate UK pound sterling/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,4.2233
+WEB_STD_IMPVOL_USDADV,Implied volatility in options - USD/Advanced Markets,W,Weekly,PT,Percent,0,Units,2026-10-28,6.58393333333333
+RER_USD_ILS_GLBLIMP,Estimated change in USD/NIS exchange rate - Global influence,D,Daily,NBRE,Number,0,Units,2026-11-10,0.00526668477451
+RER_DEM_ILS,Representative Exchange Rate German mark/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,2.0545
+RER_CAD_ILS,Representative Exchange Rate Canadian dollar/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,2.2288
+RER_NOK_ILS,Representative Exchange Rate Norwegian krone/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,0.3327
+RER_USD_ILS_LCLIMP,Estimated change in USD/NIS exchange rate - Local influence,D,Daily,NBRE,Number,0,Units,2026-11-10,-0.00842524709724
+NER_ILS_BSK_IDX,Nominal effective exchange rate (NIS/basket) - Index,D,Daily,I_112015_L,Index, 01.01.2015=100,0,Units,2026-11-11,64.674773565700008
+RER_FRF_ILS,Representative Exchange Rate French franc/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,0.6126
+RER_JPY_ILS,Representative Exchange Rate Japanese yen/New Israeli shekel,D,Daily,ILS,New Israeli shekel,2,Hundreds,2026-11-11,1.993
+WEB_STD_IMPVOL_USDEME,Implied volatility in options - USD/EmergingMarkets,W,Weekly,PT,Percent,0,Units,2026-10-28,8.98012
+RER_NLG_ILS,Representative Exchange Rate Netherlands guilder/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,1.8234
+RER_USD_ILS,Representative Exchange Rate US dollar/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2026-11-11,3.172
+RER_ILS_BSK_IDX,Real effective exchange rate (NIS/basket) - Index,M,Monthly,I_DEC09_L,Index, Dec 2009=100,0,Units,2026-09,75.5027516927063
+RER_ATS_ILS,Representative Exchange Rate Austrian schilling/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,2.9202
+RER_IEP_ILS,Representative Exchange Rate Irish pound/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,5.1021
+RER_CBK_ILS,Representative Exchange Rate Currency Basket/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2007-04-30,4.6358
+RER_ESP_ILS,Representative Exchange Rate Spanish peseta/New Israeli shekel,D,Daily,ILS,New Israeli shekel,0,Units,2002-01-25,2.415
