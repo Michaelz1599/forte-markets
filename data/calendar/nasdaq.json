@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-12T22:29+00:00",
+"asof": "2026-11-13T00:20+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23505,44 +23505,6 @@
 }
 },
 {
-"id": "KSPI-2026-11-11",
-"ticker": "KSPI",
-"market": "US",
-"date": "2026-11-11",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 16933985300.0,
-"name": "Joint Stock Company Kaspi.kz",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 3.12,
-"epsN": 1.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
 "id": "CSCO-2026-11-12",
 "ticker": "CSCO",
 "market": "US",
@@ -23564,7 +23526,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 386964914000.0,
+"mcap": 397255049000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23602,7 +23564,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 295638860000.0,
+"mcap": 313534480000.0,
 "name": "Applied Materials, Inc.",
 "sources": [
 {
@@ -23640,7 +23602,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 103928119000.0,
+"mcap": 103007502000.0,
 "name": "Brookfield Corporation",
 "sources": [
 {
@@ -23678,7 +23640,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 58656539000.0,
+"mcap": 59821900000.0,
 "name": "Nu Holdings Ltd.",
 "sources": [
 {
@@ -23716,7 +23678,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36428599000.0,
+"mcap": 42053284000.0,
 "name": "Nebius Group N.V.",
 "sources": [
 {
@@ -23754,7 +23716,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22250248200.0,
+"mcap": 24012974100.0,
 "name": "Cerebras Systems Inc.",
 "sources": [
 {
@@ -23792,7 +23754,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16905200600.0,
+"mcap": 17082428400.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23807,37 +23769,6 @@
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
-},
-{
-"id": "BNT-2026-11-12",
-"ticker": "BNT",
-"market": "US",
-"date": "2026-11-12",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 14393624600.0,
-"name": "Brookfield Wealth Solutions Ltd.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-]
 },
 {
 "id": "QXO-2026-11-12",
@@ -23861,7 +23792,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14244747300.0,
+"mcap": 14327746600.0,
 "name": "QXO, Inc.",
 "sources": [
 {
@@ -26331,7 +26262,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 4.07,
-"epsN": 1.0,
+"epsN": null,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
