@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-13T00:20+00:00",
+"asof": "2026-11-13T06:02+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23271,7 +23271,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 0.63,
-"epsN": null,
+"epsN": 1.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23429,6 +23429,44 @@
 }
 },
 {
+"id": "VYLR-2026-11-11",
+"ticker": "VYLR",
+"market": "US",
+"date": "2026-11-11",
+"session": "AMC",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "after market close",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 48112542000.0,
+"name": "Vylor Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": -0.44,
+"epsN": null,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "FNV-2026-11-11",
 "ticker": "FNV",
 "market": "US",
@@ -23526,7 +23564,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 397255049000.0,
+"mcap": 386964914000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23564,7 +23602,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 313534480000.0,
+"mcap": 295638860000.0,
 "name": "Applied Materials, Inc.",
 "sources": [
 {
@@ -23602,7 +23640,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 103007502000.0,
+"mcap": 103928119000.0,
 "name": "Brookfield Corporation",
 "sources": [
 {
@@ -23640,7 +23678,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 59821900000.0,
+"mcap": 58656539000.0,
 "name": "Nu Holdings Ltd.",
 "sources": [
 {
@@ -23678,7 +23716,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42053284000.0,
+"mcap": 36428599000.0,
 "name": "Nebius Group N.V.",
 "sources": [
 {
@@ -23716,7 +23754,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24012974100.0,
+"mcap": 22250248200.0,
 "name": "Cerebras Systems Inc.",
 "sources": [
 {
@@ -23754,7 +23792,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17082428400.0,
+"mcap": 16905200600.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23769,6 +23807,37 @@
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
+},
+{
+"id": "BNT-2026-11-12",
+"ticker": "BNT",
+"market": "US",
+"date": "2026-11-12",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 14393624600.0,
+"name": "Brookfield Wealth Solutions Ltd.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
 },
 {
 "id": "QXO-2026-11-12",
@@ -23792,7 +23861,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14327746600.0,
+"mcap": 14244747300.0,
 "name": "QXO, Inc.",
 "sources": [
 {
@@ -25391,7 +25460,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 28126410800.0,
+"mcap": 28688939000.0,
 "name": "Bending Spoons S.p.A.",
 "sources": [
 {
@@ -25429,7 +25498,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13984300000.0,
+"mcap": 13945142300.0,
 "name": "BJ's Wholesale Club Holdings, Inc.",
 "sources": [
 {
@@ -25467,7 +25536,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11019982800.0,
+"mcap": 10851175400.0,
 "name": "Moog Inc.",
 "sources": [
 {
@@ -25505,39 +25574,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11019982800.0,
+"mcap": 10851175400.0,
 "name": "Moog Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-]
-},
-{
-"id": "FRO-2026-11-20",
-"ticker": "FRO",
-"market": "US",
-"date": "2026-11-20",
-"session": "BMO",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "before market open",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 10138246100.0,
-"name": "Frontline Plc",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -26251,7 +26289,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 186513375000.0,
+"mcap": 185405211000.0,
 "name": "Deere & Company",
 "sources": [
 {
