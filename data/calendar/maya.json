@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-13T06:03+00:00",
+"asof": "2026-11-13T08:24+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -2553,6 +2553,34 @@
 ]
 },
 {
+"id": "אפריקה מגורים-2026-11-19",
+"ticker": "אפריקה מגורים",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1338,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781072"
+}
+]
+},
+{
 "id": "אקרשטיין קבוצה-2026-11-19",
 "ticker": "אקרשטיין קבוצה",
 "market": "IL",
@@ -2773,6 +2801,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778981"
+}
+]
+},
+{
+"id": "אלמוגים החזקות-2026-11-20",
+"ticker": "אלמוגים החזקות",
+"market": "IL",
+"date": "2026-11-20",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1553,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781136"
 }
 ]
 },
@@ -4703,8 +4759,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ג'י סיטי": {
-"name": "ג'י סיטי",
+"אפריקה מגורים": {
+"name": "אפריקה מגורים",
 "tags": [
 "TASE"
 ],
@@ -4713,6 +4769,14 @@
 },
 "דורסל": {
 "name": "דורסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ג'י סיטי": {
+"name": "ג'י סיטי",
 "tags": [
 "TASE"
 ],
@@ -4785,6 +4849,14 @@
 },
 "ARBE": {
 "name": "ארבה רובוטיקס · ARBE",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלמוגים החזקות": {
+"name": "אלמוגים החזקות",
 "tags": [
 "TASE"
 ],
