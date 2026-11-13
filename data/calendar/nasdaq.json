@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-13T08:24+00:00",
+"asof": "2026-11-13T08:59+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23543,6 +23543,44 @@
 }
 },
 {
+"id": "KSPI-2026-11-11",
+"ticker": "KSPI",
+"market": "US",
+"date": "2026-11-11",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 16933985300.0,
+"name": "Joint Stock Company Kaspi.kz",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 3.12,
+"epsN": 1.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "CSCO-2026-11-12",
 "ticker": "CSCO",
 "market": "US",
@@ -23564,7 +23602,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 397255049000.0,
+"mcap": 386964914000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23602,7 +23640,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 313534480000.0,
+"mcap": 295638860000.0,
 "name": "Applied Materials, Inc.",
 "sources": [
 {
@@ -23623,11 +23661,11 @@
 "ticker": "BN",
 "market": "US",
 "date": "2026-11-12",
-"session": "TBD",
+"session": "BMO",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "שעה לא צוינה",
+"text": "before market open",
 "tz": "America/New_York"
 },
 "call": {
@@ -23640,7 +23678,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 103007502000.0,
+"mcap": 103928119000.0,
 "name": "Brookfield Corporation",
 "sources": [
 {
@@ -23678,7 +23716,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 59821900000.0,
+"mcap": 58656539000.0,
 "name": "Nu Holdings Ltd.",
 "sources": [
 {
@@ -23695,53 +23733,15 @@
 }
 },
 {
-"id": "VYLR-2026-11-12",
-"ticker": "VYLR",
-"market": "US",
-"date": "2026-11-12",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 48112542000.0,
-"name": "Vylor Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": -0.44,
-"epsN": 4.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
 "id": "NBIS-2026-11-12",
 "ticker": "NBIS",
 "market": "US",
 "date": "2026-11-12",
-"session": "TBD",
+"session": "BMO",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "שעה לא צוינה",
+"text": "before market open",
 "tz": "America/New_York"
 },
 "call": {
@@ -23754,7 +23754,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42053284000.0,
+"mcap": 36428599000.0,
 "name": "Nebius Group N.V.",
 "sources": [
 {
@@ -23792,7 +23792,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24012974100.0,
+"mcap": 22250248200.0,
 "name": "Cerebras Systems Inc.",
 "sources": [
 {
@@ -23813,11 +23813,11 @@
 "ticker": "ASND",
 "market": "US",
 "date": "2026-11-12",
-"session": "TBD",
+"session": "BMO",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "שעה לא צוינה",
+"text": "before market open",
 "tz": "America/New_York"
 },
 "call": {
@@ -23830,7 +23830,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17082428400.0,
+"mcap": 16905200600.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23842,44 +23842,6 @@
 "period": "רבעון נוכחי",
 "eps": 1.13,
 "epsN": 8.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "QXO-2026-11-12",
-"ticker": "QXO",
-"market": "US",
-"date": "2026-11-12",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 14327746600.0,
-"name": "QXO, Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.13,
-"epsN": 5.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23906,7 +23868,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14195223600.0,
+"mcap": 14393624600.0,
 "name": "Brookfield Wealth Solutions Ltd.",
 "sources": [
 {
@@ -23914,6 +23876,44 @@
 "url": "https://www.nasdaq.com/market-activity/earnings"
 }
 ]
+},
+{
+"id": "QXO-2026-11-12",
+"ticker": "QXO",
+"market": "US",
+"date": "2026-11-12",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 14244747300.0,
+"name": "QXO, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.13,
+"epsN": 5.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
 },
 {
 "id": "MUFG-2026-11-13",
@@ -23937,7 +23937,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 260377575000.0,
+"mcap": 256935936000.0,
 "name": "Mitsubishi UFJ Financial Group Inc",
 "sources": [
 {
@@ -23975,7 +23975,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 157952164000.0,
+"mcap": 155207942000.0,
 "name": "Sumitomo Mitsui Financial Group Inc",
 "sources": [
 {
@@ -24013,7 +24013,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 126484308000.0,
+"mcap": 123620983000.0,
 "name": "Mizuho Financial Group, Inc.",
 "sources": [
 {
@@ -24051,7 +24051,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 40700416000.0,
+"mcap": 40363463000.0,
 "name": "KB Financial Group Inc",
 "sources": [
 {
@@ -24089,7 +24089,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17221156900.0,
+"mcap": 16914163700.0,
 "name": "Woori Bank",
 "sources": [
 {
@@ -24120,7 +24120,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10443316200.0,
+"mcap": 10554945500.0,
 "name": "Freedom Holding Corp.",
 "sources": [
 {
@@ -26358,7 +26358,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 186513375000.0,
+"mcap": 185405211000.0,
 "name": "Deere & Company",
 "sources": [
 {
@@ -26369,7 +26369,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 4.07,
-"epsN": 1.0,
+"epsN": null,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
