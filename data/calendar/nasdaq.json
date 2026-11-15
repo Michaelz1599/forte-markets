@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-15T04:59+00:00",
+"asof": "2026-11-15T05:54+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23737,11 +23737,11 @@
 "ticker": "SMFG",
 "market": "US",
 "date": "2026-11-13",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -23775,11 +23775,11 @@
 "ticker": "MFG",
 "market": "US",
 "date": "2026-11-13",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
