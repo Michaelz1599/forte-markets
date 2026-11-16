@@ -1,218 +1,138 @@
 {
  "_comment": "News of the week for the marketing team (חדשות השבוע): talking points on Israeli (il) and US (us) companies. current = THIS week (Sunday to Saturday, Israel time; label like '15–21.11.2026', across months '29.11–5.12.2026'), partial true while the week runs: opened every Sunday morning by the weekly marketing task (weekend news and what the week holds) and refreshed every morning by the daily marketing task (the news so far, and what is still ahead). hist = summaries of closed weeks, newest first (up to 26, partial false): the Sunday task writes the final summary of the week that ended. A point: title, text (2-3 sentences with numbers), why (one line to say to an investor), keys (issuer keys in issuers.json, shown as clickable chips), src [{t, u}] (u may be '#calendar' for the dashboard's own earnings calendar). The coming days' reports and macro releases are added automatically by the pipeline (payload 'upcoming').",
  "current": {
-  "week": "8–14.11.2026",
-  "asof": "2026-11-15T06:55+02:00",
-  "partial": false,
-  "headline": "הסערה סביב ג'נסן הואנג, שהסתיימה בהתפטרותו, הפילה את אנבידיה ב-12.8% בשבוע, אבל הכסף עבר למתחרות ו-S&P 500 סגר שבוע חיובי של 2.5% למרות תשואת אג\"ח של 5.15%; בת\"א עלה ת\"א 35 כ-2.5% בשבוע של דוחות מעורבים, ועכשיו מגיע שבוע הדוחות של הבנקים.",
+  "week": "15–21.11.2026",
+  "asof": "2026-11-16T10:54+02:00",
+  "partial": true,
+  "headline": "שבוע מבחן ל-AI: אנבידיה מדווחת ב-17.11 בפעם הראשונה בלי ג'נסן הואנג ו-Anthropic אמורה להתחיל להיסחר בנאסד\"ק ב-19.11; בישראל מדד אוקטובר הפתיע בירידה והוריד את האינפלציה ל-1.1% לפני החלטת הריבית ב-23.11, והבנקים פתחו את שבוע הדוחות עם ירידה של 14% ברווח הפועלים.",
   "il": [
    {
-    "title": "הבנקים: רווחים נשחקים, רישיון לרבולוט, ושבוע הדוחות הגדול מתחיל ב-16.11",
-    "text": "הבינלאומי פתח את עונת הדוחות של הבנקים עם רווח רבעוני של 508 מיליון ש\"ח, ירידה של כ-12.6% בגלל ירידת האינפלציה והריבית והמס המיוחד, למרות צמיחה של כ-22% באשראי; ביום הדוח (11.11) ירדה מניית הבינלאומי כ-6% ומדד הבנקים כ-3.6%, גם על רקע הרישיון הבנקאי המותנה שקיבלה רבולוט מבנק ישראל ב-10.11. השבוע מדווחים הפועלים (16.11), לאומי ומזרחי טפחות (17.11) ודיסקונט (18.11), ולפי ביזפורטל חמשת הבנקים הגדולים צפויים להרוויח ברבעון כ-8.2–8.3 מיליארד ש\"ח, לעומת כ-8.7 מיליארד לפני שנה.",
-    "why": "הרווחים יורדים מרמות שיא שנבנו על ריבית ואינפלציה גבוהות, אבל הבנקים עדיין רווחיים מאוד ומחלקים דיבידנדים; השאלה של השבוע היא כמה מהר הרווח יורד ומה הבנקים אומרים על התחרות.",
+    "title": "הבנקים: הפועלים פתח בירידה של 14% ברווח, לאומי, מזרחי ודיסקונט בהמשך השבוע",
+    "text": "הפועלים דיווח הבוקר (16.11) על רווח רבעוני של כ-2.36 מיליארד ש\"ח, לעומת 2.76 מיליארד לפני שנה, כשרוב הירידה נובעת מהכנסה חד-פעמית אשתקד; התשואה להון ירדה ל-14%, ההוצאות להפסדי אשראי ירדו בכחצי, והבנק יחלק כ-1.18 מיליארד ש\"ח בדיבידנד וברכישה עצמית ואישר תוכנית רכישה חדשה של עד מיליארד ש\"ח. לפי הערכה שפורסמה בגלובס, לאומי (17.11) צפוי להרוויח כ-2.6 מיליארד ש\"ח, מזרחי טפחות (17.11) כ-1.34 מיליארד ודיסקונט (18.11) כ-1.05 מיליארד, וחמשת הגדולים יחד כ-8 מיליארד ש\"ח לעומת 8.7 מיליארד לפני שנה. בשעות הבוקר ירד מדד הבנקים כ-1.1% והפועלים כ-1.4%.",
+    "why": "הרווחים נשחקים בגלל ריבית נמוכה יותר והמס המיוחד, אבל הבנקים ממשיכים לחלק כמחצית מהרווח לבעלי המניות; ירידת האינפלציה עלולה להכביד עוד על הבנקים שנהנים מנכסים צמודים, ובראשם מזרחי.",
     "keys": [
-     "fibi",
-     "fibih",
      "poalim",
      "leumi",
      "mizrahi",
-     "discount"
-    ],
-    "src": [
-     {
-      "t": "TheMarker",
-      "u": "https://news.google.com/rss/articles/CBMiowFBVV95cUxObklDQW9xZGQ3Z1VMREJQOFJ6VDhBaHg5cklIQ3p0a1lqeDZyX1MtMnhlcG5NYVZ0YzdMWDRQM1JRX1FreUdHTWtsTlM5eVBuaVRNNU84am93MVJhUWRCSE14M01mM2Z5SGFZLTRIWUU1d0tpYWNRamU0V0xsS25hNTRVeDlXYWl4RFVhN25hUVAzTEpFd1JHdVBLQ2t1WHR1MnJB?oc=5"
-     },
-     {
-      "t": "ביזפורטל",
-      "u": "https://bizportal.co.il/capitalmarket/news/article/20048563"
-     },
-     {
-      "t": "Ynet (רבולוט)",
-      "u": "https://www.ynetnews.com/business/article/byrxu5gcme"
-     }
-    ]
-   },
-   {
-    "title": "עונת הדוחות בת\"א: רבעונים חזקים, תגובות הפוכות",
-    "text": "הבורסה בת\"א הציגה עלייה של 19% בהכנסות ושל 37% ברווח הנקי (68.3 מיליון ש\"ח) ויעד צמיחה של 15%–18% בשנה עד 2031, ובכל זאת המניה צנחה כ-9% ב-11.11 ומחקה כמיליארד ש\"ח. מנגד, הייפר גלובל זינקה כ-12.5% אחרי שהכפילה את ההכנסות ל-144.5 מיליון דולר, ופי.סי.בי עלתה כ-12.9% אחרי שהשלימה את רכישת Gorilla Circuits האמריקאית ב-120 מיליון דולר עם צבר הזמנות שיא של כ-270 מיליון דולר. בזק העבירה לראשונה EBITDA של מיליארד ש\"ח ורווח השוואתי גבוה ב-44%, אבל לא העלתה את התחזית השנתית.",
-    "why": "השוק מתגמל הפתעות ומעניש מניות שכבר עלו הרבה: הבורסה עלתה כ-55% מתחילת השנה, כך שגם רבעון טוב לא הספיק.",
-    "keys": [
-     "tase",
-     "hyper_global",
-     "pcb",
-     "bezeq"
+     "discount",
+     "idx_ta_banks"
     ],
     "src": [
      {
       "t": "גלובס",
-      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9mYXRDbjhnQlUtWk55NWR2YURXdF9hcTVVQ1R4NFVCUzRKM1hOcHFZN0RPV01iMTBUc3VxZnVHNEdvbnVORTBkcm5kQUVUN1dKVGNiY1RCdHBXclduUGxtZnZPS1IyeVRR?oc=5"
+      "u": "https://www.globes.co.il/news/article.aspx?did=1001563514"
      },
      {
       "t": "ביזפורטל",
-      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5yN0FXOUhRU1lCTUFhLWdZVkc3THpGVHgyVVVMRm1iQTlPNXVOcnBISGVfQWJ4X21QeDZxZHdzSDE1MEpnZDExeDdtcXhGOGM4S1B4Q0ZMSWRZU3BMYlY4RXVQU0wtZC03cVU1c2VXeks?oc=5"
+      "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048729"
      },
      {
-      "t": "ספונסר",
-      "u": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5vM0tlTTg0VFNjUzIyeDIyQWsyY3U1TmtMVW1KTFd0UDZqemZTQUZRNExCakdFdDlOdl9ZRW15SDVMcGNFV0pYQ1FvRVNQNHFpLWpYS25fVzNfbzVFVkhjY3h1QVV5UQ?oc=5"
+      "t": "גלובס (תחזית)",
+      "u": "https://www.globes.co.il/news/article.aspx?did=1001563341"
      }
     ]
    },
    {
-    "title": "אנרגיה וגז: או.פי.סי מכפילה רווח, אנרג'יקס מורידה תחזית, אנלייט פותחת דלת לגיוס",
-    "text": "או.פי.סי דיווחה על זינוק של 121% ברווח הנקי המתואם ל-126 מיליון דולר ועל EBITDA של 237 מיליון דולר (+54%), בעיקר בזכות מחירי חשמל וקיבולת גבוהים ברשת PJM בארה\"ב. אנרג'יקס הורידה את תחזית ההכנסות ל-2026 ל-1.25–1.31 מיליארד ש\"ח בגלל עיכוב בחיבור פרויקטים לרשת בארה\"ב, ואנלייט חתמה על תוכנית למכירת מניות בנאסד\"ק בהיקף של עד 400 מיליון דולר (כ-4% מההון במימוש מלא), והמניה ירדה כ-5%. בגז, רציו קיבלה עם Murphy האמריקאית שישה רישיונות חיפוש בים אחרי ש-ENI פרשה.",
-    "why": "הביקוש לחשמל בעולם ה-AI הוא רוח גבית לכל הענף; ההבדלים בין החברות הם בביצוע, בחיבור לרשת ובאופן שבו הן מממנות את הצמיחה.",
+    "title": "מדד אוקטובר הפתיע בירידה: אינפלציה של 1.1% לפני החלטת הריבית ב-23.11",
+    "text": "מדד המחירים לצרכן לאוקטובר, שפורסם ב-15.11, ירד ב-0.1% במקום עלייה צפויה של 0.3%-0.4%, והאינפלציה השנתית ירדה ל-1.1% מ-1.6%, קרוב לגבול התחתון של יעד בנק ישראל (1%-3%). מדד מחירי הדירות ירד ב-0.2% בחודש וב-1.5% בשנה, ובתל אביב ב-2.1% בשנה. בנק ישראל יחליט על הריבית (כיום 3.25%) ב-23.11: לפני הנתון כלכלנים לא ציפו להורדה בגלל חולשת השקל והציפייה להעלאת ריבית בארה\"ב, ואחרי ההפתעה עלה הדיון באפשרות של הורדה.",
+    "why": "אינפלציה נמוכה ומחירי דירות יורדים מחזקים את האפשרות להורדת ריבית בהמשך, מה שתומך באג\"ח השקליות, אבל השקל החלש והעלאות הריבית בארה\"ב עלולים לגרום לבנק ישראל להמתין.",
     "keys": [
-     "opc",
-     "energix",
-     "enlight",
-     "ratio"
+     "gov_il"
     ],
     "src": [
      {
-      "t": "גלובס",
-      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBULVlaMVVMWWpfUzdRUG5pVWktdHdNb1ZHQXVGWTBjWk9hX1dZRHd3ZTQ2aDJnRll0M0ZmU0d1V2ktbmd5NGtEMkZPZ0o4aUU5Vl9STE1MZVFCNjlMaThacmMzM3dhSG9t?oc=5"
+      "t": "ביזפורטל",
+      "u": "https://www.bizportal.co.il/general/news/article/20048681"
      },
      {
-      "t": "ביזפורטל",
-      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40Zklpd1lWX080dUZmbXBLUWI2X19PeXpndjkxRjFCcEdVd2hjX0h4cHJTOXZBQUZvSFhxR3I3Tm1FVFFJbVVEVFhGZnFKa3lScDdrZUtXN2ZPQm4yRmlKbHE1TnVXQW92SXlvamRoS24?oc=5"
+      "t": "Ynet",
+      "u": "https://www.ynet.co.il/economy/article/sqm15han4"
      },
      {
-      "t": "ביזפורטל",
-      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1HRWNjZUNLRnZwTkI3czUxcFlnVTVUMWUzZDRFTVdQQlZLeVNpcm40MzJqTXlOaFN5cER2eW5tWkZqTE9UT2oyblNpdzFtejJjRkl6cFZRdHpncHE3a0FwaUYtYmtwZHYwRjhfbHZYRUI?oc=5"
+      "t": "ביזפורטל (תחזית)",
+      "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048563"
      }
     ]
    },
    {
-    "title": "נדל\"ן: חוות שרתים באירופה, הקפאה בנורווגיה ומוסדיים שנכנסים לדיור להשכרה",
-    "text": "מגה אור וביג מקימות יחד פלטפורמה להשקעה בחוות שרתים במזרח אירופה (עדיין בלי עסקאות מחייבות), ומגה אור דיווחה על זינוק ברווח שנבע בעיקר משערוכים. עזריאלי ירדה כ-3% ב-10.11 אחרי שנורווגיה הקפיאה זמנית, עד אוגוסט 2027 לכל המאוחר, חיבורי חשמל חדשים למרכזי נתונים; החברה מסרה שאין השפעה מהותית על הפרויקטים הקיימים. ובדיור להשכרה, מגדל קונה 20% מזרוע המגורים להשכרה של אשטרום בכ-451 מיליון ש\"ח, וכלל במגעים לנתח דומה, כך שהעסקה כולה עשויה להגיע לכ-900 מיליון ש\"ח; ריט 1 העלתה את תחזית 2026.",
-    "why": "חברות הנדל\"ן מחפשות צמיחה מעבר למשרדים ולקניונים, בעיקר בחוות שרתים ובדיור להשכרה, אבל הן תלויות באישורים ובחיבור לחשמל.",
+    "title": "ת\"א ביום שני: השבבים משלימים את ירידות וול סטריט, שמן נדל\"ן זינקה על חוות שרתים עם אנלייט",
+    "text": "בשעות הבוקר (16.11) ירדה טאואר כ-7.4% ונובה כ-4.7%, השלמה לירידות של מניות השבבים בניו יורק ביום שישי, ות\"א 35 נסחר בירידה של כ-0.4%. מנגד, שמן נדל\"ן זינקה כ-10% אחרי הסכם עם אנלייט להקמת חוות שרתים של עד 150 מגה-וואט ליד נמל חיפה, עם הכנסות שכירות צפויות של יותר מחצי מיליארד ש\"ח בכ-25 שנה, ופז אנרגיה עלתה כ-6.7% אחרי רבעון שיא עם עלייה של 31% ברווח.",
+    "why": "מניות הטכנולוגיה בת\"א נסחרות כמעט בצמוד לוול סטריט, ולכן הדוח של אנבידיה ביום שלישי ישפיע גם עליהן; חוות השרתים הן תחום צמיחה חדש לחברות הנדל\"ן והאנרגיה, ועסקאות כאלה זוכות לתגובה חיובית.",
     "keys": [
-     "megaor",
-     "big",
-     "azrieli",
-     "ashtrom",
-     "migdal",
-     "clal",
-     "reit1"
+     "tower",
+     "nova",
+     "shemen",
+     "enlight"
     ],
     "src": [
      {
-      "t": "TheMarker",
-      "u": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOVGplTGQ3U1VQOGFzYjJzeHlCRHV6WWxpeWhYd2ZEWG5TX2NkLWcyc01waVo3cmlrZl9zNU4xM0VsZkNCeDBoSjV1cTN0UHBIeXROZUhINEhmNTRudHhsdUhTUTk3WWFCMnNnLVFoUEhXaHZWZXA3VC1CWkF0YkJ6YWE5anBHNm1TZWRSV3dlS2hFU2lrNU4wWXFEYVFyRDBWb0ZJ?oc=5"
+      "t": "אייס",
+      "u": "https://www.ice.co.il/finance/news/article/1137791"
      },
      {
-      "t": "גלובס",
-      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBySkVUc2JrejU4Nm54VzZ2bThUNDhhYjJSVDJJZHdid0hqMWs0Q1lmcHVoNEN4WEx1bVJ4dGpubG9iQW9uOHZXMS04dkFIN3NWcjduSVdocXh4bkpjZE5td1lDUVBuSVRD?oc=5"
-     },
-     {
-      "t": "מרכז הנדל\"ן",
-      "u": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9XZVhXeWZiSTlsc3pYTmZzcmdaY2psUlpoTDBpWi1PeVJhTFcxNGE1TXgxYUVzcHhJODJja2JTdjBKRDVXWUhZMUZxN1pQTnQyYm96OXFjaw?oc=5"
+      "t": "ביזפורטל",
+      "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048563"
      }
     ]
    },
    {
-    "title": "ביטחון ופארמה: חוזה נאט\"ו לאלביט, ויעד שאפתני לטבע",
-    "text": "אלביט מערכות זכתה בחוזה של כ-260 מיליון דולר לאספקת מערכות רקטות ארטילריות (PULS) למדינה אירופית חברת נאט\"ו לאורך חמש שנים, החוזה השני מסוג זה בתוך כחודש, והיא תפרסם את דוחות הרבעון ב-17.11. טבע הציבה ביום המשקיעים שלה בניו יורק יעד של 6–7 מיליארד דולר הכנסות מתרופות חדשניות עד 2030, המנכ\"ל אמר שהחברה בוחנת גם רכישות גדולות יותר, והמניה הגיעה לשיא של 52 שבועות (43.5 דולר) כשכמה בתי השקעות חזרו על המלצות קנייה.",
-    "why": "שתי החברות הגדולות בתעשייה הישראלית נשענות על מגמות ארוכות: חימוש מחדש של אירופה אצל אלביט, ומעבר מגנריקה לתרופות מקור אצל טבע; יעד 2030 הוא יעד הנהלה ולא תחזית מובטחת.",
+    "title": "אלביט, ניו-מד ותמר מדווחות; סימני שאלה סביב סרביה ולווייתן",
+    "text": "אלביט מערכות תפרסם את דוחות הרבעון השלישי ב-17.11 (שיחת משקיעים ב-16:00 שעון ישראל), אחרי שבחודש האחרון זכתה בשני חוזים לאספקת משגרי PULS באירופה, האחרון בכ-260 מיליון דולר; לפי ביזפורטל, חילופי השלטון בסרביה מעמידים בסימן שאלה חוזים של החברה שם בהיקף של כ-2 מיליארד דולר. ב-17.11 מדווחת גם ניו-מד, השותפה בלווייתן, וב-19.11 תמר פטרוליום, אחרי שיו\"ר רשות החשמל תקף בחריפות את שותפות לווייתן והאשים אותה בהתנהלות מונופוליסטית.",
+    "why": "אצל אלביט העיקר הוא צבר ההזמנות והביקוש מאירופה, וסרביה היא סיכון נקודתי שעוד לא ברור אם יתממש; בגז התוצאות יציבות יחסית, אבל המתיחות עם הרגולטור היא סיכון שכדאי להכיר.",
     "keys": [
      "elbit_systems",
-     "TEVA"
+     "newmed",
+     "tamar"
     ],
     "src": [
      {
-      "t": "גלובס",
-      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE10YWRQRXl5NXQ4NU1hSVZ3bkdQZ2NsYjJiUW5sR041Z0ZEVGd5aUNVdThEaE8zNmp0NWdhTWpDUkpNTVkyQTk0S1pLMTU3ZW5JMmFJVTZlbTB0WS1uZnZXSWh5Q2xFc0VU?oc=5"
+      "t": "StockTitan (הודעת אלביט)",
+      "u": "https://www.stocktitan.net/news/ESLT/elbit-systems-to-report-third-quarter-2026-financial-results-on-xx8o6xxgjw19.html"
      },
      {
       "t": "ביזפורטל",
-      "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9yc0tnOHIxeWJCQlNjTVM4RXN1Z2RXcmU5bzl2TzhmRGlwOThtSmNDanQtNHFfZkNGRXdGNzdnWEpqOTNoT0daakk3REwxbVdpM21uTTRUOGpmU0lqRXAteU9uVHIzaHoxa1lyN3FUbko?oc=5"
+      "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBONmJoQ19tdmVnbTB5REt3UTh1M1Rnc2doNU5uX2p4NHBjeXBMT2JEQlpKcnJkSHpxeVN2LWhYYldLX1AyOGloSXJWT3l4VlpONVl3NGxiUzN0MlQzTXBNVllqNDdjUkVv?oc=5"
      },
      {
-      "t": "גלובס",
-      "u": "https://www.globes.co.il/news/article.aspx?did=1001563125"
+      "t": "TheMarker",
+      "u": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMURHcWc1eEhjTlNnMW05MlVmY3Fub085UW9lWGtWNzF2Z1JjRnhwMmdPR0F1Vkt3bmdtUmtqM2ttbW1SRnFGUGZKbXUwcVRXdWNZZXpWZzAxOHZLdzdNc3lLb0ppUGtnODB6ek02UnJ5VnMwb1JrZDRodVNaTmNISFRpQ3VoNDVNYUg3UWY2ZUk4bnhyTTlqX0NHcU56VVVHSWFvMWNhR0U?oc=5"
      }
     ]
    }
   ],
   "us": [
    {
-    "title": "אנבידיה: ג'נסן הואנג התפטר, המניה ירדה 12.8% בשבוע, והדוח ב-17.11",
-    "text": "מייסד אנבידיה ג'נסן הואנג התפטר מתפקידי המנכ\"ל, הנשיא והדירקטור, אחרי בדיקה של הדירקטוריון בעקבות קשר מחוץ לנישואים ודיווחים על חשד לקשרים של אחת המעורבות עם המודיעין הסיני (בייג'ינג מכחישה); סמנכ\"לית הכספים קולט קרס מונתה למנכ\"לית זמנית והארווי ג'ונס ליו\"ר. ב-12.11 צנחה המניה בפתיחה בכ-14% וסגרה בירידה של 4.3%, ובשבוע כולו ירדה כ-12.8% (כ-20% מתחילת החודש). הדוח הרבעוני יפורסם כמתוכנן ב-17.11 אחרי הנעילה.",
-    "why": "זה משבר הנהלה וממשל תאגידי, לא משבר ביקוש: הדירקטוריון מסר שאין לו סיבה להניח שסודות החברה נפגעו, והדוח והתחזית ב-17.11 יראו אם העסק ממשיך לצמוח.",
+    "title": "אנבידיה מדווחת ב-17.11: הדוח הראשון בלי ג'נסן הואנג",
+    "text": "הדוח יפורסם ביום שלישי אחרי הנעילה בהובלת המנכ\"לית הזמנית קולט קרס, והשוק מצפה להכנסות של כ-109 מיליארד דולר ולרווח של כ-2.49 דולר למניה; לפי שוק האופציות, המניה עשויה לזוז אחרי הדוח בכ-8%-9% לכל כיוון. בסוף השבוע דיווח ה-FT שהואנג שוקל לחזור ושמקורביו מגייסים תמיכה, בעוד ששר האוצר בסנט קורא לטלטלה בהנהלה והדירקטוריון עדיין בודק את ההתנהלות. שווי השוק של אנבידיה ירד מכ-5.8 טריליון דולר בתחילת אוקטובר לכ-3.9 טריליון.",
+    "why": "התחזית לרבעון הבא תראה אם הלקוחות ממשיכים להזמין כרגיל גם בלי המייסד; תגובה חדה לכל כיוון תשפיע גם על שאר מניות השבבים, ובהן טאואר, נובה וקמטק בת\"א.",
     "keys": [
-     "NVDA"
-    ],
-    "src": [
-     {
-      "t": "NVIDIA (8-K)",
-      "u": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm"
-     },
-     {
-      "t": "AP / BNN Bloomberg",
-      "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
-     },
-     {
-      "t": "כלכליסט",
-      "u": "https://www.calcalist.co.il/market/article/fqsyz1qon"
-     }
-    ]
-   },
-   {
-    "title": "שבבים: הכסף עבר למתחרות, ומדד השבבים עלה 8% למרות יום שישי אדום",
-    "text": "בזמן שאנבידיה ירדה, המשקיעים העבירו כסף למתחרות: בשבוע עלו AMD בכ-19%, ברודקום בכ-18%, מיקרון בכ-13% ומארוול בכ-11%, ומדד השבבים SOX עלה כ-8%. ביום שישי חלק מהעליות נמחקו (AMD ירדה 8.8%, ברודקום 4.8%, ה-SOX כ-3.4%), וטאואר ירדה כ-7% בניו יורק; לפי ביזפורטל טאואר צפויה להיפתח ביום שני בת\"א בירידה של יותר מ-7%, ונובה וקמטק בכ-3%.",
-    "why": "התנועות משקפות סנטימנט ולא הזמנות בפועל: אנבידיה עדיין מובילה בפער גדול בשבבי AI, ולכן התנודתיות במניות השבבים, גם הישראליות, צפויה להימשך עד הדוח שלה.",
-    "keys": [
+     "NVDA",
+     "TSM",
      "AVGO",
      "MU",
-     "MRVL",
-     "TSM",
      "tower",
      "nova",
      "camtek"
     ],
     "src": [
      {
-      "t": "CNBC",
-      "u": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOX2YyRTZFMWhVUzZfU0hiQTlZR3U4M3MxbG5Hbk83cHJUYThyWnNYcWY5RlBtcW1jOHpVN1ltbzRsSFlndjhYMXE1TEp1N2RoMU1OYkRESlNpclVST3haa25hQ183bDQ5Y01jTXpFTTFaUDVTSGlkUG9QOXlrX2N0Y1YxUHJ3dVltS2fSAY8BQVVfeXFMTWRwQjNxWEtubmFzbms0UTJNTUZVMi1NNDY3NXJMQWpwNnlDMDluRXZUemNkZE1fS2w0M3hJQS1DVHFTUzA2YVRmM3ZqcHVraTJaVHdZd3hVT1JDd2J6dWNyRnNPR3FmbTRvSnRGRlQ4TEQtSGRnc3QwT0l5NjIyR1BreVQwQzNScC1ZQ2ROWVU?oc=5"
+      "t": "Mint / TradingView",
+      "u": "https://www.tradingview.com/news/moodys:45cad514d6c8f:0-wall-street-week-ahead-nvidia-earnings-anthropic-ipo-federal-reserve-minutes-retail-sales-top-things-to-watch/"
      },
      {
-      "t": "AP / BNN Bloomberg",
-      "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
+      "t": "Yahoo Finance",
+      "u": "https://finance.yahoo.com/markets/stocks/articles/jensen-huang-reportedly-wants-back-192349080.html"
      },
      {
-      "t": "ביזפורטל",
-      "u": "https://bizportal.co.il/capitalmarket/news/article/20048563"
+      "t": "BigGo Finance",
+      "u": "https://finance.biggo.com/news/e3955735-3864-4d91-9410-1bb343753cb8"
      }
     ]
    },
    {
-    "title": "ריבית: האינפלציה לא יורדת, ותשואת ה-10 שנים טיפסה ל-5.15%",
-    "text": "מדד המחירים לצרכן של אוקטובר עלה ב-0.4% (צפי 0.3%) והמדד ללא מזון ואנרגיה ב-0.3% בפעם השלישית ברציפות; שיעור שנתי לא פורסם, כי באוקטובר 2025 לא נאספו מחירים בגלל השבתת הממשל. אחרי הנתון השוק מתמחר לפי CME סיכוי של 85% להעלאת ריבית של 0.25% בישיבת הפד ב-8–9 בדצמבר וסיכוי של 15% להעלאה של 0.5%, ותשואת האג\"ח ל-10 שנים עלתה בשבוע מ-4.86% ל-5.15%. למרות זאת S&P 500 עלה 2.5% בשבוע, הראשון החיובי מאז אוקטובר, וגולדמן זאקס צופה שהמדד יגיע ל-8,700 נקודות ב-2027, כ-15% מעל רמתו היום.",
-    "why": "בארה\"ב הכיוון הפוך מישראל: שם מדברים על העלאות ריבית, וזה לחץ על מניות הצמיחה ועל אג\"ח ארוכות, אבל גם תשואה של מעל 5% שאפשר לנעול באג\"ח ממשלתיות.",
-    "keys": [
-     "ust",
-     "GS"
-    ],
-    "src": [
-     {
-      "t": "CBS News",
-      "u": "https://www.cbsnews.com/news/october-cpi-report-elevated-inflation/"
-     },
-     {
-      "t": "AP / BNN Bloomberg",
-      "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
-     },
-     {
-      "t": "Reuters",
-      "u": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQUUY1ZVU4V1FfVjg4bkIxMkpIVWJqQ0tVeDRsb1ZOSGRkWlo5THVweFduVWVjTXloTWVRZnhhdGJqX0I3RnlHRlkxd3MzNzFUcFBibFd2bUJKNkI2RXdPVE5FeXJRNGZLQzZDcnZXQ0pRcGdPRjBvZWs1Xzd6VTlfLXJXb1dNUjZuM0N1LWZpaUExWmk1ZXpIdlhCM29RTkpLWE9YSXdIM3hLQk41c2M5ZFJCWExESUhabjl6Mjg2dTU?oc=5"
-     }
-    ]
-   },
-   {
-    "title": "ההנפקה של Anthropic מגיעה לנאסד\"ק, ואמזון וגוגל יושבות על רווח ענק",
-    "text": "Anthropic, מפתחת Claude, קבעה ב-10.11 טווח מחיר של 70–78 דולר למניה (אחרי שטווח של 70–80 דולר שנשלח לבנקאים בוטל), לגיוס של עד כ-64 מיליארד דולר לפי שווי מדולל של כ-1.4 טריליון דולר; המסחר בנאסד\"ק צפוי להתחיל בסביבות 19.11. לצד ההנפקה יקנו אנבידיה, גוגל, מיקרוסופט, AMD, ברודקום, מיקרון ו-TSMC מניות בכ-26 מיליארד דולר, ולפי חישוב של רויטרס האחזקה של אמזון תהיה שווה כ-272 מיליארד דולר ושל גוגל כ-139 מיליארד, במחיר של 78 דולר.",
-    "why": "זו צפויה להיות מההנפקות הגדולות אי פעם ומבחן לתיאבון של המשקיעים ל-AI; לאמזון ולגוגל זה רווח הון גדול על הנייר, אבל המחיר הסופי והתגובה ביום הראשון עדיין פתוחים.",
+    "title": "Anthropic: תמחור ב-18.11 ומסחר בנאסד\"ק ב-19.11, אולי ההנפקה הגדולה אי פעם",
+    "text": "Anthropic, מפתחת Claude, מציעה 825 מיליון מניות בטווח של 70–78 דולר, גיוס של עד כ-64.4 מיליארד דולר, ולצדו יקנו גוגל, אנבידיה, מיקרוסופט, AMD, ברודקום, מיקרון ו-TSMC מניות בכ-26 מיליארד דולר במחיר ההנפקה; לפי Bloomberg ההזמנות הגיעו לפי שישה מהמניות המוצעות. לפי התשקיף המעודכן, ההכנסות בתשעת החודשים הראשונים של 2026 הגיעו לכ-33.2 מיליארד דולר, לצד הפסד נקי של כ-104 מיליארד, רובו חיוב חשבונאי לא תזרימי. לפי חישוב של רויטרס, אחזקת אמזון תהיה שווה כ-272 מיליארד דולר במחיר העליון.",
+    "why": "ההנפקה מגיעה יומיים אחרי הדוח של אנבידיה, ולכן זה שבוע מבחן לתיאבון ל-AI; לאמזון ולגוגל היא מוסיפה רווח הון גדול על הנייר, אבל ההפסד הגבוה מזכיר שהשווי נשען על צמיחה עתידית.",
     "keys": [
      "AMZN",
      "GOOGL",
@@ -224,12 +144,12 @@
     ],
     "src": [
      {
-      "t": "RTTNews",
-      "u": "https://www.rttnews.com/3712632/anthropic-sets-ipo-price-range-at-70-78-per-share-launches-roadshow.aspx?type=ipo"
+      "t": "TradingKey",
+      "u": "https://www.tradingkey.com/analysis/stocks/us-stocks/262304476-anthropic-ipo-ant-price-above-78-orders-six-times-november-14-2026-tradingkey"
      },
      {
-      "t": "The Next Web",
-      "u": "https://thenextweb.com/news/anthropic-ipo-terms-1-4-trillion-valuation"
+      "t": "Yahoo Finance",
+      "u": "https://finance.yahoo.com/technology/ai/article/anthropic-ipo-what-we-know-143321078.html"
      },
      {
       "t": "Reuters / The Star",
@@ -238,29 +158,329 @@
     ]
    },
    {
-    "title": "ענקיות הטכנולוגיה: תקלה עולמית במיקרוסופט, אג\"ח באסיה לאלפבית ודיווח על מיזוג טסלה–SpaceX",
-    "text": "ב-12.11 קרסו לשעות שירותי Microsoft 365, ובהם אאוטלוק, Teams ו-Copilot, במדינות רבות, וההתאוששות נמשכה גם ב-13.11; המניה ירדה בשבוע 1.3% בלבד. אלפבית הנפיקה לראשונה אג\"ח בדולר הונג קונגי ובדולר סינגפורי בכ-3.8 מיליארד דולר למימון השקעות ה-AI, והמניה עלתה כ-3.9% בשבוע. ולפי Bloomberg, השיחות על מיזוג טסלה ו-SpaceX מתקדמות והודעה עשויה להגיע כבר בדצמבר; טסלה עלתה כ-8.9% בשבוע.",
-    "why": "תקלות כאלה פוגעות בעיקר במוניטין ולא בתוצאות, וגיוסי החוב מראים שגם החברות העשירות בעולם מגייסות כדי לממן את מרוץ ה-AI; דיווח המיזוג עדיין לא אושר.",
+    "title": "הריבית: השוק מתמחר העלאה בדצמבר; וורש נואם היום, ופרוטוקול הפד ב-18.11",
+    "text": "השוק מתמחר במלואה העלאת ריבית של 0.25% בישיבת הפד ב-8–9 בדצמבר (מטווח של 3.75%–4.00%), עם סיכוי של כ-13% להעלאה של 0.5%, ותשואת האג\"ח ל-10 שנים עומדת על כ-5.14%, הגבוהה מזה שנים. יו\"ר הפד קווין וורש נואם היום (16.11, 19:00 שעון ישראל) בכנס בסן פרנסיסקו אך לא צפוי לתת הכוונה לריבית; ב-17.11 יתפרסמו המכירות הקמעונאיות לאוקטובר, וב-18.11 הפרוטוקול של ישיבת אוקטובר, שבה שני חברים הצביעו בעד העלאה מיידית.",
+    "why": "בארה\"ב השאלה היא כבר לא אם הריבית תעלה אלא בכמה ולכמה זמן; תשואה של יותר מ-5% באג\"ח ממשלתיות מתחרה במניות על כסף המשקיעים, ולכן כל הפתעה בנתונים מורגשת בעיקר במניות הצמיחה.",
     "keys": [
-     "MSFT",
-     "GOOGL"
+     "ust",
+     "idx_spx"
+    ],
+    "src": [
+     {
+      "t": "PomiNews",
+      "u": "https://pomegra.io/news/warsh-speaks-as-fed-rate-hike-priced-in-10-year-at-514"
+     },
+     {
+      "t": "Investing.com (CME FedWatch)",
+      "u": "https://in.investing.com/news/economy-news/fed-rate-hike-odds-in-december-at-88-after-hot-cpi-cme-fedwatch-5695745"
+     },
+     {
+      "t": "Mint / TradingView",
+      "u": "https://www.tradingview.com/news/moodys:45cad514d6c8f:0-wall-street-week-ahead-nvidia-earnings-anthropic-ipo-federal-reserve-minutes-retail-sales-top-things-to-watch/"
+     }
+    ]
+   },
+   {
+    "title": "הצרכן האמריקאי לפני בלאק פריידיי: הום דיפו, טארגט, וולמארט ו-BJ's מדווחות, ופאלו אלטו ב-18.11",
+    "text": "עונת הדוחות של הקמעונאיות מגיעה כעשרה ימים לפני בלאק פריידיי (27.11): הום דיפו מדווחת ב-17.11 (צפי לרווח של 3.87 דולר למניה), טארגט, TJX ולואו'ס ב-18.11, וולמארט ב-19.11 (צפי של 0.64 דולר) ו-BJ's ב-20.11 (צפי של 1.22 דולר). ב-18.11 אחרי הנעילה מדווחת גם פאלו אלטו נטוורקס, עם צפי לרווח של 0.52 דולר למניה.",
+    "why": "עם אינפלציה עקשנית ותשואות של יותר מ-5%, הדוחות והתחזיות של הקמעונאיות יראו אם הצרכן האמריקאי, מנוע הכלכלה, ממשיך להוציא ועל מה; אצל פאלו אלטו השאלה היא אם הביקוש לסייבר נשאר חזק כשהלקוחות מפנים תקציבים ל-AI.",
+    "keys": [
+     "BJ",
+     "PANW"
+    ],
+    "src": [
+     {
+      "t": "לוח הדוחות בדשבורד",
+      "u": "#calendar"
+     },
+     {
+      "t": "Mint / TradingView",
+      "u": "https://www.tradingview.com/news/moodys:45cad514d6c8f:0-wall-street-week-ahead-nvidia-earnings-anthropic-ipo-federal-reserve-minutes-retail-sales-top-things-to-watch/"
+     }
+    ]
+   },
+   {
+    "title": "ברקשייר בשיא כל הזמנים, ודוח האחזקות שלה מתפרסם היום",
+    "text": "מניית ברקשייר האת'וויי סגרה בשבוע שעבר ארבעה ימים ברציפות בשיא, ועלתה בכ-19% מתחילת אוקטובר, כשמשקיעים מחפשים חברות שמייצרות מזומן וחשופות פחות ל-AI. זאת למרות שהרווח התפעולי ברבעון השלישי ירד לכ-12.7 מיליארד דולר (13.5 מיליארד לפני שנה), כשהחברה קנתה מניות שלה בכ-9.6 מיליארד דולר. היום (16.11) אמור להתפרסם דוח האחזקות הרבעוני (13F), וההערכות הן להמשך מכירה של מניות בנק אוף אמריקה.",
+    "why": "העלייה משקפת בעיקר חיפוש ביטחון ולא שיפור בתוצאות; זו הזדמנות לשיחה על פיזור מול הריכוזיות של מניות ה-AI במדדים.",
+    "keys": [
+     "BRK-B"
     ],
     "src": [
      {
       "t": "CNBC",
-      "u": "https://www.cnbc.com/2026/11/12/microsoft-outage-outlook-aws-google.html"
+      "u": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQbUV4NF9lbkt0WEpneTdsTUFfMDE2dklud1lnVnFPR0YtWGNTck9NbUNJZHk2WWtIeERxXzQ5VWdUTzNDNGRnb2Npd3h0SEp2aVc2VmszQ2lXUjVjZ1lrMEtoSTRYdXJFM0d1TnNNV0ROV1R5VFN5RjJoZjgtWlZBM0lsVnpydV82a1BVQmZibTdaNDA0WFpQMklSaHMwZEtmZ0FhSHM3a0VLQXpwTHFBRHVFMWFaRGZ10gG-AUFVX3lxTE0ycGVWQ2xHWWV0U2xFdWpmbkZiWVhMR2tlQy0wNFlvMXZ0ejlHU0IyNE85Yk0wSjdXODRpSTF4MkZJYXpqMTBSRlZFakhHTjdGSXNpcFZKRHVNcWk0YW5EanM4cW1iYU1oR29PVVYyODUwajRjSjZiR0VFdDdlbWZkUXFXanNTby1fYl9hdkFzVHFKUy1lQXZlUkNzRWNENElhUXBfU0Z1NVdpcXZwM0RVRXpTT3BtQy11QnFGc0E?oc=5"
      },
      {
-      "t": "Reuters / Investing.com",
-      "u": "https://investing.com/news/stock-market-news/alphabet-sets-initial-price-guidance-for-hong-kong-singapore-bond-sales-term-sheet-shows-5020243"
-     },
-     {
-      "t": "Yahoo Finance",
-      "u": "https://finance.yahoo.com/markets/stocks/articles/tsla-stock-climbs-amid-reports-220701075.html"
+      "t": "Fortune",
+      "u": "https://fortune.com/2026/11/07/berkshire-hathaway-stock-brk-q3-earnings-investment-portfolio-buybacks/"
      }
     ]
    }
   ]
  },
- "hist": []
+ "hist": [
+  {
+   "week": "8–14.11.2026",
+   "asof": "2026-11-16T10:54+02:00",
+   "partial": false,
+   "headline": "הסערה סביב ג'נסן הואנג, שהסתיימה בהתפטרותו, הפילה את אנבידיה ב-12.8% בשבוע, אבל הכסף עבר למתחרות ו-S&P 500 סגר שבוע חיובי של 2.5% למרות תשואת אג\"ח של 5.15%; בת\"א עלה ת\"א 35 כ-2.5% בשבוע של דוחות מעורבים, והבנקים נחלשו אחרי דוחות הבינלאומי והרישיון לרבולוט.",
+   "il": [
+    {
+     "title": "הבנקים: הבינלאומי פתח את עונת הדוחות בירידת רווח, ורבולוט קיבלה רישיון",
+     "text": "הבינלאומי פתח את עונת הדוחות של הבנקים עם רווח רבעוני של 508 מיליון ש\"ח, ירידה של כ-12.6% בגלל ירידת האינפלציה והריבית והמס המיוחד, למרות צמיחה של כ-22% באשראי; ביום הדוח (11.11) ירדה מניית הבינלאומי כ-6% ומדד הבנקים כ-3.6%, גם על רקע הרישיון הבנקאי המותנה שקיבלה רבולוט מבנק ישראל ב-10.11. בשבוע כולו ירדו הבינלאומי כ-4.2%, מזרחי טפחות כ-2.8% ודיסקונט כ-2%, ובדיסקונט הודיע המשנה למנכ\"ל אסף אלדר שהוא עוזב כדי לנהל את ביטוח ישיר.",
+     "why": "הרווחים יורדים מרמות שיא שנבנו על ריבית ואינפלציה גבוהות, אבל הבנקים עדיין רווחיים מאוד ומחלקים דיבידנדים; התגובה החדה לדוח הראשון מראה כמה רגיש הסקטור לכל סימן של שחיקה ולתחרות חדשה.",
+     "keys": [
+      "fibi",
+      "fibih",
+      "mizrahi",
+      "discount",
+      "idx_ta_banks"
+     ],
+     "src": [
+      {
+       "t": "TheMarker",
+       "u": "https://news.google.com/rss/articles/CBMiowFBVV95cUxObklDQW9xZGQ3Z1VMREJQOFJ6VDhBaHg5cklIQ3p0a1lqeDZyX1MtMnhlcG5NYVZ0YzdMWDRQM1JRX1FreUdHTWtsTlM5eVBuaVRNNU84am93MVJhUWRCSE14M01mM2Z5SGFZLTRIWUU1d0tpYWNRamU0V0xsS25hNTRVeDlXYWl4RFVhN25hUVAzTEpFd1JHdVBLQ2t1WHR1MnJB?oc=5"
+      },
+      {
+       "t": "Ynet (רבולוט)",
+       "u": "https://www.ynetnews.com/business/article/byrxu5gcme"
+      },
+      {
+       "t": "גלובס",
+       "u": "https://www.globes.co.il/news/article.aspx?did=1001563154"
+      }
+     ]
+    },
+    {
+     "title": "עונת הדוחות בת\"א: רבעונים חזקים, תגובות הפוכות",
+     "text": "הבורסה בת\"א הציגה עלייה של 19% בהכנסות ושל 37% ברווח הנקי (68.3 מיליון ש\"ח) ויעד צמיחה של 15%–18% בשנה עד 2031, ובכל זאת המניה צנחה כ-9% ב-11.11 ומחקה כמיליארד ש\"ח. מנגד, הייפר גלובל זינקה כ-12.5% אחרי שהכפילה את ההכנסות ל-144.5 מיליון דולר, ופי.סי.בי עלתה כ-12.9% אחרי שהשלימה את רכישת Gorilla Circuits האמריקאית ב-120 מיליון דולר עם צבר הזמנות שיא של כ-270 מיליון דולר. בזק העבירה לראשונה EBITDA של מיליארד ש\"ח ורווח השוואתי גבוה ב-44%, אבל לא העלתה את התחזית השנתית.",
+     "why": "השוק מתגמל הפתעות ומעניש מניות שכבר עלו הרבה: הבורסה עלתה כ-55% מתחילת השנה, כך שגם רבעון טוב לא הספיק.",
+     "keys": [
+      "tase",
+      "hyper_global",
+      "pcb",
+      "bezeq"
+     ],
+     "src": [
+      {
+       "t": "גלובס",
+       "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9mYXRDbjhnQlUtWk55NWR2YURXdF9hcTVVQ1R4NFVCUzRKM1hOcHFZN0RPV01iMTBUc3VxZnVHNEdvbnVORTBkcm5kQUVUN1dKVGNiY1RCdHBXclduUGxtZnZPS1IyeVRR?oc=5"
+      },
+      {
+       "t": "ביזפורטל",
+       "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5yN0FXOUhRU1lCTUFhLWdZVkc3THpGVHgyVVVMRm1iQTlPNXVOcnBISGVfQWJ4X21QeDZxZHdzSDE1MEpnZDExeDdtcXhGOGM4S1B4Q0ZMSWRZU3BMYlY4RXVQU0wtZC03cVU1c2VXeks?oc=5"
+      },
+      {
+       "t": "ספונסר",
+       "u": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5vM0tlTTg0VFNjUzIyeDIyQWsyY3U1TmtMVW1KTFd0UDZqemZTQUZRNExCakdFdDlOdl9ZRW15SDVMcGNFV0pYQ1FvRVNQNHFpLWpYS25fVzNfbzVFVkhjY3h1QVV5UQ?oc=5"
+      }
+     ]
+    },
+    {
+     "title": "אנרגיה וגז: או.פי.סי מכפילה רווח, אנרג'יקס מורידה תחזית, אנלייט פותחת דלת לגיוס",
+     "text": "או.פי.סי דיווחה על זינוק של 121% ברווח הנקי המתואם ל-126 מיליון דולר ועל EBITDA של 237 מיליון דולר (+54%), בעיקר בזכות מחירי חשמל וקיבולת גבוהים ברשת PJM בארה\"ב. אנרג'יקס הורידה את תחזית ההכנסות ל-2026 ל-1.25–1.31 מיליארד ש\"ח בגלל עיכוב בחיבור פרויקטים לרשת בארה\"ב, ואנלייט חתמה על תוכנית למכירת מניות בנאסד\"ק בהיקף של עד 400 מיליון דולר (כ-4% מההון במימוש מלא), והמניה ירדה כ-5%. בגז, רציו קיבלה עם Murphy האמריקאית שישה רישיונות חיפוש בים אחרי ש-ENI פרשה.",
+     "why": "הביקוש לחשמל בעולם ה-AI הוא רוח גבית לכל הענף; ההבדלים בין החברות הם בביצוע, בחיבור לרשת ובאופן שבו הן מממנות את הצמיחה.",
+     "keys": [
+      "opc",
+      "energix",
+      "enlight",
+      "ratio"
+     ],
+     "src": [
+      {
+       "t": "גלובס",
+       "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBULVlaMVVMWWpfUzdRUG5pVWktdHdNb1ZHQXVGWTBjWk9hX1dZRHd3ZTQ2aDJnRll0M0ZmU0d1V2ktbmd5NGtEMkZPZ0o4aUU5Vl9STE1MZVFCNjlMaThacmMzM3dhSG9t?oc=5"
+      },
+      {
+       "t": "ביזפורטל",
+       "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40Zklpd1lWX080dUZmbXBLUWI2X19PeXpndjkxRjFCcEdVd2hjX0h4cHJTOXZBQUZvSFhxR3I3Tm1FVFFJbVVEVFhGZnFKa3lScDdrZUtXN2ZPQm4yRmlKbHE1TnVXQW92SXlvamRoS24?oc=5"
+      },
+      {
+       "t": "ביזפורטל",
+       "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1HRWNjZUNLRnZwTkI3czUxcFlnVTVUMWUzZDRFTVdQQlZLeVNpcm40MzJqTXlOaFN5cER2eW5tWkZqTE9UT2oyblNpdzFtejJjRkl6cFZRdHpncHE3a0FwaUYtYmtwZHYwRjhfbHZYRUI?oc=5"
+      }
+     ]
+    },
+    {
+     "title": "נדל\"ן: חוות שרתים באירופה, הקפאה בנורווגיה ומוסדיים שנכנסים לדיור להשכרה",
+     "text": "מגה אור וביג מקימות יחד פלטפורמה להשקעה בחוות שרתים במזרח אירופה (עדיין בלי עסקאות מחייבות), ומגה אור דיווחה על זינוק ברווח שנבע בעיקר משערוכים. עזריאלי ירדה כ-3% ב-10.11 אחרי שנורווגיה הקפיאה זמנית, עד אוגוסט 2027 לכל המאוחר, חיבורי חשמל חדשים למרכזי נתונים; החברה מסרה שאין השפעה מהותית על הפרויקטים הקיימים. ובדיור להשכרה, מגדל קונה 20% מזרוע המגורים להשכרה של אשטרום בכ-451 מיליון ש\"ח, וכלל במגעים לנתח דומה, כך שהעסקה כולה עשויה להגיע לכ-900 מיליון ש\"ח; ריט 1 העלתה את תחזית 2026.",
+     "why": "חברות הנדל\"ן מחפשות צמיחה מעבר למשרדים ולקניונים, בעיקר בחוות שרתים ובדיור להשכרה, אבל הן תלויות באישורים ובחיבור לחשמל.",
+     "keys": [
+      "megaor",
+      "big",
+      "azrieli",
+      "ashtrom",
+      "migdal",
+      "clal",
+      "reit1"
+     ],
+     "src": [
+      {
+       "t": "TheMarker",
+       "u": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOVGplTGQ3U1VQOGFzYjJzeHlCRHV6WWxpeWhYd2ZEWG5TX2NkLWcyc01waVo3cmlrZl9zNU4xM0VsZkNCeDBoSjV1cTN0UHBIeXROZUhINEhmNTRudHhsdUhTUTk3WWFCMnNnLVFoUEhXaHZWZXA3VC1CWkF0YkJ6YWE5anBHNm1TZWRSV3dlS2hFU2lrNU4wWXFEYVFyRDBWb0ZJ?oc=5"
+      },
+      {
+       "t": "גלובס",
+       "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBySkVUc2JrejU4Nm54VzZ2bThUNDhhYjJSVDJJZHdid0hqMWs0Q1lmcHVoNEN4WEx1bVJ4dGpubG9iQW9uOHZXMS04dkFIN3NWcjduSVdocXh4bkpjZE5td1lDUVBuSVRD?oc=5"
+      },
+      {
+       "t": "מרכז הנדל\"ן",
+       "u": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9XZVhXeWZiSTlsc3pYTmZzcmdaY2psUlpoTDBpWi1PeVJhTFcxNGE1TXgxYUVzcHhJODJja2JTdjBKRDVXWUhZMUZxN1pQTnQyYm96OXFjaw?oc=5"
+      }
+     ]
+    },
+    {
+     "title": "ביטחון ופארמה: חוזה נאט\"ו לאלביט, ויעד שאפתני לטבע",
+     "text": "אלביט מערכות זכתה בחוזה של כ-260 מיליון דולר לאספקת מערכות רקטות ארטילריות (PULS) למדינה אירופית חברת נאט\"ו לאורך חמש שנים, החוזה השני מסוג זה בתוך כחודש. טבע הציבה ביום המשקיעים שלה בניו יורק יעד של 6–7 מיליארד דולר הכנסות מתרופות חדשניות עד 2030, המנכ\"ל אמר שהחברה בוחנת גם רכישות גדולות יותר, והמניה הגיעה לשיא של 52 שבועות (43.5 דולר) כשכמה בתי השקעות חזרו על המלצות קנייה.",
+     "why": "שתי החברות הגדולות בתעשייה הישראלית נשענות על מגמות ארוכות: חימוש מחדש של אירופה אצל אלביט, ומעבר מגנריקה לתרופות מקור אצל טבע; יעד 2030 הוא יעד הנהלה ולא תחזית מובטחת.",
+     "keys": [
+      "elbit_systems",
+      "TEVA"
+     ],
+     "src": [
+      {
+       "t": "גלובס",
+       "u": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE10YWRQRXl5NXQ4NU1hSVZ3bkdQZ2NsYjJiUW5sR041Z0ZEVGd5aUNVdThEaE8zNmp0NWdhTWpDUkpNTVkyQTk0S1pLMTU3ZW5JMmFJVTZlbTB0WS1uZnZXSWh5Q2xFc0VU?oc=5"
+      },
+      {
+       "t": "ביזפורטל",
+       "u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9yc0tnOHIxeWJCQlNjTVM4RXN1Z2RXcmU5bzl2TzhmRGlwOThtSmNDanQtNHFfZkNGRXdGNzdnWEpqOTNoT0daakk3REwxbVdpM21uTTRUOGpmU0lqRXAteU9uVHIzaHoxa1lyN3FUbko?oc=5"
+      },
+      {
+       "t": "גלובס",
+       "u": "https://www.globes.co.il/news/article.aspx?did=1001563125"
+      }
+     ]
+    }
+   ],
+   "us": [
+    {
+     "title": "אנבידיה: ג'נסן הואנג התפטר, והמניה ירדה 12.8% בשבוע",
+     "text": "מייסד אנבידיה ג'נסן הואנג התפטר מתפקידי המנכ\"ל, הנשיא והדירקטור, אחרי בדיקה של הדירקטוריון בעקבות קשר מחוץ לנישואים ודיווחים על חשד לקשרים של אחת המעורבות עם המודיעין הסיני (בייג'ינג מכחישה); סמנכ\"לית הכספים קולט קרס מונתה למנכ\"לית זמנית והארווי ג'ונס ליו\"ר. ב-12.11 צנחה המניה בפתיחה בכ-14% וסגרה בירידה של 4.3%, ובשבוע כולו ירדה כ-12.8% (כ-20% מתחילת החודש). ב-14.11 ביקשו שני משקיעים בולטים, בראד גרסטנר וגאווין בייקר, שהדירקטוריון ישאיר פתוחה את האפשרות שהואנג יחזור, ולפי רויטרס היה לו קשר גם עם עובדת נוספת בחברה.",
+     "why": "זה משבר הנהלה וממשל תאגידי, לא משבר ביקוש: הדירקטוריון מסר שאין לו סיבה להניח שסודות החברה נפגעו, והשאלה הפתוחה היא אם הלקוחות והשותפים ימשיכו כרגיל בלי המייסד.",
+     "keys": [
+      "NVDA"
+     ],
+     "src": [
+      {
+       "t": "NVIDIA (8-K)",
+       "u": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm"
+      },
+      {
+       "t": "AP / BNN Bloomberg",
+       "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
+      },
+      {
+       "t": "CNBC",
+       "u": "https://www.cnbc.com/2026/11/14/nvidia-investors-jensen-huang-return-board-letter.html"
+      }
+     ]
+    },
+    {
+     "title": "שבבים: הכסף עבר למתחרות, ומדד השבבים עלה 8% למרות יום שישי אדום",
+     "text": "בזמן שאנבידיה ירדה, המשקיעים העבירו כסף למתחרות: בשבוע עלו AMD בכ-19%, ברודקום בכ-18%, מיקרון בכ-13% ומארוול בכ-11%, ומדד השבבים SOX עלה כ-8%. ביום שישי חלק מהעליות נמחקו (AMD ירדה 8.8%, ברודקום 4.8%, ה-SOX כ-3.4%), וטאואר ירדה כ-6.9% בניו יורק אחרי שהמסחר בת\"א כבר ננעל; בשבוע כולו עלו בת\"א טאואר כ-9.9%, נובה כ-8.3% וקמטק כ-6.4%.",
+     "why": "התנועות משקפות סנטימנט ולא הזמנות בפועל: אנבידיה עדיין מובילה בפער גדול בשבבי AI, ומניות השבבים, גם הישראליות, נעות בחדות לשני הכיוונים בתוך ימים.",
+     "keys": [
+      "AVGO",
+      "MU",
+      "MRVL",
+      "TSM",
+      "tower",
+      "nova",
+      "camtek"
+     ],
+     "src": [
+      {
+       "t": "CNBC",
+       "u": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOX2YyRTZFMWhVUzZfU0hiQTlZR3U4M3MxbG5Hbk83cHJUYThyWnNYcWY5RlBtcW1jOHpVN1ltbzRsSFlndjhYMXE1TEp1N2RoMU1OYkRESlNpclVST3haa25hQ183bDQ5Y01jTXpFTTFaUDVTSGlkUG9QOXlrX2N0Y1YxUHJ3dVltS2fSAY8BQVVfeXFMTWRwQjNxWEtubmFzbms0UTJNTUZVMi1NNDY3NXJMQWpwNnlDMDluRXZUemNkZE1fS2w0M3hJQS1DVHFTUzA2YVRmM3ZqcHVraTJaVHdZd3hVT1JDd2J6dWNyRnNPR3FmbTRvSnRGRlQ4TEQtSGRnc3QwT0l5NjIyR1BreVQwQzNScC1ZQ2ROWVU?oc=5"
+      },
+      {
+       "t": "AP / BNN Bloomberg",
+       "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
+      },
+      {
+       "t": "ביזפורטל",
+       "u": "https://bizportal.co.il/capitalmarket/news/article/20048563"
+      }
+     ]
+    },
+    {
+     "title": "ריבית: האינפלציה לא יורדת, ותשואת ה-10 שנים טיפסה ל-5.15%",
+     "text": "מדד המחירים לצרכן של אוקטובר עלה ב-0.4% (צפי 0.3%) והמדד ללא מזון ואנרגיה ב-0.3% בפעם השלישית ברציפות; שיעור שנתי לא פורסם, כי באוקטובר 2025 לא נאספו מחירים בגלל השבתת הממשל. אחרי הנתון השוק מתמחר לפי CME סיכוי של 85% להעלאת ריבית של 0.25% בישיבת הפד ב-8–9 בדצמבר וסיכוי של 15% להעלאה של 0.5%, ותשואת האג\"ח ל-10 שנים עלתה בשבוע מ-4.86% ל-5.15%. למרות זאת S&P 500 עלה 2.5% בשבוע, הראשון החיובי מאז אוקטובר, וגולדמן זאקס צופה שהמדד יגיע ל-8,700 נקודות ב-2027, כ-15% מעל רמתו היום.",
+     "why": "בארה\"ב הכיוון הפוך מישראל: שם מדברים על העלאות ריבית, וזה לחץ על מניות הצמיחה ועל אג\"ח ארוכות, אבל גם תשואה של מעל 5% שאפשר לנעול באג\"ח ממשלתיות.",
+     "keys": [
+      "ust",
+      "GS"
+     ],
+     "src": [
+      {
+       "t": "CBS News",
+       "u": "https://www.cbsnews.com/news/october-cpi-report-elevated-inflation/"
+      },
+      {
+       "t": "AP / BNN Bloomberg",
+       "u": "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/11/13/stocks-sway-as-wall-street-heads-for-a-winning-week-after-several-turbulent-days/"
+      },
+      {
+       "t": "Reuters",
+       "u": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQUUY1ZVU4V1FfVjg4bkIxMkpIVWJqQ0tVeDRsb1ZOSGRkWlo5THVweFduVWVjTXloTWVRZnhhdGJqX0I3RnlHRlkxd3MzNzFUcFBibFd2bUJKNkI2RXdPVE5FeXJRNGZLQzZDcnZXQ0pRcGdPRjBvZWs1Xzd6VTlfLXJXb1dNUjZuM0N1LWZpaUExWmk1ZXpIdlhCM29RTkpLWE9YSXdIM3hLQk41c2M5ZFJCWExESUhabjl6Mjg2dTU?oc=5"
+      }
+     ]
+    },
+    {
+     "title": "ההנפקה של Anthropic מגיעה לנאסד\"ק, ואמזון וגוגל יושבות על רווח ענק",
+     "text": "Anthropic, מפתחת Claude, קבעה ב-10.11 טווח מחיר של 70–78 דולר למניה (אחרי שטווח של 70–80 דולר שנשלח לבנקאים בוטל), לגיוס של עד כ-64 מיליארד דולר לפי שווי מדולל של כ-1.4 טריליון דולר; המסחר בנאסד\"ק נקבע ל-19.11, ולפי Bloomberg ההזמנות הגיעו לפי שישה מהמניות המוצעות. לצד ההנפקה יקנו אנבידיה, גוגל, מיקרוסופט, AMD, ברודקום, מיקרון ו-TSMC מניות בכ-26 מיליארד דולר, ולפי חישוב של רויטרס האחזקה של אמזון תהיה שווה כ-272 מיליארד דולר ושל גוגל כ-139 מיליארד, במחיר של 78 דולר.",
+     "why": "זו צפויה להיות מההנפקות הגדולות אי פעם ומבחן לתיאבון של המשקיעים ל-AI; לאמזון ולגוגל זה רווח הון גדול על הנייר, אבל המחיר הסופי והתגובה ביום הראשון עדיין פתוחים.",
+     "keys": [
+      "AMZN",
+      "GOOGL",
+      "MSFT",
+      "NVDA",
+      "AVGO",
+      "MU",
+      "TSM"
+     ],
+     "src": [
+      {
+       "t": "RTTNews",
+       "u": "https://www.rttnews.com/3712632/anthropic-sets-ipo-price-range-at-70-78-per-share-launches-roadshow.aspx?type=ipo"
+      },
+      {
+       "t": "TradingKey",
+       "u": "https://www.tradingkey.com/analysis/stocks/us-stocks/262304476-anthropic-ipo-ant-price-above-78-orders-six-times-november-14-2026-tradingkey"
+      },
+      {
+       "t": "Reuters / The Star",
+       "u": "https://www.thestar.com.my/tech/tech-news/2026/11/10/factbox-amazon-google-set-for-big-windfall-from-anthropic-ipo"
+      }
+     ]
+    },
+    {
+     "title": "ענקיות הטכנולוגיה: תקלה עולמית במיקרוסופט, קנס למטא ואג\"ח באסיה לאלפבית",
+     "text": "ב-12.11 קרסו לשעות שירותי Microsoft 365, ובהם אאוטלוק, Teams ו-Copilot, בעשרות מדינות, והשירות חזר במלואו רק ב-14.11; מיקרוסופט ייחסה את התקלה לשדרוג רשת ולא לסייבר, והמניה ירדה בשבוע 1.3% בלבד. אלפבית הנפיקה לראשונה אג\"ח בדולר הונג קונגי ובדולר סינגפורי בכ-3.8 מיליארד דולר למימון השקעות ה-AI, והמניה עלתה כ-3.9% בשבוע. וב-14.11 קנסה רשות הפרטיות האיטלקית את מטא ב-805 מיליון אירו על גישה לתמונות של משתמשי אנדרואיד בלי הסכמה מספקת; מטא עלתה בשבוע כ-5.2%.",
+     "why": "תקלות וקנסות כאלה פוגעים בעיקר במוניטין ולא בתוצאות, וגיוסי החוב מראים שגם החברות העשירות בעולם מגייסות כדי לממן את מרוץ ה-AI.",
+     "keys": [
+      "MSFT",
+      "GOOGL",
+      "META"
+     ],
+     "src": [
+      {
+       "t": "CNBC",
+       "u": "https://www.cnbc.com/2026/11/12/microsoft-outage-outlook-aws-google.html"
+      },
+      {
+       "t": "Reuters / Investing.com",
+       "u": "https://investing.com/news/stock-market-news/alphabet-sets-initial-price-guidance-for-hong-kong-singapore-bond-sales-term-sheet-shows-5020243"
+      },
+      {
+       "t": "AP / ABC News",
+       "u": "https://abcnews.com/Technology/wireStory/meta-fined-887-million-italy-android-gallery-photos-138145127"
+      }
+     ]
+    }
+   ]
+  }
+ ]
 }
