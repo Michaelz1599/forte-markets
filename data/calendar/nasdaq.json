@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-16T16:53+00:00",
+"asof": "2026-11-16T21:48+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -24683,7 +24683,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 1016233530000.0,
+"mcap": 1001159460000.0,
 "name": "Walmart Inc.",
 "sources": [
 {
@@ -24721,7 +24721,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 228634231000.0,
+"mcap": 228585783000.0,
 "name": "Alibaba Group Holding Limited",
 "sources": [
 {
@@ -24759,7 +24759,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 112405619000.0,
+"mcap": 110355931000.0,
 "name": "PDD Holdings Inc.",
 "sources": [
 {
@@ -24797,7 +24797,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 91314545000.0,
+"mcap": 90905674000.0,
 "name": "Intuit Inc.",
 "sources": [
 {
@@ -24835,7 +24835,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 77963305000.0,
+"mcap": 78253646000.0,
 "name": "NetEase, Inc.",
 "sources": [
 {
@@ -24873,7 +24873,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 74010894000.0,
+"mcap": 75787059000.0,
 "name": "Ross Stores, Inc.",
 "sources": [
 {
@@ -24911,7 +24911,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 50678456000.0,
+"mcap": 51793560000.0,
 "name": "Keysight Technologies Inc.",
 "sources": [
 {
@@ -24928,15 +24928,15 @@
 }
 },
 {
-"id": "WSM-2026-11-19",
-"ticker": "WSM",
+"id": "VEEV-2026-11-19",
+"ticker": "VEEV",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Oct/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24949,8 +24949,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29921798100.0,
-"name": "Williams-Sonoma, Inc.",
+"mcap": 48964473000.0,
+"name": "Veeva Systems Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -24959,8 +24959,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 2.17,
-"epsN": 10.0,
+"eps": 1.68,
+"epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -24987,7 +24987,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29486612500.0,
+"mcap": 29639465000.0,
 "name": "Copart, Inc.",
 "sources": [
 {
@@ -25025,7 +25025,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16896445400.0,
+"mcap": 16566886400.0,
 "name": "Warner Music Group Corp.",
 "sources": [
 {
@@ -25063,7 +25063,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13421049900.0,
+"mcap": 13402828800.0,
 "name": "Futu Holdings Limited",
 "sources": [
 {
@@ -25071,6 +25071,44 @@
 "url": "https://www.nasdaq.com/market-activity/earnings"
 }
 ]
+},
+{
+"id": "QXO-2026-11-19",
+"ticker": "QXO",
+"market": "US",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 13290256400.0,
+"name": "QXO, Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.13,
+"epsN": 5.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
 },
 {
 "id": "BSP-2026-11-20",
@@ -25094,7 +25132,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 28529209300.0,
+"mcap": 28265308200.0,
 "name": "Bending Spoons S.p.A.",
 "sources": [
 {
@@ -25132,7 +25170,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13937562600.0,
+"mcap": 14005773300.0,
 "name": "BJ's Wholesale Club Holdings, Inc.",
 "sources": [
 {
@@ -25170,7 +25208,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10752678900.0,
+"mcap": 10854976500.0,
 "name": "Moog Inc.",
 "sources": [
 {
@@ -25208,7 +25246,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10752678900.0,
+"mcap": 10854976500.0,
 "name": "Moog Inc.",
 "sources": [
 {
@@ -25239,8 +25277,39 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10456597500.0,
+"mcap": 10409846800.0,
 "name": "Frontline Plc",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
+},
+{
+"id": "FRHC-2026-11-20",
+"ticker": "FRHC",
+"market": "US",
+"date": "2026-11-20",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10079088600.0,
+"name": "Freedom Holding Corp.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -25270,7 +25339,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 64103272000.0,
+"mcap": 66585633000.0,
 "name": "Hewlett Packard Enterprise Company",
 "sources": [
 {
@@ -25308,7 +25377,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 49044345000.0,
+"mcap": 48776511000.0,
 "name": "Agilent Technologies, Inc.",
 "sources": [
 {
@@ -25319,7 +25388,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 1.72,
-"epsN": 7.0,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -25346,7 +25415,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29120014300.0,
+"mcap": 28507269100.0,
 "name": "Zoom Communications, Inc.",
 "sources": [
 {
@@ -25384,7 +25453,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21065242600.0,
+"mcap": 21434173400.0,
 "name": "Symbotic Inc.",
 "sources": [
 {
@@ -25422,7 +25491,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 18519019500.0,
+"mcap": 18572857300.0,
 "name": "Jacobs Solutions Inc.",
 "sources": [
 {
@@ -25460,7 +25529,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10694183900.0,
+"mcap": 11146812400.0,
 "name": "Semtech Corporation",
 "sources": [
 {
