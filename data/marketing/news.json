@@ -1,6 +1,6 @@
 {
  "_comment": "Short Hebrew 'what matters now' per held issuer (key = issuer key in issuers.json), written by the daily marketing task for issuers with something new: an unusual move, a report, an appointment, a rating action or a material headline. items: {key: {at, sum, pts[], src[{t,u}]}}. Items older than 30 days are dropped.",
- "asof": "2026-11-15T07:51+02:00",
+ "asof": "2026-11-16T07:48+02:00",
  "items": {
   "fibi": {
    "at": "2026-11-13",
@@ -85,25 +85,25 @@
    ]
   },
   "NVDA": {
-   "at": "2026-11-15",
-   "sum": "אחרי התפטרות ג׳נסן הואנג ב-12.11 ירדה המניה כ-13% בשבוע; לפי Yahoo Finance, יו״ר ועדת החוץ של בית הנבחרים מסר שהואנג הסכים להעיד בקונגרס, ולפי דיווחים משרד המשפטים בודק חשד להעברת שרתים עם שבבי אנבידיה לסין. סמנכ״לית הכספים קולט קרס מכהנת כמנכ״לית זמנית, והדוחות יפורסמו ב-17.11 אחרי סגירת המסחר.",
+   "at": "2026-11-16",
+   "sum": "הלחץ להחזיר את ג׳נסן הואנג גובר: שני משקיעים גדולים ביקשו מהדירקטוריון להשאיר את האפשרות פתוחה ועצומה בעניין עברה 130 אלף חתימות, ולפי ה-FT הואנג עצמו דן בקאמבק; שר האוצר בסנט, מנגד, קורא למנכ״ל מבחוץ. הדוחות יפורסמו ביום שלישי 17.11 אחרי סגירת המסחר, בהובלת המנכ״לית הזמנית קולט קרס.",
    "pts": [
-    "קונצנזוס להכנסות הרבעון: כ-109.5 מיליארד דולר; האופציות מגלמות תנודה של כ-9% לכל כיוון",
-    "13.11: ירידה של כ-2% אחרי ש-HSBC הורידה את ההמלצה ל'החזק'",
-    "הארווי ג׳ונס מונה ליו״ר הדירקטוריון הראשון; החיפוש אחר מנכ״ל קבוע כולל מועמדים מבפנים ומבחוץ"
+    "הציפיות לרבעון: הכנסות של כ-109 מיליארד דולר (צמיחה של כ-91%) ורווח של 2.47 דולר למניה",
+    "הבדיקה הבלתי תלויה של הדירקטוריון עדיין נמשכת; לפי ה-FT הדירקטוריון פנה למנכ״ל Arm רנה האס כמועמד אפשרי",
+    "לפי Bloomberg, האישה שבמרכז הפרשה קשורה ל-Megaspeed מסינגפור, שייבאה מוצרי אנבידיה בכ-4.6 מיליארד דולר ונחשדת בהברחה לסין; אלה חשדות ולא ממצאים"
    ],
    "src": [
     {
-     "t": "Yahoo Finance",
-     "u": "https://finance.yahoo.com/technology/article/nvidia-and-jensen-huang-fallout-heres-everything-we-know-after-a-momentous-week-110000323.html"
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001563509"
     },
     {
-     "t": "Investopedia / Yahoo Finance",
-     "u": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html"
+     "t": "The National",
+     "u": "https://www.thenationalnews.com/business/markets/2026/11/16/nvidia-earnings-anthropic-ipo/"
     },
     {
-     "t": "NVIDIA (8-K)",
-     "u": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm"
+     "t": "כלכליסט",
+     "u": "https://www.calcalist.co.il/calcalistech/article/s1i8lxmcmx"
     }
    ]
   },
@@ -423,21 +423,21 @@
    ]
   },
   "NTRA": {
-   "at": "2026-11-13",
-   "sum": "נטרה הציגה צמיחה של 34% בהכנסות ברבעון השלישי והעלתה את תחזית 2026, אבל ההוצאות גבוהות והחברה עדיין בהפסד. המניה ירדה כ-22% מתחילת החודש, ולירידה לא נמצא הסבר מאומת.",
+   "at": "2026-11-16",
+   "sum": "תיקון לעדכון מ-13.11: לירידה במניה יש הסבר. יחד עם הדוחות, ב-5.11, הודיעה נטרה שהמנכ״ל סטיב צ׳פמן פורש מיד וסולומון מושקביץ׳, ראש תחום האבחון הקליני, מחליף אותו; לפי TIKR המניה ירדה כ-14% למחרת, למרות תוצאות טובות מהצפוי.",
    "pts": [
-    "הכנסות 794 מיליון דולר (+34%); בדיקות האונקולוגיה צמחו בכ-61%",
-    "תחזית ההכנסות ל-2026 עלתה ל-3.005-3.035 מיליארד דולר",
-    "הפסד נקי של כ-60 מיליון דולר, לעומת 87.5 מיליון לפני שנה"
+    "מושקביץ׳ בחברה מ-2011; צ׳פמן נשאר יועץ לחברה ולדירקטוריון",
+    "הכנסות הרבעון: 794 מיליון דולר (+34%); תחזית 2026 הועלתה ל-3.005-3.035 מיליארד דולר",
+    "הפסד נקי של כ-60 מיליון דולר ברבעון, לעומת 87.5 מיליון לפני שנה"
    ],
    "src": [
     {
      "t": "Natera",
-     "u": "https://www.natera.com/company/news/natera-reports-third-quarter-2026-financial-results/"
+     "u": "https://www.natera.com/company/news/natera-announces-leadership-transition/"
     },
     {
-     "t": "Finimize",
-     "u": "https://finimize.com/content/natera-lifted-its-2026-outlook-but-shares-still-slid"
+     "t": "TIKR",
+     "u": "https://www.tikr.com/blog/natera-sinks-14-as-ceo-steve-chapman-steps-down-despite-q3-beat-an-excellent-time-to-transition"
     }
    ]
   },
@@ -762,24 +762,24 @@
    ]
   },
   "TEVA": {
-   "at": "2026-11-12",
-   "sum": "באירוע R&D Day בניו יורק הציבה טבע יעד הכנסות של 6-7 מיליארד דולר מתרופות חדשניות עד 2030, והמנכ\"ל אמר שהחברה בוחנת גם רכישות גדולות יותר. היעד מסמן את המעבר מתרופות גנריות לצמיחה מתרופות חדשניות; הוא יעד ניהולי ולא תחזית מובטחת.",
+   "at": "2026-11-16",
+   "sum": "לפי דיווח שפורסם ב-12.11, מנכ״ל טבע ריצ׳רד פרנסיס מכר מניות בשווי של כ-10.6 מיליון דולר. מכירה של מנהל אינה בהכרח איתות לגבי החברה (לעיתים היא מתוכננת מראש או לצורכי מס), ולא אותר פירוט על הסיבה; ברקע, ב-R&D Day הציבה טבע יעד הכנסות של 6-7 מיליארד דולר מתרופות חדשניות עד 2030.",
    "pts": [
-    "יעד: 6-7 מיליארד דולר הכנסות מתרופות חדשניות עד 2030",
-    "המנכ\"ל: מסתכלים על רכישות גדולות יותר"
+    "לפי GuruFocus נמכרו 250 אלף מניות, כלומר מחיר ממוצע של כ-42 דולר (חישוב שלנו)",
+    "ב-R&D Day אמר המנכ״ל שטבע בוחנת גם רכישות גדולות יותר"
    ],
    "src": [
     {
+     "t": "MarketBeat",
+     "u": "https://www.marketbeat.com/instant-alerts/insider-insider-selling-teva-pharmaceutical-industries-nyse-teva-ceo-sells-1056000000-in-stock-2026-11-12/"
+    },
+    {
+     "t": "GuruFocus",
+     "u": "https://www.gurufocus.com/news/9196423/teva-pharmaceutical-teva-president-and-ceo-richard-francis-sells-250000-shares"
+    },
+    {
      "t": "ביזפורטל",
      "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048133"
-    },
-    {
-     "t": "Investing.com",
-     "u": "https://il.investing.com/news/company-news/article-93CH-1026858"
-    },
-    {
-     "t": "גלובס",
-     "u": "https://www.globes.co.il/news/article.aspx?did=1001563125"
     }
    ]
   },
@@ -934,6 +934,117 @@
     {
      "t": "MLex",
      "u": "https://www.mlex.com/mlex/articles/2543209/us-ftc-reportedly-eyeing-opposition-to-cintas-unifirst-deal"
+    }
+   ]
+  },
+  "META": {
+   "at": "2026-11-16",
+   "sum": "רשות הגנת הפרטיות באיטליה קנסה את מטא ב-805 מיליון אירו (כ-887 מיליון דולר), כי אפליקציית פייסבוק באנדרואיד ניגשה לגלריית התמונות של המשתמשים בלי הסכמה מספקת. ביחס לגודל החברה הקנס קטן, אבל הוא מוסיף לסיכון הרגולטורי שלה באירופה.",
+   "pts": [
+    "לפי הדיווח, הקנס הוא כחצי אחוז מהמחזור השנתי של מטא",
+    "התכונה פעלה כברירת מחדל; מטא קיבלה 60 יום להשבית אותה ולבקש הסכמה נפרדת",
+    "מטא לא הגיבה מיד ולא הודיעה אם תערער"
+   ],
+   "src": [
+    {
+     "t": "AP / ABC News",
+     "u": "https://abcnews.com/Technology/wireStory/meta-fined-887-million-italy-android-gallery-photos-138145127"
+    },
+    {
+     "t": "Washington Post",
+     "u": "https://www.washingtonpost.com/technology/2026/11/15/meta-fined-887m-by-italy-accessing-android-users-photos/"
+    }
+   ]
+  },
+  "BRK-B": {
+   "at": "2026-11-16",
+   "sum": "ברקשייר בשיא כל הזמנים אחרי עלייה של כ-19% מתחילת אוקטובר, כשמשקיעים מחפשים מקלט מחוץ למניות ה-AI, אף שהרווח התפעולי ברבעון השלישי ירד. היום (16.11) אמור להתפרסם דוח האחזקות לרבעון השלישי (13F).",
+   "pts": [
+    "רווח תפעולי ברבעון: כ-12.7 מיליארד דולר, לעומת 13.5 מיליארד לפני שנה; החולשה בעיקר בביטוח",
+    "רכישה עצמית של כ-9.6 מיליארד דולר ברבעון, יותר מכפול מהרבעון הקודם",
+    "לפי הערכות (Barron's), ה-13F יראה רבעון תשיעי ברציפות של מכירת מניות בנק אוף אמריקה, ואולי קנייה נוספת של אלפבית"
+   ],
+   "src": [
+    {
+     "t": "Fortune",
+     "u": "https://fortune.com/2026/11/07/berkshire-hathaway-stock-brk-q3-earnings-investment-portfolio-buybacks/"
+    },
+    {
+     "t": "QUE.com",
+     "u": "https://que.com/berkshire-notches-four-straight-record-closes-and-a-19-fourth-quarter-rally-as-investors-treat-it-like-an-ai-hedge-with-mondays-13f-set-to-show-more-bank-of-america-selling/"
+    }
+   ]
+  },
+  "OSW": {
+   "at": "2026-11-16",
+   "sum": "OneSpaWorld דיווחה ב-28.10 על רבעון שלישי שיא, העלתה את הקצה התחתון של תחזית 2026 ואישרה רכישה עצמית חדשה של עד 100 מיליון דולר. הצמיחה מתונה אך יציבה, והחברה מחזירה הון לבעלי המניות.",
+   "pts": [
+    "הכנסות 276.5 מיליון דולר (+7%); רווח נקי 28.2 מיליון דולר (+16%)",
+    "תחזית הכנסות 2026: 1.033-1.038 מיליארד דולר (קודם 1.018-1.038)",
+    "EBITDA מתואם צפוי: 138-140 מיליון דולר (קודם 130-140)"
+   ],
+   "src": [
+    {
+     "t": "OneSpaWorld (8-K)",
+     "u": "https://www.sec.gov/Archives/edgar/data/0001758488/000119312526435063/osw-ex99_1.htm"
+    },
+    {
+     "t": "TIKR",
+     "u": "https://www.tikr.com/blog/onespaworld-soars-11-on-q3-beat-raised-guidance-and-new-100-million-buyback-22nd-consecutive-record-quarter"
+    }
+   ]
+  },
+  "CNQ": {
+   "at": "2026-11-16",
+   "sum": "קנדיאן נטורל ריסורסס דיווחה ב-5.11 על רבעון שלישי עם רווח נקי של כ-3 מיליארד דולר קנדי, תפוקה של כ-1.65 מיליון חביות שווה ערך ליום ותזרים חופשי של כ-2.1 מיליארד דולר קנדי. החברה ממשיכה לחלק דיבידנד גבוה, אך התוצאות רגישות למחיר הנפט.",
+   "pts": [
+    "רווח תפעולי מתואם: כ-3.4 מיליארד דולר קנדי (1.67 דולר קנדי למניה)",
+    "דיבידנד רבעוני של 0.625 דולר קנדי למניה (2.50 בשנה), לתשלום ב-5.1.2027"
+   ],
+   "src": [
+    {
+     "t": "Canadian Natural (6-K)",
+     "u": "https://www.sec.gov/Archives/edgar/data/0001017413/000101741326000049/a09302026q3pressrelease.htm"
+    },
+    {
+     "t": "Finviz",
+     "u": "https://finviz.com/news/416525/canadian-natural-resources-limited-announces-2026-third-quarter-results"
+    }
+   ]
+  },
+  "AXON": {
+   "at": "2026-11-16",
+   "sum": "אקסון הודיעה ב-6.11 על השקעה של כ-1.2 מיליארד דולר, במזומן ובמניות, ביצרנית הרחפנים Skydio, ותהיה המפיצה הבלעדית שלה לגופי ביטחון הציבור בארה״ב ובקנדה. המהלך מרחיב את אקסון לרחפנים שמגיעים ראשונים לאירוע, שוק שהיא מעריכה בכ-13 מיליארד דולר; העסקה כפופה לתנאי השלמה.",
+   "pts": [
+    "ההשקעה לפי שווי של 5.2 מיליארד דולר ל-Skydio לפני הכסף",
+    "ההשלמה צפויה ברבעון הרביעי של 2026 או בראשון של 2027"
+   ],
+   "src": [
+    {
+     "t": "sUAS News",
+     "u": "https://www.suasnews.com/2026/11/axon-invests-1-2-billion-in-skydio-to-build-the-future-of-drone-as-first-responder/"
+    },
+    {
+     "t": "DroneDJ",
+     "u": "https://dronedj.com/2026/11/06/skydio-funding-axon-public-safety/"
+    }
+   ]
+  },
+  "RKLB": {
+   "at": "2026-11-16",
+   "sum": "רוקט לאב השלימה ב-14.11 את השיגור ה-100 של טיל ה-Electron, עם לוויין מכ״ם של החברה היפנית iQPS; לפי רוקט לאב, אף טיל מסחרי לא הגיע ל-100 שיגורים מהר יותר. החברה מסרה ש-100 השיגורים הבאים כבר מוזמנים, אבל חלק גדול מהערך למשקיעים תלוי בטיל הגדול Neutron, שהשיגור הראשון שלו עוד לפניו.",
+   "pts": [
+    "iQPS הזמינה עוד שבעה שיגורים ייעודיים עד 2030",
+    "לפי הודעת החברה, ברבעון השלישי נחתמו הסכמי שיגור ל-Neutron ביותר מ-515 מיליון דולר"
+   ],
+   "src": [
+    {
+     "t": "Rocket Lab (StockTitan)",
+     "u": "https://www.stocktitan.net/news/RKLB/rocket-lab-hits-100-electron-launches-fastest-commercial-rocket-to-0r5olk0ol3kf.html"
+    },
+    {
+     "t": "Rocket Lab",
+     "u": "https://rocketlabcorp.com/updates/rocket-lab-lands-over-515m-in-neutron-launch-deals-from-constellation-operators-in-q3"
     }
    ]
   }
