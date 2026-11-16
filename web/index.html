@@ -4144,6 +4144,16 @@ function mkPxOf(sym) {
 // ---- 1. news of the week (the weekly brief): talking points on Israeli and US companies, and the coming days
 const MK_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 function mkWeekList() { const w = MKT.weekly || {}; return [w.current, ...(w.hist || [])].filter(Boolean); }
+// the week (Sunday to Saturday, Israel time) as the tasks label it: "15–21.11.2026", "29.11–5.12.2026"
+function mkWeekLabel(off = 0) {
+  const t = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' }));
+  const a = new Date(t.getFullYear(), t.getMonth(), t.getDate() - t.getDay() + 7 * off), b = new Date(a.getFullYear(), a.getMonth(), a.getDate() + 6);
+  const dm = x => `${x.getDate()}.${x.getMonth() + 1}`;
+  return a.getMonth() === b.getMonth() ? `${a.getDate()}–${dm(b)}.${b.getFullYear()}` : a.getFullYear() === b.getFullYear() ? `${dm(a)}–${dm(b)}.${b.getFullYear()}` : `${dm(a)}.${a.getFullYear()}–${dm(b)}.${b.getFullYear()}`;
+}
+const mkWkNorm = x => String(x || '').replace(/[\s\u2066\u2069]/g, '').replace(/[-‐-―]/g, '–');
+const mkIsThisWeek = w => !!w && mkWkNorm(w.week) === mkWkNorm(mkWeekLabel());
+const mkAsof = a => a && a.length >= 16 ? `${+a.slice(8, 10)}.${+a.slice(5, 7)} בשעה ${a.slice(11, 16)}` : '';
 function mkSrcLinks(src) {
   return (src || []).filter(x => x && (/^https?:\/\//.test(x.u) || x.u === '#calendar')).slice(0, 4)
     .map(x => x.u === '#calendar' ? `<a href="#calendar" data-gocal="1">${esc(x.t || 'יומן הדוחות')}</a>` : `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t || 'מקור')}</a>`).join('');
@@ -4165,17 +4175,23 @@ function mkWeekly() {
     return `<div class="wk-day"><b>יום ${MK_DAYS[dt.getDay()]} ${fmtDateShort(d)}</b><div class="wk-items">${xs.map(x => x.kind === 'macro'
       ? `<span class="wk-mac${x.imp >= 3 ? ' hi' : ''}" title="${esc(x.period || '')}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc(x.label)}</span>`
       : `<button type="button" class="wk-chip" data-iss="${esc(x.key)}" title="${esc(x.label)}">${x.mkt === 'IL' ? '🇮🇱' : '🇺🇸'} ${esc((MKT.issuers[x.key] || {}).he || x.label)}</button>`).join('')}</div></div>`; };
-  const sel = L.length > 1 ? `<select id="wkSel" aria-label="שבוע">${L.map((x, j) => `<option value="${j}"${j === i ? ' selected' : ''}>${j === 0 ? 'השבוע · ' : ''}⁦${esc(x.week)}⁩</option>`).join('')}</select>` : '';
+  // the first entry is this week's brief (refreshed every morning); the others are closed weeks
+  const lbl = (x, j) => j === 0 && mkIsThisWeek(x) ? 'השבוע' : 'סיכום השבוע';
+  const sel = L.length > 1 ? `<select id="wkSel" aria-label="שבוע">${L.map((x, j) => `<option value="${j}"${j === i ? ' selected' : ''}>${lbl(x, j)} · ⁦${esc(x.week)}⁩</option>`).join('')}</select>` : '';
+  const cur = i === 0 && mkIsThisWeek(w);
+  const eyebrow = cur ? `חדשות השבוע · <span dir="ltr">${esc(w.week)}</span> · מתעדכן כל בוקר${w.asof ? ` · עודכן ${mkAsof(w.asof)}` : ''}`
+    : `סיכום השבוע · <span dir="ltr">${esc(w.week)}</span>${i === 0 ? ` · הסיכום של השבוע הנוכחי (<span dir="ltr">${esc(mkWeekLabel())}</span>) עוד לא נכתב` : ''}`;
   const ahead = days.length ? mkAcc('wk-ahead', `<span>📅 <b>בימים הקרובים:</b> ${[nRep ? `${nRep} דוחות של חברות שאנחנו מחזיקים` : '', nMac ? `${nMac} נתוני מאקרו` : ''].filter(Boolean).join(' ו-')}</span>`,
       `<div class="wk-days">${days.map(dayHtml).join('')}</div><p class="small muted" style="margin:0">מתוך היומן הכלכלי של הדשבורד. לחיצה על חברה פותחת את הכרטיס שלה.</p>`) : '';
-  return `<section class="wk" id="mk-weekly"><div class="wk-head"><div><span class="wk-eyebrow">חדשות השבוע · <span dir="ltr">${esc(w.week)}</span>${w.partial ? ' · השבוע עוד לא הסתיים' : ''}</span><h2>${esc(w.headline || '')}</h2></div>
+  return `<section class="wk" id="mk-weekly"><div class="wk-head"><div><span class="wk-eyebrow">${eyebrow}</span><h2>${esc(w.headline || '')}</h2></div>
       <div class="wk-act">${sel}<button type="button" class="btn sm" id="wkCopy">העתקה לוואטסאפ / מייל</button></div></div>
     <div class="wk-grid"><div class="wk-col"><h3>🇮🇱 ישראל</h3><div class="acc-list">${(w.il || []).map(pt).join('')}</div></div>
       <div class="wk-col"><h3>🇺🇸 ארה"ב</h3><div class="acc-list">${(w.us || []).map(pt).join('')}</div></div></div>${ahead}</section>`;
 }
 function mkWeeklyText() {
   const L = mkWeekList(), w = L[Math.min(S.wkIdx || 0, L.length - 1)]; if (!w) return '';
-  const out = [`*התקציר השבועי של פורטה · ${w.week}*`, w.headline || '', ''];
+  const cur = (S.wkIdx || 0) === 0 && mkIsThisWeek(w);
+  const out = [cur ? `*חדשות השבוע של פורטה · ${w.week}${w.asof ? ` (עד ${+w.asof.slice(8, 10)}.${+w.asof.slice(5, 7)})` : ''}*` : `*סיכום השבוע של פורטה · ${w.week}*`, w.headline || '', ''];
   const sec = (h, a) => { if (!(a || []).length) return; out.push(`*${h}*`); a.forEach((p, j) => { out.push(`${j + 1}. *${p.title}*`, p.text); if (p.why) out.push(`➜ ${p.why}`); out.push(''); }); };
   sec('🇮🇱 חברות בישראל', w.il); sec('🇺🇸 חברות בארה"ב', w.us);
   if ((S.wkIdx || 0) === 0) {
