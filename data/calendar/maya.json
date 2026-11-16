@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-16T05:53+00:00",
+"asof": "2026-11-16T08:43+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -2244,6 +2244,34 @@
 ]
 },
 {
+"id": "דניה סיבוס-2026-11-18",
+"ticker": "דניה סיבוס",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1096,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781282"
+}
+]
+},
+{
 "id": "מגדל ביטוח-2026-11-18",
 "ticker": "מגדל ביטוח",
 "market": "IL",
@@ -2777,6 +2805,34 @@
 ]
 },
 {
+"id": "שפיר הנדסה-2026-11-19",
+"ticker": "שפיר הנדסה",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1633,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781245"
+}
+]
+},
+{
 "id": "תמר פטרוליום-2026-11-19",
 "ticker": "תמר פטרוליום",
 "market": "IL",
@@ -3081,6 +3137,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1779851"
+}
+]
+},
+{
+"id": "סופרגז פאוור-2026-11-23",
+"ticker": "סופרגז פאוור",
+"market": "IL",
+"date": "2026-11-23",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1804,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781280"
 }
 ]
 },
@@ -3926,6 +4010,34 @@
 ]
 },
 {
+"id": "אוטונומוס-2026-11-26",
+"ticker": "אוטונומוס",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "14:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1082,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781353"
+}
+]
+},
+{
 "id": "איידיאיי ביטוח-2026-11-26",
 "ticker": "איידיאיי ביטוח",
 "market": "IL",
@@ -4006,6 +4118,62 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780236"
+}
+]
+},
+{
+"id": "דמרי-2026-11-26",
+"ticker": "דמרי",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שלישי 1.12, 11:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1193,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781269"
+}
+]
+},
+{
+"id": "ישראל קנדה-2026-11-26",
+"ticker": "ישראל קנדה",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 434,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781362"
 }
 ]
 },
@@ -4727,6 +4895,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"דניה סיבוס": {
+"name": "דניה סיבוס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מור גמל פנסיה": {
 "name": "מור גמל פנסיה",
 "tags": [
@@ -4759,8 +4935,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אפריקה מגורים": {
-"name": "אפריקה מגורים",
+"ג'י סיטי": {
+"name": "ג'י סיטי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שפיר הנדסה": {
+"name": "שפיר הנדסה",
 "tags": [
 "TASE"
 ],
@@ -4775,8 +4959,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ג'י סיטי": {
-"name": "ג'י סיטי",
+"אפריקה מגורים": {
+"name": "אפריקה מגורים",
 "tags": [
 "TASE"
 ],
@@ -4953,6 +5137,14 @@
 },
 "עמל הולדינגס": {
 "name": "עמל הולדינגס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סופרגז פאוור": {
+"name": "סופרגז פאוור",
 "tags": [
 "TASE"
 ],
@@ -5177,6 +5369,30 @@
 },
 "אפקון החזקות": {
 "name": "אפקון החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"דמרי": {
+"name": "דמרי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראל קנדה": {
+"name": "ישראל קנדה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אוטונומוס": {
+"name": "אוטונומוס",
 "tags": [
 "TASE"
 ],
