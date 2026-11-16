@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-16T16:17+00:00",
+"asof": "2026-11-16T16:53+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23153,7 +23153,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 47718642000.0,
+"mcap": 47570317000.0,
 "name": "Franco-Nevada Corporation",
 "sources": [
 {
@@ -23164,44 +23164,6 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 1.77,
-"epsN": 3.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "GIB-2026-11-11",
-"ticker": "GIB",
-"market": "US",
-"date": "2026-11-11",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 16958365700.0,
-"name": "CGI Inc.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 1.64,
 "epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -23229,7 +23191,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16782518300.0,
+"mcap": 17022971900.0,
 "name": "Joint Stock Company Kaspi.kz",
 "sources": [
 {
@@ -23246,8 +23208,8 @@
 }
 },
 {
-"id": "TTEK-2026-11-11",
-"ticker": "TTEK",
+"id": "GIB-2026-11-11",
+"ticker": "GIB",
 "market": "US",
 "date": "2026-11-11",
 "session": "TBD",
@@ -23267,8 +23229,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10095832100.0,
-"name": "Tetra Tech, Inc.",
+"mcap": 16954672100.0,
+"name": "CGI Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -23277,8 +23239,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 0.47,
-"epsN": 2.0,
+"eps": 1.64,
+"epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -25992,7 +25954,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 183019028000.0,
+"mcap": 181603500000.0,
 "name": "Deere & Company",
 "sources": [
 {
@@ -26030,7 +25992,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11424338900.0,
+"mcap": 11375474700.0,
 "name": "Li Auto Inc.",
 "sources": [
 {
@@ -26106,7 +26068,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 235371905000.0,
+"mcap": 232033878000.0,
 "name": "CrowdStrike Holdings, Inc.",
 "sources": [
 {
@@ -26144,7 +26106,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 144206201000.0,
+"mcap": 137462841000.0,
 "name": "Marvell Technology, Inc.",
 "sources": [
 {
@@ -26182,7 +26144,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 36549648000.0,
+"mcap": 35624514000.0,
 "name": "NetApp, Inc.",
 "sources": [
 {
@@ -26220,7 +26182,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31911813100.0,
+"mcap": 31969503200.0,
 "name": "Okta, Inc.",
 "sources": [
 {
@@ -26258,7 +26220,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27371434000.0,
+"mcap": 26921928700.0,
 "name": "MongoDB, Inc.",
 "sources": [
 {
@@ -26296,7 +26258,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 26277558300.0,
+"mcap": 24717557800.0,
 "name": "Credo Technology Group Holding Ltd",
 "sources": [
 {
@@ -26334,7 +26296,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 179060113000.0,
+"mcap": 179282313000.0,
 "name": "Salesforce, Inc.",
 "sources": [
 {
@@ -26372,7 +26334,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 120227725000.0,
+"mcap": 120331977000.0,
 "name": "Bank Of Montreal",
 "sources": [
 {
@@ -26410,7 +26372,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 113721319000.0,
+"mcap": 113358979000.0,
 "name": "Bank of Nova Scotia (The)",
 "sources": [
 {
@@ -26448,7 +26410,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 105381364000.0,
+"mcap": 102664798000.0,
 "name": "Snowflake Inc.",
 "sources": [
 {
@@ -26486,7 +26448,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31505428500.0,
+"mcap": 31383138300.0,
 "name": "Zscaler, Inc.",
 "sources": [
 {
@@ -26524,7 +26486,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13607155700.0,
+"mcap": 13580729300.0,
 "name": "Five Below, Inc.",
 "sources": [
 {
@@ -26534,7 +26496,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.12,
+"eps": 1.15,
 "epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -26562,7 +26524,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13221817300.0,
+"mcap": 13073907700.0,
 "name": "Guidewire Software, Inc.",
 "sources": [
 {
@@ -26600,7 +26562,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10083021800.0,
+"mcap": 10049408000.0,
 "name": "Donaldson Company, Inc.",
 "sources": [
 {
