@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-17T08:26+00:00",
+"asof": "2026-11-17T09:02+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -21927,7 +21927,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 98520703000.0,
+"mcap": 99294241000.0,
 "name": "Constellation Energy Corporation",
 "sources": [
 {
@@ -21965,7 +21965,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 87474282000.0,
+"mcap": 86715965000.0,
 "name": "KKR & Co. Inc.",
 "sources": [
 {
@@ -22003,7 +22003,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 61234950000.0,
+"mcap": 61612741000.0,
 "name": "Barrick Mining Corporation",
 "sources": [
 {
@@ -22041,7 +22041,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 58743816000.0,
+"mcap": 58393854000.0,
 "name": "Occidental Petroleum Corporation",
 "sources": [
 {
@@ -22079,7 +22079,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 49665057000.0,
+"mcap": 49359094000.0,
 "name": "Ferguson Enterprises Inc.",
 "sources": [
 {
@@ -22117,7 +22117,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42650976000.0,
+"mcap": 42488103000.0,
 "name": "Take-Two Interactive Software, Inc.",
 "sources": [
 {
@@ -22155,7 +22155,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 38888247000.0,
+"mcap": 40493580000.0,
 "name": "Rocket Lab Corporation",
 "sources": [
 {
@@ -22193,7 +22193,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 37932552000.0,
+"mcap": 38285648000.0,
 "name": "Skydance Corporation",
 "sources": [
 {
@@ -22231,7 +22231,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 37471371000.0,
+"mcap": 37133595000.0,
 "name": "ORIX Corporation",
 "sources": [
 {
@@ -22262,7 +22262,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29291431900.0,
+"mcap": 29020612600.0,
 "name": "Credicorp Ltd.",
 "sources": [
 {
@@ -22300,7 +22300,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 28641914900.0,
+"mcap": 28975212500.0,
 "name": "Roivant Sciences Ltd.",
 "sources": [
 {
@@ -22338,7 +22338,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21330561000.0,
+"mcap": 21123237900.0,
 "name": "Grupo Cibest S.A.",
 "sources": [
 {
@@ -22376,7 +22376,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 20393066500.0,
+"mcap": 20592586800.0,
 "name": "NRG Energy, Inc.",
 "sources": [
 {
@@ -22414,7 +22414,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17235507200.0,
+"mcap": 17090956300.0,
 "name": "RB Global, Inc.",
 "sources": [
 {
@@ -22452,7 +22452,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14713777200.0,
+"mcap": 14787901400.0,
 "name": "CNH Industrial N.V.",
 "sources": [
 {
@@ -22490,7 +22490,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13989986300.0,
+"mcap": 13957750800.0,
 "name": "Somnigroup International Inc.",
 "sources": [
 {
@@ -22502,44 +22502,6 @@
 "period": "רבעון נוכחי",
 "eps": 1.06,
 "epsN": 5.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "JBS-2026-11-09",
-"ticker": "JBS",
-"market": "US",
-"date": "2026-11-09",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 13033810900.0,
-"name": "JBS N.V.",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.26,
-"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22566,7 +22528,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12717574100.0,
+"mcap": 13458783200.0,
 "name": "AST SpaceMobile, Inc.",
 "sources": [
 {
@@ -22578,6 +22540,44 @@
 "period": "רבעון נוכחי",
 "eps": -0.41,
 "epsN": 7.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "JBS-2026-11-09",
+"ticker": "JBS",
+"market": "US",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 12755127300.0,
+"name": "JBS N.V.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 0.26,
+"epsN": 2.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -22604,7 +22604,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12300286000.0,
+"mcap": 12346983400.0,
 "name": "Equinox Gold Corp.",
 "sources": [
 {
@@ -22616,6 +22616,44 @@
 "period": "רבעון נוכחי",
 "eps": 0.17,
 "epsN": 2.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "ONTO-2026-11-09",
+"ticker": "ONTO",
+"market": "US",
+"date": "2026-11-09",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10291511300.0,
+"name": "Onto Innovation Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 2.27,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23640,7 +23678,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 259072131000.0,
+"mcap": 258122711000.0,
 "name": "Mitsubishi UFJ Financial Group Inc",
 "sources": [
 {
@@ -23678,7 +23716,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 157888348000.0,
+"mcap": 155527037000.0,
 "name": "Sumitomo Mitsui Financial Group Inc",
 "sources": [
 {
@@ -23716,7 +23754,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 128725172000.0,
+"mcap": 125986341000.0,
 "name": "Mizuho Financial Group, Inc.",
 "sources": [
 {
@@ -23731,6 +23769,106 @@
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
+},
+{
+"id": "KB-2026-11-13",
+"ticker": "KB",
+"market": "US",
+"date": "2026-11-13",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 40218042000.0,
+"name": "KB Financial Group Inc",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 3.94,
+"epsN": 1.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
+"id": "WF-2026-11-13",
+"ticker": "WF",
+"market": "US",
+"date": "2026-11-13",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 17152391200.0,
+"name": "Woori Bank",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
+},
+{
+"id": "FRHC-2026-11-13",
+"ticker": "FRHC",
+"market": "US",
+"date": "2026-11-13",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10079088600.0,
+"name": "Freedom Holding Corp.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
 },
 {
 "id": "TCOM-2026-11-16",
@@ -25999,7 +26137,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 232033878000.0,
+"mcap": 235371905000.0,
 "name": "CrowdStrike Holdings, Inc.",
 "sources": [
 {
@@ -26037,7 +26175,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 137462841000.0,
+"mcap": 144206201000.0,
 "name": "Marvell Technology, Inc.",
 "sources": [
 {
@@ -26075,7 +26213,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 35624514000.0,
+"mcap": 36549648000.0,
 "name": "NetApp, Inc.",
 "sources": [
 {
@@ -26113,7 +26251,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31969503200.0,
+"mcap": 31911813100.0,
 "name": "Okta, Inc.",
 "sources": [
 {
@@ -26151,7 +26289,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 26921928700.0,
+"mcap": 27371434000.0,
 "name": "MongoDB, Inc.",
 "sources": [
 {
@@ -26189,7 +26327,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24717557800.0,
+"mcap": 26277558300.0,
 "name": "Credo Technology Group Holding Ltd",
 "sources": [
 {
@@ -26227,7 +26365,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 179060113000.0,
+"mcap": 179282313000.0,
 "name": "Salesforce, Inc.",
 "sources": [
 {
@@ -26265,7 +26403,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 120227725000.0,
+"mcap": 120331977000.0,
 "name": "Bank Of Montreal",
 "sources": [
 {
@@ -26303,7 +26441,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 113721319000.0,
+"mcap": 113358979000.0,
 "name": "Bank of Nova Scotia (The)",
 "sources": [
 {
@@ -26341,7 +26479,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 105381364000.0,
+"mcap": 102664798000.0,
 "name": "Snowflake Inc.",
 "sources": [
 {
@@ -26379,7 +26517,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31505428500.0,
+"mcap": 31383138300.0,
 "name": "Zscaler, Inc.",
 "sources": [
 {
@@ -26417,7 +26555,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13607155700.0,
+"mcap": 13580729300.0,
 "name": "Five Below, Inc.",
 "sources": [
 {
@@ -26427,7 +26565,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.12,
+"eps": 1.15,
 "epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -26455,7 +26593,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13221817300.0,
+"mcap": 13073907700.0,
 "name": "Guidewire Software, Inc.",
 "sources": [
 {
@@ -26493,7 +26631,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10083021800.0,
+"mcap": 10049408000.0,
 "name": "Donaldson Company, Inc.",
 "sources": [
 {

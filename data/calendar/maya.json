@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-17T08:26+00:00",
+"asof": "2026-11-17T09:02+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -2805,6 +2805,34 @@
 ]
 },
 {
+"id": "פולירם-2026-11-19",
+"ticker": "פולירם",
+"market": "IL",
+"date": "2026-11-19",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1822,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781680"
+}
+]
+},
+{
 "id": "שפיר הנדסה-2026-11-19",
 "ticker": "שפיר הנדסה",
 "market": "IL",
@@ -3614,6 +3642,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1777184"
+}
+]
+},
+{
+"id": "איילון-2026-11-25",
+"ticker": "איילון",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "13:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 209,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781413"
 }
 ]
 },
@@ -4927,6 +4983,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פולירם": {
+"name": "פולירם",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "שפיר הנדסה": {
 "name": "שפיר הנדסה",
 "tags": [
@@ -5241,6 +5305,14 @@
 },
 "מנורה מב החזקות": {
 "name": "מנורה מב החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"איילון": {
+"name": "איילון",
 "tags": [
 "TASE"
 ],
