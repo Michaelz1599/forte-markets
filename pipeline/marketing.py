@@ -115,10 +115,15 @@ def update_prices(cfg: dict | None = None) -> tuple[dict, str]:
             continue
         px = f if px.empty else px.join(f, how="outer")
     old = _read(PX_OUT, {}).get("items", {})
-    items, miss = {}, []
+    items, miss, back = {}, [], []
     for s in syms:
         st = stats(px[s]) if s in px.columns else None
-        if st:
+        if st and (old.get(s) or {}).get("date", "") > st["date"]:
+            # Yahoo sometimes leaves out the last session's bar (seen for Tel Aviv listings from Israel midnight until
+            # the morning): keep the newer close an earlier run computed instead of going back a trading day
+            items[s] = old[s]
+            back.append(s)
+        elif st:
             items[s] = st
         elif s in old:   # keep the last good values rather than dropping the card
             items[s] = {**old[s], "stale": True}
@@ -129,7 +134,9 @@ def update_prices(cfg: dict | None = None) -> tuple[dict, str]:
     dump_json(PX_OUT, out)
     if len(items) < len(syms) * 0.6:
         raise ValueError(f"only {len(items)} of {len(syms)} symbols priced")
-    return out, f"{len(items) - len([m for m in miss if m in items])} מתוך {len(syms)} ניירות" + (f" · חסרים: {', '.join(miss[:10])}" if miss else "")
+    return out, (f"{len(items) - len([m for m in miss if m in items])} מתוך {len(syms)} ניירות"
+                 + (f" · {len(back)} נשמרו מריצה קודמת כי Yahoo החזיר יום מסחר קודם" if back else "")
+                 + (f" · חסרים: {', '.join(miss[:10])}" if miss else ""))
 
 
 # ------------------------------------------------------------------ news headlines (Google News RSS)

@@ -19,6 +19,24 @@ def test_stats_periods():
     assert st["d1"] > 0 and st["dd52"] == 0
 
 
+def test_prices_keep_newer_close_when_yahoo_drops_last_bar(monkeypatch, tmp_path):
+    from pipeline import markets
+    cfg = {"megacaps": [["NVDA", "אנבידיה", "NVIDIA"], ["LUMI.TA", "לאומי", "Leumi"]], "us_sectors": []}
+    monkeypatch.setattr(m, "issuers", lambda: {})
+    idx = pd.bdate_range("2025-09-01", "2026-11-16").strftime("%Y-%m-%d")
+    px = pd.DataFrame({"NVDA": np.linspace(100, 120, len(idx)), "LUMI.TA": np.linspace(50, 60, len(idx))}, index=idx)
+    px.loc["2026-11-16", "LUMI.TA"] = np.nan   # the Tel Aviv bar of the last session is missing in this run
+    monkeypatch.setattr(markets, "yf_close", lambda syms, start: px[syms])
+    out_file = tmp_path / "mkt_px.json"
+    kept = {"last": 60.0, "date": "2026-11-16", "d1": -0.01}
+    out_file.write_text(json.dumps({"items": {"LUMI.TA": kept, "NVDA": {"last": 1.0, "date": "2026-11-13"}}}), encoding="utf-8")
+    monkeypatch.setattr(m, "PX_OUT", out_file)
+    out, msg = m.update_prices(cfg)
+    assert out["items"]["LUMI.TA"] == kept                  # not sent back to 13.11
+    assert out["items"]["NVDA"]["date"] == "2026-11-16"     # a newer bar still replaces the old values
+    assert "נשמרו מריצה קודמת" in msg
+
+
 def test_tel_bond_spread_weighted(monkeypatch):
     rows = "".join(f"<tr><td>אג {i}</td><td>{w}</td><td>3</td><td>2</td><td>{s}</td></tr>" for i, (w, s) in enumerate([(2, 1.0), (1, 2.5), (1, 0.5), (3, 1.2), (3, 0.8)]))
     html = ("<div>נכון ל: 14/09/2026</div><table><thead><tr><th>שם הנייר</th><th>משקל ב-%</th><th>תשואה ברוטו</th><th>מח\"ם</th>"
