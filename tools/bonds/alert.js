@@ -73,12 +73,15 @@ const items = comps.map((o, i) => ({ o, r: crow[i], s: signal(o, crow[i]) })).fi
     isNew: !prevKeys.has(o.held + '|' + o.other + '|' + s.k),
   }))
   .sort((a, b) => b.lvl - a.lvl || a.d - b.d);
+const nowKeys = new Set(items.map(x => x.held + '|' + x.other + '|' + x.k));
+const gone = ((prev && prev.items) || []).filter(x => !nowKeys.has(x.held + '|' + x.other + '|' + x.k)).map(x => ({ held: x.held, heldName: x.heldName, otherName: x.otherName, k: x.k, since: prev.d }));
 const okRows = rows.filter(r => r.ok).length;
 const out = {
   d: snap.d, at: new Date().toISOString().slice(0, 16), snapAt: snap.at, heldAsof: B.held && B.held.asof,
   stats: { held: held.size, compared: comps.length, flagged: items.length, newFlags: items.filter(x => x.isNew).length, pairsPriced: okRows, pairs: rows.length },
   items,
+  gone,   // flags of the previous run that no longer hold
 };
 fs.writeFileSync(outF, JSON.stringify(out, null, 1));
-console.log(`${out.d}: ${items.length} distortions in ${comps.length} held comparisons (${out.stats.newFlags} new)`);
+console.log(`${out.d}: ${items.length} distortions in ${comps.length} held comparisons (${out.stats.newFlags} new, ${gone.length} gone)`);
 for (const x of items) console.log(`  [${x.k}${x.isNew ? ', new' : ''}] ${x.heldName} vs ${x.otherName}: ${x.txt}`);
