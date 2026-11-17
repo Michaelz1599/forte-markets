@@ -1,0 +1,48 @@
+# Weekly price snapshot + holdings-distortion check for the bond-pairs dashboard ("ניתוח אג"ח", a claude.ai artifact).
+# Thursday after the Tel Aviv close: prices every bond of data/bonds/base.json from TheMarker (Bizportal as a fallback),
+# writes data/bonds/snap/<date>.json + latest.json, then runs the dashboard's engine on it and writes
+# data/bonds/alert.json (held series whose secured/unsecured sibling is mispriced).
+# A Claude scheduled task reads these files later the same evening, loads the snapshot into the dashboard and emails
+# the distortions. Independent of update.yml (separate files, no deploy), but shares its concurrency group so the two
+# never push at the same moment.
+name: bonds-weekly
+on:
+  schedule:
+    - cron: "5 16 * * 4"    # Thu 18:05 Israel winter / 19:05 summer (+ GitHub's usual delay)
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: forte-markets
+  cancel-in-progress: false
+jobs:
+  snap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - name: Price snapshot
+        id: snap
+        run: python tools/bonds/snap.py
+      - name: Holdings distortions
+        if: steps.snap.outcome == 'success'
+        run: node tools/bonds/alert.js data/bonds/base.json data/bonds/latest.json data/bonds/alert.json
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "forte-markets-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bonds
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -q -m "bonds: weekly snapshot $(TZ=Asia/Jerusalem date +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && { echo pushed; exit 0; }
+            sleep $((i * 10))
+          done
+          echo "::error::push failed"; exit 1
