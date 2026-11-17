@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-17T06:06+00:00",
+"asof": "2026-11-17T06:14+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -26023,7 +26023,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 181603500000.0,
+"mcap": 183019028000.0,
 "name": "Deere & Company",
 "sources": [
 {
@@ -26061,7 +26061,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11375474700.0,
+"mcap": 11424338900.0,
 "name": "Li Auto Inc.",
 "sources": [
 {
