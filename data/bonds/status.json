@@ -1,0 +1,15 @@
+{
+ "d": "2026-11-17",
+ "at": "2026-11-17 18:15",
+ "ok": true,
+ "stats": {
+  "corp": 201,
+  "corp_total": 201,
+  "gov": 28,
+  "gov_total": 28,
+  "stale": 0,
+  "missing": 0,
+  "bizportal": 1
+ },
+ "errors": {}
+}
