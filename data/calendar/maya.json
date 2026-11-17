@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-17T14:50+00:00",
+"asof": "2026-11-17T16:13+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -3702,34 +3702,6 @@
 ]
 },
 {
-"id": "אלקטרה צריכה-2026-11-25",
-"ticker": "אלקטרה צריכה",
-"market": "IL",
-"date": "2026-11-25",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "10:30",
-"tz": "Asia/Jerusalem",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 501,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779283"
-}
-]
-},
-{
 "id": "אר פי אופטיקל-2026-11-25",
 "ticker": "אר פי אופטיקל",
 "market": "IL",
@@ -4514,6 +4486,34 @@
 ]
 },
 {
+"id": "אלקטרה צריכה-2026-11-29",
+"ticker": "אלקטרה צריכה",
+"market": "IL",
+"date": "2026-11-29",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שלישי 1.12, 10:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 501,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781829"
+}
+]
+},
+{
 "id": "וילי פוד-2026-11-29",
 "ticker": "וילי פוד",
 "market": "IL",
@@ -4835,16 +4835,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אאורה": {
-"name": "אאורה",
+"ריטיילורס": {
+"name": "ריטיילורס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"ריטיילורס": {
-"name": "ריטיילורס",
+"אאורה": {
+"name": "אאורה",
 "tags": [
 "TASE"
 ],
@@ -4987,16 +4987,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אבוג'ן": {
-"name": "אבוג'ן",
+"טרמינל איקס": {
+"name": "טרמינל איקס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"טרמינל איקס": {
-"name": "טרמינל איקס",
+"אבוג'ן": {
+"name": "אבוג'ן",
 "tags": [
 "TASE"
 ],
@@ -5011,16 +5011,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פולירם": {
-"name": "פולירם",
+"שפיר הנדסה": {
+"name": "שפיר הנדסה",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"שפיר הנדסה": {
-"name": "שפיר הנדסה",
+"פולירם": {
+"name": "פולירם",
 "tags": [
 "TASE"
 ],
@@ -5107,6 +5107,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"מר": {
+"name": "מר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "עשות": {
 "name": "עשות",
 "tags": [
@@ -5117,14 +5125,6 @@
 },
 "טיאסג'י": {
 "name": "טיאסג'י",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מר": {
-"name": "מר",
 "tags": [
 "TASE"
 ],
@@ -5179,16 +5179,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"בית שמש": {
-"name": "בית שמש",
+"הולמס פלייס": {
+"name": "הולמס פלייס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"הולמס פלייס": {
-"name": "הולמס פלייס",
+"בית שמש": {
+"name": "בית שמש",
 "tags": [
 "TASE"
 ],
@@ -5317,14 +5317,6 @@
 },
 "בתי זיקוק": {
 "name": "בתי זיקוק",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלקטרה צריכה": {
-"name": "אלקטרה צריכה",
 "tags": [
 "TASE"
 ],
@@ -5525,6 +5517,14 @@
 },
 "וילי פוד": {
 "name": "וילי פוד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלקטרה צריכה": {
+"name": "אלקטרה צריכה",
 "tags": [
 "TASE"
 ],
