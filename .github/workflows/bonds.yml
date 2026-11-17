@@ -3,8 +3,8 @@
 # writes data/bonds/snap/<date>.json + latest.json, then runs the dashboard's engine on it and writes
 # data/bonds/alert.json (held series whose secured/unsecured sibling is mispriced).
 # A Claude scheduled task reads these files later the same evening, loads the snapshot into the dashboard and emails
-# the distortions. Independent of update.yml (separate files, no deploy), but shares its concurrency group so the two
-# never push at the same moment.
+# the distortions. Independent of update.yml: it only writes data/bonds/, which update.yml never touches, so it has its
+# own concurrency group (sharing update.yml's would let a queued hourly run cancel this one) and simply rebases on push.
 name: bonds-weekly
 on:
   schedule:
@@ -13,7 +13,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: forte-markets
+  group: bonds-weekly
   cancel-in-progress: false
 jobs:
   snap:
