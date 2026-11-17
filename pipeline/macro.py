@@ -529,12 +529,12 @@ def indicator_defs(cfg: dict | None = None) -> list[dict]:
         note = s.get("note") or extra_notes.get(s["id"])
         out.append({"id": s["id"], "order": 900 + i, "group": "m_" + s["sec"], "tab": "macro", "name": s["name"], "short": s.get("short", ""),
                     "freq": s.get("freq", "d"), "pol": 0, "dec": s.get("dec", 2), "unit": "%" if s.get("unit") == "%" else "",
-                    "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": True, "src": s.get("src") or src_name(s),
+                    "munit": s.get("unit", ""), "pin": False, "comp": False, "auto": s.get("calc") != "manual","src": s.get("src") or src_name(s),
                     "srcUrl": s.get("srcUrl") or src_url(s), **({"note": note} if note else {}),
                     "desc": s.get("desc", ""), **({"rating": s["rating"]} if "rating" in s else {}), **({"key": True} if s.get("key") else {}),
                     **({"staleDays": s["stale"]} if s.get("stale") else {}),
-                    # rule-based state chips, change in points, reference lines, a note on Israel (growth section)
-                    **{k: s[k] for k in ("sig", "chg", "refs", "nopct", "il", "ilAt") if k in s}})
+                    # rule-based state chips, change in points, reference lines, a note on Israel (growth section), a dated note on the current reading
+                    **{k: s[k] for k in ("sig", "chg", "refs", "nopct", "il", "ilAt", "now", "nowAt") if k in s}})
     return out
 
 

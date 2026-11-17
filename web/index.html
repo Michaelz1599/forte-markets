@@ -1680,7 +1680,8 @@ function openInd(id) {
       <section class="panel" id="dAnalog"></section>
       <section class="about">
         ${paras(meta.desc)}
-        ${meta.il ? String(meta.il).split(/\n+/).filter(x => x.trim()).map((x, i) => i ? `<p>${esc(x)}</p>` : `<p><b>ישראל${meta.ilAt ? ' · נכון ל-' + fmtDate(meta.ilAt) : ''}:</b> ${esc(x)}</p>`).join('') : ''}
+        ${meta.now ? String(meta.now).split(/\n+/).filter(x => x.trim()).map((x, i) => i ? `<p>${esc(x)}</p>` : `<p><b>מה הוא מראה${meta.nowAt ? ' · נכון ל-' + fmtDate(meta.nowAt) : ''}:</b> ${esc(x)}</p>`).join('') : ''}
+        ${meta.il ?String(meta.il).split(/\n+/).filter(x => x.trim()).map((x, i) => i ? `<p>${esc(x)}</p>` : `<p><b>ישראל${meta.ilAt ? ' · נכון ל-' + fmtDate(meta.ilAt) : ''}:</b> ${esc(x)}</p>`).join('') : ''}
         ${meta.note ? `<p><b>הערה:</b> ${esc(meta.note)}</p>` : ''}
         ${src ? `<p><b>מקור:</b> ${src}${meta.auto ? ' · מתעדכן אוטומטית' : ' · מתעדכן ידנית'}</p>` : ''}
         ${meta.pol ? `<p><b>כיוון:</b> ${meta.pol > 0 ? 'ערך גבוה = חמדנות / אופטימיות' : 'ערך גבוה = פחד / גידור'}</p>` : ''}
@@ -3607,6 +3608,7 @@ function macTable(ids, opts = {}) {
 }
 const MAC_CHARTS = {
   growth: { ids: ['us_gdp_yoy', 'il_gdp_yoy', 'us_core_yoy'], years: 25, mark: [0, ''], title: 'צמיחה ריאלית שנתית: ארה"ב, ישראל ותמ"ג הליבה בארה"ב' },
+  vp: { ids: ['vp_mri', 'vp_bcfi'], years: 21, mark: [50, '50'], title: 'מדד סיכון המאקרו ומדד מימון מחזור העסקים (BCFI)' },
   infl: { ids: ['us_cpi_yoy', 'us_core_cpi_yoy', 'us_core_pce_yoy', 'il_cpi_yoy'], years: 10, mark: [2, 'יעד הפד 2%'], title: 'אינפלציה שנתית, ארה"ב וישראל' },
   rates: { ids: ['fed_rate', 'boi_rate', 'ust2y', 'ust10y'], years: 10, title: 'ריבית ותשואות, 10 שנים' },
   labor: { ids: ['unrate'], years: 20, title: 'שיעור האבטלה בארה"ב, 20 שנה' },

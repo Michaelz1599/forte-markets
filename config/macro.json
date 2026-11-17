@@ -1,5 +1,5 @@
 {
- "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub). calc = computed by another module (valuation.py: Buffett indicator), with its own src/srcUrl. freq q = quarterly, stamped at the quarter end; tf yoy_diff = change in the yoy rate (acceleration). expr = {op: sub|add|count_neg, args: [{fred, minus, back, tf, agg: q}]} combines FRED series here (agg q = quarterly mean, minus = a spread). sig = state chips [{lt: number | med:N (median of the last N readings) | ind:ID (that series on the same date), t, k}]; il/ilAt = a dated note on Israel; chg pt = changes in points; a section's order = explicit row order. back = a FRED series with a longer history, used (same transform) before the main one starts.",
+ "_comment": "Series for the Macro tab. fred = FRED series id; tf = yoy | diff | none; scale multiplies the stored value. Other sources: cbs (Israel CBS index id), boi (Bank of Israel rate), eia (wholesale power hub), spark (power hub minus 7 x Henry Hub). calc = computed by another module (valuation.py: Buffett indicator), with its own src/srcUrl; calc manual = not fetched, the stored data/series/<id>.csv is edited by hand. freq q = quarterly, stamped at the quarter end; tf yoy_diff = change in the yoy rate (acceleration). expr = {op: sub|add|count_neg, args: [{fred, minus, back, tf, agg: q}]} combines FRED series here (agg q = quarterly mean, minus = a spread). sig = state chips [{lt: number | med:N (median of the last N readings) | ind:ID (that series on the same date), t, k}]; il/ilAt = a dated note on Israel; now/nowAt = a dated note on the current reading; chg pt = changes in points; a section's order = explicit row order. back = a FRED series with a longer history, used (same transform) before the main one starts.",
  "sections": [
   {
    "id": "growth",
@@ -17,6 +17,11 @@
     "us_rate_gap",
     "us_core_yoy"
    ]
+  },
+  {
+   "id": "vp",
+   "name": "Variant Perception: סיכון מאקרו ונזילות",
+   "desc": "שלושה מדדים מהמחקר של Variant Perception: מדד סיכון המאקרו, שמאחד נזילות, צמיחה, אינפלציה ומדיניות למספר אחד; מדד הנזילות העולמית BCFI; והתשואה ל-10 שנים מול השווי ההוגן במודל שלהם. הערכים נדגמו מהגרפים בדוחות של VP ומתעדכנים ידנית."
   },
   {
    "id": "infl",
@@ -1164,6 +1169,125 @@
    "il": "המקבילה בישראל היא הצמיחה בלי ייצור בחו״ל. במחצית הראשונה של 2026, לפי האומדנים הראשונים של הלמ״ס: 3.2% עם ייצור בחו״ל ו-1.0% בלעדיו, כלומר הליבה חלשה מהכותרת. הייצור בחו״ל קפץ מ-1.3% ל-5.7% מהתמ״ג בשלוש שנים.",
    "ilAt": "2026-11-12",
    "fred": "IB0000033Q086SBEA"
+  },
+  {
+   "id": "vp_mri",
+   "name": "VP · מדד סיכון המאקרו",
+   "short": "נזילות, צמיחה, אינפלציה ומדיניות · 50 = ניטרלי",
+   "dec": 0,
+   "sec": "vp",
+   "freq": "m",
+   "unit": "",
+   "chg": "pt",
+   "calc": "manual",
+   "stale": 50,
+   "src": "Variant Perception · Macro Snapshot מ-13.11.2026, ערכים שנדגמו מהגרפים בדוח",
+   "srcUrl": "https://www.variantperception.com/",
+   "nowAt": "2026-11-13",
+   "sig": [
+    {
+     "lt": 45,
+     "t": "Risk-Off",
+     "k": "s-f"
+    },
+    {
+     "lt": 60,
+     "t": "ניטרלי",
+     "k": "s-n"
+    },
+    {
+     "t": "Risk-On",
+     "k": "s-g"
+    }
+   ],
+   "refs": [
+    {
+     "v": 60,
+     "t": "Risk-On"
+    },
+    {
+     "v": 45,
+     "t": "Risk-Off"
+    }
+   ],
+   "desc": "מה זה: מדד של Variant Perception שמאחד את המודלים המחזוריים שלהם, נזילות, צמיחה, אינפלציה ומדיניות, למספר אחד סביב 50. VP בנו אותו לפי התנודתיות כלפי מטה של תיק 60/40, ומשתמשים בו כדי לקבוע כמה סיכון לקחת.\nמה הוא אומר: מעל 60 הוא Risk-On, מתחת ל-45 Risk-Off, וביניהם ניטרלי. מנוע הקצאת הנכסים של VP מתרגם את הקריאה למשקלים: ב-Risk-On הוא מחזיק עד 100% מניות, ובשפל של 2008 ושל 2022 ירד לכ-15% מניות.\nהיסטוריה: ירידה מ-Risk-On לניטרלי קרתה לפני כן חמש פעמים, ב-2000, 2007, 2010, 2015 ו-2018. לפי VP, מה שהבדיל את השיאים הגדולים של 2000 ו-2007 משאר המקרים היה רמת האינפלציה.",
+   "now": "המדד ירד לכ-52, אחרי כ-78 בתחילת השנה וכ-71 עד אוגוסט. כלומר יצא מ-Risk-On לניטרלי, וכמעט כל התרומה החיובית של ארבעת הרכיבים נמחקה.\nמנוע הקצאת הנכסים של VP: 60% מניות, 40% אג״ח, 0% מזומן, אחרי חשיפה מלאה למניות בתחילת 2026. ההמלצה של VP: לגוון את התיק, ובשוליים להאריך משך ולהקטין מניות.",
+   "note": "הערכים נדגמו מגרף הרכיבים בדוח של VP, ולכן הם קירוב של כ-±2 נקודות. ההיסטוריה כאן מתחילה ב-2006. בגרף ההיסטוריה הארוכה באותו דוח הקריאה האחרונה כ-58, כנראה הקריאה של אוקטובר. VP לא מפרסמים את הסדרה, ולכן מעדכנים ידנית מכל דוח."
+  },
+  {
+   "id": "vp_bcfi",
+   "name": "VP · מדד מימון מחזור העסקים (BCFI)",
+   "short": "דיפוזיה של מדיניות הבנקים המרכזיים ב-G20 · 50 = איזון",
+   "dec": 0,
+   "sec": "vp",
+   "freq": "m",
+   "unit": "",
+   "chg": "pt",
+   "calc": "manual",
+   "stale": 50,
+   "src": "Variant Perception · Macro Snapshot מ-13.11.2026, ערכים שנדגמו מהגרפים בדוח",
+   "srcUrl": "https://www.variantperception.com/",
+   "nowAt": "2026-11-13",
+   "sig": [
+    {
+     "lt": 50,
+     "t": "הידוק נטו",
+     "k": "chip-w"
+    },
+    {
+     "t": "הקלה נטו",
+     "k": "s-g"
+    }
+   ],
+   "refs": [
+    {
+     "v": 50,
+     "t": "איזון"
+    }
+   ],
+   "desc": "מה זה: מדד דיפוזיה של Variant Perception למדיניות של הבנקים המרכזיים ב-G20. ערך גבוה פירושו מדיניות מקלה, ערך נמוך מדיניות מהדקת, ו-50 הוא האיזון.\nמה הוא אומר: VP מציגים אותו מוקדם ב-12 חודשים מול התשואה של מניות בטא גבוהה פחות מניות תנודתיות נמוכה. כלומר, הקריאה של היום מכוונת לשנה הבאה: נזילות שמתהדקת מתאימה לפיגור של מניות בטא גבוהה.\nהרציונל: פחות נזילות פירושה פחות קונים בשוליים, ובמקביל VP צופים גל הנפקות גדולות שיגדיל את היצע המניות.\nשימו לב: התאריכים כאן הם של המדד עצמו, בלי ההקדמה של 12 החודשים שבגרף של VP.",
+   "now": "באוקטובר 2026 המדד היה כ-35, אחרי כ-87 בספטמבר 2025 וכ-73 במרץ 2026. ירידה חדה אל מתחת ל-50, כלומר מדיניות הבנקים המרכזיים בעולם עברה להידוק נטו. לפי VP, זה מצביע על פיגור של מניות בטא גבוהה מול מניות תנודתיות נמוכה ב-12 החודשים הקרובים. בגרף שלהם הפער בין שתי הקבוצות כבר ירד בחדות מהשיא של אביב 2026.",
+   "note": "הערכים נדגמו מהגרף בדוח של VP, ולכן הם קירוב של כ-±3 נקודות ושל כחודש בתאריך. ההיסטוריה כאן מתחילה ב-2005. VP לא מפרסמים את הסדרה, ולכן מעדכנים ידנית מכל דוח."
+  },
+  {
+   "id": "vp_ust10_fv",
+   "name": "ארה״ב · 10 שנים מול השווי ההוגן של VP",
+   "short": "התשואה פחות המודל (מקדמי 1970–82) · נקודות אחוז",
+   "dec": 2,
+   "sec": "vp",
+   "freq": "m",
+   "unit": "",
+   "chg": "pt",
+   "calc": "manual",
+   "stale": 50,
+   "src": "Variant Perception · Macro Snapshot מ-13.11.2026, ערכים שנדגמו מהגרפים בדוח",
+   "srcUrl": "https://www.variantperception.com/",
+   "nowAt": "2026-11-13",
+   "sig": [
+    {
+     "lt": -0.25,
+     "t": "אג״ח יקרות",
+     "k": "chip-w"
+    },
+    {
+     "lt": 0.25,
+     "t": "קרוב למודל",
+     "k": "s-n"
+    },
+    {
+     "t": "אג״ח זולות",
+     "k": "s-g"
+    }
+   ],
+   "refs": [
+    {
+     "v": 0,
+     "t": "שווי הוגן"
+    }
+   ],
+   "desc": "מה זה: התשואה על אג״ח ממשלת ארה״ב ל-10 שנים פחות השווי ההוגן במודל של VP, בנקודות אחוז. המודל משתמש רק בנתונים ארוכי טווח: יחס ההזמנות החדשות למלאי ב-ISM, תשואת שנה, ציפיות הצרכנים, פרמיית הטווח ותחזית האינפלציה החציונית בסקר של הפד של פילדלפיה. VP אומדים אותו פעמיים, עם מקדמים מ-1970 עד 1982 ועם מקדמים מ-2000 עד 2020. כאן הגרסה של 1970–82.\nמה הוא אומר: ערך חיובי פירושו שהתשואה גבוהה מהמודל, כלומר האג״ח זולות, ושלילי שהן יקרות. התגית מסמנת סטייה של יותר מרבע נקודה. זה סף שלנו, לא של VP.\nהרציונל: VP מעריכים שהפד ייאלץ לעצור את ההעלאות בקרוב. מאז ההעלאה של ספטמבר 2026 השווקים מתנהגים כמו אחרי ההעלאה הבודדת של מרץ 1997: התשואות הגיעו לשיא והתחילו לרדת, והעקום חוזר להשתטח.",
+   "now": "התשואה 4.94%, מול 4.55% במודל של 1970–82 ו-4.32% במודל של 2000–20, כלומר 0.4 עד 0.6 נקודה מעל השווי ההוגן. באוקטובר הפער היה כ-0.65. לפי VP, משך נעשה אטרקטיבי מבחינה מחזורית, ויש סימני לחץ באג״ח בתשואה גבוהה.",
+   "note": "הערכים נדגמו מהגרף בדוח של VP: ממוצע חודשי של קו התשואה פחות קו המודל, קירוב של כ-±0.1 נקודה. הקריאה האחרונה לקוחה מהתוויות שבגרף. ההיסטוריה כאן מתחילה ב-2019. VP לא מפרסמים את הסדרה."
   }
  ],
  "curve": [
