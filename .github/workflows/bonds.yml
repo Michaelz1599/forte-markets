@@ -32,7 +32,9 @@ jobs:
         run: python tools/bonds/snap.py
       - name: Holdings distortions
         if: steps.snap.outcome == 'success'
-        run: node tools/bonds/alert.js data/bonds/base.json data/bonds/latest.json data/bonds/alert.json
+        run: |
+          python tools/bonds/held.py
+          node tools/bonds/alert.js data/bonds/base.json data/bonds/latest.json data/bonds/alert.json
       - name: Commit
         if: always()
         run: |
