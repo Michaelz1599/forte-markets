@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-18T09:06+00:00",
+"asof": "2026-11-18T13:56+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -2216,6 +2216,34 @@
 ]
 },
 {
+"id": "דלק קבוצה-2026-11-18",
+"ticker": "דלק קבוצה",
+"market": "IL",
+"date": "2026-11-18",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1095,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781990"
+}
+]
+},
+{
 "id": "דניה סיבוס-2026-11-18",
 "ticker": "דניה סיבוס",
 "market": "IL",
@@ -2637,34 +2665,6 @@
 ]
 },
 {
-"id": "ג'י סיטי-2026-11-19",
-"ticker": "ג'י סיטי",
-"market": "IL",
-"date": "2026-11-19",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "09:30",
-"tz": "Asia/Jerusalem",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 126,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1778916"
-}
-]
-},
-{
 "id": "ג'נריישן קפיטל-2026-11-19",
 "ticker": "ג'נריישן קפיטל",
 "market": "IL",
@@ -2917,6 +2917,34 @@
 ]
 },
 {
+"id": "נאוויטס פטרו-2026-11-20",
+"ticker": "נאוויטס פטרו",
+"market": "IL",
+"date": "2026-11-20",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1688,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782045"
+}
+]
+},
+{
 "id": "גילת טלקום-2026-11-22",
 "ticker": "גילת טלקום",
 "market": "IL",
@@ -3053,6 +3081,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778797"
+}
+]
+},
+{
+"id": "ג'י סיטי-2026-11-23",
+"ticker": "ג'י סיטי",
+"market": "IL",
+"date": "2026-11-23",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "09:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 126,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1781961"
 }
 ]
 },
@@ -3501,6 +3557,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780790"
+}
+]
+},
+{
+"id": "קיסטון אינפרא-2026-11-24",
+"ticker": "קיסטון אינפרא",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1904,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782043"
 }
 ]
 },
@@ -4819,6 +4903,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"דלק קבוצה": {
+"name": "דלק קבוצה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פולירם": {
+"name": "פולירם",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "שפיר הנדסה": {
 "name": "שפיר הנדסה",
 "tags": [
@@ -4869,14 +4969,6 @@
 },
 "טרמינל איקס": {
 "name": "טרמינל איקס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ג'י סיטי": {
-"name": "ג'י סיטי",
 "tags": [
 "TASE"
 ],
@@ -4939,16 +5031,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פולירם": {
-"name": "פולירם",
+"אלמוגים החזקות": {
+"name": "אלמוגים החזקות",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"אלמוגים החזקות": {
-"name": "אלמוגים החזקות",
+"נאוויטס פטרו": {
+"name": "נאוויטס פטרו",
 "tags": [
 "TASE"
 ],
@@ -5011,6 +5103,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"פלסאון תעשיות": {
+"name": "פלסאון תעשיות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "הראל השקעות": {
 "name": "הראל השקעות",
 "tags": [
@@ -5019,8 +5119,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"פלסאון תעשיות": {
-"name": "פלסאון תעשיות",
+"ג'י סיטי": {
+"name": "ג'י סיטי",
 "tags": [
 "TASE"
 ],
@@ -5053,14 +5153,6 @@
 },
 "מר": {
 "name": "מר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מור השקעות": {
-"name": "מור השקעות",
 "tags": [
 "TASE"
 ],
@@ -5123,8 +5215,24 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"מור השקעות": {
+"name": "מור השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "רציו יהש": {
 "name": "רציו יהש",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"קיסטון אינפרא": {
+"name": "קיסטון אינפרא",
 "tags": [
 "TASE"
 ],
@@ -5395,6 +5503,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"אלקטרה צריכה": {
+"name": "אלקטרה צריכה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ויליפוד אינטרנש": {
 "name": "ויליפוד אינטרנש",
 "tags": [
@@ -5405,14 +5521,6 @@
 },
 "וילי פוד": {
 "name": "וילי פוד",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלקטרה צריכה": {
-"name": "אלקטרה צריכה",
 "tags": [
 "TASE"
 ],
