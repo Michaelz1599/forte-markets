@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-19T05:57+00:00",
+"asof": "2026-11-19T08:29+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4458,6 +4458,34 @@
 ]
 },
 {
+"id": "שופרסל-2026-11-26",
+"ticker": "שופרסל",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 777,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "VILR-2026-11-27",
 "ticker": "VILR",
 "market": "IL",
@@ -4678,6 +4706,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1779147"
+}
+]
+},
+{
+"id": "אלקטרה נדל\"ן-2026-11-30",
+"ticker": "אלקטרה נדל\"ן",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1264,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782372"
 }
 ]
 },
@@ -5271,6 +5327,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"שופרסל": {
+"name": "שופרסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "ישרוטל": {
 "name": "ישרוטל",
 "tags": [
@@ -5409,6 +5473,14 @@
 },
 "ישראייר גרופ": {
 "name": "ישראייר גרופ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלקטרה נדל\"ן": {
+"name": "אלקטרה נדל\"ן",
 "tags": [
 "TASE"
 ],
