@@ -145,6 +145,25 @@
   "refs": []
  },
  {
+  "id": "pc",
+  "order": 31,
+  "group": "opt",
+  "name": "Put/Call · TradingView (USI:PC)",
+  "short": "USI:PC",
+  "freq": "d",
+  "pol": -1,
+  "dec": 2,
+  "unit": "",
+  "pin": true,
+  "comp": false,
+  "auto": false,
+  "src": "TradingView · USI:PC",
+  "srcUrl": "https://www.tradingview.com/symbols/USI-PC/",
+  "desc": "יחס ה-Put/Call היומי של TradingView ‏(USI:PC), בסגירה. יחס גבוה = יותר גידור ופחד. זו לא אותה סדרה כמו ה-Put/Call הכולל של Cboe: בדרך כלל היא נמוכה ממנו, בחציון כ-87% ממנו מאז 2017, והפער משתנה מיום ליום.",
+  "note": "מתעדכן ידנית: בגרף יומי של USI:PC ב-TradingView בוחרים Download chart data ומייבאים כאן (עמודת close). ההיסטוריה מ-28.4.2017 עד 18.11.2026 מהייצוא שלך מ-19.11.2026. לא נכלל במדד הסנטימנט של פורטה.",
+  "refs": []
+ },
+ {
   "id": "pcspxw",
   "order": 32,
   "group": "opt",
