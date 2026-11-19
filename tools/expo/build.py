@@ -57,6 +57,8 @@ SSGA = "https://www.ssga.com/us/en/intermediary/library-content/products/fund-da
 SSGA_ETFS = ["SPY", "XLK", "XLF", "XLV", "XLY", "XLC", "XLI", "XLP", "XLE", "XLU", "XLRE", "XLB", "KIE", "XAR"]
 ISHARES = {"SOXX": "239705/ishares-phlx-semiconductor-etf", "IYF": "239507/ishares-us-financials-etf"}
 ISHARES_URL = "https://www.ishares.com/us/products/{p}/1467271812596.ajax?fileType=csv&fileName={t}_holdings&dataType=fund"
+INVESCO_API = ("https://dng-api.invesco.com/cache/v1/accounts/en_US/shareclasses/{t}/holdings/fund"
+               "?idType=ticker&productType=ETF")
 INVESCO_URL = ("https://www.invesco.com/us/financial-products/etfs/holdings/main/holdings/0"
                "?audienceType=Investor&action=download&ticker={t}")
 FTP_URL = "https://www.ftportfolios.com/Retail/Etf/EtfHoldings.aspx?Ticker={t}"
@@ -144,9 +146,11 @@ def parse_ssga(raw: bytes) -> dict:
     wcol = next(c for c in cols if c.startswith("Weight"))
     rows = []
     for _, r in body.iterrows():
+        # SSGA stopped filling the Sector column ("-") in 2026: equities are the rows with a ticker and a CUSIP
         t, sec, w = norm_ticker(r.get("Ticker")), SECT.get(str(r.get("Sector", "")).strip()), num(r.get(wcol))
-        if t and sec and w is not None and w > 0:
-            rows.append((t, w / 100.0, str(r.get("Name") or "").strip(), sec, str(r.get("Identifier") or "").strip()))
+        name, cu = str(r.get("Name") or "").strip(), str(r.get("Identifier") or "").strip()
+        if t and w is not None and w > 0 and re.fullmatch(r"[0-9A-Z]{9}", cu) and not re.search(r"\bCASH\b|DOLLAR", name, re.I):
+            rows.append((t, w / 100.0, name, sec, cu))
     return _pack(rows, asof)
 
 
@@ -186,6 +190,20 @@ def parse_invesco(text: str) -> dict:
     return _pack(rows, asof)
 
 
+def parse_invesco_json(js: dict) -> dict:
+    """Invesco's holdings API: {"effectiveDate": ..., "holdings": [{"ticker", "percentageOfTotalNetAssets", "cusip",
+    "issuerName", ...}]} (field names vary a little between versions, so several are tried)."""
+    items = js.get("holdings") or js.get("data") or []
+    asof = parse_date(js.get("effectiveDate") or js.get("asOfDate") or "")
+    rows = []
+    for h in items:
+        t = norm_ticker(h.get("ticker") or h.get("holdingTicker"))
+        w = num(h.get("percentageOfTotalNetAssets") or h.get("weight") or h.get("percentOfNetAssets"))
+        if t and w and w > 0:
+            rows.append((t, w / 100.0, str(h.get("issuerName") or h.get("name") or "").strip(), None, str(h.get("cusip") or "")))
+    return _pack(rows, asof)
+
+
 def parse_ftp(html: str) -> dict:
     """First Trust holdings page: a table with Security Name | Identifier (ticker) | CUSIP | ... | Weighting."""
     asof = None
@@ -194,12 +212,30 @@ def parse_ftp(html: str) -> dict:
         asof = parse_date(m.group(1))
     tables = pd.read_html(io.StringIO(html), match="Weighting")
     df = max(tables, key=len)
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = [" ".join(str(x) for x in c if "Unnamed" not in str(x)).strip() for c in df.columns]
     df.columns = [str(c).strip() for c in df.columns]
+    hdr = None
+    if not any("Weighting" in c for c in df.columns):        # header sits in the first data row
+        for i in range(min(len(df), 5)):
+            if any("Weighting" in str(x) for x in df.iloc[i].tolist()):
+                hdr = i
+                break
+        if hdr is not None:
+            df.columns = [str(x).strip() for x in df.iloc[hdr].tolist()]
+            df = df.iloc[hdr + 1:]
+    tcol = next((c for c in df.columns if c in ("Identifier", "Ticker", "Symbol")), None)
+    wcol = next((c for c in df.columns if "Weighting" in c), None)
+    ncol = next((c for c in df.columns if "Name" in c), None)
+    ccol = next((c for c in df.columns if "CUSIP" in c), None)
+    if not tcol or not wcol:
+        raise ValueError(f"First Trust columns {list(df.columns)[:8]} rows {df.head(2).values.tolist()}")
     rows = []
     for _, r in df.iterrows():
-        t, w = norm_ticker(r.get("Identifier")), num(r.get("Weighting"))
+        t, w = norm_ticker(r.get(tcol)), num(r.get(wcol))
         if t and w and w > 0:
-            rows.append((t, w / 100.0, str(r.get("Security Name") or "").strip(), None, str(r.get("CUSIP") or "").strip()))
+            rows.append((t, w / 100.0, str(r.get(ncol) or "").strip() if ncol else "", None,
+                         str(r.get(ccol) or "").strip() if ccol else ""))
     return _pack(rows, asof)
 
 
@@ -230,10 +266,20 @@ def fetch_raw(t: str):
     if t in SSGA_ETFS:
         return http_get(SSGA.format(t=t.lower()), timeout=60), lambda r: parse_ssga(r.content), "SSGA"
     if t in ISHARES:
-        return http_get(ISHARES_URL.format(p=ISHARES[t], t=t), timeout=60), lambda r: parse_ishares(r.text), "iShares"
+        last = None
+        for p in (ISHARES[t], ISHARES[t].split("/")[0]):
+            r = http_get(ISHARES_URL.format(p=p, t=t), timeout=60)
+            if "<html" not in r.text[:3000].lower():
+                return r, lambda r: parse_ishares(r.text), "iShares"
+            last = r
+        return last, lambda r: parse_ishares(r.text), "iShares"
     if t == "QQQ":
-        return (http_get(INVESCO_URL.format(t=t), timeout=60, headers={"Accept": "text/csv,application/octet-stream,*/*;q=0.8"}),
-                lambda r: parse_invesco(r.text), "Invesco")
+        try:
+            r = http_get(INVESCO_API.format(t=t), timeout=60, headers={"Accept": "application/json"})
+            return r, lambda r: parse_invesco_json(r.json()), "Invesco"
+        except Exception:
+            return (http_get(INVESCO_URL.format(t=t), timeout=60, headers={"Accept": "text/csv,*/*;q=0.8"}),
+                    lambda r: parse_invesco(r.text), "Invesco")
     if t == "CIBR":
         return http_get(FTP_URL.format(t=t), timeout=60), lambda r: parse_ftp(r.text), "First Trust"
     raise KeyError(t)
@@ -306,6 +352,25 @@ def price_stats(close: pd.DataFrame, bench: str = "SPY") -> dict:
             beta = 1.0
         out[s] = {"px": round(px, 4), "d": d.date().isoformat(), "r1": r1, "beta": beta}
     return out
+
+
+SNAP_PRICE_DATE = "2026-11-11"   # the 12.11.2026 snapshot's weights are as of the 11.11.2026 US close
+
+
+def roll_weights(h: dict, frm: str, close: pd.DataFrame) -> tuple[dict, str | None]:
+    """Weights at date frm carried to the last close: w_i * P_i(last) / P_i(frm), renormalized to the same total
+    (a residual share outside the listed names stays as it was). Names without prices keep their weight."""
+    idx = close.index
+    i0 = idx.searchsorted(pd.Timestamp(frm), side="right") - 1
+    if i0 < 0:
+        return h, None
+    p0, p1 = close.iloc[i0], close.ffill().iloc[-1]
+    new = {}
+    for k, w in h.items():
+        a, b = p0.get(k), p1.get(k)
+        new[k] = w * (b / a) if a is not None and b is not None and a == a and b == b and a > 0 else w
+    tot0, tot1 = sum(h.values()), sum(new.values())
+    return {k: round(v * tot0 / tot1, 6) for k, v in sorted(new.items(), key=lambda x: -x[1])}, idx[-1].date().isoformat()
 
 
 # ---------------------------------------------------------------- fundamentals
@@ -480,39 +545,32 @@ def main():
         for k, v in res["meta"].items():
             old = meta_all.get(k, {})
             meta_all[k] = {kk: old.get(kk) or v.get(kk) for kk in ("name", "s", "cu")}
+    # wAt = the price date the weights belong to; weights that did not come fresh from the issuer are rolled forward
+    # by price below, which is how an index's weights drift between its rebalances
     for t, m in ref["ETF"].items():
         e = {k: v for k, v in m.items() if k != "h"}
         pe_ = prev_etf.get(t, {})
         if t in got:
             res, src = got[t]
-            e.update(h=res["h"], m="actual", asOf=res["asof"] or today_il(), stale=0, live=1,
+            e.update(h=res["h"], m="actual", asOf=res["asof"] or today_il(), wAt=res["asof"] or today_il(), stale=0, live=1,
                      src=f"{src} – קובץ ההחזקות היומי של המנפיק ({res['n']} רכיבים, נכון ל-{dmy(res['asof'])})")
             e.pop("res", None)
-        elif pe_.get("live") and pe_.get("h"):
-            e.update({k: pe_[k] for k in ("h", "m", "src", "asOf", "live") if k in pe_}, stale=1)
-            e.pop("res", None)
+        elif pe_.get("h") and pe_.get("wAt") and t not in PROXY and t != "RSP":
+            e.update({k: pe_[k] for k in ("h", "m", "src0", "asOf", "wAt", "res", "live") if k in pe_}, stale=1)
+            if not pe_.get("res"):
+                e.pop("res", None)
         else:
-            e.update(h=m["h"], asOf=ref["asof_snapshot"], stale=1 if m["kind"] == "equity" and m["h"] else 0,
-                     src=m.get("src", "") + " · תמונת מצב 12.11.26")
+            e.update(h=m["h"], asOf=ref["asof_snapshot"], wAt=SNAP_PRICE_DATE, stale=1 if m["kind"] == "equity" and m["h"] else 0,
+                     src0=m.get("src", ""))
         etf[t] = e
-    spy = etf["SPY"]["h"]
-    etf["RSP"].update(h={k: round(1 / len(spy), 6) for k in spy}, m="rule", asOf=etf["SPY"]["asOf"],
-                      stale=etf["SPY"].get("stale", 0), live=etf["SPY"].get("live", 0),
-                      src=f"שווה משקל על {len(spy)} רכיבי S&P 500 לפי SPY (שיטת המדד)")
-    etf["RSP"].pop("res", None)
-    for t, p in PROXY.items():
-        etf[t].update(h=etf[p]["h"], m="proxy", asOf=etf[p]["asOf"], stale=etf[p].get("stale", 0),
-                      src=f"פירוק לפי {p} (אותו ענף GICS)")
-        etf[t].pop("res", None)
 
     # 2. universe: every stock in an ETF + the reference list (Tel Aviv-only names stay on the snapshot for now)
     in_etf = {k for e in etf.values() for k in e.get("h", {})}
-    sp = set(spy)
     universe = sorted((in_etf | set(ref["SEC"])) - {k for k, v in ref["SEC"].items() if v.get("il")})
-    log(f"universe: {len(universe)} names ({len(sp)} in SPY)")
+    log(f"universe: {len(universe)} names")
 
     # 3. prices
-    px = {}
+    px, close = {}, pd.DataFrame()
     if not a.offline:
         try:
             close = yahoo_closes(universe + (["SPY"] if "SPY" not in universe else []))
@@ -524,6 +582,28 @@ def main():
         log(f"prices: {len(px)} / {len(universe)}")
     if not px:
         px = load_json(FUND, {}).get("px", {})
+
+    # 3b. roll the weights that are not fresh from the issuer, then the rule-based and proxy ETFs
+    for t, e in etf.items():
+        if e.get("stale") and e.get("h") and not close.empty:
+            h2, to = roll_weights(e["h"], e["wAt"], close)
+            if to and to > e["wAt"]:
+                e.update(h=h2, wAt=to)
+        if e.get("stale") and e.get("kind") == "equity" and e.get("h"):
+            base = e.get("src0") or e.get("src", "")
+            e["src0"] = base
+            e["src"] = (base + f" · רשימת הרכיבים נכון ל-{dmy(e['asOf'])}, משקלים מגולגלים לפי מחירים עד {dmy(e['wAt'])}")
+    spy = etf["SPY"]["h"]
+    sp = set(spy)
+    etf["RSP"].update(h={k: round(1 / len(spy), 6) for k in spy}, m="rule", asOf=etf["SPY"]["asOf"], wAt=etf["SPY"]["wAt"],
+                      stale=etf["SPY"].get("stale", 0), live=etf["SPY"].get("live", 0),
+                      src=f"שווה משקל על {len(spy)} רכיבי S&P 500 לפי SPY (שיטת המדד)")
+    etf["RSP"].pop("res", None)
+    for t, p in PROXY.items():
+        etf[t].update(h=etf[p]["h"], m="proxy", asOf=etf[p]["asOf"], wAt=etf[p]["wAt"], stale=etf[p].get("stale", 0),
+                      src=f"פירוק לפי {p} (אותו ענף GICS)")
+        etf[t].pop("res", None)
+    log(f"SPY: {len(sp)} names")
 
     # 4. fundamentals rotation
     if not a.offline:
@@ -602,7 +682,9 @@ def main():
     us_dates = sorted(v["d"] for v in px.values()) if px else []
     asof = us_dates[len(us_dates) // 2] if us_dates else prev.get("asof")
     stale_etf = [t for t, e in etf.items() if e.get("stale")]
-    sources.insert(0, {"key": "holdings", "name": "החזקות תעודות הסל (קובצי המנפיקים)", "ok": "SPY" in got and len(stale_etf) <= 3,
+    for e in etf.values():
+        e.pop("src0", None) if not e.get("stale") else None
+    sources.insert(0, {"key": "holdings", "name": "החזקות תעודות הסל (קובצי המנפיקים)", "ok": "SPY" in got and len([t for t in stale_etf if t not in ("GDX", "VXUS", "SOXX", "CIBR")]) <= 2,
                        "asOf": etf["SPY"]["asOf"], "msg": f"עודכנו {len(got)} תעודות" + (f" · ישנות: {', '.join(stale_etf)}" if stale_etf else "")})
     ok = all(x["ok"] for x in sources)
     market = {"_comment": "Built by tools/expo/build.py (see its docstring). Public market data only, no fund holdings.",

@@ -17,7 +17,7 @@ def test_parse_ssga():
     ws = wb.active
     for r in [["Fund Name:", "SPDR S&P 500 ETF Trust"], ["Ticker Symbol:", "SPY"], ["Holdings:", "As of 18-Nov-2026"], [],
               ["Name", "Ticker", "Identifier", "SEDOL", "Weight", "Sector", "Shares Held", "Local Currency"],
-              ["APPLE INC", "AAPL", "037833100", "2046251", 7.5, "Information Technology", 1, "USD"],
+              ["APPLE INC", "AAPL", "037833100", "2046251", 7.5, "-", 1, "USD"],
               ["BERKSHIRE HATHAWAY INC CL B", "BRK.B", "084670702", "2073390", 1.5, "Financials", 1, "USD"],
               ["US DOLLAR", "CASH_USD", "-", "-", 0.1, "-", 1, "USD"]]:
         ws.append(r)
@@ -27,7 +27,8 @@ def test_parse_ssga():
     assert res["asof"] == "2026-11-18"
     assert set(res["h"]) == {"AAPL", "BRK-B"}
     assert abs(sum(res["h"].values()) - 1) < 1e-6
-    assert res["meta"]["AAPL"] == {"name": "APPLE INC", "s": "T", "cu": "037833100"}
+    assert res["meta"]["AAPL"] == {"name": "APPLE INC", "s": None, "cu": "037833100"}   # SSGA leaves Sector as "-"
+    assert res["meta"]["BRK-B"]["s"] == "F"
 
 
 def test_parse_ishares_and_canon():
@@ -77,3 +78,11 @@ def test_factor_scores():
     assert sc["S99"]["flv"] > 0.95 and sc["S99"]["fm"] > 0.95
     assert sc["BANK"]["fq"] > 0.95          # debt/equity is ignored for financials
     assert sc["BANK"]["fg"] is None and sc["BANK"]["fm"] is None
+
+
+def test_roll_weights():
+    idx = pd.to_datetime(["2026-11-10", "2026-11-11", "2026-11-12"])
+    close = pd.DataFrame({"A": [10, 10, 20], "B": [10, 10, 10]}, index=idx)
+    h, to = B.roll_weights({"A": 0.4, "B": 0.4}, "2026-11-11", close)   # 0.2 of the ETF is a residual outside the list
+    assert to == "2026-11-12"
+    assert abs(sum(h.values()) - 0.8) < 1e-6 and abs(h["A"] / h["B"] - 2) < 1e-6
