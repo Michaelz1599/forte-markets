@@ -595,8 +595,10 @@ def main():
             e.update(h=res["h"], m="actual", asOf=res["asof"] or today_il(), wAt=res["asof"] or today_il(), stale=0, live=1,
                      src=f"{src} – קובץ ההחזקות היומי של המנפיק ({res['n']} רכיבים, נכון ל-{dmy(res['asof'])})")
             e.pop("res", None)
-        elif pe_.get("h") and pe_.get("wAt") and t not in PROXY and t != "RSP":
-            e.update({k: pe_[k] for k in ("h", "m", "src0", "asOf", "wAt", "res", "live") if k in pe_}, stale=1)
+        elif pe_.get("h") and pe_.get("wAt") and pe_.get("live") and t not in PROXY and t != "RSP":
+            # the last real issuer file, rolled forward; members this script added on top are dropped and re-added below
+            e.update({k: pe_[k] for k in ("m", "src0", "asOf", "wAt", "res", "live") if k in pe_}, stale=1)
+            e["h"] = {k: w for k, w in pe_["h"].items() if k not in set(pe_.get("added", []))}
             if not pe_.get("res"):
                 e.pop("res", None)
         else:
@@ -657,7 +659,7 @@ def main():
 
     # 4. fundamentals rotation
     if not a.offline:
-        new_ndx = [k for k in ndx if k not in ref["ETF"]["QQQ"]["h"] and "flt" not in fund.get(k, {})]
+        new_ndx = [k for k in ndx if k not in etf["QQQ"]["h"] and "flt" not in fund.get(k, {})]
         done, failed, errs = refresh_fundamentals(fund, universe, a.fund_budget, a.fund_max, force=new_ndx)
         have = sum(1 for s in universe if fund.get(s, {}).get("at") and "mcap" in fund.get(s, {}))
         oldest = min((fund[s]["at"] for s in universe if fund.get(s, {}).get("at")), default=None)
@@ -753,8 +755,7 @@ def main():
     # members (the index weights a low-float IPO such as SpaceX by its float: about 1.3% at its entry, not 7%)
     if ndx and etf["QQQ"].get("stale"):
         e = etf["QQQ"]
-        base = set(ref["ETF"]["QQQ"]["h"])     # names outside the last real holdings file are re-weighted every run
-        h = {k: w for k, w in e["h"].items() if k in ndx and k in base}
+        h = {k: w for k, w in e["h"].items() if k in ndx}    # e["h"] = the last real list (or the snapshot), rolled
         small = sorted((w / sec[k]["mc"]) for k, w in h.items() if sec.get(k, {}).get("mc") and w < 0.02)
         ratio = small[len(small) // 2] if small else None
         added = sorted(ndx - set(h))
@@ -768,7 +769,7 @@ def main():
         e["h"] = {k: round(v / tot, 6) for k, v in sorted(h.items(), key=lambda x: -x[1])}
         e["src"] = (f"רשימת הרכיבים: {ndx_src} {dmy(today_il())} · משקלים: הקובץ האחרון מגולגל לפי מחירים עד {dmy(e['wAt'])}"
                     + (f" · נוספו {', '.join(added)} לפי שווי שוק" if added else "") + (f" · יצאו {', '.join(dropped)}" if dropped else ""))
-        e["asOf"] = today_il()
+        e["asOf"], e["added"] = today_il(), added
         log(f"QQQ: {len(e['h'])} names, added {added}, dropped {dropped}")
 
     # 6. coverage and checks
