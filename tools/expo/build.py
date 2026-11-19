@@ -6,9 +6,9 @@ The dashboard is a local HTML file that Forte opens every day. On opening it rea
 never written here (the repo is public): they are uploaded in the dashboard and stay in the user's browser.
 
 What is built after each US session (tools/expo/ref.json holds names, sectors, countries and theme tags):
-  ETF holdings  SSGA daily files (SPY, the Select Sector SPDRs, KIE, XAR), iShares (SOXX, IYF), Invesco (QQQ) and
-                First Trust (CIBR); RSP = equal weight of SPY's members; VGT, VHT and FDIS by proxy; the rest from the
-                last good file, else the 12.11.2026 snapshot. A failed fetch keeps the last good holdings, marked stale.
+  ETF holdings  SSGA daily files (SPY, the Select Sector SPDRs, KIE, XAR) and First Trust (CIBR); Invesco (QQQ) is
+                tried; RSP = equal weight of SPY's members; VGT, VHT, FDIS and IYF by proxy. An ETF without a fresh file
+                keeps its last list (else the 12.11.2026 snapshot) with the weights rolled forward by price, marked stale.
   Prices        Yahoo daily closes, 2 years: last price, 12-month price return, beta vs SPY (2 years of weekly returns).
   Fundamentals  Yahoo (quote summary + annual income statement) on a rotation: data/expo/fund.json keeps the date of
                 every name and each run refreshes the oldest ones first, so no name is more than about a week old.
@@ -55,14 +55,20 @@ AUTO_THEME = {"E": ["oil_gas"], "S": ["defensive"], "U": ["defensive"]}   # new 
 
 SSGA = "https://www.ssga.com/us/en/intermediary/library-content/products/fund-data/etfs/us/holdings-daily-us-en-{t}.xlsx"
 SSGA_ETFS = ["SPY", "XLK", "XLF", "XLV", "XLY", "XLC", "XLI", "XLP", "XLE", "XLU", "XLRE", "XLB", "KIE", "XAR"]
-ISHARES = {"SOXX": "239705/ishares-phlx-semiconductor-etf", "IYF": "239507/ishares-us-financials-etf"}
-ISHARES_URL = "https://www.ishares.com/us/products/{p}/1467271812596.ajax?fileType=csv&fileName={t}_holdings&dataType=fund"
 INVESCO_API = ("https://dng-api.invesco.com/cache/v1/accounts/en_US/shareclasses/{t}/holdings/fund"
                "?idType=ticker&productType=ETF")
 INVESCO_URL = ("https://www.invesco.com/us/financial-products/etfs/holdings/main/holdings/0"
                "?audienceType=Investor&action=download&ticker={t}")
 FTP_URL = "https://www.ftportfolios.com/Retail/Etf/EtfHoldings.aspx?Ticker={t}"
-PROXY = {"VGT": "XLK", "VHT": "XLV", "FDIS": "XLY"}
+PROXY = {"VGT": "XLK", "VHT": "XLV", "FDIS": "XLY", "IYF": "XLF"}
+# iShares (SOXX) refuses scripted downloads and Invesco's file (QQQ) answers 406 from GitHub's runners (checked
+# 19.11.2026): QQQ is still tried every run; both are otherwise rolled forward by price from their last list.
+OPTIONAL = {"QQQ"}
+# names that are not in ref.json take their GICS sector from the sector SPDR that holds them, and the theme of a
+# thematic ETF that holds them (KIE's insurers, XAR's defense names, ...)
+ETF_SECTOR = {"XLK": "T", "XLF": "F", "XLV": "H", "XLY": "D", "XLC": "C", "XLI": "I", "XLP": "S", "XLE": "E", "XLU": "U",
+              "XLRE": "R", "XLB": "M", "KIE": "F", "XAR": "I", "SOXX": "T"}
+ETF_THEME = {"KIE": "insurance", "XAR": "defense", "CIBR": "cyber", "SOXX": "ai_chips", "GDX": "gold"}
 
 # factor -> metrics (key, higher is better?); quality skips debt/equity for financials
 FACTORS = {"fq": [("roe", 1), ("roa", 1), ("nm", 1), ("de", -1)],
@@ -151,24 +157,6 @@ def parse_ssga(raw: bytes) -> dict:
         name, cu = str(r.get("Name") or "").strip(), str(r.get("Identifier") or "").strip()
         if t and w is not None and w > 0 and re.fullmatch(r"[0-9A-Z]{9}", cu) and not re.search(r"\bCASH\b|DOLLAR", name, re.I):
             rows.append((t, w / 100.0, name, sec, cu))
-    return _pack(rows, asof)
-
-
-def parse_ishares(text: str) -> dict:
-    """iShares holdings CSV: fund info lines ('Fund Holdings as of,"Nov 18, 2026"'), then
-    Ticker,Name,Sector,Asset Class,Market Value,Weight (%),..."""
-    lines = text.lstrip("﻿").splitlines()
-    asof = next((parse_date(x) for x in lines[:12] if "as of" in x.lower()), None)
-    hdr = next(i for i, x in enumerate(lines[:40]) if x.startswith("Ticker,") and "Weight" in x)
-    df = pd.read_csv(io.StringIO("\n".join(lines[hdr:])), dtype=str, on_bad_lines="skip")
-    wcol = next(c for c in df.columns if c.startswith("Weight"))
-    rows = []
-    for _, r in df.iterrows():
-        if str(r.get("Asset Class", "")).strip() != "Equity":
-            continue
-        t, w = norm_ticker(r.get("Ticker")), num(r.get(wcol))
-        if t and w and w > 0:
-            rows.append((t, w / 100.0, str(r.get("Name") or "").strip(), SECT.get(str(r.get("Sector", "")).strip()), ""))
     return _pack(rows, asof)
 
 
@@ -265,14 +253,6 @@ def fetch_raw(t: str):
     """(raw response, parser, source name) for one ETF."""
     if t in SSGA_ETFS:
         return http_get(SSGA.format(t=t.lower()), timeout=60), lambda r: parse_ssga(r.content), "SSGA"
-    if t in ISHARES:
-        last = None
-        for p in (ISHARES[t], ISHARES[t].split("/")[0]):
-            r = http_get(ISHARES_URL.format(p=p, t=t), timeout=60)
-            if "<html" not in r.text[:3000].lower():
-                return r, lambda r: parse_ishares(r.text), "iShares"
-            last = r
-        return last, lambda r: parse_ishares(r.text), "iShares"
     if t == "QQQ":
         try:
             r = http_get(INVESCO_API.format(t=t), timeout=60, headers={"Accept": "application/json"})
@@ -521,7 +501,7 @@ def main():
     # 1. ETF holdings
     got, meta_all = {}, {}
     if not a.offline:
-        targets = SSGA_ETFS + list(ISHARES) + ["QQQ", "CIBR"]
+        targets = SSGA_ETFS + ["QQQ", "CIBR"]
         for t in targets:
             r = None
             try:
@@ -535,8 +515,9 @@ def main():
                 log(f"holdings {t}: FAILED {type(e).__name__}: {str(e)[:160]}")
                 if r is not None:
                     log("   " + preview(r)[:900])
-                sources.append({"key": "h_" + t, "name": f"החזקות {t}", "ok": False, "asOf": None,
-                                "msg": f"{type(e).__name__}: {str(e)[:90]}"})
+                if t not in OPTIONAL:
+                    sources.append({"key": "h_" + t, "name": f"החזקות {t}", "ok": False, "asOf": None,
+                                    "msg": f"{type(e).__name__}: {str(e)[:90]}"})
     etf, prev_etf = {}, prev.get("ETF", {})
     known = set(ref["SEC"]) | set(got.get("SPY", ({"h": {}}, ""))[0]["h"])
     for t, (res, src) in got.items():   # iShares writes BRKB for BRK-B: map such tickers onto the known ones
@@ -617,14 +598,22 @@ def main():
 
     # 5. per-stock records. Price metrics (beta, 12-month return) are fresh for every name with prices; the
     # fundamentals are Yahoo's when the rotation has read the name, else the 12.11.2026 snapshot (marked "snap").
+    held_by = {}
+    for t, e in etf.items():
+        if e.get("m") != "proxy":
+            for k in e.get("h", {}):
+                held_by.setdefault(k, []).append(t)
     sec, rows = {}, {}
     for s in universe + [k for k, v in ref["SEC"].items() if v.get("il")]:
         r0, m0, f0, p0 = ref["SEC"].get(s, {}), meta_all.get(s, {}), fund.get(s, {}), px.get(s, {})
         snap = r0.get("snap", {})
-        sl = r0.get("s") or m0.get("s") or SECT.get(f0.get("ysec") or "") or "X"
+        by = held_by.get(s, [])
+        sl = (r0.get("s") or next((ETF_SECTOR[t] for t in by if t in ETF_SECTOR), None) or m0.get("s")
+              or SECT.get(f0.get("ysec") or "") or "X")
+        th = r0["th"] if "th" in r0 else sorted(set(AUTO_THEME.get(sl, []) + [ETF_THEME[t] for t in by if t in ETF_THEME]))
         rec = {"n": r0.get("n") or f0.get("name") or (m0.get("name") or s).title(), "s": sl,
                "c": r0.get("c") or country_he(f0.get("country")) or 'ארה"ב',
-               "th": r0.get("th") if "th" in r0 else AUTO_THEME.get(sl, []),
+               "th": th,
                "w": spy.get(s, 0.0), "sp": int(s in sp)}
         if not r0:
             rec["new"] = 1          # not in the reference list: themes need a manual tag
@@ -684,7 +673,7 @@ def main():
     stale_etf = [t for t, e in etf.items() if e.get("stale")]
     for e in etf.values():
         e.pop("src0", None) if not e.get("stale") else None
-    sources.insert(0, {"key": "holdings", "name": "החזקות תעודות הסל (קובצי המנפיקים)", "ok": "SPY" in got and len([t for t in stale_etf if t not in ("GDX", "VXUS", "SOXX", "CIBR")]) <= 2,
+    sources.insert(0, {"key": "holdings", "name": "החזקות תעודות הסל (קובצי המנפיקים)", "ok": "SPY" in got and not [t for t in stale_etf if t in SSGA_ETFS],
                        "asOf": etf["SPY"]["asOf"], "msg": f"עודכנו {len(got)} תעודות" + (f" · ישנות: {', '.join(stale_etf)}" if stale_etf else "")})
     ok = all(x["ok"] for x in sources)
     market = {"_comment": "Built by tools/expo/build.py (see its docstring). Public market data only, no fund holdings.",
