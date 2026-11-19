@@ -225,16 +225,31 @@ def canon_keys(d: dict, known: set) -> dict:
     return out
 
 
-def fetch_holdings(t: str) -> tuple[dict, str]:
+def fetch_raw(t: str):
+    """(raw response, parser, source name) for one ETF."""
     if t in SSGA_ETFS:
-        return parse_ssga(http_get(SSGA.format(t=t.lower()), timeout=60).content), "SSGA"
+        return http_get(SSGA.format(t=t.lower()), timeout=60), lambda r: parse_ssga(r.content), "SSGA"
     if t in ISHARES:
-        return parse_ishares(http_get(ISHARES_URL.format(p=ISHARES[t], t=t), timeout=60).text), "iShares"
+        return http_get(ISHARES_URL.format(p=ISHARES[t], t=t), timeout=60), lambda r: parse_ishares(r.text), "iShares"
     if t == "QQQ":
-        return parse_invesco(http_get(INVESCO_URL.format(t=t), timeout=60).text), "Invesco"
+        return (http_get(INVESCO_URL.format(t=t), timeout=60, headers={"Accept": "text/csv,application/octet-stream,*/*;q=0.8"}),
+                lambda r: parse_invesco(r.text), "Invesco")
     if t == "CIBR":
-        return parse_ftp(http_get(FTP_URL.format(t=t), timeout=60).text), "First Trust"
+        return http_get(FTP_URL.format(t=t), timeout=60), lambda r: parse_ftp(r.text), "First Trust"
     raise KeyError(t)
+
+
+def preview(r) -> str:
+    """A short look at a response the parser could not read, for the log."""
+    ct = r.headers.get("content-type", "")
+    if r.content[:2] == b"PK":
+        try:
+            df = pd.read_excel(io.BytesIO(r.content), header=None, dtype=object)
+            return f"xlsx {df.shape}: " + " | ".join(
+                ";".join(str(x)[:24] for x in df.iloc[i].tolist() if str(x) != "nan") for i in range(min(len(df), 9)))
+        except Exception as e:
+            return f"xlsx unreadable {e}"
+    return f"{ct} {len(r.content)}B: " + re.sub(r"\s+", " ", r.text[:700])
 
 
 # ---------------------------------------------------------------- prices
@@ -443,14 +458,18 @@ def main():
     if not a.offline:
         targets = SSGA_ETFS + list(ISHARES) + ["QQQ", "CIBR"]
         for t in targets:
+            r = None
             try:
-                res, src = fetch_holdings(t)
+                r, parse, src = fetch_raw(t)
+                res = parse(r)
                 if t == "SPY" and not 480 <= res["n"] <= 520:
                     raise ValueError(f"SPY has {res['n']} names")
                 got[t] = (res, src)
                 log(f"holdings {t}: {res['n']} names, as of {res['asof']}, raw weight sum {res['raw_sum']} ({src})")
             except Exception as e:
                 log(f"holdings {t}: FAILED {type(e).__name__}: {str(e)[:160]}")
+                if r is not None:
+                    log("   " + preview(r)[:900])
                 sources.append({"key": "h_" + t, "name": f"החזקות {t}", "ok": False, "asOf": None,
                                 "msg": f"{type(e).__name__}: {str(e)[:90]}"})
     etf, prev_etf = {}, prev.get("ETF", {})
