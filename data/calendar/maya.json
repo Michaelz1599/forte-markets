@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-19T09:06+00:00",
+"asof": "2026-11-19T12:56+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -3085,6 +3085,34 @@
 ]
 },
 {
+"id": "ביוליין אר אקס-2026-11-23",
+"ticker": "ביוליין אר אקס",
+"market": "IL",
+"date": "2026-11-23",
+"session": "BMO",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "08:30",
+"tz": "America/New_York",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1394,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/corporate-actions/financial-scheduled"
+}
+]
+},
+{
 "id": "ג'י סיטי-2026-11-23",
 "ticker": "ג'י סיטי",
 "market": "IL",
@@ -3389,6 +3417,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778707"
+}
+]
+},
+{
+"id": "בוליגו-2026-11-24",
+"ticker": "בוליגו",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "14:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1980,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782208"
 }
 ]
 },
@@ -3810,6 +3866,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1779896"
+}
+]
+},
+{
+"id": "בית זיקוק אשדוד-2026-11-25",
+"ticker": "בית זיקוק אשדוד",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1361,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782480"
 }
 ]
 },
@@ -5079,6 +5163,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ביוליין אר אקס": {
+"name": "ביוליין אר אקס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"בוליגו": {
+"name": "בוליגו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "רציו יהש": {
 "name": "רציו יהש",
 "tags": [
@@ -5273,6 +5373,14 @@
 },
 "איילון": {
 "name": "איילון",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"בית זיקוק אשדוד": {
+"name": "בית זיקוק אשדוד",
 "tags": [
 "TASE"
 ],
