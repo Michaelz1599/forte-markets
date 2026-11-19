@@ -421,6 +421,9 @@ def fundamentals(sym: str) -> dict:
          "nm": f("profitMargins", 100), "de": f("debtToEquity", 0.01), "pb": f("priceToBook"),
          "qs1": f("revenueGrowth", 100), "name": info.get("shortName") or info.get("longName"),
          "country": info.get("country"), "ysec": info.get("sector"), "cur": info.get("currency")}
+    so = num(info.get("sharesOutstanding")) or num(info.get("impliedSharesOutstanding"))
+    if so and num(info.get("floatShares")):
+        r["flt"] = round(min(1.0, num(info.get("floatShares")) / so), 3)
     try:
         inc = tk.income_stmt
         if inc is not None and not inc.empty:
@@ -445,11 +448,12 @@ def fundamentals(sym: str) -> dict:
     return {k: v for k, v in r.items() if v is not None}
 
 
-def refresh_fundamentals(fund: dict, syms: list[str], budget_s: float, max_n: int) -> tuple[int, int, list[str]]:
-    """Refresh the names with the oldest data first, within the time budget. Returns (done, failed, errors)."""
-    order = sorted(syms, key=lambda s: ("mcap" in fund.get(s, {}), fund.get(s, {}).get("at", ""), s))   # missing first
+def refresh_fundamentals(fund: dict, syms: list[str], budget_s: float, max_n: int, force=()) -> tuple[int, int, list[str]]:
+    """Refresh the names with the oldest data first (missing ones and `force` before all), within the time budget.
+    Returns (done, failed, errors)."""
+    order = sorted(syms, key=lambda s: ("mcap" in fund.get(s, {}), fund.get(s, {}).get("at", ""), s))
+    todo = list(dict.fromkeys([x for x in force if x in syms] + order[:max_n]))
     t0, done, failed, errs = time.time(), 0, 0, []
-    todo = order[:max_n]
 
     def one(s):
         if time.time() - t0 > budget_s:
@@ -653,7 +657,8 @@ def main():
 
     # 4. fundamentals rotation
     if not a.offline:
-        done, failed, errs = refresh_fundamentals(fund, universe, a.fund_budget, a.fund_max)
+        new_ndx = [k for k in ndx if k not in ref["ETF"]["QQQ"]["h"] and "flt" not in fund.get(k, {})]
+        done, failed, errs = refresh_fundamentals(fund, universe, a.fund_budget, a.fund_max, force=new_ndx)
         have = sum(1 for s in universe if fund.get(s, {}).get("at") and "mcap" in fund.get(s, {}))
         oldest = min((fund[s]["at"] for s in universe if fund.get(s, {}).get("at")), default=None)
         sources.append({"key": "fund", "name": "נתונים פיננסיים לפקטורים (Yahoo)", "ok": have >= 0.85 * len(universe),
@@ -744,15 +749,19 @@ def main():
         sec[s].update(sc)
 
     # 5b. QQQ without its file: the current Nasdaq-100 members; members already listed keep their rolled weights,
-    # new members get the weight their market cap implies at the median weight/cap ratio of the smaller members
+    # new members get the weight their float-adjusted market cap implies at the median weight/cap ratio of the smaller
+    # members (the index weights a low-float IPO such as SpaceX by its float: about 1.3% at its entry, not 7%)
     if ndx and etf["QQQ"].get("stale"):
         e = etf["QQQ"]
-        h = {k: w for k, w in e["h"].items() if k in ndx}
+        base = set(ref["ETF"]["QQQ"]["h"])     # names outside the last real holdings file are re-weighted every run
+        h = {k: w for k, w in e["h"].items() if k in ndx and k in base}
         small = sorted((w / sec[k]["mc"]) for k, w in h.items() if sec.get(k, {}).get("mc") and w < 0.02)
         ratio = small[len(small) // 2] if small else None
         added = sorted(ndx - set(h))
         for k in added:
-            mc = sec.get(k, {}).get("mc")
+            mc, flt = sec.get(k, {}).get("mc"), fund.get(k, {}).get("flt")
+            if mc and flt and flt < 0.5:
+                mc *= flt
             h[k] = mc * ratio if (mc and ratio) else min(h.values())
         dropped = sorted(set(e["h"]) - ndx)
         tot = sum(h.values())
