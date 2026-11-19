@@ -64,6 +64,8 @@ PROXY = {"VGT": "XLK", "VHT": "XLV", "FDIS": "XLY", "IYF": "XLF"}
 # iShares (SOXX) refuses scripted downloads and Invesco's file (QQQ) answers 406 from GitHub's runners (checked
 # 19.11.2026): QQQ is still tried every run; both are otherwise rolled forward by price from their last list.
 OPTIONAL = {"QQQ"}
+# a company with two listed share classes counts as one (as the dashboard always did): the issuers list both
+CLASS_MERGE = {"GOOG": "GOOGL", "FOX": "FOXA", "NWS": "NWSA", "BRK-A": "BRK-B"}
 # names that are not in ref.json take their GICS sector from the sector SPDR that holds them, and the theme of a
 # thematic ETF that holds them (KIE's insurers, XAR's defense names, ...)
 ETF_SECTOR = {"XLK": "T", "XLF": "F", "XLV": "H", "XLY": "D", "XLC": "C", "XLI": "I", "XLP": "S", "XLE": "E", "XLU": "U",
@@ -445,7 +447,7 @@ def fundamentals(sym: str) -> dict:
 
 def refresh_fundamentals(fund: dict, syms: list[str], budget_s: float, max_n: int) -> tuple[int, int, list[str]]:
     """Refresh the names with the oldest data first, within the time budget. Returns (done, failed, errors)."""
-    order = sorted(syms, key=lambda s: (fund.get(s, {}).get("at", ""), s))
+    order = sorted(syms, key=lambda s: ("mcap" in fund.get(s, {}), fund.get(s, {}).get("at", ""), s))   # missing first
     t0, done, failed, errs = time.time(), 0, 0, []
     todo = order[:max_n]
 
@@ -569,7 +571,7 @@ def main():
     if not a.offline and "QQQ" not in got:     # no QQQ file: at least keep its member list current
         try:
             ndx, ndx_src = nasdaq100()
-            ndx = set(canon_keys({k: 1.0 for k in ndx}, known))
+            ndx = {CLASS_MERGE.get(k, k) for k in canon_keys({k: 1.0 for k in ndx}, known)}
             log(f"nasdaq100: {len(ndx)} names ({ndx_src})")
         except Exception as e:
             log(f"nasdaq100: FAILED {type(e).__name__}: {str(e)[:120]}")
@@ -597,6 +599,14 @@ def main():
             e.update(h=m["h"], asOf=ref["asof_snapshot"], wAt=SNAP_PRICE_DATE, stale=1 if m["kind"] == "equity" and m["h"] else 0,
                      src0=m.get("src", ""))
         etf[t] = e
+
+    for e in etf.values():
+        if any(k in CLASS_MERGE for k in e.get("h", {})):
+            h = {}
+            for k, w in e["h"].items():
+                kk = CLASS_MERGE.get(k, k)
+                h[kk] = round(h.get(kk, 0.0) + w, 6)
+            e["h"] = dict(sorted(h.items(), key=lambda x: -x[1]))
 
     # 2. universe: every stock in an ETF + the reference list (Tel Aviv-only names stay on the snapshot for now)
     in_etf = {k for e in etf.values() for k in e.get("h", {})}
