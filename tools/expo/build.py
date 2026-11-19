@@ -79,6 +79,17 @@ FACTORS = {"fq": [("roe", 1), ("roa", 1), ("nm", 1), ("de", -1)],
 MIN_METRICS = {"fq": 2, "fg": 2, "fv": 1, "flv": 1, "fm": 1}
 
 
+# Bloomberg-style exchange suffixes in the issuers' files -> Yahoo suffixes (Atos ATO-FP -> ATO.PA)
+YSUF = {"FP": ".PA", "CN": ".TO", "LN": ".L", "GY": ".DE", "GR": ".DE", "NA": ".AS", "SM": ".MC", "IM": ".MI", "SW": ".SW",
+        "SE": ".SW", "AU": ".AX", "JP": ".T", "JT": ".T", "HK": ".HK", "SS": ".ST", "FH": ".HE", "DC": ".CO", "NO": ".OL",
+        "BB": ".BR", "ID": ".IR", "AV": ".VI", "PL": ".LS", "KS": ".KS", "TT": ".TW", "IT": ".TA"}
+
+
+def ysym(s: str) -> str:
+    m = re.fullmatch(r"([A-Z0-9]+)-([A-Z]{2})", s)
+    return m.group(1) + YSUF[m.group(2)] if m and m.group(2) in YSUF else s
+
+
 def log(*a):
     print(*a, flush=True)
 
@@ -131,6 +142,9 @@ def parse_date(text) -> str | None:
 
 
 # ---------------------------------------------------------------- ETF holdings parsers
+FUTURES = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\d{2}\b|e-?mini|future", re.I)
+
+
 def parse_ssga(raw: bytes) -> dict:
     """SSGA daily holdings xlsx: a few lines of fund info ('As of 18-Nov-2026'), then
     Name | Ticker | Identifier (CUSIP) | SEDOL | Weight (%) | Sector | Shares Held | Local Currency."""
@@ -155,7 +169,8 @@ def parse_ssga(raw: bytes) -> dict:
         # SSGA stopped filling the Sector column ("-") in 2026: equities are the rows with a ticker and a CUSIP
         t, sec, w = norm_ticker(r.get("Ticker")), SECT.get(str(r.get("Sector", "")).strip()), num(r.get(wcol))
         name, cu = str(r.get("Name") or "").strip(), str(r.get("Identifier") or "").strip()
-        if t and w is not None and w > 0 and re.fullmatch(r"[0-9A-Z]{9}", cu) and not re.search(r"\bCASH\b|DOLLAR", name, re.I):
+        if (t and w is not None and w > 0 and re.fullmatch(r"[0-9A-Z]{9}", cu) and not re.search(r"\bCASH\b|DOLLAR", name, re.I)
+                and not FUTURES.search(name)):
             rows.append((t, w / 100.0, name, sec, cu))
     return _pack(rows, asof)
 
@@ -265,6 +280,29 @@ def fetch_raw(t: str):
     raise KeyError(t)
 
 
+def nasdaq100() -> tuple[set, str]:
+    """Current Nasdaq-100 members: Nasdaq's own list, else Wikipedia's table."""
+    try:
+        js = http_get("https://api.nasdaq.com/api/quote/list-type/nasdaq100", expect_json=True, timeout=30,
+                      headers={"Accept": "application/json, text/plain, */*", "Origin": "https://www.nasdaq.com",
+                               "Referer": "https://www.nasdaq.com/"})
+        rows = (((js or {}).get("data") or {}).get("data") or {}).get("rows") or []
+        syms = {norm_ticker(r.get("symbol")) for r in rows} - {None}
+        if 95 <= len(syms) <= 105:
+            return syms, "Nasdaq"
+        log(f"nasdaq100: Nasdaq list has {len(syms)} names")
+    except Exception as e:
+        log(f"nasdaq100: Nasdaq {type(e).__name__}: {str(e)[:120]}")
+    html = http_get("https://en.wikipedia.org/wiki/Nasdaq-100", timeout=30).text
+    for df in pd.read_html(io.StringIO(html)):
+        col = next((c for c in df.columns if str(c).strip() in ("Ticker", "Symbol")), None)
+        if col is not None and 95 <= len(df) <= 105:
+            syms = {norm_ticker(x) for x in df[col]} - {None}
+            if 95 <= len(syms) <= 105:
+                return syms, "Wikipedia"
+    raise ValueError("no Nasdaq-100 list")
+
+
 def preview(r) -> str:
     """A short look at a response the parser could not read, for the log."""
     ct = r.headers.get("content-type", "")
@@ -302,7 +340,12 @@ def yahoo_closes(syms: list[str], days: int = 760) -> pd.DataFrame:
     close = pd.concat(frames, axis=1)
     close = close.loc[:, ~close.columns.duplicated()]
     close.index = pd.to_datetime(close.index).tz_localize(None)
-    return close.sort_index().dropna(how="all")
+    close = close.sort_index().dropna(how="all")
+    from zoneinfo import ZoneInfo
+    ny = dt.datetime.now(ZoneInfo("America/New_York"))
+    if len(close) and close.index[-1].date() >= ny.date() and ny.hour * 60 + ny.minute < 16 * 60 + 20:
+        close = close.iloc[:-1]           # today's bar while the US session is open is not a close
+    return close
 
 
 def price_stats(close: pd.DataFrame, bench: str = "SPY") -> dict:
@@ -344,10 +387,12 @@ def roll_weights(h: dict, frm: str, close: pd.DataFrame) -> tuple[dict, str | No
     i0 = idx.searchsorted(pd.Timestamp(frm), side="right") - 1
     if i0 < 0:
         return h, None
-    p0, p1 = close.iloc[i0], close.ffill().iloc[-1]
+    p0, p1 = close.iloc[i0], close.iloc[-6:].ffill().iloc[-1]   # no price in the last week = no longer trades
     new = {}
     for k, w in h.items():
         a, b = p0.get(k), p1.get(k)
+        if k in close.columns and (b is None or b != b):
+            continue
         new[k] = w * (b / a) if a is not None and b is not None and a == a and b == b and a > 0 else w
     tot0, tot1 = sum(h.values()), sum(new.values())
     return {k: round(v * tot0 / tot1, 6) for k, v in sorted(new.items(), key=lambda x: -x[1])}, idx[-1].date().isoformat()
@@ -373,7 +418,7 @@ def fundamentals(sym: str) -> dict:
          "dy": f("trailingAnnualDividendYield", 100), "dyF": f("dividendYield"), "roe": f("returnOnEquity", 100), "roa": f("returnOnAssets", 100),
          "nm": f("profitMargins", 100), "de": f("debtToEquity", 0.01), "pb": f("priceToBook"),
          "qs1": f("revenueGrowth", 100), "name": info.get("shortName") or info.get("longName"),
-         "country": info.get("country"), "ysec": info.get("sector")}
+         "country": info.get("country"), "ysec": info.get("sector"), "cur": info.get("currency")}
     try:
         inc = tk.income_stmt
         if inc is not None and not inc.empty:
@@ -408,7 +453,7 @@ def refresh_fundamentals(fund: dict, syms: list[str], budget_s: float, max_n: in
         if time.time() - t0 > budget_s:
             return s, None, "budget"
         try:
-            return s, fundamentals(s), None
+            return s, fundamentals(ysym(s)), None
         except Exception as e:
             return s, None, f"{type(e).__name__}: {str(e)[:80]}"
 
@@ -520,6 +565,14 @@ def main():
                                     "msg": f"{type(e).__name__}: {str(e)[:90]}"})
     etf, prev_etf = {}, prev.get("ETF", {})
     known = set(ref["SEC"]) | set(got.get("SPY", ({"h": {}}, ""))[0]["h"])
+    ndx, ndx_src = set(), None
+    if not a.offline and "QQQ" not in got:     # no QQQ file: at least keep its member list current
+        try:
+            ndx, ndx_src = nasdaq100()
+            ndx = set(canon_keys({k: 1.0 for k in ndx}, known))
+            log(f"nasdaq100: {len(ndx)} names ({ndx_src})")
+        except Exception as e:
+            log(f"nasdaq100: FAILED {type(e).__name__}: {str(e)[:120]}")
     for t, (res, src) in got.items():   # iShares writes BRKB for BRK-B: map such tickers onto the known ones
         res["h"] = canon_keys(res["h"], known)
         res["meta"] = canon_keys(res["meta"], known)
@@ -547,14 +600,16 @@ def main():
 
     # 2. universe: every stock in an ETF + the reference list (Tel Aviv-only names stay on the snapshot for now)
     in_etf = {k for e in etf.values() for k in e.get("h", {})}
-    universe = sorted((in_etf | set(ref["SEC"])) - {k for k, v in ref["SEC"].items() if v.get("il")})
+    universe = sorted((in_etf | ndx | set(ref["SEC"])) - {k for k, v in ref["SEC"].items() if v.get("il")})
     log(f"universe: {len(universe)} names")
 
     # 3. prices
     px, close = {}, pd.DataFrame()
     if not a.offline:
         try:
-            close = yahoo_closes(universe + (["SPY"] if "SPY" not in universe else []))
+            ys = {ysym(x): x for x in universe}
+            close = yahoo_closes(list(ys) + (["SPY"] if "SPY" not in ys else []))
+            close = close.rename(columns=ys)
             px = price_stats(close)
             sources.append({"key": "prices", "name": "מחירים, תשואה 12 ח׳ ובטא (Yahoo)", "ok": len(px) >= 0.9 * len(universe),
                             "asOf": max((v["d"] for v in px.values()), default=None), "msg": f"{len(px)}/{len(universe)} מניות"})
@@ -596,6 +651,20 @@ def main():
                         + (f" · {'; '.join(errs[:3])}" if errs else "")})
         log(f"fundamentals: {done} refreshed, {failed} failed, {have}/{len(universe)} with data, oldest {oldest}; {errs[:4]}")
 
+    # 4b. market caps quoted in another currency (Paris, Toronto listings) -> USD
+    fx = {"USD": 1.0}
+    curs = sorted({fund[x].get("cur") for x in universe if fund.get(x, {}).get("cur") not in (None, "USD")})
+    if curs and not a.offline:
+        pairs = {c: ("GBP" if c in ("GBp", "GBX") else c) + "USD=X" for c in curs}
+        try:
+            fxc = yahoo_closes(sorted(set(pairs.values())), days=20)
+            for c, pr in pairs.items():
+                if pr in fxc and fxc[pr].notna().any():
+                    fx[c] = float(fxc[pr].dropna().iloc[-1]) / (100 if c in ("GBp", "GBX") else 1)
+        except Exception as e:
+            log(f"fx: {e}")
+        log(f"fx: {fx}")
+
     # 5. per-stock records. Price metrics (beta, 12-month return) are fresh for every name with prices; the
     # fundamentals are Yahoo's when the rotation has read the name, else the 12.11.2026 snapshot (marked "snap").
     held_by = {}
@@ -612,7 +681,7 @@ def main():
               or SECT.get(f0.get("ysec") or "") or "X")
         th = r0["th"] if "th" in r0 else sorted(set(AUTO_THEME.get(sl, []) + [ETF_THEME[t] for t in by if t in ETF_THEME]))
         rec = {"n": r0.get("n") or f0.get("name") or (m0.get("name") or s).title(), "s": sl,
-               "c": r0.get("c") or country_he(f0.get("country")) or 'ארה"ב',
+               "c": r0.get("c") or country_he(f0.get("country")) or ('ארה"ב' if ysym(s) == s else "אירופה"),
                "th": th,
                "w": spy.get(s, 0.0), "sp": int(s in sp)}
         if not r0:
@@ -624,7 +693,12 @@ def main():
             k = (p0["px"] / f0["pxAt"]) if p0.get("px") and f0.get("pxAt") else 1.0
             if not 0.5 < k < 2:
                 k = 1.0             # a split between the two reads: keep Yahoo's own figures
-            rec["mc"] = round(f0["mcap"] * k, 3 if f0["mcap"] * k < 10 else 1)
+            cfx = fx.get(f0.get("cur") or "USD")
+            if cfx is None:
+                cfx = 1.0
+                log(f"  {s}: no FX for {f0.get('cur')}, market cap left in local currency")
+            mcu = f0["mcap"] * k * cfx
+            rec["mc"] = round(mcu, 3 if mcu < 10 else 1)
             rec["pe"] = round(f0["pe"] * k, 1) if f0.get("pe") and f0["pe"] > 0 else None
             dyv = f0.get("dy")
             if dyv is not None and (dyv > 25 or (f0.get("dyF") and dyv > 3 * f0["dyF"] + 0.5)):
@@ -658,6 +732,25 @@ def main():
                    "dy": (rec.get("dy") or 0.0) if fresh else rec.get("dy"), "beta": fdv.get("beta"), "r1": fdv.get("r1")}
     for s, sc in factor_scores(rows, sp).items():
         sec[s].update(sc)
+
+    # 5b. QQQ without its file: the current Nasdaq-100 members; members already listed keep their rolled weights,
+    # new members get the weight their market cap implies at the median weight/cap ratio of the smaller members
+    if ndx and etf["QQQ"].get("stale"):
+        e = etf["QQQ"]
+        h = {k: w for k, w in e["h"].items() if k in ndx}
+        small = sorted((w / sec[k]["mc"]) for k, w in h.items() if sec.get(k, {}).get("mc") and w < 0.02)
+        ratio = small[len(small) // 2] if small else None
+        added = sorted(ndx - set(h))
+        for k in added:
+            mc = sec.get(k, {}).get("mc")
+            h[k] = mc * ratio if (mc and ratio) else min(h.values())
+        dropped = sorted(set(e["h"]) - ndx)
+        tot = sum(h.values())
+        e["h"] = {k: round(v / tot, 6) for k, v in sorted(h.items(), key=lambda x: -x[1])}
+        e["src"] = (f"רשימת הרכיבים: {ndx_src} {dmy(today_il())} · משקלים: הקובץ האחרון מגולגל לפי מחירים עד {dmy(e['wAt'])}"
+                    + (f" · נוספו {', '.join(added)} לפי שווי שוק" if added else "") + (f" · יצאו {', '.join(dropped)}" if dropped else ""))
+        e["asOf"] = today_il()
+        log(f"QQQ: {len(e['h'])} names, added {added}, dropped {dropped}")
 
     # 6. coverage and checks
     def cov(k):
