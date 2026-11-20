@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-20T08:24+00:00",
+"asof": "2026-11-20T09:04+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -24659,11 +24659,11 @@
 "ticker": "WMT",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Oct/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24697,11 +24697,11 @@
 "ticker": "BABA",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24735,11 +24735,11 @@
 "ticker": "PDD",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24811,11 +24811,11 @@
 "ticker": "NTES",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24925,11 +24925,11 @@
 "ticker": "WSM",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Oct/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -24963,11 +24963,11 @@
 "ticker": "WMG",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -25001,11 +25001,11 @@
 "ticker": "FUTU",
 "market": "US",
 "date": "2026-11-19",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
