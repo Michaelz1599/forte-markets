@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-20T09:04+00:00",
+"asof": "2026-11-20T13:55+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -3656,10 +3656,10 @@
 "text": "שעת הפרסום לא צוינה במאיה"
 },
 "call": {
-"time": null,
-"tz": null,
+"time": "12:00",
+"tz": "Asia/Jerusalem",
 "confirmed": true,
-"note": "שיחת משקיעים ביום רביעי 25.11, 12:00 שעון ישראל",
+"note": null,
 "webcast": null,
 "dial": null
 },
