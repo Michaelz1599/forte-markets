@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-20T05:55+00:00",
+"asof": "2026-11-20T08:24+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -3645,6 +3645,34 @@
 ]
 },
 {
+"id": "ר.ג.א.-2026-11-24",
+"ticker": "ר.ג.א.",
+"market": "IL",
+"date": "2026-11-24",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום רביעי 25.11, 12:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 2489,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782674"
+}
+]
+},
+{
 "id": "רציו יהש-2026-11-24",
 "ticker": "רציו יהש",
 "market": "IL",
@@ -4090,6 +4118,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780196"
+}
+]
+},
+{
+"id": "שגריר רכב-2026-11-25",
+"ticker": "שגריר רכב",
+"market": "IL",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום חמישי 26.11, 09:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1664,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782694"
 }
 ]
 },
@@ -4822,6 +4878,34 @@
 ]
 },
 {
+"id": "אקונרג'י-2026-11-30",
+"ticker": "אקונרג'י",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "לא נרשמה שיחת משקיעים במאיה",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1891,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782532"
+}
+]
+},
+{
 "id": "הכשרת הישוב-2026-11-30",
 "ticker": "הכשרת הישוב",
 "market": "IL",
@@ -5059,6 +5143,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"ר.ג.א.": {
+"name": "ר.ג.א.",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "מור השקעות": {
 "name": "מור השקעות",
 "tags": [
@@ -5267,6 +5359,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"שגריר רכב": {
+"name": "שגריר רכב",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "בית זיקוק אשדוד": {
 "name": "בית זיקוק אשדוד",
 "tags": [
@@ -5469,6 +5569,14 @@
 },
 "אלקטרה נדל\"ן": {
 "name": "אלקטרה נדל\"ן",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אקונרג'י": {
+"name": "אקונרג'י",
 "tags": [
 "TASE"
 ],
