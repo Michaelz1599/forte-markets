@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-20T14:32+00:00",
+"asof": "2026-11-21T02:54+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4991,16 +4991,16 @@
 }
 ],
 "profiles": {
-"אלמוגים החזקות": {
-"name": "אלמוגים החזקות",
+"לודן-טק": {
+"name": "לודן-טק",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"נאוויטס פטרו": {
-"name": "נאוויטס פטרו",
+"טופ גאם": {
+"name": "טופ גאם",
 "tags": [
 "TASE"
 ],
@@ -5015,16 +5015,32 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"לודן-טק": {
-"name": "לודן-טק",
+"ורידיס": {
+"name": "ורידיס",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"טופ גאם": {
-"name": "טופ גאם",
+"סופרגז פאוור": {
+"name": "סופרגז פאוור",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מר": {
+"name": "מר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ביוליין אר אקס": {
+"name": "ביוליין אר אקס",
 "tags": [
 "TASE"
 ],
@@ -5103,86 +5119,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"ורידיס": {
-"name": "ורידיס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סופרגז פאוור": {
-"name": "סופרגז פאוור",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מר": {
-"name": "מר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ביוליין אר אקס": {
-"name": "ביוליין אר אקס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"בוליגו": {
-"name": "בוליגו",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ר.ג.א.": {
-"name": "ר.ג.א.",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מור השקעות": {
-"name": "מור השקעות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"רציו יהש": {
-"name": "רציו יהש",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"קיסטון אינפרא": {
-"name": "קיסטון אינפרא",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"פריורטק": {
-"name": "פריורטק",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "זנלכל": {
 "name": "זנלכל",
 "tags": [
@@ -5225,6 +5161,118 @@
 },
 "LAHAV": {
 "name": "להב · LAHAV",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"בוליגו": {
+"name": "בוליגו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ר.ג.א.": {
+"name": "ר.ג.א.",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מור השקעות": {
+"name": "מור השקעות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פריורטק": {
+"name": "פריורטק",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"רציו יהש": {
+"name": "רציו יהש",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"קיסטון אינפרא": {
+"name": "קיסטון אינפרא",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"איילון": {
+"name": "איילון",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אר פי אופטיקל": {
+"name": "אר פי אופטיקל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"RMON": {
+"name": "רימון · RMON",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"קווליטאו": {
+"name": "קווליטאו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שטראוס גרופ": {
+"name": "שטראוס גרופ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"תדהר": {
+"name": "תדהר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"בית זיקוק אשדוד": {
+"name": "בית זיקוק אשדוד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שגריר רכב": {
+"name": "שגריר רכב",
 "tags": [
 "TASE"
 ],
@@ -5279,14 +5327,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"RMON": {
-"name": "רימון · RMON",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "פוקס": {
 "name": "פוקס",
 "tags": [
@@ -5313,134 +5353,6 @@
 },
 "בלדי": {
 "name": "בלדי",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"איילון": {
-"name": "איילון",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אר פי אופטיקל": {
-"name": "אר פי אופטיקל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"קווליטאו": {
-"name": "קווליטאו",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"שטראוס גרופ": {
-"name": "שטראוס גרופ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"תדהר": {
-"name": "תדהר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"שגריר רכב": {
-"name": "שגריר רכב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"בית זיקוק אשדוד": {
-"name": "בית זיקוק אשדוד",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"שופרסל": {
-"name": "שופרסל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אמפא": {
-"name": "אמפא",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סמארט שוטר": {
-"name": "סמארט שוטר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אפקון החזקות": {
-"name": "אפקון החזקות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישרוטל": {
-"name": "ישרוטל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"דמרי": {
-"name": "דמרי",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"איידיאיי ביטוח": {
-"name": "איידיאיי ביטוח",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישראל קנדה": {
-"name": "ישראל קנדה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אוטונומוס": {
-"name": "אוטונומוס",
 "tags": [
 "TASE"
 ],
@@ -5495,6 +5407,86 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"שופרסל": {
+"name": "שופרסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אמפא": {
+"name": "אמפא",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סמארט שוטר": {
+"name": "סמארט שוטר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אפקון החזקות": {
+"name": "אפקון החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישרוטל": {
+"name": "ישרוטל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראל קנדה": {
+"name": "ישראל קנדה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אוטונומוס": {
+"name": "אוטונומוס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"איידיאיי ביטוח": {
+"name": "איידיאיי ביטוח",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"דמרי": {
+"name": "דמרי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלומה": {
+"name": "אלומה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "VILR": {
 "name": "וילאר · VILR",
 "tags": [
@@ -5505,14 +5497,6 @@
 },
 "אקסל": {
 "name": "אקסל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלומה": {
-"name": "אלומה",
 "tags": [
 "TASE"
 ],
@@ -5567,16 +5551,16 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אלקטרה נדל\"ן": {
-"name": "אלקטרה נדל\"ן",
+"אקונרג'י": {
+"name": "אקונרג'י",
 "tags": [
 "TASE"
 ],
 "country": "IL",
 "exchange": "TASE"
 },
-"אקונרג'י": {
-"name": "אקונרג'י",
+"אלקטרה נדל\"ן": {
+"name": "אלקטרה נדל\"ן",
 "tags": [
 "TASE"
 ],
@@ -5593,6 +5577,22 @@
 },
 "גוטו": {
 "name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלמוגים החזקות": {
+"name": "אלמוגים החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"נאוויטס פטרו": {
+"name": "נאוויטס פטרו",
 "tags": [
 "TASE"
 ],
