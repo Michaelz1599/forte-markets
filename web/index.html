@@ -990,6 +990,93 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
   .mast, .site-foot, .to-top, .mk-admin, .hs-tools, .ticker { display: none !important; }
   .st-card, .sec-box, .panel { break-inside: avoid; box-shadow: none !important; }
 }
+/* ================= phones + image export (2026-11) ================= */
+/* light tokens forced while an image export is drawn, so exports are always on white */
+:root.xp-light {
+  --bg: #F1F5F3; --surface: #FFFFFF; --sunk: #E7EFEB; --ink: #002F22; --ink-2: #36534A; --muted: #5F766D; --line: #C8DDD6; --line-2: #DDE9E4;
+  --frame: #002F22; --t1: #002F22; --t1-ink: #9AD4B9; --t2: #9AD4B9; --t2-ink: #002F22; --hl: #DFF0E7; --accent: #26725D; --accent-ink: #FFFFFF;
+  --mint: #9AD4B9; --fear: #B9482A; --fear-bg: #F7E1D8; --greed: #13765A; --greed-bg: #D5EEE2; --neutral: #6F837B; --neutral-bg: #E6EEEA;
+  --warn: #8F5E10; --warn-bg: #F5E8CC; --chart-line: #002F22; --chart-2: #8FA59C; --up: #089981; --down: #F23645;
+  --corr-neg: #2F6DB5; --corr-mid: #F4F7F5; --corr-pos: #0E5A45; color-scheme: light;
+}
+/* detail sheets: the title bar (with export and close) stays on top while the sheet scrolls */
+.sheet { overflow: clip; grid-template-columns: minmax(0, 1fr); }
+.sh-head { position: sticky; top: 0; z-index: 6; }
+.sh-head > div:first-child { min-width: 0; }
+.sh-tools { display: flex; gap: 8px; align-items: center; flex: none; }
+.hbtn { background: transparent; border: 1px solid rgba(154, 212, 185, .5); color: var(--t1-ink); border-radius: 8px; height: 34px; padding: 0 12px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
+.hbtn:hover { background: rgba(154, 212, 185, .12); }
+.hbtn svg, .btn svg.ic { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hbtn .lbl-s { display: none; }
+.xprev { background: var(--sunk); border: 1px solid var(--line); border-radius: 8px; min-height: 180px; display: grid; place-items: center; overflow: hidden; }
+.xprev img { display: block; width: 100%; height: auto; -webkit-touch-callout: default; }
+.xprev .muted { padding: 40px 16px; }
+#xMode { justify-self: start; }
+.ctog { display: none; }
+.secl { display: inline-block; position: sticky; inset-inline-start: 7px; }
+/* a table cut off at the edge fades out there, so it is clear that it scrolls sideways */
+.tbl-wrap.more { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 32px); mask-image: linear-gradient(to right, transparent 0, #000 32px); }
+@media (max-width: 860px) {
+  /* the header slides away while scrolling down and comes back on the way up */
+  .mast { transition: transform .22s var(--ease), box-shadow .25s var(--ease); }
+  body.mast-hide .mast { transform: translateY(-100%); box-shadow: none; }
+}
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) { .mast { transition: none; } }
+@media (max-width: 640px) {
+  /* 16px stops iOS from zooming the page when a field gets focus */
+  input[type="text"], input[type="search"], input[type="number"], input[type="date"], input[type="url"], input[type="password"], input:not([type]), select, textarea { font-size: 16px; }
+  .maadd input, .maadd select { font-size: 16px; }
+  /* sentiment: the two gauges side by side */
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+  .hero > .bottomline { grid-column: 1 / -1; }
+  .gcard { padding: 10px 10px 12px; gap: 4px; }
+  .gcard header { display: grid; gap: 0; }
+  .gcard h2 { font-size: 13.5px; line-height: 1.3; }
+  .gcard .hint { font-size: 11px; }
+  .glabel { display: grid; justify-items: center; gap: 2px; }
+  .glabel .small { font-size: 11px; line-height: 1.3; }
+  .glabel .chip { font-size: 11.5px; }
+  .gstats div { align-content: end; }
+  .gstats dt { font-size: 10px; line-height: 1.25; }
+  .gstats dd { font-size: 13.5px; }
+  /* tables: smaller type, headers wrap, the first column stays put while the rest scrolls */
+  table.ft, .itbl { font-size: 12.5px; }
+  table.ft th, table.ft td { padding: 6px 7px; }
+  table.ft th { white-space: normal; line-height: 1.25; vertical-align: bottom; }
+  .itbl td.spk { width: 84px; padding: 3px 5px; }
+  .msp { width: 74px; height: 24px; }
+  .sbar { width: 60px; }
+  .tbl-wrap > table.ft:not(.itbl) > tbody > tr > td:first-child, .tbl-wrap > table.ft:not(.itbl) > thead > tr > th:first-child { position: sticky; inset-inline-start: 0; z-index: 1; }
+  .tbl-wrap > table.ft:not(.itbl) > tbody > tr > td:first-child:not(.hl):not([style*="background"]) { background: var(--surface); }
+  .tbl-wrap > table.ft:not(.itbl) > tbody > tr.secr > td:first-child { background: var(--t2); }
+  .tbl-wrap > table.ft:not(.itbl) > thead > tr > th:first-child { background: var(--t1); }
+  .tbl-wrap > table.ft > tbody > tr > td:first-child, .itbl.ftab > tbody > tr > td:nth-child(2) { box-shadow: inset 1px 0 0 var(--line-2); }
+  /* detail sheets fill the screen */
+  .ov:not(.ovc) { padding: 0; }
+  .ov:not(.ovc) > .sheet { border-radius: 0; min-height: 100%; align-content: start; }
+  .sh-head { padding: calc(10px + env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px)); align-items: center; gap: 10px; }
+  .sh-head h2 { font-size: 19px; line-height: 1.25; }
+  .sh-head .sub { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbtn { padding: 0 10px; }
+  .hbtn .lbl-l { display: none; }
+  .hbtn .lbl-s { display: inline; }
+  .sh-body { padding: 12px 12px 28px; gap: 12px; }
+  .sh-body > .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .sh-body > .tiles .tile { padding: 7px 8px; }
+  .sh-body > .tiles .tile .k { font-size: 11px; line-height: 1.3; }
+  .sh-body > .tiles .tile .val { font-size: 17px; }
+  .sh-body > .tiles .tile .s { font-size: 11px; line-height: 1.35; }
+  .sh-body > .tiles .tile .chip { font-size: 11px; padding: 1px 7px; white-space: normal; max-width: 100%; line-height: 1.35; }
+  .panel { padding: 10px; gap: 8px; }
+  /* chart tools (moving averages, volume, drawing) fold behind one button */
+  .ctog { display: inline-flex; }
+  .panel:not(.tools-open) > .ctool-row { display: none; }
+  /* index / stock chart: the chart comes right after the tiles, the written summary under it */
+  .sh-body > .xsum { order: 3; }
+  .sh-body > #xLevels { order: 4; }
+  #xMode { display: flex; width: 100%; justify-self: stretch; }
+  #xMode button { flex: 1 0 auto; }
+}
 </style>
 </head>
 <body>
@@ -1173,6 +1260,21 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
 (() => {
 'use strict';
 try { document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'he'); } catch (e) { /* static dir attributes still apply */ }
+// Touch screens: a finger dragged over a chart scrolls the page instead of panning the chart (the slider under
+// each chart and the range buttons still zoom). Every chart instance gets this through a wrapped setOption.
+const TOUCH = (() => { try { return matchMedia('(hover: none) and (pointer: coarse)').matches; } catch (e) { return false; } })();
+if (TOUCH && window.echarts && typeof echarts.init === 'function') {
+  const noDrag = o => {
+    if (!o || !Array.isArray(o.dataZoom)) return o;
+    return { ...o, dataZoom: o.dataZoom.map(z => z && z.type === 'inside' ? { ...z, moveOnMouseMove: false, moveOnMouseWheel: false, zoomOnMouseWheel: false, preventDefaultMouseMove: false } : z) };
+  };
+  const init0 = echarts.init;
+  echarts.init = function (...args) {
+    const c = init0.apply(this, args); const set0 = c.setOption;
+    c.setOption = function (o, ...rest) { return set0.call(this, noDrag(o), ...rest); };
+    return c;
+  };
+}
 const DAY = 864e5;
 const WIN = { '1y': 365, '3y': 1096, '5y': 1827, '10y': 3653, 'all': Infinity };
 const WIN_LABEL = { '1y': 'שנה', '3y': '3 שנים', '5y': '5 שנים', '10y': '10 שנים', 'all': 'כל ההיסטוריה' };
@@ -1602,6 +1704,7 @@ function renderSysBanner() {
 // ---------------- indicator detail ----------------
 let chartInst = null, pasteHandler = null;
 function closeOverlay() {
+  if (xov) closeExport();
   if (chartInst) { try { chartInst.dispose(); } catch (e) { /* already disposed */ } chartInst = null; }
   if (pasteHandler) { document.removeEventListener('paste', pasteHandler); pasteHandler = null; }
   $('#ovRoot').innerHTML = ''; S.detail = null; document.body.style.overflow = '';
@@ -1649,7 +1752,7 @@ function openInd(id) {
   }
   const adminBtns = S.canEdit && id !== COMP_ID ? `<button type="button" class="btn ghost sm" id="dEdit">הגדרות</button><button type="button" class="btn ghost sm" id="dAdd">הזנת ערך</button><button type="button" class="btn ghost sm" id="dImp">ייבוא CSV</button>` : '';
   const html = `
-    <div class="sh-head"><div><h2>${esc(meta.name)}</h2><div class="sub">${FREQ_LABEL[meta.freq] || ''}${meta.short ? ' · ' + esc(meta.short) : ''}${s && s.d.length ? ` · נתונים מ-${fmtDate(s.d[0])} עד ${fmtDate(s.d[s.d.length - 1])} (${s.d.length.toLocaleString('en-US')} תצפיות)` : ''}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <div class="sh-head"><div><h2>${esc(meta.name)}</h2><div class="sub">${FREQ_LABEL[meta.freq] || ''}${meta.short ? ' · ' + esc(meta.short) : ''}${s && s.d.length ? ` · נתונים מ-${fmtDate(s.d[0])} עד ${fmtDate(s.d[s.d.length - 1])} (${s.d.length.toLocaleString('en-US')} תצפיות)` : ''}</div></div><div class="sh-tools">${s && s.v.length ? exportBtn('ind') : ''}<button type="button" class="xclose" aria-label="סגירה">✕</button></div></div>
     <div class="sh-body">
       <div class="tiles">${tiles}</div>
       <section class="panel">
@@ -1661,7 +1764,7 @@ function openInd(id) {
           <div class="grp" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
             ${id !== 'spx' && id !== 'ta35_px' ? `<label class="chk" for="dSpx"><input type="checkbox" id="dSpx" ${id === COMP_ID || id === 'il_sent' || meta.spxBg ? 'checked' : ''}><span id="dSpxName">${esc(benchOf(id, meta).name)}</span> ברקע</label>` : ''}
             <button type="button" class="btn ghost sm" id="dCsv" hidden>הורדת CSV</button>
-            ${adminBtns}
+            ${adminBtns}${toolsToggle()}
           </div>
         </div>
         <div class="ctool-row">${drawToolsHtml('d')}</div>
@@ -1688,6 +1791,7 @@ function openInd(id) {
       </section>
     </div>`;
   const root = openOverlay(html);
+  const xb = $('[data-export="ind"]', root); if (xb) xb.addEventListener('click', () => openExport('ind', id));
   $$('[data-open]', root).forEach(b => b.addEventListener('click', () => openInd(b.dataset.open)));
   if (S.canEdit && id !== COMP_ID) {
     $('#dEdit').addEventListener('click', () => openIndEditor(id));
@@ -1856,6 +1960,341 @@ function attachDrawings(ctx, chart, el, key, fmt, times) {
   S.drwApi[ctx] = api; hint(); requestAnimationFrame(render);
   return api;
 }
+// ---------------- export a chart as an image (indicator, index / stock chart, technical analysis) ----------------
+// The image is drawn at a fixed size in the light Forte palette, so an export from a phone looks the same as one
+// from a desktop. Live charts are captured by rendering the open chart once more at export size (with the lines
+// drawn on it) and putting the original back in the same task, so nothing flickers on screen.
+const ICON_DL = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
+function exportBtn(kind) { return `<button type="button" class="hbtn" data-export="${kind}" aria-label="ייצוא הגרף כתמונה">${ICON_DL}<span class="lbl-l">ייצוא כתמונה</span><span class="lbl-s">תמונה</span></button>`; }
+function toolsToggle() { return '<button type="button" class="btn ghost sm ctog" aria-expanded="false">כלים: ממוצעים וציור</button>'; }
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.ctog'); if (!b) return;
+  const p = b.closest('.panel'); if (!p) return;
+  const open = p.classList.toggle('tools-open'); b.setAttribute('aria-expanded', String(open));
+});
+const XP = { ink: '#002F22', ink2: '#36534A', muted: '#5F766D', line: '#C8DDD6', line2: '#DDE9E4', surface: '#FFFFFF', sunk: '#F1F5F3', hl: '#DFF0E7', mint: '#9AD4B9', mast: '#002F22', mast2: '#CFE9DC' };
+const XP_CHIP = { 's-xf': ['#B9482A', '#F7E1D8'], 's-f': ['#B9482A', '#F7E1D8'], 's-n': ['#5F766D', '#E6EEEA'], 's-g': ['#13765A', '#D5EEE2'], 's-xg': ['#13765A', '#D5EEE2'],
+  bull: ['#13765A', '#D5EEE2'], bear: ['#B9482A', '#F7E1D8'], neutral: ['#5F766D', '#E6EEEA'], watch: ['#8F5E10', '#F5E8CC'], pending: ['#5F766D', '#F1F5F3'], plain: ['#36534A', '#EEF3F1'] };
+const XW = 1200, XPAD = 40;
+function xFonts() { const b = tok('--f-body') || 'Heebo, Arial, sans-serif'; return { b, d: tok('--f-disp') || b }; }
+async function fontsReady() {
+  try {
+    if (!document.fonts || !document.fonts.load) return;
+    await Promise.race([Promise.all(['400', '600', '700', '800', '900'].map(w => document.fonts.load(`${w} 20px Heebo`, 'אבג ABC 123'))), new Promise(r => setTimeout(r, 1500))]);
+  } catch (e) { /* draw with whatever font is there */ }
+}
+function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('img')); im.src = src; }); }
+function rrect(ctx, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+// a painter that can run "dry" (measure only), so a card can be sized before it is drawn
+function painter(ctx, dry) {
+  const F = xFonts();
+  const P = {
+    font(size, weight, disp) { ctx.font = `${weight || 400} ${size}px ${disp ? F.d : F.b}`; },
+    w(str, size, weight, o = {}) { P.font(size, weight, o.disp); ctx.direction = o.ltr ? 'ltr' : 'rtl'; return ctx.measureText(String(str)).width; },
+    text(str, x, y, o = {}) {
+      P.font(o.size || 16, o.weight || 400, o.disp); ctx.direction = o.ltr ? 'ltr' : 'rtl'; ctx.textAlign = o.align || 'right'; ctx.textBaseline = 'alphabetic';
+      const s = String(str); const w = ctx.measureText(s).width;
+      if (!dry) { ctx.fillStyle = o.color || XP.ink; ctx.fillText(s, x, y); }
+      return w;
+    },
+    fit(str, maxW, size, weight, o = {}) { let s = String(str); if (P.w(s, size, weight, o) <= maxW) return s; while (s.length > 1 && P.w(s + '…', size, weight, o) > maxW) s = s.slice(0, -1); return s.trim() + '…'; },
+    wrap(str, maxW, size, weight) {
+      const out = [];
+      for (const para of String(str || '').split(/\r?\n/)) {
+        const words = para.split(/\s+/).filter(Boolean); let cur = '';
+        for (const wd of words) { const t = cur ? cur + ' ' + wd : wd; if (!cur || P.w(t, size, weight) <= maxW) cur = t; else { out.push(cur); cur = wd; } }
+        if (cur) out.push(cur);
+      }
+      return out;
+    },
+    box(x, y, w, h, r, fill, stroke) { if (dry) return; rrect(ctx, x, y, w, h, r); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); } },
+    pill(label, xr, yTop, h, size, k) {   // anchored at its right edge; returns its width
+      const [fg, bg] = XP_CHIP[k] || XP_CHIP.plain; const pad = Math.round(h * 0.45); const w = P.w(label, size, 700) + pad * 2;
+      P.box(xr - w, yTop, w, h, h / 2, bg); P.text(label, xr - pad, yTop + h / 2 + size * 0.36, { size, weight: 700, color: fg });
+      return w;
+    },
+  };
+  return P;
+}
+function xHeader(P, note) {
+  P.box(0, 0, XW, 84, 0, XP.mast); P.box(0, 84, XW, 4, 0, XP.mint);
+  const bw = P.text('פורטה', XW - XPAD, 55, { size: 36, weight: 900, color: XP.mint, disp: true });
+  P.text('בית השקעות', XW - XPAD - bw - 14, 52, { size: 16, color: XP.mast2 });
+  if (note) P.text(note, XPAD, 52, { size: 16, color: XP.mast2, align: 'left' });
+  return 88;
+}
+function xFooter(P, y, src) {
+  P.box(XPAD, y, XW - XPAD * 2, 1, 0, XP.line);
+  const disc = 'כלי עזר להחלטה ולא המלצת השקעה'; const dw = P.w(disc, 13);
+  P.text(disc, XPAD, y + 28, { size: 13, color: XP.muted, align: 'left' });
+  P.text(P.fit(src, XW - XPAD * 2 - dw - 30, 13), XW - XPAD, y + 28, { size: 13, color: XP.muted });
+  return y + 46;
+}
+function xCanvas(h) {
+  let sc = 2; if (XW * h * sc * sc > 15e6) sc = Math.sqrt(15e6 / (XW * h));
+  const c = document.createElement('canvas'); c.width = Math.round(XW * sc); c.height = Math.round(h * sc);
+  const ctx = c.getContext('2d'); ctx.scale(sc, sc); ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, XW, h);
+  return { c, ctx };
+}
+function toBlobP(c) { return new Promise((res, rej) => { try { c.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/png'); } catch (e) { rej(e); } }); }
+function zoomOf(inst) { try { const dz = (inst.getOption().dataZoom || []).find(z => z.startValue != null); return dz ? [dz.startValue, dz.endValue] : null; } catch (e) { return null; } }
+// Render the open chart (#dChart or #xChart) at W x H in the light palette, with its drawn lines, then put it back.
+function captureLive(ctx, redraw, W, H) {
+  const el = $('#' + ctx + 'Chart'); let inst = el && typeof echarts !== 'undefined' ? echarts.getInstanceByDom(el) : null;
+  if (!inst) throw new Error('nochart');
+  const zoom = zoomOf(inst), root = document.documentElement;
+  const light = tok('--surface').toUpperCase() === '#FFFFFF';
+  const setZoom = c => { if (zoom && c) c.dispatchAction({ type: 'dataZoom', startValue: zoom[0], endValue: zoom[1] }); };
+  const drw = () => { const a = S.drwApi && S.drwApi[ctx]; if (a) a.render(); };
+  const pw = el.style.width, ph = el.style.height;
+  let url, svg = null;
+  try {
+    if (!light) { root.classList.add('xp-light'); redraw(); inst = echarts.getInstanceByDom(el); }
+    el.style.width = W + 'px'; el.style.height = H + 'px';
+    inst.resize({ width: W, height: H, animation: { duration: 0 } });
+    setZoom(inst);
+    try { inst.dispatchAction({ type: 'hideTip' }); inst.dispatchAction({ type: 'updateAxisPointer', currTrigger: 'leave' }); } catch (e) { /* no tooltip */ }
+    drw();
+    url = inst.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#FFFFFF', excludeComponents: ['dataZoom', 'toolbox'] });
+    const sv = el.querySelector('svg.drw'); if (sv && sv.querySelector('line, circle')) svg = new XMLSerializer().serializeToString(sv);
+  } finally {
+    el.style.width = pw; el.style.height = ph;
+    if (!light) { root.classList.remove('xp-light'); redraw(); inst = echarts.getInstanceByDom(el); }
+    else inst.resize();
+    setZoom(inst); drw();
+  }
+  return { url, svg, zoom };
+}
+// draws the captured chart (and its lines) as one image, without the empty strip the hidden slider leaves at the bottom
+async function flatten(cap, W, H) {
+  const im = await loadImg(cap.url), c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+  const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+  if (cap.svg) { try { g.drawImage(await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(cap.svg)), 0, 0, c.width, c.height); } catch (e) { /* lines are optional */ } }
+  let used = c.height;
+  try {
+    const d = g.getImageData(0, 0, c.width, c.height).data, rowW = c.width * 4;
+    for (let yy = c.height - 1; yy > c.height * 0.6; yy--) {
+      let blank = true; for (let i = yy * rowW; i < (yy + 1) * rowW; i += 16) { if (d[i] < 245 || d[i + 1] < 245 || d[i + 2] < 245) { blank = false; break; } }
+      if (!blank) { used = Math.min(c.height, yy + 1 + Math.round(c.height / H * 6)); break; }
+    }
+  } catch (e) { /* keep the full height */ }
+  return { c, h: H * used / c.height, sh: used };
+}
+function drawFlat(ctx2d, f, x, y, w) { ctx2d.drawImage(f.c, 0, 0, f.c.width, f.sh, x, y, w, f.h); }
+function kpiRow(P, y, items) {   // items: [label, value, {ltr, chip}]; drawn right to left
+  const gap = 12, n = items.length, bw = (XW - XPAD * 2 - gap * (n - 1)) / n, bh = 74;
+  items.forEach(([k, v, o = {}], i) => {
+    const xr = XW - XPAD - i * (bw + gap);
+    P.box(xr - bw, y, bw, bh, 8, XP.sunk, XP.line);
+    P.text(P.fit(k, bw - 28, 13), xr - 14, y + 24, { size: 13, color: XP.muted });
+    if (o.chip) P.pill(P.fit(v, bw - 50, 16, 700), xr - 14, y + 34, 30, 16, o.chip);
+    else P.text(P.fit(v, bw - 28, 26, 800, { ltr: o.ltr }), xr - 14, y + 60, { size: 26, weight: 800, ltr: o.ltr, color: o.color });
+  });
+  return y + bh;
+}
+const LTR = x => '\u202A' + x + '\u202C';   // keeps "−3.7%" or "^GSPC" in order inside Hebrew text on a canvas
+const curRange = ctx => { const p = $('#' + ctx + 'Range [aria-pressed="true"]'); return p ? +p.dataset.r : (ctx === 'd' ? 1827 : 365); };
+
+async function exportIndImage(id) {
+  const meta = indMeta(id); const s = id === COMP_ID ? composite(S.win).series : series(id);
+  if (!meta || !s || !s.v.length) throw new Error('nodata');
+  await fontsReady();
+  const st = stats(id, S.win), CW = XW - 48, CH = 540;
+  const cap = captureLive('d', () => drawChart(id, curRange('d')), CW, CH);
+  const [z0, z1] = cap.zoom || [s.t[0], s.t[s.t.length - 1]];
+  const hasPct = st && st.pct != null && !meta.nopct;
+  const f = await flatten(cap, CW, CH);
+  const H = Math.ceil(88 + 186 + f.h + (hasPct ? 30 : 8) + 50);
+  const { c, ctx } = xCanvas(H); const P = painter(ctx, false);
+  xHeader(P, st ? `נכון ל-${fmtDate(st.d)}` : '');
+  P.text(P.fit(meta.name, XW - XPAD * 2, 32, 800, { disp: true }), XW - XPAD, 138, { size: 32, weight: 800, disp: true });
+  const sub = [FREQ_LABEL[meta.freq] || '', meta.short || '', `טווח הגרף ${fmtDate(isoOf(z0))} – ${fmtDate(isoOf(z1))}`].filter(Boolean).join(' · ');
+  P.text(P.fit(sub, XW - XPAD * 2, 16), XW - XPAD, 166, { size: 16, color: XP.muted });
+  const state = st ? (hasSig(meta) ? sigOf(meta) : stateOf(meta.pol, st.pct)) : null;
+  kpiRow(P, 186, [
+    ['ערך אחרון', st ? fmtVal(meta, st.x) : '—', { ltr: true }],
+    [`אחוזון · ${WIN_LABEL[S.win]}`, hasPct ? String(Math.round(st.pct)) : '—', { ltr: true }],
+    [`Z · ${WIN_LABEL[S.win]}`, hasPct && isFinite(st.z) ? fmtS(st.z, 2) : '—', { ltr: true }],
+    ['מצב', state ? state.t : '—', state ? { chip: state.k } : {}],
+  ]);
+  const cy = 186 + 74 + 16;
+  drawFlat(ctx, f, 24, cy, CW);
+  let y = cy + f.h;
+  if (hasPct) { P.text(P.fit(`קווים מקווקווים: אחוזונים 5, 25, 50, 75 ו-95 של ${WIN_LABEL[S.win]} · גרף תחתון: האחוזון המתגלגל בכל יום`, XW - XPAD * 2, 13), XW - XPAD, y + 18, { size: 13, color: XP.muted }); y += 30; } else y += 8;
+  const src = id === COMP_ID ? `מקור: חישוב פורטה על ${composite(S.win).used.length} רכיבים` : meta.src ? `מקור: ${meta.src}` : 'פורטה בית השקעות';
+  xFooter(P, y, src + ' · דשבורד השווקים של פורטה');
+  return { blob: await toBlobP(c), w: c.width, h: c.height, title: meta.name, filename: `forte_${(id === COMP_ID ? 'sentiment' : id).replace(/[^\w-]+/g, '_')}_${st ? st.d : isoOf(Date.now())}.png` };
+}
+async function exportIdxImage(sym) {
+  const it = xItem(sym); if (!it) throw new Error('nodata');
+  const isFac = it.score != null || !!it.ex;
+  await fontsReady();
+  const CW = XW - 48, CH = 600;
+  const cap = captureLive('x', () => drawIdxChart(sym, curRange('x'), isFac), CW, CH);
+  const pct = v => it.chgMode === 'pp' ? `${fmtS((v ?? NaN) * 100, 0)} נ"ב` : fmtPct(v);
+  const tr = TREND[it.trend] || TREND.na;
+  const f = await flatten(cap, CW, CH);
+  const H = Math.ceil(88 + 186 + f.h + 30 + 50);
+  const { c, ctx } = xCanvas(H); const P = painter(ctx, false);
+  xHeader(P, it.date ? `נכון ל-${fmtDate(it.date)}` : '');
+  P.text(P.fit(it.name, XW - XPAD * 2, 32, 800, { disp: true }), XW - XPAD, 138, { size: 32, weight: 800, disp: true });
+  const rng = cap.zoom ? `טווח הגרף ${fmtDate(isoOf(cap.zoom[0]))} – ${fmtDate(isoOf(cap.zoom[1]))}` : '';
+  const sub = [sym.startsWith('B:') ? '' : LTR(sym), it.desc || '', rng].filter(Boolean).join(' · ');
+  P.text(P.fit(sub, XW - XPAD * 2, 16), XW - XPAD, 166, { size: 16, color: XP.muted });
+  const up = v => v == null || !isFinite(v) ? undefined : v > 0 ? '#13765A' : v < 0 ? '#B9482A' : undefined;
+  kpiRow(P, 186, [
+    [`שער · יומי ${LTR(pct(it.d1))}`, priceFmt(it, it.last), { ltr: true }],
+    ['מתחילת השנה', pct(it.ytd), { ltr: true, color: up(it.ytd) }],
+    ['מול ממוצע 200', fmtPct(it.ma200), { ltr: true, color: up(it.ma200) }],
+    ['RSI ‏(14)', fmtN(it.rsi, 0), { ltr: true }],
+    ['מגמה', tr[0], tr[1] ? { chip: tr[1] } : {}],
+  ]);
+  const cy = 186 + 74 + 16;
+  drawFlat(ctx, f, 24, cy, CW);
+  const tf = candleTf('x', 'd');
+  const mas = maList().map(m => `${m.k === 'e' ? 'EMA' : 'SMA'} ${m.n}`).join(', ');
+  const cap2 = [`${candleType() === 'line' ? 'קו' : 'נרות'} ${CANDLE_TF[tf] || ''}`.trim(), mas ? 'ממוצעים: ' + mas : '', isFac ? 'למטה: היחס מול S&P 500' : 'למטה: RSI ‏(14)'].filter(Boolean).join(' · ');
+  P.text(P.fit(cap2, XW - XPAD * 2, 13), XW - XPAD, cy + f.h + 18, { size: 13, color: XP.muted });
+  xFooter(P, cy + f.h + 30, (sym.startsWith('B:') ? '' : 'נתוני מחירים: Yahoo Finance · ') + 'דשבורד השווקים של פורטה');
+  return { blob: await toBlobP(c), w: c.width, h: c.height, title: it.name, filename: `forte_${sym.replace(/[^\w.-]+/g, '_')}_${it.date || isoOf(Date.now())}.png` };
+}
+function stkLevels(s) {
+  return [['תמיכות', s.support], ['התנגדויות', s.resistance], ['סטופ / רמת ביטול', s.stop], ['יעדים', s.target], ['מחיר בעת הניתוח', s.price != null && s.price !== '' ? fmtN(+s.price, 2) : ''], ['טווח', HORIZON[s.horizon] || ''], ['סטאפ / תבנית', s.setup]].filter(r => r[1]);
+}
+function stkHasText(s) { return !!(s.headline || (s.points || []).length || s.body || stkLevels(s).length); }
+async function exportStockImage(s, mode) {
+  await fontsReady();
+  let im = null;
+  if (s.img) { const r = await fetch('/img/' + s.img); if (!r.ok) throw new Error('img'); const u = URL.createObjectURL(await r.blob()); try { im = await loadImg(u); } finally { setTimeout(() => URL.revokeObjectURL(u), 60000); } }
+  const full = mode !== 'chart' || !im;
+  const draw = (ctx, dry) => {
+    const P = painter(ctx, dry), cw = XW - XPAD * 2, upd = (s.updatedAt || '').slice(0, 10);
+    xHeader(P, upd ? `עודכן ${fmtDate(upd)}` : '');
+    let x = XW - XPAD; const ty = 150;
+    x -= P.text(s.ticker, x, ty, { size: 44, weight: 900, disp: true, ltr: true }) + 18;
+    if (s.name) x -= P.text(P.fit(s.name, 420, 24, 600), x, ty - 4, { size: 24, weight: 600, color: XP.ink2 }) + 18;
+    const k = s.status === 'pending' ? 'pending' : (s.bias || 'neutral');
+    x -= P.pill(BIAS[k] || '', x, ty - 30, 34, 17, k) + 10;
+    if (s.sector && x > XPAD + 120) P.pill(P.fit(s.sector, x - XPAD - 40, 15, 700), x, ty - 29, 32, 15, 'plain');
+    let y = ty + 26;
+    if (im) {
+      let w = cw, h = cw * im.naturalHeight / im.naturalWidth; const maxH = full ? 680 : 900;
+      if (h > maxH) { w = w * maxH / h; h = maxH; }
+      const ix = XPAD + (cw - w) / 2;
+      if (!dry) { ctx.save(); rrect(ctx, ix, y, w, h, 10); ctx.clip(); ctx.drawImage(im, ix, y, w, h); ctx.restore(); }
+      P.box(ix, y, w, h, 10, null, XP.line);
+      y += h + 26;
+    }
+    if (full) {
+      const lv = stkLevels(s), colL = lv.length ? 400 : 0, colR = cw - (colL ? colL + 28 : 0), xr = XW - XPAD;
+      let yr = y;
+      if (s.headline) { for (const ln of P.wrap(s.headline, colR, 23, 700)) { yr += 32; P.text(ln, xr, yr, { size: 23, weight: 700 }); } yr += 14; }
+      const pts = s.points || [];
+      if (pts.length) {
+        yr += 24; P.text('עיקרי הניתוח', xr, yr, { size: 17, weight: 700 }); yr += 6;
+        for (const pt of pts) { P.wrap(pt, colR - 24, 17).forEach((ln, i) => { yr += 28; if (i === 0) P.text('•', xr, yr, { size: 17, weight: 700, color: XP.ink2 }); P.text(ln, xr - 22, yr, { size: 17 }); }); yr += 4; }
+        yr += 8;
+      }
+      if (s.body) {
+        yr += 24; P.text('הערות', xr, yr, { size: 17, weight: 700 }); yr += 4;
+        const lines = P.wrap(s.body, colR, 15), cut = lines.slice(0, 10);
+        cut.forEach((ln, i) => { yr += 24; P.text(i === cut.length - 1 && lines.length > cut.length ? ln + ' …' : ln, xr, yr, { size: 15, color: XP.ink2 }); });
+        yr += 8;
+      }
+      let yl = y;
+      if (colL) {
+        const lx = XPAD, rowH = 42;
+        P.text('רמות', lx + colL, yl + 24, { size: 17, weight: 700 }); yl += 38;
+        P.box(lx, yl, colL, rowH * lv.length, 8, XP.surface, XP.line);
+        lv.forEach(([key, val], i) => {
+          const ry = yl + i * rowH;
+          if (key.startsWith('סטופ')) P.box(lx + 1, ry + 1, colL - 2, rowH - 2, 0, XP.hl);
+          if (i) P.box(lx + 1, ry, colL - 2, 1, 0, XP.line2);
+          P.text(key, lx + colL - 14, ry + 27, { size: 15, color: XP.muted });
+          const num = /[0-9]/.test(val) && !/[א-ת]/.test(val), kw = P.w(key, 15) + 28;
+          P.text(P.fit(val, colL - kw - 14, 16, 700, { ltr: num }), lx + 14, ry + 27, { size: 16, weight: 700, align: 'left', ltr: num });
+        });
+        yl += rowH * lv.length;
+      }
+      y = Math.max(yr, yl) + 26;
+    }
+    return xFooter(P, y, 'ניתוח טכני · פורטה בית השקעות');
+  };
+  const H = Math.ceil(draw(document.createElement('canvas').getContext('2d'), true));
+  const { c, ctx } = xCanvas(H); draw(ctx, false);
+  return { blob: await toBlobP(c), w: c.width, h: c.height, title: `${s.ticker} · ניתוח טכני`, filename: `forte_${String(s.ticker).replace(/[^\w.-]+/g, '_')}_${(s.updatedAt || isoOf(Date.now())).slice(0, 10)}.png` };
+}
+
+let xov = null, xUrl = null;
+function closeExport() {
+  if (xov) { xov.remove(); xov = null; }
+  if (xUrl) { URL.revokeObjectURL(xUrl); xUrl = null; }
+  if (!$('#ov')) document.body.style.overflow = '';
+}
+function openExport(kind, ref) {
+  closeExport();
+  const isStk = kind === 'stk';
+  const title = isStk ? `${ref.ticker}${ref.name ? ' · ' + ref.name : ''}` : kind === 'idx' ? ((xItem(ref) || {}).name || ref) : ((indMeta(ref) || {}).name || '');
+  const canMode = isStk && !!ref.img && stkHasText(ref);
+  let mode = isStk && ref.img && !stkHasText(ref) ? 'chart' : 'full', cur = null, job = 0;
+  const canCopy = !!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write && window.isSecureContext);
+  const canShare = (() => { try { return !!(navigator.canShare && navigator.share && navigator.canShare({ files: [new File([new Blob(['x'])], 'x.png', { type: 'image/png' })] })); } catch (e) { return false; } })();
+  xov = document.createElement('div'); xov.className = 'ov ovx'; xov.style.zIndex = '66'; xov.setAttribute('dir', 'rtl'); xov.setAttribute('lang', 'he');
+  xov.innerHTML = `<div class="sheet narrow" role="dialog" aria-modal="true" aria-label="ייצוא כתמונה">
+    <div class="sh-head"><div><h2>ייצוא כתמונה</h2><div class="sub">${esc(title)}</div></div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+    <div class="sh-body">
+      ${canMode ? '<div class="seg" role="group" aria-label="מה לכלול בתמונה" id="xMode"><button type="button" data-m="full" aria-pressed="true">גרף + ניתוח</button><button type="button" data-m="chart" aria-pressed="false">גרף בלבד</button></div>' : ''}
+      <div class="xprev" id="xPrev"><span class="muted">מכין את התמונה…</span></div>
+      <div class="small muted" id="xInfo"></div>
+      <div class="actions">
+        ${canCopy ? '<button type="button" class="btn ghost" id="xCopy" disabled>העתקה</button>' : ''}
+        <button type="button" class="btn${canShare ? ' ghost' : ''}" id="xDl" disabled>${ICON_DL}הורדה</button>
+        ${canShare ? '<button type="button" class="btn" id="xShare" disabled>שיתוף / שמירה בטלפון</button>' : ''}
+      </div>
+    </div></div>`;
+  document.body.appendChild(xov);
+  document.body.style.overflow = 'hidden';
+  xov.addEventListener('mousedown', e => { if (e.target === xov) closeExport(); });
+  const xc = $('.xclose', xov); xc.addEventListener('click', closeExport); setTimeout(() => xc.focus(), 0);
+  const btns = () => $$('#xDl, #xShare, #xCopy', xov);
+  const render = async () => {
+    const my = ++job; cur = null;
+    $('#xPrev', xov).innerHTML = '<span class="muted">מכין את התמונה…</span>'; $('#xInfo', xov).textContent = '';
+    btns().forEach(b => { b.disabled = true; });
+    try {
+      const r = isStk ? await exportStockImage(ref, mode) : kind === 'idx' ? await exportIdxImage(ref) : await exportIndImage(ref);
+      if (my !== job || !xov) return;
+      cur = r; if (xUrl) URL.revokeObjectURL(xUrl); xUrl = URL.createObjectURL(r.blob);
+      $('#xPrev', xov).innerHTML = `<img src="${xUrl}" alt="תצוגה מקדימה של התמונה">`;
+      const kb = r.blob.size / 1024;
+      $('#xInfo', xov).textContent = `PNG · ${r.w.toLocaleString('en-US')}×${r.h.toLocaleString('en-US')} · ${kb > 1024 ? (kb / 1024).toFixed(1) + 'MB' : Math.round(kb) + 'KB'}`;
+      btns().forEach(b => { b.disabled = false; });
+    } catch (e) {
+      if (my !== job || !xov) return;
+      $('#xPrev', xov).innerHTML = `<span class="muted">${e && e.message === 'nochart' ? 'הגרף עדיין נטען. נסו שוב בעוד רגע.' : 'לא הצלחתי ליצור את התמונה. נסו שוב.'}</span>`;
+    }
+  };
+  const ms = $('#xMode', xov);
+  if (ms) ms.addEventListener('click', e => { const b = e.target.closest('button[data-m]'); if (!b || b.dataset.m === mode) return; mode = b.dataset.m; $$('button', ms).forEach(x => x.setAttribute('aria-pressed', String(x === b))); render(); });
+  $('#xDl', xov).addEventListener('click', () => {
+    if (!cur || !xUrl) return;
+    const a = document.createElement('a'); a.href = xUrl; a.download = cur.filename; document.body.appendChild(a); a.click(); a.remove();
+  });
+  const sh = $('#xShare', xov);
+  if (sh) sh.addEventListener('click', async () => {
+    if (!cur) return;
+    try { await navigator.share({ files: [new File([cur.blob], cur.filename, { type: 'image/png' })], title: cur.title }); }
+    catch (e) { if (!e || e.name !== 'AbortError') toast('השיתוף לא הצליח. נסו "הורדה".', true); }
+  });
+  const cp = $('#xCopy', xov);
+  if (cp) cp.addEventListener('click', async () => {
+    if (!cur) return;
+    try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': cur.blob })]); toast('התמונה הועתקה. אפשר להדביק בוואטסאפ, במייל או במצגת.'); }
+    catch (e) { toast('הדפדפן לא מאפשר להעתיק תמונה. השתמשו ב"הורדה".', true); }
+  });
+  render();
+}
+
 // ---------------- candlesticks (TradingView-style) ----------------
 // Bars come from data/ohlc/<symbol>.json for indices; any day without a bar (and every sentiment reading)
 // opens at the previous close, so it draws as a body without wicks. Weekly / monthly candles aggregate days.
@@ -2113,6 +2552,7 @@ function renderStockDetail() {
     <div class="sd-head">
       <div class="sd-title"><span class="tick">${esc(s.ticker)}</span><h1>${esc(s.name || '')}</h1>${biasPill(s)}${s.sector ? `<span class="chip chip-plain">${esc(s.sector)}</span>` : ''}</div>
       <div class="actions">
+        ${s.img || stkHasText(s) ? `<button type="button" class="btn ghost" data-export="stk">${ICON_DL}ייצוא כתמונה</button>` : ''}
         ${s.tvUrl ? `<a class="btn ghost" href="${esc(s.tvUrl)}" target="_blank" rel="noopener">פתיחה ב-TradingView ↗</a>` : ''}
         ${S.canEdit && !S.viewVer ? `<button type="button" class="btn" id="sdEdit">${cur.status === 'pending' ? 'כתיבת ניתוח' : 'עדכון הניתוח'}</button><button type="button" class="btn danger sm" id="sdDel">מחיקה</button>` : ''}
       </div>
@@ -2137,6 +2577,7 @@ function renderStockDetail() {
   $('#sdBack').addEventListener('click', backToList);
   const c = $('#sdCur'); if (c) c.addEventListener('click', () => { S.viewVer = null; renderStockDetail(); });
   const im = $('#sdImg'); if (im) im.addEventListener('click', () => lightbox(im.src));
+  const xb = $('[data-export="stk"]', el); if (xb) xb.addEventListener('click', () => openExport('stk', s));
   const ed = $('#sdEdit'); if (ed) ed.addEventListener('click', () => openStockEditor(cur.ticker));
   const dl = $('#sdDel'); if (dl) dl.addEventListener('click', async () => {
     if (!(await askConfirm(`למחוק את ${cur.ticker} מהרשימה? הגרסאות הקודמות נשמרות, אבל הכרטיס ייעלם.`, 'מחיקה'))) return;
@@ -2242,7 +2683,7 @@ function openHoldingsImport() {
 function openNoteEditor() { openBriefEditor(); }
 function askConfirm(text, okLabel = 'אישור') {
   return new Promise(res => {
-    const wrap = document.createElement('div'); wrap.className = 'ov'; wrap.style.zIndex = '65'; wrap.style.placeItems = 'center';
+    const wrap = document.createElement('div'); wrap.className = 'ov ovc'; wrap.style.zIndex = '67'; wrap.style.placeItems = 'center';
     wrap.innerHTML = `<div class="sheet narrow" role="alertdialog" aria-modal="true"><div class="sh-body"><p style="margin:0;font-size:15px">${esc(text)}</p><div class="actions"><button type="button" class="btn ghost" data-a="0">ביטול</button><button type="button" class="btn" data-a="1">${esc(okLabel)}</button></div></div></div>`;
     document.body.appendChild(wrap);
     const done = v => { wrap.remove(); res(v); };
@@ -2932,7 +3373,7 @@ async function openIdx(sym) {
   const ta = it.ta && S.stk.get(it.ta);
   const tile = (k, v, s = '') => `<div class="tile"><span class="k">${k}</span><span class="val">${v}</span><span class="s">${s}</span></div>`;
   const pctTxt = (v) => it.chgMode === 'pp' ? `${ltr(fmtS((v ?? NaN) * 100, 0))} נ"ב` : ltr(fmtPct(v));
-  const html = `<div class="sh-head"><div><h2>${esc(it.name)}</h2>${sym.startsWith('B:') ? `<div class="sub">${esc(it.desc || '')}</div>` : `<div class="sub ltr">${esc(sym)}${it.desc ? ' · ' + esc(it.desc) : ''}</div>`}</div><button type="button" class="xclose" aria-label="סגירה">✕</button></div>
+  const html = `<div class="sh-head"><div><h2>${esc(it.name)}</h2>${sym.startsWith('B:') ? `<div class="sub">${esc(it.desc || '')}</div>` : `<div class="sub ltr">${esc(sym)}${it.desc ? ' · ' + esc(it.desc) : ''}</div>`}</div><div class="sh-tools">${exportBtn('idx')}<button type="button" class="xclose" aria-label="סגירה">✕</button></div></div>
     <div class="sh-body">
       <div class="tiles">
         ${tile(`שער · ${fmtDate(it.date)}`, ltr(priceFmt(it, it.last)), pctTxt(it.d1) + ' ביום')}
@@ -2944,7 +3385,7 @@ async function openIdx(sym) {
         ${it.cmf && it.cmf.cmf != null ? tile('Chaikin Money Flow ‏(20)', ltr(fmtS(it.cmf.cmf, 2)), it.cmf.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : it.cmf.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'מאוזן') : ''}
         ${it.rs && it.rs.rs != null ? tile('RS ‏(6-1)', `${rsBadge(it.rs.rs)}${rsDelta(it.rs.rs, it.rs.rsPrev)}`, `תשואת 6-1: ${ltr(fmtPct(it.rs.ret61))}`) : ''}
       </div>
-      <section class="sd-box"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>
+      <section class="sd-box xsum"><p style="margin:0;line-height:1.7">${esc(idxSummary(it))}</p>
         ${ta ? `<div><button type="button" class="btn sm" id="toTa">לניתוח הטכני שלי על ${esc(it.name)}</button></div>` : ''}</section>
       ${isFac && it.ex ? `<section class="panel"><div class="panel-head"><h3>תשואה עודפת על S&amp;P 500</h3></div><div class="tbl-wrap"><table class="ft"><thead><tr><th>חודש</th><th>3 ח'</th><th>6 ח'</th><th>12 ח'</th><th>ציון מומנטום</th></tr></thead><tbody><tr>${chgTd(it.ex.m1, it)}${chgTd(it.ex.m3, it)}${chgTd(it.ex.m6, it)}${chgTd(it.ex.y1, it)}${chgTd(it.score, it, 'hl')}</tr></tbody></table></div></section>` : ''}
       <section class="panel">
@@ -2953,6 +3394,7 @@ async function openIdx(sym) {
           ${candleTools('x', 'd')}
           <label class="chk" for="xLog"><input type="checkbox" id="xLog" ${S.xLog !== false ? 'checked' : ''}>סולם לוגריתמי</label>
           <span class="small muted">${isFac ? 'למטה: היחס מול S&amp;P 500 (עולה = מכה את המדד)' : 'למטה: RSI ‏(14)'}</span>
+          ${toolsToggle()}
         </div>
         <div class="ctool-row">${maToolsHtml()}<label class="chk" for="xVol" id="xVolLbl"><input type="checkbox" id="xVol" ${lsGet('xVol', '1') === '1' ? 'checked' : ''}>ווליום</label></div>
         <div class="ctool-row">${drawToolsHtml('x')}</div>
@@ -2962,8 +3404,9 @@ async function openIdx(sym) {
       </section>
       <section class="panel" id="xLevels"></section>
     </div>`;
-  openOverlay(html);
+  const root = openOverlay(html);
   S.detail = 'x:' + sym;
+  const xb = $('[data-export="idx"]', root); if (xb) xb.addEventListener('click', () => openExport('idx', sym));
   const t = $('#toTa'); if (t) t.addEventListener('click', () => { closeOverlay(); openStock(it.ta); });
   $$('#xRange button').forEach(b => b.addEventListener('click', () => { $$('#xRange button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawIdxChart(sym, +b.dataset.r, isFac); }));
   $('#xLog').addEventListener('change', e => { S.xLog = e.target.checked; lsSet('xLog', S.xLog ? '1' : '0'); const q = $('#xRange [aria-pressed="true"]'); drawIdxChart(sym, q ? +q.dataset.r : 365, isFac); });
@@ -3102,6 +3545,14 @@ function initStickyHeads() {
     fh.style.top = top + 'px'; fh.style.left = Math.max(0, wrap.left) + 'px'; fh.style.width = Math.min(wrap.width, innerWidth) + 'px';
     fh.style.height = t.tHead.getBoundingClientRect().height + 'px';
     fh.firstChild.style.transform = `translateX(${tr.left - Math.max(0, wrap.left)}px)`;
+    // cells that are sticky in the real table (the first column on phones) stay put in the floating copy too
+    const sr = t.tHead.rows[0], dr = fh.firstChild.tHead.rows[0];
+    if (sr && dr) for (let i = 0; i < sr.cells.length && i < dr.cells.length; i++) {
+      const d = dr.cells[i];
+      if (getComputedStyle(sr.cells[i]).position !== 'sticky') { if (d.style.transform) d.style.transform = ''; continue; }
+      d.style.transform = ''; d.style.position = 'relative'; d.style.zIndex = '1';
+      d.style.transform = `translateX(${sr.cells[i].getBoundingClientRect().left - d.getBoundingClientRect().left}px)`;
+    }
   }
   const kick = () => { if (!raf) raf = requestAnimationFrame(sync); };
   addEventListener('scroll', kick, { passive: true });
@@ -3115,6 +3566,21 @@ function initStickyHeads() {
     const b = o.querySelector('button'); (b || o).click(); sig = ''; kick();
   });
   setVar(); kick();
+  // tables cut off at the edge get a fade there (class "more"); updated on render, resize and horizontal scroll
+  const moreOf = w => { const max = w.scrollWidth - w.clientWidth; w.classList.toggle('more', max > 4 && max - Math.abs(w.scrollLeft) > 4); };
+  let traf = 0;
+  const tkick = () => { if (!traf) traf = requestAnimationFrame(() => { traf = 0; for (const w of document.querySelectorAll('.tbl-wrap')) if (w.offsetParent) {
+    moreOf(w);
+    // in a table that scrolls sideways, keep each section label (a full-width row) in view
+    if (w.scrollWidth > w.clientWidth + 4) for (const td of w.querySelectorAll('tr.secr > td[colspan]')) {
+      if (!td.firstChild || (td.firstChild.nodeType === 1 && td.firstChild.classList.contains('secl'))) continue;
+      const sp = document.createElement('span'); sp.className = 'secl'; while (td.firstChild) sp.appendChild(td.firstChild); td.appendChild(sp);
+    }
+  } }); };
+  document.addEventListener('scroll', e => { const w = e.target; if (w && w.classList && w.classList.contains('tbl-wrap')) moreOf(w); }, { passive: true, capture: true });
+  addEventListener('resize', tkick);
+  new MutationObserver(tkick).observe(document.body, { childList: true, subtree: true });
+  tkick();
 }
 
 // ---------------- zoom for time charts: range buttons over an ECharts chart with a slider ----------------
@@ -4582,8 +5048,14 @@ function initMotion() {
       prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
       top.classList.toggle('show', scrollY > 900);
       document.body.classList.toggle('scrolled', scrollY > 8);
+      // phones: hide the header while scrolling down, show it again on the way up
+      const y = scrollY;
+      if (innerWidth > 860 || y < 80) { document.body.classList.remove('mast-hide'); lastY = y; }
+      else if (Math.abs(y - lastY) > 8) { document.body.classList.toggle('mast-hide', y > lastY); lastY = y; }
     });
   };
+  let lastY = scrollY;
+  const mastEl = $('.mast'); if (mastEl) mastEl.addEventListener('transitionend', () => dispatchEvent(new Event('scroll')));
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' }));
 }
@@ -4704,7 +5176,7 @@ function bind() {
   $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
   $('#importHold').addEventListener('click', openHoldingsImport);
   bindMarketing();
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (xov) { closeExport(); return; } const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; }
     if ($('#ov') && S.drawMode) { S.drawMode = ''; Object.values(S.drwApi || {}).forEach(a => a.cancel()); $$('.dtools [data-dm]').forEach(x => x.setAttribute('aria-pressed', 'false')); return; }
     if ($('#ov')) closeOverlay(); } });
   const reTheme = () => {
