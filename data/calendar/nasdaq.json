@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-21T07:30+00:00",
+"asof": "2026-11-22T05:01+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -22642,7 +22642,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 107814248000.0,
+"mcap": 104978727000.0,
 "name": "Petroleo Brasileiro S.A.- Petrobras",
 "sources": [
 {
@@ -22680,7 +22680,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 107814248000.0,
+"mcap": 104978727000.0,
 "name": "Petroleo Brasileiro S.A.- Petrobras",
 "sources": [
 {
@@ -22711,7 +22711,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 64276255000.0,
+"mcap": 63250514000.0,
 "name": "Transdigm Group Incorporated",
 "sources": [
 {
@@ -22749,7 +22749,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 43700703000.0,
+"mcap": 43272520000.0,
 "name": "Honda Motor Company, Ltd.",
 "sources": [
 {
@@ -22780,7 +22780,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 42016436000.0,
+"mcap": 40387228000.0,
 "name": "Sea Limited",
 "sources": [
 {
@@ -22818,7 +22818,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 37607424000.0,
+"mcap": 37227651000.0,
 "name": "Alcon Inc.",
 "sources": [
 {
@@ -22856,7 +22856,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 34698932000.0,
+"mcap": 33144393700.0,
 "name": "Vodafone Group Plc",
 "sources": [
 {
@@ -22887,7 +22887,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30312495100.0,
+"mcap": 30539083800.0,
 "name": "Venture Global, Inc.",
 "sources": [
 {
@@ -22925,7 +22925,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 28925595600.0,
+"mcap": 27486511100.0,
 "name": "Ecopetrol S.A.",
 "sources": [
 {
@@ -22963,7 +22963,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 26599493600.0,
+"mcap": 24975605800.0,
 "name": "CoreWeave, Inc.",
 "sources": [
 {
@@ -22975,44 +22975,6 @@
 "period": "רבעון נוכחי",
 "eps": -1.45,
 "epsN": 10.0,
-"source": "Nasdaq (Zacks)",
-"quality": "normal"
-}
-},
-{
-"id": "ONON-2026-11-10",
-"ticker": "ONON",
-"market": "US",
-"date": "2026-11-10",
-"session": "TBD",
-"period": "Sep/2026",
-"status": "listed",
-"release": {
-"text": "שעה לא צוינה",
-"tz": "America/New_York"
-},
-"call": {
-"time": null,
-"tz": "America/New_York",
-"confirmed": false,
-"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"nasdaq": true,
-"mcap": 19569268700.0,
-"name": "On Holding AG",
-"sources": [
-{
-"label": "Nasdaq · Earnings Calendar",
-"url": "https://www.nasdaq.com/market-activity/earnings"
-}
-],
-"consensus": {
-"period": "רבעון נוכחי",
-"eps": 0.42,
-"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23039,7 +23001,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 19381352400.0,
+"mcap": 18838100000.0,
 "name": "Telefonica Brasil S.A.",
 "sources": [
 {
@@ -23056,8 +23018,8 @@
 }
 },
 {
-"id": "EMBJ-2026-11-10",
-"ticker": "EMBJ",
+"id": "ONON-2026-11-10",
+"ticker": "ONON",
 "market": "US",
 "date": "2026-11-10",
 "session": "TBD",
@@ -23077,8 +23039,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10125963300.0,
-"name": "Embraer S.A.",
+"mcap": 18597744600.0,
+"name": "On Holding AG",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -23087,8 +23049,8 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 0.87,
-"epsN": 3.0,
+"eps": 0.42,
+"epsN": 6.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -23115,7 +23077,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 45719925000.0,
+"mcap": 44532142000.0,
 "name": "Franco-Nevada Corporation",
 "sources": [
 {
@@ -23153,7 +23115,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16831745000.0,
+"mcap": 16244811800.0,
 "name": "Joint Stock Company Kaspi.kz",
 "sources": [
 {
@@ -23191,7 +23153,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16646598700.0,
+"mcap": 16226631700.0,
 "name": "CGI Inc.",
 "sources": [
 {
@@ -23229,7 +23191,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 383127126000.0,
+"mcap": 373349843000.0,
 "name": "Cisco Systems, Inc.",
 "sources": [
 {
@@ -23267,7 +23229,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 279584375000.0,
+"mcap": 268973982000.0,
 "name": "Applied Materials, Inc.",
 "sources": [
 {
@@ -23305,7 +23267,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 87567753000.0,
+"mcap": 86786474000.0,
 "name": "Brookfield Corporation",
 "sources": [
 {
@@ -23343,7 +23305,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 58656539000.0,
+"mcap": 57394061000.0,
 "name": "Nu Holdings Ltd.",
 "sources": [
 {
@@ -23381,7 +23343,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 46591099000.0,
+"mcap": 45223125000.0,
 "name": "Vylor Inc.",
 "sources": [
 {
@@ -23419,7 +23381,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 31328841700.0,
+"mcap": 28388100100.0,
 "name": "Nebius Group N.V.",
 "sources": [
 {
@@ -23457,7 +23419,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22878767100.0,
+"mcap": 21131573200.0,
 "name": "Cerebras Systems Inc.",
 "sources": [
 {
@@ -23495,7 +23457,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17810448400.0,
+"mcap": 16863692800.0,
 "name": "Ascendis Pharma A/S",
 "sources": [
 {
@@ -23533,7 +23495,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14073820200.0,
+"mcap": 13921092600.0,
 "name": "Brookfield Wealth Solutions Ltd.",
 "sources": [
 {
@@ -23564,7 +23526,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11699534800.0,
+"mcap": 11460344800.0,
 "name": "QXO, Inc.",
 "sources": [
 {
@@ -25001,11 +24963,11 @@
 "ticker": "BJ",
 "market": "US",
 "date": "2026-11-20",
-"session": "BMO",
+"session": "TBD",
 "period": "Oct/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -25039,11 +25001,11 @@
 "ticker": "MOG-A",
 "market": "US",
 "date": "2026-11-20",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -25071,6 +25033,37 @@
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
+},
+{
+"id": "MOG-B-2026-11-20",
+"ticker": "MOG-B",
+"market": "US",
+"date": "2026-11-20",
+"session": "TBD",
+"period": "Sep/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 10390360100.0,
+"name": "Moog Inc.",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+]
 },
 {
 "id": "HPE-2026-11-23",
