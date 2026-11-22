@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-22T05:02+00:00",
+"asof": "2026-11-22T05:51+00:00",
 "implied": {
 "AAPL-2026-11-02": {
 "move": 0.0425,
@@ -4313,6 +4313,19 @@
 "iv": 0.506,
 "at": "2026-11-22T05:02+00:00",
 "ivNext": 0.457
+},
+"AZRG-2026-11-25": {
+"move": 0.0333,
+"spot": 323.89,
+"strike": 325.0,
+"exp": "2026-11-26",
+"dte": 4,
+"iv": 0.398,
+"listing": "TASE",
+"cur": "ILS",
+"traded": false,
+"at": "2026-11-22T05:51+00:00",
+"src": "https://www.globes.co.il/portal/quotes/stock-options/?baseid=45548&showAll=true"
 }
 },
 "results": {
