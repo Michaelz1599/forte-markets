@@ -1,0 +1,3 @@
+== level 1 ERROR https://api.cbs.gov.il/series/catalog/level -> HTTP 500
+
+== level 2 ERROR https://api.cbs.gov.il/series/catalog/level -> HTTP 500

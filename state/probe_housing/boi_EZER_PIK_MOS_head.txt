@@ -1,0 +1,1 @@
+SERIES_CODE | Series Code | UNIT_MULT | Unit multiplier | UNIT_MEASURE | Unit of Measure | DATA_SOURCE | Data source | TIME_COLLECT | Time period collection | PUB_WEBSITE | Published on the website | CONF_STATUS | Confidentiality status | TIME_PERIOD | OBS_VALUE | RELEASE_OBS | Release OBS

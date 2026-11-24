@@ -1,0 +1,750 @@
+{
+"month": [
+{
+"code": 40010,
+"name": "מחירי דירות",
+"date": [
+{
+"year": 2026,
+"percent": -0.2,
+"percentYear": -1.5,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 588.2
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2026,
+"percent": -0.7,
+"percentYear": -1.9,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 589.4
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2026,
+"percent": 0.1,
+"percentYear": -1.4,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 593.6
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2026,
+"percent": 0.1,
+"percentYear": -1.6,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 593.0
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2026,
+"percent": -1.2,
+"percentYear": -2.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 592.4
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2026,
+"percent": -0.4,
+"percentYear": -1.3,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 599.6
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+},
+{
+"year": 2026,
+"percent": 0.4,
+"percentYear": -1.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 602.0
+},
+"prevBase": null,
+"month": 2,
+"monthDesc": "פברואר"
+},
+{
+"year": 2026,
+"percent": -0.1,
+"percentYear": -1.7,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 599.6
+},
+"prevBase": null,
+"month": 1,
+"monthDesc": "ינואר"
+},
+{
+"year": 2025,
+"percent": -0.1,
+"percentYear": -1.0,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 600.2
+},
+"prevBase": null,
+"month": 12,
+"monthDesc": "דצמבר"
+},
+{
+"year": 2025,
+"percent": 0.8,
+"percentYear": 0.3,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 600.8
+},
+"prevBase": null,
+"month": 11,
+"monthDesc": "נובמבר"
+},
+{
+"year": 2025,
+"percent": 0.6,
+"percentYear": -0.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 596.0
+},
+"prevBase": null,
+"month": 10,
+"monthDesc": "אוקטובר"
+},
+{
+"year": 2025,
+"percent": -0.7,
+"percentYear": -0.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 593.0
+},
+"prevBase": null,
+"month": 9,
+"monthDesc": "ספטמבר"
+},
+{
+"year": 2025,
+"percent": -0.6,
+"percentYear": 0.8,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 597.2
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2025,
+"percent": -0.2,
+"percentYear": 1.3,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 600.8
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2025,
+"percent": -0.1,
+"percentYear": 1.7,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 602.0
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2025,
+"percent": -0.4,
+"percentYear": 2.6,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 602.6
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2025,
+"percent": -0.4,
+"percentYear": 3.7,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 605.0
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2025,
+"percent": -0.2,
+"percentYear": 4.8,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 607.4
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+},
+{
+"year": 2025,
+"percent": -0.2,
+"percentYear": 5.9,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 608.6
+},
+"prevBase": null,
+"month": 2,
+"monthDesc": "פברואר"
+},
+{
+"year": 2025,
+"percent": 0.6,
+"percentYear": 7.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 609.8
+},
+"prevBase": null,
+"month": 1,
+"monthDesc": "ינואר"
+},
+{
+"year": 2024,
+"percent": 1.2,
+"percentYear": 7.7,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 606.2
+},
+"prevBase": null,
+"month": 12,
+"monthDesc": "דצמבר"
+},
+{
+"year": 2024,
+"percent": 0.4,
+"percentYear": 7.3,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 599.0
+},
+"prevBase": null,
+"month": 11,
+"monthDesc": "נובמבר"
+},
+{
+"year": 2024,
+"percent": 0.5,
+"percentYear": 7.6,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 596.6
+},
+"prevBase": null,
+"month": 10,
+"monthDesc": "אוקטובר"
+},
+{
+"year": 2024,
+"percent": 0.2,
+"percentYear": 6.5,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 593.6
+},
+"prevBase": null,
+"month": 9,
+"monthDesc": "ספטמבר"
+},
+{
+"year": 2024,
+"percent": -0.1,
+"percentYear": 6.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 592.4
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2024,
+"percent": 0.2,
+"percentYear": 6.0,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 593.0
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2024,
+"percent": 0.8,
+"percentYear": 5.6,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 591.8
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2024,
+"percent": 0.6,
+"percentYear": 4.6,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 587.1
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2024,
+"percent": 0.7,
+"percentYear": 3.3,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 583.6
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2024,
+"percent": 0.8,
+"percentYear": 2.1,
+"currBase": {
+"baseDesc": "1993 ממוצע",
+"value": 579.5
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+}
+]
+}
+],
+"quarter": [
+{
+"code": 40010,
+"name": "מחירי דירות",
+"date": [
+{
+"year": 1993,
+"percent": 6.0,
+"percentYear": 21.9,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 400.8
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1993,
+"percent": 5.0,
+"percentYear": 23.0,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 378.2
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1993,
+"percent": 1.3,
+"percentYear": 18.5,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 360.1
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1993,
+"percent": 8.1,
+"percentYear": 22.5,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 355.4
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1992,
+"percent": 6.9,
+"percentYear": 13.2,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 328.7
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1992,
+"percent": 1.3,
+"percentYear": 4.3,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 307.6
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1992,
+"percent": 4.7,
+"percentYear": 6.1,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 303.8
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1992,
+"percent": -0.1,
+"percentYear": 17.8,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 290.1
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1991,
+"percent": -1.6,
+"percentYear": 24.8,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 290.3
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1991,
+"percent": 3.0,
+"percentYear": 30.4,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 295.0
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1991,
+"percent": 16.3,
+"percentYear": 36.3,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 286.3
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1991,
+"percent": 5.8,
+"percentYear": 29.0,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 246.2
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1990,
+"percent": 2.8,
+"percentYear": 31.6,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 232.6
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1990,
+"percent": 7.7,
+"percentYear": 34.3,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 226.2
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1990,
+"percent": 10.1,
+"percentYear": 37.8,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 210.1
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1990,
+"percent": 7.9,
+"percentYear": 34.7,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 190.8
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1989,
+"percent": 5.0,
+"percentYear": 38.1,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 176.8
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1989,
+"percent": 10.4,
+"percentYear": 35.9,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 168.4
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1989,
+"percent": 7.7,
+"percentYear": 34.5,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 152.5
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1989,
+"percent": 10.6,
+"percentYear": 29.8,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 141.6
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1988,
+"percent": 3.3,
+"percentYear": 23.1,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 128.0
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1988,
+"percent": 9.3,
+"percentYear": 21.9,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 123.9
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1988,
+"percent": 3.9,
+"percentYear": 14.9,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 113.4
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1988,
+"percent": 4.9,
+"percentYear": 13.9,
+"currBase": {
+"baseDesc": "1987 ממוצע",
+"value": 109.1
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1987,
+"percent": 2.3,
+"percentYear": 15.8,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 154.3
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1987,
+"percent": 2.9,
+"percentYear": 17.4,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 150.8
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+},
+{
+"year": 1987,
+"percent": 3.0,
+"percentYear": 16.1,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 146.5
+},
+"prevBase": null,
+"quarter": 2,
+"quarterDesc": "אפריל-יוני"
+},
+{
+"year": 1987,
+"percent": 6.8,
+"percentYear": 15.3,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 142.2
+},
+"prevBase": null,
+"quarter": 1,
+"quarterDesc": "ינואר-מרס"
+},
+{
+"year": 1986,
+"percent": 3.7,
+"percentYear": 10.2,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 133.2
+},
+"prevBase": null,
+"quarter": 4,
+"quarterDesc": "אוקטובר-דצמבר"
+},
+{
+"year": 1986,
+"percent": 1.7,
+"percentYear": 5.6,
+"currBase": {
+"baseDesc": "1985 ממוצע",
+"value": 128.4
+},
+"prevBase": null,
+"quarter": 3,
+"quarterDesc": "יולי-ספטמבר"
+}
+]
+}
+],
+"paging": {
+"total_items": 60,
+"page_size": 100,
+"current_page": 1,
+"last_page": 1,
+"first_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=40010&format=json&download=false&last=30",
+"previous_url": null,
+"current_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=40010&format=json&download=false&last=30",
+"next_url": null,
+"last_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=40010&format=json&download=false&last=30",
+"base_url": null
+}
+}

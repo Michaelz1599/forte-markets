@@ -1,0 +1,4 @@
+SERIES_CODE | Series name | FREQ | Frequency | UNIT_MEASURE | Unit of Measure | UNIT_MULT | Unit multiplier | TIME_PERIOD | OBS_VALUE
+IND_FLT_M | מדד מחירי דירות בבעלות הדיירים | M | Monthly | I93_L | Index, 1993=100 | _Z | Not applicable | 2026-08 | 588.2
+LMS_FFL_MADAD_M_SA | Home building completions | M | Monthly | I05 | Index, 2005=100 | _Z | Not applicable | 2026-06 | 106.4
+LMS_SFL_MADAD_M_SA | Home building starts | M | Monthly | I05 | Index, 2005=100 | _Z | Not applicable | 2026-06 | 149.7

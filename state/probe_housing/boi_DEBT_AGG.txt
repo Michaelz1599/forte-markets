@@ -1,0 +1,249 @@
+SERIES_CODE | Series name | FREQ | Frequency | UNIT_MULT | Unit multiplier | UNIT_MEASURE | Unit of Measure | TIME_PERIOD | OBS_VALUE
+CRA_OUT_0491 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | -0.013525216
+CRA_OUT_0514 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 15.66054746
+CRA_OUT_0510 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0566 | Debt balance of Real estate activities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0593 | Debt balance of Unclassified industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0460 | Debt balance of Public and community services excl. local authorities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.001049689
+CRA_OUT_0556 | Debt balance of Financial and insurance activities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.478370669
+CRA_OUT_0552 | Debt balance of Information and communication industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.0000027313
+CRA_OUT_0182 | Debt balance of business sector to government | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 0.233813135
+CRA_OUT_0529 | Debt balance of Transportation and storage, postal and courier activities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 3.011339014
+CRA_OUT_0654 | יתרת החוב של חברות מענף חקלאות | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 8.690713022
+CRA_OUT_0571 | Debt balance of Real estate activities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.583362683
+CRA_OUT_0208 | Total debt balance of nonhousing | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 260.0304704
+CRA_OUT_0430 | Debt balance of Agriculture, forestry and fishing industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.183317544
+CRA_OUT_0447 | Debt balance of Manufacturing industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 66.85033648
+CRA_OUT_0587 | Debt balance of Other business services industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.648135063
+CRA_OUT_0456 | Debt balance of Manufacturing industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.0000793039
+CRA_OUT_0513 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0200 | Debt balance of nonhousing to credit card companies | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 47.591
+CRA_OUT_0488 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 5.638261645
+CRA_OUT_0194 | Debt balance of nonhousing to banks | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 181.489087
+CRA_OUT_0481 | Debt balance of Electricity, gas, steam and air conditioning supply industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 17.03744579
+CRA_OUT_0543 | Debt balance of Information and communication industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 18.15334667
+CRA_OUT_0201 | Debt balance of households to government | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 8.649929295
+CRA_OUT_0485 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.01130369
+CRA_OUT_0186 | Total debt balance of business sector | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 1659.56592
+CRA_OUT_0199 | Debt balance of households to credit card companies | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 47.591
+CRA_OUT_0531 | Debt balance of Accommodation and food service activities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 21.64846882
+CRA_OUT_0659 | יתרת החוב של חברות מענף בינוי ופעילויות בנדל"ן | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 564.447918932
+CRA_OUT_0206 | Total debt balance of households - Foreign Currency indexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 1.896121096
+CRA_OUT_0500 | Debt balance of Construction industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 7.563735864
+CRA_OUT_0183 | Debt balance of business sector to government by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 0.233813135
+CRA_OUT_0656 | יתרת החוב של חברות מענף תעשיה וחרושת | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 126.7593916159
+CRA_OUT_0426 | Debt balance of Agriculture, forestry and fishing industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0497 | Debt balance of Construction industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.044287306
+CRA_OUT_0448 | Debt balance of Manufacturing industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.145039728
+CRA_OUT_0578 | Debt balance of Other business services industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0526 | Debt balance of Transportation and storage, postal and courier activities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 21.75047928
+CRA_OUT_0541 | Debt balance of Accommodation and food service activities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0197 | Debt balance of nonhousing to institutional investors | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 28.06668813
+CRA_OUT_0502 | Debt balance of Construction industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.144938677
+CRA_OUT_0477 | Debt balance of Electricity, gas, steam and air conditioning supply industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 6.885442173
+CRA_OUT_0554 | Debt balance of Financial and insurance activities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.128786486
+CRA_OUT_0202 | Debt balance of nonhousing to government | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 2.883695335
+CRA_OUT_0525 | Debt balance of Transportation and storage, postal and courier activities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.182457717
+CRA_OUT_0445 | Debt balance of Mining and quarrying industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.318344764
+CRA_OUT_0478 | Debt balance of Electricity, gas, steam and air conditioning supply industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0517 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 8.190546687
+CRA_OUT_0433 | Debt balance of Agriculture, forestry and fishing industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.37922795
+CRA_OUT_0458 | Debt balance of Public and community services excl. local authorities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0503 | Debt balance of Construction industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.277949274
+CRA_OUT_0601 | Debt balance of Unclassified industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0191 | Total debt balance of business sector - Foreign Currency indexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 292.6967778
+CRA_OUT_0196 | Debt balance of households to institutional investors | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 46.77930243
+CRA_OUT_0185 | Debt balance of business sector to households and others tradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 204.2154128
+CRA_OUT_0501 | Debt balance of Construction industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0597 | Debt balance of Unclassified industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.206037978
+CRA_OUT_0569 | Debt balance of Real estate activities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0192 | Total debt balance of business sector - Unindexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 972.6211773
+CRA_OUT_0553 | Debt balance of Information and communication industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 6.151545202
+CRA_OUT_0534 | Debt balance of Accommodation and food service activities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0486 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0457 | Debt balance of Manufacturing industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 8.171118113
+CRA_OUT_0480 | Debt balance of Electricity, gas, steam and air conditioning supply industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.327515304
+CRA_OUT_0515 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.125463141
+CRA_OUT_0172 | Debt balance of business sector to institutional investors | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 251.6490198
+CRA_OUT_0451 | Debt balance of Manufacturing industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.384607882
+CRA_OUT_0582 | Debt balance of Other business services industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0428 | Debt balance of Agriculture, forestry and fishing industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.197876782
+CRA_OUT_0176 | Debt balance of business sector to credit card companies | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 8.132
+CRA_OUT_0547 | Debt balance of Information and communication industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0505 | Debt balance of Construction industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 18.51953299
+CRA_OUT_0467 | Debt balance of Public and community services excl. local authorities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.033727351
+CRA_OUT_0187 | Total debt balance of business sector by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 1266.970771
+CRA_OUT_0204_R_GDP | Households debt to GDP ratio | Q | Quarterly | 0 | Units | RO | Ratio | 2026-Q2 | 42.5751382712193
+CRA_OUT_0471 | Debt balance of Electricity, gas, steam and air conditioning supply industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 31.8617854
+CRA_OUT_0476 | Debt balance of Electricity, gas, steam and air conditioning supply industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 18.49097684
+CRA_OUT_0600 | Debt balance of Unclassified industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.285899735
+CRA_OUT_0438 | Debt balance of Mining and quarrying industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.509303213
+CRA_OUT_0195 | Debt balance of housing debt to banks | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 650.9723322
+CRA_OUT_0450 | Debt balance of Manufacturing industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.87759571
+CRA_OUT_0660 | יתרת החוב של חברות מענף מסחר | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 151.454512813
+CRA_OUT_0563 | Debt balance of Financial and insurance activities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.866901277
+CRA_OUT_0473 | Debt balance of Electricity, gas, steam and air conditioning supply industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.019216274
+CRA_OUT_0530 | Debt balance of Accommodation and food service activities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0546 | Debt balance of Information and communication industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.081587129
+CRA_OUT_0540 | Debt balance of Accommodation and food service activities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0568 | Debt balance of Real estate activities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.468890822
+CRA_OUT_0453 | Debt balance of Manufacturing industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 3.185253781
+CRA_OUT_0667 | יתרת החוב של חברות שהסיווג הענפי שלהן לא ידוע | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 102.404319389
+CRA_OUT_0463 | Debt balance of Public and community services excl. local authorities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0559 | Debt balance of Financial and insurance activities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.425286886
+CRA_OUT_0170 | Debt balance of business sector to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 1013.122639
+CRA_OUT_0424 | Debt balance of Agriculture, forestry and fishing industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.010201063
+CRA_OUT_0520 | Debt balance of Transportation and storage, postal and courier activities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.129066904
+CRA_OUT_0584 | Debt balance of Other business services industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 8.728156679
+CRA_OUT_0174 | Debt balance of business sector to institutional investors by tradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 142.2949849
+CRA_OUT_0588 | Debt balance of Other business services industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0474 | Debt balance of Electricity, gas, steam and air conditioning supply industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.916343243
+CRA_OUT_0661 | יתרת החוב של חברות מענף תחבורה ואחסנה | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 58.138267689
+CRA_OUT_0440 | Debt balance of Mining and quarrying industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.981713347
+CRA_OUT_0435 | Debt balance of Mining and quarrying industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 12.49684589
+CRA_OUT_0498 | Debt balance of Construction industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0186_R_GDP | Business sector debt to GDP ratio | Q | Quarterly | 0 | Units | RO | Ratio | 2026-Q2 | 75.5292724835671
+CRA_OUT_0495 | Debt balance of Construction industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 250.9787223
+CRA_OUT_0533 | Debt balance of Accommodation and food service activities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.184078554
+CRA_OUT_0579 | Debt balance of Other business services industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 40.74054713
+CRA_OUT_0666 | יתרת החוב של חברות מענף שרותים ציבוריים וקהילתיים | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 21.487996252
+CRA_OUT_0444 | Debt balance of Mining and quarrying industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.375414143
+CRA_OUT_0482 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0193 | Debt balance of households to banks | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 832.4614191
+CRA_OUT_0655 | יתרת החוב של חברות מענף כרייה וחציבה | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 27.696041868
+CRA_OUT_0198 | Debt balance of housing debt to institutional investors | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 18.71261429
+CRA_OUT_0511 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.044534445
+CRA_OUT_0209 | Total debt balance of housing | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 675.4511804
+CRA_OUT_0562 | Debt balance of Financial and insurance activities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 19.33575536
+CRA_OUT_0178 | Debt balance of business sector to nonresidents | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 178.1283356
+CRA_OUT_0437 | Debt balance of Mining and quarrying industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.002260738
+CRA_OUT_0581 | Debt balance of Other business services industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.089762897
+CRA_OUT_0664 | יתרת החוב של חברות מענף שרותים פיננסיים | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 262.387178849
+CRA_OUT_0504 | Debt balance of Construction industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0186_R_GDP_BS | Business sector debt to business sector product ratio | Q | Quarterly | 0 | Units | RO | Ratio | 2026-Q2 | 101.914748721202
+CRA_OUT_0449 | Debt balance of Manufacturing industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.647843788
+CRA_OUT_0577 | Debt balance of Real estate activities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 81.68138773
+CRA_OUT_0190 | Total debt balance of business sector - CPI indexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 394.247965
+CRA_OUT_0465 | Debt balance of Public and community services excl. local authorities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0483 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 8.387259711
+CRA_OUT_0545 | Debt balance of Information and communication industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.310960542
+CRA_OUT_0591 | Debt balance of Unclassified industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0462 | Debt balance of Public and community services excl. local authorities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0466 | Debt balance of Public and community services excl. local authorities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.051024933
+CRA_OUT_0452 | Debt balance of Manufacturing industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.758817847
+CRA_OUT_0427 | Debt balance of Agriculture, forestry and fishing industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0536 | Debt balance of Accommodation and food service activities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0175 | Debt balance of business sector to institutional investors by nontradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 7.578083803
+CRA_OUT_0455 | Debt balance of Manufacturing industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.054871033
+CRA_OUT_0663 | יתרת החוב של חברות מענף מידע ותקשורת | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 43.4509717193
+CRA_OUT_0548 | Debt balance of Information and communication industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.766536629
+CRA_OUT_0518 | Debt balance of Transportation and storage, postal and courier activities industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0551 | Debt balance of Information and communication industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.154664697
+CRA_OUT_0434 | Debt balance of Mining and quarrying industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.060178733
+CRA_OUT_0439 | Debt balance of Mining and quarrying industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0549 | Debt balance of Information and communication industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 10.32041671
+CRA_OUT_0558 | Debt balance of Financial and insurance activities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.752346142
+CRA_OUT_0217 | Debt balance of nonhousing by current account negative balances | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 10.185419
+CRA_OUT_0665 | יתרת החוב של חברות מענף שירותים עסקיים אחרים | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 104.9778095
+CRA_OUT_0210 | Estimate of net quantitative changes in total business sector debt | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 79.00930312
+CRA_OUT_0539 | Debt balance of Accommodation and food service activities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0561 | Debt balance of Financial and insurance activities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.454799534
+CRA_OUT_0516 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0592 | Debt balance of Unclassified industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0565 | Debt balance of Financial and insurance activities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 24.98549887
+CRA_OUT_0214 | Estimate of net quantitative changes - business sector debt - nontradable bonds and nonbanks loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 3.311138625
+CRA_OUT_0527 | Debt balance of Transportation and storage, postal and courier activities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | -0.013161958
+CRA_OUT_0570 | Debt balance of Real estate activities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0184 | Debt balance of business sector to households and others | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 204.2154128
+CRA_OUT_0493 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.508804152
+CRA_OUT_0662 | יתרת החוב של חברות מענף בתי מלון, שרותי הארחה ואוכל | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 22.974206117
+CRA_OUT_0479 | Debt balance of Electricity, gas, steam and air conditioning supply industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.840137558
+CRA_OUT_0211 | Estimate of net quantitative changes in total households debt | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 18.85821845
+CRA_OUT_0432 | Debt balance of Agriculture, forestry and fishing industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0589 | Debt balance of Other business services industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 19.00259607
+CRA_OUT_0443 | Debt balance of Mining and quarrying industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.382783031
+CRA_OUT_0469 | Debt balance of Public and community services excl. local authorities industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.984409146
+CRA_OUT_0492 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0657 | יתרת החוב של חברות מענף אספקת חשמל, גז, קיטור ומזג אויר | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 79.273626143
+CRA_OUT_0188 | Total debt balance of business sector by tradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 385.0170654
+CRA_OUT_0508 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.381866577
+CRA_OUT_0454 | Debt balance of Manufacturing industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 42.68382795
+CRA_OUT_0574 | Debt balance of Real estate activities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.913373753
+CRA_OUT_0523 | Debt balance of Transportation and storage, postal and courier activities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.313959144
+CRA_OUT_0499 | Debt balance of Construction industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0475 | Debt balance of Electricity, gas, steam and air conditioning supply industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.266566338
+CRA_OUT_0550 | Debt balance of Information and communication industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 5.411940996
+CRA_OUT_0596 | Debt balance of Unclassified industries to institutional investors by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 99.6936261
+CRA_OUT_0484 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.063053788
+CRA_OUT_0446 | Debt balance of Manufacturing industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0585 | Debt balance of Other business services industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0528 | Debt balance of Transportation and storage, postal and courier activities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0580 | Debt balance of Other business services industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.078446171
+CRA_OUT_0590 | Debt balance of Unclassified industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0180 | Debt balance of business sector to nonresidents by tradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 34.42196761
+CRA_OUT_0171 | Debt balance of business sector to banks by tradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 4.084700035
+CRA_OUT_0538 | Debt balance of Accommodation and food service activities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.141658743
+CRA_OUT_0205 | Total debt balance of households - CPI indexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 243.7354585
+CRA_OUT_0441 | Debt balance of Mining and quarrying industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 6.353955588
+CRA_OUT_0537 | Debt balance of Accommodation and food service activities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0490 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0599 | Debt balance of Unclassified industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0576 | Debt balance of Real estate activities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0532 | Debt balance of Accommodation and food service activities industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0425 | Debt balance of Agriculture, forestry and fishing industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.091559892
+CRA_OUT_0586 | Debt balance of Other business services industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 34.69016549
+CRA_OUT_0431 | Debt balance of Agriculture, forestry and fishing industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.01667464
+CRA_OUT_0572 | Debt balance of Real estate activities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 64.38612841
+CRA_OUT_0594 | Debt balance of Unclassified industries to government by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.239795778
+CRA_OUT_0494 | Debt balance of Construction industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0423 | Debt balance of Agriculture, forestry and fishing industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 7.811855151
+CRA_OUT_0602 | Debt balance of Unclassified industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0567 | Debt balance of Real estate activities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 133.656742
+CRA_OUT_0560 | Debt balance of Financial and insurance activities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 10.79270873
+CRA_OUT_0173 | Debt balance of business sector to institutional investors by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 101.7759511
+CRA_OUT_0507 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 119.0086898
+CRA_OUT_0521 | Debt balance of Transportation and storage, postal and courier activities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.232856022
+CRA_OUT_0181 | Debt balance of business sector to nonresidents by nontradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 0
+CRA_OUT_0509 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 3.963834905
+CRA_OUT_0512 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 4.079029798
+CRA_OUT_0519 | Debt balance of Transportation and storage, postal and courier activities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 28.13423277
+CRA_OUT_0555 | Debt balance of Financial and insurance activities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 202.8558964
+CRA_OUT_0179 | Debt balance of business sector to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 143.706368
+CRA_OUT_0213 | Estimate of net quantitative changes - business sector debt - tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 8.972926477
+CRA_OUT_0595 | Debt balance of Unclassified industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0436 | Debt balance of Mining and quarrying industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.215242421
+CRA_OUT_0542 | Debt balance of Information and communication industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0524 | Debt balance of Transportation and storage, postal and courier activities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 3.397038796
+CRA_OUT_0583 | Debt balance of Other business services industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0653 | יתרת החוב של המגזר הפרטי הלא-פיננסי | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 2595.0475709
+CRA_OUT_0522 | Debt balance of Transportation and storage, postal and courier activities industries to institutional investors by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0177 | Debt balance of business sector to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 8.132
+CRA_OUT_0573 | Debt balance of Real estate activities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0472 | Debt balance of Electricity, gas, steam and air conditioning supply industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 1.027092967
+CRA_OUT_0544 | Debt balance of Information and communication industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.099970413
+CRA_OUT_0557 | Debt balance of Financial and insurance activities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.139035392
+CRA_OUT_0189 | Total debt balance of business sector by nontradable bonds | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 7.578083803
+CRA_OUT_0422 | Debt balance of Agriculture, forestry and fishing industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0464 | Debt balance of Public and community services excl. local authorities industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.418826173
+CRA_OUT_0658 | יתרת החוב של חברות מענף אספקת מים, שרותי ביוב, טיפול באשפה ופסולת ושירותי טיהור | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 19.196412377
+CRA_OUT_0203 | Debt balance of housing debt to government | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 5.76623396
+CRA_OUT_0535 | Debt balance of Accommodation and food service activities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0603 | Debt balance of Unclassified industries to households and others by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.978959798
+CRA_OUT_0506 | Debt balance of Wholesale and retail trade, repair of motor vehicles and motorcycles industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0564 | Debt balance of Financial and insurance activities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.171793103
+CRA_OUT_0575 | Debt balance of Real estate activities industries to nonresidents by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.058556303
+CRA_OUT_0598 | Debt balance of Unclassified industries to institutional investors by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0468 | Debt balance of Public and community services excl. local authorities industries to households and others by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0212 | Estimate of net quantitative changes - business sector debt - banks loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 55.86246302
+CRA_OUT_0215 | Estimate of net quantitative changes - business sector debt - debt issued aborad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 10.862775
+CRA_OUT_0459 | Debt balance of Public and community services excl. local authorities industries to banks by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 19.99895896
+CRA_OUT_0442 | Debt balance of Mining and quarrying industries to nonresidents by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0487 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to institutional investors by nontradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 2.601254607
+CRA_OUT_0496 | Debt balance of Construction industries to banks by tradable bonds in Israel | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.17031082
+CRA_OUT_0489 | Debt balance of Water supply, sewerage, waste management and remediation activities industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0204 | Total debt balance of households | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 935.4816509
+CRA_OUT_0429 | Debt balance of Agriculture, forestry and fishing industries to nonresidents by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0
+CRA_OUT_0169 | Debt balance of business sector to banks | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 1017.207339
+CRA_OUT_0207 | Total debt balance of households - Unindexed | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q2 | 689.8500713
+CRA_OUT_0470 | Debt balance of Electricity, gas, steam and air conditioning supply industries to banks by tradable bonds abroad | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0.601104256
+CRA_OUT_0461 | Debt balance of Public and community services excl. local authorities industries to credit card companies by loans | Q | Quarterly | 9 | Billions | ILS | New Israeli shekel | 2026-Q1 | 0

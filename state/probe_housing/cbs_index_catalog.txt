@@ -1,0 +1,102 @@
+{
+"chapters": [
+{
+"chapterId": "a",
+"chapterName": "מדד המחירים לצרכן",
+"chapterOrder": 1,
+"mainCode": 120010,
+"subject": null
+},
+{
+"chapterId": "aa",
+"chapterName": "מדד ומחירים ממוצעים משוק הדירות",
+"chapterOrder": 2,
+"mainCode": 40010,
+"subject": null
+},
+{
+"chapterId": "b",
+"chapterName": "מדד מחירי יצרן - תפוקת התעשייה ליעדים מקומיים",
+"chapterOrder": 3,
+"mainCode": 170030,
+"subject": null
+},
+{
+"chapterId": "ba",
+"chapterName": "מדד מחירי יצרן - יצוא בענפי התעשייה",
+"chapterOrder": 4,
+"mainCode": null,
+"subject": null
+},
+{
+"chapterId": "ba",
+"chapterName": "מדד מחירי יצרן - יצוא בענפי התעשייה, כרייה וחציבה",
+"chapterOrder": 4,
+"mainCode": null,
+"subject": null
+},
+{
+"chapterId": "bb",
+"chapterName": "מדד מחירי יצרן - ענפי השירותים",
+"chapterOrder": 5,
+"mainCode": null,
+"subject": null
+},
+{
+"chapterId": "c",
+"chapterName": "מדד מחירי תשומה בבנייה למגורים",
+"chapterOrder": 6,
+"mainCode": 200010,
+"subject": null
+},
+{
+"chapterId": "ca",
+"chapterName": "מדד מחירי תשומה בבנייה למסחר ולמשרדים",
+"chapterOrder": 7,
+"mainCode": 800010,
+"subject": null
+},
+{
+"chapterId": "d",
+"chapterName": "מדד מחירי תשומה בסלילה וגישור",
+"chapterOrder": 8,
+"mainCode": 240010,
+"subject": null
+},
+{
+"chapterId": "e",
+"chapterName": "מדד מחירי תשומה בחקלאות",
+"chapterOrder": 9,
+"mainCode": 260010,
+"subject": null
+},
+{
+"chapterId": "f",
+"chapterName": "מדד מחירי תשומה באוטובוסים",
+"chapterOrder": 10,
+"mainCode": 440010,
+"subject": null
+},
+{
+"chapterId": "fa",
+"chapterName": "מדד מחירי תשומה באוטובוסים זעירים ציבוריים",
+"chapterOrder": 11,
+"mainCode": 432010,
+"subject": null
+},
+{
+"chapterId": "g",
+"chapterName": "כללי",
+"chapterOrder": 12,
+"mainCode": null,
+"subject": null
+},
+{
+"chapterId": "j",
+"chapterName": "כללי - ירחון סטטיסטי",
+"chapterOrder": 13,
+"mainCode": null,
+"subject": null
+}
+]
+}

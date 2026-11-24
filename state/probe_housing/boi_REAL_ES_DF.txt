@@ -1,0 +1,9 @@
+SERIES_CODE | Series name | FREQ | Frequency | UNIT_MEASURE | Unit of Measure | UNIT_MULT | Unit multiplier | TIME_PERIOD | OBS_VALUE
+IND_FLT_NEW_M | מדד מחירי דירות - דירות חדשות | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 533.7
+IND_FLT_JERUSALEM_M | מדד מחירי דירות - מחוז ירושלים | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 576.2
+IND_FLT_M | מדד מחירי דירות בבעלות הדיירים | M | Monthly | I93_L | Index, 1993=100 | 0 | Units | 2026-08 | 588.2
+IND_FLT_SOUTH_M | מדד מחירי דירות - מחוז דרום | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 571.1
+IND_FLT_CENTER_M | מדד מחירי דירות - מחוז מרכז | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 578.1
+IND_FLT_HAIFA_M | מדד מחירי דירות - מחוז חיפה | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 632
+IND_FLT_TELAVIV_M | מדד מחירי דירות - מחוז תל אביב | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 551.9
+IND_FLT_NORTH_M | מדד מחירי דירות - מחוז צפון | M | Monthly | I_OCT17_414_L | Index, Oct 2017=414.5 | 0 | Units | 2026-08 | 657.4

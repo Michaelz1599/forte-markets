@@ -1,0 +1,383 @@
+{
+"month": [
+{
+"code": 70000,
+"name": "מדד מחירי דירות חדשות",
+"date": [
+{
+"year": 2026,
+"percent": -0.7,
+"percentYear": -0.2,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 533.7
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2026,
+"percent": -0.6,
+"percentYear": -0.6,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 537.5
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2026,
+"percent": 0.5,
+"percentYear": -0.9,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 540.7
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2026,
+"percent": 0.5,
+"percentYear": -2.0,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 538.0
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2026,
+"percent": 0.0,
+"percentYear": -4.0,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 535.3
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2026,
+"percent": -0.2,
+"percentYear": -4.2,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 535.3
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+},
+{
+"year": 2026,
+"percent": 0.3,
+"percentYear": -4.0,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 536.4
+},
+"prevBase": null,
+"month": 2,
+"monthDesc": "פברואר"
+},
+{
+"year": 2026,
+"percent": -0.3,
+"percentYear": -4.1,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 534.8
+},
+"prevBase": null,
+"month": 1,
+"monthDesc": "ינואר"
+},
+{
+"year": 2025,
+"percent": 0.0,
+"percentYear": -2.8,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 536.4
+},
+"prevBase": null,
+"month": 12,
+"monthDesc": "דצמבר"
+},
+{
+"year": 2025,
+"percent": 0.7,
+"percentYear": -1.0,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 536.4
+},
+"prevBase": null,
+"month": 11,
+"monthDesc": "נובמבר"
+},
+{
+"year": 2025,
+"percent": 0.8,
+"percentYear": -1.1,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 532.7
+},
+"prevBase": null,
+"month": 10,
+"monthDesc": "אוקטובר"
+},
+{
+"year": 2025,
+"percent": -1.2,
+"percentYear": -1.8,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 528.5
+},
+"prevBase": null,
+"month": 9,
+"monthDesc": "ספטמבר"
+},
+{
+"year": 2025,
+"percent": -1.1,
+"percentYear": -0.4,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 534.9
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2025,
+"percent": -0.9,
+"percentYear": 0.9,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 540.8
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2025,
+"percent": -0.6,
+"percentYear": 2.7,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 545.7
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2025,
+"percent": -1.5,
+"percentYear": 4.3,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 549.0
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2025,
+"percent": -0.2,
+"percentYear": 5.0,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 557.4
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2025,
+"percent": 0.0,
+"percentYear": 5.2,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 558.5
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+},
+{
+"year": 2025,
+"percent": 0.1,
+"percentYear": 6.2,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 558.5
+},
+"prevBase": null,
+"month": 2,
+"monthDesc": "פברואר"
+},
+{
+"year": 2025,
+"percent": 1.1,
+"percentYear": 6.7,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 557.9
+},
+"prevBase": null,
+"month": 1,
+"monthDesc": "ינואר"
+},
+{
+"year": 2024,
+"percent": 1.8,
+"percentYear": 5.5,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 551.8
+},
+"prevBase": null,
+"month": 12,
+"monthDesc": "דצמבר"
+},
+{
+"year": 2024,
+"percent": 0.6,
+"percentYear": 4.1,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 542.0
+},
+"prevBase": null,
+"month": 11,
+"monthDesc": "נובמבר"
+},
+{
+"year": 2024,
+"percent": 0.1,
+"percentYear": 4.4,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 538.8
+},
+"prevBase": null,
+"month": 10,
+"monthDesc": "אוקטובר"
+},
+{
+"year": 2024,
+"percent": 0.2,
+"percentYear": 3.5,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 538.3
+},
+"prevBase": null,
+"month": 9,
+"monthDesc": "ספטמבר"
+},
+{
+"year": 2024,
+"percent": 0.2,
+"percentYear": 2.7,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 537.2
+},
+"prevBase": null,
+"month": 8,
+"monthDesc": "אוגוסט"
+},
+{
+"year": 2024,
+"percent": 0.9,
+"percentYear": 2.7,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 536.1
+},
+"prevBase": null,
+"month": 7,
+"monthDesc": "יולי"
+},
+{
+"year": 2024,
+"percent": 0.9,
+"percentYear": 1.2,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 531.3
+},
+"prevBase": null,
+"month": 6,
+"monthDesc": "יוני"
+},
+{
+"year": 2024,
+"percent": -0.8,
+"percentYear": -0.4,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 526.6
+},
+"prevBase": null,
+"month": 5,
+"monthDesc": "מאי"
+},
+{
+"year": 2024,
+"percent": 0.0,
+"percentYear": -0.3,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 530.8
+},
+"prevBase": null,
+"month": 4,
+"monthDesc": "אפריל"
+},
+{
+"year": 2024,
+"percent": 0.9,
+"percentYear": -0.4,
+"currBase": {
+"baseDesc": "2017 אוקטובר",
+"value": 530.8
+},
+"prevBase": null,
+"month": 3,
+"monthDesc": "מרס"
+}
+]
+}
+],
+"quarter": null,
+"paging": {
+"total_items": 30,
+"page_size": 100,
+"current_page": 1,
+"last_page": 1,
+"first_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=70000&format=json&download=false&last=30",
+"previous_url": null,
+"current_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=70000&format=json&download=false&last=30",
+"next_url": null,
+"last_url": "https://api.cbs.gov.il//index/data/price?Page=1&PageSize=100&id=70000&format=json&download=false&last=30",
+"base_url": null
+}
+}

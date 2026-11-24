@@ -1,0 +1,26 @@
+SERIES_CODE | UNIT_MULT | Unit multiplier | UNIT_MEASURE | Unit of Measure | TIME_PERIOD | OBS_VALUE
+BNK_99010_LR_BLNC_225 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 2568485
+BNK_99010_LR_BLNC_30 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 1053377708
+BNK_99010_LR_BLNC_46 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 125029123
+BNK_99010_LR_BLNC_50 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 691561
+BNK_99910_FR_FINREP_611 | 0 | Units | PT | Percent | 2026-Q3 | 5.76
+BNK_99910_FR_FINREP_680 | 3 | Thousands | ILS | New Israeli shekel | 2026-Q3 | 1670200
+BNK_99010_LR_BLNC_213 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 11779500
+BNK_99010_LR_BLNC_40 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 143360376
+BNK_99010_LR_BLNC_226 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 150055152
+BNK_99010_LR_BLNC_48 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 476418
+BNK_99910_FR_FINREP_1042 | 3 | Thousands | ILS | New Israeli shekel | 2026-Q3 | 916500
+BNK_99010_LR_BLNC_460 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 724102584
+BNK_99910_FR_FINREP_37 | 3 | Thousands | ILS | New Israeli shekel | 2026-Q3 | 196795700
+BNK_99010_LR_BLNC_206 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 2495849739
+BNK_99010_LR_BLNC_41 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 10750021
+BNK_99010_LR_BLNC_227 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 36669815
+BNK_99010_LR_BLNC_47 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 15606766
+BNK_99010_LR_BLNC_461 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 2421201609
+BNK_99040_LR_FINREP_2164 | 3 | Thousands | ILS | New Israeli shekel | 2026-Q3 | 11625000
+BNK_99010_LR_BLNC_234 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 16030972
+BNK_99010_LR_BLNC_228 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 1183763
+BNK_99010_LR_BLNC_214 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 5216857
+BNK_99010_LR_BLNC_459 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 1697099025
+BNK_99910_FR_FINREP_1114 | 0 | Units | PT | Percent | 2026-Q3 | -3.65
+BNK_99010_LR_BLNC_464 | 3 | Thousands | ILS | New Israeli shekel | 2026-09 | 129333764
