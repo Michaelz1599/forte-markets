@@ -1,0 +1,23 @@
+{
+"chapterId": "aa",
+"chapterName": null,
+"chapterOrder": null,
+"mainCode": null,
+"subject": [
+{
+"subjectId": 45,
+"subjectName": "מדד מחירי דירות",
+"code": null
+},
+{
+"subjectId": 166,
+"subjectName": "מדד מחירי דירות לפי מחוזות",
+"code": null
+},
+{
+"subjectId": 167,
+"subjectName": "מדד מחירי דירות חדשות",
+"code": null
+}
+]
+}
