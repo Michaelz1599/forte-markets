@@ -1,0 +1,27 @@
+# Temporary: probe data sources for the marketing tab's housing / banks / mortgage sections. Lives only on the probe-housing branch.
+name: probe-housing
+on:
+  push:
+    branches: [probe-housing]
+    paths: ["tools/probe_housing.py", ".github/workflows/probe-housing.yml"]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+      - run: python tools/probe_housing.py
+      - run: |
+          git config user.name "forte-markets-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/probe_housing
+          git commit -q -m "probe: housing sources" || exit 0
+          git push -q origin HEAD:probe-housing
