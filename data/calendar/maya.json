@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-24T07:19+00:00",
+"asof": "2026-11-24T08:42+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4469,7 +4469,7 @@
 "text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
 },
 "call": {
-"time": "12:00",
+"time": "10:00",
 "tz": "Asia/Jerusalem",
 "confirmed": true,
 "note": null,
@@ -4481,7 +4481,7 @@
 "sources": [
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1782952"
+"url": "https://maya.tase.co.il/he/reports/1783265"
 }
 ]
 },
@@ -4706,6 +4706,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1780950"
+}
+]
+},
+{
+"id": "פלרם-2026-11-26",
+"ticker": "פלרם",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 30.11, 10:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 644,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1783282"
 }
 ]
 },
@@ -5561,6 +5589,14 @@
 },
 "מחלבות גד": {
 "name": "מחלבות גד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פלרם": {
+"name": "פלרם",
 "tags": [
 "TASE"
 ],
