@@ -1,0 +1,18 @@
+    L2 {"path": [44, 2], "name": "התחלות בנייה", "pathDesc": null}
+      L3 44,2 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 3], "name": "גמר בנייה", "pathDesc": null}
+      L3 44,3 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 4], "name": "בבנייה פעילה", "pathDesc": null}
+      L3 44,4 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 5], "name": "חודשי בנייה לבניין", "pathDesc": null}
+      L3 44,5 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 7], "name": "עבודות הנדסה אזרחית", "pathDesc": null}
+      L3 44,7 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 8], "name": "דירות, לפי שלבי בנייה: היתר בנייה, התחלת בנייה וגמר בנייה", "pathDesc": null}
+      L3 44,8 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 10], "name": "דירות בעסקאות נדל\"ן", "pathDesc": null}
+      L3 44,10 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 11], "name": "היתרי בנייה", "pathDesc": null}
+      L3 44,11 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
+    L2 {"path": [44, 12], "name": "מבנים ודירות ביישובים שבהם 100 אלף תושבים ויותר,לפי מספר דירות במבנה", "pathDesc": null}
+      L3 44,12 ERROR https://apis.cbs.gov.il/series/catalog/level -> HTTP 500
