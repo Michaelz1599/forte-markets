@@ -7,6 +7,9 @@ Inputs (hand-kept and written by the daily marketing task, see data/marketing/):
   data/marketing/stories.json  the day's public stories about the mega caps (daily task)
   data/marketing/news.json     a short Hebrew "what's new" per issuer with something new (daily task)
   data/marketing/weekly.json   the weekly brief for the marketing team: talking points on Israeli and US companies (weekly task)
+  data/marketing/banks.json    the newest quarter of the five large banks from their reports (daily task; see pipeline/housing.py)
+  data/marketing/insurers.json the latest quarter of the five large insurance groups (daily task)
+  data/marketing/housing.json  housing facts with no API: unsold new apartments, developers' financing benefits, regulation notes
 
 This step adds, on every full run:
   prices   day / month-to-date / year-to-date / 12 months for the mega caps and every priced holding, and how unusual
@@ -368,6 +371,42 @@ def _series_tail(sid: str, days: int = 400) -> dict:
     return {"d": ks, "v": [s[k] for k in ks]}
 
 
+# the report fields of data/marketing/banks.json that extend the Bank of Israel's quarterly series until it loads the quarter
+BANK_REP = {"ni": "ni_q", "llp": "clx_q", "equity": "equity", "loans": "loans", "mortg": "mortg", "roe": "roe_q", "cet1": "cet1"}
+
+
+def banks_payload(derived: dict, hand: dict) -> dict:
+    """The Bank of Israel's quarterly series per bank, extended with the newest quarter from the banks' own reports
+    (data/marketing/banks.json) when the Bank of Israel has not loaded it yet. rep = that quarter's report summary."""
+    out = {}
+    for b in list(dict.fromkeys(list(derived) + list(hand))):
+        rec = json.loads(json.dumps(derived.get(b) or {}))
+        o = hand.get(b) or {}
+        p = o.get("period")
+        if p:
+            for field, key in BANK_REP.items():
+                v, s = o.get(key), rec.get(field)
+                if v is None:
+                    continue
+                if not s:
+                    rec[field] = s = {"d": [], "v": []}
+                if not s["d"] or p > s["d"][-1]:
+                    s["d"].append(p)
+                    s["v"].append(v)
+                    s["rep"] = p   # the last point comes from the report, not (yet) from the Bank of Israel
+            rec["rep"] = {k: o.get(k) for k in ("period", "rep", "ni_q", "roe_q", "clx_q", "clx_rate", "equity", "cet1", "npl", "div_m", "payout", "sum", "src")}
+        out[b] = rec
+    return out
+
+
+def housing_payload() -> dict:
+    from .housing import OUT as H_OUT
+    d = _read(H_OUT, {})
+    hk = _read(MK / "housing.json", {})
+    hk.pop("_comment", None)
+    return {"asof": d.get("asof"), "prices": d.get("prices") or {}, "mortg": d.get("mortg") or {}, **hk}
+
+
 def build_payload() -> dict:
     cfg = load_cfg()
     iss = issuers()
@@ -384,4 +423,8 @@ def build_payload() -> dict:
         "weekly": _read(MK / "weekly.json", {}), "upcoming": _upcoming(iss, {h["i"] for h in hold}),
         "cal": _calendar(iss),
         "spreads": {ix["id"]: _series_tail(ix["id"]) for ix in cfg.get("il_tb", [])},
+        "housing": housing_payload(),
+        "banks": banks_payload(_read(ROOT / "data" / "derived" / "mkt_housing.json", {}).get("banks") or {},
+                               _read(MK / "banks.json", {}).get("banks") or {}),
+        "insurers": _read(MK / "insurers.json", {}).get("items") or {},
     }

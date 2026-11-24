@@ -1,0 +1,94 @@
+{
+ "_comment": "Hand-kept housing facts that have no API, for the marketing tab's housing section (the price index, mortgages and the banks come from the Bank of Israel automatically, see pipeline/housing.py). Written by the daily marketing task: unsold = new apartments remaining for sale at the end of each month (CBS monthly release around the 15th, 'דירות בעסקאות נדל\"ן'; m, v, sold = new apartments sold that month if published, supply_m = months of supply, src); benefits = share of developers' free-market sales with financing benefits (Treasury chief economist; m, pct, text, src); avg_price = the CBS average apartment price of the last quarter (q, v in ILS, src); notes = up to 5 regulation / Bank of Israel items (date 'YYYY-MM', title, text, src), newest first; ref = the last quantified Bank of Israel stress test, for context next to the stress-test model.",
+ "asof": "2026-11-24T11:00+02:00",
+ "unsold": [
+  {
+   "m": "2026-05",
+   "v": 84130,
+   "sold": 3700,
+   "supply_m": 28.9,
+   "src": {
+    "t": "הלמ\"ס (הודעה 216/2026)",
+    "u": "https://www.cbs.gov.il/he/mediarelease/DocLib/2026/216/04_26_216b.pdf"
+   }
+  },
+  {
+   "m": "2026-08",
+   "v": 85680,
+   "sold": null,
+   "supply_m": 26.7,
+   "src": {
+    "t": "ביזפורטל",
+    "u": "https://www.bizportal.co.il/realestates/news/article/20044750"
+   }
+  }
+ ],
+ "benefits": {
+  "m": "2026-09",
+  "pct": 45,
+  "text": "בספטמבר נמכרו 45% מהדירות החדשות של הקבלנים בשוק החופשי עם הטבות מימון (כמו 20/80 או סבסוד ריבית), לעומת כ-20% במאי, הרמה הגבוהה ביותר מאז שבנק ישראל הגביל את המבצעים במרץ 2025. ההוראה הזמנית של בנק ישראל פוקעת בסוף דצמבר, והמפקח על הבנקים שוקל להאריך או להחמיר אותה.",
+  "src": [
+   {
+    "t": "אייס",
+    "u": "https://www.ice.co.il/realestate/news/article/1136826"
+   },
+   {
+    "t": "ביזפורטל",
+    "u": "https://www.bizportal.co.il/realestates/news/article/20048836"
+   }
+  ]
+ },
+ "avg_price": {
+  "q": "2026-Q3",
+  "v": 2287000,
+  "src": {
+   "t": "ביזפורטל",
+   "u": "https://www.bizportal.co.il/general/news/article/20048681"
+  }
+ },
+ "notes": [
+  {
+   "date": "2026-11",
+   "title": "ההגבלות על מבצעי המימון של הקבלנים פוקעות בסוף דצמבר",
+   "text": "ההוראה הזמנית מחייבת משקל סיכון של 150% לאשראי ליזם כשיותר מ-25% מהחוזים בפרויקט דוחים 40% או יותר מהמחיר, ומגבילה הלוואות בוליט/בלון מסובסדות ל-10% מהמשכנתאות. המפקח על הבנקים שוקל הארכה או החמרה; עד אוגוסט נרשמו ברשות המסים 1,821 ביטולי עסקאות.",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/realestates/news/article/20048836"
+    }
+   ]
+  },
+  {
+   "date": "2026-05",
+   "title": "המפקח על הבנקים: הסיכון בנדל\"ן עדיין נמוך, אבל יש סימנים לעלייה",
+   "text": "ב-2025 צמח האשראי לבינוי ב-17.2%, וליווי פרויקטים למגורים הגיע ל-69 מיליארד ש\"ח, לעומת 23 מיליארד ב-2022. כושר הספיגה הממוצע של הפרויקטים לירידת מחירים ירד מ-78% (דצמבר 2022) ל-58% (דצמבר 2025).",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/general/news/article/20032267"
+    }
+   ]
+  },
+  {
+   "date": "2026-03",
+   "title": "דוח היציבות הפיננסית: בינוי ונדל\"ן הם 38.8% מהאשראי העסקי של הבנקים",
+   "text": "כ-355 מיליארד ש\"ח, עלייה של 12.6% בשנה. שיעור החובות הבעייתיים במשכנתאות עלה ל-0.77% (מ-0.68%), ונתח הלוואות הבוליט/בלון במבצעי הקבלנים ירד מכ-23% לכ-15%. הדוח מתאר תרחיש של ירידה מתמשכת במחירי הדירות במילים, בלי מספרים.",
+   "src": [
+    {
+     "t": "בנק ישראל (דוח היציבות הפיננסית)",
+     "u": "https://www.boi.org.il/media/25ypfz0u/%D7%93%D7%95%D7%97-%D7%94%D7%99%D7%A6%D7%99%D7%91%D7%95%D7%AA-%D7%94%D7%A4%D7%99%D7%A0%D7%A0%D7%A1%D7%99%D7%AA-2025.pdf"
+    }
+   ]
+  }
+ ],
+ "ref": {
+  "date": "2023-05",
+  "text": "מבחן הקיצון האחרון שבנק ישראל פרסם עם מספרים (2023) הניח ירידה של 48% במחירי הדירות מהשיא, אבטלה של 11.2% וריבית של 6.9%. בתרחיש הזה ירדה התשואה להון של המערכת ל-0.2% בשנה הגרועה (16.4% ב-2022), וכל הבנקים נשארו מעל דרישות ההון המינימליות. התרחיש כלל גם מיתון רחב, ולא רק את הנדל\"ן.",
+  "src": [
+   {
+    "t": "כלכליסט",
+    "u": "https://www.calcalist.co.il/investing/article/bj4fhgshn"
+   }
+  ]
+ }
+}

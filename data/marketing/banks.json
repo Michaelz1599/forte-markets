@@ -1,0 +1,136 @@
+{
+ "_comment": "The newest quarter of each of the five large banks, from their published reports, for the marketing tab's banks section and the house-price stress test. The Bank of Israel loads each quarter into its database (flow BFR_99, read by pipeline/housing.py) a few weeks after the banks publish; until then these figures are shown and appended to the history. Written by the daily marketing task when a bank publishes a report. Fields: period ('2026-Q3'), rep (report date), ni_q (net profit attributable to shareholders in the quarter, ILS millions), roe_q (annualized ROE of the quarter, %), clx_q (credit-loss expense of the quarter, ILS millions; negative = income), clx_rate (annualized, % of credit), equity (shareholders' equity, ILS billions), loans (net credit to the public, ILS billions), mortg (housing loans, ILS billions), cet1 (%), npl (non-performing ratio, %), div_m (dividend + buyback declared on the quarter, ILS millions), payout (%), sum (1-2 Hebrew sentences), src.",
+ "asof": "2026-11-24T11:00+02:00",
+ "banks": {
+  "leumi": {
+   "period": "2026-Q3",
+   "rep": "2026-11-17",
+   "ni_q": 2986,
+   "roe_q": 16.9,
+   "clx_q": 184,
+   "clx_rate": 0.13,
+   "equity": 71.4,
+   "loans": 586.1,
+   "mortg": 164.1,
+   "cet1": 11.38,
+   "npl": 0.43,
+   "div_m": 1490,
+   "payout": 50,
+   "sum": "רווח רבעוני שיא לבנק ישראלי. המס המיוחד על הבנקים עלה כ-280 מיליון ש\"ח ברבעון, ומנגד נרשמה הכנסת מס חד-פעמית של 322 מיליון; ההוצאה להפסדי אשראי עלתה ל-184 מיליון ש\"ח על רקע צמיחה של כ-13% באשראי מתחילת השנה.",
+   "src": [
+    {
+     "t": "כלכליסט",
+     "u": "https://www.calcalist.co.il/market/article/bjxjovfczx"
+    },
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048847"
+    }
+   ]
+  },
+  "poalim": {
+   "period": "2026-Q3",
+   "rep": "2026-11-16",
+   "ni_q": 2364,
+   "roe_q": 14.0,
+   "clx_q": 167,
+   "clx_rate": 0.12,
+   "equity": 67.5,
+   "loans": 553.2,
+   "mortg": null,
+   "cet1": 11.62,
+   "npl": 0.49,
+   "div_m": 1182,
+   "payout": 50,
+   "sum": "הרווח ירד ב-14% בעיקר בגלל הכנסה חד-פעמית בבסיס ההשוואה, וההוצאה להפסדי אשראי ירדה בכמחצית; המס המיוחד צפוי לעלות לבנק כ-950 מיליון ש\"ח ב-2026.",
+   "src": [
+    {
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001563514"
+    },
+    {
+     "t": "אייס",
+     "u": "https://www.ice.co.il/finance/news/article/1137760"
+    }
+   ]
+  },
+  "mizrahi": {
+   "period": "2026-Q3",
+   "rep": "2026-11-17",
+   "ni_q": 1366,
+   "roe_q": 15.0,
+   "clx_q": 70,
+   "clx_rate": 0.06,
+   "equity": 36.7,
+   "loans": 436.4,
+   "mortg": 257.8,
+   "cet1": 10.1,
+   "npl": null,
+   "div_m": 683,
+   "payout": 50,
+   "sum": "הרווח ירד בכ-8% בגלל ירידת הריבית, המס המיוחד וההטבות ללקוחות (208 מיליון ש\"ח יחד); בלעדיהם התשואה להון 17.2%. הבנק עם תיק המשכנתאות הגדול במערכת.",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20048851"
+    },
+    {
+     "t": "כלכליסט",
+     "u": "https://www.calcalist.co.il/market/article/rke00wokafl"
+    }
+   ]
+  },
+  "discount": {
+   "period": "2026-Q3",
+   "rep": "2026-11-18",
+   "ni_q": 910,
+   "roe_q": 10.4,
+   "clx_q": 126,
+   "clx_rate": 0.16,
+   "equity": 35.1,
+   "loans": 308.0,
+   "mortg": null,
+   "cet1": 10.32,
+   "npl": 0.64,
+   "div_m": 364,
+   "payout": 40,
+   "sum": "הרווח ירד בכ-20% בגלל הפרשה של 200 מיליון ש\"ח לפרישת עובדים במיזוג מרכנתיל והמס המיוחד; בנטרולם התשואה להון 12.6%.",
+   "src": [
+    {
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001563901"
+    },
+    {
+     "t": "אייס",
+     "u": "https://www.ice.co.il/finance/news/article/1138081"
+    }
+   ]
+  },
+  "fibi": {
+   "period": "2026-Q3",
+   "rep": "2026-11-11",
+   "ni_q": 508,
+   "roe_q": 13.8,
+   "clx_q": -9,
+   "clx_rate": -0.02,
+   "equity": 14.53,
+   "loans": 170.9,
+   "mortg": null,
+   "cet1": 10.28,
+   "npl": 0.37,
+   "div_m": 254,
+   "payout": 50,
+   "sum": "הרווח ירד בכ-13%; בהפסדי אשראי נרשמה הכנסה נטו של 9 מיליון ש\"ח, משחרור הפרשה כללית שנרשמה בתקופת אי-הוודאות הביטחונית. האשראי לציבור צמח בכ-22% בשנה.",
+   "src": [
+    {
+     "t": "הבינלאומי (הודעה לעיתונות)",
+     "u": "https://www.prnewswire.com/news-releases/first-international-bank-of-israel-reports-financial-results-for-the-third-quarter-of-2026-302936313.html"
+    },
+    {
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001562913"
+    }
+   ]
+  }
+ }
+}

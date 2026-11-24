@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
+from . import analogs, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
                      write_series)
 
@@ -234,6 +234,9 @@ def run(offline: bool = False, live: bool = False) -> int:
         res = step(st, "mkt_spread", "שיווק: מרווח אג\"ח קונצרני בישראל (תל בונד)", lambda: marketing.update_spreads())
         if res:
             st.add("mkt_spread", "שיווק: מרווח אג\"ח קונצרני בישראל (תל בונד)", True, res[0], res[1])
+        res = step(st, "mkt_housing", "שיווק: נדל\"ן, משכנתאות ובנקים (בנק ישראל)", lambda: housing.update())
+        if res:
+            st.add("mkt_housing", "שיווק: נדל\"ן, משכנתאות ובנקים (בנק ישראל)", True, housing.last_period(res[0]), res[1])
         res = step(st, "rs", "RS לכל המניות, הפקטורים והסקטורים", _rs)
         if res:
             out, msg = res

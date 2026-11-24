@@ -1,0 +1,138 @@
+{
+ "_comment": "Insurance sector snapshot for the marketing tab: the latest reported quarter of the five large insurance groups. Written by the daily marketing task when a company publishes a report (Phoenix and Menora on 25.11.2026, Clal at the end of November). Prices come from the pipeline (mkt_px) and the next report date from the calendar. Fields: period ('Q3 2026'), rep (report date), tci_q (total comprehensive profit attributable to shareholders in the quarter, ILS millions), tci_q_prev (same quarter a year earlier), core_q (core profit, ILS millions), core_basis ('before tax' / 'after tax' / null), roe_q (annualized ROE, %), solv / solv_ex (economic solvency ratio with / without transitional measures, %), solv_date, div_m (last dividend declared, ILS millions), div_date, aum_b (assets under management, ILS billions), sum (1-2 Hebrew sentences: what drove the quarter), next_rep (date of the next report if known; the calendar's date wins), src.",
+ "asof": "2026-11-24T11:00+02:00",
+ "items": {
+  "phoenix": {
+   "period": "Q2 2026",
+   "rep": "2026-08-25",
+   "tci_q": 872,
+   "tci_q_prev": 928,
+   "core_q": 743,
+   "core_basis": null,
+   "roe_q": 29.7,
+   "solv": null,
+   "solv_ex": null,
+   "solv_date": null,
+   "div_m": 400,
+   "div_date": "2026-08-25",
+   "aum_b": 658,
+   "sum": "הרווח הכולל ירד ב-6% על רקע רווחי שוק הון חלשים מאשתקד, אבל רווח הליבה עלה ב-7% בזכות זרוע ניהול הנכסים (+48%), בעוד שרווחי ביטוח הרכב ירדו. דוחות הרבעון השלישי מתפרסמים ב-25.11.",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20040343"
+    },
+    {
+     "t": "כלכליסט",
+     "u": "https://www.calcalist.co.il/market/article/msqq4gg8h"
+    }
+   ],
+   "next_rep": "2026-11-25"
+  },
+  "harel": {
+   "period": "Q3 2026",
+   "rep": "2026-11-23",
+   "tci_q": 477,
+   "tci_q_prev": 840,
+   "core_q": 1002,
+   "core_basis": "before tax",
+   "roe_q": 16.0,
+   "solv": 176,
+   "solv_ex": 159,
+   "solv_date": "2026-06-30",
+   "div_m": 300,
+   "div_date": "2026-11-23",
+   "aum_b": 654,
+   "sum": "הרווח הכולל ירד ב-43% כי תיק הנוסטרו הניב תשואה שלילית קלה על רקע עליית תשואות האג\"ח בעולם, אבל רווח הליבה לפני מס עבר לראשונה מיליארד ש\"ח. ג'פריס רואה בהפסד הנוסטרו אירוע חד-פעמי.",
+   "src": [
+    {
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001564461"
+    },
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20049686"
+    }
+   ]
+  },
+  "migdal": {
+   "period": "Q3 2026",
+   "rep": "2026-11-18",
+   "tci_q": 526,
+   "tci_q_prev": 535,
+   "core_q": 831,
+   "core_basis": null,
+   "roe_q": 19.3,
+   "solv": 150,
+   "solv_ex": 124,
+   "solv_date": "2026-06-30",
+   "div_m": 530,
+   "div_date": "2026-11-17",
+   "aum_b": 644,
+   "sum": "הרווח הכולל כמעט לא השתנה, כי הרווח מהשקעות ושוק ההון ירד ל-7 מיליון ש\"ח, אבל רווח הליבה זינק ב-48%. החברה חוזרת לחלק דיבידנד (530 מיליון ש\"ח) לראשונה מאז 2019; הרווח הצפוי מההשקעה ב-Anthropic עוד לא נכלל.",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20049000"
+    },
+    {
+     "t": "אייס",
+     "u": "https://www.ice.co.il/finance/news/article/1138084"
+    }
+   ]
+  },
+  "clal": {
+   "period": "Q2 2026",
+   "rep": "2026-08-19",
+   "tci_q": 614,
+   "tci_q_prev": 531,
+   "core_q": 732,
+   "core_basis": "before tax",
+   "roe_q": 22.5,
+   "solv": 180,
+   "solv_ex": 155,
+   "solv_date": "2026-03-31",
+   "div_m": 400,
+   "div_date": "2026-03-26",
+   "aum_b": 456,
+   "sum": "רווח ליבה שיא בזכות הביטוח הכללי ומקס, והחברה אישרה תוכנית רכישה עצמית ראשונה של עד 200 מיליון ש\"ח. דוחות הרבעון השלישי צפויים בסוף נובמבר, ואמורים לכלול את הרווח מההשקעה ב-Anthropic (רובו של העמיתים).",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20039510"
+    },
+    {
+     "t": "כלכליסט",
+     "u": "https://www.calcalist.co.il/market/article/bjkvdy7wmx"
+    }
+   ]
+  },
+  "menora": {
+   "period": "Q2 2026",
+   "rep": "2026-08-25",
+   "tci_q": 785,
+   "tci_q_prev": 716,
+   "core_q": 877,
+   "core_basis": "before tax",
+   "roe_q": 34.2,
+   "solv": null,
+   "solv_ex": 163.1,
+   "solv_date": "2025-12-31",
+   "div_m": 500,
+   "div_date": "2026-08-25",
+   "aum_b": 472,
+   "sum": "רבעון שיא עם תשואה להון של 34%: הרווח בביטוח הכללי זינק ב-48% והחיסכון ארוך הטווח צמח ב-12%. דוחות הרבעון השלישי מתפרסמים ב-25.11.",
+   "src": [
+    {
+     "t": "ביזפורטל",
+     "u": "https://www.bizportal.co.il/capitalmarket/news/article/20040345"
+    },
+    {
+     "t": "אייס",
+     "u": "https://www.ice.co.il/finance/news/article/1127046"
+    }
+   ],
+   "next_rep": "2026-11-25"
+  }
+ }
+}
