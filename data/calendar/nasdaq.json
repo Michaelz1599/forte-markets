@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-24T05:58+00:00",
+"asof": "2026-11-24T07:19+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -27091,7 +27091,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 1.16,
-"epsN": 2.0,
+"epsN": null,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
