@@ -22,6 +22,6 @@ jobs:
       - run: |
           git config user.name "forte-markets-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/probe_housing
+          git add state/probe_housing state/probe_housing2
           git commit -q -m "probe: housing sources" || exit 0
           git push -q origin HEAD:probe-housing
