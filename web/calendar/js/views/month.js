@@ -49,7 +49,7 @@
 
   FC.views.list = function (root, st) {
     let evs = FC.filtered();
-    if (!st.q) evs = evs.filter((e) => e.date >= st.week && e.date <= FC.addDays(st.week, 4));
+    if (!st.q) { const d = FC.weekDays(st.week, st.market); evs = evs.filter((e) => e.date >= d[0] && e.date <= d[d.length - 1]); }
     const mcap = (e) => (FC.store.market[e.ticker] || {}).mcap || 0;
     evs.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : (a.session === b.session ? mcap(b) - mcap(a) : a.session === 'BMO' ? -1 : 1)));
     if (!evs.length) { root.append(h('p', { class: 'muted' }, st.q ? `לא נמצאו דוחות עבור "${st.q}".` : 'אין דוחות בשבוע הזה לפי המסננים.')); return; }

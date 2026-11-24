@@ -107,6 +107,20 @@
   FC.shortDate = (iso) => { const [, m, d] = iso.split('-'); return `${+d}.${+m}`; };
   FC.longDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `יום ${FC.dayName(iso)}, ${d} ב${FC.HE_MONTHS[m - 1]} ${y}`; };
   FC.todayIL = () => FC.dayKey(Date.now(), IL);
+  /** the week (its Monday) an event belongs to: an Israeli report filed on a Sunday or Saturday opens the week that follows */
+  FC.weekOf = (iso, market) => { const wd = new Date(iso + 'T12:00:00Z').getUTCDay(); return market === 'IL' && (wd === 0 || wd === 6) ? FC.addDays(iso, wd === 0 ? 1 : 2) : FC.mondayOf(iso); };
+  /** the days a week shows: Monday to Friday, and in the Israeli tab also the Sunday (or Saturday) before it when Israeli reports were filed that day */
+  FC.weekDays = (week, market) => {
+    const out = [0, 1, 2, 3, 4].map((i) => FC.addDays(week, i));
+    if (market === 'IL' && FC.store) for (const n of [1, 2]) { const d = FC.addDays(week, -n); if (FC.store.events.some((e) => e.market === 'IL' && e.date === d)) out.unshift(d); }
+    return out;
+  };
+  /** "23–27 בנובמבר 2026"; across months "30 בנובמבר – 4 בדצמבר 2026" */
+  FC.rangeLabel = (a, b) => {
+    const [y1, m1, d1] = a.split('-').map(Number), [y2, m2, d2] = b.split('-').map(Number);
+    return m1 === m2 ? `${d1}–${d2} ב${FC.HE_MONTHS[m1 - 1]} ${y2}` : `${d1} ב${FC.HE_MONTHS[m1 - 1]}${y1 !== y2 ? ' ' + y1 : ''} – ${d2} ב${FC.HE_MONTHS[m2 - 1]} ${y2}`;
+  };
+  FC.weekLabel = (mon) => FC.rangeLabel(mon, FC.addDays(mon, 4));
 
   // ---------- number formatting
   FC.money = (v) => {

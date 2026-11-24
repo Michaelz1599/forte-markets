@@ -303,6 +303,7 @@ textarea.ics { width: 100%; min-height: 140px; font-family: var(--font-mono); fo
 .tm-day.d0 { background: var(--day0); color: var(--day0-ink); } .tm-day.d1 { background: var(--day1); color: var(--day1-ink); }
 .tm-day.d2 { background: var(--day2); color: var(--day2-ink); } .tm-day.d3 { background: var(--day3); color: var(--day3-ink); }
 .tm-day.d4 { background: var(--day4); color: var(--day4-ink); }
+.tm-day.d5, .tm-day.d6 { background: var(--day6); color: var(--day6-ink); }
 .tm-head { height: 34px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 12px; white-space: nowrap; overflow: hidden; }
 .tm-dname { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-lg); }
 .tm-dcap { font-family: var(--font-mono); font-size: var(--fs-xs); opacity: .85; overflow: hidden; text-overflow: ellipsis; }
@@ -314,8 +315,8 @@ textarea.ics { width: 100%; min-height: 140px; font-family: var(--font-mono); fo
 }
 .tm-tile:hover, .tm-tile:focus-visible { background: rgba(255, 255, 255, .18); box-shadow: inset 0 0 0 2px currentColor; outline: none; }
 .tm-tile.on { box-shadow: inset 0 0 0 3px currentColor; }
-.tm-day.d3 .tm-tile, .tm-day.d4 .tm-tile { background: rgba(255, 255, 255, .16); border-color: rgba(0, 47, 34, .16); }
-.tm-day.d3 .tm-tile:hover, .tm-day.d4 .tm-tile:hover { background: rgba(255, 255, 255, .34); }
+.tm-day.d3 .tm-tile, .tm-day.d4 .tm-tile, .tm-day.d5 .tm-tile, .tm-day.d6 .tm-tile { background: rgba(255, 255, 255, .16); border-color: rgba(0, 47, 34, .16); }
+.tm-day.d3 .tm-tile:hover, .tm-day.d4 .tm-tile:hover, .tm-day.d5 .tm-tile:hover, .tm-day.d6 .tm-tile:hover { background: rgba(255, 255, 255, .34); }
 .tm-body { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; text-align: center; }
 .tm-tk { font-family: var(--font-display); font-weight: 800; line-height: .95; letter-spacing: -.01em; direction: ltr; }
 .tm-name { opacity: .85; line-height: 1.15; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
@@ -335,7 +336,7 @@ textarea.ics { width: 100%; min-height: 140px; font-family: var(--font-mono); fo
 .dsec-h { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-lg); flex-wrap: wrap; }
 .dsec-c { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-sm); color: var(--ink-2); }
 .dsw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
-.dsw.d0 { background: var(--day0); } .dsw.d1 { background: var(--day1); } .dsw.d2 { background: var(--day2); } .dsw.d3 { background: var(--day3); } .dsw.d4 { background: var(--day4); }
+.dsw.d0 { background: var(--day0); } .dsw.d1 { background: var(--day1); } .dsw.d2 { background: var(--day2); } .dsw.d3 { background: var(--day3); } .dsw.d4 { background: var(--day4); } .dsw.d5, .dsw.d6 { background: var(--day6); }
 .dtable-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
 .dtable { width: 100%; border-collapse: collapse; font-size: var(--fs-md); }
 .dtable th { background: var(--surface-2); color: var(--ink); text-align: start; font-weight: 700; padding: 10px 12px; border-bottom: 2px solid var(--line-strong); white-space: nowrap; font-size: var(--fs-sm); }
@@ -366,7 +367,7 @@ textarea.ics { width: 100%; min-height: 140px; font-family: var(--font-mono); fo
 .cap-hl { fill: var(--hilite); opacity: .7; }
 :root[data-theme="dark"] .cap-hl { fill: var(--chip); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cap-hl { fill: var(--chip); } }
-.cap-seg.d0 { fill: var(--day0); } .cap-seg.d1 { fill: var(--day1); } .cap-seg.d2 { fill: var(--day2); } .cap-seg.d3 { fill: var(--day3); } .cap-seg.d4 { fill: var(--day4); }
+.cap-seg.d0 { fill: var(--day0); } .cap-seg.d1 { fill: var(--day1); } .cap-seg.d2 { fill: var(--day2); } .cap-seg.d3 { fill: var(--day3); } .cap-seg.d4 { fill: var(--day4); } .cap-seg.d5, .cap-seg.d6 { fill: var(--day6); }
 :root[data-theme="dark"] .cap-seg.d0 { fill: #1C6A50; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cap-seg.d0 { fill: #1C6A50; } }
 

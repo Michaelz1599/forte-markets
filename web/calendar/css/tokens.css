@@ -48,6 +48,7 @@
   --day2: #26725D; --day2-ink: #FFFFFF;
   --day3: #5BAA8B; --day3-ink: #002F22;
   --day4: #9AD4B9; --day4-ink: #002F22;
+  --day6: #C9DCD3; --day6-ink: #002F22; /* Sunday (and Saturday): Israeli reports filed before the Monday */
   --tile-line: rgba(255, 255, 255, .28);
 
   --r-sm: 4px; --r-md: 8px; --r-lg: 10px;

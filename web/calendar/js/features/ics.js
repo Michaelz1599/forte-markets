@@ -116,7 +116,7 @@
     const countEl = h('b');
     const pick = () => {
       const base = st.market === 'MACRO' && FC.macro ? (onlyFiltered ? FC.macro.filtered() : FC.macro.all()) : onlyFiltered ? FC.filtered() : FC.store.events;
-      if (scope === 'week') { const end = FC.addDays(st.week, 4); return base.filter((e) => e.date >= st.week && e.date <= end); }
+      if (scope === 'week') { const d = FC.weekDays(st.week, st.market); return base.filter((e) => e.date >= d[0] && e.date <= d[d.length - 1]); }
       return base.filter((e) => e.date.slice(0, 7) === monthOf);
     };
     const refresh = () => { const n = pick().length; countEl.textContent = n; saveBtn.disabled = !n; copyBtn.disabled = !n; };

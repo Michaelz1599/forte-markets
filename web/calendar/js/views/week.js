@@ -126,8 +126,9 @@
     }
     for (const r of regions) {
       const evs = byDay[r.d].slice().sort((a, b) => mcapOf(b) - mcapOf(a));
-      const reg = h('div', { class: `tm-day d${r.i}`, style: `left:${r.x}px;top:${r.y}px;width:${r.w - 4}px;height:${r.h - 4}px` });
-      const capTxt = evs.length ? (r.w > 230 ? `${evs.length} דוחות · ${FC.money(tot[r.i])}` : `${evs.length}`) : '';
+      const reg = h('div', { class: `tm-day d${FC.dayIndex(r.d)}`, style: `left:${r.x}px;top:${r.y}px;width:${r.w - 4}px;height:${r.h - 4}px` });
+      const realCap = evs.reduce((s, e) => s + mcapOf(e), 0); // tot[] has a $2B floor per company for the layout only
+      const capTxt = evs.length ? (r.w > 230 ? `${evs.length} דוחות` + (realCap ? ` · ${FC.money(realCap)}` : '') : `${evs.length}`) : '';
       reg.append(h('div', { class: 'tm-head' }, h('span', { class: 'tm-dname' }, `${FC.dayName(r.d)} ${FC.shortDate(r.d)}`), h('span', { class: 'tm-dcap' }, capTxt)));
       const iw = r.w - 4 - 6, ih = r.h - 4 - HEAD - 4;
       const area = h('div', { class: 'tm-area', style: `height:${Math.max(0, ih)}px` });
@@ -148,7 +149,7 @@
         if (rest.length) items.push({ v: Math.max(smallest * 1.1, (MIN * 1.4) / scale), more: rest.length, day: r.d });
         items.sort((a, b) => b.v - a.v);
         const cells = squarify(items, 0, 0, iw, ih).map((c) => ({ ...c, x: iw - c.x - c.w })); // mirror for RTL
-        for (const c of cells) area.append(tile(c, st, r.i));
+        for (const c of cells) area.append(tile(c, st, FC.dayIndex(r.d)));
       }
       reg.append(area);
       holder.append(reg);
@@ -160,9 +161,9 @@
     const weeks = FC.store.weeks;
     const filtered = FC.filtered();
     const data = weeks.map((w) => {
-      const days = [0, 1, 2, 3, 4].map((i) => FC.addDays(w.id, i));
+      const days = FC.weekDays(w.id, st.market);
       const per = days.map((d) => filtered.filter((e) => e.date === d).reduce((s, e) => s + mcapOf(e), 0));
-      return { w, per, total: per.reduce((a, b) => a + b, 0) };
+      return { w, days, per, total: per.reduce((a, b) => a + b, 0) };
     });
     const max = Math.max(...data.map((d) => d.total), 1);
     const nice = [1e12, 2e12, 5e12, 10e12, 20e12, 40e12, 60e12].find((v) => v >= max) || max;
@@ -183,7 +184,7 @@
       d.per.forEach((v, di) => {
         if (!v) return;
         const y0 = y(acc), y1 = y(acc + v);
-        svg.push(`<rect x="${cx - bw / 2}" y="${y1}" width="${bw}" height="${Math.max(1, y0 - y1 - 1.5)}" class="cap-seg d${di}"><title>${FC.HE_DAYS[(di + 1) % 7]}: ${FC.money(v)}</title></rect>`);
+        svg.push(`<rect x="${cx - bw / 2}" y="${y1}" width="${bw}" height="${Math.max(1, y0 - y1 - 1.5)}" class="cap-seg d${FC.dayIndex(d.days[di])}"><title>${FC.dayName(d.days[di])}: ${FC.money(v)}</title></rect>`);
         acc += v;
       });
       svg.push(`<text x="${cx}" y="${y(d.total) - 6}" class="cap-val" text-anchor="middle">${d.total ? FC.money(d.total) : '—'}</text>`);
@@ -208,7 +209,7 @@
       const p = FC.store.profiles[e.ticker] || {}, k = e.consensus, tm = FC.store.timing(e, st.tz);
       return h('tr', { tabindex: '0', role: 'button', 'aria-label': `פתיחת ${e.ticker}`, onclick: () => FC.panel.open(e.id), onkeydown: (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); FC.panel.open(e.id); } } },
         h('td', { class: 'c-co' }, FC.logo(e.ticker), h('span', null, h('b', null, shortName(p) || e.ticker), ' ', h('span', { class: 'tk' }, e.ticker))),
-        h('td', { class: 'num' }, FC.money(mcapOf(e))),
+        h('td', { class: 'num' }, mcapOf(e) ? FC.money(mcapOf(e)) : '—'),
         h('td', { class: 'num' }, k ? FC.usd(k.eps) : '—'),
         h('td', { class: 'num hide-md' }, k ? FC.money(k.rev) : '—'),
         h('td', { class: 'num' }, FC.moveCell ? FC.moveCell(e) : '—'),
@@ -221,7 +222,7 @@
       h('thead', null, h('tr', null, h('th', null, 'חברה'), h('th', { class: 'num' }, 'שווי שוק'), h('th', { class: 'num' }, 'EPS צפוי'), h('th', { class: 'num hide-md' }, 'הכנסות צפויות'), h('th', { class: 'num', title: 'לפני הדוח: התנועה שהאופציות מתמחרות (±). אחרי הדוח: התנועה בפועל ביום התגובה' }, 'תנועה'), h('th', null, 'תזמון'), h('th', { class: 'num hide-sm' }, 'שיחת ועידה'), h('th', { class: 'hide-sm' }, 'סטטוס'))),
       tb);
     const sec = h('section', { class: 'dsec', id: 'tbl-' + d },
-      h('h3', { class: 'dsec-h' }, h('span', { class: `dsw d${FC.dayIndex(d)}` }), `${FC.longDate(d)}`, h('span', { class: 'dsec-c' }, all.length ? `${all.length} דוחות · ${FC.money(all.reduce((s, e) => s + mcapOf(e), 0))}` : 'אין דוחות')));
+      h('h3', { class: 'dsec-h' }, h('span', { class: `dsw d${FC.dayIndex(d)}` }), `${FC.longDate(d)}`, h('span', { class: 'dsec-c' }, all.length ? `${all.length} דוחות` + ((cap) => (cap ? ' · ' + FC.money(cap) : ''))(all.reduce((s, e) => s + mcapOf(e), 0)) : 'אין דוחות')));
     if (all.length) {
       sec.append(h('div', { class: 'dtable-wrap' }, table));
       if (all.length > LIM && !st.q) sec.append(h('button', { class: 'more', type: 'button', onclick: () => { open ? expanded.delete(d) : expanded.add(d); FC.render(); } }, open ? 'הצג פחות' : `הצג את כל ${all.length} הדוחות`));
@@ -231,8 +232,8 @@
 
   FC.views = FC.views || {};
   FC.views.week = function (root, st) {
-    const days = [0, 1, 2, 3, 4].map((i) => FC.addDays(st.week, i));
-    const evs = FC.filtered().filter((e) => e.date >= days[0] && e.date <= days[4]);
+    const days = FC.weekDays(st.week, st.market), last = days[days.length - 1];
+    const evs = FC.filtered().filter((e) => e.date >= days[0] && e.date <= last);
     const byDay = Object.fromEntries(days.map((d) => [d, evs.filter((e) => e.date === d)]));
 
     // summary strip
@@ -242,7 +243,7 @@
     const il = st.market === 'IL' ? 0 : evs.filter((e) => e.market === 'IL').length;
     root.append(h('div', { class: 'kpis' },
       kpi(String(evs.length), 'דוחות השבוע'),
-      kpi(FC.money(total), 'שווי שוק מדווח'),
+      total ? kpi(FC.money(total), 'שווי שוק מדווח') : null,
       kpi(`${conf}`, 'מועדים מאומתים'),
       big && big[1] ? kpi(FC.dayName(big[0]), `היום העמוס (${FC.money(big[1])})`) : null,
       st.market === 'US' ? nextIL() : null));
@@ -254,7 +255,7 @@
       h('span', null, h('span', { class: 'tm-badge static' }, 'BMO'), 'לפני פתיחת המסחר'),
       h('span', null, h('span', { class: 'tm-badge static' }, 'AMC'), 'אחרי סגירת המסחר'),
       h('span', null, h('span', { class: 'tm-ok static' }), 'מועד ושעות מאומתים מול הודעת החברה'),
-      h('span', null, `שעות ב${st.tz === FC.TZ.IL ? 'שעון ישראל' : 'שעון ניו יורק'} · הפרש ישראל–ניו יורק השבוע: ${FC.gapHours(days[0])}${FC.gapHours(days[4]) !== FC.gapHours(days[0]) ? '–' + FC.gapHours(days[4]) : ''} שעות`)));
+      h('span', null, `שעות ב${st.tz === FC.TZ.IL ? 'שעון ישראל' : 'שעון ניו יורק'} · הפרש ישראל–ניו יורק השבוע: ${FC.gapHours(days[0])}${FC.gapHours(last) !== FC.gapHours(days[0]) ? '–' + FC.gapHours(last) : ''} שעות`)));
     root.append(mapSec);
 
     const tables = h('section', { class: 'tables', 'aria-label': 'טבלאות לפי יום' });
@@ -263,7 +264,7 @@
     const chartSec = h('section', { class: 'chart-sec' },
       h('div', { class: 'sec-h' }, h('h2', null, 'שווי השוק המדווח בכל שבוע'), h('p', null, 'סך שווי השוק של החברות שמדווחות בכל שבוע, לפי ימים. שבועות מסומנים "חלקי" עוד לא נטענו במלואם.')),
       capChart(st),
-      h('div', { class: 'legend' }, ['שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'].map((n, i) => h('span', null, h('span', { class: `dsw d${i}` }), n))));
+      h('div', { class: 'legend' }, days.map((d) => h('span', null, h('span', { class: `dsw d${FC.dayIndex(d)}` }), FC.dayName(d)))));
 
     root.append(h('div', { class: 'below' }, tables, chartSec));
 
@@ -281,7 +282,7 @@
     const n = FC.store.events.filter((e) => e.market === 'IL' && e.date >= today).sort((a, b) => (a.date < b.date ? -1 : 1))[0];
     if (!n) return null;
     const p = FC.store.profiles[n.ticker] || {};
-    return h('button', { class: 'kpi kpi-btn', type: 'button', onclick: () => { FC.state.week = FC.mondayOf(n.date); FC.setMarket('IL'); FC.panel.open(n.id); } },
+    return h('button', { class: 'kpi kpi-btn', type: 'button', onclick: () => { FC.state.week = FC.weekOf(n.date, 'IL'); FC.setMarket('IL'); FC.panel.open(n.id); } },
       h('span', { class: 'kpi-v' }, (p.name || n.ticker).split('·')[0].trim()), h('span', { class: 'kpi-l' }, `הדוח הישראלי הבא · ${FC.dayName(n.date)} ${FC.shortDate(n.date)}`));
   }
   function kpi(v, l) { return h('div', { class: 'kpi' }, h('span', { class: 'kpi-v' }, v), h('span', { class: 'kpi-l' }, l)); }

@@ -34,7 +34,7 @@
       if (mw.length && !mw.includes(st.week)) { const t = FC.mondayOf(FC.todayIL()); st.week = mw.find((w) => w >= t) || mw[0]; st.month = st.week.slice(0, 7); }
       FC.render(); return;
     }
-    const has = (wk) => FC.store.events.some((e) => e.market === m && e.date >= wk && e.date <= FC.addDays(wk, 4));
+    const has = (wk) => { const d = FC.weekDays(wk, m); return FC.store.events.some((e) => e.market === m && e.date >= d[0] && e.date <= d[d.length - 1]); };
     if (!has(st.week)) {
       const today = FC.mondayOf(FC.todayIL());
       const wks = FC.store.weeks.map((w) => w.id).filter(has);
@@ -51,8 +51,7 @@
     const days = isNaN(upd) ? 99 : (Date.now() - upd.getTime()) / 864e5;
     const updTxt = isNaN(upd) ? '' : FC.fmtDate(upd.getTime(), FC.TZ.IL, { day: 'numeric', month: 'numeric' });
     const counts = { US: 0, IL: 0 };
-    const wEnd = FC.addDays(st.week, 4);
-    for (const e of FC.store.events) if (e.date >= st.week && e.date <= wEnd) counts[e.market] = (counts[e.market] || 0) + 1;
+    for (const mk of ['US', 'IL']) { const d = FC.weekDays(st.week, mk); counts[mk] = FC.store.events.filter((e) => e.market === mk && e.date >= d[0] && e.date <= d[d.length - 1]).length; }
     counts.MACRO = FC.macro && FC.macro.loaded ? FC.macro.countWeek(st.week) : '';
     const tab = (id, label) => h('button', { class: 'tab' + (id === 'MACRO' ? ' tab-macro' : ''), role: 'tab', type: 'button', 'aria-selected': String(st.market === id), onclick: () => FC.setMarket(id) },
       label, counts[id] !== '' ? h('span', { class: 'tab-n' }, String(counts[id] || 0)) : null);
@@ -60,7 +59,7 @@
       h('div', { class: 'brand' }, h('span', { class: 'brand-name' }, 'פורטה'), h('span', { class: 'brand-sub' }, 'בית השקעות · יומן דוחות')),
       h('nav', { class: 'tabs', role: 'tablist', 'aria-label': 'שוק' }, tab('US', 'דוחות ארה"ב'), tab('IL', 'דוחות ישראל'), tab('MACRO', 'מאקרו')),
       h('div', { class: 'asof' }, h('span', { class: days < 8 ? 'dot-ok' : 'dot-warn' }),
-        h('span', null, `עודכן ${updTxt} · מחירים לסגירה ${FC.shortDate(m.marketAsOf)} · היומן מתעדכן כל יום ראשון, התנועות כל יום`))));
+        h('span', null, `עודכן ${updTxt} · מחירים לסגירה ${FC.shortDate(m.marketAsOf)} · מועדי הדוחות והתנועות מתעדכנים כל יום`))));
   }
 
   // ---------- toolbar
@@ -71,7 +70,8 @@
     let navLabel, prev, next;
     if (isWeek) {
       const weeks = st.market === 'MACRO' && FC.macro ? FC.macro.weeks() : FC.store.weeks.map((w) => w.id), i = weeks.indexOf(st.week), w = FC.store.weeks.find((x) => x.id === st.week);
-      navLabel = w && w.label ? w.label : `${FC.shortDate(st.week)}–${FC.shortDate(FC.addDays(st.week, 4))}`;
+      const wd = st.market === 'MACRO' ? null : FC.weekDays(st.week, st.market);
+      navLabel = wd && wd.length > 5 ? FC.rangeLabel(wd[0], wd[wd.length - 1]) : w && w.label ? w.label : FC.weekLabel(st.week);
       prev = i > 0 ? () => { st.week = weeks[i - 1]; FC.render(); } : null;
       next = i < weeks.length - 1 ? () => { st.week = weeks[i + 1]; FC.render(); } : null;
     } else {
@@ -117,7 +117,9 @@
       const w = FC.store.weeks.find((x) => x.id === st.week);
       const cov = (w && w.coverage) || {};
       let note = null;
-      if (st.market === 'US' && w) note = cov.US === 'full' ? w.note : 'תצוגה מקדימה: רק מועדים שהחברות כבר הודיעו. הרשימה המלאה תתעדכן ביום ראשון.';
+      if (st.market === 'US' && w) note = cov.US === 'full' ? w.note : FC.store.nasdaqOK
+        ? 'כל החברות בשווי שוק של 10 מיליארד דולר ומעלה, לפי לוח הדוחות של Nasdaq, שמתעדכן כל יום. מועד שלא אומת מול הודעת החברה מסומן "לפי לוח הדוחות".'
+        : 'תצוגה מקדימה: רק מועדים שהחברות כבר הודיעו.';
       if (st.market === 'IL') note = 'מועדי הדוחות ושיחות הוועידה לפי מאיה, מערכת הדיווחים של הבורסה בת"א, כפי שהחברות דיווחו. מתעדכן בכל ריצה של הדשבורד.';
       if (note) wrap.append(h('p', { class: 'lede' }, note));
     }
@@ -164,7 +166,7 @@
     FC.setMarket(st.market);
     if (/^c-[A-Za-z.\-]+$/.test(hash)) {
       const evs = FC.store.byTicker[hash.slice(2).toUpperCase()];
-      if (evs) { st.market = evs[0].market; st.week = FC.mondayOf(evs[0].date); FC.render(); FC.panel.open(evs[0].id); }
+      if (evs) { st.market = evs[0].market; st.week = FC.weekOf(evs[0].date, evs[0].market); FC.render(); FC.panel.open(evs[0].id); }
     }
   })();
 })();

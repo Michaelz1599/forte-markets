@@ -51,6 +51,18 @@
     const wk = new Set((this.weeks || []).map((w) => w.id));
     const wAdd = (extra.weeks || []).filter((w) => w && w.id && !wk.has(w.id));
     if (wAdd.length) this.weeks = this.weeks.concat(wAdd).sort((a, b) => (a.id < b.id ? -1 : 1));
+    // every week that has reports (from Maya, Nasdaq or extra.json) gets a page of its own, so the calendar does not stop
+    // at the last week the weekly build published (24.11.2026: the current week could not be reached)
+    this.nasdaqOK = Array.isArray(nasdaq.events) && nasdaq.events.length > 0;
+    const have2 = new Set(this.weeks.map((w) => w.id));
+    const auto = [...new Set(this.events.map((e) => FC.weekOf(e.date, e.market)))].filter((id) => !have2.has(id));
+    if (auto.length) this.weeks = this.weeks.concat(auto.map((id) => ({ id, label: FC.weekLabel(id), coverage: { US: this.nasdaqOK ? 'nasdaq' : 'none', IL: 'maya' }, auto: true })))
+      .sort((a, b) => (a.id < b.id ? -1 : 1));
+    // "updated" in the masthead = the newest of the weekly build, Nasdaq's calendar and Maya
+    if (this.manifest) {
+      const t = [this.manifest.updated, nasdaq.asof, maya.asof].map((s) => Date.parse(s || '')).filter((x) => !isNaN(x));
+      if (t.length) this.manifest.updated = new Date(Math.max(...t)).toISOString();
+    }
     this.live = { implied: live.implied || {}, results: live.results || {}, reported: live.reported || {}, asof: live.asof };
     this.why = why.items || {};
     this.digests = why.digests || {};
