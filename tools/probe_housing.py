@@ -1,7 +1,5 @@
-"""One-off probe (temporary branch probe-housing only), round 2: dimensions of the mortgage series, history depth of the
-bank financial-statement series, the CBS dwelling-price chapter and the CBS series API (unsold new apartments)."""
-import csv
-import io
+"""One-off probe (temporary branch probe-housing only), round 3: walk the CBS series catalog under subject 44 (construction
+and real estate) to find the series of new apartments sold and remaining for sale, and fetch their data."""
 import json
 import pathlib
 import sys
@@ -10,105 +8,75 @@ import traceback
 sys.path.insert(0, ".")
 from pipeline.common import get  # noqa: E402
 
-OUT = pathlib.Path("state/probe_housing2")
+OUT = pathlib.Path("state/probe_housing3")
 OUT.mkdir(parents=True, exist_ok=True)
-BOI = "https://edge.boi.gov.il/FusionEdgeServer/sdmx/v2"
-MAX = 900_000
+HOST = "https://apis.cbs.gov.il"
+lines, calls = [], [0]
 
 
 def save(name, text):
-    (OUT / f"{name}.txt").write_text(text[:MAX], encoding="utf-8")
+    (OUT / f"{name}.txt").write_text(text[:900_000], encoding="utf-8")
 
 
-def safe(name, fn):
+def level(lvl, subject):
+    calls[0] += 1
+    return get(f"{HOST}/series/catalog/level", params={"id": lvl, "subject": subject, "format": "json", "download": "false"},
+               timeout=60, tries=2, expect_json=True)
+
+
+def entries(js):
+    c = (js or {}).get("catalogs") or {}
+    return c.get("catalog") or []
+
+
+def walk(path, lvl):
+    if lvl > 6 or calls[0] > 220:
+        return
+    subj = ",".join(str(p) for p in path)
     try:
-        fn()
-    except Exception:
-        save(name + "_ERR", traceback.format_exc())
+        js = level(lvl, subj)
+    except Exception as e:
+        lines.append(f"{'  ' * lvl}L{lvl} {subj} ERROR {e}")
+        return
+    es = entries(js)
+    if not es:
+        lines.append(f"{'  ' * lvl}L{lvl} {subj} (empty) {json.dumps(js, ensure_ascii=False)[:300]}")
+    for e in es:
+        lines.append(f"{'  ' * lvl}L{lvl} {json.dumps(e, ensure_ascii=False)[:400]}")
+        p = e.get("path") or []
+        nm = e.get("name") or ""
+        if p and len(p) == lvl and (lvl < 3 or any(w in nm for w in ("דירות", "מכיר", "בנייה", "בניה", "מלאי", "היצע"))):
+            walk(p, lvl + 1)
 
 
-def boi_full(flow):
-    r = get(f"{BOI}/data/dataflow/BOI.STATISTICS/{flow}/1.0", params={"format": "csv", "lastNObservations": 1, "labels": "both"}, timeout=180, tries=2)
-    rows = list(csv.reader(io.StringIO(r.text)))
-    head = rows[0]
-    drop = [i for i, h in enumerate(head) if any(k in h.upper() for k in ("CONF_STATUS", "PUB_WEBSITE", "INTERNAL_PROCESS", "DATA_SOURCE", "DP_DIRECTIVE", "TIME_COLLECT", "RELEASE", "COMMENTS", "FR_UPDATED", "CONSOLIDAT", "UNIT_MULT"))]
-    save(f"boi_{flow}_full", "\n".join(" | ".join(x[i] for i in range(len(x)) if i not in drop) for x in rows))
+try:
+    walk([44], 2)
+except Exception:
+    lines.append(traceback.format_exc())
+save("cbs_walk44", "\n".join(lines))
 
-
-for flow in ("BMB_99", "BIR_MRTG_99"):
-    safe("boi_" + flow, lambda f=flow: boi_full(f))
-
-
-def boi_hist(flow, key):
-    r = get(f"{BOI}/data/dataflow/BOI.STATISTICS/{flow}/1.0/{key}", params={"startperiod": "1990-01-01", "format": "csv"}, timeout=90, tries=2)
-    rows = list(csv.DictReader(io.StringIO(r.text)))
-    save(f"hist_{key}", "\n".join(f"{x.get('TIME_PERIOD')},{x.get('OBS_VALUE')}" for x in rows))
-
-
-for key in ("BNK_10001_FR_FINREP_1134", "BNK_10001_FR_FINREP_486", "BNK_10001_FR_FINREP_223", "BNK_10001_FR_FINREP_248",
-            "BNK_10001_FR_FINREP_327", "BNK_99910_FR_FINREP_1134", "BNK_12001_FR_FINREP_228"):
-    safe("hist_" + key, lambda k=key: boi_hist("BFR_99", k))
-for key in ("BNK_99034_LR_BIR_MRTG_897", "BNK_99034_LR_BIR_MRTG_155"):
-    safe("hist_" + key, lambda k=key: boi_hist("BIR_MRTG_99", k))
-safe("hist_IND_FLT_M", lambda: boi_hist("REAL_ES_DF", "IND_FLT_M"))
-safe("hist_BMB_OL_7", lambda: boi_hist("BMB_99", "BNK_99034_LR_MRTG_OL_7"))
-
-
-def cbs_chapter():
-    js = get("https://api.cbs.gov.il/index/catalog/chapter", params={"id": "aa", "format": "json", "download": "false"}, timeout=60, tries=2, expect_json=True)
-    save("cbs_chapter_aa", json.dumps(js, ensure_ascii=False, indent=0))
-
-
-safe("cbs_chapter_aa", cbs_chapter)
-
-
-def cbs_series():
-    out = []
-    for host in ("https://apis.cbs.gov.il", "https://api.cbs.gov.il"):
-        for params in ({"id": 1, "format": "json", "download": "false"}, {"id": 1, "format": "json", "download": "false", "lang": "he"},
-                       {"id": 2, "subject": 1, "format": "json", "download": "false"}):
+# fetch data for leaf series whose names mention apartments for sale / sold
+ids = []
+for ln in lines:
+    if "מכיר" in ln or "למכירה" in ln or "נמכרו" in ln:
+        try:
+            e = json.loads(ln.split(" ", 1)[1] if ln.strip().startswith("L") else ln)
+        except Exception:
+            s = ln.strip()
             try:
-                r = get(f"{host}/series/catalog/level", params=params, timeout=60, tries=1)
-                out.append(f"== {host} {params} -> {r.status_code}\n{r.text[:20000]}")
-            except Exception as e:
-                out.append(f"== {host} {params} ERROR {e}")
-    save("cbs_series_try", "\n\n".join(out))
-
-
-safe("cbs_series", cbs_series)
-
-
-def cbs_walk():
-    """Walk the series catalog for construction / housing subjects (if the API answers)."""
-    host = "https://apis.cbs.gov.il"
-    lines = []
-    def level(lvl, subject=None):
-        p = {"id": lvl, "format": "json", "download": "false"}
-        if subject is not None:
-            p["subject"] = subject
-        return get(f"{host}/series/catalog/level", params=p, timeout=60, tries=1, expect_json=True)
-    js = level(1)
-    lines.append(json.dumps(js, ensure_ascii=False)[:5000])
-    def items(o):
-        if isinstance(o, dict):
-            for k in ("catalogs", "catalog", "items", "data"):
-                if k in o:
-                    return items(o[k])
-            return [o]
-        if isinstance(o, list):
-            return o
-        return []
-    for it in items(js):
-        nm = json.dumps(it, ensure_ascii=False)
-        if any(w in nm for w in ("בנ", "דיור", "דירות", "construction", "Construction")):
-            sid = it.get("id") or (it.get("path") or [None])[-1]
-            try:
-                j2 = level(2, sid)
-                lines.append(f"== level2 subject {sid}\n" + json.dumps(j2, ensure_ascii=False)[:30000])
-            except Exception as e:
-                lines.append(f"== level2 subject {sid} ERROR {e}")
-    save("cbs_series_walk", "\n\n".join(lines))
-
-
-safe("cbs_walk", cbs_walk)
-print("done")
+                e = json.loads(s[s.index("{"):])
+            except Exception:
+                continue
+        for k in ("id", "code", "seriesId"):
+            if e.get(k):
+                ids.append(e[k])
+out = []
+for sid in ids[:25]:
+    try:
+        js = get(f"{HOST}/series/data/list", params={"id": sid, "startPeriod": "01-2023", "endPeriod": "12-2026", "format": "json", "download": "false"},
+                 timeout=60, tries=2, expect_json=True)
+        out.append(f"== {sid}\n" + json.dumps(js, ensure_ascii=False)[:6000])
+    except Exception as e:
+        out.append(f"== {sid} ERROR {e}")
+save("cbs_series_data", "\n\n".join(out) or "(no ids found)")
+print("done", calls[0])
