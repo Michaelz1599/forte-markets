@@ -79,3 +79,19 @@ def test_roll_weights():
     h, to = B.roll_weights({"A": 0.4, "B": 0.4}, "2026-11-11", close)   # 0.2 of the ETF is a residual outside the list
     assert to == "2026-11-12"
     assert abs(sum(h.values()) - 0.8) < 1e-6 and abs(h["A"] / h["B"] - 2) < 1e-4
+
+
+def test_gate():
+    import datetime as dt
+    gs = importlib.util.spec_from_file_location("expo_gate", Path(__file__).resolve().parents[1] / "tools" / "expo" / "gate.py")
+    G = importlib.util.module_from_spec(gs)
+    gs.loader.exec_module(G)
+    utc = lambda s: dt.datetime.fromisoformat(s).replace(tzinfo=dt.timezone.utc)
+    # Wed 25.11.2026 05:00 UTC (00:00 New York): the last finished session is Tue 24.11
+    assert G.decide({"asof": "2026-11-24", "built": "2026-11-24T22:00Z"}, utc("2026-11-25T05:00"))[0] is True
+    assert G.decide({"asof": "2026-11-23", "built": "2026-11-24T14:55Z"}, utc("2026-11-25T05:00"))[0] is False
+    # Thu 26.11.2026 (Thanksgiving) after the close: built after it without data for it -> stop rebuilding
+    assert G.decide({"asof": "2026-11-25", "built": "2026-11-26T22:30Z"}, utc("2026-11-26T23:30"))[0] is True
+    assert G.decide({"asof": "2026-11-25", "built": "2026-11-26T05:00Z"}, utc("2026-11-26T23:30"))[0] is False
+    # Sunday: the last session is Friday
+    assert G.decide({"asof": "2026-11-27", "built": "2026-11-28T03:00Z"}, utc("2026-11-29T10:00"))[0] is True

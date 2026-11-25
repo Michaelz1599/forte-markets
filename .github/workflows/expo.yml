@@ -4,10 +4,19 @@
 # reads from raw.githubusercontent.com when it is opened. Public market data only: fund holdings never come here.
 # Independent of update.yml (it only writes data/expo/, which update.yml never touches), so it has its own
 # concurrency group and simply rebases on push.
+# GitHub starts scheduled runs hours late (the 04:20 slot ran at 14:30 UTC on 24-25.11.2026), so the job also starts
+# after every run of the main pipeline (forte-markets-update, which runs many times a night), and a gate
+# (tools/expo/gate.py) lets a run build only when the data is not yet as of the last finished US session.
 name: expo-daily
 on:
+  workflow_run:
+    workflows: ["forte-markets-update"]
+    types: [completed]
   schedule:
-    - cron: "20 4 * * 2-6"    # Tue-Sat 06:20 Israel winter / 07:20 summer (+ GitHub's usual delay), after the US close
+    - cron: "40 21 * * 1-5"   # backups, in case the main pipeline does not run: after the US close
+    - cron: "50 23 * * 1-5"
+    - cron: "20 2 * * 2-6"
+    - cron: "20 4 * * 2-6"
   workflow_dispatch:
     inputs:
       fund_max:
@@ -29,16 +38,23 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: main
+      - name: Gate (skip when the data is already as of the last US close)
+        id: gate
+        if: github.event_name != 'workflow_dispatch'
+        run: python3 tools/expo/gate.py >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v6
+        if: steps.gate.outputs.skip != 'true'
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -q -r requirements.txt
+        if: steps.gate.outputs.skip != 'true'
       - name: Build data/expo
+        if: steps.gate.outputs.skip != 'true'
         run: python tools/expo/build.py --fund-max "${{ inputs.fund_max || '160' }}" --fund-budget "${{ inputs.fund_budget || '900' }}"
       - name: Commit
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           git config user.name "forte-markets-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
