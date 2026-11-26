@@ -8,8 +8,10 @@ Sources (free, no key):
                                    the first run (the free tier only shows 3 months).
   Polymarket                       gamma-api.polymarket.com/events?slug=<pm>-average-rental-price-in-<month>-<year>: for
                                    each month a ladder of "will the average Ornn price be above $X" markets. The Yes
-                                   prices are the market's probabilities; mean = the price the market implies (the same
-                                   number Polymarket shows as PIRP), lo / hi = its 10th and 90th percentiles.
+                                   prices are the market's probabilities; px = the price the market implies (the median:
+                                   50% above, 50% below), lo / hi = its 10th and 90th percentiles. The median and not the
+                                   mean, because the far months' ladders run to $10-30 with thin tails that drag a mean
+                                   up (it stays close to the PIRP Polymarket shows; the mean is kept as "mean").
 
 Momentum per GPU (thresholds in config/compute.json):
   trend  the 7-day average vs the 28-day average. It turns up when the gap rises above +band and down when it falls
@@ -159,7 +161,7 @@ def pm_month(prefix: str, y: int, m: int) -> dict | None:
         if not imp:
             return None
         return {"slug": slug, "month": f"{y}-{m:02d}", "n": len(ladder), "vol": round(vol), "end": ev.get("endDate"),
-                "url": f"https://polymarket.com/event/{slug}", **imp}
+                "url": f"https://polymarket.com/event/{slug}", "px": imp["med"] if imp["med"] is not None else imp["mean"], **imp}
     return None
 
 
@@ -243,7 +245,7 @@ def alert_text(g: dict, e: dict) -> str:
                 f"לעומת השבוע הקודם (הסף: {e['thr'] * 100:.0f}%). המחיר ב-{_d(e['date'])}: ${e['v']:.2f} לשעה.")
     if k in ("pm_up", "pm_down"):
         y, m = int(e["month"][:4]), int(e["month"][5:7])
-        return (f"{nm}: ב-Polymarket המחיר הצפוי ל{HE_MON[m - 1]} {y} {'עלה' if k == 'pm_up' else 'ירד'} ל-${e['mean']:.2f} לשעה "
+        return (f"{nm}: ב-Polymarket המחיר הצפוי ל{HE_MON[m - 1]} {y} {'עלה' if k == 'pm_up' else 'ירד'} ל-${e['px']:.2f} לשעה "
                 f"(לפני שבוע ${e['prev']:.2f}, {_pct(e['chg'])}).")
     return nm
 
@@ -262,19 +264,19 @@ def merge_alerts(old: list[dict], new: list[dict], now: str, latest: dict[str, s
 
 def pm_alerts(g: dict, front: dict | None, hist: dict, today: str, p: dict) -> list[dict]:
     """Polymarket's implied price for the nearest liquid month vs a week ago."""
-    if not front or front.get("mean") is None or (front.get("vol") or 0) < PM_MIN_VOL:
+    if not front or front.get("px") is None or (front.get("vol") or 0) < PM_MIN_VOL:
         return []
     h = hist.get(front["slug"]) or {}
     ref = [d for d in sorted(h) if d <= (dt.date.fromisoformat(today) - dt.timedelta(days=6)).isoformat()]
     if not ref:
         return []
     prev = h[ref[-1]]
-    chg = front["mean"] / prev - 1 if prev else 0
+    chg = front["px"] / prev - 1 if prev else 0
     if abs(chg) < p["pm_shift"]:
         return []
     kind = "pm_up" if chg > 0 else "pm_down"
     wk = dt.date.fromisoformat(today).isocalendar()
-    return [{"kind": kind, "date": today, "month": front["month"], "mean": front["mean"], "prev": _r(prev, 3), "chg": _r(chg),
+    return [{"kind": kind, "date": today, "month": front["month"], "px": front["px"], "prev": _r(prev, 3), "chg": _r(chg),
              "slug": front["slug"], "wk": f"{wk[0]}-W{wk[1]:02d}"}]
 
 
@@ -313,8 +315,8 @@ def run() -> tuple[dict, str]:
     hist = old.get("pmHist") or {}
     for rows in pm.values():
         for r in rows:
-            if r.get("mean") is not None:
-                hist.setdefault(r["slug"], {})[today] = r["mean"]
+            if r.get("px") is not None:
+                hist.setdefault(r["slug"], {})[today] = r["px"]
     cut = (now_dt.date() - dt.timedelta(days=60)).isoformat()   # a month's history is all the weekly comparison needs
     hist = {k: {d: v for d, v in h.items() if d >= cut} for k, h in hist.items() if any(d >= cut for d in h)}
     out_g, events, latest = [], [], {}
@@ -327,10 +329,10 @@ def run() -> tuple[dict, str]:
         live = [r for r in rows if r["month"] > now_dt.astimezone(NY).strftime("%Y-%m")]   # months still ahead
         front = next((r for r in live if (r.get("vol") or 0) >= PM_MIN_VOL), live[0] if live else None)
         for r in rows:
-            r["vsSpot"] = _r(r["mean"] / cur["last"] - 1) if r.get("mean") and cur.get("last") else None
+            r["vsSpot"] = _r(r["px"] / cur["last"] - 1) if r.get("px") and cur.get("last") else None
             h = hist.get(r["slug"]) or {}
             ref = [d for d in sorted(h) if d <= (now_dt.date() - dt.timedelta(days=6)).isoformat()]
-            r["w1"] = _r(r["mean"] / h[ref[-1]] - 1) if ref and r.get("mean") and h[ref[-1]] else None
+            r["w1"] = _r(r["px"] / h[ref[-1]] - 1) if ref and r.get("px") and h[ref[-1]] else None
         ev += pm_alerts(g, front, hist, today, p)
         latest[g["id"]] = cur.get("date") or today
         for e in ev:

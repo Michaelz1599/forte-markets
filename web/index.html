@@ -4684,7 +4684,7 @@ function cpCards() {
       <span class="cp-row"><span>${fmtDateShort(g.date)}</span><span>שבוע ${mkPct(g.w1)}</span><span>חודש ${mkPct(g.m1)}</span></span>
       <span class="cp-row">${cpChip(g)}${g.since && g.state !== 'flat' ? `<span class="muted">מאז ${fmtDateShort(g.since)}</span>` : ''}</span>
       ${miniSpark(g.spark, 160, 30)}
-      ${f && f.mean != null ? `<span class="cp-pm">Polymarket ל${esc(CP_MON[+f.month.slice(5, 7) - 1])}: <b class="ltr num">${cpUsd(f.mean)}</b> (${fmtPct(f.vsSpot, 0)} מהיום)</span>` : ''}</button>`;
+      ${f && f.px != null ? `<span class="cp-pm">Polymarket ל${esc(CP_MON[+f.month.slice(5, 7) - 1])}: <b class="ltr num">${cpUsd(f.px)}</b> (${fmtPct(f.vsSpot, 0)} מהיום)</span>` : ''}</button>`;
   }).join('');
 }
 function cpAlerts(n = 8) {
@@ -4698,12 +4698,12 @@ function cpBanner() {
   return A.length ? `<div class="cp-new" role="status"><b>🔔 שינוי מומנטום בתמחור המחשוב</b>${A.map(a => `<span>${a.dir === 'up' ? '▲' : '▼'} ${esc(a.text)}</span>`).join('')}</div>` : '';
 }
 function cpPm() {
-  const rows = cpGpus().flatMap(g => (g.pm || []).filter(r => r.mean != null).map(r => `<tr${r.slug === g.front ? ' class="cp-fr"' : ''}><td><b class="ltr">${esc(g.name)}</b></td><td>${cpMon(r.month)}</td>
-    <td><b class="ltr num">${cpUsd(r.mean)}</b></td><td>${cpRange(r)}</td><td>${mkPct(r.vsSpot, 0)}</td><td>${mkPct(r.w1)}</td>
+  const rows = cpGpus().flatMap(g => (g.pm || []).filter(r => r.px != null && (r.slug === g.front || (r.vol || 0) >= 5000)).map(r => `<tr${r.slug === g.front ? ' class="cp-fr"' : ''}><td><b class="ltr">${esc(g.name)}</b></td><td>${cpMon(r.month)}</td>
+    <td><b class="ltr num">${cpUsd(r.px)}</b></td><td>${cpRange(r)}</td><td>${mkPct(r.vsSpot, 0)}</td><td>${mkPct(r.w1)}</td>
     <td>${ltr('$' + fmtN((r.vol || 0) / 1000, 0) + 'K')}</td><td><a href="${esc(r.url)}" target="_blank" rel="noopener">לשוק</a></td></tr>`)).join('');
   if (!rows) return '<p class="small muted" style="margin:0">אין כרגע שווקים פתוחים ב-Polymarket על מחירי GPU.</p>';
   return `<div class="tbl-wrap"><table class="ft itbl cp-pm-t"><thead><tr><th>מעבד</th><th>חודש</th><th>מחיר צפוי</th><th>טווח סביר (10%–90%)</th><th>מול היום</th><th>שינוי בשבוע</th><th>מחזור</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
-    <p class="small muted" style="margin:0">בכל חודש יש ב-Polymarket סולם של שאלות "האם המחיר הממוצע של Ornn בחודש יהיה מעל $X". המחירים שם הם ההסתברויות שהשוק נותן, ומהן מחושב המחיר הצפוי (אותו מספר ש-Polymarket מציגים כ-PIRP) והטווח שבו המחיר צפוי להיות ב-80% מהמקרים. מודגש: החודש הקרוב שיש בו מחזור מסחר משמעותי. בחודשים עם מחזור קטן המספר פחות אמין.</p>`;
+    <p class="small muted" style="margin:0">בכל חודש יש ב-Polymarket סולם של שאלות "האם המחיר הממוצע של Ornn בחודש יהיה מעל $X". המחירים שם הם ההסתברויות שהשוק נותן. המחיר הצפוי הוא החציון: השוק נותן סיכוי של 50% שהממוצע החודשי יהיה מעליו (קרוב למספר ש-Polymarket מציגים כ-PIRP). הטווח הסביר: 80% מההסתברות. מודגש: החודש הקרוב שיש בו מחזור מסחר משמעותי. חודשים עם מחזור של פחות מ-5,000 דולר לא מוצגים, ובחודשים עם מחזור קטן המספר פחות אמין.</p>`;
 }
 function cpNote() {
   const d = cpData(), p = d.params || {};
@@ -4724,7 +4724,7 @@ function cpTalk() {
   if (h) L.push(`שכירת מעבד H100 של אנבידיה עולה היום ${cpUsd(h.last)} לשעה (מדד Ornn, ${fmtDateShort(h.date)})${h.m1 != null ? `, ${mv(h.m1)}` : ''}. ${cpStateTxt(h)}.`);
   if (b) L.push(`B200, הדור הנוכחי (Blackwell): ${cpUsd(b.last)} לשעה${b.m1 != null ? `, ${mv(b.m1)}` : ''}. ${cpStateTxt(b)}.`);
   const f = h && cpFront(h);
-  if (f && f.mean != null) L.push(`ב-Polymarket המשקיעים מתמחרים ל-H100 מחיר ממוצע של ${cpUsd(f.mean)} לשעה ב${cpMon(f.month)}, ${f.vsSpot > 0 ? 'מעל' : 'מתחת ל'}מחיר היום ב-${fmtN(Math.abs(f.vsSpot) * 100, 0)}%: ${f.vsSpot > 0.02 ? 'השוק מצפה שהביקוש לכוח מחשוב ימשיך לעלות' : f.vsSpot < -0.02 ? 'השוק מצפה להתקררות במחירי המחשוב' : 'השוק לא מצפה לשינוי גדול'}.`);
+  if (f && f.px != null) L.push(`ב-Polymarket המשקיעים מתמחרים ל-H100 מחיר ממוצע של כ-${cpUsd(f.px)} לשעה ב${cpMon(f.month)}, ${f.vsSpot > 0 ? 'מעל' : 'מתחת ל'}מחיר היום ב-${fmtN(Math.abs(f.vsSpot) * 100, 0)}%: ${f.vsSpot > 0.02 ? 'השוק מצפה שהביקוש לכוח מחשוב ימשיך לעלות' : f.vsSpot < -0.02 ? 'השוק מצפה להתקררות במחירי המחשוב' : 'השוק לא מצפה לשינוי גדול'}.`);
   return L;
 }
 // ---------------- marketing tab: macro, spreads, mega-cap stories, sector leaders, holdings search ----------------

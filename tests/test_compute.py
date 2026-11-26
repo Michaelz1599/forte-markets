@@ -74,10 +74,11 @@ def test_pm_month_parses_gamma(monkeypatch):
     monkeypatch.setattr(c, "get", lambda url, **kw: ev)
     r = c.pm_month("h100", 2026, 12)
     assert r["month"] == "2026-12" and r["n"] == 12 and r["vol"] == 12000 and abs(r["mean"] - 3.03) < 0.005
+    assert r["px"] == r["med"] == 3.05   # the headline price is the median
 
 
 def test_pm_alert_on_weekly_shift():
-    front = {"slug": "s", "month": "2026-12", "mean": 3.20, "vol": 50000}
+    front = {"slug": "s", "month": "2026-12", "px": 3.20, "vol": 50000}
     hist = {"s": {"2026-11-19": 3.00, "2026-11-25": 3.15}}
     a = c.pm_alerts({"name": "H100"}, front, hist, "2026-11-26", P)
     assert a and a[0]["kind"] == "pm_up" and abs(a[0]["chg"] - 0.0667) < 1e-3
