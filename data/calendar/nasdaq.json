@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-26T12:01+00:00",
+"asof": "2026-11-26T12:11+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -25850,15 +25850,53 @@
 }
 },
 {
+"id": "DE-2026-11-25",
+"ticker": "DE",
+"market": "US",
+"date": "2026-11-25",
+"session": "TBD",
+"period": "Oct/2026",
+"status": "listed",
+"release": {
+"text": "שעה לא צוינה",
+"tz": "America/New_York"
+},
+"call": {
+"time": null,
+"tz": "America/New_York",
+"confirmed": false,
+"note": "שעת השיחה לא נאספה (לוח Nasdaq)",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"nasdaq": true,
+"mcap": 165485298000.0,
+"name": "Deere & Company",
+"sources": [
+{
+"label": "Nasdaq · Earnings Calendar",
+"url": "https://www.nasdaq.com/market-activity/earnings"
+}
+],
+"consensus": {
+"period": "רבעון נוכחי",
+"eps": 4.07,
+"epsN": 9.0,
+"source": "Nasdaq (Zacks)",
+"quality": "normal"
+}
+},
+{
 "id": "LI-2026-11-25",
 "ticker": "LI",
 "market": "US",
 "date": "2026-11-25",
-"session": "BMO",
+"session": "TBD",
 "period": "Sep/2026",
 "status": "listed",
 "release": {
-"text": "before market open",
+"text": "שעה לא צוינה",
 "tz": "America/New_York"
 },
 "call": {
@@ -26482,7 +26520,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 2.93,
+"eps": 2.94,
 "epsN": 4.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -26520,7 +26558,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.77,
+"eps": 1.76,
 "epsN": 3.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -26710,7 +26748,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 5.62,
+"eps": 5.64,
 "epsN": 12.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -27159,7 +27197,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 6.01,
+"eps": 5.92,
 "epsN": 7.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
