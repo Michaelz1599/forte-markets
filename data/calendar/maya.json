@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-25T21:56+00:00",
+"asof": "2026-11-26T00:18+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4178,34 +4178,6 @@
 ]
 },
 {
-"id": "שגריר רכב-2026-11-25",
-"ticker": "שגריר רכב",
-"market": "IL",
-"date": "2026-11-25",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום חמישי 26.11, 10:00 שעון ישראל",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1664,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1782694"
-}
-]
-},
-{
 "id": "שטראוס גרופ-2026-11-25",
 "ticker": "שטראוס גרופ",
 "market": "IL",
@@ -4766,6 +4738,34 @@
 ]
 },
 {
+"id": "שגריר רכב-2026-11-26",
+"ticker": "שגריר רכב",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1664,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1782715"
+}
+]
+},
+{
 "id": "שופרסל-2026-11-26",
 "ticker": "שופרסל",
 "market": "IL",
@@ -5215,6 +5215,286 @@
 }
 ],
 "profiles": {
+"ROTS": {
+"name": "רוטשטיין · ROTS",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"IBI": {
+"name": "איביאי בית השק · IBI",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"כפרית": {
+"name": "כפרית",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ANLT": {
+"name": "אנליסט · ANLT",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סוגת": {
+"name": "סוגת",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"נופר אנרג'י": {
+"name": "נופר אנרג'י",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אפקון החזקות": {
+"name": "אפקון החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"איידיאיי ביטוח": {
+"name": "איידיאיי ביטוח",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אמפא": {
+"name": "אמפא",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סמארט שוטר": {
+"name": "סמארט שוטר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישרוטל": {
+"name": "ישרוטל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראל קנדה": {
+"name": "ישראל קנדה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אוטונומוס": {
+"name": "אוטונומוס",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"דמרי": {
+"name": "דמרי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שופרסל": {
+"name": "שופרסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"שגריר רכב": {
+"name": "שגריר רכב",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלמוגים החזקות": {
+"name": "אלמוגים החזקות",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"דוראל אנרגיה": {
+"name": "דוראל אנרגיה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מחלבות גד": {
+"name": "מחלבות גד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"פלרם": {
+"name": "פלרם",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלומה": {
+"name": "אלומה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אקסל": {
+"name": "אקסל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"VILR": {
+"name": "וילאר · VILR",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אטראו שוקי הון": {
+"name": "אטראו שוקי הון",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלקטרה צריכה": {
+"name": "אלקטרה צריכה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ויליפוד אינטרנש": {
+"name": "ויליפוד אינטרנש",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"וילי פוד": {
+"name": "וילי פוד",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"תיגבור קבוצה": {
+"name": "תיגבור קבוצה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"הכשרת הישוב": {
+"name": "הכשרת הישוב",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראייר גרופ": {
+"name": "ישראייר גרופ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"כלל עסקי ביטוח": {
+"name": "כלל עסקי ביטוח",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סינאל מלל": {
+"name": "סינאל מלל",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אקונרג'י": {
+"name": "אקונרג'י",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אלקטרה נדל\"ן": {
+"name": "אלקטרה נדל\"ן",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"גוטו": {
+"name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "RMON": {
 "name": "רימון · RMON",
 "tags": [
@@ -5351,14 +5631,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"שגריר רכב": {
-"name": "שגריר רכב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "אלקטרה": {
 "name": "אלקטרה",
 "tags": [
@@ -5377,278 +5649,6 @@
 },
 "טופ גרופ": {
 "name": "טופ גרופ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"מחלבות גד": {
-"name": "מחלבות גד",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"פלרם": {
-"name": "פלרם",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"שופרסל": {
-"name": "שופרסל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלמוגים החזקות": {
-"name": "אלמוגים החזקות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"דוראל אנרגיה": {
-"name": "דוראל אנרגיה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישרוטל": {
-"name": "ישרוטל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישראל קנדה": {
-"name": "ישראל קנדה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אוטונומוס": {
-"name": "אוטונומוס",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"דמרי": {
-"name": "דמרי",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אמפא": {
-"name": "אמפא",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סמארט שוטר": {
-"name": "סמארט שוטר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אפקון החזקות": {
-"name": "אפקון החזקות",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"איידיאיי ביטוח": {
-"name": "איידיאיי ביטוח",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"נופר אנרג'י": {
-"name": "נופר אנרג'י",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סוגת": {
-"name": "סוגת",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ANLT": {
-"name": "אנליסט · ANLT",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"כפרית": {
-"name": "כפרית",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ROTS": {
-"name": "רוטשטיין · ROTS",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"IBI": {
-"name": "איביאי בית השק · IBI",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"VILR": {
-"name": "וילאר · VILR",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אקסל": {
-"name": "אקסל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלומה": {
-"name": "אלומה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"תיגבור קבוצה": {
-"name": "תיגבור קבוצה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלקטרה צריכה": {
-"name": "אלקטרה צריכה",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ויליפוד אינטרנש": {
-"name": "ויליפוד אינטרנש",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"וילי פוד": {
-"name": "וילי פוד",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אטראו שוקי הון": {
-"name": "אטראו שוקי הון",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישראייר גרופ": {
-"name": "ישראייר גרופ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אקונרג'י": {
-"name": "אקונרג'י",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלקטרה נדל\"ן": {
-"name": "אלקטרה נדל\"ן",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"הכשרת הישוב": {
-"name": "הכשרת הישוב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"כלל עסקי ביטוח": {
-"name": "כלל עסקי ביטוח",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"סינאל מלל": {
-"name": "סינאל מלל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"גוטו": {
-"name": "גוטו",
 "tags": [
 "TASE"
 ],
