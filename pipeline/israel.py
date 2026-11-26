@@ -129,10 +129,12 @@ def sector_rows(c: pd.DataFrame, info: dict, sec_names: dict, idx: pd.Series | N
 LONG_WINDOWS = {"3m": 91, "1y": 365}    # calendar days: the long views of the flows (3 months, a year)
 
 
-def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFrame, info: dict, sec_names: dict) -> dict:
+def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFrame, info: dict, sec_names: dict,
+                px_div: float = 100.0, unit: str = "מיליוני ש\"ח", min_names: int = 40) -> dict:
     """Where money went in TA-125: an estimate from prices and turnover, since TASE publishes no net buying per stock.
+    Also used for the S&P 500 (pipeline.usflows: px_div=1, dollars).
 
-    turnover = close x volume (Yahoo quotes TASE shares in agorot, so / 100 for shekels).
+    turnover = close x volume / px_div (Yahoo quotes TASE shares in agorot, so / 100 for shekels).
     pressure weight = half the close's position in the day's range (+1 at the high, -1 at the low: Chaikin) and half
     the direction of the close against the previous close (+1 up, -1 down), so a day that gapped down and recovered
     part of it is not counted as full buying. flow = weight x turnover, summed over 5 and 20 sessions and over the last
@@ -142,7 +144,7 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
     pressure by month (share of its turnover)."""
     n = 340     # about 16 months of sessions: a full year, and 13 whole months for the monthly view
     c, h, lo, v = c.iloc[-n:], h.iloc[-n:], lo.iloc[-n:], v.reindex(index=c.index, columns=c.columns).iloc[-n:]
-    turn = (c / 100.0) * v
+    turn = (c / px_div) * v
     rng = (h - lo).where((h - lo) > 0)
     clv = (((c - lo) - (h - c)) / rng).clip(-1, 1).fillna(0.0)
     w = 0.5 * clv + 0.5 * pd.DataFrame(np.sign(c.diff().values), index=c.index, columns=c.columns).fillna(0.0)
@@ -194,8 +196,8 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
             x["n" + k] = round(f / 1e6, 1)
             x["r" + k] = round(f / t, 3) if t else None
         sectors.append(x)
-    daily = flow.sum(axis=1, min_count=40) / 1e6
-    dturn = turn.sum(axis=1, min_count=40) / 1e6
+    daily = flow.sum(axis=1, min_count=min_names) / 1e6
+    dturn = turn.sum(axis=1, min_count=min_names) / 1e6
     hist = daily.dropna().iloc[-120:]
     r20 = daily.rolling(20, min_periods=15).sum().reindex(hist.index)
     fin = lambda x: None if x is None or pd.isna(x) else round(float(x), 1)
@@ -220,7 +222,7 @@ def money_flows(c: pd.DataFrame, h: pd.DataFrame, lo: pd.DataFrame, v: pd.DataFr
         tm = turn[syms].where(flow[syms].notna()).sum(axis=1, min_count=1).groupby(mi).sum(min_count=1).reindex(mo.index)
         secm.append({"key": x["key"], "r": [round(float(f / t), 3) if pd.notna(f) and pd.notna(t) and t > 0 else None for f, t in zip(fm, tm)],
                      "n": [fin(f / 1e6) if pd.notna(f) else None for f in fm]})
-    return {"asof": c.index[-1], "unit": "מיליוני ש\"ח", "total": tot, "stocks": rows, "sectors": sectors,
+    return {"asof": c.index[-1], "unit": unit, "total": tot, "stocks": rows, "sectors": sectors,
             "from": {k: str(ix[0])[:10] if len(ix) else None for k, ix in sel.items()},
             "hist": {"d": list(hist.index), "net": [round(float(x), 1) for x in hist], "r20": [None if pd.isna(x) else round(float(x), 1) for x in r20]},
             "weeks": {"d": [wk_last[p] for p in wk.index], "net": [fin(x) for x in wk["sum"]]},

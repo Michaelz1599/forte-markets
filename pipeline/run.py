@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, compute, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
+from . import analogs, compute, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, usflows, valuation
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
                      write_series)
 
@@ -185,6 +185,11 @@ def run(offline: bool = False, live: bool = False) -> int:
                 dump_json(ROOT / "data" / "derived" / "sp_momentum.json", mom)
             summation_from_oscillator()
             st.add("breadth", "רוחב שוק ומומנטום מרכיבי S&P 500", True, _last(data.get("sp_pct200", {})), msg)
+        # 9b. Where money flows in the US, the actual layer: creations and redemptions of SPY, the sector SPDRs and
+        # other State Street ETFs (the estimate layer is computed in the breadth step above)
+        res = step(st, "usflows", "לאן הכסף זורם בארה\"ב: קרנות הסל של State Street", usflows.run)
+        if res:
+            st.add("usflows", "לאן הכסף זורם בארה\"ב: קרנות הסל של State Street", len(res[0].get("missing") or []) <= 1, res[0]["asof"], res[1])
         # 10. RS for every US stock and for every factor, sector and theme ETF
         def _rs():
             members = bextra["members"] if bextra else None
@@ -377,7 +382,13 @@ def build(st: Status, u: dict, px) -> None:
         traceback.print_exc()
     mom_file = ROOT / "data" / "derived" / "sp_momentum.json"
     if mom_file.exists():
-        shutil.copy(mom_file, tmp / "data" / "momentum.json")
+        mom = json.loads(mom_file.read_text(encoding="utf-8"))
+        if usflows.OUT.exists():   # where money flows in the US: the actual layer next to the estimate (mom["flows"])
+            try:
+                mom["etf"] = json.loads(usflows.OUT.read_text(encoding="utf-8"))
+            except Exception:
+                traceback.print_exc()
+        dump_json(tmp / "data" / "momentum.json", mom)
     if liveus.OUT.exists():
         shutil.copy(liveus.OUT, tmp / "data" / "live_us.json")
     rs_file = ROOT / "data" / "derived" / "rs.json"

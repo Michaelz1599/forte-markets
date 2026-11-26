@@ -141,4 +141,12 @@ def run() -> tuple[dict, str, dict, dict]:
         out[sid] = {d: round(float(v), nd[sid]) for d, v in s.items()}
     recent = close.index[-170:]   # RS needs the closes 6 months back
     extra = {"members": info, "bars": {k: v.reindex(index=recent) for k, v in bars.items()}}
-    return out, f"{got} מניות ({src}){' · השלמת היסטוריה' if backfill else ''}", stock_momentum(close.iloc[-300:], info), extra
+    mom = stock_momentum(close.iloc[-300:], info)
+    note = ""
+    if mom:
+        try:   # where money flows in the US, the estimate layer: buying and selling pressure in every member
+            from . import usflows
+            mom["flows"] = usflows.pressure(close, bars, info)
+        except Exception as e:   # an extra: never fail the breadth step for it
+            note = f" · לחץ קנייה ומכירה: {type(e).__name__} {str(e)[:60]}"
+    return out, f"{got} מניות ({src}){' · השלמת היסטוריה' if backfill else ''}{note}", mom, extra
