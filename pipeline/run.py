@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
+from . import analogs, compute, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, valuation
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
                      write_series)
 
@@ -138,6 +138,11 @@ def run(offline: bool = False, live: bool = False) -> int:
                 write_series(sid, pts)
             st.add("valuation", "מאקרו: אינדיקטור באפט (שווי שוק / תמ\"ג)", len(data) == 2,
                    _last(data.get("buffett_us", {})), msg + (f" · {'; '.join(probs[:3])}" if probs else ""))
+        # 7b1b. AI compute pricing: GPU rental prices (Ornn OCPI), their momentum and signals, Polymarket's forward prices
+        res = step(st, "compute", "מאקרו: תמחור מחשוב AI (Ornn, Polymarket)", compute.run)
+        if res:
+            out, msg = res
+            st.add("compute", "מאקרו: תמחור מחשוב AI (Ornn, Polymarket)", "חסרים" not in msg, compute.last_date(out), msg)
         # 7b2. What drives inflation (CPI components' contributions), US and Israel
         def _drivers():
             res, msg = {}, []
@@ -358,7 +363,10 @@ def build(st: Status, u: dict, px) -> None:
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
                                              "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
                                              "drivers": json.loads(drivers.OUT.read_text(encoding="utf-8")) if drivers.OUT.exists() else {},
-                                             "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {}})
+                                             "curve": json.loads(curve_file.read_text(encoding="utf-8")) if curve_file.exists() else {},
+                                             # GPU rental prices: momentum, signals and Polymarket's months (macro tab + marketing tab)
+                                             "compute": {k: v for k, v in json.loads(compute.OUT.read_text(encoding="utf-8")).items() if k != "pmHist"}
+                                             if compute.OUT.exists() else {}})
     ev_file = ROOT / "config" / "events.jsonl"   # curated market events for the peaks and troughs of the charts
     if ev_file.exists():
         evs = [json.loads(x) for x in ev_file.read_text(encoding="utf-8").splitlines() if x.strip()]

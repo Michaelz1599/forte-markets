@@ -1,0 +1,12 @@
+{
+  "_comment": "AI compute pricing (Macro tab section 'compute' and the marketing tab's macro block). gpus: the Ornn Compute Price Index (OCPI) GPUs; ornn = the name in Ornn's free history endpoint (data.ornn.com/api/public-index/gpu/<ornn>/index-history, the trailing 3 months of daily settles; the stored series grows from the first run), page = the Ornn market page, pm = the GPU's prefix in Polymarket's monthly 'average rental price' markets (slug <pm>-average-rental-price-in-<month>-<year>). momentum: fast/slow = moving averages in days; the trend turns up or down when fast/slow - 1 crosses +-band, band = max(band_min, band_k x the day-to-day noise of that GPU's index), and stays until it crosses the other side (so a noisy index does not flip daily). surge = a sharp week: the 7-day average vs the week before, at least max(surge, surge_k x noise). pm_shift = Polymarket's implied price for the nearest month moved this much in a week. alert_days = a signal older than this (in data days) when first seen is history, not news, and is not emailed.",
+  "gpus": [
+    {"id": "gpu_h100", "ornn": "H100 SXM", "name": "H100", "he": "אנבידיה H100 · Hopper", "code": "OCPI-H100", "page": "https://data.ornn.com/markets/h100-sxm", "pm": "h100"},
+    {"id": "gpu_h200", "ornn": "H200", "name": "H200", "he": "אנבידיה H200 · Hopper", "code": "OCPI-H200", "page": "https://data.ornn.com/markets/h200", "pm": "h200"},
+    {"id": "gpu_b200", "ornn": "B200", "name": "B200", "he": "אנבידיה B200 · Blackwell", "code": "OCPI-B200", "page": "https://data.ornn.com/markets/b200", "pm": "b200"},
+    {"id": "gpu_b300", "ornn": "B300", "name": "B300", "he": "אנבידיה B300 · Blackwell Ultra", "code": "OCPI-B300", "page": "https://data.ornn.com/markets/b300", "pm": "b300"},
+    {"id": "gpu_a100", "ornn": "A100 SXM4", "name": "A100", "he": "אנבידיה A100 · Ampere", "code": "OCPI-A100", "page": "https://data.ornn.com/markets/a100-sxm4", "pm": "a100"}
+  ],
+  "momentum": {"fast": 7, "slow": 28, "band_min": 0.02, "band_k": 1.5, "surge": 0.10, "surge_k": 3.0, "pm_shift": 0.05, "alert_days": 3},
+  "pm_months": 13
+}

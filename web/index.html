@@ -966,6 +966,25 @@ table.ft.bk-tbl tr[data-iss]:hover td { background: var(--hl); }
 .mk-more { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 2px 6px; }
 .mk-more > summary { font-weight: 700; font-size: 14.5px; }
 .mk-sub { font-size: 15px; margin-top: 4px; }
+/* AI compute pricing (macro tab + marketing tab) */
+.cp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 10px; }
+.mtile.cp-card { gap: 4px; align-content: start; }
+.cp-card .cp-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.cp-card .cp-h b { font-size: 15.5px; font-weight: 800; }
+.cp-card .cp-h small { font-size: 11.5px; color: var(--muted); }
+.cp-card .val small { font-size: 12px; font-weight: 600; color: var(--muted); }
+.cp-card .cp-row { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 12px; color: var(--ink-2); }
+.cp-card .msp { width: 100%; height: 30px; display: block; }
+.cp-card .cp-pm { font-size: 12px; color: var(--ink-2); border-top: 1px dashed var(--line); padding-top: 5px; }
+.cp-alerts { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.cp-alerts li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; align-items: start; font-size: 13.5px; line-height: 1.5; padding: 8px 10px; border-radius: 8px; background: var(--sunk); }
+.cp-alerts li.new { background: var(--warn-bg); }
+.cp-alerts .ar { font-weight: 800; line-height: 1.5; }
+.cp-alerts .ar.u { color: var(--greed); }
+.cp-alerts .ar.d { color: var(--fear); }
+.cp-alerts .dt { display: block; font-size: 11.5px; color: var(--muted); }
+.cp-new { display: grid; gap: 4px; padding: 10px 14px; border-radius: 10px; background: var(--warn-bg); border-inline-start: 4px solid var(--warn); font-size: 14px; line-height: 1.5; }
+table.cp-pm-t tr.cp-fr td { background: var(--hl); }
 .mk-sub .small { font-weight: 400; }
 .sp-t { cursor: default; }
 .sp-t .val small { font-size: 14px; font-weight: 600; color: var(--ink-2); }
@@ -4137,6 +4156,7 @@ const MAC_CHARTS = {
   labor: { ids: ['unrate'], years: 20, title: 'שיעור האבטלה בארה"ב, 20 שנה' },
   money: { ids: ['m2_yoy'], years: 25, mark: [0, ''], title: 'צמיחת M2 שנתית' },
   energy: { ids: ['spark_nyc', 'spark_isone', 'spark_pjm', 'spark_sp15'], years: 2, mark: [0, ''], title: 'מרווח ספארק, $ ל-MWh · ניו יורק וניו אינגלנד יומי, PJM ו-SP-15 מ-EIA' },
+  compute: { ids: ['gpu_b300', 'gpu_b200', 'gpu_h200', 'gpu_h100', 'gpu_a100'], years: 1, title: 'מחיר שכירת GPU לשעה, דולר · מדד Ornn' },
 };
 const LINE_COLORS = ['#0E6B52', '#B9482A', '#2F6DB5', '#8F5E10', '#6B3FA0', '#0F766E'];
 function macLines(elId, cfg) {
@@ -4158,7 +4178,7 @@ function macLines(elId, cfg) {
     dataZoom: [{ type: 'inside', startValue: startT, endValue: lastT }, { type: 'slider', bottom: 4, height: 18, startValue: startT, endValue: lastT, borderColor: line, fillerColor: 'rgba(154,212,185,.25)', textStyle: { color: muted }, labelFormatter: v => fmtDate(isoOf(v)) }],
     tooltip: { trigger: 'axis', backgroundColor: surface, borderColor: line, textStyle: { color: ink }, formatter: ps => `<div dir="rtl" style="text-align:right">${fmtDate(isoOf(ps[0].value[0]))}${ps.map(p => `<br>${p.marker}${esc(p.seriesName)}: <b dir="ltr">${mFmt(S.ind.get(cfg.ids[p.seriesIndex]) || ind0, p.value[1])}</b>`).join('')}</div>` },
     xAxis: { type: 'time', axisLabel: { color: muted, hideOverlap: true }, axisLine: { lineStyle: { color: line } } },
-    yAxis: { type: 'value', scale: true, axisLabel: { color: muted, formatter: v => mUnit(ind0) === '%' ? v + '%' : v }, splitLine: { lineStyle: { color: line2 } } },
+    yAxis: { type: 'value', scale: true, axisLabel: { color: muted, formatter: v => mUnit(ind0) === '%' ? v + '%' : mUnit(ind0) === '$' ? '$' + v : v }, splitLine: { lineStyle: { color: line2 } } },
     series });
   zoomBar(c, el, lastT, firstT, cfg.years * 365);
 }
@@ -4266,6 +4286,7 @@ function renderMacro() {
       <p class="small muted" style="margin:0">הקו המקווקו הוא הממוצע של כל ההיסטוריה בגרף, והרצועה הירוקה היא סטיית תקן אחת סביבו. 100% = שווי המניות שווה לתמ"ג של שנה. ארה"ב: מדד Wilshire 5000 חלקי התמ"ג (FRED); עד 1988 נתוני הפד. ישראל: שווי החברות הישראליות בבורסה לפי הבנק העולמי בסוף כל שנה, ובין לבין ואחרי השנה האחרונה שפורסמה לפי ת"א-125, חלקי התמ"ג של ארבעת הרבעונים האחרונים (בנק ישראל). פאלו אלטו, שנסחרת בת"א מפברואר 2026, היא חברה אמריקאית ואינה נכללת בשווי של ישראל. בארה"ב חלק גדל מהרווחים מגיע מחו"ל, ולכן היחס נוטה לעלות לאורך השנים גם בלי בועה. לחיצה על שורה בטבלה פותחת אחוזונים ופירוט.</p>`;
     else if (sec.id === 'cds') extra = `<div class="xtools"><span class="small muted">שינוי ב-</span><div class="seg" role="group" id="macMov">${[[7, 'שבוע'], [30, 'חודש'], [91, '3 חודשים'], [365, 'שנה']].map(([d, l]) => `<button type="button" data-v="${d}" aria-pressed="${+(S.macMov || 30) === d}">${l}</button>`).join('')}</div></div><div class="movers" id="macMovers"></div>
       <p class="small muted" style="margin:0">מדורג לפי השינוי בנקודות בסיס. נתוני CDS עצמם (ריבוניים ותאגידיים) לא זמינים ממקור חינמי ויציב, ולכן הדירוג נעשה על מרווחי האשראי (OAS) של ICE BofA לפי דירוג ואזור, שמודדים את אותו סיכון. סדרת CDS שתוסיפו במסך הניהול בקבוצה "CDS" (למשל ייצוא מ-Bloomberg) תיכנס לדירוג אוטומטית.</p>`;
+    else if (sec.id === 'compute') extra = cpSection(ch);
     else if (ch) extra = `<div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-${sec.id}" role="img" aria-label="${esc(ch.title)}"></div></div>`;
     if (sec.id === 'infl') extra += `<div class="ix-grid">${[['us', 'ארה"ב'], ['il', 'ישראל']].map(([k, l]) => `<div class="panel inner"><div class="panel-head"><h3>מה מושך את האינפלציה · ${l}</h3><span class="small muted">תרומה לאינפלציה השנתית, נקודות אחוז</span></div><div class="chart cx sm3" id="mac-drv-${k}" role="img" aria-label="מרכיבי האינפלציה ב${l}"></div></div>`).join('')}</div>
       <p class="small muted" style="margin:0">כל עמודה מחולקת לפי התרומה של כל מרכיב: המשקל שלו בסל כפול השינוי השנתי במחיר שלו. הקו השחור הוא האינפלציה השנתית שפורסמה. המשקלות הם של הסל העדכני (ארה"ב: BLS, דצמבר 2025; ישראל: הלמ"ס, סל 2025), ולכן בשנים רחוקות החלוקה מקורבת והסכום יכול לסטות מעט מהקו. "שירותים ללא דיור ואנרגיה" בארה"ב מחושב מהפער בין כל השירותים לדיור. בישראל "דיור" הוא שכר הדירה (כולל שכר דירה זקוף לבעלי דירות), ו"תחזוקת הדירה" כוללת חשמל, מים וארנונה.</p>`;
@@ -4629,6 +4650,83 @@ function initSortableTables() {
   });
 }
 
+// ---------------- AI compute pricing: GPU rental prices (Ornn OCPI), momentum signals, Polymarket's months ahead ----------------
+// pipeline/compute.py writes it into data/macro.json ("compute"); shown in the macro tab (section "compute") and the marketing tab
+const CP_ST = { up: ['s-g', 'מומנטום עולה'], up_fading: ['s-n', 'עלייה שנחלשת'], down: ['s-f', 'מומנטום יורד'], down_fading: ['s-n', 'ירידה שנחלשת'],
+  flat: ['s-n', 'בלי כיוון ברור'], short: ['chip-plain', 'היסטוריה קצרה'] };
+const CP_MON = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
+const cpData = () => (MAC && MAC.compute) || {};
+const cpGpus = () => cpData().gpus || [];
+const cpGpu = id => cpGpus().find(g => g.id === id);
+const cpMon = m => `${CP_MON[+m.slice(5, 7) - 1]} ${m.slice(0, 4)}`;
+const cpUsd = (v, d = 2) => v == null || !isFinite(v) ? '—' : '$' + fmtN(v, d);
+const cpFront = g => (g.pm || []).find(r => r.slug === g.front) || null;
+const cpRange = r => `${r.lo != null ? ltr(cpUsd(r.lo)) : `מתחת ל-${ltr(cpUsd(r.kmin))}`} עד ${r.hi != null ? ltr(cpUsd(r.hi)) : `מעל ${ltr(cpUsd(r.kmax))}`}`;
+// a signal is news for three days after it was first seen (alerts marked old were already history when first seen)
+const cpIsNew = a => !a.old && !!a.seen && Date.now() - Date.parse(a.seen) < 3 * DAY;
+const cpWhen = iso => { const t = Date.parse(iso || ''); return isFinite(t) ? new Date(t).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }) : ''; };
+function cpStateTxt(g) {
+  const since = g.since ? ` מאז ${fmtDateShort(g.since)}` : '';
+  return { up: `המומנטום עולה${since}`, up_fading: `המגמה העולה${since} נחלשת`, down: `המומנטום יורד${since}`, down_fading: `המגמה היורדת${since} נחלשת`,
+    flat: 'בלי כיוון ברור', short: 'היסטוריה קצרה מדי לאיתות' }[g.state] || '';
+}
+function cpChip(g) {
+  const s = CP_ST[g.state] || CP_ST.flat;
+  const tip = g.gap != null ? `ממוצע 7 ימים ${cpUsd(g.maf)} מול ממוצע 28 ימים ${cpUsd(g.mas)}: פער ${fmtPct(g.gap)}; הסף למעבד הזה ±${fmtN(g.band * 100, 1)}%` : '';
+  return `<span class="chip ${s[0]}" title="${esc(tip)}">${s[1]}</span>`;
+}
+function cpCards() {
+  return cpGpus().map(g => {
+    const f = cpFront(g), gen = (g.he || '').split('·')[1] || '';
+    return `<button type="button" class="mtile cp-card" data-ind="${esc(g.id)}" aria-label="${esc(g.name)}: ${cpUsd(g.last)} לשעה, ${esc(cpStateTxt(g))}">
+      <span class="cp-h"><b class="ltr">${esc(g.name)}</b><small>${esc(gen.trim())}</small></span>
+      <span class="val"><span class="ltr num">${cpUsd(g.last)}</span> <small>לשעה</small></span>
+      <span class="cp-row"><span>${fmtDateShort(g.date)}</span><span>שבוע ${mkPct(g.w1)}</span><span>חודש ${mkPct(g.m1)}</span></span>
+      <span class="cp-row">${cpChip(g)}${g.since && g.state !== 'flat' ? `<span class="muted">מאז ${fmtDateShort(g.since)}</span>` : ''}</span>
+      ${miniSpark(g.spark, 160, 30)}
+      ${f && f.mean != null ? `<span class="cp-pm">Polymarket ל${esc(CP_MON[+f.month.slice(5, 7) - 1])}: <b class="ltr num">${cpUsd(f.mean)}</b> (${fmtPct(f.vsSpot, 0)} מהיום)</span>` : ''}</button>`;
+  }).join('');
+}
+function cpAlerts(n = 8) {
+  const A = (cpData().alerts || []).slice(0, n);
+  if (!A.length) return '<p class="small muted" style="margin:0">עוד לא היה שינוי מומנטום מאז שהמעקב התחיל.</p>';
+  return `<ul class="cp-alerts">${A.map(a => `<li class="${cpIsNew(a) ? 'new' : ''}"><span class="ar ${a.dir === 'up' ? 'u' : 'd'}" aria-hidden="true">${a.dir === 'up' ? '▲' : '▼'}</span>
+    <span>${esc(a.text)}<span class="dt">${a.kind.startsWith('pm_') ? 'Polymarket' : 'נתון'} ${fmtDate(a.date)}${cpIsNew(a) ? ' · <b>חדש</b>' : ''}</span></span></li>`).join('')}</ul>`;
+}
+function cpBanner() {
+  const A = (cpData().alerts || []).filter(cpIsNew);
+  return A.length ? `<div class="cp-new" role="status"><b>🔔 שינוי מומנטום בתמחור המחשוב</b>${A.map(a => `<span>${a.dir === 'up' ? '▲' : '▼'} ${esc(a.text)}</span>`).join('')}</div>` : '';
+}
+function cpPm() {
+  const rows = cpGpus().flatMap(g => (g.pm || []).filter(r => r.mean != null).map(r => `<tr${r.slug === g.front ? ' class="cp-fr"' : ''}><td><b class="ltr">${esc(g.name)}</b></td><td>${cpMon(r.month)}</td>
+    <td><b class="ltr num">${cpUsd(r.mean)}</b></td><td>${cpRange(r)}</td><td>${mkPct(r.vsSpot, 0)}</td><td>${mkPct(r.w1)}</td>
+    <td>${ltr('$' + fmtN((r.vol || 0) / 1000, 0) + 'K')}</td><td><a href="${esc(r.url)}" target="_blank" rel="noopener">לשוק</a></td></tr>`)).join('');
+  if (!rows) return '<p class="small muted" style="margin:0">אין כרגע שווקים פתוחים ב-Polymarket על מחירי GPU.</p>';
+  return `<div class="tbl-wrap"><table class="ft itbl cp-pm-t"><thead><tr><th>מעבד</th><th>חודש</th><th>מחיר צפוי</th><th>טווח סביר (10%–90%)</th><th>מול היום</th><th>שינוי בשבוע</th><th>מחזור</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:0">בכל חודש יש ב-Polymarket סולם של שאלות "האם המחיר הממוצע של Ornn בחודש יהיה מעל $X". המחירים שם הם ההסתברויות שהשוק נותן, ומהן מחושב המחיר הצפוי (אותו מספר ש-Polymarket מציגים כ-PIRP) והטווח שבו המחיר צפוי להיות ב-80% מהמקרים. מודגש: החודש הקרוב שיש בו מחזור מסחר משמעותי. בחודשים עם מחזור קטן המספר פחות אמין.</p>`;
+}
+function cpNote() {
+  const d = cpData(), p = d.params || {};
+  return `<p class="small muted" style="margin:0">מחיר השכירה של מעבד אחד לשעה, בדולרים, לפי מדד המחירים של Ornn ‏(OCPI): ממוצע המחירים בפועל אצל ספקיות הענן, נקבע פעם ביום בחצות שעון ניו יורק. האיתות: <b>מומנטום עולה</b> כשהממוצע של ${p.fast || 7} ימים גבוה מהממוצע של ${p.slow || 28} ימים ביותר מהסף, ו<b>יורד</b> כשהוא נמוך ממנו ביותר מהסף. הסף הוא ${fmtN((p.band_min || 0.02) * 100, 0)}% לפחות וגדל במעבד שהמדד שלו קופצני, והכיוון מתהפך רק כשהפער חוצה את הסף בצד השני. גם שבוע חד (ממוצע שבועי שזז ${fmtN((p.surge || 0.1) * 100, 0)}% או יותר) ותזוזה של ${fmtN((p.pm_shift || 0.05) * 100, 0)}% בשבוע במחיר הצפוי ב-Polymarket נרשמים כאיתות. Ornn מפרסמים בחינם שלושה חודשים אחורה, ולכן ההיסטוריה כאן מתחילה בסוף אוגוסט 2026 ומתארכת בכל יום. ${d.asof ? `עודכן ${cpWhen(d.asof)}.` : ''} <a href="https://data.ornn.com/markets/h100-sxm" target="_blank" rel="noopener">Ornn</a> · <a href="https://polymarket.com/tech/compute/h100/dec-2026" target="_blank" rel="noopener">Polymarket</a></p>`;
+}
+// the macro tab's section: cards, the price chart and the latest signals, Polymarket's months
+function cpSection(ch) {
+  if (!cpGpus().length) return '<p class="muted small">נתוני תמחור המחשוב יופיעו אחרי העדכון הבא של האתר.</p>';
+  return `${cpBanner()}<div class="cp-grid">${cpCards()}</div>
+    <div class="panel inner"><div class="panel-head"><h3>${ch.title}</h3></div><div class="chart cx sm2" id="mac-ch-compute" role="img" aria-label="${esc(ch.title)}"></div></div>
+    <div class="panel inner"><div class="panel-head"><h3>איתותי מומנטום אחרונים</h3><span class="small muted">צהוב = חדש (שלושת הימים האחרונים)</span></div>${cpAlerts(6)}</div>
+    <details class="acc mk-more"><summary><span>🔮 מה השוק מתמחר לחודשים הבאים (Polymarket)</span><span class="acc-ch" aria-hidden="true"></span></summary><div class="acc-b">${cpPm()}</div></details>${cpNote()}`;
+}
+// ready-made lines for a call (marketing tab)
+function cpTalk() {
+  const L = [], h = cpGpu('gpu_h100'), b = cpGpu('gpu_b200');
+  const mv = x => x == null ? '' : `${x > 0 ? 'עלייה' : 'ירידה'} של ${fmtN(Math.abs(x) * 100, 1)}% בחודש האחרון`;
+  if (h) L.push(`שכירת מעבד H100 של אנבידיה עולה היום ${cpUsd(h.last)} לשעה (מדד Ornn, ${fmtDateShort(h.date)})${h.m1 != null ? `, ${mv(h.m1)}` : ''}. ${cpStateTxt(h)}.`);
+  if (b) L.push(`B200, הדור הנוכחי (Blackwell): ${cpUsd(b.last)} לשעה${b.m1 != null ? `, ${mv(b.m1)}` : ''}. ${cpStateTxt(b)}.`);
+  const f = h && cpFront(h);
+  if (f && f.mean != null) L.push(`ב-Polymarket המשקיעים מתמחרים ל-H100 מחיר ממוצע של ${cpUsd(f.mean)} לשעה ב${cpMon(f.month)}, ${f.vsSpot > 0 ? 'מעל' : 'מתחת ל'}מחיר היום ב-${fmtN(Math.abs(f.vsSpot) * 100, 0)}%: ${f.vsSpot > 0.02 ? 'השוק מצפה שהביקוש לכוח מחשוב ימשיך לעלות' : f.vsSpot < -0.02 ? 'השוק מצפה להתקררות במחירי המחשוב' : 'השוק לא מצפה לשינוי גדול'}.`);
+  return L;
+}
 // ---------------- marketing tab: macro, spreads, mega-cap stories, sector leaders, holdings search ----------------
 let MKT = null;
 const MK_KIND = { stock: 'מניה', bond: 'אג"ח', etf: 'תעודת סל', gov: 'אג"ח ממשלתית', makam: 'מק"מ', ustsy: 'אג"ח ממשלת ארה"ב', warrant: 'כתב אופציה' };
@@ -4777,10 +4875,15 @@ function mkMacro() {
   const tb = MKT.spreads && MKT.spreads.il_tb60_spread;
   if (tb && tb.v && tb.v.length) L.push(`אג"ח קונצרניות בישראל: תל בונד 60 נסחר במרווח ממוצע של ${n(tb.v[tb.v.length - 1], 2)}% מעל אג"ח ממשלתיות באותו מח"מ (נכון ל-${fmtDateShort(tb.d[tb.d.length - 1])}).`);
   const hy = mkPctile('hy_oas');
+  L.push(...cpTalk());
   if (hy) L.push(`מרווח אג"ח הזבל בארה"ב ${fmtN(hy.now * 100, 0)} נ"ב, ${hy.p <= 25 ? 'צר' : hy.p >= 75 ? 'רחב' : 'בטווח הרגיל'} ביחס ל-10 השנים האחרונות (אחוזון ${fmtN(hy.p, 0)}): ${hy.p <= 25 ? 'שוק האשראי רגוע ומתמחר סיכון נמוך' : hy.p >= 75 ? 'השוק דורש פיצוי גבוה על סיכון' : 'אין לחץ חריג בשוק האשראי'}.`);
   return `<section id="mk-macro" style="display:grid;gap:12px"><div class="mk-sec-h"><div><h2>מאקרו ומרווחי אשראי</h2><p>לחיצה על נתון פותחת את ההיסטוריה שלו.</p></div></div>
     <div class="mk-tiles">${tiles}</div>
     ${spTiles ? `<h3 class="mk-sub">מרווח אג"ח קונצרני מעל ממשלתי <span class="small muted">· צר = השוק רגוע, רחב = פחד</span></h3><div class="mk-tiles">${spTiles}</div>` : ''}
+    ${cpGpus().length ? `<div id="mk-compute" style="display:grid;gap:10px"><h3 class="mk-sub">תמחור מחשוב AI: כמה עולה לשכור GPU לשעה <span class="small muted">· מדד Ornn, איתות מומנטום, ומה ש-Polymarket מתמחר קדימה</span></h3>
+      ${cpBanner()}<div class="cp-grid">${cpCards()}</div>
+      ${mkAcc('mk-more', `<span>🔮 מה השוק מתמחר לחודשים הבאים (Polymarket)</span>`, cpPm())}
+      ${mkAcc('mk-more', `<span>🔔 איתותי מומנטום אחרונים</span>`, cpAlerts(6) + cpNote())}</div>` : ''}
     ${L.length ? mkAcc('mk-more', `<span>💬 משפטים מוכנים לשיחה</span>`, `<ul class="mk-talk">${L.map(x => `<li>${x}</li>`).join('')}</ul>`) : ''}
     ${mkAcc('mk-more', `<span>📊 מרווחים בארה"ב לפי דירוג (AAA עד CCC)</span>`, mkSpreads(), ' id="mk-spreads"')}</section>`;
 }
@@ -5205,7 +5308,7 @@ function renderMarketing() {
   $('#mkAsof').textContent = [MKT.pxAsof ? `מחירים: ${fmtDate(MKT.pxAsof.slice(0, 10))}` : '', st.asof ? `סיפורים: ${fmtDate(st.asof.slice(0, 10))}` : '', MKT.newsAsof ? `חדשות: ${fmtDate(MKT.newsAsof.slice(0, 10))}` : ''].filter(Boolean).join(' · ');
   mkCharts.forEach(c => { try { c.dispose(); } catch (e) { /* gone */ } }); mkCharts = [];
   el.innerHTML = mkWeekly() + mkStories() + mkMacro() + mkHousing() + mkBanks() + mkStress() + mkInsurance() + mkSectors() + mkSearch()
-    + `<p class="small muted" style="margin:0">מקורות: FRED (ICE BofA, BLS), הלמ"ס, בנק ישראל, Bizportal (מדדי תל בונד), Yahoo Finance (מחירים), Google News (כותרות), ויומן הדוחות של הדשבורד. הסיפורים והתקצירים נכתבים כל בוקר מתוך כתבות שפורסמו, עם קישור למקור. זה חומר רקע לשיחה ולא המלצת השקעה.</p>`;
+    + `<p class="small muted" style="margin:0">מקורות: FRED (ICE BofA, BLS), הלמ"ס, בנק ישראל, Bizportal (מדדי תל בונד), Ornn ו-Polymarket (מחירי GPU), Yahoo Finance (מחירים), Google News (כותרות), ויומן הדוחות של הדשבורד. הסיפורים והתקצירים נכתבים כל בוקר מתוך כתבות שפורסמו, עם קישור למקור. זה חומר רקע לשיחה ולא המלצת השקעה.</p>`;
   mkResults();
   mkDrawCharts();
 }
@@ -5246,9 +5349,9 @@ const NAV = {
   indices: { d: 'מצב טכני של המדדים המרכזיים בעולם, אג"ח, סחורות ומטבעות', items: () => [['תמונת מצב', '#idxBody'], ['מרחק מהשיא', '#idxHighs'], ['עולמי', '#ig-world'], ['ארה"ב', '#ig-us'], ['ישראל', '#ig-il'],
     ['אירופה', '#ig-eu'], ['אסיה ושווקים מתעוררים', '#ig-asia'], ['קנדה ואמריקה הלטינית', '#ig-am'], ['אג"ח, מטבעות וקריפטו', '#ig-cross'], ['סחורות ואנרגיה', '#ig-commod']] },
   momentum: { d: 'פקטורים, סקטורים ונושאים, ו-RS ‏(6-1) לכל מניה', items: () => [['פקטורים, סקטורים, נושאים ותת-תחומי טכנולוגיה', '#momFac'], ['RS לכל המניות בשוק', '#rsPanel'], ['מומנטום 12-1 ב-S&P 500', '#momSp']] },
-  macro: { d: 'צמיחה ומחזור העסקים, אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, תמחור השוק (אינדיקטור באפט), סחורות, דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
+  macro: { d: 'צמיחה ומחזור העסקים, אינפלציה, ריבית, מרווחי אשראי, תעסוקה, כסף, תמחור השוק (אינדיקטור באפט), סחורות, תמחור מחשוב AI (GPU), דלק וחשמל', items: () => (S.meta && S.meta.macro ? S.meta.macro.sections.map(s => [s.name, '#mac-' + s.id]) : []) },
   calendar: { d: 'דוחות כספיים בארה"ב ובישראל, התנועה שהאופציות מתמחרות ומה קרה אחרי הדוח, ואירועי מאקרו', items: () => [['דוחות ארה"ב', 'cal:US'], ['דוחות ישראל', 'cal:IL'], ['מאקרו', 'cal:MACRO']] },
-  marketing: { d: 'לפני שיחה עם משקיע: חדשות השבוע, סיפורי המניות הגדולות, מאקרו ומרווחים, נדל"ן ובנקים, ביטוח, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['חדשות השבוע', '#mk-weekly'], ['המניות הגדולות', '#mk-stories'], ['מאקרו ומרווחי אשראי', '#mk-macro'], ['נדל"ן ומשכנתאות', '#mk-housing'], ['הבנקים', '#mk-banks'], ['מבחן קיצון לבנקים', '#mk-stress'], ['סקטור הביטוח', '#mk-ins'], ['מי הוביל ומי בפיגור', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
+  marketing: { d: 'לפני שיחה עם משקיע: חדשות השבוע, סיפורי המניות הגדולות, מאקרו ומרווחים, תמחור מחשוב AI, נדל"ן ובנקים, ביטוח, סקטורים מובילים, וכרטיס לכל נייר בתיק', items: () => [['חדשות השבוע', '#mk-weekly'], ['המניות הגדולות', '#mk-stories'], ['מאקרו ומרווחי אשראי', '#mk-macro'], ['תמחור מחשוב AI', '#mk-compute'], ['נדל"ן ומשכנתאות', '#mk-housing'], ['הבנקים', '#mk-banks'], ['מבחן קיצון לבנקים', '#mk-stress'], ['סקטור הביטוח', '#mk-ins'], ['מי הוביל ומי בפיגור', '#mk-sectors'], ['חיפוש נייר בתיק', '#mk-search']] },
   israel: { d: 'סנטימנט, רוחב שוק, לאן הכסף זורם, סקטורים, RS למניות ומאקרו של השוק הישראלי', items: () => [['מדד הסנטימנט הישראלי', '#il-hero'], ['רוחב שוק', '#il-breadth'], ['מגמה ותיאבון לסיכון', '#il-trend'], ['כסף זר ושקל', '#il-foreign'], ['לאן הכסף זורם', '#il-flows'], ['סקטורים', '#il-sectors'], ['RS למניות', '#il-stocks'], ['מאקרו ישראל', '#il-macro']] },
 };
 const TAB_NAME = { market: 'סנטימנט', indices: 'מדדים מובילים', momentum: 'מומנטום', macro: 'מאקרו', israel: 'ישראל', calendar: 'יומן כלכלי', marketing: 'שיווק', analysis: 'שורה תחתונה', manage: 'ניהול' };
