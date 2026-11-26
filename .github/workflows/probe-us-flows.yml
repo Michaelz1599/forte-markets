@@ -1,0 +1,24 @@
+name: probe-us-flows (temporary)
+on:
+  push:
+    branches: ["probe/us-flows"]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+      - run: python -m tools.probe.us_flows_probe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: probe
+          path: probe_out
+          retention-days: 2
