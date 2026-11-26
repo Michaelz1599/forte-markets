@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-26T06:09+00:00",
+"asof": "2026-11-26T12:02+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4626,6 +4626,34 @@
 ]
 },
 {
+"id": "משק אנרגיה-2026-11-26",
+"ticker": "משק אנרגיה",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 30.11, 10:30 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1803,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1783919"
+}
+]
+},
+{
 "id": "נופר אנרג'י-2026-11-26",
 "ticker": "נופר אנרג'י",
 "market": "IL",
@@ -4678,6 +4706,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1778805"
+}
+]
+},
+{
+"id": "סולאיר-2026-11-26",
+"ticker": "סולאיר",
+"market": "IL",
+"date": "2026-11-26",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום רביעי 2.12, 12:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1848,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1783920"
 }
 ]
 },
@@ -4930,6 +4986,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1781829"
+}
+]
+},
+{
+"id": "ברקת קפיטל-2026-11-29",
+"ticker": "ברקת קפיטל",
+"market": "IL",
+"date": "2026-11-29",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום שני 30.11, 14:00 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1940,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1784410"
 }
 ]
 },
@@ -5375,6 +5459,22 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"משק אנרגיה": {
+"name": "משק אנרגיה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"סולאיר": {
+"name": "סולאיר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "אלומה": {
 "name": "אלומה",
 "tags": [
@@ -5439,16 +5539,8 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"הכשרת הישוב": {
-"name": "הכשרת הישוב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישראייר גרופ": {
-"name": "ישראייר גרופ",
+"ברקת קפיטל": {
+"name": "ברקת קפיטל",
 "tags": [
 "TASE"
 ],
@@ -5481,6 +5573,22 @@
 },
 "אלקטרה נדל\"ן": {
 "name": "אלקטרה נדל\"ן",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"הכשרת הישוב": {
+"name": "הכשרת הישוב",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראייר גרופ": {
+"name": "ישראייר גרופ",
 "tags": [
 "TASE"
 ],
