@@ -13,8 +13,14 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - run: pip install -q requests==2.34.2
-      - run: python tools/probe/jkp_probe.py
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+      - run: |
+          rm -f data/derived/jkp_il.json
+          python -c "from pipeline import jkp; o, m = jkp.run(); print('FIRST', m)"
+          python -c "from pipeline import jkp; o, m = jkp.run(); print('SECOND', m)"
+          mkdir -p probe_out2 && cp data/derived/jkp_il.json probe_out2/ && python -c "from pipeline import jkp; o, m = jkp.run(); print('THIRD', m)" > probe_out2/msg.txt
       - run: |
           git config user.name "probe"; git config user.email "probe@users.noreply.github.com"
-          git add -f probe_out && git commit -q -m "probe data" && git push -q origin HEAD:probe/jkp-israel
+          git add -f probe_out2 && git commit -q -m "probe: jkp module" && git push -q origin HEAD:probe/jkp-israel

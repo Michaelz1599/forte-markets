@@ -1,0 +1,701 @@
+{
+ "_comment": "Israeli factors from Global Factor Data (Jensen, Kelly & Pedersen, jkpfactors.com), used in the Momentum tab (Israel). pipeline/jkp.py downloads the country's monthly factor returns from JKP's public S3 bucket when JKP publishes a new release. themes: the 13 themes (clusters) of the published data, with Hebrew names. factors: every factor's theme (JKP cluster_labels.csv, v0 themes of the published data) and its English label (JKP's availability manifest). Data licence: CC BY-NC 4.0.",
+ "country": "isr",
+ "weighting": "vw_cap",
+ "base": "https://jkpfactors-data.s3.amazonaws.com/public/",
+ "page": "https://jkpfactors.com/analysis?tab=performance",
+ "themes": [
+  {
+   "id": "value",
+   "name": "ערך",
+   "desc": "מניות זולות ביחס להון, לרווח, למכירות ולתזרים, ומניות שמחזירות כסף לבעלי המניות, מול מניות יקרות.",
+   "en": "Value"
+  },
+  {
+   "id": "momentum",
+   "name": "מומנטום",
+   "desc": "מניות שעלו בשנה האחרונה, בלי החודש האחרון, מול מניות שירדו.",
+   "en": "Momentum"
+  },
+  {
+   "id": "quality",
+   "name": "איכות",
+   "desc": "חברות עם רווחיות תפעולית גבוהה, יעילות ויציבות (כולל Quality minus Junk) מול חברות חלשות.",
+   "en": "Quality"
+  },
+  {
+   "id": "profitability",
+   "name": "רווחיות",
+   "desc": "חברות רווחיות ביחס לנכסים ולהון מול חברות עם רווחיות נמוכה.",
+   "en": "Profitability"
+  },
+  {
+   "id": "profit_growth",
+   "name": "צמיחת רווחים",
+   "desc": "חברות שהרווחים והמכירות שלהן משתפרים ומפתיעים לטובה, מול חברות שנחלשות.",
+   "en": "Profit Growth"
+  },
+  {
+   "id": "low_risk",
+   "name": "סיכון נמוך",
+   "desc": "מניות עם תנודתיות ובטא נמוכות מול מניות תנודתיות. ציפייה: רווח דומה בפחות סיכון.",
+   "en": "Low Risk"
+  },
+  {
+   "id": "low_leverage",
+   "name": "מינוף נמוך",
+   "desc": "חברות עם מינוף נמוך, הרבה מזומן ונכסים מוחשיים, ורחוקות מחדלות פירעון, מול ממונפות.",
+   "en": "Low Leverage"
+  },
+  {
+   "id": "investment",
+   "name": "השקעה שמרנית",
+   "desc": "חברות שמגדילות נכסים, השקעות ומכירות לאט, מול חברות שמתרחבות מהר.",
+   "en": "Investment"
+  },
+  {
+   "id": "debt_issuance",
+   "name": "הנפקת חוב נמוכה",
+   "desc": "חברות שמגייסות מעט חוב ומגדילות מעט התחייבויות, מול חברות שמנפיקות הרבה.",
+   "en": "Debt Issuance"
+  },
+  {
+   "id": "accruals",
+   "name": "אקרואלים נמוכים",
+   "desc": "חברות שהרווח שלהן נשען על מזומן ולא על צבירות חשבונאיות, מול ההפך.",
+   "en": "Accruals"
+  },
+  {
+   "id": "size",
+   "name": "גודל",
+   "desc": "מניות קטנות ופחות סחירות מול גדולות.",
+   "en": "Size"
+  },
+  {
+   "id": "seasonality",
+   "name": "עונתיות",
+   "desc": "מניות שהיו חזקות באותו חודש בשנים קודמות, ופקטורים נוספים שמתנהגים דומה.",
+   "en": "Seasonality"
+  },
+  {
+   "id": "short_term_reversal",
+   "name": "היפוך לטווח קצר",
+   "desc": "מניות שירדו בחודש האחרון ומניות עם פחות קפיצות קיצון, מול ההפך: הימור על תיקון.",
+   "en": "Short-Term Reversal"
+  }
+ ],
+ "factors": {
+  "age": {
+   "label": "Firm age",
+   "theme": "low_leverage"
+  },
+  "aliq_at": {
+   "label": "Liquidity of book assets",
+   "theme": "investment"
+  },
+  "aliq_mat": {
+   "label": "Liquidity of market assets",
+   "theme": "low_leverage"
+  },
+  "ami_126d": {
+   "label": "Amihud Measure",
+   "theme": "size"
+  },
+  "at_be": {
+   "label": "Asset-to-book equity",
+   "theme": "low_leverage"
+  },
+  "at_gr1": {
+   "label": "Asset Growth",
+   "theme": "investment"
+  },
+  "at_me": {
+   "label": "Assets-to-market",
+   "theme": "value"
+  },
+  "at_turnover": {
+   "label": "Capital turnover",
+   "theme": "quality"
+  },
+  "be_gr1a": {
+   "label": "Change in common equity",
+   "theme": "investment"
+  },
+  "be_me": {
+   "label": "Book-to-market equity",
+   "theme": "value"
+  },
+  "beta_60m": {
+   "label": "Market Beta",
+   "theme": "low_risk"
+  },
+  "beta_dimson_21d": {
+   "label": "Dimson beta",
+   "theme": "low_risk"
+  },
+  "betabab_1260d": {
+   "label": "Frazzini-Pedersen market beta",
+   "theme": "low_risk"
+  },
+  "betadown_252d": {
+   "label": "Downside beta",
+   "theme": "low_risk"
+  },
+  "bev_mev": {
+   "label": "Book-to-market enterprise value",
+   "theme": "value"
+  },
+  "bidaskhl_21d": {
+   "label": "The high-low bid-ask spread",
+   "theme": "low_leverage"
+  },
+  "capex_abn": {
+   "label": "Abnormal corporate investment",
+   "theme": "debt_issuance"
+  },
+  "capx_gr1": {
+   "label": "CAPEX growth (1 year)",
+   "theme": "investment"
+  },
+  "capx_gr2": {
+   "label": "CAPEX growth (2 years)",
+   "theme": "investment"
+  },
+  "capx_gr3": {
+   "label": "CAPEX growth (3 years)",
+   "theme": "investment"
+  },
+  "cash_at": {
+   "label": "Cash-to-assets",
+   "theme": "low_leverage"
+  },
+  "chcsho_12m": {
+   "label": "Net stock issues",
+   "theme": "value"
+  },
+  "coa_gr1a": {
+   "label": "Change in current operating assets",
+   "theme": "investment"
+  },
+  "col_gr1a": {
+   "label": "Change in current operating liabilities",
+   "theme": "investment"
+  },
+  "cop_at": {
+   "label": "Cash-based operating profits-to-book assets",
+   "theme": "quality"
+  },
+  "cop_atl1": {
+   "label": "Cash-based operating profits-to-lagged book assets",
+   "theme": "quality"
+  },
+  "corr_1260d": {
+   "label": "Market correlation",
+   "theme": "seasonality"
+  },
+  "coskew_21d": {
+   "label": "Coskewness",
+   "theme": "seasonality"
+  },
+  "cowc_gr1a": {
+   "label": "Change in current operating working capital",
+   "theme": "accruals"
+  },
+  "dbnetis_at": {
+   "label": "Net debt issuance",
+   "theme": "seasonality"
+  },
+  "debt_gr3": {
+   "label": "Growth in book debt (3 years)",
+   "theme": "debt_issuance"
+  },
+  "debt_me": {
+   "label": "Debt-to-market",
+   "theme": "value"
+  },
+  "dgp_dsale": {
+   "label": "Change gross margin minus change sales",
+   "theme": "quality"
+  },
+  "div12m_me": {
+   "label": "Dividend yield",
+   "theme": "value"
+  },
+  "dolvol_126d": {
+   "label": "Dollar trading volume",
+   "theme": "size"
+  },
+  "dolvol_var_126d": {
+   "label": "Coefficient of variation for dollar trading volume",
+   "theme": "profitability"
+  },
+  "dsale_dinv": {
+   "label": "Change sales minus change Inventory",
+   "theme": "profit_growth"
+  },
+  "dsale_drec": {
+   "label": "Change sales minus change receivables",
+   "theme": "profit_growth"
+  },
+  "dsale_dsga": {
+   "label": "Change sales minus change SG&A",
+   "theme": "profit_growth"
+  },
+  "earnings_variability": {
+   "label": "Earnings variability",
+   "theme": "low_risk"
+  },
+  "ebit_bev": {
+   "label": "Return on net operating assets",
+   "theme": "profitability"
+  },
+  "ebit_sale": {
+   "label": "Profit margin",
+   "theme": "profitability"
+  },
+  "ebitda_mev": {
+   "label": "Ebitda-to-market enterprise value",
+   "theme": "value"
+  },
+  "emp_gr1": {
+   "label": "Hiring rate",
+   "theme": "investment"
+  },
+  "eq_dur": {
+   "label": "Equity duration",
+   "theme": "value"
+  },
+  "eqnetis_at": {
+   "label": "Net equity issuance",
+   "theme": "value"
+  },
+  "eqnpo_12m": {
+   "label": "Equity net payout",
+   "theme": "value"
+  },
+  "eqnpo_me": {
+   "label": "Net payout yield",
+   "theme": "value"
+  },
+  "eqpo_me": {
+   "label": "Payout yield",
+   "theme": "value"
+  },
+  "f_score": {
+   "label": "Piotroski F-score",
+   "theme": "profitability"
+  },
+  "fcf_me": {
+   "label": "Free cash flow-to-price",
+   "theme": "value"
+  },
+  "fnl_gr1a": {
+   "label": "Change in financial liabilities",
+   "theme": "debt_issuance"
+  },
+  "gp_at": {
+   "label": "Gross profits-to-assets",
+   "theme": "quality"
+  },
+  "gp_atl1": {
+   "label": "Gross profits-to-lagged assets",
+   "theme": "quality"
+  },
+  "inv_gr1": {
+   "label": "Inventory growth",
+   "theme": "investment"
+  },
+  "inv_gr1a": {
+   "label": "Inventory change",
+   "theme": "investment"
+  },
+  "iskew_capm_21d": {
+   "label": "Idiosyncratic skewness from the CAPM",
+   "theme": "short_term_reversal"
+  },
+  "iskew_ff3_21d": {
+   "label": "Idiosyncratic skewness from the Fama-French 3-factor model",
+   "theme": "short_term_reversal"
+  },
+  "iskew_hxz4_21d": {
+   "label": "Idiosyncratic skewness from the q-factor model",
+   "theme": "short_term_reversal"
+  },
+  "ival_me": {
+   "label": "Intrinsic value-to-market",
+   "theme": "value"
+  },
+  "ivol_capm_21d": {
+   "label": "Idiosyncratic volatility (CAPM, 21 days)",
+   "theme": "low_risk"
+  },
+  "ivol_capm_252d": {
+   "label": "Idiosyncratic volatility (CAPM, 252 days)",
+   "theme": "low_risk"
+  },
+  "ivol_ff3_21d": {
+   "label": "Idiosyncratic volatility (Fama-French 3-factor)",
+   "theme": "low_risk"
+  },
+  "ivol_hxz4_21d": {
+   "label": "Idiosyncratic volatility from the q-factor model",
+   "theme": "low_risk"
+  },
+  "kz_index": {
+   "label": "Kaplan-Zingales index",
+   "theme": "seasonality"
+  },
+  "lnoa_gr1a": {
+   "label": "Change in long-term net operating assets",
+   "theme": "investment"
+  },
+  "lti_gr1a": {
+   "label": "Change in long-term investments",
+   "theme": "seasonality"
+  },
+  "market_equity": {
+   "label": "Market Equity",
+   "theme": "size"
+  },
+  "mispricing_mgmt": {
+   "label": "Mispricing factor: Management",
+   "theme": "investment"
+  },
+  "mispricing_perf": {
+   "label": "Mispricing factor: Performance",
+   "theme": "quality"
+  },
+  "ncoa_gr1a": {
+   "label": "Change in noncurrent operating assets",
+   "theme": "investment"
+  },
+  "ncol_gr1a": {
+   "label": "Change in noncurrent operating liabilities",
+   "theme": "debt_issuance"
+  },
+  "netdebt_me": {
+   "label": "Net debt-to-price",
+   "theme": "low_leverage"
+  },
+  "netis_at": {
+   "label": "Net total issuance",
+   "theme": "value"
+  },
+  "nfna_gr1a": {
+   "label": "Change in net financial assets",
+   "theme": "debt_issuance"
+  },
+  "ni_ar1": {
+   "label": "Earnings persistence",
+   "theme": "debt_issuance"
+  },
+  "ni_be": {
+   "label": "Return on equity",
+   "theme": "profitability"
+  },
+  "ni_inc8q": {
+   "label": "Number of consecutive quarters with earnings increases",
+   "theme": "quality"
+  },
+  "ni_ivol": {
+   "label": "Earnings volatility",
+   "theme": "low_leverage"
+  },
+  "ni_me": {
+   "label": "Earnings-to-price",
+   "theme": "value"
+  },
+  "niq_at": {
+   "label": "Quarterly return on assets",
+   "theme": "quality"
+  },
+  "niq_at_chg1": {
+   "label": "Change in quarterly return on assets",
+   "theme": "profit_growth"
+  },
+  "niq_be": {
+   "label": "Quarterly return on equity",
+   "theme": "profitability"
+  },
+  "niq_be_chg1": {
+   "label": "Change in quarterly return on equity",
+   "theme": "profit_growth"
+  },
+  "niq_su": {
+   "label": "Standardized earnings surprise",
+   "theme": "profit_growth"
+  },
+  "nncoa_gr1a": {
+   "label": "Change in net noncurrent operating assets",
+   "theme": "investment"
+  },
+  "noa_at": {
+   "label": "Net operating assets",
+   "theme": "debt_issuance"
+  },
+  "noa_gr1a": {
+   "label": "Change in net operating assets",
+   "theme": "investment"
+  },
+  "o_score": {
+   "label": "Ohlson O-score",
+   "theme": "profitability"
+  },
+  "oaccruals_at": {
+   "label": "Operating accruals",
+   "theme": "accruals"
+  },
+  "oaccruals_ni": {
+   "label": "Percent operating accruals",
+   "theme": "accruals"
+  },
+  "ocf_at": {
+   "label": "Operating cash flow to assets",
+   "theme": "profitability"
+  },
+  "ocf_at_chg1": {
+   "label": "Change in operating cash flow to assets",
+   "theme": "profit_growth"
+  },
+  "ocf_me": {
+   "label": "Operating cash flow-to-market",
+   "theme": "value"
+  },
+  "ocfq_saleq_std": {
+   "label": "Cash flow volatility",
+   "theme": "low_risk"
+  },
+  "op_at": {
+   "label": "Operating profits-to-book assets",
+   "theme": "quality"
+  },
+  "op_atl1": {
+   "label": "Operating profits-to-lagged book assets",
+   "theme": "quality"
+  },
+  "ope_be": {
+   "label": "Operating profits-to-book equity",
+   "theme": "profitability"
+  },
+  "ope_bel1": {
+   "label": "Operating profits-to-lagged book equity",
+   "theme": "profitability"
+  },
+  "opex_at": {
+   "label": "Operating leverage",
+   "theme": "quality"
+  },
+  "pi_nix": {
+   "label": "Taxable income-to-book income",
+   "theme": "seasonality"
+  },
+  "ppeinv_gr1a": {
+   "label": "Change PPE and Inventory",
+   "theme": "investment"
+  },
+  "prc": {
+   "label": "Price per share",
+   "theme": "size"
+  },
+  "prc_highprc_252d": {
+   "label": "Current price to high price over last year",
+   "theme": "momentum"
+  },
+  "qmj": {
+   "label": "Quality minus Junk: Composite",
+   "theme": "quality"
+  },
+  "qmj_growth": {
+   "label": "Quality minus Junk: Growth",
+   "theme": "quality"
+  },
+  "qmj_prof": {
+   "label": "Quality minus Junk: Profitability",
+   "theme": "quality"
+  },
+  "qmj_safety": {
+   "label": "Quality minus Junk: Safety",
+   "theme": "quality"
+  },
+  "rd5_at": {
+   "label": "R&D capital-to-book assets",
+   "theme": "low_leverage"
+  },
+  "rd_me": {
+   "label": "R&D-to-market",
+   "theme": "size"
+  },
+  "rd_sale": {
+   "label": "R&D-to-sales",
+   "theme": "low_leverage"
+  },
+  "resff3_12_1": {
+   "label": "Residual momentum t-12 to t-1",
+   "theme": "momentum"
+  },
+  "resff3_6_1": {
+   "label": "Residual momentum t-6 to t-1",
+   "theme": "momentum"
+  },
+  "ret_12_1": {
+   "label": "Price momentum t-12 to t-1",
+   "theme": "momentum"
+  },
+  "ret_12_7": {
+   "label": "Price momentum t-12 to t-7",
+   "theme": "profit_growth"
+  },
+  "ret_1_0": {
+   "label": "Short-term reversal",
+   "theme": "short_term_reversal"
+  },
+  "ret_3_1": {
+   "label": "Price momentum t-3 to t-1",
+   "theme": "momentum"
+  },
+  "ret_60_12": {
+   "label": "Long-term reversal",
+   "theme": "investment"
+  },
+  "ret_6_1": {
+   "label": "Price momentum t-6 to t-1",
+   "theme": "momentum"
+  },
+  "ret_9_1": {
+   "label": "Price momentum t-9 to t-1",
+   "theme": "momentum"
+  },
+  "rmax1_21d": {
+   "label": "Maximum daily return",
+   "theme": "low_risk"
+  },
+  "rmax5_21d": {
+   "label": "Highest 5 days of return",
+   "theme": "low_risk"
+  },
+  "rmax5_rvol_21d": {
+   "label": "Highest 5 days of return scaled by volatility",
+   "theme": "short_term_reversal"
+  },
+  "rskew_21d": {
+   "label": "Total skewness",
+   "theme": "short_term_reversal"
+  },
+  "rvol_21d": {
+   "label": "Return volatility",
+   "theme": "low_risk"
+  },
+  "sale_bev": {
+   "label": "Asset turnover",
+   "theme": "quality"
+  },
+  "sale_emp_gr1": {
+   "label": "Labor force efficiency",
+   "theme": "profit_growth"
+  },
+  "sale_gr1": {
+   "label": "Sales Growth (1 year)",
+   "theme": "investment"
+  },
+  "sale_gr3": {
+   "label": "Sales Growth (3 years)",
+   "theme": "investment"
+  },
+  "sale_me": {
+   "label": "Sales-to-market",
+   "theme": "value"
+  },
+  "saleq_gr1": {
+   "label": "Sales Growth (1 quarter)",
+   "theme": "investment"
+  },
+  "saleq_su": {
+   "label": "Standardized Revenue surprise",
+   "theme": "profit_growth"
+  },
+  "seas_11_15an": {
+   "label": "Years 11-15 lagged returns, annual",
+   "theme": "seasonality"
+  },
+  "seas_11_15na": {
+   "label": "Years 11-15 lagged returns, nonannual",
+   "theme": "seasonality"
+  },
+  "seas_16_20an": {
+   "label": "Years 16-20 lagged returns, annual",
+   "theme": "seasonality"
+  },
+  "seas_16_20na": {
+   "label": "Years 16-20 lagged returns, nonannual",
+   "theme": "accruals"
+  },
+  "seas_1_1an": {
+   "label": "Year 1-lagged return, annual",
+   "theme": "profit_growth"
+  },
+  "seas_1_1na": {
+   "label": "Year 1-lagged return, nonannual",
+   "theme": "momentum"
+  },
+  "seas_2_5an": {
+   "label": "Years 2-5 lagged returns, annual",
+   "theme": "seasonality"
+  },
+  "seas_2_5na": {
+   "label": "Years 2-5 lagged returns, nonannual",
+   "theme": "investment"
+  },
+  "seas_6_10an": {
+   "label": "Years 6-10 lagged returns, annual",
+   "theme": "seasonality"
+  },
+  "seas_6_10na": {
+   "label": "Years 6-10 lagged returns, nonannual",
+   "theme": "low_risk"
+  },
+  "sti_gr1a": {
+   "label": "Change in short-term investments",
+   "theme": "seasonality"
+  },
+  "taccruals_at": {
+   "label": "Total accruals",
+   "theme": "accruals"
+  },
+  "taccruals_ni": {
+   "label": "Percent total accruals",
+   "theme": "accruals"
+  },
+  "tangibility": {
+   "label": "Asset tangibility",
+   "theme": "low_leverage"
+  },
+  "tax_gr1a": {
+   "label": "Tax expense surprise",
+   "theme": "profit_growth"
+  },
+  "turnover_126d": {
+   "label": "Share turnover",
+   "theme": "low_risk"
+  },
+  "turnover_var_126d": {
+   "label": "Coefficient of variation for share turnover",
+   "theme": "profitability"
+  },
+  "z_score": {
+   "label": "Altman Z-score",
+   "theme": "low_leverage"
+  },
+  "zero_trades_126d": {
+   "label": "Number of zero trades with turnover as tiebreaker (6 months)",
+   "theme": "low_risk"
+  },
+  "zero_trades_21d": {
+   "label": "Number of zero trades with turnover as tiebreaker (1 month)",
+   "theme": "low_risk"
+  },
+  "zero_trades_252d": {
+   "label": "Number of zero trades with turnover as tiebreaker (12 months)",
+   "theme": "low_risk"
+  }
+ }
+}
