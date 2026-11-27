@@ -1,0 +1,63 @@
+availability 200 287565 Tue, 04 Aug 2026 03:27:36 GMT
+top keys ['factors', 'factors_monthly_only', 'portfolios', 'industry', 'factor_sizes', 'dropdown_options']
+factors regions: 102 True ['all_countries', 'all_regions', 'developed', 'emerging', 'frontier', 'isr', 'usa', 'world', 'world_ex_us']
+factors isr selectors: 169 ['accruals', 'age', 'aliq_at', 'aliq_mat', 'all_factors', 'all_themes', 'ami_126d', 'at_be', 'at_gr1', 'at_me', 'at_turnover', 'be_gr1a', 'be_me', 'beta_60m', 'beta_dimson_21d', 'betabab_1260d', 'betadown_252d', 'bev_mev', 'bidaskhl_21d', 'capex_abn', 'capx_gr1', 'capx_gr2', 'capx_gr3', 'cash_at', 'chcsho_12m', 'coa_gr1a', 'col_gr1a', 'cop_at', 'cop_atl1', 'corr_1260d', 'coskew_21d', 'cowc_gr1a', 'dbnetis_at', 'debt_gr3', 'debt_issuance', 'debt_me', 'dgp_dsale', 'div12m_me', 'dolvol_126d', 'dolvol_var_126d', 'dsale_dinv', 'dsale_drec', 'dsale_dsga', 'earnings_variability', 'ebit_bev', 'ebit_sale', 'ebitda_mev', 'emp_gr1', 'eq_dur', 'eqnetis_at', 'eqnpo_12m', 'eqnpo_me', 'eqpo_me', 'f_score', 'fcf_me', 'fnl_gr1a', 'gp_at', 'gp_atl1', 'inv_gr1', 'inv_gr1a', 'investment', 'iskew_capm_21d', 'iskew_ff3_21d', 'iskew_hxz4_21d', 'ival_me', 'ivol_capm_21d', 'ivol_capm_252d', 'ivol_ff3_21d', 'ivol_hxz4_21d', 'kz_index', 'lnoa_gr1a', 'low_leverage', 'low_risk', 'lti_gr1a', 'market_equity', 'mispricing_mgmt', 'mispricing_perf', 'mkt', 'momentum', 'ncoa_gr1a', 'ncol_gr1a', 'netdebt_me', 'netis_at', 'nfna_gr1a', 'ni_ar1', 'ni_be', 'ni_inc8q', 'ni_ivol', 'ni_me', 'niq_at', 'niq_at_chg1', 'niq_be', 'niq_be_chg1', 'niq_su', 'nncoa_gr1a', 'noa_at', 'noa_gr1a', 'o_score', 'oaccruals_at', 'oaccruals_ni', 'ocf_at', 'ocf_at_chg1', 'ocf_me', 'ocfq_saleq_std', 'op_at', 'op_atl1', 'ope_be', 'ope_bel1', 'opex_at', 'pi_nix', 'ppeinv_gr1a', 'prc', 'prc_highprc_252d', 'profit_growth', 'profitability', 'qmj', 'qmj_growth', 'qmj_prof', 'qmj_safety', 'quality', 'rd5_at', 'rd_me', 'rd_sale', 'resff3_12_1', 'resff3_6_1', 'ret_12_1', 'ret_12_7', 'ret_1_0', 'ret_3_1', 'ret_60_12', 'ret_6_1', 'ret_9_1', 'rmax1_21d', 'rmax5_21d', 'rmax5_rvol_21d', 'rskew_21d', 'rvol_21d', 'sale_bev', 'sale_emp_gr1', 'sale_gr1', 'sale_gr3', 'sale_me', 'saleq_gr1', 'saleq_su', 'seas_11_15an', 'seas_11_15na', 'seas_16_20an', 'seas_16_20na', 'seas_1_1an', 'seas_1_1na', 'seas_2_5an', 'seas_2_5na', 'seas_6_10an', 'seas_6_10na', 'seasonality', 'short_term_reversal', 'size', 'sti_gr1a', 'taccruals_at', 'taccruals_ni', 'tangibility', 'tax_gr1a', 'turnover_126d', 'turnover_var_126d', 'value', 'z_score', 'zero_trades_126d', 'zero_trades_21d', 'zero_trades_252d']
+portfolios regions: 78 True ['all_countries', 'all_regions', 'developed', 'emerging', 'frontier', 'isr', 'usa', 'world', 'world_ex_us']
+portfolios isr selectors: 154 ['age', 'aliq_at', 'aliq_mat', 'all_factors', 'ami_126d', 'at_be', 'at_gr1', 'at_me', 'at_turnover', 'be_gr1a', 'be_me', 'beta_60m', 'beta_dimson_21d', 'betabab_1260d', 'betadown_252d', 'bev_mev', 'bidaskhl_21d', 'capex_abn', 'capx_gr1', 'capx_gr2', 'capx_gr3', 'cash_at', 'chcsho_12m', 'coa_gr1a', 'col_gr1a', 'cop_at', 'cop_atl1', 'corr_1260d', 'coskew_21d', 'cowc_gr1a', 'dbnetis_at', 'debt_gr3', 'debt_me', 'dgp_dsale', 'div12m_me', 'dolvol_126d', 'dolvol_var_126d', 'dsale_dinv', 'dsale_drec', 'dsale_dsga', 'earnings_variability', 'ebit_bev', 'ebit_sale', 'ebitda_mev', 'emp_gr1', 'eq_dur', 'eqnetis_at', 'eqnpo_12m', 'eqnpo_me', 'eqpo_me', 'f_score', 'fcf_me', 'fnl_gr1a', 'gp_at', 'gp_atl1', 'inv_gr1', 'inv_gr1a', 'iskew_capm_21d', 'iskew_ff3_21d', 'iskew_hxz4_21d', 'ival_me', 'ivol_capm_21d', 'ivol_capm_252d', 'ivol_ff3_21d', 'ivol_hxz4_21d', 'kz_index', 'lnoa_gr1a', 'lti_gr1a', 'market_equity', 'mispricing_mgmt', 'mispricing_perf', 'ncoa_gr1a', 'ncol_gr1a', 'netdebt_me', 'netis_at', 'nfna_gr1a', 'ni_ar1', 'ni_be', 'ni_inc8q', 'ni_ivol', 'ni_me', 'niq_at', 'niq_at_chg1', 'niq_be', 'niq_be_chg1', 'niq_su', 'nncoa_gr1a', 'noa_at', 'noa_gr1a', 'o_score', 'oaccruals_at', 'oaccruals_ni', 'ocf_at', 'ocf_at_chg1', 'ocf_me', 'ocfq_saleq_std', 'op_at', 'op_atl1', 'ope_be', 'ope_bel1', 'opex_at', 'pi_nix', 'ppeinv_gr1a', 'prc', 'prc_highprc_252d', 'qmj', 'qmj_growth', 'qmj_prof', 'qmj_safety', 'rd5_at', 'rd_me', 'rd_sale', 'resff3_12_1', 'resff3_6_1', 'ret_12_1', 'ret_12_7', 'ret_1_0', 'ret_3_1', 'ret_60_12', 'ret_6_1', 'ret_9_1', 'rmax1_21d', 'rmax5_21d', 'rmax5_rvol_21d', 'rskew_21d', 'rvol_21d', 'sale_bev', 'sale_emp_gr1', 'sale_gr1', 'sale_gr3', 'sale_me', 'saleq_gr1', 'saleq_su', 'seas_11_15an', 'seas_11_15na', 'seas_16_20an', 'seas_16_20na', 'seas_1_1an', 'seas_1_1na', 'seas_2_5an', 'seas_2_5na', 'seas_6_10an', 'seas_6_10na', 'sti_gr1a', 'taccruals_at', 'taccruals_ni', 'tangibility', 'tax_gr1a', 'turnover_126d', 'turnover_var_126d', 'z_score', 'zero_trades_126d', 'zero_trades_21d', 'zero_trades_252d']
+industry regions: 78 True ['isr', 'usa']
+industry isr selectors: 1 ['gics']
+monthly_only isr: None
+all_themes monthly vw_cap 200 66775 bytes Tue, 04 Aug 2026 05:26:06 GMT 0.1s
+  file [isr]_[all_themes]_[monthly]_[vw_cap].csv 307129 bytes 4737 lines
+    location,name,freq,weighting,n_factors,date,ret
+    isr,accruals,monthly,vw_cap,5,1997-05-31,-0.05823778915701698
+    isr,accruals,monthly,vw_cap,5,1997-06-30,-0.08477557013414468
+    isr,accruals,monthly,vw_cap,5,1997-07-31,0.08190722287182553
+    isr,value,monthly,vw_cap,17,2025-10-31,-0.0012517860003802696
+    isr,value,monthly,vw_cap,17,2025-11-30,-0.010314682501289836
+    isr,value,monthly,vw_cap,17,2025-12-31,-0.0752021736519506
+all_factors monthly vw_cap 200 816498 bytes Tue, 04 Aug 2026 05:26:05 GMT 0.3s
+  file [isr]_[all_factors]_[monthly]_[vw_cap].csv 3401825 bytes 48347 lines
+    location,name,freq,weighting,direction,n_stocks,n_stocks_min,date,ret
+    isr,age,monthly,vw_cap,-1,69,11,1995-02-28,0.21454186813137527
+    isr,age,monthly,vw_cap,-1,71,11,1995-03-31,0.043394446174168766
+    isr,age,monthly,vw_cap,-1,72,11,1995-04-30,-0.0552091303542343
+    isr,zero_trades_252d,monthly,vw_cap,1,377,124,2025-10-31,0.025132381122972405
+    isr,zero_trades_252d,monthly,vw_cap,1,383,123,2025-11-30,-0.02467041613156076
+    isr,zero_trades_252d,monthly,vw_cap,1,384,126,2025-12-31,0.004591013316346995
+mkt monthly vw_cap 200 6162 bytes Tue, 04 Aug 2026 05:26:09 GMT 0.2s
+  file [isr]_[mkt]_[monthly]_[vw_cap].csv 24204 bytes 374 lines
+    location,name,freq,weighting,direction,n_stocks,n_stocks_min,date,ret
+    isr,mkt,monthly,vw_cap,na,2,na,1994-12-31,-0.005213847404569632
+    isr,mkt,monthly,vw_cap,na,2,na,1995-01-31,-0.03225311361794008
+    isr,mkt,monthly,vw_cap,na,69,na,1995-02-28,-0.4088682097111072
+    isr,mkt,monthly,vw_cap,na,516,na,2025-10-31,0.045963306186597684
+    isr,mkt,monthly,vw_cap,na,516,na,2025-11-30,0.03164609571057391
+    isr,mkt,monthly,vw_cap,na,517,na,2025-12-31,0.07265990706651426
+all_themes daily vw_cap 200 1268428 bytes Tue, 04 Aug 2026 05:26:06 GMT 0.2s
+  file [isr]_[all_themes]_[daily]_[vw_cap].csv 5869286 bytes 92371 lines
+    location,name,freq,weighting,n_factors,date,ret
+    isr,accruals,daily,vw_cap,5,1997-05-01,-0.005250986290181999
+    isr,accruals,daily,vw_cap,5,1997-05-05,-0.02301733937546732
+    isr,accruals,daily,vw_cap,5,1997-05-06,-0.0032578054135432243
+    isr,value,daily,vw_cap,17,2025-12-29,0.009496006850084603
+    isr,value,daily,vw_cap,17,2025-12-30,-0.007734504683527743
+    isr,value,daily,vw_cap,17,2025-12-31,-0.002315767198552713
+mkt daily vw_cap 200 108121 bytes Tue, 04 Aug 2026 05:26:09 GMT 0.2s
+  file [isr]_[mkt]_[daily]_[vw_cap].csv 449740 bytes 7090 lines
+    location,name,freq,weighting,direction,n_stocks,n_stocks_min,date,ret
+    isr,mkt,daily,vw_cap,na,2,na,1994-11-10,0.02462362869025515
+    isr,mkt,daily,vw_cap,na,2,na,1994-11-15,-0.018411175014711345
+    isr,mkt,daily,vw_cap,na,2,na,1994-11-16,-0.02237224433566917
+    isr,mkt,daily,vw_cap,na,489,na,2025-12-29,0.0003685374998508081
+    isr,mkt,daily,vw_cap,na,496,na,2025-12-30,0.016751377424956842
+    isr,mkt,daily,vw_cap,na,494,na,2025-12-31,-0.0064714799924525
+all_themes monthly ew 200 66306 bytes Tue, 04 Aug 2026 05:26:05 GMT 0.1s
+  file [isr]_[all_themes]_[monthly]_[ew].csv 288384 bytes 4737 lines
+    location,name,freq,weighting,n_factors,date,ret
+    isr,accruals,monthly,ew,5,1997-05-31,-0.04288538256202157
+    isr,accruals,monthly,ew,5,1997-06-30,-0.07784084105022568
+    isr,accruals,monthly,ew,5,1997-07-31,-0.025898173903833244
+    isr,value,monthly,ew,17,2025-10-31,0.010095478650821227
+    isr,value,monthly,ew,17,2025-11-30,0.018142006144036067
+    isr,value,monthly,ew,17,2025-12-31,-0.013095626526038597
