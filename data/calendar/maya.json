@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-27T11:06+00:00",
+"asof": "2026-11-27T21:49+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -5046,6 +5046,34 @@
 ]
 },
 {
+"id": "גוטו-2026-11-30",
+"ticker": "גוטו",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": null,
+"tz": null,
+"confirmed": true,
+"note": "שיחת משקיעים ביום חמישי 3.12, 10:30 שעון ישראל",
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1939,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779545"
+}
+]
+},
+{
 "id": "הכשרת הישוב-2026-11-30",
 "ticker": "הכשרת הישוב",
 "market": "IL",
@@ -5408,34 +5436,6 @@
 "url": "https://maya.tase.co.il/he/reports/1783920"
 }
 ]
-},
-{
-"id": "גוטו-2026-12-03",
-"ticker": "גוטו",
-"market": "IL",
-"date": "2026-12-03",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": "10:30",
-"tz": "Asia/Jerusalem",
-"confirmed": true,
-"note": null,
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1939,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779545"
-}
-]
 }
 ],
 "profiles": {
@@ -5591,6 +5591,14 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"גוטו": {
+"name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "הכשרת הישוב": {
 "name": "הכשרת הישוב",
 "tags": [
@@ -5625,14 +5633,6 @@
 },
 "סולאיר": {
 "name": "סולאיר",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"גוטו": {
-"name": "גוטו",
 "tags": [
 "TASE"
 ],

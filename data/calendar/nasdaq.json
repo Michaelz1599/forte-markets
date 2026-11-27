@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-27T11:05+00:00",
+"asof": "2026-11-27T21:49+00:00",
 "events": [
 {
 "id": "KOF-2026-10-26",
@@ -23671,7 +23671,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 39068852000.0,
+"mcap": 39139791000.0,
 "name": "KB Financial Group Inc",
 "sources": [
 {
@@ -23709,7 +23709,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21850103800.0,
+"mcap": 21884555300.0,
 "name": "Tyson Foods, Inc.",
 "sources": [
 {
@@ -23747,7 +23747,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 21609445400.0,
+"mcap": 21602641900.0,
 "name": "Baidu, Inc.",
 "sources": [
 {
@@ -23785,7 +23785,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 20687368200.0,
+"mcap": 20608280600.0,
 "name": "KE Holdings Inc",
 "sources": [
 {
@@ -23823,7 +23823,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17127831600.0,
+"mcap": 17407809500.0,
 "name": "Woori Bank",
 "sources": [
 {
@@ -23854,7 +23854,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16003540000.0,
+"mcap": 15908207600.0,
 "name": "H World Group Limited",
 "sources": [
 {
@@ -23892,7 +23892,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14981811200.0,
+"mcap": 15226021900.0,
 "name": "Aramark",
 "sources": [
 {
@@ -23930,7 +23930,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10929123300.0,
+"mcap": 11202845700.0,
 "name": "Freedom Holding Corp.",
 "sources": [
 {
@@ -23961,7 +23961,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10409140200.0,
+"mcap": 10746623000.0,
 "name": "AECOM",
 "sources": [
 {
@@ -23999,7 +23999,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 3744658100000.0,
+"mcap": 3598130090000.0,
 "name": "NVIDIA Corporation",
 "sources": [
 {
@@ -24037,7 +24037,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 352930365000.0,
+"mcap": 360484110000.0,
 "name": "Home Depot, Inc. (The)",
 "sources": [
 {
@@ -24075,7 +24075,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 209250714000.0,
+"mcap": 214528524000.0,
 "name": "Walt Disney Company (The)",
 "sources": [
 {
@@ -24113,7 +24113,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 44966437000.0,
+"mcap": 44230889000.0,
 "name": "Viking Holdings Ltd",
 "sources": [
 {
@@ -24151,7 +24151,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 34581119000.0,
+"mcap": 35454722000.0,
 "name": "JD.com, Inc.",
 "sources": [
 {
@@ -24189,7 +24189,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30732638200.0,
+"mcap": 30790309900.0,
 "name": "Elbit Systems Ltd.",
 "sources": [
 {
@@ -24227,7 +24227,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 16808094700.0,
+"mcap": 17237499900.0,
 "name": "Amer Sports, Inc.",
 "sources": [
 {
@@ -24265,7 +24265,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14820588500.0,
+"mcap": 15113150500.0,
 "name": "ZTO Express (Cayman) Inc.",
 "sources": [
 {
@@ -24296,7 +24296,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14448443400.0,
+"mcap": 15015049200.0,
 "name": "Tencent Music Entertainment Group",
 "sources": [
 {
@@ -24334,7 +24334,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13390700500.0,
+"mcap": 13664912400.0,
 "name": "Sociedad Quimica y Minera S.A.",
 "sources": [
 {
@@ -24372,7 +24372,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 289804780000.0,
+"mcap": 292390928000.0,
 "name": "Palo Alto Networks, Inc.",
 "sources": [
 {
@@ -24410,7 +24410,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 158242275000.0,
+"mcap": 160695206000.0,
 "name": "TJX Companies, Inc. (The)",
 "sources": [
 {
@@ -24448,7 +24448,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 129625924000.0,
+"mcap": 132212376000.0,
 "name": "Lowe's Companies, Inc.",
 "sources": [
 {
@@ -24486,7 +24486,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 79983485000.0,
+"mcap": 78238982000.0,
 "name": "Target Corporation",
 "sources": [
 {
@@ -24524,7 +24524,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30723553300.0,
+"mcap": 31553288200.0,
 "name": "Everpure, Inc.",
 "sources": [
 {
@@ -24562,7 +24562,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 19754975200.0,
+"mcap": 20079333400.0,
 "name": "Woodward, Inc.",
 "sources": [
 {
@@ -24600,7 +24600,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 1049713970000.0,
+"mcap": 1046778480000.0,
 "name": "Walmart Inc.",
 "sources": [
 {
@@ -24638,7 +24638,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 205572162000.0,
+"mcap": 208963650000.0,
 "name": "Alibaba Group Holding Limited",
 "sources": [
 {
@@ -24676,7 +24676,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 124148638000.0,
+"mcap": 124433318000.0,
 "name": "PDD Holdings Inc.",
 "sources": [
 {
@@ -24714,7 +24714,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 73771074000.0,
+"mcap": 71738155000.0,
 "name": "Intuit Inc.",
 "sources": [
 {
@@ -24752,7 +24752,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 72253907000.0,
+"mcap": 71321100000.0,
 "name": "Ross Stores, Inc.",
 "sources": [
 {
@@ -24790,7 +24790,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 64087204000.0,
+"mcap": 66531238000.0,
 "name": "NetEase, Inc.",
 "sources": [
 {
@@ -24828,7 +24828,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 46344024000.0,
+"mcap": 45572817000.0,
 "name": "Keysight Technologies Inc.",
 "sources": [
 {
@@ -24866,7 +24866,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29765382100.0,
+"mcap": 32147447800.0,
 "name": "Bending Spoons S.p.A.",
 "sources": [
 {
@@ -24904,7 +24904,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 25189431300.0,
+"mcap": 24863903700.0,
 "name": "Williams-Sonoma, Inc.",
 "sources": [
 {
@@ -24942,7 +24942,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17042934800.0,
+"mcap": 17074496500.0,
 "name": "Warner Music Group Corp.",
 "sources": [
 {
@@ -24980,7 +24980,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12347366400.0,
+"mcap": 12326340600.0,
 "name": "Futu Holdings Limited",
 "sources": [
 {
@@ -25011,7 +25011,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13146832900.0,
+"mcap": 12846203900.0,
 "name": "BJ's Wholesale Club Holdings, Inc.",
 "sources": [
 {
@@ -25049,7 +25049,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10581265400.0,
+"mcap": 10607980500.0,
 "name": "Frontline Plc",
 "sources": [
 {
@@ -25080,7 +25080,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10338516000.0,
+"mcap": 10529788900.0,
 "name": "Moog Inc.",
 "sources": [
 {
@@ -25118,7 +25118,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10338516000.0,
+"mcap": 10529788900.0,
 "name": "Moog Inc.",
 "sources": [
 {
@@ -25149,7 +25149,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 217311576000.0,
+"mcap": 215703847000.0,
 "name": "CrowdStrike Holdings, Inc.",
 "sources": [
 {
@@ -25187,7 +25187,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 53350810000.0,
+"mcap": 54187110000.0,
 "name": "Hewlett Packard Enterprise Company",
 "sources": [
 {
@@ -25225,7 +25225,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 51739582000.0,
+"mcap": 50307383000.0,
 "name": "Agilent Technologies, Inc.",
 "sources": [
 {
@@ -25263,7 +25263,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 38015185000.0,
+"mcap": 37890445000.0,
 "name": "Zscaler, Inc.",
 "sources": [
 {
@@ -25301,7 +25301,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 25793679400.0,
+"mcap": 25645858800.0,
 "name": "Zoom Communications, Inc.",
 "sources": [
 {
@@ -25339,7 +25339,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24869638100.0,
+"mcap": 25288677400.0,
 "name": "Symbotic Inc.",
 "sources": [
 {
@@ -25377,7 +25377,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 17652742100.0,
+"mcap": 16898916400.0,
 "name": "Jacobs Solutions Inc.",
 "sources": [
 {
@@ -25415,7 +25415,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 187742781000.0,
+"mcap": 188874539000.0,
 "name": "Dell Technologies Inc.",
 "sources": [
 {
@@ -25453,7 +25453,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 151644766000.0,
+"mcap": 160781926000.0,
 "name": "Analog Devices, Inc.",
 "sources": [
 {
@@ -25491,7 +25491,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 122963526000.0,
+"mcap": 122873987000.0,
 "name": "Medtronic plc",
 "sources": [
 {
@@ -25529,7 +25529,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 53441298000.0,
+"mcap": 51578065000.0,
 "name": "Autodesk, Inc.",
 "sources": [
 {
@@ -25567,7 +25567,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 43194429000.0,
+"mcap": 42944721000.0,
 "name": "Workday, Inc.",
 "sources": [
 {
@@ -25605,7 +25605,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29017026600.0,
+"mcap": 28298809300.0,
 "name": "Dollar Tree, Inc.",
 "sources": [
 {
@@ -25643,7 +25643,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 25196040200.0,
+"mcap": 28090787800.0,
 "name": "HP Inc.",
 "sources": [
 {
@@ -25681,7 +25681,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 20893073400.0,
+"mcap": 21513867300.0,
 "name": "Best Buy Co., Inc.",
 "sources": [
 {
@@ -25719,7 +25719,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 15348265000.0,
+"mcap": 15636446200.0,
 "name": "Burlington Stores, Inc.",
 "sources": [
 {
@@ -25736,8 +25736,8 @@
 }
 },
 {
-"id": "NTNX-2026-11-24",
-"ticker": "NTNX",
+"id": "DKS-2026-11-24",
+"ticker": "DKS",
 "market": "US",
 "date": "2026-11-24",
 "session": "TBD",
@@ -25757,8 +25757,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14888455200.0,
-"name": "Nutanix, Inc.",
+"mcap": 14102862800.0,
+"name": "Dick's Sporting Goods Inc",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -25767,7 +25767,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 0.29,
+"eps": 1.38,
 "epsN": 8.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -25795,7 +25795,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13977813000.0,
+"mcap": 13910092800.0,
 "name": "The J.M. Smucker Company",
 "sources": [
 {
@@ -25812,8 +25812,8 @@
 }
 },
 {
-"id": "DKS-2026-11-24",
-"ticker": "DKS",
+"id": "NTNX-2026-11-24",
+"ticker": "NTNX",
 "market": "US",
 "date": "2026-11-24",
 "session": "TBD",
@@ -25833,8 +25833,8 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13620880400.0,
-"name": "Dick's Sporting Goods Inc",
+"mcap": 12627505200.0,
+"name": "Nutanix, Inc.",
 "sources": [
 {
 "label": "Nasdaq · Earnings Calendar",
@@ -25843,7 +25843,7 @@
 ],
 "consensus": {
 "period": "רבעון נוכחי",
-"eps": 1.38,
+"eps": 0.29,
 "epsN": 8.0,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
@@ -25871,7 +25871,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 165485298000.0,
+"mcap": 172835275000.0,
 "name": "Deere & Company",
 "sources": [
 {
@@ -25909,7 +25909,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10456837100.0,
+"mcap": 11610020900.0,
 "name": "Li Auto Inc.",
 "sources": [
 {
@@ -25947,7 +25947,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 22934089700.0,
+"mcap": 22382659600.0,
 "name": "Rubrik, Inc.",
 "sources": [
 {
@@ -25985,7 +25985,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 174515847000.0,
+"mcap": 178525585000.0,
 "name": "BHP Group Limited",
 "sources": [
 {
@@ -26016,7 +26016,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 115373736000.0,
+"mcap": 114812518000.0,
 "name": "Marvell Technology, Inc.",
 "sources": [
 {
@@ -26054,7 +26054,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 34635522000.0,
+"mcap": 35273617000.0,
 "name": "Okta, Inc.",
 "sources": [
 {
@@ -26092,7 +26092,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 32016298000.0,
+"mcap": 32409135100.0,
 "name": "NetApp, Inc.",
 "sources": [
 {
@@ -26130,7 +26130,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 29968328700.0,
+"mcap": 30723326000.0,
 "name": "Copart, Inc.",
 "sources": [
 {
@@ -26168,7 +26168,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 25647894500.0,
+"mcap": 25742350300.0,
 "name": "Trip.com Group Limited",
 "sources": [
 {
@@ -26206,7 +26206,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 24851632100.0,
+"mcap": 25256828900.0,
 "name": "MongoDB, Inc.",
 "sources": [
 {
@@ -26244,7 +26244,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 20009361400.0,
+"mcap": 20072325100.0,
 "name": "Credo Technology Group Holding Ltd",
 "sources": [
 {
@@ -26282,7 +26282,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 159052972000.0,
+"mcap": 162303836000.0,
 "name": "Salesforce, Inc.",
 "sources": [
 {
@@ -26320,7 +26320,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 111724724000.0,
+"mcap": 110999085000.0,
 "name": "Bank Of Montreal",
 "sources": [
 {
@@ -26358,7 +26358,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 104282898000.0,
+"mcap": 103520068000.0,
 "name": "Bank of Nova Scotia (The)",
 "sources": [
 {
@@ -26396,7 +26396,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 95640551000.0,
+"mcap": 94451614000.0,
 "name": "Snowflake Inc.",
 "sources": [
 {
@@ -26434,7 +26434,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12410281000.0,
+"mcap": 12006734800.0,
 "name": "Five Below, Inc.",
 "sources": [
 {
@@ -26472,7 +26472,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 10431245300.0,
+"mcap": 10803059700.0,
 "name": "Netskope, Inc.",
 "sources": [
 {
@@ -26510,7 +26510,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 261535613000.0,
+"mcap": 261089018000.0,
 "name": "Royal Bank Of Canada",
 "sources": [
 {
@@ -26548,7 +26548,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 188859302000.0,
+"mcap": 189786276000.0,
 "name": "Toronto Dominion Bank (The)",
 "sources": [
 {
@@ -26586,7 +26586,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 96009904000.0,
+"mcap": 95048344000.0,
 "name": "Canadian Imperial Bank of Commerce",
 "sources": [
 {
@@ -26624,7 +26624,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 44301500000.0,
+"mcap": 44023017000.0,
 "name": "Veeva Systems Inc.",
 "sources": [
 {
@@ -26662,7 +26662,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 41412080000.0,
+"mcap": 41240809000.0,
 "name": "Kroger Company (The)",
 "sources": [
 {
@@ -26700,7 +26700,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30588518400.0,
+"mcap": 30725300200.0,
 "name": "Dollar General Corporation",
 "sources": [
 {
@@ -26738,7 +26738,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 27407538200.0,
+"mcap": 27477661700.0,
 "name": "Ulta Beauty, Inc.",
 "sources": [
 {
@@ -26776,7 +26776,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 23084558300.0,
+"mcap": 22756618200.0,
 "name": "Samsara Inc.",
 "sources": [
 {
@@ -26814,7 +26814,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14959672300.0,
+"mcap": 15092373500.0,
 "name": "DocuSign, Inc.",
 "sources": [
 {
@@ -26852,7 +26852,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14050423800.0,
+"mcap": 13949473800.0,
 "name": "Brown Forman Corporation",
 "sources": [
 {
@@ -26883,7 +26883,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 14050423800.0,
+"mcap": 13949473800.0,
 "name": "Brown Forman Corporation",
 "sources": [
 {
@@ -26921,7 +26921,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12806663200.0,
+"mcap": 12707600400.0,
 "name": "Hormel Foods Corporation",
 "sources": [
 {
@@ -26959,7 +26959,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12045149200.0,
+"mcap": 12268253200.0,
 "name": "Guidewire Software, Inc.",
 "sources": [
 {
@@ -26997,7 +26997,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11660322800.0,
+"mcap": 11844772900.0,
 "name": "The Cooper Companies, Inc.",
 "sources": [
 {
@@ -27035,7 +27035,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13724374000.0,
+"mcap": 14236711900.0,
 "name": "Toll Brothers, Inc.",
 "sources": [
 {
@@ -27073,7 +27073,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 79494717000.0,
+"mcap": 77630087000.0,
 "name": "Synopsys, Inc.",
 "sources": [
 {
@@ -27111,7 +27111,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 54007620000.0,
+"mcap": 54792540000.0,
 "name": "AutoZone, Inc.",
 "sources": [
 {
@@ -27149,7 +27149,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 30461923300.0,
+"mcap": 30642219000.0,
 "name": "Sunbelt Rentals Holdings, Inc.",
 "sources": [
 {
@@ -27160,7 +27160,7 @@
 "consensus": {
 "period": "רבעון נוכחי",
 "eps": 1.16,
-"epsN": 2.0,
+"epsN": null,
 "source": "Nasdaq (Zacks)",
 "quality": "normal"
 }
@@ -27187,7 +27187,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 25392373800.0,
+"mcap": 25807806500.0,
 "name": "Caseys General Stores, Inc.",
 "sources": [
 {
@@ -27225,7 +27225,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 13863687200.0,
+"mcap": 13606391800.0,
 "name": "GameStop Corporation",
 "sources": [
 {
@@ -27263,7 +27263,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 12548637700.0,
+"mcap": 13056748500.0,
 "name": "SailPoint, Inc.",
 "sources": [
 {
@@ -27301,7 +27301,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 11198250000.0,
+"mcap": 11345026000.0,
 "name": "lululemon athletica inc.",
 "sources": [
 {
@@ -27339,7 +27339,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 1437244460000.0,
+"mcap": 1436194310000.0,
 "name": "Broadcom Inc.",
 "sources": [
 {
@@ -27377,7 +27377,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 90325533000.0,
+"mcap": 90617438000.0,
 "name": "Adobe Inc.",
 "sources": [
 {
@@ -27415,7 +27415,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 483768730000.0,
+"mcap": 481597424000.0,
 "name": "Costco Wholesale Corporation",
 "sources": [
 {
@@ -27453,7 +27453,7 @@
 },
 "links": {},
 "nasdaq": true,
-"mcap": 33930526700.0,
+"mcap": 34429690000.0,
 "name": "Ciena Corporation",
 "sources": [
 {
