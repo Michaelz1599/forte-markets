@@ -1,27 +1,27 @@
 {
  "_comment": "The day's public stories about the mega caps, in plain Hebrew, for the marketing tab. Written each morning by the daily marketing task from published articles (paraphrased, with links). items: sym (Yahoo symbol), name, tag, title, story (2-3 sentences), why (one line a salesperson can say), date (of the story), src [{t, u}].",
- "asof": "2026-11-26T08:30+02:00",
+ "asof": "2026-11-27T07:48+02:00",
  "items": [
   {
    "sym": "NVDA",
    "name": "אנבידיה",
-   "tag": "חקירות",
-   "date": "2026-11-25",
-   "title": "אנבידיה ירדה יום שני ברציפות ומחקה חלק ניכר מהזינוק על חזרת הואנג; ב-1 וב-3 בדצמבר הוא יופיע בקונגרס",
-   "story": "אחרי זינוק של כ-31% ב-23.11 על החזרת ג'נסן הואנג לתפקיד המנכ\"ל, המניה ירדה 5.9% ב-24.11 ועוד 3.9% ב-25.11, ל-149.3 דולר, על רקע חשש מחודש לגבי עסקי ה-AI. לפי Yahoo Finance, משרד המשפטים וה-SEC ממשיכים לחקור חשד להברחת שבבים דרך חברה בסינגפור שנמצאת ברשימה השחורה, והדירקטוריון מינה ממונה ציות חדש; הואנג ישתתף בראיון סגור בבית הנבחרים ב-1.12 ויעיד בפומבי בוועדת הבנקאות של הסנאט ב-3.12. לפי פורצ'ן, בכירי FBI ו-CIA תדרכו את ועדות המודיעין על קשרים בין האישה שעמה ניהל הואנג רומן לבין המודיעין הסיני, אך לא הוצגה ראיה שהמודיעין יזם את הקשר.",
-   "why": "חזרת המייסד פתרה את שאלת ההנהגה, אבל כל עוד החקירות פתוחות והעדויות בקונגרס לפנינו, המניה עלולה להגיב בחדות לכל ידיעה; את העסק עצמו ימדדו הדוחות והביקוש לשבבים.",
+   "tag": "דירוג אשראי",
+   "date": "2026-11-26",
+   "title": "S&P מאיימת להוריד את דירוג האשראי של אנבידיה, והחברה עוצרת משלוחי שרתים לארבע מדינות בדרום-מזרח אסיה",
+   "story": "S&P הכניסה ב-25.11 את דירוג ה-AA של אנבידיה לרשימת מעקב שלילית, ועשויה להוריד אותו בדרגה אחת בתוך 90 יום, בגלל סיכוני ממשל תאגידי אחרי הדחת ג'נסן הואנג והחזרתו וחשש להפרת מגבלות הייצוא; מודי'ס כבר הורידה את התחזית ליציבה ב-18.11. ב-26.11 דיווח ה-FT שאנבידיה ביקשה מיצרניות השרתים לעצור משלוחים למלזיה, סינגפור, תאילנד ואינדונזיה, אחרי כללים אמריקאיים חדשים נגד השכרת כוח מחשוב לחברות סיניות, וה-WSJ חשף שראש המכירות ג'יי פורי נשוי למנהלת לשעבר בסופרמיקרו. הואנג יופיע בקונגרס ב-1 וב-3 בדצמבר.",
+   "why": "הסיפור של אנבידיה עבר מהביקושים לשבבים לממשל תאגידי ורגולציה; דירוג AA עדיין גבוה מאוד והורדה של דרגה אחת מוגבלת בהשפעתה, אבל עד הדיונים בקונגרס הכותרות צפויות להשאיר את המניה תנודתית.",
    "src": [
     {
-     "t": "Yahoo Finance",
-     "u": "https://ca.finance.yahoo.com/news/nvidia-stock-stumbles-again-after-jensen-huangs-spectacular-comeback-rally-094741665.html"
+     "t": "גלובס",
+     "u": "https://www.globes.co.il/news/article.aspx?did=1001565068"
     },
     {
-     "t": "Fortune",
-     "u": "https://fortune.com/2026/11/25/congress-briefed-links-jensen-huang-nvidia-affair-china-intelligence/"
+     "t": "The National (לפי FT)",
+     "u": "https://thenationalnews.com/future/technology/2026/11/26/nvidia-halts-chip-shipments-to-south-east-asia-amid-us-crackdown"
     },
     {
-     "t": "AP (Korea Times)",
-     "u": "https://www.koreatimes.co.kr/world/20261126/trump-heads-to-arizona-next-week-for-high-stakes-expansion-of-tsmcs-computer-chip-factories"
+     "t": "ynet (לפי WSJ)",
+     "u": "https://www.ynet.co.il/digital/technews/article/rkohzoryml"
     }
    ]
   },
