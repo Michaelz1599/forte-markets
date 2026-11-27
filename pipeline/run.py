@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, compute, drivers, breadth, earnings, housing, israel, liveus, macro, markets, marketing, maya, rs, sources, uscal, usflows, valuation
+from . import analogs, compute, drivers, breadth, earnings, housing, israel, jkp, liveus, macro, markets, marketing, maya, rs, sources, uscal, usflows, valuation
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
                      write_series)
 
@@ -233,6 +233,11 @@ def run(offline: bool = False, live: bool = False) -> int:
             if il_live and il_live > cutoff_date() and payload.get("asof") == il_live:
                 msg += " · ת\"א ושער הדולר: נכון ל-" + dt.datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%H:%M")
             st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
+        # 10b1. Israeli factors (Momentum tab, Israel): JKP's monthly factor and theme returns, downloaded again only when
+        # JKP publish a new release (about once a year); a failure keeps the stored file
+        res = step(st, "jkp", "ישראל: פקטורים (JKP Global Factor Data)", jkp.run)
+        if res:
+            st.add("jkp", "ישראל: פקטורים (JKP Global Factor Data)", True, res[0]["asof"], res[1])
         # 10c. Marketing tab: the mega caps and the held stocks (day / month / year), news headlines per held company,
         # and the Israeli corporate spread over government bonds (Tel Bond indices)
         res = step(st, "mkt_px", "שיווק: מחירי המניות הגדולות והאחזקות", lambda: marketing.update_prices())
@@ -364,6 +369,8 @@ def build(st: Status, u: dict, px) -> None:
     except Exception:
         traceback.print_exc()
     dump_json(tmp / "data" / "israel.json", il_pay)
+    if jkp.OUT.exists():   # Israeli factors (JKP), loaded by the Momentum tab's Israel view
+        shutil.copy(jkp.OUT, tmp / "data" / "jkp_il.json")
     an_file = analogs.OUT
     dump_json(tmp / "data" / "macro.json", {"series": macro.payload(),
                                              "analogs": json.loads(an_file.read_text(encoding="utf-8")) if an_file.exists() else {},
