@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-27T05:52+00:00",
+"asof": "2026-11-27T11:06+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -5130,6 +5130,34 @@
 ]
 },
 {
+"id": "מכלול מימון-2026-11-30",
+"ticker": "מכלול מימון",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1944,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1784494"
+}
+]
+},
+{
 "id": "משק אנרגיה-2026-11-30",
 "ticker": "משק אנרגיה",
 "market": "IL",
@@ -5214,6 +5242,90 @@
 ]
 },
 {
+"id": "קונקסה-2026-11-30",
+"ticker": "קונקסה",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 536,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1784732"
+}
+]
+},
+{
+"id": "רמי לוי-2026-11-30",
+"ticker": "רמי לוי",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "שעת הפרסום לא צוינה במאיה"
+},
+"call": {
+"time": "13:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1445,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1784560"
+}
+]
+},
+{
+"id": "רני צים-2026-11-30",
+"ticker": "רני צים",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "12:00",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1588,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1783739"
+}
+]
+},
+{
 "id": "דמרי-2026-12-01",
 "ticker": "דמרי",
 "market": "IL",
@@ -5238,6 +5350,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1781269"
+}
+]
+},
+{
+"id": "מודיעין יהש-2026-12-02",
+"ticker": "מודיעין יהש",
+"market": "IL",
+"date": "2026-12-02",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 345,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1784489"
 }
 ]
 },
@@ -5371,6 +5511,38 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"מכלול מימון": {
+"name": "מכלול מימון",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"רמי לוי": {
+"name": "רמי לוי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"רני צים": {
+"name": "רני צים",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"קונקסה": {
+"name": "קונקסה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "אלקטרה נדל\"ן": {
 "name": "אלקטרה נדל\"ן",
 "tags": [
@@ -5437,6 +5609,14 @@
 },
 "דמרי": {
 "name": "דמרי",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"מודיעין יהש": {
+"name": "מודיעין יהש",
 "tags": [
 "TASE"
 ],
