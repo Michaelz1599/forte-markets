@@ -6096,7 +6096,7 @@ async function openIlc(sym) {
         ${tile('RSI ‏(14)', ltr(fmtN(r.rsi, 1)), `הממוצע שלו ${ltr(fmtN(r.rsiMa, 1))} · ${r.rsi >= 70 ? 'קניית יתר' : r.rsi <= 30 ? 'מכירת יתר' : 'ניטרלי'}`)}
         ${tile('CMF ‏(20)', ltr(fmtS(r.cmf, 2)), r.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : r.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'מאוזן')}
         ${r.dv ? tile('Darvas box · רצפה–גג', `<span class="ltr num" style="white-space:nowrap;font-size:${String(ilcFmt(d.top)).length > 6 ? 16 : 19}px">${ilcFmt(d.bot)}–${ilcFmt(d.top)}</span>`, dvS) : ''}
-        ${tile('מחזור יומי ממוצע', r.to == null ? '—' : ltr(fmtN(r.to, r.to >= 10 ? 0 : r.to >= 1 ? 1 : 2) + ' מ\' ₪'), `20 ימי מסחר · מהשיא: ${ltr(r.hi52 == null ? '—' : fmtS(r.hi52, 1) + '%')}`)}
+        ${tile('מחזור יומי ממוצע', r.to == null ? '—' : r.to >= 1 ? ltr(fmtN(r.to, r.to >= 10 ? 0 : 1)) + ' מ\' ₪' : ltr(fmtN(r.to * 1000, 0)) + ' אלף ₪', `20 ימי מסחר · מהשיא: ${ltr(r.hi52 == null ? '—' : fmtS(r.hi52, 1) + '%')}`)}
       </div>
       <section class="panel">
         <div class="panel-head">
