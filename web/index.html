@@ -338,6 +338,7 @@ table.ft { border: 2px solid var(--frame); }
 .ilc-key { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--ink-2); align-items: center; }
 .ilc-key i { display: inline-block; width: 16px; height: 0; border-top: 2px solid; vertical-align: middle; margin-inline-end: 6px; }
 .ilc-key i.bx { height: 10px; border: 1.5px solid; border-radius: 2px; }
+.ilc-key i.hist { width: 12px; height: 10px; border: 0; border-radius: 1px; }
 .ilc-none summary { cursor: pointer; }
 .ilc-none p { margin: 6px 0 0; line-height: 1.8; }
 .ilc-grid { display: grid; grid-template-columns: repeat(var(--ilc-cols, 2), minmax(0, 1fr)); gap: 14px; }
@@ -1389,7 +1390,7 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
       <div class="ilc-key" aria-label="מקרא">
         <span><i data-k="m50"></i>SMA 50</span><span><i data-k="m200"></i>SMA 200</span>
         <span><i class="bx" data-k="boxUp"></i>Darvas: פריצה למעלה</span><span><i class="bx" data-k="boxDn"></i>Darvas: שבירה למטה</span><span><i class="bx" data-k="boxOpen"></i>Darvas: קופסה פתוחה</span>
-        <span><i data-k="rsi"></i>RSI 14</span><span><i data-k="rsiMa"></i>הממוצע של RSI</span><span><i data-k="cmf"></i>CMF 20</span>
+        <span><i data-k="rsi"></i>RSI 14</span><span><i data-k="rsiMa"></i>הממוצע של RSI</span><span><i class="hist" data-k="cmf"></i>CMF 20: ירוק מעל 0, אדום מתחת</span>
         <span class="muted">לחיצה על גרף פותחת אותו בגדול, עם זום, ממוצע 21 וייצוא כתמונה.</span>
       </div>
       <div class="ilc-grid" id="ilcGrid" aria-live="polite"></div>
@@ -5926,7 +5927,7 @@ function ilcSyncTools() {
   $$('#ilcColSeg button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.c === u.cols)));
   $('#ilcAllChk').checked = u.all;
   $('#ilcGrid').style.setProperty('--ilc-cols', u.cols);
-  const col = ilcCol(); $$('#ilcSec .ilc-key i[data-k]').forEach(i => { i.style.borderColor = col[i.dataset.k]; });
+  const col = ilcCol(); $$('#ilcSec .ilc-key i[data-k]').forEach(i => { if (i.classList.contains('hist')) i.style.background = `linear-gradient(${col.up} 50%, ${col.dn} 50%)`; else i.style.borderColor = col[i.dataset.k]; });
 }
 function renderIlc() {
   const grid = $('#ilcGrid'); if (!grid) return;
@@ -5976,7 +5977,7 @@ function ilcCard(r) {
       <div class="ilc-id"><div class="nm">${esc(r.n)}</div><div class="sb"><span class="ltr">${esc(r.s)}</span>${tags ? ' · ' + tags : ''}</div></div>
       <div class="px"><b class="ltr num">${ilcFmt(r.c)}</b><span class="ltr num ${cls}">${fmtS(r.ch, 2)}%</span><span class="dt">${r.d ? fmtDateShort(r.d) : ''}</span></div>
     </div>
-    <div class="ilc-ch" data-open="${esc(r.s)}" data-file="${esc(r.file)}" role="img" aria-label="גרף יומי של ${esc(r.n)}: נרות, ממוצעים 50 ו-200, Darvas box, ווליום, RSI ו-CMF"><div class="ph">טוען גרף…</div></div>
+    <div class="ilc-ch" data-open="${esc(r.s)}" data-file="${esc(r.file)}" role="img" aria-label="גרף יומי של ${esc(r.n)}: נרות, ממוצעים 50 ו-200, Darvas box, ווליום, RSI ו-CMF בעמודות"><div class="ph">טוען גרף…</div></div>
     <div class="ilc-ft">${chips.join('')}</div>
   </article>`;
 }
@@ -6062,8 +6063,10 @@ function ilcOption(b, k, o) {
     markArea: { silent: true, itemStyle: { color: col.rsi + '14' }, data: [[{ yAxis: 30 }, { yAxis: 70 }]] },
     markLine: { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: muted, type: 'dashed', width: 1 } }, { yAxis: 30, lineStyle: { color: muted, type: 'dashed', width: 1 } }, { yAxis: 50, lineStyle: { color: line, type: 'dotted', width: 1 } }] } });
   series.push({ name: 'RSI MA', type: 'line', xAxisIndex: 1, yAxisIndex: 2, data: sl(k.rsiMa), showSymbol: false, symbol: 'none', silent: true, lineStyle: { width: 1, color: col.rsiMa } });
-  series.push({ name: 'CMF', type: 'line', xAxisIndex: 2, yAxisIndex: 3, data: sl(k.cmf), showSymbol: false, symbol: 'none', silent: true, lineStyle: { width: compact ? 1 : 1.3, color: col.cmf },
-    markLine: { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 0, lineStyle: { color: muted, type: 'dashed', width: 1 } }] } });
+  // CMF as a histogram: green above zero (money in), red below (money out)
+  series.push({ name: 'CMF', type: 'bar', xAxisIndex: 2, yAxisIndex: 3, barCategoryGap: '8%', silent: true,
+    data: sl(k.cmf).map(v => v == null ? null : { value: v, itemStyle: { color: (v >= 0 ? col.up : col.dn) + 'C0' } }),
+    markLine: { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 0, lineStyle: { color: muted, type: 'solid', width: 1 } }] } });
   const tag = (txt, top) => ({ type: 'text', left: 10, top, silent: true, style: { text: txt, fill: muted, font: `${fs}px sans-serif` } });
   const opt = { animation: false, backgroundColor: 'transparent', grid, xAxis: [xa(0), xa(1), xa(2)], yAxis: ya, series,
     graphic: [tag('RSI 14', G[1][0]), tag('CMF 20', G[2][0])],
@@ -6135,7 +6138,7 @@ async function openIlc(sym) {
   drawIlcBig();
 }
 const ILC_NOTE = 'נרות יומיים ושער באגורות, כמו ב-TradingView. <b>Darvas box</b>: הגג הוא שיא שלא נשבר 3 ימי מסחר, והרצפה היא השפל הנמוך מאז, כשהיום שאחריו לא יורד ממנו. קופסה נסגרת כשהשער עובר את הגג (ירוק, פריצה למעלה) או יורד מתחת לרצפה (אדום, שבירה למטה); כחולה = עדיין פתוחה. ' +
-  '<b>SMA</b>: ממוצע נע פשוט של הסגירות. <b>ווליום</b>: מספר המניות שנסחרו, ירוק ביום עלייה ואדום ביום ירידה. <b>RSI 14</b> (סגול) עם הממוצע שלו ל-14 ימים (צהוב); מעל 70 קניית יתר, מתחת ל-30 מכירת יתר. <b>CMF 20</b>: Chaikin Money Flow, מעל 0 כסף נכנס ומתחת ל-0 כסף יוצא. נתוני מחירים: Yahoo Finance.';
+  '<b>SMA</b>: ממוצע נע פשוט של הסגירות. <b>ווליום</b>: מספר המניות שנסחרו, ירוק ביום עלייה ואדום ביום ירידה. <b>RSI 14</b> (סגול) עם הממוצע שלו ל-14 ימים (צהוב); מעל 70 קניית יתר, מתחת ל-30 מכירת יתר. <b>CMF 20</b>: Chaikin Money Flow בעמודות, ירוק מעל 0 (כסף נכנס) ואדום מתחת ל-0 (כסף יוצא). נתוני מחירים: Yahoo Finance.';
 // the bars in view: the range buttons set start/end values, the mouse and the slider set percentages
 function ilcZoom(inst, n) {
   try {
@@ -6169,7 +6172,7 @@ function ilcLegend(i) {
     (pc ? `<span class="${c >= pc ? 'u' : 'dn'}">${fmtS(c - pc, Math.abs(c) >= 1000 ? 0 : 2)} (${fmtS((c / pc - 1) * 100, 2)}%)</span>` : '') +
     `<span>Vol <b>${fmtVol(b.v[i])}</b></span>` + st.mas.map(m => `<span>SMA ${m} <b style="color:${col['m' + m]}">${f(k['sma' + m][i])}</b></span>`).join('') +
     (st.dv && k.dvTop[i] != null ? `<span>Darvas <b style="color:${col.boxUp}">${f(k.dvTop[i])}</b> <b style="color:${col.boxDn}">${f(k.dvBot[i])}</b></span>` : '') +
-    `<span>RSI 14 <b style="color:${col.rsi}">${fmtN(k.rsi[i], 2)}</b> <b style="color:${col.rsiMa}">${fmtN(k.rsiMa[i], 2)}</b></span><span>CMF 20 <b style="color:${col.cmf}">${fmtS(k.cmf[i], 2)}</b></span>`;
+    `<span>RSI 14 <b style="color:${col.rsi}">${fmtN(k.rsi[i], 2)}</b> <b style="color:${col.rsiMa}">${fmtN(k.rsiMa[i], 2)}</b></span><span>CMF 20 <b style="color:${k.cmf[i] == null ? col.cmf : k.cmf[i] >= 0 ? col.up : col.dn}">${fmtS(k.cmf[i], 2)}</b></span>`;
 }
 async function exportIlcImage(sym) {
   const st = ILC.big, r = ilcRow(sym); if (!st || !st.b || !r) throw new Error('nochart');
