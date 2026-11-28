@@ -1,5 +1,5 @@
 {
-"asof": "2026-11-27T21:49+00:00",
+"asof": "2026-11-28T00:17+00:00",
 "events": [
 {
 "id": "GVYM-2026-11-02",
@@ -4766,62 +4766,6 @@
 ]
 },
 {
-"id": "אלומה-2026-11-27",
-"ticker": "אלומה",
-"market": "IL",
-"date": "2026-11-27",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום שני 30.11, 10:30 שעון ישראל",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 1978,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779639"
-}
-]
-},
-{
-"id": "אקסל-2026-11-27",
-"ticker": "אקסל",
-"market": "IL",
-"date": "2026-11-27",
-"session": "TBD",
-"period": "Q3 2026",
-"status": "confirmed",
-"release": {
-"text": "שעת הפרסום לא צוינה במאיה"
-},
-"call": {
-"time": null,
-"tz": null,
-"confirmed": true,
-"note": "שיחת משקיעים ביום שני 30.11, 10:30 שעון ישראל",
-"webcast": null,
-"dial": null
-},
-"links": {},
-"maya": 770,
-"sources": [
-{
-"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
-"url": "https://maya.tase.co.il/he/reports/1779049"
-}
-]
-},
-{
 "id": "אטראו שוקי הון-2026-11-29",
 "ticker": "אטראו שוקי הון",
 "market": "IL",
@@ -4990,6 +4934,34 @@
 ]
 },
 {
+"id": "אלומה-2026-11-30",
+"ticker": "אלומה",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 1978,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779639"
+}
+]
+},
+{
 "id": "אלקטרה נדל\"ן-2026-11-30",
 "ticker": "אלקטרה נדל\"ן",
 "market": "IL",
@@ -5042,6 +5014,34 @@
 {
 "label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
 "url": "https://maya.tase.co.il/he/reports/1782532"
+}
+]
+},
+{
+"id": "אקסל-2026-11-30",
+"ticker": "אקסל",
+"market": "IL",
+"date": "2026-11-30",
+"session": "TBD",
+"period": "Q3 2026",
+"status": "confirmed",
+"release": {
+"text": "מועד פרסום הדוח לא נרשם במאיה; רשומה שיחת ועידה"
+},
+"call": {
+"time": "10:30",
+"tz": "Asia/Jerusalem",
+"confirmed": true,
+"note": null,
+"webcast": null,
+"dial": null
+},
+"links": {},
+"maya": 770,
+"sources": [
+{
+"label": "מאיה · מועדי פרסום דוחות ושיחות ועידה",
+"url": "https://maya.tase.co.il/he/reports/1779049"
 }
 ]
 },
@@ -5439,24 +5439,8 @@
 }
 ],
 "profiles": {
-"VILR": {
-"name": "וילאר · VILR",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אקסל": {
-"name": "אקסל",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"אלומה": {
-"name": "אלומה",
+"אטראו שוקי הון": {
+"name": "אטראו שוקי הון",
 "tags": [
 "TASE"
 ],
@@ -5495,14 +5479,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"אטראו שוקי הון": {
-"name": "אטראו שוקי הון",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "ברקת קפיטל": {
 "name": "ברקת קפיטל",
 "tags": [
@@ -5535,8 +5511,48 @@
 "country": "IL",
 "exchange": "TASE"
 },
+"אלומה": {
+"name": "אלומה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"הכשרת הישוב": {
+"name": "הכשרת הישוב",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
 "קונקסה": {
 "name": "קונקסה",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"גוטו": {
+"name": "גוטו",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"ישראייר גרופ": {
+"name": "ישראייר גרופ",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"אקסל": {
+"name": "אקסל",
 "tags": [
 "TASE"
 ],
@@ -5591,30 +5607,6 @@
 "country": "IL",
 "exchange": "TASE"
 },
-"גוטו": {
-"name": "גוטו",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"הכשרת הישוב": {
-"name": "הכשרת הישוב",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
-"ישראייר גרופ": {
-"name": "ישראייר גרופ",
-"tags": [
-"TASE"
-],
-"country": "IL",
-"exchange": "TASE"
-},
 "דמרי": {
 "name": "דמרי",
 "tags": [
@@ -5633,6 +5625,14 @@
 },
 "סולאיר": {
 "name": "סולאיר",
+"tags": [
+"TASE"
+],
+"country": "IL",
+"exchange": "TASE"
+},
+"VILR": {
+"name": "וילאר · VILR",
 "tags": [
 "TASE"
 ],
