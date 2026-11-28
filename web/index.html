@@ -323,6 +323,48 @@ table.ft { border: 2px solid var(--frame); }
 .cov { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13.5px; color: var(--ink-2); }
 .cov b { color: var(--ink); }
 .sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+/* ---------- the analysis tab's two views: my analyses / "גרפים - ישראל" (a chart for every TASE share) ---------- */
+.an-tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.an-tabs button { border: 0; background: transparent; padding: 8px 14px 9px; font-size: 15px; font-weight: 600; color: var(--ink-2); border-bottom: 3px solid transparent; margin-bottom: -1px; display: inline-flex; gap: 8px; align-items: center; border-radius: 8px 8px 0 0; }
+.an-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 800; }
+.an-tabs button:hover:not([aria-selected="true"]) { color: var(--ink); background: var(--sunk); }
+.an-tabs .cnt { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--sunk); color: var(--ink-2); }
+.an-tabs .cnt:empty { display: none; }
+.ilc { display: grid; gap: 12px; }
+.ilc-tools { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+.ilc-tools input[type="search"] { flex: 1 1 220px; min-width: 0; }
+.ilc-tools select { flex: 0 1 230px; min-width: 0; }
+.ilc-tools .grow { flex: 1 1 auto; }
+.ilc-key { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--ink-2); align-items: center; }
+.ilc-key i { display: inline-block; width: 16px; height: 0; border-top: 2px solid; vertical-align: middle; margin-inline-end: 6px; }
+.ilc-key i.bx { height: 10px; border: 1.5px solid; border-radius: 2px; }
+.ilc-none summary { cursor: pointer; }
+.ilc-none p { margin: 6px 0 0; line-height: 1.8; }
+.ilc-grid { display: grid; grid-template-columns: repeat(var(--ilc-cols, 2), minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 1180px) { .ilc-grid { grid-template-columns: repeat(min(var(--ilc-cols, 2), 2), minmax(0, 1fr)); } }
+@media (max-width: 760px) { .ilc-grid { grid-template-columns: minmax(0, 1fr); } }
+.ilc-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); display: grid; min-width: 0; overflow: hidden; }
+.ilc-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.ilc-hd { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 10px 12px 2px; cursor: pointer; }
+.ilc-hd:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ilc-id { min-width: 0; }
+.ilc-hd .nm { font-weight: 800; font-size: 16px; color: var(--ink); line-height: 1.25; }
+.ilc-hd .sb { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ilc-hd .px { display: grid; justify-items: end; white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1.3; }
+.ilc-hd .px b { font-size: 16px; color: var(--ink); }
+.ilc-hd .px .u { color: var(--up); } .ilc-hd .px .dn { color: var(--down); }
+.ilc-hd .px .dt { font-size: 11.5px; color: var(--muted); }
+.ilc-ch { height: 340px; direction: ltr; cursor: zoom-in; }
+.ilc-ch .ph { display: grid; place-items: center; height: 100%; color: var(--muted); font-size: 13px; }
+.ilc-ft { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 12px 10px; }
+.ilc-ft .chip { font-size: 11.5px; padding: 1px 8px; }
+.ilc-ft button.chip { cursor: pointer; border-color: var(--line); font-family: inherit; }
+.ilc-more { display: flex; justify-content: center; padding: 4px 0 14px; }
+.ilc-leg { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 12.5px; direction: ltr; justify-content: flex-start; min-height: 20px; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.ilc-leg b { font-weight: 700; } .ilc-leg .u { color: var(--up); } .ilc-leg .dn { color: var(--down); }
+.ilc-links { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+#ilcChart { height: min(72vh, 700px); min-height: 460px; }
+@media (max-width: 760px) { .ilc-ch { height: 300px; } #ilcChart { min-height: 420px; } #ilcColSeg { display: none; } }
 .scard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 0; overflow: hidden; display: grid; grid-template-rows: auto 1fr; text-align: start; min-width: 0; }
 .scard:hover { border-color: var(--accent); box-shadow: var(--shadow); }
 .thumb { aspect-ratio: 16 / 8.5; max-width: 100%; background: var(--sunk); border-bottom: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
@@ -1298,13 +1340,17 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
     </section>
     <section class="an-top" id="anTop">
       <div class="toolbar">
-        <div><h2 class="an-h">ניתוחים טכניים</h2><p class="lede">ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.</p></div>
+        <div><h2 class="an-h">ניתוחים טכניים</h2><p class="lede" id="anLede">ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.</p></div>
         <div class="an-admin" id="anAdmin" hidden>
           <button class="btn" type="button" id="newStock">ניתוח חדש</button>
           <button class="btn ghost" type="button" id="importHold">ייבוא רשימת אחזקות</button>
         </div>
       </div>
-      <div class="an-tools">
+      <div class="an-tabs" role="tablist" aria-label="ניתוח טכני" id="anTabs">
+        <button type="button" role="tab" id="anTabMine" data-an="mine" aria-selected="true" aria-controls="stkGrid">הניתוחים שלי <span class="cnt" id="anTabMineN"></span></button>
+        <button type="button" role="tab" id="anTabIlc" data-an="ilc" aria-selected="false" aria-controls="ilcSec">גרפים - ישראל <span class="cnt" id="anTabIlcN"></span></button>
+      </div>
+      <div class="an-tools" id="anTools">
         <input type="search" id="q" placeholder="חיפוש לפי סימול, שם, סקטור או מילה מהניתוח" aria-label="חיפוש מניה">
         <div class="seg" role="group" aria-label="סינון לפי כיוון" id="fBias">
           <button type="button" id="fb-all" data-b="all" aria-pressed="true">הכל</button>
@@ -1325,6 +1371,30 @@ body.mk-present .st-body, body.mk-present .co-desc { font-size: 17px; }
     </section>
     <section class="sgrid" id="stkGrid" aria-label="מניות"></section>
     <section class="sd" id="stkDetail" hidden></section>
+    <section class="ilc" id="ilcSec" role="tabpanel" aria-labelledby="anTabIlc" hidden>
+      <div class="ilc-tools">
+        <input type="search" id="ilcQ" placeholder="חיפוש לפי שם או סימול (עברית או אנגלית)" aria-label="חיפוש מניה">
+        <select id="ilcSecSel" aria-label="ענף"><option value="">כל הענפים</option></select>
+        <select id="ilcFlt" aria-label="סינון"></select>
+        <select id="ilcSort" aria-label="מיון"></select>
+        <button type="button" class="btn ghost sm" id="ilcDir"></button>
+      </div>
+      <div class="ilc-tools">
+        <div class="seg" role="group" aria-label="טווח הגרפים בכרטיסים" id="ilcRngSeg"><button type="button" data-r="126">6 ח'</button><button type="button" data-r="252">שנה</button><button type="button" data-r="504">שנתיים</button></div>
+        <div class="seg" role="group" aria-label="גרפים בשורה" id="ilcColSeg"><button type="button" data-c="1">1 בשורה</button><button type="button" data-c="2">2 בשורה</button><button type="button" data-c="3">3 בשורה</button></div>
+        <label class="chk" for="ilcAllChk"><input type="checkbox" id="ilcAllChk">כולל רשימת שימור, מושעות ובלי מסחר</label>
+        <span class="grow"></span><span class="small muted" id="ilcAsof"></span>
+      </div>
+      <div class="cov" id="ilcCov"></div>
+      <div class="ilc-key" aria-label="מקרא">
+        <span><i data-k="m50"></i>SMA 50</span><span><i data-k="m200"></i>SMA 200</span>
+        <span><i class="bx" data-k="boxUp"></i>Darvas: פריצה למעלה</span><span><i class="bx" data-k="boxDn"></i>Darvas: שבירה למטה</span><span><i class="bx" data-k="boxOpen"></i>Darvas: קופסה פתוחה</span>
+        <span><i data-k="rsi"></i>RSI 14</span><span><i data-k="rsiMa"></i>הממוצע של RSI</span><span><i data-k="cmf"></i>CMF 20</span>
+        <span class="muted">לחיצה על גרף פותחת אותו בגדול, עם זום, ממוצע 21 וייצוא כתמונה.</span>
+      </div>
+      <div class="ilc-grid" id="ilcGrid" aria-live="polite"></div>
+      <div class="ilc-more" id="ilcMoreWrap" hidden><button type="button" class="btn ghost" id="ilcMore">עוד מניות</button></div>
+    </section>
   </div>
 </main>
 
@@ -2328,7 +2398,7 @@ function closeExport() {
 function openExport(kind, ref) {
   closeExport();
   const isStk = kind === 'stk';
-  const title = isStk ? `${ref.ticker}${ref.name ? ' · ' + ref.name : ''}` : kind === 'idx' ? ((xItem(ref) || {}).name || ref) : ((indMeta(ref) || {}).name || '');
+  const title = isStk ? `${ref.ticker}${ref.name ? ' · ' + ref.name : ''}` : kind === 'idx' ? ((xItem(ref) || {}).name || ref) : kind === 'ilc' ? ((ilcRow(ref) || {}).n || ref) : ((indMeta(ref) || {}).name || '');
   const canMode = isStk && !!ref.img && stkHasText(ref);
   let mode = isStk && ref.img && !stkHasText(ref) ? 'chart' : 'full', cur = null, job = 0;
   const canCopy = !!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write && window.isSecureContext);
@@ -2356,7 +2426,7 @@ function openExport(kind, ref) {
     $('#xPrev', xov).innerHTML = '<span class="muted">מכין את התמונה…</span>'; $('#xInfo', xov).textContent = '';
     btns().forEach(b => { b.disabled = true; });
     try {
-      const r = isStk ? await exportStockImage(ref, mode) : kind === 'idx' ? await exportIdxImage(ref) : await exportIndImage(ref);
+      const r = isStk ? await exportStockImage(ref, mode) : kind === 'idx' ? await exportIdxImage(ref) : kind === 'ilc' ? await exportIlcImage(ref) : await exportIndImage(ref);
       if (my !== job || !xov) return;
       cur = r; if (xUrl) URL.revokeObjectURL(xUrl); xUrl = URL.createObjectURL(r.blob);
       $('#xPrev', xov).innerHTML = `<img src="${xUrl}" alt="תצוגה מקדימה של התמונה">`;
@@ -2600,9 +2670,19 @@ function renderAnalysis() {
   const fresh30 = active.filter(s => (ageDays(s.updatedAt) ?? 999) <= 30).length;
   const pend = all.length - active.length;
   $('#coverage').innerHTML = S.loaded.stk ? `<span><b>${all.length}</b> מניות</span><span><b>${fresh30}</b> עם ניתוח מ-30 הימים האחרונים</span>${active.length - fresh30 ? `<span><b>${active.length - fresh30}</b> עם ניתוח ישן מחודש</span>` : ''}${pend ? `<span><b>${pend}</b> ממתינות לניתוח</span>` : ''}` : '';
-  if (S.openStock) { $('#briefSec').hidden = true; $('#anTop').hidden = true; $('#stkGrid').hidden = true; $('#stkDetail').hidden = false; renderStockDetail(); return; }
+  if (S.openStock) { $('#briefSec').hidden = true; $('#anTop').hidden = true; $('#stkGrid').hidden = true; $('#ilcSec').hidden = true; $('#stkDetail').hidden = false; renderStockDetail(); return; }
   $('#briefSec').hidden = false; renderBrief();
-  $('#anTop').hidden = false; $('#stkGrid').hidden = false; $('#stkDetail').hidden = true;
+  $('#anTop').hidden = false; $('#stkDetail').hidden = true;
+  // two views under the technical analyses: mine (the cards below) and "גרפים - ישראל" (a chart for every TASE share)
+  const view = anView(), mine = view === 'mine';
+  $$('#anTabs [data-an]').forEach(b => { b.setAttribute('aria-selected', String(b.dataset.an === view)); b.tabIndex = b.dataset.an === view ? 0 : -1; });
+  $('#anTabMineN').textContent = S.loaded.stk && all.length ? all.length : '';
+  $('#anTabIlcN').textContent = ILC.idx ? ILC.idx.n : '';
+  $('#anLede').textContent = mine ? 'ניתוח טכני לכל מניה בתיק: הגרף מ-TradingView, הרמות החשובות והשורה התחתונה.'
+    : 'גרף יומי לכל מניה בבורסה בתל אביב, באותה תבנית כמו ב-TradingView. בכל גרף: קופסאות Darvas, ממוצעים נעים 50 ו-200, ווליום, RSI ‏(14) ו-CMF ‏(20). הגרפים מתעדכנים אוטומטית בכל יום מסחר.';
+  $('#anTools').hidden = !mine; $('#coverage').hidden = !mine; if (!mine) $('#anAdmin').hidden = true;
+  $('#stkGrid').hidden = !mine; $('#ilcSec').hidden = mine;
+  if (!mine) { renderIlc(); return; }
   const grid = $('#stkGrid');
   if (!S.api) { grid.innerHTML = '<p class="muted">שרת הניתוחים לא זמין כרגע. רעננו את הדף בעוד רגע.</p>'; return; }
   if (!S.loaded.stk) { grid.innerHTML = '<p class="muted">טוען ניתוחים…</p>'; return; }
@@ -5692,9 +5772,468 @@ function bindMarketing() {
   window.addEventListener('afterprint', () => $$('#v-marketing details[data-pr]').forEach(d => { d.open = false; delete d.dataset.pr; }));
 }
 
+// ---------------- "גרפים - ישראל": a TradingView-style daily chart for every share on the TASE ----------------
+// In the analysis tab, next to the technical analyses (a second tab there, not instead of them). The bars come from
+// data/ilc/<symbol>.json and the list with the current values from data/ilc/index.json (pipeline/ilcharts.py). The
+// indicators are those of the house template on TradingView: Darvas box, SMA 50 and 200, volume, RSI 14 with its
+// 14-day average, and CMF 20. Cards are drawn when they scroll into view and released when they leave it.
+// ilc-indicators:begin (the same formulas as pipeline/ilcharts.py; tests/test_ilcharts.py runs both and compares)
+function ilcSma(x, n) {
+  const out = new Array(x.length).fill(null);
+  for (let i = n - 1; i < x.length; i++) {
+    let s = 0, ok = true;
+    for (let j = i - n + 1; j <= i; j++) { const v = x[j]; if (v == null || !isFinite(v)) { ok = false; break; } s += v; }
+    if (ok) out[i] = s / n;
+  }
+  return out;
+}
+function ilcRma(x, n) {   // Wilder's average, seeded with the simple average of the first n values (TradingView's ta.rma)
+  const out = new Array(x.length).fill(null); let s = null, k = 0;
+  for (let i = 0; i < x.length; i++) {
+    const v = x[i]; if (v == null || !isFinite(v)) continue;
+    k++;
+    if (s == null) { if (k === n) { let a = 0; for (let j = i - n + 1; j <= i; j++) a += x[j]; s = a / n; out[i] = s; } }
+    else { s = (s * (n - 1) + v) / n; out[i] = s; }
+  }
+  return out;
+}
+function ilcRsi(c, n = 14) {
+  const up = c.map((v, i) => i ? Math.max(v - c[i - 1], 0) : null), dn = c.map((v, i) => i ? Math.max(c[i - 1] - v, 0) : null);
+  const u = ilcRma(up, n), d = ilcRma(dn, n);
+  return u.map((a, i) => a == null || d[i] == null ? null : d[i] === 0 ? 100 : a === 0 ? 0 : 100 - 100 / (1 + a / d[i]));
+}
+function ilcCmf(h, l, c, v, n = 20) {   // sum of ((2C - L - H) / (H - L)) * V over n bars / sum of V
+  const len = c.length, out = new Array(len).fill(null), mf = new Array(len), vv = new Array(len);
+  for (let i = 0; i < len; i++) {
+    const r = h[i] - l[i], vol = v[i] == null || !isFinite(v[i]) ? 0 : v[i];
+    mf[i] = (r > 0 ? (2 * c[i] - l[i] - h[i]) / r : 0) * vol; vv[i] = vol;
+  }
+  for (let i = n - 1; i < len; i++) {
+    let a = 0, b = 0; for (let j = i - n + 1; j <= i; j++) { a += mf[j]; b += vv[j]; }
+    out[i] = b > 0 ? a / b : null;
+  }
+  return out;
+}
+// Darvas boxes: the top is a high not exceeded for 3 bars; the bottom, the lowest low since the top, holds once the next
+// bar does not undercut it. A box lasts until a high above its top (dir 1) or a low below its bottom (dir -1); the next
+// top is looked for from that bar. start = the bar of the top, end = the last bar inside the box, dir 0 = still open.
+function ilcDarvas(h, l, c, topBars = 3, bottomBars = 1) {
+  const n = c.length, boxes = []; if (!n) return boxes;
+  let state = 'top', ti = 0, top = h[0], bi = 0, bot = l[0], box = null;
+  for (let i = 1; i < n; i++) {
+    if (state === 'box') {
+      const up = h[i] > box.top, dn = l[i] < box.bot;
+      if (up || dn) {
+        const d = up && dn ? (c[i] >= (box.top + box.bot) / 2 ? 1 : -1) : (up ? 1 : -1);
+        boxes.push({ ...box, end: i - 1, dir: d });
+        box = null; state = 'top'; ti = i; top = h[i];
+      }
+      continue;
+    }
+    if (state === 'top') {
+      if (h[i] > top) { ti = i; top = h[i]; }
+      else if (i - ti >= topBars) {
+        bi = ti; for (let j = ti + 1; j <= i; j++) if (l[j] < l[bi]) bi = j;
+        bot = l[bi]; state = 'bot';
+        if (i - bi >= bottomBars) { box = { start: ti, top, bot, formed: i }; state = 'box'; }
+      }
+      continue;
+    }
+    if (h[i] > top) { state = 'top'; ti = i; top = h[i]; }
+    else if (l[i] < bot) { bi = i; bot = l[i]; }
+    else if (i - bi >= bottomBars) { box = { start: ti, top, bot, formed: i }; state = 'box'; }
+  }
+  if (box) boxes.push({ ...box, end: n - 1, dir: 0 });
+  return boxes;
+}
+// ilc-indicators:end
+function ilcCalc(b) {
+  const { c, h, l } = b;
+  const k = { sma21: ilcSma(c, 21), sma50: ilcSma(c, 50), sma200: ilcSma(c, 200), rsi: ilcRsi(c, 14), cmf: ilcCmf(h, l, c, b.v, 20), boxes: ilcDarvas(h, l, c) };
+  k.rsiMa = ilcSma(k.rsi, 14);
+  const n = c.length; k.dvTop = new Array(n).fill(null); k.dvBot = new Array(n).fill(null);
+  k.boxes.forEach((x, j) => { const to = j + 1 < k.boxes.length ? k.boxes[j + 1].formed : n; for (let i = x.formed; i < to; i++) { k.dvTop[i] = x.top; k.dvBot[i] = x.bot; } });
+  return k;
+}
+
+const ILC = { idx: null, p: null, err: false, cache: new Map(), list: [], shown: 0, io: null, moreIo: null, charts: new Map(), key: '', big: null };
+const ILC_PAGE = 24;
+const ILC_RNG = [[126, "6 ח'"], [252, 'שנה'], [504, 'שנתיים']];
+const ILC_BIG_RNG = [[126, "6 ח'"], [252, 'שנה'], [504, 'שנתיים'], [756, '3 שנים'], [0, 'הכל']];
+const ILC_SORT = { to: 'מחזור יומי ממוצע', name: 'שם', ch: 'שינוי יומי', m1: 'שינוי בחודש', y1: "שינוי ב-12 ח'", a200: 'מרחק מממוצע 200', a50: 'מרחק מממוצע 50', rsi: 'RSI', cmf: 'CMF', dv: 'יציאה אחרונה מקופסת Darvas', hi52: 'מרחק מהשיא (52 שבועות)' };
+const ILC_FLT = { all: 'כל המניות', ta125: 'ת"א 125', a200: 'מעל ממוצע 200', b200: 'מתחת לממוצע 200', gold: 'ממוצע 50 מעל ממוצע 200', death: 'ממוצע 50 מתחת לממוצע 200',
+  dvUp: 'פרצו קופסת Darvas למעלה (5 ימי מסחר)', dvDn: 'שברו קופסת Darvas למטה (5 ימי מסחר)', dvIn: 'בתוך קופסת Darvas פתוחה', rsiLo: 'RSI מתחת ל-30', rsiHi: 'RSI מעל 70', cmfP: 'CMF מעל 0.05 (כסף נכנס)', cmfN: 'CMF מתחת ל-0.05- (כסף יוצא)' };
+const ILC_MON = ['ינו׳', 'פבר׳', 'מרץ', 'אפר׳', 'מאי', 'יוני', 'יולי', 'אוג׳', 'ספט׳', 'אוק׳', 'נוב׳', 'דצמ׳'];
+S.ilc = { q: '', sec: lsGet('ilcSec', ''), flt: ILC_FLT[lsGet('ilcFlt', 'all')] ? lsGet('ilcFlt', 'all') : 'all', sort: ILC_SORT[lsGet('ilcSort', 'to')] ? lsGet('ilcSort', 'to') : 'to',
+  dir: lsGet('ilcDir', '-1') === '1' ? 1 : -1, rng: +lsGet('ilcRng', '252') || 252, cols: Math.min(3, Math.max(1, +lsGet('ilcCols', '2') || 2)), all: lsGet('ilcAll', '0') === '1' };
+function anView() { return lsGet('anView', 'mine') === 'ilc' ? 'ilc' : 'mine'; }
+function setAnView(v) { lsSet('anView', v === 'ilc' ? 'ilc' : 'mine'); if (S.tab === 'analysis') renderAnalysis(); }
+function ilcFmt(v) {
+  if (v == null || !isFinite(v)) return '—';
+  const a = Math.abs(v), d = a >= 1000 ? 0 : a >= 100 ? 1 : a >= 10 ? 2 : 3;
+  const s = fmtN(v, d); return d ? s.replace(/\.?0+$/, '') : s;
+}
+function ilcCol() {
+  const dark = tok('--surface').toUpperCase() !== '#FFFFFF';
+  return { up: tok('--up'), dn: tok('--down'), m21: dark ? '#CE93D8' : '#9C27B0', m50: dark ? '#64B5F6' : '#2962FF', m200: dark ? '#9FA8DA' : '#1A237E',
+    rsi: dark ? '#B39DDB' : '#7E57C2', rsiMa: dark ? '#FFD54F' : '#F9A825', cmf: dark ? '#81C784' : '#43A047', boxUp: dark ? '#22AB94' : '#089981', boxDn: dark ? '#F7525F' : '#F23645', boxOpen: dark ? '#64B5F6' : '#2962FF' };
+}
+function ilcLoad() {
+  if (ILC.idx) return Promise.resolve(ILC.idx);
+  if (!ILC.p) ILC.p = fetchJSON('data/ilc/index.json').then(d => { ILC.idx = d; ILC.err = false; ILC.key = ''; return d; }).catch(e => { ILC.err = true; ILC.p = null; throw e; });
+  return ILC.p;
+}
+async function ilcBars(file) {
+  if (ILC.cache.has(file)) { const x = ILC.cache.get(file); ILC.cache.delete(file); ILC.cache.set(file, x); return x; }
+  const b = await fetchJSON('data/ilc/' + file);
+  const x = { b, k: ilcCalc(b) };
+  ILC.cache.set(file, x);
+  while (ILC.cache.size > 160) ILC.cache.delete(ILC.cache.keys().next().value);
+  return x;
+}
+const ilcRow = sym => ILC.idx && ILC.idx.stocks.find(r => r.s === sym);
+function ilcStale(r) { return !!(r.d && ILC.idx.asof && (Date.parse(ILC.idx.asof) - Date.parse(r.d)) / DAY > 14); }
+function ilcHidden(r) { return /[ms]/.test(r.f || '') || ilcStale(r); }
+function ilcList() {
+  const u = S.ilc, q = u.q.trim().toLowerCase();
+  let l = ILC.idx.stocks.filter(r => r.file && (u.all || !ilcHidden(r)));
+  if (q) l = l.filter(r => r.s.toLowerCase().includes(q) || r.n.toLowerCase().includes(q) || (r.e || '').toLowerCase().includes(q));
+  if (u.sec) { const [kind, v] = [u.sec.slice(0, 2), u.sec.slice(2)]; const sec = ILC.idx.sectors || {}; l = l.filter(r => kind === 's:' ? r.sec === v : (sec[r.sec] || {}).g === v); }
+  const dv = r => r.dv || {};
+  const F = { all: () => true, ta125: r => /i/.test(r.f || ''), a200: r => r.a200 > 0, b200: r => r.a200 < 0, gold: r => r.a50 != null && r.a200 != null && r.a200 > r.a50, death: r => r.a50 != null && r.a200 != null && r.a200 < r.a50,
+    dvUp: r => !dv(r).open && dv(r).dir === 1 && dv(r).ago <= 4, dvDn: r => !dv(r).open && dv(r).dir === -1 && dv(r).ago <= 4, dvIn: r => !!dv(r).open,
+    rsiLo: r => r.rsi != null && r.rsi < 30, rsiHi: r => r.rsi != null && r.rsi > 70, cmfP: r => r.cmf >= 0.05, cmfN: r => r.cmf <= -0.05 };
+  l = l.filter(F[u.flt] || F.all);
+  const key = u.sort, dir = u.dir;   // dir 1 = ascending, -1 = descending
+  const num = (x, y) => x == null && y == null ? 0 : x == null ? 1 : y == null ? -1 : dir * (x - y);
+  if (key === 'name') l.sort((a, b) => dir * a.n.localeCompare(b.n, 'he'));
+  else if (key === 'dv') { const ago = r => dv(r).open || !dv(r).dir ? null : dv(r).ago; l.sort((a, b) => num(ago(b), ago(a)) || (b.to || 0) - (a.to || 0)); }
+  else l.sort((a, b) => num(a[key], b[key]));
+  return l;
+}
+function ilcSecOptions() {
+  const sec = (ILC.idx && ILC.idx.sectors) || {}; const groups = {};
+  for (const [leaf, v] of Object.entries(sec)) (groups[v.g] = groups[v.g] || []).push(leaf);
+  return '<option value="">כל הענפים</option>' + Object.entries(groups).map(([g, leaves]) => `<optgroup label="${esc(g)}"><option value="g:${esc(g)}">כל ענפי ה${esc(g)}</option>${leaves.map(x => `<option value="s:${esc(x)}">${esc(x)}</option>`).join('')}</optgroup>`).join('');
+}
+function ilcSyncTools() {
+  const u = S.ilc;
+  const sel = $('#ilcSecSel'); if (sel && !sel.dataset.built && ILC.idx) { sel.innerHTML = ilcSecOptions(); sel.dataset.built = '1'; }
+  if (sel) sel.value = u.sec;
+  $('#ilcFlt').value = u.flt; $('#ilcSort').value = u.sort;
+  const d = $('#ilcDir'); d.textContent = u.sort === 'name' ? (u.dir > 0 ? 'א→ת' : 'ת→א') : u.sort === 'dv' ? (u.dir < 0 ? 'מהחדשה' : 'מהישנה') : (u.dir < 0 ? 'מהגבוה' : 'מהנמוך'); d.title = 'הפיכת כיוון המיון';
+  $$('#ilcRngSeg button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.r === u.rng)));
+  $$('#ilcColSeg button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.c === u.cols)));
+  $('#ilcAllChk').checked = u.all;
+  $('#ilcGrid').style.setProperty('--ilc-cols', u.cols);
+  const col = ilcCol(); $$('#ilcSec .ilc-key i[data-k]').forEach(i => { i.style.borderColor = col[i.dataset.k]; });
+}
+function renderIlc() {
+  const grid = $('#ilcGrid'); if (!grid) return;
+  if (!ILC.idx) {
+    grid.innerHTML = `<p class="muted">${ILC.err ? 'הגרפים יופיעו אחרי העדכון הבא של האתר.' : 'טוען את רשימת המניות…'}</p>`;
+    if (!ILC.err) ilcLoad().then(() => { if (S.tab === 'analysis' && anView() === 'ilc') renderIlc(); }).catch(() => { if (S.tab === 'analysis' && anView() === 'ilc') renderIlc(); });
+    return;
+  }
+  ilcSyncTools();
+  const key = JSON.stringify([S.ilc, ILC.idx.asof, S.stk.size]);
+  if (key === ILC.key && grid.children.length) return;
+  ILC.key = key;
+  const all = ILC.idx.stocks, withData = all.filter(r => r.file), hid = withData.filter(ilcHidden), none = all.filter(r => !r.file);
+  ILC.list = ilcList();
+  $('#ilcAsof').textContent = ILC.idx.asof ? `נכון ל-${fmtDate(ILC.idx.asof)}` : '';
+  $('#ilcCov').innerHTML = `<span><b>${ILC.list.length}</b> מניות בתצוגה</span><span><b>${withData.length}</b> מתוך ${all.length} המניות בבורסה עם גרף</span>` +
+    (hid.length ? `<span>${S.ilc.all ? '' : `<b>${hid.length}</b> מוסתרות: `}רשימת שימור, מושעות או בלי מסחר שבועיים</span>` : '') +
+    (none.length ? `<details class="ilc-none"><summary><b>${none.length}</b> בלי נתונים ב-Yahoo</summary><p class="small muted">${none.map(r => `${esc(r.n)} (<span class="ltr">${esc(r.s)}</span>)`).join(' · ')}</p></details>` : '');
+  ilcObserve();
+  ILC.charts.forEach((c, el) => ilcDispose(el));
+  $$('.ilc-ch', grid).forEach(el => ILC.io.unobserve(el));
+  grid.innerHTML = ILC.list.length ? '' : '<p class="muted">אין מניות שמתאימות לחיפוש ולסינון.</p>';
+  ILC.shown = 0; ilcAppend();
+}
+function ilcDvChip(r) {
+  const d = r.dv; if (!d) return '';
+  const rng = ltr(`${ilcFmt(d.bot)}–${ilcFmt(d.top)}`);
+  if (d.open) return `<span class="chip chip-plain" title="קופסת Darvas פתוחה: השער עוד לא יצא ממנה">Darvas: בתוך קופסה ${rng}</span>`;
+  if (!d.dir) return '';
+  const when = d.ago === 0 ? 'היום' : d.ago === 1 ? 'אתמול' : `לפני ${d.ago} ימי מסחר`;
+  return `<span class="chip ${d.dir > 0 ? 's-g' : 's-f'}" title="הקופסה האחרונה: ${ilcFmt(d.bot)}–${ilcFmt(d.top)}">Darvas: ${d.dir > 0 ? 'פריצה למעלה' : 'שבירה למטה'} ${when}</span>`;
+}
+function ilcCard(r) {
+  const cls = r.ch > 0 ? 'u' : r.ch < 0 ? 'dn' : '';
+  const chips = [];
+  if (r.a200 != null) chips.push(`<span class="chip ${r.a200 >= 0 ? 's-g' : 's-f'}" title="המרחק של השער מהממוצע הנע ל-200 ימים">${r.a200 >= 0 ? 'מעל' : 'מתחת ל'}ממוצע 200 ${ltr(fmtS(r.a200, 1) + '%')}</span>`);
+  if (r.rsi != null) chips.push(`<span class="chip ${r.rsi >= 70 || r.rsi <= 30 ? 'chip-w' : 'chip-plain'}" title="RSI ‏(14)${r.rsiMa != null ? ', הממוצע שלו ' + fmtN(r.rsiMa, 1) : ''}">RSI ${ltr(fmtN(r.rsi, 0))}</span>`);
+  if (r.cmf != null) chips.push(`<span class="chip ${r.cmf >= 0.05 ? 's-g' : r.cmf <= -0.05 ? 's-f' : 'chip-plain'}" title="Chaikin Money Flow ‏(20)">CMF ${ltr(fmtS(r.cmf, 2))}</span>`);
+  chips.push(ilcDvChip(r));
+  if (ilcStale(r)) chips.push(`<span class="chip chip-w">אין מסחר מאז ${fmtDate(r.d)}</span>`);
+  if (/m/.test(r.f || '')) chips.push('<span class="chip chip-w">רשימת שימור</span>');
+  if (/s/.test(r.f || '')) chips.push('<span class="chip chip-w">מושעית</span>');
+  if (S.stk.has(r.s)) chips.push(`<button type="button" class="chip chip-plain ilc-ta" data-ta="${esc(r.s)}">יש ניתוח שלי ←</button>`);
+  const tags = [r.sec, r.t === 'reit' ? 'ריט' : r.t === 'pu' ? 'יחידות השתתפות' : '', /d/.test(r.f || '') ? 'דואלית' : ''].filter(Boolean).map(esc).join(' · ');
+  return `<article class="ilc-card" data-s="${esc(r.s)}">
+    <div class="ilc-hd" role="button" tabindex="0" data-open="${esc(r.s)}" aria-label="פתיחת הגרף של ${esc(r.n)} בגדול">
+      <div class="ilc-id"><div class="nm">${esc(r.n)}</div><div class="sb"><span class="ltr">${esc(r.s)}</span>${tags ? ' · ' + tags : ''}</div></div>
+      <div class="px"><b class="ltr num">${ilcFmt(r.c)}</b><span class="ltr num ${cls}">${fmtS(r.ch, 2)}%</span><span class="dt">${r.d ? fmtDateShort(r.d) : ''}</span></div>
+    </div>
+    <div class="ilc-ch" data-open="${esc(r.s)}" data-file="${esc(r.file)}" role="img" aria-label="גרף יומי של ${esc(r.n)}: נרות, ממוצעים 50 ו-200, Darvas box, ווליום, RSI ו-CMF"><div class="ph">טוען גרף…</div></div>
+    <div class="ilc-ft">${chips.join('')}</div>
+  </article>`;
+}
+function ilcAppend() {
+  const g = $('#ilcGrid'); const from = ILC.shown, to = Math.min(ILC.list.length, from + ILC_PAGE);
+  if (to > from) g.insertAdjacentHTML('beforeend', ILC.list.slice(from, to).map(ilcCard).join(''));
+  ILC.shown = to;
+  $$('.ilc-ch:not([data-obs])', g).forEach(el => { el.dataset.obs = '1'; ILC.io.observe(el); });
+  const left = ILC.list.length - ILC.shown, w = $('#ilcMoreWrap');
+  w.hidden = left <= 0; $('#ilcMore').textContent = `עוד ${Math.min(left, ILC_PAGE)} מניות (נשארו ${left})`;
+}
+function ilcObserve() {
+  if (ILC.io) return;
+  ILC.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) ilcDrawCard(e.target); else ilcDispose(e.target); }), { rootMargin: '500px 0px' });
+  ILC.moreIo = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && ILC.shown < ILC.list.length) ilcAppend(); }, { rootMargin: '700px 0px' });
+  ILC.moreIo.observe($('#ilcMoreWrap'));
+}
+async function ilcDrawCard(el) {
+  if (el.dataset.drawn || typeof echarts === 'undefined') return;
+  el.dataset.drawn = 'loading';
+  let x; try { x = await ilcBars(el.dataset.file); } catch (e) { if (el.dataset.drawn === 'loading') { el.dataset.drawn = ''; el.innerHTML = '<div class="ph">הגרף לא נטען</div>'; } return; }
+  if (el.dataset.drawn !== 'loading' || !el.isConnected) return;
+  el.dataset.drawn = '1'; el.innerHTML = '';
+  const n = x.b.c.length;
+  const c = echarts.init(el, null, { renderer: 'canvas' });
+  c.setOption(ilcOption(x.b, x.k, { i0: Math.max(0, n - S.ilc.rng), i1: n - 1, compact: true, mas: [50, 200] }));
+  ILC.charts.set(el, c);
+}
+function ilcDispose(el) {
+  const c = ILC.charts.get(el);
+  if (c) { try { c.dispose(); } catch (e) { /* gone */ } ILC.charts.delete(el); }
+  if (el.dataset.drawn) { el.dataset.drawn = ''; el.innerHTML = '<div class="ph">טוען גרף…</div>'; }
+}
+function ilcRedrawAll() {   // theme change or a new range for the cards
+  if (ILC.idx && $('#ilcFlt').options.length) ilcSyncTools();
+  [...ILC.charts.keys()].forEach(el => { ilcDispose(el); if (ILC.io) { ILC.io.unobserve(el); ILC.io.observe(el); } });
+  if (S.detail && String(S.detail).startsWith('ilc:') && $('#ilcChart')) drawIlcBig(true);
+}
+// month labels (and grid lines) on the first bar of each month; every quarter when more than ~2 years are in view
+function ilcLblInt(dates, span) {
+  const q = span > 560;
+  return (i, v) => i > 0 && v.slice(0, 7) !== dates[i - 1].slice(0, 7) && (!q || ['01', '04', '07', '10'].includes(v.slice(5, 7)));
+}
+// The chart: candles with the Darvas boxes, SMAs and volume on top; RSI and its average; CMF. o: {i0, i1, compact, mas, dv, vol, zoom}
+function ilcOption(b, k, o) {
+  const col = ilcCol(), muted = tok('--muted'), line = tok('--line'), line2 = tok('--line-2'), ink2 = tok('--ink-2'), compact = !!o.compact;
+  const i0 = o.i0, i1 = o.i1, sl = a => a.slice(i0, i1 + 1);
+  const dates = sl(b.t).map(d => isoOf(d * DAY));
+  const cd = dates.map((_, j) => { const i = i0 + j; return [b.o[i], b.c[i], b.l[i], b.h[i]]; });
+  const fs = compact ? 10 : 11;
+  const G = compact ? [['3%', '57%'], ['63.5%', '13%'], ['80.5%', '11%']] : [['2%', '60%'], ['65%', '13%'], ['81%', '10%']];
+  const right = compact ? 50 : 66;
+  const grid = G.map(([top, height]) => ({ left: 6, right, top, height }));
+  const span = o.zoom ? o.zoom[1] - o.zoom[0] + 1 : dates.length;
+  const lblInt = ilcLblInt(dates, span);
+  const lblFmt = v => { const [y, m] = v.split('-'); return m === '01' ? y : ILC_MON[+m - 1]; };
+  const xa = gi => ({ type: 'category', gridIndex: gi, data: dates, boundaryGap: true, axisLine: { lineStyle: { color: line } }, axisTick: { show: false },
+    axisLabel: { show: gi === 2, color: muted, fontSize: fs, interval: lblInt, formatter: lblFmt, hideOverlap: true },
+    splitLine: { show: true, interval: lblInt, lineStyle: { color: line2, type: 'dotted' } }, axisPointer: { label: { show: gi === 2, formatter: p => fmtDate(p.value) } } });
+  const cmax = sl(k.cmf).reduce((m, x) => x == null ? m : Math.max(m, Math.abs(x)), 0), lim = Math.max(0.1, Math.ceil(cmax * 10 - 1e-9) / 10);   // symmetric: -lim, 0, +lim
+  const ya = [
+    { gridIndex: 0, scale: true, position: 'right', splitNumber: compact ? 4 : 6, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: muted, fontSize: fs, formatter: ilcFmt }, splitLine: { lineStyle: { color: line2, type: 'dotted' } }, axisPointer: { label: { formatter: p => ilcFmt(p.value) } } },
+    { gridIndex: 0, show: false, min: 0, max: v => v.max * 4.2, axisPointer: { show: false } },
+    { gridIndex: 1, min: 0, max: 100, interval: 10, position: 'right', axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: muted, fontSize: fs - 1, formatter: v => (v === 30 || v === 70 ? String(v) : '') }, splitLine: { show: false }, axisPointer: { label: { formatter: p => fmtN(p.value, 1) } } },
+    { gridIndex: 2, position: 'right', min: -lim, max: lim, interval: lim, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: muted, fontSize: fs - 1, formatter: v => fmtN(v, 2) }, splitLine: { show: false }, axisPointer: { label: { formatter: p => fmtN(p.value, 2) } } },
+  ];
+  const boxes = [];
+  if (o.dv !== false) for (const x of k.boxes) {
+    if (x.end < i0 || x.start > i1) continue;
+    const s = Math.max(x.start, i0) - i0, e = Math.min(x.end, i1) - i0;
+    const c = x.dir > 0 ? col.boxUp : x.dir < 0 ? col.boxDn : col.boxOpen;
+    boxes.push([{ xAxis: dates[s], yAxis: x.top, itemStyle: { color: c + '17', borderColor: c, borderWidth: 1 } }, { xAxis: dates[e], yAxis: x.bot }]);
+  }
+  const lc = b.c[i1], lUp = lc >= b.o[i1];
+  const series = [{ name: 'מחיר', type: 'candlestick', xAxisIndex: 0, yAxisIndex: 0, data: cd, barMaxWidth: 9, z: 3,
+    itemStyle: { color: col.up, color0: col.dn, borderColor: col.up, borderColor0: col.dn, borderWidth: 1 },
+    markArea: { silent: true, label: { show: false }, data: boxes },
+    markLine: { symbol: 'none', silent: true, data: [{ yAxis: lc, lineStyle: { color: lUp ? col.up : col.dn, type: 'dotted', width: 1 }, label: { show: true, position: 'end', formatter: ilcFmt(lc), color: '#fff', backgroundColor: lUp ? col.up : col.dn, padding: [2, 4], borderRadius: 2, fontSize: fs } }] } }];
+  if (o.vol !== false) series.push({ name: 'ווליום', type: 'bar', xAxisIndex: 0, yAxisIndex: 1, barMaxWidth: 9, silent: true, z: 1,
+    data: dates.map((_, j) => { const i = i0 + j; return { value: b.v[i] == null ? null : b.v[i], itemStyle: { color: (b.c[i] >= b.o[i] ? col.up : col.dn) + '55' } }; }) });
+  for (const m of (o.mas || [50, 200])) series.push({ name: 'SMA ' + m, type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: sl(k['sma' + m]), showSymbol: false, symbol: 'none', silent: true, z: 4, lineStyle: { width: compact ? 1.1 : 1.5, color: col['m' + m] } });
+  series.push({ name: 'RSI', type: 'line', xAxisIndex: 1, yAxisIndex: 2, data: sl(k.rsi), showSymbol: false, symbol: 'none', silent: true, lineStyle: { width: compact ? 1 : 1.3, color: col.rsi },
+    markArea: { silent: true, itemStyle: { color: col.rsi + '14' }, data: [[{ yAxis: 30 }, { yAxis: 70 }]] },
+    markLine: { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 70, lineStyle: { color: muted, type: 'dashed', width: 1 } }, { yAxis: 30, lineStyle: { color: muted, type: 'dashed', width: 1 } }, { yAxis: 50, lineStyle: { color: line, type: 'dotted', width: 1 } }] } });
+  series.push({ name: 'RSI MA', type: 'line', xAxisIndex: 1, yAxisIndex: 2, data: sl(k.rsiMa), showSymbol: false, symbol: 'none', silent: true, lineStyle: { width: 1, color: col.rsiMa } });
+  series.push({ name: 'CMF', type: 'line', xAxisIndex: 2, yAxisIndex: 3, data: sl(k.cmf), showSymbol: false, symbol: 'none', silent: true, lineStyle: { width: compact ? 1 : 1.3, color: col.cmf },
+    markLine: { symbol: 'none', silent: true, label: { show: false }, data: [{ yAxis: 0, lineStyle: { color: muted, type: 'dashed', width: 1 } }] } });
+  const tag = (txt, top) => ({ type: 'text', left: 10, top, silent: true, style: { text: txt, fill: muted, font: `${fs}px sans-serif` } });
+  const opt = { animation: false, backgroundColor: 'transparent', grid, xAxis: [xa(0), xa(1), xa(2)], yAxis: ya, series,
+    graphic: [tag('RSI 14', G[1][0]), tag('CMF 20', G[2][0])],
+    axisPointer: { link: [{ xAxisIndex: 'all' }], label: { backgroundColor: ink2 } } };
+  if (compact) { opt.tooltip = { show: false }; }
+  else {
+    opt.tooltip = { trigger: 'axis', showContent: false, axisPointer: { type: 'cross', crossStyle: { color: muted }, lineStyle: { color: muted, type: 'dashed' } } };
+    const z = o.zoom || [i0, i1];
+    opt.dataZoom = [{ type: 'inside', xAxisIndex: [0, 1, 2], startValue: z[0], endValue: z[1], filterMode: 'weakFilter', minValueSpan: 20 },
+      { type: 'slider', xAxisIndex: [0, 1, 2], startValue: z[0], endValue: z[1], filterMode: 'weakFilter', height: 16, bottom: 4, showDetail: false, brushSelect: false, borderColor: line, textStyle: { color: muted }, dataBackground: { lineStyle: { color: line }, areaStyle: { color: line2 } } }];
+  }
+  return opt;
+}
+// ---- the big chart (overlay)
+async function openIlc(sym) {
+  try { await ilcLoad(); } catch (e) { toast('רשימת הגרפים לא נטענה. נסו שוב בעוד רגע.', true); return; }
+  const r = ilcRow(sym); if (!r || !r.file) return;
+  S.drawMode = '';
+  const mas = (lsGet('ilcMas', '50,200') || '').split(',').map(Number).filter(m => [21, 50, 200].includes(m));
+  ILC.big = { sym, r, b: null, k: null, rng: +lsGet('ilcBigRng', '504') || 0, mas, dv: lsGet('ilcDv', '1') === '1', vol: lsGet('ilcVol', '1') === '1' };
+  const tile = (k, v, s = '') => `<div class="tile"><span class="k">${k}</span><span class="val">${v}</span><span class="s">${s}</span></div>`;
+  const d = r.dv || {}, has = S.stk.has(sym);
+  const dvS = !r.dv ? '' : d.open ? 'השער עדיין בתוך הקופסה' : d.dir ? `${d.dir > 0 ? 'פריצה למעלה' : 'שבירה למטה'} ב-${fmtDate(d.brk)}` : '';
+  const html = `<div class="sh-head"><div><h2>${esc(r.n)}</h2><div class="sub"><span class="ltr">${esc(sym)}</span>${r.sec ? ' · ' + esc(r.sec) : ''}${r.e ? ' · <span class="ltr">' + esc(r.e) + '</span>' : ''} · גרף יומי, שער באגורות</div></div><div class="sh-tools">${exportBtn('ilc')}<button type="button" class="xclose" aria-label="סגירה">✕</button></div></div>
+    <div class="sh-body">
+      <div class="tiles">
+        ${tile(`שער · ${fmtDate(r.d)}`, ltr(ilcFmt(r.c)), `${ltr(fmtS(r.ch, 2) + '%')} ביום · ${ltr(fmtS(r.m1, 1) + '%')} בחודש`)}
+        ${tile('מול ממוצע 50', ltr(r.a50 == null ? '—' : fmtS(r.a50, 1) + '%'), r.a50 != null && r.a200 != null ? (r.a200 > r.a50 ? 'ממוצע 50 מעל ממוצע 200' : 'ממוצע 50 מתחת לממוצע 200') : '')}
+        ${tile('מול ממוצע 200', ltr(r.a200 == null ? '—' : fmtS(r.a200, 1) + '%'), `12 ח' ${ltr(r.y1 == null ? '—' : fmtS(r.y1, 1) + '%')} · השנה ${ltr(r.ytd == null ? '—' : fmtS(r.ytd, 1) + '%')}`)}
+        ${tile('RSI ‏(14)', ltr(fmtN(r.rsi, 1)), `הממוצע שלו ${ltr(fmtN(r.rsiMa, 1))} · ${r.rsi >= 70 ? 'קניית יתר' : r.rsi <= 30 ? 'מכירת יתר' : 'ניטרלי'}`)}
+        ${tile('CMF ‏(20)', ltr(fmtS(r.cmf, 2)), r.cmf >= 0.05 ? 'כסף נכנס (צבירה)' : r.cmf <= -0.05 ? 'כסף יוצא (הפצה)' : 'מאוזן')}
+        ${r.dv ? tile('Darvas box · רצפה–גג', `<span class="ltr num" style="white-space:nowrap;font-size:${String(ilcFmt(d.top)).length > 6 ? 16 : 19}px">${ilcFmt(d.bot)}–${ilcFmt(d.top)}</span>`, dvS) : ''}
+        ${tile('מחזור יומי ממוצע', r.to == null ? '—' : ltr(fmtN(r.to, r.to >= 10 ? 0 : r.to >= 1 ? 1 : 2) + ' מ\' ₪'), `20 ימי מסחר · מהשיא: ${ltr(r.hi52 == null ? '—' : fmtS(r.hi52, 1) + '%')}`)}
+      </div>
+      <section class="panel">
+        <div class="panel-head">
+          <div class="seg" role="group" aria-label="טווח הגרף" id="ilcRange">${ILC_BIG_RNG.map(([v, l]) => `<button type="button" data-r="${v}" aria-pressed="${v === ILC.big.rng}">${l}</button>`).join('')}</div>
+          <div class="seg" role="group" aria-label="ממוצעים נעים" id="ilcMaSeg">${[21, 50, 200].map(m => `<button type="button" data-m="${m}" aria-pressed="${mas.includes(m)}">SMA ${m}</button>`).join('')}</div>
+          <label class="chk" for="ilcDvChk"><input type="checkbox" id="ilcDvChk" ${ILC.big.dv ? 'checked' : ''}>Darvas box</label>
+          <label class="chk" for="ilcVolChk"><input type="checkbox" id="ilcVolChk" ${ILC.big.vol ? 'checked' : ''}>ווליום</label>
+          <span class="ilc-links"><a class="btn ghost sm" href="https://www.tradingview.com/chart/?symbol=${encodeURIComponent('TASE:' + sym)}" target="_blank" rel="noopener">פתיחה ב-TradingView ↗</a>${has ? '<button type="button" class="btn sm" id="ilcToTa">לניתוח שלי</button>' : ''}</span>
+        </div>
+        <div class="ilc-leg" id="ilcLeg"></div>
+        <div class="chart" id="ilcChart" role="img" aria-label="גרף יומי של ${esc(r.n)}"></div>
+        <p class="small muted" style="margin:0">${ILC_NOTE}</p>
+      </section>
+    </div>`;
+  const root = openOverlay(html);
+  S.detail = 'ilc:' + sym;
+  const xb = $('[data-export="ilc"]', root); if (xb) xb.addEventListener('click', () => openExport('ilc', sym));
+  const ta = $('#ilcToTa'); if (ta) ta.addEventListener('click', () => { closeOverlay(); openStock(sym); });
+  $('#ilcRange').addEventListener('click', e => {
+    const bt = e.target.closest('button[data-r]'); if (!bt || !chartInst || !ILC.big.b) return;
+    ILC.big.rng = +bt.dataset.r; lsSet('ilcBigRng', String(ILC.big.rng));
+    $$('#ilcRange button').forEach(x => x.setAttribute('aria-pressed', String(x === bt)));
+    const n = ILC.big.b.c.length; chartInst.dispatchAction({ type: 'dataZoom', startValue: ILC.big.rng ? Math.max(0, n - ILC.big.rng) : 0, endValue: n - 1 });
+  });
+  $('#ilcMaSeg').addEventListener('click', e => {
+    const bt = e.target.closest('button[data-m]'); if (!bt) return; const m = +bt.dataset.m, cur = ILC.big.mas;
+    ILC.big.mas = cur.includes(m) ? cur.filter(x => x !== m) : [...cur, m].sort((a, b2) => a - b2); lsSet('ilcMas', ILC.big.mas.join(','));
+    bt.setAttribute('aria-pressed', String(ILC.big.mas.includes(m))); drawIlcBig(true);
+  });
+  $('#ilcDvChk').addEventListener('change', e => { ILC.big.dv = e.target.checked; lsSet('ilcDv', ILC.big.dv ? '1' : '0'); drawIlcBig(true); });
+  $('#ilcVolChk').addEventListener('change', e => { ILC.big.vol = e.target.checked; lsSet('ilcVol', ILC.big.vol ? '1' : '0'); drawIlcBig(true); });
+  const el = $('#ilcChart'); el.innerHTML = '<p class="muted" style="padding:20px">טוען גרף…</p>';
+  let x; try { x = await ilcBars(r.file); } catch (e) { if ($('#ilcChart')) el.innerHTML = '<p class="muted" style="padding:20px">הגרף לא נטען. נסו שוב בעוד רגע.</p>'; return; }
+  if (!$('#ilcChart') || !ILC.big || ILC.big.sym !== sym) return;
+  ILC.big.b = x.b; ILC.big.k = x.k; el.innerHTML = '';
+  drawIlcBig();
+}
+const ILC_NOTE = 'נרות יומיים ושער באגורות, כמו ב-TradingView. <b>Darvas box</b>: הגג הוא שיא שלא נשבר 3 ימי מסחר, והרצפה היא השפל הנמוך מאז, כשהיום שאחריו לא יורד ממנו. קופסה נסגרת כשהשער עובר את הגג (ירוק, פריצה למעלה) או יורד מתחת לרצפה (אדום, שבירה למטה); כחולה = עדיין פתוחה. ' +
+  '<b>SMA</b>: ממוצע נע פשוט של הסגירות. <b>ווליום</b>: מספר המניות שנסחרו, ירוק ביום עלייה ואדום ביום ירידה. <b>RSI 14</b> (סגול) עם הממוצע שלו ל-14 ימים (צהוב); מעל 70 קניית יתר, מתחת ל-30 מכירת יתר. <b>CMF 20</b>: Chaikin Money Flow, מעל 0 כסף נכנס ומתחת ל-0 כסף יוצא. נתוני מחירים: Yahoo Finance.';
+// the bars in view: the range buttons set start/end values, the mouse and the slider set percentages
+function ilcZoom(inst, n) {
+  try {
+    const dz = (inst.getOption().dataZoom || [])[0]; if (!dz) return null;
+    if (dz.startValue != null && dz.endValue != null) return [+dz.startValue, +dz.endValue];
+    if (dz.start != null && dz.end != null) return [Math.round(dz.start / 100 * (n - 1)), Math.round(dz.end / 100 * (n - 1))];
+  } catch (e) { /* no chart */ }
+  return null;
+}
+function drawIlcBig(keepZoom) {
+  const el = $('#ilcChart'), st = ILC.big; if (!el || !st || !st.b || typeof echarts === 'undefined') return;
+  const n = st.b.c.length;
+  let zoom = [st.rng ? Math.max(0, n - st.rng) : 0, n - 1];
+  if (keepZoom && chartInst) { const z = ilcZoom(chartInst, n); if (z) zoom = z; }
+  if (chartInst) { try { chartInst.dispose(); } catch (e) { /* gone */ } }
+  chartInst = echarts.init(el, null, { renderer: 'canvas' });
+  chartInst.setOption(ilcOption(st.b, st.k, { i0: 0, i1: n - 1, compact: false, mas: st.mas, dv: st.dv, vol: st.vol, zoom }));
+  chartInst.on('updateAxisPointer', e => { const ax = (e.axesInfo || []).find(a => a.axisDim === 'x'); if (ax && ax.value != null) ilcLegend(ax.value); });
+  const dates = st.b.t.map(d => isoOf(d * DAY)); let q = zoom[1] - zoom[0] + 1 > 560;
+  chartInst.on('datazoom', () => {   // quarter labels when zoomed out, months when zoomed in
+    const z = ilcZoom(chartInst, n); if (!z) return; const span = z[1] - z[0] + 1; if ((span > 560) === q) return; q = span > 560;
+    const f = ilcLblInt(dates, span); chartInst.setOption({ xAxis: [0, 1, 2].map(() => ({ axisLabel: { interval: f }, splitLine: { interval: f } })) });
+  });
+  ilcLegend(n - 1);
+}
+function ilcLegend(i) {
+  const st = ILC.big, el = $('#ilcLeg'); if (!st || !st.b || !el) return;
+  const { b, k } = st; i = Math.max(0, Math.min(b.c.length - 1, +i)); const col = ilcCol(), f = ilcFmt;
+  const o = b.o[i], h = b.h[i], l = b.l[i], c = b.c[i], pc = i ? b.c[i - 1] : null, cls = c >= o ? 'u' : 'dn';
+  el.innerHTML = `<span>${fmtDate(isoOf(b.t[i] * DAY))}</span><span>O <b class="${cls}">${f(o)}</b></span><span>H <b class="${cls}">${f(h)}</b></span><span>L <b class="${cls}">${f(l)}</b></span><span>C <b class="${cls}">${f(c)}</b></span>` +
+    (pc ? `<span class="${c >= pc ? 'u' : 'dn'}">${fmtS(c - pc, Math.abs(c) >= 1000 ? 0 : 2)} (${fmtS((c / pc - 1) * 100, 2)}%)</span>` : '') +
+    `<span>Vol <b>${fmtVol(b.v[i])}</b></span>` + st.mas.map(m => `<span>SMA ${m} <b style="color:${col['m' + m]}">${f(k['sma' + m][i])}</b></span>`).join('') +
+    (st.dv && k.dvTop[i] != null ? `<span>Darvas <b style="color:${col.boxUp}">${f(k.dvTop[i])}</b> <b style="color:${col.boxDn}">${f(k.dvBot[i])}</b></span>` : '') +
+    `<span>RSI 14 <b style="color:${col.rsi}">${fmtN(k.rsi[i], 2)}</b> <b style="color:${col.rsiMa}">${fmtN(k.rsiMa[i], 2)}</b></span><span>CMF 20 <b style="color:${col.cmf}">${fmtS(k.cmf[i], 2)}</b></span>`;
+}
+async function exportIlcImage(sym) {
+  const st = ILC.big, r = ilcRow(sym); if (!st || !st.b || !r) throw new Error('nochart');
+  await fontsReady();
+  const CW = XW - 48, CH = 760;
+  const z0 = chartInst && ilcZoom(chartInst, st.b.c.length);   // as start/end values, which the capture keeps
+  if (z0) chartInst.dispatchAction({ type: 'dataZoom', startValue: z0[0], endValue: z0[1] });
+  const cap = captureLive('ilc', () => drawIlcBig(true), CW, CH);
+  const f = await flatten(cap, CW, CH);
+  const H = Math.ceil(88 + 186 + f.h + 30 + 50);
+  const { c, ctx } = xCanvas(H); const P = painter(ctx, false);
+  xHeader(P, r.d ? `נכון ל-${fmtDate(r.d)}` : '');
+  P.text(P.fit(r.n, XW - XPAD * 2, 32, 800, { disp: true }), XW - XPAD, 138, { size: 32, weight: 800, disp: true });
+  const n = st.b.c.length, z = cap.zoom || [0, n - 1], d0 = isoOf(st.b.t[Math.max(0, z[0])] * DAY), d1 = isoOf(st.b.t[Math.min(n - 1, z[1])] * DAY);
+  P.text(P.fit([LTR(sym), r.sec || '', 'גרף יומי, שער באגורות', `${fmtDate(d0)} – ${fmtDate(d1)}`].filter(Boolean).join(' · '), XW - XPAD * 2, 16), XW - XPAD, 166, { size: 16, color: XP.muted });
+  const up = v => v == null || !isFinite(v) ? undefined : v > 0 ? '#13765A' : v < 0 ? '#B9482A' : undefined;
+  const pctTxt = v => v == null ? '—' : fmtS(v, 1) + '%';
+  const d = r.dv || {};
+  kpiRow(P, 186, [
+    [`שער · יומי ${LTR(fmtS(r.ch, 2) + '%')}`, ilcFmt(r.c), { ltr: true }],
+    ['מול ממוצע 50', pctTxt(r.a50), { ltr: true, color: up(r.a50) }],
+    ['מול ממוצע 200', pctTxt(r.a200), { ltr: true, color: up(r.a200) }],
+    ['RSI ‏(14)', fmtN(r.rsi, 1), { ltr: true }],
+    ['CMF ‏(20)', fmtS(r.cmf, 2), { ltr: true, color: up(r.cmf) }],
+  ]);
+  const cy = 186 + 74 + 16;
+  drawFlat(ctx, f, 24, cy, CW);
+  const dvTxt = r.dv ? `Darvas box: רצפה ${LTR(ilcFmt(d.bot))}, גג ${LTR(ilcFmt(d.top))}${d.open ? ' (פתוחה)' : d.dir ? ` (${d.dir > 0 ? 'פריצה למעלה' : 'שבירה למטה'} ב-${fmtDate(d.brk)})` : ''}` : '';
+  const cap2 = [dvTxt, 'נרות יומיים', st.mas.length ? 'ממוצעים: ' + st.mas.map(m => 'SMA ' + m).join(', ') : '', st.dv ? 'Darvas box' : '', st.vol ? 'ווליום' : '', 'RSI ‏(14) והממוצע שלו', 'CMF ‏(20)'].filter(Boolean).join(' · ');
+  P.text(P.fit(cap2, XW - XPAD * 2, 13), XW - XPAD, cy + f.h + 18, { size: 13, color: XP.muted });
+  xFooter(P, cy + f.h + 30, 'נתוני מחירים: Yahoo Finance · דשבורד השווקים של פורטה');
+  return { blob: await toBlobP(c), w: c.width, h: c.height, title: r.n, filename: `forte_${sym.replace(/[^\w.-]+/g, '_')}_${r.d || isoOf(Date.now())}.png` };
+}
+function bindIlc() {
+  $('#ilcFlt').innerHTML = Object.entries(ILC_FLT).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('');
+  $('#ilcSort').innerHTML = Object.entries(ILC_SORT).map(([k, v]) => `<option value="${k}">מיון: ${esc(v)}</option>`).join('');
+  const tabs = $('#anTabs');
+  tabs.addEventListener('click', e => { const b = e.target.closest('button[data-an]'); if (b) setAnView(b.dataset.an); });
+  tabs.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const v = anView() === 'ilc' ? 'mine' : 'ilc'; setAnView(v); const b = $(`#anTabs [data-an="${v}"]`); if (b) b.focus();
+  });
+  const set = (k, v, store) => { S.ilc[k] = v; if (store) lsSet(store, String(v)); renderIlc(); };
+  let qt = 0;
+  $('#ilcQ').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => set('q', e.target.value), 180); });
+  $('#ilcSecSel').addEventListener('change', e => set('sec', e.target.value, 'ilcSec'));
+  $('#ilcFlt').addEventListener('change', e => set('flt', e.target.value, 'ilcFlt'));
+  $('#ilcSort').addEventListener('change', e => { S.ilc.dir = e.target.value === 'name' ? 1 : -1; lsSet('ilcDir', String(S.ilc.dir)); set('sort', e.target.value, 'ilcSort'); });
+  $('#ilcDir').addEventListener('click', () => set('dir', -S.ilc.dir, 'ilcDir'));
+  $('#ilcAllChk').addEventListener('change', e => set('all', e.target.checked, 'ilcAll'));
+  $('#ilcRngSeg').addEventListener('click', e => { const b = e.target.closest('button[data-r]'); if (!b) return; S.ilc.rng = +b.dataset.r; lsSet('ilcRng', b.dataset.r); ilcSyncTools(); ILC.key = JSON.stringify([S.ilc, ILC.idx && ILC.idx.asof, S.stk.size]); ilcRedrawAll(); });
+  $('#ilcColSeg').addEventListener('click', e => { const b = e.target.closest('button[data-c]'); if (!b) return; S.ilc.cols = +b.dataset.c; lsSet('ilcCols', b.dataset.c); ilcSyncTools(); ILC.key = JSON.stringify([S.ilc, ILC.idx && ILC.idx.asof, S.stk.size]); requestAnimationFrame(() => ILC.charts.forEach(c => c.resize())); });
+  $('#ilcMore').addEventListener('click', ilcAppend);
+  const grid = $('#ilcGrid');
+  grid.addEventListener('click', e => {
+    const t = e.target.closest('.ilc-ta'); if (t) { openStock(t.dataset.ta); return; }
+    const o = e.target.closest('[data-open]'); if (o) openIlc(o.dataset.open);
+  });
+  grid.addEventListener('keydown', e => { if (e.key !== 'Enter' && e.key !== ' ') return; const o = e.target.closest('.ilc-hd[data-open]'); if (o) { e.preventDefault(); openIlc(o.dataset.open); } });
+}
+
 // ---------------- site chrome: menu, drawer, ticker, search palette, theme, footer, motion ----------------
 const NAV = {
-  analysis: { d: 'הבריף השבועי: הנקודות העיקריות ואיך לפעול השבוע, והניתוחים הטכניים לכל מניה בתיק', items: () => [['הבריף השבועי', '#briefSec'], ['ניתוחים טכניים', '#anTop']] },
+  analysis: { d: 'הבריף השבועי: הנקודות העיקריות ואיך לפעול השבוע, הניתוחים הטכניים לכל מניה בתיק, וגרף טכני יומי לכל מניה בבורסה בת"א', items: () => [['הבריף השבועי', '#briefSec'], ['ניתוחים טכניים', '#anTop'], ['גרפים - ישראל', '#ilcSec']] },
   market: { d: 'מצב הרוח בשוק בארה"ב ובישראל: מדדי סנטימנט, אחוזונים היסטוריים, רוחב שוק ומה קרה אחרי קריאות דומות', items: () => [['מדד הסנטימנט', '.hero', 'us'], ['אינדיקטורים בקיצון', '#xstrip', 'us'],
     ...GROUPS.filter(([g]) => !['macro', 'other'].includes(g) && (!S.ind || [...S.ind.values()].some(i => i.group === g && i.pin && i.tab !== 'macro' && !ilBoardInd(i)))).map(([g, n]) => [n, '#grp-' + g, 'us']), ['איך לקרוא את הלוח', '#howH', 'us'],
     ['מדד הסנטימנט הישראלי', '#il-hero', 'il'], ['רוחב שוק', '#il-breadth', 'il'], ['מגמה, תנודתיות ותיאבון לסיכון', '#il-trend', 'il'], ['כסף זר ושקל', '#il-foreign', 'il']] },
@@ -5726,6 +6265,7 @@ const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matche
 function goTo(tab, sel, cty) {
   closeMenus();
   if ((cty === 'us' || cty === 'il') && CTY_TABS.includes(tab) && S.cty !== cty) setCty(cty, S.tab === tab);   // a section of the other country
+  if (tab === 'analysis' && (sel === '#ilcSec' || sel === '#anTop')) { S.openStock = null; lsSet('anView', sel === '#ilcSec' ? 'ilc' : 'mine'); if (S.tab === tab) renderAnalysis(); }
   if (S.tab !== tab) showTab(tab);
   if (tab === 'calendar' && sel && sel.startsWith('cal:')) { calMarket(sel.slice(4)); return; }
   if (!sel) { window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' }); return; }
@@ -5784,6 +6324,7 @@ function cmdItems(q) {
   for (const ind of (S.ind ? S.ind.values() : [])) if (hit(ind.name, ind.short, ind.id)) out.push({ g: 'אינדיקטורים', l: ind.name, s: ind.short || '', w: starts(ind.name, ind.id) ? 3 : 1, run: () => { closeCmd(); openInd(ind.id); } });
   if (S.mk) for (const it of Object.values(S.mk.items)) if (q && hit(it.name, it.sym)) out.push({ g: 'מדדים, פקטורים ונושאים', l: it.name, s: it.sym, ltrS: true, w: starts(it.sym, it.name) ? 3 : 1, run: () => { closeCmd(); openIdx(it.sym); } });
   if (MKT && q) { let n = 0; const nq = mkNorm(q); for (const x of MKT.list) { if (n >= 10) break; if (x.h.length && (x.nm.includes(nq) || x.en.includes(nq) || x.tk.includes(nq))) { n++; out.push({ g: 'ניירות בתיק', l: x.v.he, s: `${x.v.sec || ''} · ${x.h.length} ניירות`, w: x.nm.startsWith(nq) || x.tk.includes(nq) ? 4 : 2, run: () => { closeCmd(); openIssuer(x.k); } }); } } }
+  if (ILC.idx && q) { let n = 0; for (const r of ILC.idx.stocks) { if (n >= 10) break; if (r.file && (r.s.toLowerCase().startsWith(q) || r.n.toLowerCase().includes(q) || (q.length > 2 && (r.e || '').toLowerCase().includes(q)))) { n++; out.push({ g: 'גרפים - ישראל', l: `${r.n} · ${r.s}`, s: r.sec || '', w: r.s.toLowerCase() === q ? 5 : r.s.toLowerCase().startsWith(q) || r.n.toLowerCase().startsWith(q) ? 3 : 1, run: () => { closeCmd(); openIlc(r.s); } }); } } }
   for (const [T, s] of (S.stk ? S.stk.entries() : [])) if (q && hit(T, s.name)) out.push({ g: 'ניתוחים טכניים', l: `${T}${s.name ? ' · ' + s.name : ''}`, s: s.headline || '', w: starts(T) ? 4 : 2, run: () => { closeCmd(); openStock(T); } });
   if (RSD && q) {
     let n = 0;
@@ -5999,6 +6540,7 @@ function bind() {
   $('#momBody').addEventListener('click', e => { const r = e.target.closest('[data-x]'); if (r) { openIdx(r.dataset.x); return; } const t = e.target.closest('tr[data-t]'); if (t && !e.target.closest('a')) openStock(t.dataset.t); });
   $('#idxBody').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const r = e.target.closest('[data-x]'); if (r) { e.preventDefault(); openIdx(r.dataset.x); } } });
   $('#importHold').addEventListener('click', openHoldingsImport);
+  bindIlc();
   bindMarketing();
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (xov) { closeExport(); return; } const lbx = $('.lightbox'); if (lbx) { lbx.remove(); return; }
     if ($('#ov') && S.drawMode) { S.drawMode = ''; Object.values(S.drwApi || {}).forEach(a => a.cancel()); $$('.dtools [data-dm]').forEach(x => x.setAttribute('aria-pressed', 'false')); return; }
@@ -6010,12 +6552,13 @@ function bind() {
     if (S.tab === 'macro' && !$('#ov')) renderMacro();
     if (S.tab === 'market' && S.cty === 'il' && !$('#ov')) renderIlSentiment();
     if (S.tab === 'marketing' && !$('#ov') && S.mkDone) renderMarketing();
+    ilcRedrawAll();
     if (S.detail && $('#dChart')) { const p = $('#dRange [aria-pressed="true"]'); drawChart(S.detail, p ? +p.dataset.r : 1827); }
     if (S.detail && String(S.detail).startsWith('x:') && $('#xChart')) { const p = $('#xRange [aria-pressed="true"]'); const sym = S.detail.slice(2); const it = xItem(sym); if (it) drawIdxChart(sym, p ? +p.dataset.r : 365, it.score != null || !!it.ex); }
   };
   try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', reTheme); } catch (e) { /* older browsers */ }
   new MutationObserver(reTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  window.addEventListener('resize', () => { if (chartInst) chartInst.resize(); idxCharts.forEach(c => c.resize()); mkCharts.forEach(c => c.resize()); });
+  window.addEventListener('resize', () => { if (chartInst) chartInst.resize(); idxCharts.forEach(c => c.resize()); mkCharts.forEach(c => c.resize()); ILC.charts.forEach(c => c.resize()); });
 }
 async function refreshState() { try { applyState(await fetchJSON('/api/state')); schedule(); } catch (e) { /* keep current state */ } }
 function applyState(st) {
@@ -6036,6 +6579,8 @@ function applyHash() {
   else if (h === 'israel' || /^(market|sentiment|momentum|macro)-(us|il)$/.test(h)) { const [t, c] = h === 'israel' ? ['market', 'il'] : h.split('-'); setCty(c, false); showTab(t === 'sentiment' ? 'market' : t); }
   else if (h === 'analysis' || h === 'indices' || h === 'momentum' || h === 'macro' || h === 'market' || h === 'sentiment') showTab(h === 'sentiment' ? 'market' : h);
   else if (h === 'manage') showTab(S.canEdit ? 'manage' : 'market');
+  else if (h === 'charts-il' || h === 'graphs-il') { lsSet('anView', 'ilc'); showTab('analysis'); }
+  else if (h.startsWith('c-')) { lsSet('anView', 'ilc'); showTab('analysis'); openIlc(h.slice(2).toUpperCase()); }
   else if (h.startsWith('t-')) { const T = h.slice(2).toUpperCase(); if (S.stk.has(T)) openStock(T); else showTab('analysis'); }
   else if (h.startsWith('i-')) { const id = h.slice(2); if (S.ind.has(id) || id === 'comp') openInd(id === 'comp' ? COMP_ID : id); }
   else if (h.startsWith('x-')) { showTab('indices'); loadMarkets().then(() => { if (S.mk.items[h.slice(2)]) openIdx(h.slice(2)); }).catch(() => {}); }
@@ -6064,6 +6609,7 @@ async function boot() {
   S.loaded.stk = true; schedule(); applyHash();
   loadMarkets().then(() => { if (S.tab === 'indices' && !$('#ov')) renderIndices(); }).catch(() => { /* shown when the tab opens */ });
   loadMomentum().then(() => { if (S.tab === 'momentum' && !$('#ov')) renderMomentum(); });
+  setTimeout(() => ilcLoad().then(() => { if (S.tab === 'analysis' && !S.openStock) renderAnalysis(); }).catch(() => { /* shown when the view opens */ }), 2500);
 }
 initUI();
 initStickyHeads();

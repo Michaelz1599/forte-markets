@@ -51,6 +51,7 @@
 | מדדים, פקטורים, סקטורים, MOVE, יחסים | Yahoo Finance דרך yfinance |
 | רוחב שוק (% מעל ממוצעים, עולות/יורדות, שיאים/שפלים, McClellan) | מחושב מסגירות 500 רכיבי S&P 500. רשימת הרכיבים: `datasets/s-and-p-500-companies` |
 | לאן הכסף זורם בארה"ב | בפועל: קובץ היסטוריית ה-NAV היומי של כל קרן של State Street (`navhist-us-en-<ticker>.xlsx`): כסף נטו = השינוי במספר היחידות × NAV, עם תיקון לפיצולי יחידות (5.12.2025). אומדן: אותה שיטה כמו בת"א 125 (`israel.money_flows`) על נרות רכיבי S&P 500 מ-Yahoo, בדולרים. `pipeline/usflows.py`, הפלט ב-`data/derived/us_etf_flows.json` ו-`sp_momentum.json` (`flows`) |
+| גרפים - ישראל (לשונית "שורה תחתונה", ליד הניתוחים הטכניים) | כל המניות בבורסה בת"א (556 ב-27.11.2026: שם, סימול וענף מאתר הבורסה, `tools/ilcharts/*.psv` → `config/tase_all.json` דרך `tools/ilcharts/build_universe.py`). נרות יומיים ווליום מ-Yahoo (סימול + `.TA`, באגורות) מ-2022 ב-`data/prices/tase_*.csv`. האינדיקטורים כמו בתבנית ב-TradingView: Darvas box, ‏SMA 50 ו-200, ‏RSI 14 והממוצע שלו, ‏CMF 20, נבדקו מול צילום מ-TradingView של מזרחי טפחות. `pipeline/ilcharts.py`, לאתר: `data/ilc/<סימול>.json` ו-`data/ilc/index.json`. אותן נוסחאות ב-JavaScript בדף, ו-`tests/test_ilcharts.py` משווה ביניהן. כשמניות נכנסות לבורסה או יוצאות ממנה: לעדכן את שני הקבצים ב-`tools/ilcharts` ולהריץ את הסקריפט |
 | RS לכל מניה | צילומי המצב היומיים של רשימת המניות של NASDAQ בהיסטוריה של `ozkanpakdil/top-us-stock-tickers` (OHLC, שווי שוק, סקטור). למניות S&P 500: נרות יומיים מ-Yahoo, שמשמשים גם לבדיקת כל צילום |
 
 כל מקור נבדק לפני כתיבה (טווחים סבירים, התאמה להיסטוריה שכבר קיימת).

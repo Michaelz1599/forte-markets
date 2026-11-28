@@ -13,7 +13,7 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
-from . import analogs, compute, drivers, breadth, earnings, housing, israel, jkp, liveus, macro, markets, marketing, maya, rs, sources, uscal, usflows, valuation
+from . import analogs, compute, drivers, breadth, earnings, housing, ilcharts, israel, jkp, liveus, macro, markets, marketing, maya, rs, sources, uscal, usflows, valuation
 from .common import (ROOT, SITE_DIR, STATE_DIR, Status, cutoff_date, dump_json, il_live_date, merge_series, read_series, today_utc,
                      write_series)
 
@@ -233,6 +233,11 @@ def run(offline: bool = False, live: bool = False) -> int:
             if il_live and il_live > cutoff_date() and payload.get("asof") == il_live:
                 msg += " · ת\"א ושער הדולר: נכון ל-" + dt.datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%H:%M")
             st.add("israel", "ישראל: רוחב, סנטימנט, סקטורים ומאקרו", payload["n"] >= 50, payload["asof"], msg)
+        # 10b0. "גרפים - ישראל" (analysis tab): daily bars of every share on the TASE, for the TradingView-style charts
+        res = step(st, "ilcharts", "גרפים - ישראל: נרות ו-ווליום לכל המניות בבורסה", ilcharts.run)
+        if res:
+            state, msg = res
+            st.add("ilcharts", "גרפים - ישראל: נרות ו-ווליום לכל המניות בבורסה", state["n"] >= 0.7 * state["of"], state["asof"], msg)
         # 10b1. Israeli factors (Momentum tab, Israel): JKP's monthly factor and theme returns, downloaded again only when
         # JKP publish a new release (about once a year); a failure keeps the stored file
         res = step(st, "jkp", "ישראל: פקטורים (JKP Global Factor Data)", jkp.run)
@@ -369,6 +374,14 @@ def build(st: Status, u: dict, px) -> None:
     except Exception:
         traceback.print_exc()
     dump_json(tmp / "data" / "israel.json", il_pay)
+    try:   # "גרפים - ישראל": the bars of every TASE share (data/ilc/<symbol>.json) and the grid's index
+        ilc_files, ilc_idx = ilcharts.site_files()
+        for name, rec in ilc_files.items():
+            dump_json(tmp / "data" / "ilc" / name, rec)
+        if ilc_idx:
+            dump_json(tmp / "data" / "ilc" / "index.json", ilc_idx)
+    except Exception:
+        traceback.print_exc()
     if jkp.OUT.exists():   # Israeli factors (JKP), loaded by the Momentum tab's Israel view
         shutil.copy(jkp.OUT, tmp / "data" / "jkp_il.json")
     an_file = analogs.OUT
